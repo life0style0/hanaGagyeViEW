@@ -1,0 +1,10 @@
+node_modules/
+*.class
+*.tmp
+*.bak
+.metadata
+.recommenders/
+*.bmp
+*.gif
+*.png
+*.jpg
