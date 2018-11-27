@@ -2,62 +2,35 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/security 
+	http://www.springframework.org/schema/security/spring-security.xsd
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+<!-- 로그인 성공 처리 핸들러  -->
+<!-- <bean id="customLoginSuccess" class="CustomLoginSuccessHandler"></bean> -->
 
-<!-- Spring Security AccessDeniedHandler 설정 -->
-<!-- <bean id="customAccessDeniedHandler" class="kr.or.kosta.spring.common.security.CustomAccessDeniedHandler" />
-Spring Security SuccessHandler 설정
-<bean id="customLoginSuccessHandler" class="kr.or.kosta.spring.common.security.CustomLoginSuccessHandler" />
-Spring PasswordEncoder 설정
-<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-Custom UserDetailsService 설정
-<bean id="customUserDetailsService" class="kr.or.kosta.spring.common.security.CustomUserDetailsService" />
-
- -->
 <!-- Spring Security(Interceptor) 설정 -->
 <security:http>
-<!-- 	<security:intercept-url pattern="/sample/all" access="permitAll"/>
+	<security:intercept-url pattern="/sample/all" access="permitAll"/>
 	<security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')"/>
-	<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/> -->
+	<security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/>
 	
-	<!-- <security:form-login/> -->
-	 <!-- <security:form-login login-page="/customLogin"/> --><!--로그인페이지 설정  -->
-	<!-- <security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccessHandler"/> -->
-	
-	<security:logout logout-url="/customLogout" invalidate-session="true"/>
-	
-	<security:access-denied-handler error-page="/error/error_403"/>
-	<security:access-denied-handler ref="customAccessDeniedHandler"/>
-	
-	<!-- 자동 로그인 설정 -->
-	<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>	
-	<!-- 로그아웃 시 자동 로그인 관련 쿠키 삭제 -->
-	<security:logout logout-url="/customLogout" invalidate-session="true" delete-cookies="remember-me, JSESSION_ID"/>
-	
-	<!-- <security:csrf disabled="true"/> -->
+	<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
+	<security:access-denied-handler error-page="/login/accessError"/>
 </security:http>
 
 
 <!-- 사용자 인증(authentication)과 권한부여(authorization)를 담당하는 Authentication Manager 설정 -->
 <security:authentication-manager>
+
 	<!-- 인증정보, 권한정보 제공자 설정 -->
-	<security:authentication-provider user-service-ref="customUserDetailsService">
+	<security:authentication-provider>
 		<!-- 단순 로그인 설정 -->
 		<!-- UserDetailsService(InMemoryUserDetailsManager) 설정(사용자 인증,권한정보) -->
-		<!-- 
 		<security:user-service>
 			<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>		
-			<security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER,ROLE_ADMIN"/>		
+			<security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER,ROLE_ADMIN"/>
 		</security:user-service>
-		-->
-		<!-- 
-		<security:jdbc-user-service data-source-ref="dataSource"
-		                            users-by-username-query="select userid, userpw, enabled from tbl_member where userid=?"
-		                            authorities-by-username-query="select userid, auth from tbl_member_auth where userid=?"/>
-		 -->
-		 
-		<security:password-encoder ref="bcryptPasswordEncoder"/>
 	</security:authentication-provider>
 </security:authentication-manager>
 
