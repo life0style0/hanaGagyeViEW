@@ -31,6 +31,20 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+	
+	<!-- jdbc logger 출력 레벨 설정 시작 -->
+	<logger name="jdbc.audit">
+		<level value="warn" />
+	</logger>
+
+	<logger name="jdbc.resultset">
+		<level value="warn" />
+	</logger>
+
+	<logger name="jdbc.connection">
+		<level value="warn" />
+	</logger>
+	<!-- jdbc logger 출력 레벨 설정 끝 -->
 
 	<!-- Root Logger -->
 	<root>
