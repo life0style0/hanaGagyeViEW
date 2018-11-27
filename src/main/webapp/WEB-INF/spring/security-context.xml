@@ -2,26 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:security="http://www.springframework.org/schema/security"
-<<<<<<< HEAD
-	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-<!-- Spring Security AccessDeniedHandler 설정 -->
-<!-- <bean id="customAccessDeniedHandler" class="kr.or.kosta.spring.common.security.CustomAccessDeniedHandler" />
-Spring Security SuccessHandler 설정
-<bean id="customLoginSuccessHandler" class="kr.or.kosta.spring.common.security.CustomLoginSuccessHandler" />
-Spring PasswordEncoder 설정
-<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
-Custom UserDetailsService 설정
-<bean id="customUserDetailsService" class="kr.or.kosta.spring.common.security.CustomUserDetailsService" />
-=======
 	xsi:schemaLocation="http://www.springframework.org/schema/security 
 	http://www.springframework.org/schema/security/spring-security.xsd
 	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 <!-- 로그인 성공 처리 핸들러  -->
 <!-- <bean id="customLoginSuccess" class="CustomLoginSuccessHandler"></bean> -->
->>>>>>> fa9abbdef36d34f34f9e01be6e5643e32d95b848
 
 <!-- Spring Security(Interceptor) 설정 -->
 <security:http>
