@@ -36,6 +36,7 @@
 	</div>
 	<!-- THE HEADER -->
 	<%@ include file="../includes/header.jsp"%>
+	<!-- THE HEADER -->
 
 	<!-- MAIN CONTENT -->
 	<div id="content-block">
@@ -270,6 +271,7 @@
 
 	<!-- THE FOOTER -->
 	<%@ include file="../includes/footer.jsp"%>
+	<!-- THE FOOTER -->
 
 	<div class="be-fixed-filter"></div>
 

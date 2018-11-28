@@ -47,38 +47,28 @@ function makeCalendar(yearSrc, monthSrc) {
 
 }
 
-
+function makeGgv(data) {
+    let html = '';
+    html = `<div class="ggv"><div class="ggv-title"><span>카테고리 : ${data.ctgry_name}</span>`;
+    if (data.article_scope === 'public') {
+        html += `<span class="ggv-scope">공개</span></div>`;
+    } else if (data.article_scope === 'private') {
+        html += `<span class="ggv-scope">나만</span></div>`;
+    }
+    html += `<div class="ggv-content">${data.article_payment_fee}</div></div>`;
+    return html;
+}
 
 function addDataToCalendar(data) {
     const regdate = data.article_regdate.split('-'); // 2018-01-01 형식
     const ggv = $(`#calendar-${regdate[2] + startDayNum}`);
-    
+
     if (data.article_ctgry_type === '지출') {
-        
-        if (data.article_scope === 'public') {
-            ggv.find('.calendar-spend')
-        } else if (data.article_scope === 'private') {
-
-        }
+        ggv.find('.calendar-spend').append(makeGgv(data));
     } else if (data.article_ctgry_type === '수입') {
-        ggv.find('.calendar-income')
-        if (data.article_scope === 'public') {} else if (data.article_scope === 'private') {
-
-        }
+        ggv.find('.calendar-income').append(makeGgv(data));
     }
 }
-
-function makeGgv() {
-    let html = '';
-    html = `<div class="ggv">
-    <div class="ggv-title"><span>제목</span><span class="ggv-scope">공개범위</span></div>
-    <div class="ggv-content">내용</div>
-    </div>`;
-
-    return html;
-}
-
-
 
 $(function () {
     makeCalendar(2018, 11);
