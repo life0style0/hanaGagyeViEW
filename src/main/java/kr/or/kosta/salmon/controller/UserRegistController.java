@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RequestMapping("/regist/*")
 @Controller
-public class UserController {
+public class UserRegistController {
 	
 	@Inject
 	UserService service;
@@ -33,7 +33,6 @@ public class UserController {
 	
 	@PostMapping("/register")
 	public String register(UserDTO user, RedirectAttributes rttr) {
-		
 		log.info(" 회원가입 처리 : "+user);
 		log.info("userService: "+service);
 		log.info("passwordEncoder : "+pwEncoder);
@@ -42,7 +41,12 @@ public class UserController {
 		log.info("회원가입 완료");
 		rttr.addFlashAttribute("registRes","success");
 		rttr.addFlashAttribute("user_id",user.getUser_id());
-		return "redirect:/auth/all";
+		return "redirect:/regist/register-confirm";
+	}
+	
+	@GetMapping("/register-confirm")
+	public void registConfirm() {
+		log.info(" 회원가입 결과 페이지 요청 ");
 	}
 
 }
