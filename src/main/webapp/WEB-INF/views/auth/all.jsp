@@ -12,6 +12,7 @@
 </h1>
 
 <h2> all page </h2>
+<a href="/salmon/regist/register"> 회원 가입 </a>
 
 <sec:authorize access="isAnonymous()">
 <h2> 로그인 </h2>
