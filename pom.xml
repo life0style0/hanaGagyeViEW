@@ -7,13 +7,18 @@
 	<name>Project_salmon</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+	
+	
 	<properties>
 		<java-version>1.8</java-version>
 		<org.springframework-version>5.0.10.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.9.0</org.aspectj-version>
 		<org.slf4j-version>1.7.25</org.slf4j-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<org.spring-security-version>5.0.6.RELEASE</org.spring-security-version>
 	</properties>
+	
+	
 	<!-- Oracle Jdbc Driver maven Repository -->
 	<repositories>
 		<repository>
@@ -230,7 +235,33 @@
 			<version>1.1</version>
 			<scope>provided</scope>
 		</dependency>
-
+		
+		<!-- Spring Security 라이브러리 -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${org.spring-security-version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${org.spring-security-version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${org.spring-security-version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${org.spring-security-version}</version>
+		</dependency>
+		<!-- Spring Security 라이브러리  끝-->
+		
 	</dependencies>
 
 	<build>
