@@ -9,3 +9,4 @@ node_modules/
 *.gif
 *.png
 *.jpg
+db-config.properties
