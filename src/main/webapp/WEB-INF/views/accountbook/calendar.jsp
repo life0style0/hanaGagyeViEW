@@ -9,14 +9,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="shortcut icon" href="img/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="style/bootstrap.min.css">
+	<link rel="stylesheet" href="salmon/style/bootstrap.min.css">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="style/icon.css">
-	<link rel="stylesheet" href="style/loader.css">
-	<link rel="stylesheet" href="style/idangerous.swiper.css">
-	<link rel="stylesheet" href="style/jquery-ui.css">
-	<link rel="stylesheet" href="style/stylesheet.css">
-	<link rel="stylesheet" href="style/stylesheet_jjw.css">
+	<link rel="stylesheet" href="salmon/style/icon.css">
+	<link rel="stylesheet" href="salmon/style/loader.css">
+	<link rel="stylesheet" href="salmon/style/idangerous.swiper.css">
+	<link rel="stylesheet" href="salmon/style/jquery-ui.css">
+	<link rel="stylesheet" href="salmon/style/stylesheet.css">
+	<link rel="stylesheet" href="salmon/style/stylesheet_jjw.css">
 </head>
 
 <body>
@@ -200,7 +200,36 @@
 							</tr>
 						</thead>
 						<tbody id="calendar-body">
+							<c:forEach begin="0" end="5" var="weekNum">
+								<tr>
+									<c:forEach begin="1" end="7" var="dateNum">
+										<td>
+											<ul>
+												<li class="calendar-date" id="calendar-${dateNum+(weekNum*7)}"></li>
+											</ul>
+										</td>
+									</c:forEach>
+								</tr>
+							</c:forEach>
 							<tr>
+								<td>
+									<div>1</div>
+								</td>
+								<td>
+									<div>1</div>
+								</td>
+								<td>
+									<div>1</div>
+								</td>
+								<td>
+									<div>1</div>
+								</td>
+								<td>
+									<div>1</div>
+								</td>
+								<td>
+									<div>1</div>
+								</td>
 								<td>
 									<ul>
 										<li class="calendar-date" id="calendar-1"></li>
@@ -225,59 +254,6 @@
 											</div>
 										</li>
 									</ul>
-								</td>
-								<td>
-									<div class="calendar-date text-gray">1</div>
-									<div class="ggv">
-										<div class="ggv-title">제목</div>
-										<div class="ggv-content">내용</div>
-									</div>
-									<div class="ggv">
-										<div class="ggv-title">제목</div>
-										<div class="ggv-content">내용</div>
-									</div>
-									<div class="ggv">
-										<div class="ggv-title">제목</div>
-										<div class="ggv-content">내용</div>
-									</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
 								</td>
 							</tr>
 							<tr>
@@ -579,16 +555,16 @@
 		<div class="open"><img src="img/icon-134.png" alt=""></div>
 	</div>
 	<!-- SCRIPTS	 -->
-	<script src="script/jquery-2.1.4.min.js"></script>
-	<script src="script/jquery-ui.min.js"></script>
-	<script src="script/bootstrap.min.js"></script>
-	<script src="script/idangerous.swiper.min.js"></script>
-	<script src="script/jquery.mixitup.js"></script>
-	<script src="script/jquery.viewportchecker.min.js"></script>
-	<script src="script/filters.js"></script>
+	<script src="salmon/script/jquery-2.1.4.min.js"></script>
+	<script src="salmon/script/jquery-ui.min.js"></script>
+	<script src="salmon/script/bootstrap.min.js"></script>
+	<script src="salmon/script/idangerous.swiper.min.js"></script>
+	<script src="salmon/script/jquery.mixitup.js"></script>
+	<script src="salmon/script/jquery.viewportchecker.min.js"></script>
+	<script src="salmon/script/filters.js"></script>
 	<!-- <script src="script/mixitup.js"></script> -->
-	<script src="script/global.js"></script>
-	<script src="my/js/my.js"></script>
+	<script src="salmon/script/global.js"></script>
+	<script src="salmon/my/js/my.js"></script>
 </body>
 
 </html>
