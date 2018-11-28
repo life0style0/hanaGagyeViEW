@@ -5,7 +5,7 @@
             {
                 "name": "salmon",
                 "projectName": "salmon",
-                "workingDirectory": "c:\\Users\\dkgkr\\Desktop\\Final Project\\Project_salmon",
+                "workingDirectory": "c:/Users/dkgkr/Desktop/Final Project/Project_salmon",
                 "args": [],
                 "vmargs": [],
                 "env": {},
@@ -19,7 +19,7 @@
             {
                 "name": "salmon",
                 "projectName": "salmon",
-                "workingDirectory": "c:\\Users\\dkgkr\\Desktop\\Final Project\\Project_salmon",
+                "workingDirectory": "c:/Users/dkgkr/Desktop/Final Project/Project_salmon",
                 "args": [],
                 "vmargs": [],
                 "env": {},

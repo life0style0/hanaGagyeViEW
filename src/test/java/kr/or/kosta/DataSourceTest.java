@@ -25,7 +25,6 @@ public class DataSourceTest {
         try(Connection con = dataSource.getConnection()) {
             log.info(con);
         } catch (Exception e) {
-            //TODO: handle exception
         }
     }
 }
