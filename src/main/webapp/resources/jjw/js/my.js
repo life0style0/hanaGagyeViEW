@@ -61,13 +61,18 @@ function makeGgv(data) {
 
 function addDataToCalendar(data) {
     const regdate = data.article_regdate.split('-'); // 2018-01-01 형식
-    const ggv = $(`#calendar-${regdate[2] + startDayNum}`);
-
+    const ggv = $(`#calendar-${Number(regdate[2]) + Number(startDayNum)}`);
     if (data.article_ctgry_type === '지출') {
         ggv.find('.calendar-spend').append(makeGgv(data));
     } else if (data.article_ctgry_type === '수입') {
         ggv.find('.calendar-income').append(makeGgv(data));
     }
+}
+
+function setCalendar() {
+    $('.calendar-head .datepic').datepicker('show');
+    $('.calendar.month').html(`${$('#datePic').val().split('/')[0]}월`);
+    $('.calendar.year').html(`${$('#datePic').val().split('/')[1]}`);
 }
 
 $(function () {
@@ -82,4 +87,21 @@ $(function () {
     };
 
     addDataToCalendar(data);
+
+    $('.calendar-head .datepic').datepicker({
+        format: "mm/yyyy",
+        startView: 1,
+        minViewMode: 1,
+        language: "kr",
+        orientation: "top right",
+        autoclose: true
+    });
+
+    $('.calendar.month').on('click', function () {
+        setCalendar();
+    });
+
+    $('.calendar.year').on('click', function () {
+        setCalendar();
+    });
 });

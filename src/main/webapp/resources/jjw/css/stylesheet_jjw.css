@@ -81,8 +81,28 @@
 }
 
 .calendar-spend .ggv .ggv-content {
-  background: #FA7784;
+  background: #B64926;
   padding: 3px 4px;
+}
+
+.calendar-income .ggv .ggv-title {
+  background: gainsboro;
+  padding: 3px 4px;
+}
+
+.calendar-income .ggv .ggv-content {
+  background: #468966;
+  padding: 3px 4px;
+}
+
+.calendar-head .calendar.month {
+  font-size: 50px;
+  font-weight: 600;
+}
+
+.calendar-head .calendar.year {
+  font-size: 20px;
+  padding-left: 10px;
 }
 
 .text-gray {
@@ -107,4 +127,8 @@
 
 .ggv-scope {
   float: right;
+}
+
+.datepic {
+  width: 0px;
 }

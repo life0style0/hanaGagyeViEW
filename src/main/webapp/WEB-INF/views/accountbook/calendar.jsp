@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="resources/template/style/jquery-ui.css">
 	<link rel="stylesheet" href="resources/template/style/stylesheet.css">
 	<link rel="stylesheet" href="resources/jjw/css/stylesheet_jjw.css">
+	<link rel="stylesheet" href="resources/jjw/css/bootstrap-datepicker3.min.css">
 </head>
 
 <body>
@@ -188,7 +189,7 @@
 				</div>
 
 				<div class="col-md-10">
-					<div class="text-center">2018년 12월</div>
+					<div class="calendar-head text-center"><span class="calendar month">11월</span><input type="text" id="datePic" class="invisible datepic"><span class="calendar year">2018년</span></div>
 					<table id="calendar" class="calendar">
 						<thead>
 							<tr>
@@ -302,6 +303,8 @@
 	<script src="resources/template/script/filters.js"></script>
 	<!-- <script src="script/mixitup.js"></script> -->
 	<script src="resources/template/script/global.js"></script>
+	<script src="resources/jjw/js/bootstrap-datepicker.min.js"></script>
+	<script src="resources/jjw/js/bootstrap-datepicker.kr.min.js"></script>
 	<script src="resources/jjw/js/my.js"></script>
 </body>
 
