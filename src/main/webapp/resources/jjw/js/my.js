@@ -1,9 +1,12 @@
 var s;
 var e;
 
-function makeCalendar(year, month) {
-    const year = Number(year);
-    const month = Number(month);
+function makeCalendar(yearSrc, monthSrc) {
+    const year = Number(yearSrc);
+    const month = Number(monthSrc);
+    let prevStartDate;
+    let startDay;
+    let endDate;
     if (!year || year < 1900 || year > 3000) {
         alert('잘못된 년도입니다.');
         return;
@@ -11,29 +14,40 @@ function makeCalendar(year, month) {
     if (!month || month < 1 || month > 12) {
         alert('잘못된 월입니다.');
     }
+
     if (month === 1) {
-        const prevStartDate = (new Date(year - 1, 11, 0)).getDate();
-        const startDay = new Date(year, month - 1, 1);
-        const endDay = new Date(year, month, 0);
+        prevStartDate = (new Date(year - 1, 11, 0)).getDate();
+        startDay = new Date(year, month - 1, 1).getDay();
+        endDate = new Date(year, month, 0).getDate();
     } else if (month === 12) {
-        const prevStartDate = (new Date(year, month - 1, 0)).getDate();
-        const startDay = new Date(year, month - 1, 1);
-        const endDay = new Date(year + 1, 0, 0);
+        prevStartDate = (new Date(year, month - 1, 0)).getDate();
+        startDay = new Date(year, month - 1, 1).getDay();
+        endDate = new Date(year + 1, 0, 0).getDate();
     } else {
-        const prevStartDate = (new Date(year, month - 1, 0)).getDate();
-        const startDay = new Date(year, month - 1, 1);
-        const endDay = new Date(year, month, 0);
+        prevStartDate = (new Date(year, month - 1, 0)).getDate();
+        startDay = new Date(year, month - 1, 1).getDay();
+        endDate = new Date(year, month, 0).getDate();
     }
-    const lastDate = endDay.getDate();
-    s = startDay;
-    startDay.getDay() // 해당일이 그 주에 몇 번째인지(목요일이면 4)
+    let calNum = 1;
     const calendar = $('#calendar');
-    for (let i = 0; i < startDay.getDay(); i += 1) {
-
+    for (let i = 1; i <= 42; i += 7) {
+        $(`#calendar-${i}`).find('.calendar-date').addClass('text-red');
     }
-    for (let i = 1; i <= lastDate; i += 1) {
-        for (let j = 0; j < lastDate / 7; j += 1) {
-
-        }
+    for (let i = 7; i <= 42; i += 7) {
+        $(`#calendar-${i}`).find('.calendar-date').addClass('text-blue');
     }
+    for (let i = startDay - 1; i >= 0; i -= 1) {
+        $(`#calendar-${calNum++}`).addClass('bg-lightgray').find('.calendar-date').removeClass('text-red').addClass('text-gray').html(`<strong>${prevStartDate - i}</strong>`);
+    }
+    for (let i = 1; i <= endDate; i += 1) {
+        $(`#calendar-${calNum++}`).removeClass('bg-lightgray').find('.calendar-date').removeClass('text-gray').html(`<strong>${i}</strong>`);
+    }
+    for (; calNum <= 42;) {
+        $(`#calendar-${calNum++}`).addClass('bg-lightgray').find('.calendar-date').removeClass('text-red text-blue').addClass('text-gray').html(`<strong>${calNum - endDate - startDay - 1}</strong>`);
+    }
+
 }
+
+$(function () {
+    makeCalendar(2018, 11);
+});

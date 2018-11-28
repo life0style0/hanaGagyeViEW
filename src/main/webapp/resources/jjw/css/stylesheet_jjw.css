@@ -28,8 +28,15 @@
   }
 }
 
-#canlendar {
+#calendar {
   border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  border: 1px solid #ddd;
+}
+
+#calendar tbody {
+  border: inherit;
 }
 
 #calendar tr {
@@ -50,14 +57,18 @@
   border-color: silver;
 }
 
+#calendar>tbody>tr td:hover {
+  background-color: #ededed;
+}
+
 .calendar-day {
   font-size: 21px;
 }
 
 .calendar-date {
-  text-align: right;
+  text-align: left;
   font-size: 20px;
-  padding-right: 8px;
+  padding-left: 8px;
 }
 
 .ggv {
@@ -78,6 +89,18 @@
   color: #acacac;
 }
 
+.text-red {
+  color: #ce2b2b9c;
+}
+
+.text-blue {
+  color: #0000ff73;
+}
+
 .bg-salmon {
   background-color: #FA7784;
+}
+
+.bg-lightgray {
+  background-color: #ededed;
 }

@@ -7,16 +7,16 @@
 	<title>NGRNetwork</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="shortcut icon" href="img/favicon.png">
+	<link rel="shortcut icon" href="resources/template/img/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="salmon/style/bootstrap.min.css">
+	<link rel="stylesheet" href="resources/template/style/bootstrap.min.css">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="salmon/style/icon.css">
-	<link rel="stylesheet" href="salmon/style/loader.css">
-	<link rel="stylesheet" href="salmon/style/idangerous.swiper.css">
-	<link rel="stylesheet" href="salmon/style/jquery-ui.css">
-	<link rel="stylesheet" href="salmon/style/stylesheet.css">
-	<link rel="stylesheet" href="salmon/style/stylesheet_jjw.css">
+	<link rel="stylesheet" href="resources/template/style/icon.css">
+	<link rel="stylesheet" href="resources/template/style/loader.css">
+	<link rel="stylesheet" href="resources/template/style/idangerous.swiper.css">
+	<link rel="stylesheet" href="resources/template/style/jquery-ui.css">
+	<link rel="stylesheet" href="resources/template/style/stylesheet.css">
+	<link rel="stylesheet" href="resources/jjw/css/stylesheet_jjw.css">
 </head>
 
 <body>
@@ -25,7 +25,7 @@
 
 	<div class="be-loader">
 		<div class="spinner">
-			<img src="img/logo-loader.png" alt="">
+			<img src="resources/template/img/logo-loader.png" alt="">
 			<p class="circle">
 				<span class="ouro">
 					<span class="left"><span class="anim"></span></span>
@@ -187,7 +187,8 @@
 				</div>
 
 				<div class="col-md-10">
-					<table id="calendar" class="table table-bordered calendar">
+					<div class="text-center">2018년 12월</div>
+					<table id="calendar" class="calendar">
 						<thead>
 							<tr>
 								<th class="text-center calendar-day"><strong>일</strong></th>
@@ -203,9 +204,9 @@
 							<c:forEach begin="0" end="5" var="weekNum">
 								<tr>
 									<c:forEach begin="1" end="7" var="dateNum">
-										<td>
+										<td id="calendar-${dateNum+(weekNum*7)}">
 											<ul>
-												<li class="calendar-date" id="calendar-${dateNum+(weekNum*7)}"></li>
+												<li class="calendar-date"></li>
 											</ul>
 										</td>
 									</c:forEach>
@@ -256,98 +257,6 @@
 									</ul>
 								</td>
 							</tr>
-							<tr>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-							</tr>
 						</tbody>
 					</table>
 
@@ -362,181 +271,6 @@
 
 	<div class="be-fixed-filter"></div>
 
-	<div class="large-popup login">
-		<div class="large-popup-fixed"></div>
-		<div class="container large-popup-container">
-			<div class="row">
-				<div class="col-md-8 col-md-push-2 col-lg-6 col-lg-push-3  large-popup-content">
-					<div class="row">
-						<div class="col-md-12">
-							<i class="fa fa-times close-button"></i>
-							<h5 class="large-popup-title">Log in</h5>
-						</div>
-						<form action="./" class="popup-input-search">
-							<div class="col-md-6">
-								<input class="input-signtype" type="email" required="" placeholder="Your email">
-							</div>
-							<div class="col-md-6">
-								<input class="input-signtype" type="password" required="" placeholder="Password">
-							</div>
-							<div class="col-xs-6">
-								<div class="be-checkbox">
-									<label class="check-box">
-										<input class="checkbox-input" type="checkbox" value=""> <span class="check-box-sign"></span>
-									</label>
-									<span class="large-popup-text">
-										Stay signed in
-									</span>
-								</div>
-
-								<a href="blog-detail-2.html" class="link-large-popup">Forgot password?</a>
-							</div>
-							<div class="col-xs-6 for-signin">
-								<input type="submit" class="be-popup-sign-button" value="SIGN IN">
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="large-popup register">
-		<div class="large-popup-fixed"></div>
-		<div class="container large-popup-container">
-			<div class="row">
-				<div class="col-md-10 col-md-push-1 col-lg-8 col-lg-push-2 large-popup-content">
-					<div class="row">
-						<div class="col-md-12">
-							<i class="fa fa-times close-button"></i>
-							<h5 class="large-popup-title">Register</h5>
-						</div>
-						<form action="./" class="popup-input-search">
-							<div class="col-md-6">
-								<input class="input-signtype" type="text" required="" placeholder="First Name">
-							</div>
-							<div class="col-md-6">
-								<input class="input-signtype" type="text" required="" placeholder="Last Name">
-							</div>
-							<div class="col-md-6">
-								<div class="be-custom-select-block">
-									<select class="be-custom-select">
-										<option value="" disabled selected>
-											Country
-										</option>
-										<option value="">USA</option>
-										<option value="">Canada</option>
-										<option value="">England</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<input class="input-signtype" type="text" required="" placeholder="Email">
-							</div>
-							<div class="col-md-6">
-								<input class="input-signtype" type="text" required="" placeholder="Password">
-							</div>
-							<div class="col-md-6">
-								<input class="input-signtype" type="text" required="" placeholder="Repeat Password">
-							</div>
-							<div class="col-md-12 be-date-block">
-								<span class="large-popup-text">
-									Date of birth
-								</span>
-								<div class="be-custom-select-block mounth">
-									<select class="be-custom-select">
-										<option value="" disabled selected>
-											Mounth
-										</option>
-										<option value="">January</option>
-										<option value="">February</option>
-										<option value="">March</option>
-										<option value="">April</option>
-										<option value="">May</option>
-										<option value="">June</option>
-										<option value="">July</option>
-										<option value="">August</option>
-										<option value="">September</option>
-										<option value="">October</option>
-										<option value="">November</option>
-										<option value="">December</option>
-									</select>
-								</div>
-								<div class="be-custom-select-block">
-									<select class="be-custom-select">
-										<option value="" disabled selected>
-											Day
-										</option>
-										<option value="">1</option>
-										<option value="">2</option>
-										<option value="">3</option>
-										<option value="">4</option>
-										<option value="">5</option>
-										<option value="">6</option>
-										<option value="">7</option>
-										<option value="">8</option>
-										<option value="">9</option>
-										<option value="">10</option>
-										<option value="">11</option>
-										<option value="">12</option>
-										<option value="">13</option>
-										<option value="">14</option>
-										<option value="">15</option>
-										<option value="">16</option>
-										<option value="">17</option>
-										<option value="">18</option>
-										<option value="">19</option>
-										<option value="">20</option>
-										<option value="">21</option>
-										<option value="">22</option>
-										<option value="">23</option>
-										<option value="">24</option>
-										<option value="">25</option>
-										<option value="">26</option>
-										<option value="">27</option>
-										<option value="">28</option>
-										<option value="">29</option>
-										<option value="">30</option>
-									</select>
-								</div>
-								<div class="be-custom-select-block">
-									<select class="be-custom-select">
-										<option value="" disabled selected>
-											Year
-										</option>
-										<option value="">1996</option>
-										<option value="">1997</option>
-										<option value="">1998</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="be-checkbox">
-									<label class="check-box">
-										<input class="checkbox-input" type="checkbox" required="" value=""> <span class="check-box-sign"></span>
-									</label>
-									<span class="large-popup-text">
-										I have read and agree to the <a class="be-popup-terms" href="blog-detail-2.html">Terms of Use</a> and <a
-										 class="be-popup-terms" href="blog-detail-2.html">Privacy Policy</a>.
-									</span>
-								</div>
-								<div class="be-checkbox">
-									<label class="check-box">
-										<input class="checkbox-input" type="checkbox" value=""> <span class="check-box-sign"></span>
-									</label>
-									<span class="large-popup-text">
-										Send me notifications
-									</span>
-								</div>
-							</div>
-							<div class="col-md-6 for-signin">
-								<input type="submit" class="be-popup-sign-button" value="SIGN IN">
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="theme-config">
 		<div class="main-color">
 			<div class="title">Main Color:</div>
@@ -552,19 +286,19 @@
 				<div class="entry s-color color13" data-colour="style/style-reds.css"></div>
 			</div>
 		</div>
-		<div class="open"><img src="img/icon-134.png" alt=""></div>
+		<div class="open"><img src="resources/template/img/icon-134.png" alt=""></div>
 	</div>
 	<!-- SCRIPTS	 -->
-	<script src="salmon/script/jquery-2.1.4.min.js"></script>
-	<script src="salmon/script/jquery-ui.min.js"></script>
-	<script src="salmon/script/bootstrap.min.js"></script>
-	<script src="salmon/script/idangerous.swiper.min.js"></script>
-	<script src="salmon/script/jquery.mixitup.js"></script>
-	<script src="salmon/script/jquery.viewportchecker.min.js"></script>
-	<script src="salmon/script/filters.js"></script>
+	<script src="resources/template/script/jquery-2.1.4.min.js"></script>
+	<script src="resources/template/script/jquery-ui.min.js"></script>
+	<script src="resources/template/script/bootstrap.min.js"></script>
+	<script src="resources/template/script/idangerous.swiper.min.js"></script>
+	<script src="resources/template/script/jquery.mixitup.js"></script>
+	<script src="resources/template/script/jquery.viewportchecker.min.js"></script>
+	<script src="resources/template/script/filters.js"></script>
 	<!-- <script src="script/mixitup.js"></script> -->
-	<script src="salmon/script/global.js"></script>
-	<script src="salmon/my/js/my.js"></script>
+	<script src="resources/template/script/global.js"></script>
+	<script src="resources/jjw/js/my.js"></script>
 </body>
 
 </html>
