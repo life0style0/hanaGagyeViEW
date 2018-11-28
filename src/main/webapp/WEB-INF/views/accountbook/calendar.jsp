@@ -188,7 +188,6 @@
 
 				<div class="col-md-10">
 					<div class="text-center">2018년 12월</div>
-					djfksl
 					<table id="calendar" class="calendar">
 						<thead>
 							<tr>
@@ -208,6 +207,8 @@
 										<td id="calendar-${dateNum+(weekNum*7)}">
 											<ul>
 												<li class="calendar-date"></li>
+												<li class="calendar-spend"></li>
+												<li class="calendar-income"></li>
 											</ul>
 										</td>
 									</c:forEach>
@@ -237,7 +238,7 @@
 										<li class="calendar-date" id="calendar-1"></li>
 										<li class="calendar-spend">
 											<div class="ggv">
-												<div class="ggv-title">제목</div>
+												<div class="ggv-title"><span>제목</span><span class="ggv-scope">공개범위</span></div>
 												<div class="ggv-content">내용</div>
 											</div>
 											<div class="ggv">
