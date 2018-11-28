@@ -1,10 +1,13 @@
 package kr.or.kosta;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,14 +20,30 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class DataSourceTest {
 
-    @Inject
-    private DataSource dataSource;
+	@Inject
+	DataSource dataSource;
+	
+	@Inject
+	SqlSessionFactory sqlSessionFactory;
 
-    @Test
-    public void test() {
-        try(Connection con = dataSource.getConnection()) {
-            log.info(con);
-        } catch (Exception e) {
-        }
-    }
+//	@Test
+	public void testDataSource() throws SQLException {
+		Connection con = dataSource.getConnection();
+		log.info("DB 연결 : " + con);
+		con.close();	
+	}
+	
+	@Test
+	public void testMybatis() throws SQLException {
+		SqlSession session = sqlSessionFactory.openSession();
+		log.info("Mybatis DB 연결 : " + session.getConnection());
+	}
+
 }
+
+
+
+
+
+
+
