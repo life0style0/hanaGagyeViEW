@@ -63,5 +63,5 @@
 
    <context:component-scan base-package="kr.or.kosta" />
 
-
+	<mybatis-spring:scan base-package="kr.or.kosta.salmon.mapper"/>
 </beans>

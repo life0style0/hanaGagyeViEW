@@ -7,17 +7,17 @@
 	<title>NGRNetwork</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="shortcut icon" href="resources/template/img/favicon.png">
+	<link rel="shortcut icon" href="/salmon/resources/template/img/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="resources/template/style/bootstrap.min.css">
+	<link rel="stylesheet" href="/salmon/resources/template/style/bootstrap.min.css">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="resources/template/style/icon.css">
-	<link rel="stylesheet" href="resources/template/style/loader.css">
-	<link rel="stylesheet" href="resources/template/style/idangerous.swiper.css">
-	<link rel="stylesheet" href="resources/template/style/jquery-ui.css">
-	<link rel="stylesheet" href="resources/template/style/stylesheet.css">
-	<link rel="stylesheet" href="resources/jjw/css/stylesheet_jjw.css">
-	<link rel="stylesheet" href="resources/jjw/css/bootstrap-datepicker3.min.css">
+	<link rel="stylesheet" href="/salmon/resources/template/style/icon.css">
+	<link rel="stylesheet" href="/salmon/resources/template/style/loader.css">
+	<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
+	<link rel="stylesheet" href="/salmon/resources/template/style/jquery-ui.css">
+	<link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
+	<link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
+	<link rel="stylesheet" href="/salmon/resources/jjw/css/bootstrap-datepicker3.min.css">
 </head>
 
 <body>
@@ -26,7 +26,7 @@
 
 	<div class="be-loader">
 		<div class="spinner">
-			<img src="resources/template/img/logo-loader.png" alt="">
+			<img src="/salmon/resources/template/img/logo-loader.png" alt="">
 			<p class="circle">
 				<span class="ouro">
 					<span class="left"><span class="anim"></span></span>
@@ -246,21 +246,21 @@
 				<div class="entry s-color color13" data-colour="style/style-reds.css"></div>
 			</div>
 		</div>
-		<div class="open"><img src="resources/template/img/icon-134.png" alt=""></div>
+		<div class="open"><img src="/salmon/resources/template/img/icon-134.png" alt=""></div>
 	</div>
 	<!-- SCRIPTS	 -->
-	<script src="resources/template/script/jquery-2.1.4.min.js"></script>
-	<script src="resources/template/script/jquery-ui.min.js"></script>
-	<script src="resources/template/script/bootstrap.min.js"></script>
-	<script src="resources/template/script/idangerous.swiper.min.js"></script>
-	<script src="resources/template/script/jquery.mixitup.js"></script>
-	<script src="resources/template/script/jquery.viewportchecker.min.js"></script>
-	<script src="resources/template/script/filters.js"></script>
+	<script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>
+	<script src="/salmon/resources/template/script/jquery-ui.min.js"></script>
+	<script src="/salmon/resources/template/script/bootstrap.min.js"></script>
+	<script src="/salmon/resources/template/script/idangerous.swiper.min.js"></script>
+	<script src="/salmon/resources/template/script/jquery.mixitup.js"></script>
+	<script src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
+	<script src="/salmon/resources/template/script/filters.js"></script>
 	<!-- <script src="script/mixitup.js"></script> -->
-	<script src="resources/template/script/global.js"></script>
-	<script src="resources/jjw/js/bootstrap-datepicker.min.js"></script>
-	<script src="resources/jjw/js/bootstrap-datepicker.kr.min.js"></script>
-	<script src="resources/jjw/js/my.js"></script>
+	<script src="/salmon/resources/template/script/global.js"></script>
+	<script src="/salmon/resources/jjw/js/bootstrap-datepicker.min.js"></script>
+	<script src="/salmon/resources/jjw/js/bootstrap-datepicker.kr.min.js"></script>
+	<script src="/salmon/resources/jjw/js/my.js"></script>
 </body>
 
 </html>

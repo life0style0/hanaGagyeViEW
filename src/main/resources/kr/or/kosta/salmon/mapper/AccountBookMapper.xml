@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<mapper namespace="kr.or.kosta.salmon.mapper.AccountBookMapper">
+	
+	<select id="read" resultMap="kr.or.kosta.salmon.domain.AccountBookDTO">
+SELECT article_id, 
+       ctgry_name, 
+       article_scope, 
+       article_regdate, 
+       article_payment_type, 
+       article_payment_fee, 
+       article_photo, 
+       article_content 
+FROM   articles 
+       left outer join ctgry_values USING(article_id) 
+       left outer join ctgries USING(ctgry_id) 
+WHERE  user_id = #{userId} 
+       AND To_char(article_regdate, 'YYYY-MM') = #{year}||'-'||#{month} 
+       AND article_ctgry_id IN (SELECT article_ctgry_id 
+                                FROM   article_ctgries 
+                                WHERE  article_ctgry_type = 'spend' 
+                                        OR article_ctgry_type = 'income')
+	</select>	
+	
+</mapper>

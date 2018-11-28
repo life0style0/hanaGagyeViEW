@@ -35,9 +35,4 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping("/calendar")
-	public String calendar() {
-		log.info("달력 출력.");
-		return "accountbook/calendar";
-	}
 }
