@@ -51,7 +51,11 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<context:component-scan base-package="kr.or.kosta.spring" />
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<context:component-scan base-package="kr.or.kosta" />
 	
 	<mybatis-spring:scan base-package="kr.or.kosta.spring.mapper"/>
 </beans>

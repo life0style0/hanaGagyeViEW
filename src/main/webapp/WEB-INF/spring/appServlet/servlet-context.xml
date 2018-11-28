@@ -18,6 +18,23 @@
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
+<!--인터셉터 설정 -->
+<!-- 	<interceptors>
+		<interceptor>
+			<mapping path="/**" />
+			<exclude-mapping path="/resources/**"/>
+			<beans:ref bean="LoggerInterceptor"/>
+		</interceptor>
+	</interceptors> -->
+
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
+		up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
 		in the /WEB-INF/views directory -->
 	<beans:bean
@@ -25,9 +42,17 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+	<!-- 세부컨트롤러 등록 <beans:bean name="hello" class="kr.or.kosta.spring.demo.controller.HelloController"> 
+		</beans:bean> -->
+
+	<!-- 어노테이션 사용을 위한 시큐리티 설정 -->
+	
 
 	<context:component-scan
 		base-package="kr.or.kosta" />
+	
+	
+
 
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
 
