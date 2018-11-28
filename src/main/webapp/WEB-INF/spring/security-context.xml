@@ -10,6 +10,9 @@
 <bean id="customLoginSuccess" class="kr.or.kosta.salmon.security.CustomLoginSuccessHandler"/>
 <!-- 비밀번호 암호화 처리 -->
 <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+<!-- user  처리 -->
+<bean id="customUserDetailsService" class="kr.or.kosta.salmon.security.CustomUserDetailsService"/>
+
 
 <!-- Spring Security(Interceptor) 설정 -->
 <security:http>
@@ -25,6 +28,12 @@
 	
 	<!-- 로그인 에러 처리 -->
 	<security:access-denied-handler error-page="/login/accessError"/>
+	
+	<!-- 자동로그인 -->
+	<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
+	
+	<!-- 로그아웃시 자동로그인 해제 -->
+	<security:logout logout-url="/customLogout" invalidate-session="true" delete-cookies="remember-me,JSESSION_ID"/>
 </security:http>
 
 
@@ -32,11 +41,13 @@
 <security:authentication-manager>
 
 	<!-- 인증정보, 권한정보 제공자 설정 -->
-	<security:authentication-provider>
+	<security:authentication-provider user-service-ref="customUserDetailsService">
+	
 		<!-- 로그인 처리 DB 연동 -->
-		<security:jdbc-user-service data-source-ref="dataSource" 
+		<!-- <security:jdbc-user-service data-source-ref="dataSource" 
 		users-by-username-query="select user_id, user_passwd, enabled from users where user_id=?" 
-		authorities-by-username-query="select user_id, user_auth from users_auth where user_id=?"/>
+		authorities-by-username-query="select user_id, user_auth from users_auth where user_id=?"/> -->
+		
 		<!-- 비밀번호 암호화 처리 -->
 		<security:password-encoder ref="bcryptPasswordEncoder"/>
 
