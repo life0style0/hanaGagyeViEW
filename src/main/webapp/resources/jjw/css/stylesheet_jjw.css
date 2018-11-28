@@ -1,0 +1,83 @@
+.custom-column-3 {
+  width: 33.106359%;
+  padding: 0 15px;
+  display: inline-block;
+}
+
+.custom-column-3:nth-child(3n+1) {
+  clear: both;
+}
+
+@media screen and (max-width: 992px) {
+  .custom-column-3 {
+    width: 49.7%;
+  }
+
+  .custom-column-3:nth-child(2n+1) {
+    clear: both;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .custom-column-3 {
+    width: 100%;
+  }
+
+  .custom-column-3 {
+    clear: both;
+  }
+}
+
+#canlendar {
+  border-collapse: collapse;
+}
+
+#calendar tr {
+  height: 100px;
+}
+
+#calendar td {
+  vertical-align: top;
+  padding: unset;
+}
+
+#calendar thead tr {
+  background-color: silver;
+  height: 70px;
+}
+
+#calendar>thead>tr>th {
+  border-color: silver;
+}
+
+.calendar-day {
+  font-size: 21px;
+}
+
+.calendar-date {
+  text-align: right;
+  font-size: 20px;
+  padding-right: 8px;
+}
+
+.ggv {
+  padding: 3px;
+}
+
+.calendar-spend .ggv .ggv-title {
+  background: gainsboro;
+  padding: 3px 4px;
+}
+
+.calendar-spend .ggv .ggv-content {
+  background: #FA7784;
+  padding: 3px 4px;
+}
+
+.text-gray {
+  color: #acacac;
+}
+
+.bg-salmon {
+  background-color: #FA7784;
+}
