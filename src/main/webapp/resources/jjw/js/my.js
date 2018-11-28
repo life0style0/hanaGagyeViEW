@@ -70,9 +70,16 @@ function addDataToCalendar(data) {
 }
 
 function setCalendar() {
-    $('.calendar-head .datepic').datepicker('show');
-    $('.calendar.month').html(`${$('#datePic').val().split('/')[0]}월`);
-    $('.calendar.year').html(`${$('#datePic').val().split('/')[1]}`);
+    const month = $('.calendar.month').html();
+    const year = $('.calendar.year').html();
+    const datePic = $('#datePic').val().split('/');
+    if (datePic[0] == month && datePic[1] == year) {
+        return;
+    } else {
+        $('.calendar.month').html(`${datePic[0]}`);
+        $('.calendar.year').html(`${datePic[1]}`);
+        // ajax 통신을 통해 달력에 데이터 입력 해야함.
+    }
 }
 
 $(function () {
@@ -98,10 +105,14 @@ $(function () {
     });
 
     $('.calendar.month').on('click', function () {
-        setCalendar();
+        $('.calendar-head .datepic').datepicker('show');
     });
 
     $('.calendar.year').on('click', function () {
+        $('.calendar-head .datepic').datepicker('show');
+    });
+
+    $('.calendar-head .datepic').datepicker().on('hide', function() {
         setCalendar();
     });
 });

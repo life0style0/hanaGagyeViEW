@@ -189,7 +189,7 @@
 				</div>
 
 				<div class="col-md-10">
-					<div class="calendar-head text-center"><span class="calendar month">11월</span><input type="text" id="datePic" class="invisible datepic"><span class="calendar year">2018년</span></div>
+					<div class="calendar-head text-center"><span class="calendar month">11</span><input type="text" id="datePic" class="invisible datepic"><span class="calendar year">2018</span></div>
 					<table id="calendar" class="calendar">
 						<thead>
 							<tr>
@@ -216,51 +216,6 @@
 									</c:forEach>
 								</tr>
 							</c:forEach>
-							<tr>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<div>1</div>
-								</td>
-								<td>
-									<ul>
-										<li class="calendar-date" id="calendar-1"></li>
-										<li class="calendar-spend">
-											<div class="ggv">
-												<div class="ggv-title"><span>제목</span><span class="ggv-scope">공개범위</span></div>
-												<div class="ggv-content">내용</div>
-											</div>
-											<div class="ggv">
-												<div class="ggv-title">제목</div>
-												<div class="ggv-content">내용</div>
-											</div>
-											<div class="ggv">
-												<div class="ggv-title">제목</div>
-												<div class="ggv-content">내용</div>
-											</div>
-										</li>
-										<li class="calendar-income">
-											<div class="ggv">
-												<div class="ggv-title">제목</div>
-												<div class="ggv-content">내용</div>
-											</div>
-										</li>
-									</ul>
-								</td>
-							</tr>
 						</tbody>
 					</table>
 
