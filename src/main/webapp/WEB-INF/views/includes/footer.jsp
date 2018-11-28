@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" %>
+
 <footer>
   <div class="footer_slider">
     <div class="swiper-container" data-autoplay="0" data-loop="1" data-speed="500" data-center="0" data-slides-per-view="responsive"
@@ -6,122 +6,122 @@
       <div class="swiper-wrapper">
         <div class="swiper-slide active" data-val="0">
 
-          <a href="gallery.html"> <img class="img-responsive img-full" src="img/f1.jpg" alt="">
+          <a href="gallery.html"> <img class="img-responsive img-full" src="resources/template/img/f1.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="1">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f2.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f2.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="2">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f3.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f3.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="3">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f4.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f4.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="4">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f5.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f5.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="5">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f6.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f6.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="6">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f7.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f7.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="7">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f8.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f8.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="8">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f9.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f9.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="9">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f10.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f10.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="10">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f11.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f11.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="11">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f12.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f12.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="12">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f13.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f13.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="13">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f14.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f14.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="14">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f15.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f15.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="15">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f16.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f16.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="16">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f17.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f17.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="17">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f18.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f18.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="18">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f19.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f19.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="19">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f1.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f1.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="20">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f2.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f2.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="21">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f3.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f3.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="22">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f4.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f4.jpg" alt="">
           </a></div>
         <div class="swiper-slide" data-val="23">
           <a href="gallery.html">
 
-            <img class="img-responsive img-full" src="img/f5.jpg" alt="">
+            <img class="img-responsive img-full" src="resources/template/img/f5.jpg" alt="">
           </a></div>
       </div>
       <div class="pagination hidden"></div>
@@ -177,18 +177,18 @@
         <div class="col-md-3 galerry">
           <div class="footer-block">
             <h1 class="footer-title">Recent Works</h1>
-            <a href="blog-detail-2.html"><img src="img/g1.jpg" alt=""></a>
-            <a href="blog-detail-2.html"><img src="img/g2.jpg" alt=""></a>
-            <a href="blog-detail-2.html"><img src="img/g3.jpg" alt=""></a>
-            <a href="blog-detail-2.html"><img src="img/g4.jpg" alt=""></a>
-            <a href="blog-detail-2.html"><img src="img/g5.jpg" alt=""></a>
-            <a href="blog-detail-2.html"><img src="img/g6.jpg" alt=""></a>
-            <a href="blog-detail-2.html"><img src="img/g7.jpg" alt=""></a>
-            <a href="blog-detail-2.html"><img src="img/g8.jpg" alt=""></a>
-            <a href="blog-detail-2.html"><img src="img/g9.jpg" alt=""></a>
-            <a href="blog-detail-2.html"><img src="img/g10.jpg" alt=""></a>
-            <a href="blog-detail-2.html"><img src="img/g11.jpg" alt=""></a>
-            <a href="blog-detail-2.html"><img src="img/g12.jpg" alt=""></a>
+            <a href="blog-detail-2.html"><img src="resources/template/img/g1.jpg" alt=""></a>
+            <a href="blog-detail-2.html"><img src="resources/template/img/g2.jpg" alt=""></a>
+            <a href="blog-detail-2.html"><img src="resources/template/img/g3.jpg" alt=""></a>
+            <a href="blog-detail-2.html"><img src="resources/template/img/g4.jpg" alt=""></a>
+            <a href="blog-detail-2.html"><img src="resources/template/img/g5.jpg" alt=""></a>
+            <a href="blog-detail-2.html"><img src="resources/template/img/g6.jpg" alt=""></a>
+            <a href="blog-detail-2.html"><img src="resources/template/img/g7.jpg" alt=""></a>
+            <a href="blog-detail-2.html"><img src="resources/template/img/g8.jpg" alt=""></a>
+            <a href="blog-detail-2.html"><img src="resources/template/img/g9.jpg" alt=""></a>
+            <a href="blog-detail-2.html"><img src="resources/template/img/g10.jpg" alt=""></a>
+            <a href="blog-detail-2.html"><img src="resources/template/img/g11.jpg" alt=""></a>
+            <a href="blog-detail-2.html"><img src="resources/template/img/g12.jpg" alt=""></a>
           </div>
         </div>
         <div class="col-md-3">
@@ -222,7 +222,7 @@
     <div class="container-fluid custom-container">
       <div class="col-md-12 footer-end clearfix">
         <div class="left">
-          <span class="copy">Â© 2015. All rights reserved. <span class="white"><a href="blog-detail-2.html"> NRGNetwork</a></span></span>
+          <span class="copy">© 2015. All rights reserved. <span class="white"><a href="blog-detail-2.html"> NRGNetwork</a></span></span>
           <span class="created">Created with LOVE by <span class="white"><a href="blog-detail-2.html"> NRGThemes</a></span></span>
         </div>
         <div class="right">
