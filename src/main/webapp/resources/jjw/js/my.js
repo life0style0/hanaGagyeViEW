@@ -1,5 +1,10 @@
 var startDayNum;
 
+/**
+ * 기본 달력을 만드는 함수
+ * @param {*} yearSrc 
+ * @param {*} monthSrc 
+ */
 function makeCalendar(yearSrc, monthSrc) {
     const year = Number(yearSrc);
     const month = Number(monthSrc);
@@ -47,6 +52,10 @@ function makeCalendar(yearSrc, monthSrc) {
 
 }
 
+/**
+ * 서버로부터 받은 가계부의 공개범위를 판단해 값을 리턴하는 함수
+ * @param {*} scope 
+ */
 function checkScope(scope) {
     if (scope === 'u') {
         return '공개';
@@ -56,6 +65,10 @@ function checkScope(scope) {
     return 'error';
 }
 
+/**
+ * 달력에 가계부 정보를 받아 입력해주는 함수
+ * @param {*} data 
+ */
 function showGgvToCalendar(data) {
     let html = '';
     html = `<div class="ggv"><input type="hidden" name="articleId" value="${data.articleId}"><div class="ggv-title"><span>카테고리 : ${data.ctgryName}</span>`;
@@ -64,6 +77,10 @@ function showGgvToCalendar(data) {
     return html;
 }
 
+/**
+ * 달력에 가계부 정보들을 받아 입력하기 위한 함수
+ * @param {*} data 
+ */
 function addDataToCalendar(data) {
     const regdate = data.articleRegdate.split('-'); // 2018-01-01 형식
     const ggv = $(`#calendar-${Number(regdate[2]) + Number(startDayNum)}`);
@@ -74,6 +91,12 @@ function addDataToCalendar(data) {
     }
 }
 
+/**
+ * 달력에 가계부 정보를 입력하기 위해 서버로부터 ajax 통신을 통해 json
+ * 형태의 값을 받아오는 함수
+ * @param {*} year 
+ * @param {*} month 
+ */
 function requestCalendarDataToServer(year, month) {
     $.ajax({
         url: '/salmon/accountbook/ggv',
@@ -92,7 +115,10 @@ function requestCalendarDataToServer(year, month) {
     });
 }
 
-function setCalendar() {
+/**
+ * 달력의 년도와 월을 설정해주는 함수
+ */
+function setCalendarMY() {
     const month = $('.calendar.month').html();
     const year = $('.calendar.year').html();
     const datePic = $('#datePic').val().split('/');
@@ -106,6 +132,10 @@ function setCalendar() {
     }
 }
 
+/**
+ * 특정 가계부 정보를 클릭시 보여줄 값들을 세팅하는 함수
+ * @param {*} data 
+ */
 function showGgv(data) {
     for (let i = 0; i < data.imagePaths.length; i += 1) {
         const imagePath = data.imagePaths[i];
@@ -118,11 +148,19 @@ function showGgv(data) {
     $('#ggvContent').html(data.articleContent);
 }
 
+/**
+ * 특정 가계부 정보를 초기화하는 메소드
+ */
 function resetGgvModal() {
     $('.ggv-carousel').trigger('destroy.owl.carousel');
     $('.ggv-carousel').html('');
 }
 
+/**
+ * 서버로부터 달력에 보여줄 가계부 정보들을 ajax 통신을 통해
+ * json 형태로 받아오는 함수
+ * @param {*} info 
+ */
 function showGgvInfos(info) {
     const articleId = $(info).find('input[name="articleId"]').val();
     if (!articleId) {
@@ -135,8 +173,6 @@ function showGgvInfos(info) {
         dataType: 'json',
         success: function (data) {
             showGgv(data);
-
-            $('#ggv-modal').modal('show');
 
             $('.ggv-carousel').owlCarousel({
                 items: 1,
@@ -151,17 +187,20 @@ function showGgvInfos(info) {
                 lazyLoad: false
             });
 
+            $('#ggv-modal').modal('show');
+
             $('#ggv-modal').on('shown.bs.modal', function () {
-                setTimeout(() => {
-                    $('.owl-prev').css('top', `-${$('.owl-stage-outer').outerHeight() / 2 + 25}px`);
-                    $('.owl-next').css('top', `-${$('.owl-stage-outer').outerHeight() / 2 + 25}px`);
-                }, 300);
+                $('.owl-prev').css('top', `-${(400 + 50) / 2}px`);
+                $('.owl-next').css('top', `-${(400 + 50) / 2}px`);
             });
         }
     });
 
 }
 
+/**
+ * DOM 객체가 load 된 이후에 실행하기 위한 코드들
+ */
 $(function () {
     const date = new Date();
     makeCalendar(date.getFullYear(), date.getMonth() + 1);
@@ -186,7 +225,7 @@ $(function () {
     });
 
     $('.calendar-head .datepic').datepicker().on('hide', function () {
-        setCalendar();
+        setCalendarMY();
     });
 
     $('.calendar-spend').on('click', '.ggv', function () {
