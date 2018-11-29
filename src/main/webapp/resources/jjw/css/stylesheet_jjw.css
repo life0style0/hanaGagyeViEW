@@ -64,6 +64,10 @@
   background-color: #ededed;
 }
 
+#calendar-main {
+  padding: 0px 100px;
+}
+
 .calendar-day {
   font-size: 21px;
 }

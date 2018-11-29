@@ -191,10 +191,10 @@
 					</div>
 				</div>
 
-				<div class="col-md-10">
+				<div class="col-md-10" id="calendar-main">
 					<div class="calendar-head text-center"><span><i class="fas fa-chevron-left calendar-left"></i></span><span class="calendar month"></span><input type="text" id="datePic" class="invisible datepic"><span
 						 class="calendar year"></span><span><i class="fas fa-chevron-right calendar-right"></i></span></div>
-					<table id="calendar" class="calendar">
+					<table id="calendar">
 						<thead>
 							<tr>
 								<th class="text-center calendar-day"><strong>일</strong></th>

@@ -129,10 +129,13 @@ function setCalendarMY(moveDirection) {
     }
 
     if (!moveDirection) {
+        if (!$('#datePic').val()) {
+            return;
+        }
         const datePic = $('#datePic').val().split('/');
         monthChanged = datePic[0];
         yearChanged = datePic[1];
-    
+
         if (monthChanged == month && yearChanged == year) {
             return;
         }
@@ -155,6 +158,7 @@ function setCalendarMY(moveDirection) {
     } else {
         alert('moveDirection input error');
     }
+
     resetCalendar();
 
     makeCalendar(yearChanged, monthChanged);
