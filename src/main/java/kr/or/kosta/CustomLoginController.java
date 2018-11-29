@@ -16,23 +16,16 @@ import lombok.extern.log4j.Log4j;
  */
 @Controller
 @Log4j
-public class HomeController {
+public class CustomLoginController {
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		log.info("Welcome home! The client locale is {}.");
+		log.info(" 로그인 메인 페이지에 띄우기 ");
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+		return "customLogin";
 	}
 	
 }

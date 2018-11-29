@@ -28,7 +28,7 @@ public class CommonController {
 		
 		if(error != null) {
 			//로그인 실패인 경우
-			model.addAttribute("error","!! LOGIN ERROR !!  check your Account");
+			model.addAttribute("error","아이디와 비밀번호를 확인해주세요. ");
 		}
 		
 		if(logout != null) {
