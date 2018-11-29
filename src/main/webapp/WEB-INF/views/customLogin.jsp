@@ -12,8 +12,8 @@
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
 function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Meta_tag_Keywords -->
-<link href="../resources/Login/css/style.css" rel="stylesheet" type="text/css" media="all"><!--style_sheet-->
-<link href="../resources/Login/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all"><!--font_awesome_icons-->
+<link href="resources/Login/css/style.css" rel="stylesheet" type="text/css" media="all"><!--style_sheet-->
+<link href="resources/Login/css/font-awesome.min.css" rel="stylesheet" type="text/css" media="all"><!--font_awesome_icons-->
 <!--web_fonts-->
 <link href="//fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900&amp;subset=latin-ext" rel="stylesheet">
 <!--//web_fonts-->
