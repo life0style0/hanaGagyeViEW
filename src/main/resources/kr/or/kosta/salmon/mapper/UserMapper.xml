@@ -40,4 +40,50 @@
 		WHERE  users.user_id = #{user_id}
 	</select>	
 	
+	<insert id="createUser" >
+		INSERT INTO users 
+		            (user_id, 
+		             user_nickname, 
+		             user_email, 
+		             user_passwd, 
+		             user_gender, 
+		             user_birthday, 
+		             user_image) 
+		VALUES     (#{user_id}, 
+		            #{user_nickname}, 
+		            #{user_email}, 
+		            #{user_passwd}, 
+		            #{user_gender}, 
+		            #{user_birthday}, 
+		            #{user_image} ) 
+	</insert>
+	
+	<insert id="insertUserAuth">
+		INSERT INTO users_auth 
+		            (user_auth_id, 
+		             user_id, 
+		             user_auth) 
+		VALUES     (users_auth_id_seq.NEXTVAL, 
+		            #{user_id}, 
+		            'ROLE_USER') 
+	</insert>	
+	<insert id="insertMemberAuth">
+		INSERT INTO users_auth 
+		            (user_auth_id, 
+		             user_id, 
+		             user_auth) 
+		VALUES     (users_auth_id_seq.NEXTVAL, 
+		            #{user_id}, 
+		            'ROLE_MEMBER') 
+	</insert>
+	<insert id="insertAdminAuth">
+		INSERT INTO users_auth 
+		            (user_auth_id, 
+		             user_id, 
+		             user_auth) 
+		VALUES     (users_auth_id_seq.NEXTVAL, 
+		            #{user_id}, 
+		            'ROLE_ADMIN') 
+	</insert>
+	
 </mapper>
