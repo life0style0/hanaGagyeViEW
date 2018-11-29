@@ -245,7 +245,7 @@
 				<div class="ggv-body">
 					<div class="ggv-image">
 						<div class="ggv-carousel owl-carousel owl-theme">
-							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=4" alt="">
+							<img class="img-responsive" src="C:\WebData\upload\temp\2018\11\21\s_3d7fce90-c36f-4dd5-bffc-664b31215bf5_2f156603-dde5-4ed1-99f0-471dbe38a6e5_43d6f5837a689e2b7c148106e38bf908.jpg" alt="">
 							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=5" alt="">
 							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=6" alt="">
 							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=7" alt="">

@@ -140,7 +140,7 @@ $(function () {
                 "<i class='fa fa-angle-right'></i>"
             ],
             dots: false,
-            lazyLoad: true
+            lazyLoad: false
         });
         $('#ggv-modal').on('shown.bs.modal', function () {
             setTimeout(() => {
