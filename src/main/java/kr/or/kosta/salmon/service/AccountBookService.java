@@ -9,6 +9,7 @@ import kr.or.kosta.salmon.domain.AccountBookDTO;
  */
 public interface AccountBookService {
 
-    public List<AccountBookDTO> getAccountBooks(String userId, int year, int month);
-    
+    public List<AccountBookDTO> getAccountBooks(String userId, int year, int month) throws Exception;
+
+    public AccountBookDTO getAccountBookByArticleId(String userId, int articleId) throws Exception;
 }

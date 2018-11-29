@@ -1,5 +1,7 @@
 package kr.or.kosta.salmon.domain;
 
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -7,12 +9,13 @@ import lombok.Data;
  */
 @Data
 public class AccountBookDTO {
-    private int article_id;
-    private String ctgry_name;
-    private String article_scope;
-    private String article_regdate;
-    private String article_payment_type;
-    private int article_payment_fee;
-    private String article_photo;
-    private String article_content;
+    private int articleId;
+    private String ctgryName;
+    private String articleScope;
+    private String articleRegdate;
+    private String articlePaymentType;
+    private int articlePaymentFee;
+    private String articleContent;
+    private String articleCtgryType;
+    private List<String> imagePaths;
 }

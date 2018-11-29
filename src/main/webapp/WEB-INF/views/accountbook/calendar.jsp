@@ -221,9 +221,7 @@
 							</c:forEach>
 						</tbody>
 					</table>
-
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -243,36 +241,29 @@
 					<h4 class="modal-title" id="ggv-modal-label">2018년 11월 27일 오후 1시 12분</h4>
 				</div>
 				<div class="ggv-body">
-					<div class="ggv-image">
-						<div class="ggv-carousel owl-carousel owl-theme">
-							<img class="img-responsive" src="C:\WebData\upload\temp\2018\11\21\s_3d7fce90-c36f-4dd5-bffc-664b31215bf5_2f156603-dde5-4ed1-99f0-471dbe38a6e5_43d6f5837a689e2b7c148106e38bf908.jpg" alt="">
-							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=5" alt="">
-							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=6" alt="">
-							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=7" alt="">
-							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=8" alt="">
-						</div>
+					<div class="ggv-carousel owl-carousel owl-theme">
+						<img class="ggv-image center-block" src="/salmon/image?fileName=2018/11/21/3d7fce90-c36f-4dd5-bffc-664b31215bf5_2f156603-dde5-4ed1-99f0-471dbe38a6e5_43d6f5837a689e2b7c148106e38bf908.jpg"
+						 alt="">
 					</div>
-					<div class="ggv-flex">
-						<div class="ggv-content">
-							<div class="ggv-col-6">
-								<div class="col-md-6 text-center ggv-content-left">공개 범위</div>
-								<div class="col-md-6 text-center ggv-content-right">나만</div>
-							</div>
-							<div class="ggv-col-6">
-								<div class="col-md-6 text-center ggv-content-left">금액</div>
-								<div class="col-md-6 text-center ggv-content-right">100,000원</div>
-							</div>
-							<div class="ggv-col-6">
-								<div class="col-md-6 text-center ggv-content-left">카테고리</div>
-								<div class="col-md-6 text-center ggv-content-right">음식</div>
-							</div>
-							<div class="ggv-col-6">
-								<div class="col-md-6 text-center ggv-content-left">결제 방법</div>
-								<div class="col-md-6 text-center ggv-content-right">카드</div>
-							</div>
-							<div class="ggv-col-12">
-								여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용
-							</div>
+					<div class="ggv-modal-content">
+						<div class="ggv-col-6">
+							<div class="col-md-6 text-center ggv-content-left">공개 범위</div>
+							<div class="col-md-6 text-center ggv-content-right">나만</div>
+						</div>
+						<div class="ggv-col-6">
+							<div class="col-md-6 text-center ggv-content-left">금액</div>
+							<div class="col-md-6 text-center ggv-content-right">100,000원</div>
+						</div>
+						<div class="ggv-col-6">
+							<div class="col-md-6 text-center ggv-content-left">카테고리</div>
+							<div class="col-md-6 text-center ggv-content-right">음식</div>
+						</div>
+						<div class="ggv-col-6">
+							<div class="col-md-6 text-center ggv-content-left">결제 방법</div>
+							<div class="col-md-6 text-center ggv-content-right">카드</div>
+						</div>
+						<div class="ggv-col-12">
+							여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용
 						</div>
 					</div>
 				</div>

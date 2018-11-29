@@ -49,24 +49,44 @@ function makeCalendar(yearSrc, monthSrc) {
 
 function makeGgv(data) {
     let html = '';
-    html = `<div class="ggv"><div class="ggv-title"><span>카테고리 : ${data.ctgry_name}</span>`;
-    if (data.article_scope === 'public') {
+    html = `<div class="ggv"><input type="hidden" name="articleId" value="${data.articleId}"><div class="ggv-title"><span>카테고리 : ${data.ctgryName}</span>`;
+    if (data.articleScope === 'public') {
         html += `<span class="ggv-scope">공개</span></div>`;
-    } else if (data.article_scope === 'private') {
+    } else if (data.articleScope === 'private') {
         html += `<span class="ggv-scope">나만</span></div>`;
     }
-    html += `<div class="ggv-content">${data.article_payment_fee}</div></div>`;
+    html += `<div class="ggv-content">${data.articlePaymentFee}</div></div>`;
     return html;
 }
 
 function addDataToCalendar(data) {
-    const regdate = data.article_regdate.split('-'); // 2018-01-01 형식
+    console.log('data :', data);
+    console.log('startDayNum :', startDayNum);
+    const regdate = data.articleRegdate.split('-'); // 2018-01-01 형식
     const ggv = $(`#calendar-${Number(regdate[2]) + Number(startDayNum)}`);
-    if (data.article_ctgry_type === '지출') {
+    if (data.articleCtgryType === '지출') {
         ggv.find('.calendar-spend').append(makeGgv(data));
-    } else if (data.article_ctgry_type === '수입') {
+    } else if (data.articleCtgryType === '수입') {
         ggv.find('.calendar-income').append(makeGgv(data));
     }
+}
+
+function requestCalendarDataToServer(year, month) {
+    $.ajax({
+        url: '/salmon/accountbook/ggv',
+        method: 'get',
+        data: {
+            'year': year,
+            'month': month
+        },
+        dataType: 'json',
+        success: function (datas) {
+            for (let i = 0; i < datas.length; i += 1) {
+                const data = datas[i];
+                addDataToCalendar(data);
+            }
+        }
+    });
 }
 
 function setCalendar() {
@@ -78,22 +98,63 @@ function setCalendar() {
     } else {
         $('.calendar.month').html(`${datePic[0]}`);
         $('.calendar.year').html(`${datePic[1]}`);
-        // ajax 통신을 통해 달력에 데이터 입력 해야함.
+
+        requestCalendarDataToServer(datePic[1], datePic[0]);
     }
 }
 
+function showGgv(data) {
+    $('.ggv-carousel').html();
+    for (let i = 0; i < data.imagePaths.length; i += 1) {
+        const imagePath = data.imagePaths[i];
+        $('.ggv-carousel').append(`<img class="ggv-image center-block" src="/salmon/image?fileName=${data.imagePath}" alt="">`);
+    }
+}
+
+function showGgvInfos(info) {
+    console.log('ggv clicked');
+    const articleId = $(info).find('input[name="articleId"]').val();
+    if (!articleId) {
+        alert("error!");
+        return;
+    }
+    $.ajax({
+        url: `/salmon/accountbook/ggv/${articleId}`,
+        method: 'get',
+        dataType: 'json',
+        success: function (data) {
+            showGgv(data);
+
+            $('#ggv-modal').modal('show');
+
+            $('.ggv-carousel').owlCarousel({
+                items: 1,
+                loop: true,
+                margin: 10,
+                nav: true,
+                navText: [
+                    "<i class='fa fa-angle-left'></i>",
+                    "<i class='fa fa-angle-right'></i>"
+                ],
+                dots: false,
+                lazyLoad: false
+            });
+
+            $('#ggv-modal').on('shown.bs.modal', function () {
+                setTimeout(() => {
+                    $('.owl-prev').css('top', `-${$('.owl-stage-outer').outerHeight() / 2 + 25}px`);
+                    $('.owl-next').css('top', `-${$('.owl-stage-outer').outerHeight() / 2 + 25}px`);
+                }, 300);
+            });
+        }
+    });
+
+}
+
 $(function () {
-    makeCalendar(2018, 11);
-
-    const data = {
-        article_ctgry_type: '지출',
-        article_scope: 'public',
-        ctgry_name: '식비',
-        article_payment_fee: '100000',
-        article_regdate: '2018-11-27'
-    };
-
-    addDataToCalendar(data);
+    const date = new Date();
+    makeCalendar(date.getFullYear(), date.getMonth() + 1);
+    requestCalendarDataToServer(date.getFullYear(), date.getMonth() + 1);
 
     $('.calendar-head .datepic').datepicker({
         format: "mm/yyyy",
@@ -103,6 +164,7 @@ $(function () {
         orientation: "top right",
         autoclose: true
     });
+
 
     $('.calendar.month').on('click', function () {
         $('.calendar-head .datepic').datepicker('show');
@@ -117,36 +179,10 @@ $(function () {
     });
 
     $('.calendar-spend').on('click', '.ggv', function () {
-        $('#ggv-modal').modal('show');
-        $('.ggv-carousel').on('loaded.owl.lazy', function () {
-            console.log('loaded.owl.lazy');
-            console.log(`-${$('.owl-stage-outer').outerHeight() / 2}px`);
-        });
-        $('.ggv-carousel').on('initialized.owl.carousel', function () {
-            console.log('initialized.owl.carousel');
-            console.log(`-${$('.owl-stage-outer').outerHeight() / 2}px`);
-        });
-        $('.ggv-carousel').on('translated.owl.carousel', function () {
-            $('.owl-prev').css('top', `-${$('.owl-stage-outer').outerHeight() / 2 + 25}px`);
-            $('.owl-next').css('top', `-${$('.owl-stage-outer').outerHeight() / 2 + 25}px`);
-        });
-        $('.ggv-carousel').owlCarousel({
-            items: 1,
-            loop: true,
-            margin: 10,
-            nav: true,
-            navText: [
-                "<i class='fa fa-angle-left'></i>",
-                "<i class='fa fa-angle-right'></i>"
-            ],
-            dots: false,
-            lazyLoad: false
-        });
-        $('#ggv-modal').on('shown.bs.modal', function () {
-            setTimeout(() => {
-                $('.owl-prev').css('top', `-${$('.owl-stage-outer').outerHeight() / 2 + 25}px`);
-                $('.owl-next').css('top', `-${$('.owl-stage-outer').outerHeight() / 2 + 25}px`);
-            }, 300);
-        });
+        showGgvInfos(this);
+    });
+
+    $('.calendar-income').on('click', '.ggv', function () {
+        showGgvInfos(this);
     });
 });

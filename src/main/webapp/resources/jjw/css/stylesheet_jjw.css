@@ -107,6 +107,11 @@
   padding: 3px;
 }
 
+.ggv-image {
+  height: 400px!important;
+  width: auto!important;
+}
+
 .ggv-image .ggv-carousel {
   display: inline-grid;
 }
@@ -141,23 +146,23 @@
   padding: 6px 15px;
 }
 
-.ggv-image {
-  padding: 0px 10px;
-}
 
-.ggv-flex {
-  display: flex;
-  margin: unset;
-  padding: 5px 10px;
-  width: 100%;
-}
 
 .ggv-content {
   width: 100%;
   display: inline-block;
-  padding: unset;
+  padding: 5px 10px;
+  margin: unset;
+}
+
+.ggv-modal-content {
+  width: 100%;
+  display: inline-block;
+  padding: 5px 10px;
   margin: unset;
   border: none;
+  position: relative;
+  top: -60px;
 }
 
 .ggv-content-left {

@@ -38,7 +38,7 @@ public class MemberTests {
 	@Inject
 	private UserMapper usermapper;
 
-	// @Test
+	@Test
 	public void testSelectMember() {
 		String sql = "select * from users";
 		Connection con = null;
