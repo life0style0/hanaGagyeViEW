@@ -28,6 +28,8 @@
   }
 }
 
+
+/*============== calendar setting =============*/
 #calendar {
   border-collapse: collapse;
   width: 100%;
@@ -71,10 +73,6 @@
   padding-left: 8px;
 }
 
-.ggv {
-  padding: 3px;
-}
-
 .calendar-spend .ggv .ggv-title {
   background: gainsboro;
   padding: 3px 4px;
@@ -103,6 +101,17 @@
 .calendar-head .calendar.year {
   font-size: 20px;
   padding-left: 10px;
+}
+
+.calendar-body ul {
+  padding: 3px;
+}
+
+.ggv {
+}
+
+.ggv-header {
+  padding: 6px 15px;
 }
 
 .text-gray {

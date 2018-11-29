@@ -16,8 +16,10 @@
 	<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/jquery-ui.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
-	<link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/bootstrap-datepicker3.min.css">
+	<link rel="stylesheet" href="/salmon/resources/jjw/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="/salmon/resources/jjw/css/owl.theme.default.min.css">
+	<link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
 </head>
 
 <body>
@@ -189,7 +191,8 @@
 				</div>
 
 				<div class="col-md-10">
-					<div class="calendar-head text-center"><span class="calendar month">11</span><input type="text" id="datePic" class="invisible datepic"><span class="calendar year">2018</span></div>
+					<div class="calendar-head text-center"><span class="calendar month">11</span><input type="text" id="datePic" class="invisible datepic"><span
+						 class="calendar year">2018</span></div>
 					<table id="calendar" class="calendar">
 						<thead>
 							<tr>
@@ -231,6 +234,33 @@
 
 	<div class="be-fixed-filter"></div>
 
+	<!-- Modal -->
+	<div class="modal fade" id="ggv-modal" tabindex="-1" role="dialog" aria-labelledby="ggv-modal-label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="ggv-modal-label">Modal title</h4>
+				</div>
+				<div class="modal-body">
+					<div class="ggv-image">
+						<div class="ggv-carousel owl-carousel owl-theme">
+							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=4" alt="">
+							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=5" alt="">
+							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=6" alt="">
+							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=7" alt="">
+							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=8" alt="">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="theme-config">
 		<div class="main-color">
 			<div class="title">Main Color:</div>
@@ -260,6 +290,7 @@
 	<script src="/salmon/resources/template/script/global.js"></script>
 	<script src="/salmon/resources/jjw/js/bootstrap-datepicker.min.js"></script>
 	<script src="/salmon/resources/jjw/js/bootstrap-datepicker.kr.min.js"></script>
+	<script src="/salmon/resources/jjw/js/owl.carousel.min.js"></script>
 	<script src="/salmon/resources/jjw/js/my.js"></script>
 </body>
 

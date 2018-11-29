@@ -115,4 +115,14 @@ $(function () {
     $('.calendar-head .datepic').datepicker().on('hide', function() {
         setCalendar();
     });
+
+    $('.calendar-spend').on('click', '.ggv', function () {
+        $('#ggv-modal').modal('show');
+        $('.ggv-carousel').owlCarousel({
+            items:1,
+            lazyLoad:true,
+            loop:true,
+            margin:10
+        });
+    });
 });
