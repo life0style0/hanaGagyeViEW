@@ -125,7 +125,9 @@ function setCalendarMY() {
     if (datePic[0] == month && datePic[1] == year) {
         return;
     } else {
-        makeCalendar(datePic[1], datePic[0] + 1);
+        resetCalendar();
+
+        makeCalendar(datePic[1], Number(datePic[0]));
         
         $('.calendar.month').html(`${datePic[0]}`);
         $('.calendar.year').html(`${datePic[1]}`);
@@ -138,16 +140,26 @@ function setCalendarMY() {
  * 특정 가계부 정보를 클릭시 보여줄 값들을 세팅하는 함수
  * @param {*} data 
  */
-function showGgv(data) {
+function setGgv(data) {
     for (let i = 0; i < data.imagePaths.length; i += 1) {
         const imagePath = data.imagePaths[i];
         $('.ggv-carousel').append(`<img class="ggv-image center-block" src="/salmon/image?fileName=${imagePath}" alt="">`);
     }
-    $('#ggvScope').html(checkScope(data.articleScope));
+    const scope = checkScope(data.articleScope);
+    $('#ggvScope').html(scope);
     $('#ggvMoney').html(`${data.articlePaymentFee}원`);
     $('#ggvCtgry').html(data.articleCtgryType);
     $('#ggvPayType').html(data.articlePaymentType);
     $('#ggvContent').html(data.articleContent);
+
+    if (scope === '나만') {
+        $('.ggv-footer').html(`<button type="button" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</button>
+        <button type="button" class="btn btn-info ggv-btn" id="ggv-share">공유하기</button>
+        <button type="button" class="btn btn-warning ggv-btn" data-dismiss="modal">닫기</button>`);
+    } else if (scope === '공개') {
+        $('.ggv-footer').html(`<button type="button" class="btn btn-primary ggv-btn" id="ggv-edit>수정하기</button>
+        <button type="button" class="btn btn-warning ggv-btn" data-dismiss="modal">닫기</button>`);
+    }
 }
 
 /**
@@ -163,7 +175,7 @@ function resetGgvModal() {
  * json 형태로 받아오는 함수
  * @param {*} info 
  */
-function showGgvInfos(info) {
+function setGgvInfos(info) {
     const articleId = $(info).find('input[name="articleId"]').val();
     if (!articleId) {
         alert("error!");
@@ -174,7 +186,7 @@ function showGgvInfos(info) {
         method: 'get',
         dataType: 'json',
         success: function (data) {
-            showGgv(data);
+            setGgv(data);
 
             $('.ggv-carousel').owlCarousel({
                 items: 1,
@@ -236,16 +248,15 @@ $(function () {
     });
 
     $('.calendar-head .datepic').datepicker().on('hide', function () {
-        resetCalendar();
         setCalendarMY();
     });
 
     $('.calendar-spend').on('click', '.ggv', function () {
-        showGgvInfos(this);
+        setGgvInfos(this);
     });
 
     $('.calendar-income').on('click', '.ggv', function () {
-        showGgvInfos(this);
+        setGgvInfos(this);
     });
 
     $('#ggv-modal').on('hidden.bs.modal', function () {

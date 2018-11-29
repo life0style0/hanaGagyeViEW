@@ -35,6 +35,7 @@
   width: 100%;
   max-width: 100%;
   border: 1px solid #ddd;
+  table-layout: fixed;
 }
 
 #calendar tbody {
@@ -108,8 +109,8 @@
 }
 
 .ggv-image {
-  height: 400px!important;
-  width: auto!important;
+  height: 400px !important;
+  width: auto !important;
 }
 
 .ggv-image .ggv-carousel {
@@ -146,8 +147,6 @@
   padding: 6px 15px;
 }
 
-
-
 .ggv-content {
   width: 100%;
   display: inline-block;
@@ -175,6 +174,23 @@
   border-radius: 0px 20px 20px 0px;
 }
 
+.ggv-body {
+  margin-bottom: -50px;
+}
+
+.ggv-footer {
+  padding: 15px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}
+
+.ggv-btn {
+  font-size: 16px;
+  line-height: 1.3333;
+  margin: none;
+  margin-left: 10px;
+}
+
 .ggv-col-6 {
   width: 48%;
   display: inline-flex;
@@ -185,6 +201,10 @@
   background-color: #ededed;
   border-radius: 30px;
   font-size: 20px;
+}
+
+.ggv-scope {
+  float: right;
 }
 
 .ggv-col-12 {
@@ -217,9 +237,6 @@
   background-color: #ededed;
 }
 
-.ggv-scope {
-  float: right;
-}
 
 .datepic {
   width: 0px;

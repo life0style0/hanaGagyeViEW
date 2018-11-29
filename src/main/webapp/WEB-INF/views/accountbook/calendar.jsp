@@ -265,9 +265,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">수정하기</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+				<div class="ggv-footer">
 				</div>
 			</div>
 		</div>
