@@ -74,6 +74,26 @@
   padding-left: 8px;
 }
 
+.calendar-left,
+.calendar-right {
+  font-size: 50px;
+  color: #acacac85;
+}
+
+.calendar-left {
+  margin-right: 50px;
+}
+
+.calendar-right {
+  margin-left: 40px;
+}
+
+.calendar-left:hover, .calendar-right:hover {
+  color: #f6aa006e;
+  cursor: pointer;
+}
+
+
 .calendar-spend .ggv .ggv-title {
   background: gainsboro;
   padding: 3px 4px;

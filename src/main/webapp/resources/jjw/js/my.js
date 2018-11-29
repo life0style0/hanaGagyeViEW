@@ -2,8 +2,8 @@ var startDayNum;
 
 /**
  * 기본 달력을 만드는 함수
- * @param {*} yearSrc 
- * @param {*} monthSrc 
+ * @param {*} yearSrc 보고 싶은 년도
+ * @param {*} monthSrc 보고 싶은 월
  */
 function makeCalendar(yearSrc, monthSrc) {
     const year = Number(yearSrc);
@@ -49,12 +49,11 @@ function makeCalendar(yearSrc, monthSrc) {
     for (; calNum <= 42;) {
         $(`#calendar-${calNum++}`).addClass('bg-lightgray').find('.calendar-date').removeClass('text-red text-blue').addClass('text-gray').html(`<strong>${calNum - endDate - startDay - 1}</strong>`);
     }
-
 }
 
 /**
- * 서버로부터 받은 가계부의 공개범위를 판단해 값을 리턴하는 함수
- * @param {*} scope 
+ * 서버로부터 받은 가계부의 공개 범위를 판단해 값을 리턴하는 함수
+ * @param {*} scope 가계부의 공개 범위
  */
 function checkScope(scope) {
     if (scope === 'u') {
@@ -67,7 +66,7 @@ function checkScope(scope) {
 
 /**
  * 달력에 가계부 정보를 받아 입력해주는 함수
- * @param {*} data 
+ * @param {*} data 가계부 정보
  */
 function showGgvToCalendar(data) {
     let html = '';
@@ -79,7 +78,7 @@ function showGgvToCalendar(data) {
 
 /**
  * 달력에 가계부 정보들을 받아 입력하기 위한 함수
- * @param {*} data 
+ * @param {*} data 가계부 정보
  */
 function addDataToCalendar(data) {
     const regdate = data.articleRegdate.split('-'); // 2018-01-01 형식
@@ -94,8 +93,8 @@ function addDataToCalendar(data) {
 /**
  * 달력에 가계부 정보를 입력하기 위해 서버로부터 ajax 통신을 통해 json
  * 형태의 값을 받아오는 함수
- * @param {*} year 
- * @param {*} month 
+ * @param {*} year 년 정보
+ * @param {*} month 월 정보
  */
 function requestCalendarDataToServer(year, month) {
     $.ajax({
@@ -118,29 +117,62 @@ function requestCalendarDataToServer(year, month) {
 /**
  * 달력의 년도와 월을 설정해주는 함수
  */
-function setCalendarMY() {
+function setCalendarMY(moveDirection) {
     const month = $('.calendar.month').html();
     const year = $('.calendar.year').html();
-    const datePic = $('#datePic').val().split('/');
-    if (datePic[0] == month && datePic[1] == year) {
+    let monthChanged;
+    let yearChanged;
+
+    if (!month || !year) {
+        alert('달력의 월, 년도가 없습니다.');
         return;
-    } else {
-        resetCalendar();
-
-        makeCalendar(datePic[1], Number(datePic[0]));
-        
-        $('.calendar.month').html(`${datePic[0]}`);
-        $('.calendar.year').html(`${datePic[1]}`);
-
-        requestCalendarDataToServer(datePic[1], datePic[0]);
     }
+
+    if (!moveDirection) {
+        const datePic = $('#datePic').val().split('/');
+        monthChanged = datePic[0];
+        yearChanged = datePic[1];
+    
+        if (monthChanged == month && yearChanged == year) {
+            return;
+        }
+    } else if (moveDirection === 'left') {
+        if (month !== '1') {
+            monthChanged = Number(month) - 1;
+            yearChanged = year;
+        } else {
+            monthChanged = 12;
+            yearChanged = Number(year) - 1;
+        }
+    } else if (moveDirection === 'right') {
+        if (month !== '12') {
+            monthChanged = Number(month) + 1;
+            yearChanged = year;
+        } else {
+            monthChanged = 1;
+            yearChanged = Number(year) + 1;
+        }
+    } else {
+        alert('moveDirection input error');
+    }
+    resetCalendar();
+
+    makeCalendar(yearChanged, monthChanged);
+
+    $('.calendar.month').html(monthChanged);
+    $('.calendar.year').html(yearChanged);
+
+    requestCalendarDataToServer(yearChanged, monthChanged);
 }
 
 /**
  * 특정 가계부 정보를 클릭시 보여줄 값들을 세팅하는 함수
- * @param {*} data 
+ * @param {*} data 가계부 정보
  */
 function setGgv(data) {
+    if (!data) {
+        alert('data가 없습니다.');
+    }
     for (let i = 0; i < data.imagePaths.length; i += 1) {
         const imagePath = data.imagePaths[i];
         $('.ggv-carousel').append(`<img class="ggv-image center-block" src="/salmon/image?fileName=${imagePath}" alt="">`);
@@ -209,9 +241,11 @@ function setGgvInfos(info) {
             });
         }
     });
-
 }
 
+/**
+ * 달력 월 변경시 초기화 하는 함수
+ */
 function resetCalendar() {
     $('.calendar-spend').each(function () {
         $(this).html('');
@@ -221,13 +255,19 @@ function resetCalendar() {
     });
 }
 
+function initCalendar() {
+    const date = new Date();
+    makeCalendar(date.getFullYear(), date.getMonth() + 1);
+    requestCalendarDataToServer(date.getFullYear(), date.getMonth() + 1);
+    $('.calendar.month').html(date.getMonth() + 1);
+    $('.calendar.year').html(date.getFullYear());
+}
+
 /**
  * DOM 객체가 load 된 이후에 실행하기 위한 코드들
  */
 $(function () {
-    const date = new Date();
-    makeCalendar(date.getFullYear(), date.getMonth() + 1);
-    requestCalendarDataToServer(date.getFullYear(), date.getMonth() + 1);
+    initCalendar();
 
     $('.calendar-head .datepic').datepicker({
         format: "mm/yyyy",
@@ -237,7 +277,6 @@ $(function () {
         orientation: "top right",
         autoclose: true
     });
-
 
     $('.calendar.month').on('click', function () {
         $('.calendar-head .datepic').datepicker('show');
@@ -261,5 +300,13 @@ $(function () {
 
     $('#ggv-modal').on('hidden.bs.modal', function () {
         resetGgvModal();
+    });
+
+    $('.calendar-left').on('click', function () {
+        setCalendarMY('left');
+    });
+
+    $('.calendar-right').on('click', function () {
+        setCalendarMY('right');
     });
 });
