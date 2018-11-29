@@ -4,7 +4,17 @@
 
 <mapper namespace="kr.or.kosta.salmon.mapper.AccountBookMapper">
 
-        <resultMap type="kr.or.kosta.salmon.domain.AccountBookDTO" id="AccountBookMap">
+        <resultMap type="kr.or.kosta.salmon.domain.AccountBookDTO" id="AccountBookToCalendar">
+                <result property="articleId" column="article_id"/>
+                <result property="ctgryName" column="ctgry_name"/>
+                <result property="articleScope" column="article_scope"/>
+                <result property="articleRegdate" column="article_regdate"/>
+                <result property="articlePaymentFee" column="article_payment_fee"/>
+                <result property="articleContent" column="article_content"/>
+                <result property="articleCtgryType" column="article_ctgry_type"/>
+        </resultMap>
+
+        <resultMap type="kr.or.kosta.salmon.domain.AccountBookDTO" id="AccountBookToGgv">
                 <result property="articleId" column="article_id"/>
                 <result property="ctgryName" column="ctgry_name"/>
                 <result property="articleScope" column="article_scope"/>
@@ -16,12 +26,11 @@
                 <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
         </resultMap>
 
-        <select id="getAccountBooks" resultMap="AccountBookMap">
+        <select id="getAccountBooks" resultMap="AccountBookToCalendar">
 SELECT article_id,
        ctgry_name,
        article_scope,
        to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
-       article_payment_type,
        article_payment_fee,
        article_content,
         article_ctgry_type
@@ -40,7 +49,7 @@ SELECT image_path
 FROM images where article_id = #{article_id}
         </select>
 
-        <select id="getAccountBookByArticleId" resultMap="AccountBookMap">
+        <select id="getAccountBookByArticleId" resultMap="AccountBookToGgv">
 SELECT article_id,
        ctgry_name,
        article_scope,

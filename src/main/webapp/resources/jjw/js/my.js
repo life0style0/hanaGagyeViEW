@@ -125,6 +125,8 @@ function setCalendarMY() {
     if (datePic[0] == month && datePic[1] == year) {
         return;
     } else {
+        makeCalendar(datePic[1], datePic[0] + 1);
+        
         $('.calendar.month').html(`${datePic[0]}`);
         $('.calendar.year').html(`${datePic[1]}`);
 
@@ -198,6 +200,15 @@ function showGgvInfos(info) {
 
 }
 
+function resetCalendar() {
+    $('.calendar-spend').each(function () {
+        $(this).html('');
+    });
+    $('.calendar-income').each(function () {
+        $(this).html('');
+    });
+}
+
 /**
  * DOM 객체가 load 된 이후에 실행하기 위한 코드들
  */
@@ -225,6 +236,7 @@ $(function () {
     });
 
     $('.calendar-head .datepic').datepicker().on('hide', function () {
+        resetCalendar();
         setCalendarMY();
     });
 
