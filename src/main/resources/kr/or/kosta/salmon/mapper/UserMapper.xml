@@ -86,4 +86,43 @@
 		            'ROLE_ADMIN') 
 	</insert>
 	
+	<select id="searchUserById" resultMap="userMap">
+		SELECT user_id, 
+		       user_passwd, 
+		       user_nickname, 
+		       user_email, 
+		       user_gender, 
+		       user_birthday, 
+		       user_image, 
+		       user_regdate
+		FROM   users 
+		WHERE  user_id = #{user_id}
+	</select>	
+	
+	<select id="searchUserByEmail" resultMap="userMap">
+		SELECT user_id, 
+		       user_passwd, 
+		       user_nickname, 
+		       user_email, 
+		       user_gender, 
+		       user_birthday, 
+		       user_image, 
+		       user_regdate
+		FROM   users 
+		WHERE  user_email = #{user_email}
+	</select>
+	
+	<select id="searchUserByNickname" resultMap="userMap">
+		SELECT user_id, 
+		       user_passwd, 
+		       user_nickname, 
+		       user_email, 
+		       user_gender, 
+		       user_birthday, 
+		       user_image, 
+		       user_regdate
+		FROM   users 
+		WHERE  user_nickname = #{user_nickname}
+	</select>	
+	
 </mapper>
