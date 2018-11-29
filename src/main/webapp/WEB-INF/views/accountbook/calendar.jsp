@@ -238,11 +238,11 @@
 	<div class="modal fade" id="ggv-modal" tabindex="-1" role="dialog" aria-labelledby="ggv-modal-label" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
+				<div class="ggv-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="ggv-modal-label">Modal title</h4>
+					<h4 class="modal-title" id="ggv-modal-label">2018년 11월 27일 오후 1시 12분</h4>
 				</div>
-				<div class="modal-body">
+				<div class="ggv-body">
 					<div class="ggv-image">
 						<div class="ggv-carousel owl-carousel owl-theme">
 							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=4" alt="">
@@ -250,6 +250,29 @@
 							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=6" alt="">
 							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=7" alt="">
 							<img class="owl-lazy" data-src="https://placehold.it/350x250&text=8" alt="">
+						</div>
+					</div>
+					<div class="ggv-flex">
+						<div class="ggv-content">
+							<div class="ggv-col-6">
+								<div class="col-md-6 text-center ggv-content-left">공개 범위</div>
+								<div class="col-md-6 text-center ggv-content-right">나만</div>
+							</div>
+							<div class="ggv-col-6">
+								<div class="col-md-6 text-center ggv-content-left">금액</div>
+								<div class="col-md-6 text-center ggv-content-right">100,000원</div>
+							</div>
+							<div class="ggv-col-6">
+								<div class="col-md-6 text-center ggv-content-left">카테고리</div>
+								<div class="col-md-6 text-center ggv-content-right">음식</div>
+							</div>
+							<div class="ggv-col-6">
+								<div class="col-md-6 text-center ggv-content-left">결제 방법</div>
+								<div class="col-md-6 text-center ggv-content-right">카드</div>
+							</div>
+							<div class="ggv-col-12">
+								여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용
+							</div>
 						</div>
 					</div>
 				</div>

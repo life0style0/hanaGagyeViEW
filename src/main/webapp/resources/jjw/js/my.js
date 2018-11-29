@@ -112,17 +112,41 @@ $(function () {
         $('.calendar-head .datepic').datepicker('show');
     });
 
-    $('.calendar-head .datepic').datepicker().on('hide', function() {
+    $('.calendar-head .datepic').datepicker().on('hide', function () {
         setCalendar();
     });
 
     $('.calendar-spend').on('click', '.ggv', function () {
         $('#ggv-modal').modal('show');
+        $('.ggv-carousel').on('loaded.owl.lazy', function () {
+            console.log('loaded.owl.lazy');
+            console.log(`-${$('.owl-stage-outer').outerHeight() / 2}px`);
+        });
+        $('.ggv-carousel').on('initialized.owl.carousel', function () {
+            console.log('initialized.owl.carousel');
+            console.log(`-${$('.owl-stage-outer').outerHeight() / 2}px`);
+        });
+        $('.ggv-carousel').on('translated.owl.carousel', function () {
+            $('.owl-prev').css('top', `-${$('.owl-stage-outer').outerHeight() / 2 + 25}px`);
+            $('.owl-next').css('top', `-${$('.owl-stage-outer').outerHeight() / 2 + 25}px`);
+        });
         $('.ggv-carousel').owlCarousel({
-            items:1,
-            lazyLoad:true,
-            loop:true,
-            margin:10
+            items: 1,
+            loop: true,
+            margin: 10,
+            nav: true,
+            navText: [
+                "<i class='fa fa-angle-left'></i>",
+                "<i class='fa fa-angle-right'></i>"
+            ],
+            dots: false,
+            lazyLoad: true
+        });
+        $('#ggv-modal').on('shown.bs.modal', function () {
+            setTimeout(() => {
+                $('.owl-prev').css('top', `-${$('.owl-stage-outer').outerHeight() / 2 + 25}px`);
+                $('.owl-next').css('top', `-${$('.owl-stage-outer').outerHeight() / 2 + 25}px`);
+            }, 300);
         });
     });
 });
