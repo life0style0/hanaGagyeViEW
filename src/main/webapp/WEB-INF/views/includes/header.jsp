@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags" %>
 <header>
   <div class="container-fluid custom-container">
     <div class="row no_row row-header">
@@ -28,9 +28,10 @@
         </ul>
       </div>
       <div class="login-header-block">
+     <%--  <div> 환영합니다 <sec:authentication property="principal.username"/>님 로그인중</div> --%>
         <div class="login_block">
           <a class="btn-login btn color-1 size-2 hover-2" href=""><i class="fa fa-user"></i>
-            Log in</a>
+            	LOGOUT</a>
         </div>
       </div>
     </div>

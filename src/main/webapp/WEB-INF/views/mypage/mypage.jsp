@@ -45,7 +45,7 @@
     </div>
 	<!-- THE HEADER -->
 		<!-- THE HEADER -->
-	<%@ include file="includes/header.jsp"%>
+	<%@ include file="/WEB-INF/views/includes/header.jsp"%>
 		
 	<!-- MAIN CONTENT -->
 	<div id="content-block">
@@ -706,7 +706,7 @@
 		</div>
 	</div>
 	<!-- THE FOOTER -->
-	<%@ include file="includes/footer.jsp"%>
+	<%@ include file="/WEB-INF/views/includes/footer.jsp"%>
 
 	<div class="be-fixed-filter"></div>
 	
