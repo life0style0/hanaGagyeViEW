@@ -47,27 +47,30 @@ function makeCalendar(yearSrc, monthSrc) {
 
 }
 
-function makeGgv(data) {
+function checkScope(scope) {
+    if (scope === 'u') {
+        return '공개';
+    } else if (scope === 'r') {
+        return '나만';
+    }
+    return 'error';
+}
+
+function showGgvToCalendar(data) {
     let html = '';
     html = `<div class="ggv"><input type="hidden" name="articleId" value="${data.articleId}"><div class="ggv-title"><span>카테고리 : ${data.ctgryName}</span>`;
-    if (data.articleScope === 'u') {
-        html += `<span class="ggv-scope">공개</span></div>`;
-    } else if (data.articleScope === 'r') {
-        html += `<span class="ggv-scope">나만</span></div>`;
-    }
+    html += `<span class="ggv-scope">${checkScope(data.articleScope)}</span></div>`;
     html += `<div class="ggv-content">${data.articlePaymentFee}</div></div>`;
     return html;
 }
 
 function addDataToCalendar(data) {
-    console.log('data :', data);
-    console.log('startDayNum :', startDayNum);
     const regdate = data.articleRegdate.split('-'); // 2018-01-01 형식
     const ggv = $(`#calendar-${Number(regdate[2]) + Number(startDayNum)}`);
     if (data.articleCtgryType === '지출') {
-        ggv.find('.calendar-spend').append(makeGgv(data));
+        ggv.find('.calendar-spend').append(showGgvToCalendar(data));
     } else if (data.articleCtgryType === '수입') {
-        ggv.find('.calendar-income').append(makeGgv(data));
+        ggv.find('.calendar-income').append(showGgvToCalendar(data));
     }
 }
 
@@ -104,11 +107,15 @@ function setCalendar() {
 }
 
 function showGgv(data) {
-    console.log('data :', data);
     for (let i = 0; i < data.imagePaths.length; i += 1) {
         const imagePath = data.imagePaths[i];
         $('.ggv-carousel').append(`<img class="ggv-image center-block" src="/salmon/image?fileName=${imagePath}" alt="">`);
     }
+    $('#ggvScope').html(checkScope(data.articleScope));
+    $('#ggvMoney').html(`${data.articlePaymentFee}원`);
+    $('#ggvCtgry').html(data.articleCtgryType);
+    $('#ggvPayType').html(data.articlePaymentType);
+    $('#ggvContent').html(data.articleContent);
 }
 
 function resetGgvModal() {
@@ -117,7 +124,6 @@ function resetGgvModal() {
 }
 
 function showGgvInfos(info) {
-    console.log('ggv clicked');
     const articleId = $(info).find('input[name="articleId"]').val();
     if (!articleId) {
         alert("error!");
