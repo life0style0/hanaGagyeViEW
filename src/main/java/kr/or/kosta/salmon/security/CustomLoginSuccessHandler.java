@@ -38,7 +38,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		}
 		if(roleNames.contains("ROLE_MEMBER")) {
 			//response.sendRedirect("/salmon/auth/member");
-			response.sendRedirect("/salmon/home");
+			response.sendRedirect("/salmon/main/home");
 			return;
 		}
 		if(roleNames.contains("ROLE_USER")) {

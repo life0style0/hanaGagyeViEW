@@ -722,7 +722,7 @@
 							<h5 class="large-popup-title">로그아웃</h5>
 						</div>
 						
-						<form method="post" action="customLogout"  class="popup-input-search">
+						<form method="post" action="/salmon/customLogout"  class="popup-input-search">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 							<button  class="be-popup-sign-button">로그아웃</button>
 						</form>
