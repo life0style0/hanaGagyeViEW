@@ -118,8 +118,8 @@ function requestCalendarDataToServer(year, month) {
  * 달력의 년도와 월을 설정해주는 함수
  */
 function setCalendarMY(moveDirection) {
-    const month = $('.calendar.month').html();
-    const year = $('.calendar.year').html();
+    const month = Number($('.calendar.month').html());
+    const year = Number($('.calendar.year').html());
     let monthChanged;
     let yearChanged;
 
@@ -133,27 +133,27 @@ function setCalendarMY(moveDirection) {
             return;
         }
         const datePic = $('#datePic').val().split('/');
-        monthChanged = datePic[0];
-        yearChanged = datePic[1];
+        monthChanged = Number(datePic[0]);
+        yearChanged = Number(datePic[1]);
 
         if (monthChanged == month && yearChanged == year) {
             return;
         }
     } else if (moveDirection === 'left') {
-        if (month !== '1') {
-            monthChanged = Number(month) - 1;
+        if (month !== 1) {
+            monthChanged = month - 1;
             yearChanged = year;
         } else {
             monthChanged = 12;
-            yearChanged = Number(year) - 1;
+            yearChanged = year - 1;
         }
     } else if (moveDirection === 'right') {
-        if (month !== '12') {
-            monthChanged = Number(month) + 1;
+        if (month !== 12) {
+            monthChanged = month + 1;
             yearChanged = year;
         } else {
             monthChanged = 1;
-            yearChanged = Number(year) + 1;
+            yearChanged = year + 1;
         }
     } else {
         alert('moveDirection input error');
@@ -163,6 +163,9 @@ function setCalendarMY(moveDirection) {
 
     makeCalendar(yearChanged, monthChanged);
 
+    if (monthChanged < 10) {
+        monthChanged = '0' + monthChanged;
+    }
     $('.calendar.month').html(monthChanged);
     $('.calendar.year').html(yearChanged);
 
@@ -283,10 +286,16 @@ $(function () {
     });
 
     $('.calendar.month').on('click', function () {
+        const month = $('.calendar.month').html();
+        const year = $('.calendar.year').html();
+        $('.calendar-head .datepic').datepicker('update', new Date(year, month - 1, 1));
         $('.calendar-head .datepic').datepicker('show');
     });
 
     $('.calendar.year').on('click', function () {
+        const month = $('.calendar.month').html();
+        const year = $('.calendar.year').html();
+        $('.calendar-head .datepic').datepicker('update', new Date(year, month - 1, 1));
         $('.calendar-head .datepic').datepicker('show');
     });
 
