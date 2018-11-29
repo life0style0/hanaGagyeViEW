@@ -50,9 +50,9 @@ function makeCalendar(yearSrc, monthSrc) {
 function makeGgv(data) {
     let html = '';
     html = `<div class="ggv"><input type="hidden" name="articleId" value="${data.articleId}"><div class="ggv-title"><span>카테고리 : ${data.ctgryName}</span>`;
-    if (data.articleScope === 'public') {
+    if (data.articleScope === 'u') {
         html += `<span class="ggv-scope">공개</span></div>`;
-    } else if (data.articleScope === 'private') {
+    } else if (data.articleScope === 'r') {
         html += `<span class="ggv-scope">나만</span></div>`;
     }
     html += `<div class="ggv-content">${data.articlePaymentFee}</div></div>`;
@@ -104,11 +104,16 @@ function setCalendar() {
 }
 
 function showGgv(data) {
-    $('.ggv-carousel').html();
+    console.log('data :', data);
     for (let i = 0; i < data.imagePaths.length; i += 1) {
         const imagePath = data.imagePaths[i];
-        $('.ggv-carousel').append(`<img class="ggv-image center-block" src="/salmon/image?fileName=${data.imagePath}" alt="">`);
+        $('.ggv-carousel').append(`<img class="ggv-image center-block" src="/salmon/image?fileName=${imagePath}" alt="">`);
     }
+}
+
+function resetGgvModal() {
+    $('.ggv-carousel').trigger('destroy.owl.carousel');
+    $('.ggv-carousel').html('');
 }
 
 function showGgvInfos(info) {
@@ -184,5 +189,9 @@ $(function () {
 
     $('.calendar-income').on('click', '.ggv', function () {
         showGgvInfos(this);
+    });
+
+    $('#ggv-modal').on('hidden.bs.modal', function () {
+        resetGgvModal();
     });
 });
