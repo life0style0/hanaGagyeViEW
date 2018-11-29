@@ -25,7 +25,15 @@ public class CustomUserDetailsService implements UserDetailsService {
 		//username = user_id
 		UserDTO user= userMapper.read(username);
 		log.warn(" by user mapper : "+user);
-		return user == null ? null : new CustomUserDTO(user);
+		
+		if(user == null) {
+			log.info("return null ");
+			return null;
+		} else {
+			log.info("return user ");
+			return new CustomUserDTO(user);
+		}
+	//	return user == null ? null : new CustomUserDTO(user);
 	}
 	
 	

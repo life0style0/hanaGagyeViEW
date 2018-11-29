@@ -6,15 +6,15 @@
 		<title>HANA 가계ViEW</title>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<link rel="shortcut icon" href="resources/template/img/favicon.png">
+		<link rel="shortcut icon" href="/salmon/resources/template/img/favicon.png">
     	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="resources/template/style/bootstrap.min.css">
+		<link rel="stylesheet" href="/salmon/resources/template/style/bootstrap.min.css">
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="resources/template/style/icon.css">
-		<link rel="stylesheet" href="resources/template/style/loader.css">
-		<link rel="stylesheet" href="resources/template/style/idangerous.swiper.css">
-		<link rel="stylesheet" href="resources/template/style/jquery-ui.css">
-		<link rel="stylesheet" href="resources/template/style/stylesheet.css">
+		<link rel="stylesheet" href="/salmon/resources/template/style/icon.css">
+		<link rel="stylesheet" href="/salmon/resources/template/style/loader.css">
+		<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
+		<link rel="stylesheet" href="/salmon/resources/template/style/jquery-ui.css">
+		<link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 		<script src="https://code.highcharts.com/modules/export-data.js"></script>
@@ -34,7 +34,7 @@
 
 	<div class="be-loader">
     	<div class="spinner">
-			<img src="resources/template/img/logo-loader.png"  alt="">
+			<img src="/salmon/resources/template/img/logo-loader.png"  alt="">
 			<p class="circle">
 			  <span class="ouro">
 			    <span class="left"><span class="anim"></span></span>
@@ -372,7 +372,7 @@
 						<div class="category-1 mix custom-column-5">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
-								<img src="resources/template/img/p1.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p1.jpg" alt="omg">
 								</a>
 								<a href="page1.html" class="be-post-title">The kitsch destruction of our world</a>
 								<span>
@@ -381,7 +381,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a1.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a1.png" alt="" class="ava-author">
 									<span>by <a href="page1.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -394,7 +394,7 @@
 						<div class="category-2 mix custom-column-5">
 							<div class="be-post">
 								<a href="page2.html" class="be-img-block">
-								<img src="resources/template/img/p2.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p2.jpg" alt="omg">
 								</a>
 								<a href="page2.html" class="be-post-title">Treebeard</a>
 								<span>
@@ -403,7 +403,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a1.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a1.png" alt="" class="ava-author">
 									<span>by <a href="page2.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -416,7 +416,7 @@
 						<div class="category-3 mix custom-column-5">
 							<div class="be-post">
 								<a href="page3.html" class="be-img-block">
-								<img src="resources/template/img/p3.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p3.jpg" alt="omg">
 								</a>
 								<a href="page3.html" class="be-post-title">Colors of Ramadan</a>
 								<span>
@@ -425,7 +425,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a2.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a2.png" alt="" class="ava-author">
 									<span>by <a href="page3.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -438,7 +438,7 @@
 						<div class="category-4 mix custom-column-5">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
-								<img src="resources/template/img/p4.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p4.jpg" alt="omg">
 								</a>
 								<a href="page1.html" class="be-post-title">Leaving Home - L'Officiel Ukraine</a>
 								<span>
@@ -447,7 +447,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a3.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a3.png" alt="" class="ava-author">
 									<span>by <a href="page1.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -460,7 +460,7 @@
 						<div class="category-5 mix custom-column-5">
 							<div class="be-post">
 								<a href="page2.html" class="be-img-block">
-								<img src="resources/template/img/p5.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p5.jpg" alt="omg">
 								</a>
 								<a href="page2.html" class="be-post-title">Drive Your World</a>
 								<span>
@@ -469,7 +469,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a4.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a4.png" alt="" class="ava-author">
 									<span>by <a href="page2.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -482,7 +482,7 @@
 						<div class="category-6 mix custom-column-5">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
-								<img src="resources/template/img/p13.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p13.jpg" alt="omg">
 								</a>
 								<a href="page1.html" class="be-post-title">Fran Ewald for The Diaries Project</a>
 								<span>
@@ -491,7 +491,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a5.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a5.png" alt="" class="ava-author">
 									<span>by <a href="page1.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -504,7 +504,7 @@
 						<div class="category-5 mix custom-column-5">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
-								<img src="resources/template/img/p7.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p7.jpg" alt="omg">
 								</a>
 								<a href="page1.html" class="be-post-title">raindrops monochrome</a>
 								<span>
@@ -513,7 +513,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a6.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a6.png" alt="" class="ava-author">
 									<span>by <a href="page1.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -526,7 +526,7 @@
 						<div class="category-3 mix custom-column-5">
 							<div class="be-post">
 								<a href="page3.html" class="be-img-block">
-								<img src="resources/template/img/p8.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p8.jpg" alt="omg">
 								</a>
 								<a href="page3.html" class="be-post-title">Racing Queensland</a>
 								<span>
@@ -535,7 +535,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a7.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a7.png" alt="" class="ava-author">
 									<span>by <a href="page3.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -548,7 +548,7 @@
 						<div class="category-2 mix custom-column-5">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
-								<img src="resources/template/img/p9.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p9.jpg" alt="omg">
 								</a>
 								<a href="page1.html" class="be-post-title">NAHA Finalist Hairstylist of the Year Allen Ruiz</a>
 								<span>
@@ -557,7 +557,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a7.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a7.png" alt="" class="ava-author">
 									<span>by <a href="page1.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -570,7 +570,7 @@
 						<div class="category-4 mix custom-column-5">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
-								<img src="resources/template/img/p10.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p10.jpg" alt="omg">
 								</a>
 								<a href="page1.html" class="be-post-title">tomorrow</a>
 								<span>
@@ -579,7 +579,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a8.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a8.png" alt="" class="ava-author">
 									<span>by <a href="page1.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -592,7 +592,7 @@
 						<div class="category-6 mix custom-column-5">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
-								<img src="resources/template/img/p11.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p11.jpg" alt="omg">
 								</a>
 								<a href="page1.html" class="be-post-title">Tropicalia</a>
 								<span>
@@ -601,7 +601,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a5.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a5.png" alt="" class="ava-author">
 									<span>by <a href="page1.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -614,7 +614,7 @@
 						<div class="category-2 mix custom-column-5">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
-								<img src="resources/template/img/p12.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p12.jpg" alt="omg">
 								</a>
 								<a href="page1.html" class="be-post-title">Face</a>
 								<span>
@@ -623,7 +623,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a6.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a6.png" alt="" class="ava-author">
 									<span>by <a href="page1.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -636,7 +636,7 @@
 						<div class="category-1 mix custom-column-5">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
-								<img src="resources/template/img/p13.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p13.jpg" alt="omg">
 								</a>
 								<a href="page1.html" class="be-post-title">Stay Ahead Series</a>
 								<span>
@@ -645,7 +645,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a5.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a5.png" alt="" class="ava-author">
 									<span>by <a href="page1.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -658,7 +658,7 @@
 						<div class="category-3 mix custom-column-5">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
-								<img src="resources/template/img/p14.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p14.jpg" alt="omg">
 								</a>
 								<a href="page1.html" class="be-post-title">Faber-Castell / Psychological Problems</a>
 								<span>
@@ -667,7 +667,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a1.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a1.png" alt="" class="ava-author">
 									<span>by <a href="page1.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -680,7 +680,7 @@
 						<div class="category-1 mix custom-column-5">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
-								<img src="resources/template/img/p15.jpg" alt="omg">
+								<img src="/salmon/resources/template/img/p15.jpg" alt="omg">
 								</a>
 								<a href="page1.html" class="be-post-title">Garry Simpson - Bridges - Intelligent Life Magazine</a>
 								<span>
@@ -689,7 +689,7 @@
 									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
 								</span>
 								<div class="author-post">
-									<img src="resources/template/img/a9.png" alt="" class="ava-author">
+									<img src="/salmon/resources/template/img/a9.png" alt="" class="ava-author">
 									<span>by <a href="page1.html">Hoang Nguyen</a></span>
 								</div>
 								<div class="info-block">
@@ -722,7 +722,7 @@
 							<h5 class="large-popup-title">로그아웃</h5>
 						</div>
 						
-						<form method="post" action="/salmon/customLogout"  class="popup-input-search">
+						<form method="post" action="customLogout"  class="popup-input-search">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 							<button  class="be-popup-sign-button">로그아웃</button>
 						</form>
@@ -874,28 +874,28 @@
 	    <div class="main-color">
 	        <div class="title">Main Color:</div>
 	        <div class="colours-wrapper">
-	            <div class="entry color1 m-color active" data-colour="resources/template/style/stylesheet.css"></div>   
-	            <div class="entry color3 m-color"  data-colour="resources/template/style/style-green.css"></div>
-	            <div class="entry color6 m-color"  data-colour="resources/template/style/style-orange.css"></div>
-	            <div class="entry color8 m-color"  data-colour="resources/template/style/style-red.css"></div>  
+	            <div class="entry color1 m-color active" data-colour="/salmon/resources/template/style/stylesheet.css"></div>   
+	            <div class="entry color3 m-color"  data-colour="/salmon/resources/template/style/style-green.css"></div>
+	            <div class="entry color6 m-color"  data-colour="/salmon/resources/template/style/style-orange.css"></div>
+	            <div class="entry color8 m-color"  data-colour="/salmon/resources/template/style/style-red.css"></div>  
 	            <div class="title">Second Color:</div>  
-	            <div class="entry s-color  active color10"  data-colour="resources/template/style/stylesheet.css"></div>
-	            <div class="entry s-color color11"  data-colour="resources/template/style/style-oranges.css"></div> 
-	            <div class="entry s-color color12"  data-colour="resources/template/style/style-greens.css"></div>
-	            <div class="entry s-color color13"  data-colour="resources/template/style/style-reds.css"></div>
+	            <div class="entry s-color  active color10"  data-colour="/salmon/resources/template/style/stylesheet.css"></div>
+	            <div class="entry s-color color11"  data-colour="/salmon/resources/template/style/style-oranges.css"></div> 
+	            <div class="entry s-color color12"  data-colour="/salmon/resources/template/style/style-greens.css"></div>
+	            <div class="entry s-color color13"  data-colour="/salmon/resources/template/style/style-reds.css"></div>
 	        </div>
 	    </div>
-	   <div class="open"><img src="resources/template/img/icon-134.png" alt=""></div>
+	   <div class="open"><img src="/salmon/resources/template/img/icon-134.png" alt=""></div>
 	</div>
 	<!-- SCRIPTS	 -->
-	<script src="resources/template/script/jquery-2.1.4.min.js"></script>
-	<script src="resources/template/script/jquery-ui.min.js"></script>
-	<script src="resources/template/script/bootstrap.min.js"></script>		
-	<script src="resources/template/script/idangerous.swiper.min.js"></script>
-	<script src="resources/template/script/jquery.mixitup.js"></script>
-	<script src="resources/template/script/jquery.viewportchecker.min.js"></script>
-	<script src="resources/template/script/filters.js"></script>
-	<script src="resources/template/script/global.js"></script>
+	<script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>
+	<script src="/salmon/resources/template/script/jquery-ui.min.js"></script>
+	<script src="/salmon/resources/template/script/bootstrap.min.js"></script>		
+	<script src="/salmon/resources/template/script/idangerous.swiper.min.js"></script>
+	<script src="/salmon/resources/template/script/jquery.mixitup.js"></script>
+	<script src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
+	<script src="/salmon/resources/template/script/filters.js"></script>
+	<script src="/salmon/resources/template/script/global.js"></script>
 	<script>
 	Highcharts.createElement('link', {
 	    href: 'https://fonts.googleapis.com/css?family=Unica+One',

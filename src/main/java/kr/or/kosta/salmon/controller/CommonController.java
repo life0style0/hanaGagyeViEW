@@ -25,7 +25,8 @@ public class CommonController {
 		model.addAttribute("msg","Access Denied");
 	}
 	
-	@RequestMapping("/login/customLogin")
+//	@RequestMapping("/login/customLogin")
+	@RequestMapping("/login")
 	public void loginInput(String error, String logout, Model model) {
 		log.info(" 로그인 요청 ");
 		log.info("error : "+error);
