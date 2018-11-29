@@ -54,7 +54,7 @@
    </div>
    
    <div>
-      <input type="submit" id="registSubmitBtn" value="가입하기">
+      <input type="button" id="registSubmitBtn" value="가입하기">
    </div>
    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 </form>

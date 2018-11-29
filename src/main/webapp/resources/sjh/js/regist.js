@@ -1,5 +1,5 @@
 $(function(){ 
-
+	registReady = true;
 	init();
 
 	if($('#registForm') != null){
@@ -12,17 +12,24 @@ $(function(){
 	}
 	
 	if (document.getElementById('registForm') != null) { //가입화면인 경우
-
+		
 		document.getElementById("registSubmitBtn").onclick = function () {
+			registReady = true;
 			//폼 제출
-			isValidId();
-			isValidEmail();
-			isSamePasswd();
-			isValidPasswd();
-			isValidNickName();
-			isValidAge();
-			isValidEmail();
+			isValidId(); 
+			console.log(registReady);
+			isValidEmail(); 
+			console.log(registReady);
+			isSamePasswd(); 
+			console.log(registReady);
+			isValidPasswd(); 
+			console.log(registReady);
+			isValidNickName(); 
+			console.log(registReady);
+			isValidAge(); 
+			console.log(registReady);
 
+			console.log(registReady);
 			if (registReady == true) {
 				console.log('submit regist');
 				$('#registForm').submit();
@@ -33,7 +40,7 @@ $(function(){
 })
 
 function init() {
-	registReady = true;
+	
 	if($('#registForm') != null){
 		$('#valid_user_id').css('visibility', 'hidden');
 		$('#valid_user_passwd').css('visibility', 'hidden');
@@ -47,6 +54,7 @@ function init() {
 
 //아이디 중복
 function isValidId() {
+	
 	const reg = /^\w{3,15}$/;
 	var user_id = $('#user_id').val();
 
@@ -67,6 +75,7 @@ function isValidId() {
 	$.ajax({
 		data: user_id,
 		type: "get",
+		 async: false,
 		url: "/salmon/regist/idValidator/"+user_id,
 
 		success: function (data) {
@@ -76,11 +85,13 @@ function isValidId() {
 				$('#valid_user_id').html('사용가능한 아이디 입니다')
 				$('#valid_user_id').css('visibility', 'visible');
 				registReady = true && registReady;
+				console.log(registReady);
 
 			} else if (data === 'usedId') { //존재하는 아이디
 				$('#valid_user_id').html('이미 사용중인 아이디 입니다')
 				$('#valid_user_id').css('visibility', 'visible');
 				registReady = false && registReady;
+				console.log(registReady);
 			}
 		},
 		error: function () {
@@ -107,6 +118,7 @@ function isValidEmail() {
 	$.ajax({
 		data: user_email,
 		type: 'get',
+		 async: false,
 		url: '/salmon/regist/emailValidator/',
 
 		success: function (data) {
@@ -116,11 +128,13 @@ function isValidEmail() {
 				$('#valid_user_email').html('사용가능한 이메일 입니다')
 				$('#valid_user_email').css('visibility', 'visible');
 				registReady = true && registReady;
+				console.log(registReady);
 
 			} else if (data === 'usedEmail') { //존재하는 이메일
 				$('#valid_user_email').html('이미 사용중인 이메일 입니다')
 				$('#valid_user_email').css('visibility', 'visible');
 				registReady = false && registReady;
+				console.log(registReady);
 			}
 		},
 		error: function (xhr,status,er) {
@@ -155,6 +169,7 @@ function isValidNickName() {
 	$.ajax({
 		data: user_nickname,
 		type: "get",
+		 async: false,
 		url: "/salmon/regist/nicknameValidator/"+user_nickname,
 
 		success: function (data) {
@@ -164,11 +179,13 @@ function isValidNickName() {
 				$('#valid_user_nickname').html('사용가능한 닉네임 입니다')
 				$('#valid_user_nickname').css('visibility', 'visible');
 				registReady = true && registReady;
+				console.log(registReady);
 
 			} else if (data === 'usedNickname') { //존재하는 닉네임
 				$('#valid_user_nickname').html('이미 사용중인 닉네임 입니다')
 				$('#valid_user_nickname').css('visibility', 'visible');
 				registReady = false && registReady;
+				console.log(registReady);
 			}
 		},
 		error: function () {
