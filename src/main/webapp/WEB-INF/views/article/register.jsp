@@ -97,20 +97,20 @@
 					<div class="sec"  data-sec="gagyeInfo">
 						<div class="be-large-post">
 							<div class="info-block style-2">
-								<div class="be-large-post-align"><h3 class="info-block-label">가계부 정보 <span style="float:right;"><input class="btn btn-success" type="reset" value="등 록"><input class="btn btn-danger" type="reset" value="초기화"></span></h3></div>
+								<div class="be-large-post-align"><h3 class="info-block-label">가계부 정보 <span style="float:right;"><input class="btn btn-success" type="submit" value="등 록"><input class="btn btn-danger" type="reset" value="초기화"></span></h3></div>
 							</div>
 							<div class="be-large-post-align">
 								<div class="row">
 									<div class="input-col col-xs-12 col-sm-4">
 										<div class="form-group focus-2">
 											<div class="form-label">금액</div>									
-											<input class="form-input" type="text" placeholder="">
+											<input class="form-input" name="article_payment_fee"  type="text" placeholder="">
 										</div>								
 									</div>
 									<div class="input-col col-xs-12 col-sm-4">
 										<div class="form-label">카테고리</div>
 										<div class="be-drop-down icon-none">
-											<span class="be-dropdown-content"> 여행 </span>
+											<span name="article_category" class="be-dropdown-content"> 여행 </span>
 											<ul class="drop-down-list">
 												<li><a>문화</a></li>
 												<li><a>동적생성</a></li>
@@ -150,7 +150,7 @@
 										<div class="col-md-6">
 											<div class="form-label">날짜 선택</div>
 											<div class='input-group date' id='datetimepicker1'>
-												<input type='text' class="form-control " name="searchStartDay" value="${searchStartDay}" /> <span class="input-group-addon">
+												<input type='text' class="form-control " name="article_regdate" value="${searchStartDay}" /> <span class="input-group-addon">
 													<span class="fa fa-calendar"></span>
 												</span>
 											</div>
@@ -163,7 +163,7 @@
 									<div class="input-col col-xs-12">
 										<div class="form-group focus-2">
 											<div class="form-label">간단 메모</div>									
-											<input class="form-input" type="text">
+											<input class="form-input" name="article_title" type="text">
 										</div>								
 									</div>	
 								</div>
@@ -180,7 +180,7 @@
 								<div class="be-change-ava">
 									<!-- 이미지 업로드 시작 -->
 									  <div id="filesUpload" class="dropzone"><a href="javascript:inputFileEvent()">Drag & Drop Files Here</a></button></div>
-									  <input type="file" id="inputFile" style="display:none;">
+									  <input type="file" name="article_photo" id="inputFile" style="display:none;">
 									  <div class="row upload-image-preview"></div>
 									  <div class="row text-center">
 									    <button id="upload" class="btn btn-defualt">Upload</button>
@@ -200,12 +200,13 @@
 							<div class="be-large-post-align">
 								<div class="form-group focus-2">
 									<div class="form-label">내용</div>
-									<textarea class="form-input" required="" placeholder="여러분의 합리적인 소비생활을 소개해주세요"></textarea>
+									<textarea name="article_content" class="form-input" placeholder="여러분의 합리적인 소비생활을 소개해주세요"></textarea>
 								</div>						
 							</div>
 						</div>																
 					</div>				
 				</div>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
 			</div>
 		</div>

@@ -25,8 +25,9 @@ public class GagyeviewController {
 	
 	
 	
-	@GetMapping("/submit")
+	@PostMapping("/submit")
 	public void registArticle(){
+		
 		System.out.println("imin");
 	}
 
