@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.service.UserService;
 import lombok.extern.log4j.Log4j;
@@ -31,6 +32,7 @@ public class UserServiceTests {
 	public void testCreateUser() {
 		
 		UserDTO user= new UserDTO();
+		RegistUserDTO ruser= new RegistUserDTO();
 		
 		user.setUser_id("newid2");
 		user.setUser_nickname("new2Nickname");
@@ -46,7 +48,7 @@ public class UserServiceTests {
 		
 		log.info(service);
 		log.info(pwEncoder);
-		service.userRegist(user);
+	//	service.userRegist(ruser);
 		log.info("회원가입 완료");
 	}
 }

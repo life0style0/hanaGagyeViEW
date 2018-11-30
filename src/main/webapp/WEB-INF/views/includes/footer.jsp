@@ -222,7 +222,7 @@
     <div class="container-fluid custom-container">
       <div class="col-md-12 footer-end clearfix">
         <div class="left">
-          <span class="copy">© 2015. All rights reserved. <span class="white"><a href="blog-detail-2.html"> NRGNetwork</a></span></span>
+          <span class="copy">ï¿½ 2015. All rights reserved. <span class="white"><a href="blog-detail-2.html"> NRGNetwork</a></span></span>
           <span class="created">Created with LOVE by <span class="white"><a href="blog-detail-2.html"> NRGThemes</a></span></span>
         </div>
         <div class="right">

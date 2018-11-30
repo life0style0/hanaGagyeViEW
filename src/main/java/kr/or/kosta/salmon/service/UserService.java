@@ -1,4 +1,5 @@
 package kr.or.kosta.salmon.service;
+import kr.or.kosta.salmon.domain.RegistUserDTO;
 /**
  * User 관련 처리
  * @author 송주현
@@ -7,7 +8,7 @@ import kr.or.kosta.salmon.domain.UserDTO;
 
 public interface UserService {
 
-	public void userRegist(UserDTO user);
+	public void userRegist(RegistUserDTO user);
 	
 	public void userUpdate(UserDTO user);
 	
