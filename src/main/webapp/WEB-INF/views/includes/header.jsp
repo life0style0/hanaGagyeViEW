@@ -17,18 +17,6 @@
         <ul class="header-menu" id="one">
           <li><a href="/salmon/main/mypage">MYPAGE</a></li>
           <li><a href="/salmon/accountbook/calendar">AccountBook</a></li>
-          <li><a href="search.html">Discover</a>
-            <ul>
-              <li><a href="search.html">안녕</a></li>
-              <li><a href="people.html">People</a></li>
-              <li><a href="gallery.html">Galleries</a></li>
-            </ul>
-          </li>
-          <li><a href="author-login.html">My Portfolio</a></li>
-          <li><a href="site-map.html">Site Map</a></li>
-          <li><a href="organization.html">Organization</a></li>
-          <li id="ad-work-li"><a id="add-work-btn" class="btn color-1" href="work.html">Add Work </a></li>
-          
         </ul>
       </div>
       <div class="login-header-block">

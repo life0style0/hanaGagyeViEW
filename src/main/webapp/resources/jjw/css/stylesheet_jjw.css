@@ -136,12 +136,13 @@
 }
 
 .ggv-image {
-  height: 400px !important;
+  height: 523px !important;
   width: auto !important;
 }
 
-.ggv-image .ggv-carousel {
-  display: inline-grid;
+.ggv-carousel {
+  /* display: inline-grid; */
+  background-color: #ededed;
 }
 
 .ggv-carousel .owl-nav {
@@ -174,6 +175,17 @@
   padding: 6px 15px;
 }
 
+#ggvTitle {
+  height: 100px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+}
+
+#ggvContent {
+  overflow-y: scroll;
+  height: 200px;
+}
+
 .ggv-content {
   width: 100%;
   display: inline-block;
@@ -187,8 +199,12 @@
   padding: 5px 10px;
   margin: unset;
   border: none;
-  position: relative;
-  top: -60px;
+  /* position: relative;
+  top: -60px; */
+}
+
+#ggv-modal .modal-dialog {
+  width: 70%;
 }
 
 .ggv-content-left {
@@ -203,6 +219,7 @@
 
 .ggv-body {
   margin-bottom: -50px;
+  height: 600px;
 }
 
 .ggv-footer {
@@ -218,13 +235,24 @@
   margin-left: 10px;
 }
 
-.ggv-col-6 {
+.ggv-body-2 {
   width: 48%;
   display: inline-flex;
   margin: 5px;
   padding: unset;
   border: none;
-  float: left;
+  border-radius: 30px;
+  font-size: 20px;
+}
+
+.ggv-col-6 {
+  /* width: 48%;
+  display: inline-flex;
+  margin: 5px;
+  border: none;
+  float: left; */
+  margin-bottom: 14px;
+  padding: unset;
   background-color: #ededed;
   border-radius: 30px;
   font-size: 20px;
@@ -241,7 +269,7 @@
   border: none;
   float: left;
   background-color: #ededed;
-  border-radius: 20px;
+  /* border-radius: 20px; */
 }
 
 .text-gray {

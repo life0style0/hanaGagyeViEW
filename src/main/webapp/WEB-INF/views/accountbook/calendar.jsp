@@ -67,16 +67,16 @@
 						</div>
 					</div>
 					<div class="for-be-dropdowns">
-							<div class="be-drop-down">
-								<i class="icon-projects"></i>
-								<span class="be-dropdown-content ggv-type">공개/나만</span>
-								<ul class="drop-down-list">
-									<li><a data-type="calendar-all">공개/나만</a></li>
-									<li><a data-type="calendar-income">공개</a></li>
-									<li><a data-type="calendar-spend">나만</a></li>
-								</ul>
-							</div>
+						<div class="be-drop-down">
+							<i class="icon-projects"></i>
+							<span class="be-dropdown-content ggv-type">공개/나만</span>
+							<ul class="drop-down-list">
+								<li><a data-type="calendar-all">공개/나만</a></li>
+								<li><a data-type="calendar-income">공개</a></li>
+								<li><a data-type="calendar-spend">나만</a></li>
+							</ul>
 						</div>
+					</div>
 				</div>
 				<div class="col-md-7">
 					<div class="sorting-cal-money">
@@ -165,30 +165,33 @@
 						<h4 class="modal-title" id="ggv-modal-label">2018년 11월 27일 오후 1시 12분</h4>
 					</div>
 					<div class="ggv-body">
-						<div class="ggv-carousel owl-carousel owl-theme">
+						<div class="col-md-6">
+							<div class="ggv-carousel owl-carousel owl-theme">
+							</div>
 						</div>
-						<div class="ggv-modal-content">
-							<div class="ggv-col-6">
-								<div class="col-md-6 text-center ggv-content-left">공개 범위</div>
-								<div class="col-md-6 text-center ggv-content-right" id="ggvScope">나만</div>
-							</div>
-							<div class="ggv-col-6">
-								<div class="col-md-6 text-center ggv-content-left">금액</div>
-								<div class="col-md-6 text-center ggv-content-right" id="ggvMoney">100,000원</div>
-							</div>
-							<div class="ggv-col-6">
-								<div class="col-md-6 text-center ggv-content-left">카테고리</div>
-								<div class="col-md-6 text-center ggv-content-right" id="ggvCtgry">음식</div>
-							</div>
-							<div class="ggv-col-6">
-								<div class="col-md-6 text-center ggv-content-left">결제 방법</div>
-								<div class="col-md-6 text-center ggv-content-right" id="ggvPayType">카드</div>
-							</div>
-							<div class="ggv-col-12">
-								간단한 메모
-							</div>
-							<div class="ggv-col-12" id="ggvContent">
-								여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용
+						<div class="col-md-6">
+							<div class="ggv-modal-content">
+								<div class="col-md-12 ggv-col-6">
+									<div class="col-xs-6 col-md-6 text-center ggv-content-left">공개 범위</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvScope">나만</div>
+								</div>
+								<div class="col-md-12 ggv-col-6">
+									<div class="col-xs-6 col-md-6 text-center ggv-content-left">금액</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvMoney">100,000원</div>
+								</div>
+								<div class="col-md-12 ggv-col-6">
+									<div class="col-xs-6 col-md-6 text-center ggv-content-left">카테고리</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvCtgry">음식</div>
+								</div>
+								<div class="col-md-12 ggv-col-6">
+									<div class="col-xs-6 col-md-6 text-center ggv-content-left">결제 방법</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvPayType">카드</div>
+								</div>
+								<div class="ggv-col-12" id="ggvTitle">
+									간단한 메모
+								</div>
+								<div class="ggv-col-12" id="ggvContent">
+								</div>
 							</div>
 						</div>
 					</div>
