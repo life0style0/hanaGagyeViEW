@@ -13,17 +13,18 @@
       </div>
       <div class="header-menu-block">
         <button class="cmn-toggle-switch cmn-toggle-switch__htx"><span></span></button>
-        <div> <sec:authentication property="principal.username"/>님 </div> 
+        <div>
+          <sec:authentication property="principal.username" />님 </div>
         <ul class="header-menu" id="one">
           <li><a href="/salmon/main/mypage">MYPAGE</a></li>
           <li><a href="/salmon/accountbook/calendar">AccountBook</a></li>
         </ul>
       </div>
       <div class="login-header-block">
-    
+
         <div class="login_block">
           <a class="btn-login btn color-1 size-2 hover-2" href=""><i class="fa fa-user"></i>
-            	LOGOUT</a>
+            LOGOUT</a>
         </div>
       </div>
     </div>
