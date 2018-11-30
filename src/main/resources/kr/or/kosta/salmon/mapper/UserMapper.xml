@@ -97,7 +97,7 @@
 		            #{user_id}, 
 		            #{location_id},  
 		            #{ctgry_1},   
-		            #{ctgry_2},  
+		            #{ctgry_2},   
 		            #{ctgry_3})
 	</insert>
 	

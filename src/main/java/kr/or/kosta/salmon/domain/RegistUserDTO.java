@@ -16,9 +16,9 @@ public class RegistUserDTO {
 	private String user_image; //프로필 사진
 	private String user_regdate;
 	private int location_id; //지역정보
-	private int CTGRY_1; //관심카테고리1
-	private int CTGRY_2; //관심카테고리1
-	private int CTGRY_3; //관심카테고리1
+	private int ctgry_1; //관심카테고리1
+	private int ctgry_2; //관심카테고리1
+	private int ctgry_3; //관심카테고리1
 	
 	//private boolean enabled; //sequrity에 필요
 	

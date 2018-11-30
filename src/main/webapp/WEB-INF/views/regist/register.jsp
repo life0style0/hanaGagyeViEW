@@ -62,14 +62,14 @@ font-family: 'Noto Sans KR', sans-serif;
                             <!-- 비밀번호 입력 -->
                             <div class="col-2">
                                 <div class="input-group">
-                                    <input class="input--style-1" type="text" placeholder="비밀번호" id="user_passwd" name="user_passwd" >
+                                    <input class="input--style-1" type="password" placeholder="비밀번호" id="user_passwd" name="user_passwd" >
                                 </div>
                                 <div id="valid_user_passwd">비밀번호 체크</div>
                             </div>
                             <!-- 비밀번호 입력 확인 -->
                             <div class="col-2">
                                 <div class="input-group">
-                                    <input class="input--style-1" type="text" placeholder="비밀번호 확인" id="same_user_passwd" name="same_passwd" >
+                                    <input class="input--style-1" type="password" placeholder="비밀번호 확인" id="same_user_passwd" name="same_passwd" >
                                 </div>
                                  <div id="same_valid_user_passwd">비밀번호 체크</div>
                                 
@@ -168,9 +168,9 @@ font-family: 'Noto Sans KR', sans-serif;
                         		<div id="category-10" class="unselected" value="10">댄스</div>
                         	</li>
                         </ul>
-                        <input type="hidden" id="CTGRY_1" name="CTGRY_1">
-                        <input type="hidden" id="CTGRY_2" name="CTGRY_2">
-                        <input type="hidden" id="CTGRY_3" name="CTGRY_3">
+                        <input type="hidden" id="CTGRY_1" name="ctgry_1">
+                        <input type="hidden" id="CTGRY_2" name="ctgry_2">
+                        <input type="hidden" id="CTGRY_3" name="ctgry_3">
                        
                             <div class="rs-select2 js-select-simple select--no-search">
                                 <!-- <select name="class">
@@ -188,7 +188,7 @@ font-family: 'Noto Sans KR', sans-serif;
                         
                   
                         <div class="p-t-20">
-                            <button class="btn btn--radius btn--green"  id="registSubmitBtn"  type="submit">가입하기</button>
+                            <button class="btn btn--radius btn--green"  id="registSubmitBtn" >가입하기</button>
                         </div>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                     </form>

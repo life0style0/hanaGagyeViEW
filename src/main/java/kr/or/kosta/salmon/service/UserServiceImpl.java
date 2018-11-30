@@ -26,8 +26,11 @@ public class UserServiceImpl implements UserService {
 		log.info("회원가입 시작");
 		UserDTO simpleUser= user.makeUserDTO();
 		usermapper.createUser(simpleUser); //user 생성
+		log.info("createUser 끝");
 		usermapper.insertUserAuth(simpleUser); //spring security 권한 부여
+		log.info("insertUserAuth 끝");
 		usermapper.insertBasicPsns(user); //기본정보 저장
+		log.info("insertBasicPsns 끝");
 		log.info("회원가입 끝");
 	}
 

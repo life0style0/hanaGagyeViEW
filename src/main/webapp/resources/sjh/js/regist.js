@@ -18,7 +18,8 @@ $(function(){
 				);*/
 		
 		$('#locations').on('change',getLocationInfo);
-		$('#select2-genders-container').on('click',getGenderInfo);
+	//	$('#select2-genders-container').on('click',getGenderInfo);
+	//	$('#user_input-birthday').on('click',isValidAge);
 	}
 	
 	if (document.getElementById('registForm') != null) { //가입화면인 경우
@@ -29,17 +30,18 @@ $(function(){
 			getLocationInfo();
 			getGenderInfo();
 			isValidAge(); 
+			console.log($('input[name="user_birthday"]'));
 			
 			isValidId(); 
-			console.log(registReady);
+		//	console.log(registReady);
 			isValidEmail(); 
-			console.log(registReady);
+		//	console.log(registReady);
 			isSamePasswd(); 
-			console.log(registReady);
+		//	console.log(registReady);
 			isValidPasswd(); 
-			console.log(registReady);
+		//	console.log(registReady);
 			isValidNickName(); 
-			console.log(registReady);
+		//	console.log(registReady);
 			isValidCategory();
 			
 			console.log(registReady);
@@ -271,7 +273,7 @@ function isValidName() {
 }
 
 //나이 유효성 
-function isValidAge_origin() {
+/*function isValidAge_origin() {
 	$('#user_birthday').removeAttr('value');
 	var reg = /^\d{6}$/;
 	var age = $('#user_input-birthday').val();
@@ -298,6 +300,8 @@ function isValidAge_origin() {
 	}
 }
 
+*/
+
 //나이 유효성 
 function isValidAge() {
 	$('#user_birthday').removeAttr('value');
@@ -305,7 +309,7 @@ function isValidAge() {
 	age= age.split('/');
 	
 	// 04/11/2018
-	var year=age[2].substring(2,4);
+	var year=$(age)[2].substring(2,4);
 	var mon= age[1];
 	var day= age[0];
 	
@@ -313,8 +317,15 @@ function isValidAge() {
 	console.log(age);
 	
 	$('#valid_user_birthday').css('visibility', 'hidden');
-	$('#user_birthday').attr('val',age);
-	registReady = true && registReady;
+	$('#user_birthday').attr('value',age);
+	
+	if($('input[name="user_birthday"]').attr('value').length== 0){
+		alert('birthday error');
+		registReady = false && registReady;
+	}else{
+		alert($('input[name="user_birthday"]').attr('value')+'!');
+		registReady = true && registReady;
+	}
 }
 
 //카테고리 선택 이벤트
@@ -395,20 +406,7 @@ function isValidCategory(){
 		} else{
 			registReady = true && registReady;
 		}
-		/*
-		if(categoryNum >=1){
-			//1개 이상 선택됨
-			$('#CTGRY_1').attr('value');
-		}else if(categoryNum >=2){
-			//2개 이상 선택됨
-			$('#CTGRY_2').attr('value');
-		}else if(categoryNum >=3){
-			//3개 선택됨
-			$('#CTGRY_3').attr('value');
-		}else{
-			
-		}
-		*/
+	
 	}
 }
 
@@ -425,10 +423,9 @@ function getGenderInfo(){
 	var userGender=$('#select2-genders-container').attr('title');
 	if(userGender == 'Male'){
 		$('input#user_gender').attr('value','M');
-	} else if (userGender == 'FeMale'){
+	} else if (userGender == 'Female'){
 		$('input#user_gender').attr('value','F');
 	}
 	
-	//console.log($('input#user_gender'));
-	
+	console.log($('input#user_gender').attr('value'));
 }
