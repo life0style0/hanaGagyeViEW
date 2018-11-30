@@ -11,8 +11,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/salmon/resources/template/style/bootstrap.min.css">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" -->
-	 crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous"> -->
 	<link rel="stylesheet" href="/salmon/resources/template/style/icon.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/loader.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
@@ -79,9 +78,6 @@
 				</div>
 				<div class="col-md-5">
 					<div class="sorting-cal-money">
-						Filter by price interval: <b>€ 10</b>
-						<input id="ex2" type="text" class="span2" value="" data-slider-min="10" data-slider-max="1000" data-slider-step="5"
-						 data-slider-value="[250,450]" /> <b>€ 1000</b>
 					</div>
 				</div>
 			</div>
@@ -223,7 +219,6 @@
 		<!-- <script src="/salmon/resources/template/script/jquery.mixitup.js"></script> -->
 		<script src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
 		<script src="/salmon/resources/template/script/filters.js"></script>
-		<script src="/salmon/resources/jjw/js/mixitup.js"></script>
 		<script src="/salmon/resources/template/script/global.js"></script>
 		<script src="/salmon/resources/jjw/js/bootstrap-datepicker.min.js"></script>
 		<script src="/salmon/resources/jjw/js/bootstrap-datepicker.kr.min.js"></script>
