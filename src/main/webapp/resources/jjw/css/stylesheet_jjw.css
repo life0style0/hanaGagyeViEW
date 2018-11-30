@@ -323,7 +323,8 @@
 
 .hidden-ctgry,
 .hidden-money,
-.hidden-ggvType {
+.hidden-ggvType,
+.hidden-ggvScope {
   display: none !important;
 }
 

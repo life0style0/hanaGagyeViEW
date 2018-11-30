@@ -15,6 +15,7 @@ public class AccountBookDTO {
     private String articleRegdate;
     private String articlePaymentType;
     private int articlePaymentFee;
+    private String articleTitle;
     private String articleContent;
     private String articleCtgryType;
     private List<String> imagePaths;

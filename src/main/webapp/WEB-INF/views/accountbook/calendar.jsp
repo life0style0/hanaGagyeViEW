@@ -60,20 +60,20 @@
 							<i class="icon-projects"></i>
 							<span class="be-dropdown-content ggv-type">수입/지출</span>
 							<ul class="drop-down-list">
-								<li><a data-type="calendar-all">수입/지출</a></li>
-								<li><a data-type="calendar-income">수입</a></li>
-								<li><a data-type="calendar-spend">지출</a></li>
+								<li><a>수입/지출</a></li>
+								<li><a>수입</a></li>
+								<li><a>지출</a></li>
 							</ul>
 						</div>
 					</div>
 					<div class="for-be-dropdowns">
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
-							<span class="be-dropdown-content ggv-type">공개/나만</span>
+							<span class="be-dropdown-content ggv-type">나만/공개</span>
 							<ul class="drop-down-list">
-								<li><a data-type="calendar-all">공개/나만</a></li>
-								<li><a data-type="calendar-income">공개</a></li>
-								<li><a data-type="calendar-spend">나만</a></li>
+								<li><a>나만/공개</a></li>
+								<li><a>공개</a></li>
+								<li><a>나만</a></li>
 							</ul>
 						</div>
 					</div>

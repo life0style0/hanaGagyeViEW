@@ -21,6 +21,7 @@
                 <result property="articleRegdate" column="article_regdate"/>
                 <result property="articlePaymentType" column="article_payment_type"/>
                 <result property="articlePaymentFee" column="article_payment_fee"/>
+                <result property="articleTitle" column="article_title"/>
                 <result property="articleContent" column="article_content"/>
                 <result property="articleCtgryType" column="article_ctgry_type"/>
                 <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
@@ -57,6 +58,7 @@ SELECT article_id,
        to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
        article_payment_type,
        article_payment_fee,
+       article_title,
        article_content,
         article_ctgry_type
 FROM   articles 

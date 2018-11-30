@@ -249,9 +249,9 @@ function setGgv(data) {
     $('#ggvMoney').html(`${data.articlePaymentFee}원`);
     $('#ggvCtgry').html(data.articleCtgryType);
     $('#ggvPayType').html(data.articlePaymentType);
+    $('#ggvTitle').html(data.articleTitle);
 
     let articleContentHTML = data.articleContent;
-    console.log('data :', data);
     for (let i = 0; i < data.hashtags.length; i += 1) {
         const hashtag = data.hashtags[i];
         articleContentHTML += ` <a class="hashtag">${hashtag}</a>`;
@@ -345,7 +345,8 @@ function initCalendar() {
  */
 function initSorting() {
     $(".drop-down-list li").on("click", function () {
-        const ggvType = $('.ggv-type').html().trim();
+        const ggvType = $(this).text().trim();
+        console.log('ggvType :', ggvType);
         if (!ggvType) {
             alert('값이 없습니다.');
             return;
@@ -357,6 +358,22 @@ function initSorting() {
         } else if (ggvType === '지출') {
             $('[class*="sort-cal-"]').addClass('hidden-ggvType');
             $('.sort-cal-spend').removeClass('hidden-ggvType');
+        } else if (ggvType === '나만/공개') {
+            $('.sort-ggv-scope').removeClass('hidden-ggvScope');
+        } else if (ggvType === '나만') {
+            $('.sort-ggv-scope').addClass('hidden-ggvScope');
+            $('.sort-ggv-scope').each(function () {
+                if ($(this).data('scope') === 'r') {
+                    $(this).removeClass('hidden-ggvScope');
+                }
+            });
+        } else if (ggvType === '공개') {
+            $('.sort-ggv-scope').addClass('hidden-ggvScope');
+            $('.sort-ggv-scope').each(function () {
+                if ($(this).data('scope') === 'u') {
+                    $(this).removeClass('hidden-ggvScope');
+                }
+            });
         }
     });
 
@@ -451,4 +468,21 @@ $(function () {
     });
 
     initSorting();
+
+    $(".be-drop-down").on("click", function (e) {
+        const dropdown = this;
+        e.preventDefault();
+        e.stopPropagation();
+        $(dropdown).toggleClass("be-dropdown-active");
+        $(dropdown).find(".drop-down-list").stop().slideToggle();
+
+        $(document).one('click', function closeMenu(e) {
+            if ($(dropdown).has(e.target).length === 0) {
+                $(dropdown).toggleClass("be-dropdown-active");
+                $(dropdown).find(".drop-down-list").stop().slideToggle();
+            } else {
+                $(document).one('click', closeMenu);
+            }
+        });
+    });
 });
