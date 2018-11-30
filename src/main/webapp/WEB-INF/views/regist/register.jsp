@@ -81,9 +81,9 @@ font-family: 'Noto Sans KR', sans-serif;
                             <!-- 생년월일 -->
                             <div class="col-2">
                                 <div class="input-group">
-                                    <input class="input--style-1 js-datepicker" type="text" placeholder="생년월일" id="user_input-birthday" name="user_birthday">
+                                    <input class="input--style-1 js-datepicker" type="text" placeholder="생년월일" id="user_input-birthday" name="user_input-birthday">
                                     <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
-                                	<input type="hidden"  id="user_birthday">
+                                	<input type="hidden" name="user_birthday" id="user_birthday">
                                 </div>
                                  <div id="valid_user_birthday">생년월일 체크</div>
                             </div>
@@ -105,7 +105,7 @@ font-family: 'Noto Sans KR', sans-serif;
                                             <option id="user_gender_F" value="F" >Female</option>
                                         </select>
                                         <div class="select-dropdown"></div>
-                                    	<input type="hidden" id="user_gender">
+                                    	<input type="hidden" id="user_gender" name="user_gender">
                                     </div>
                                 </div>
                             </div>
@@ -132,7 +132,7 @@ font-family: 'Noto Sans KR', sans-serif;
 							<option value="1">서울</option>
 							<option value="2">지역2</option>
 						</select>
-						<input type="hidden" id="location_id">
+						<input type="hidden" id="location_id" name="location_id">
 
 						<div class="input-group">
                         
@@ -168,9 +168,9 @@ font-family: 'Noto Sans KR', sans-serif;
                         		<div id="category-10" class="unselected" value="10">댄스</div>
                         	</li>
                         </ul>
-                        <input type="hidden" id="CTGRY_1">
-                        <input type="hidden" id="CTGRY_2">
-                        <input type="hidden" id="CTGRY_3">
+                        <input type="hidden" id="CTGRY_1" name="CTGRY_1">
+                        <input type="hidden" id="CTGRY_2" name="CTGRY_2">
+                        <input type="hidden" id="CTGRY_3" name="CTGRY_3">
                        
                             <div class="rs-select2 js-select-simple select--no-search">
                                 <!-- <select name="class">

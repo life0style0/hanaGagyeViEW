@@ -9,9 +9,16 @@ $(function(){
 		$('#same_user_passwd').on('change',isSamePasswd);
 		$('#user_nickname').on('change',isValidNickName);
 		$('#user_email').on('change',isValidEmail);
-		$('#user_birthday').on('change',isValidAge);
+		
+	/*	$('#user_input-birthday').on('change',
+				function(){
+			alert('!');
+			isValidAge();
+		}
+				);*/
+		
 		$('#locations').on('change',getLocationInfo);
-		$('#genders').on('change',getGenderInfo);
+		$('#select2-genders-container').on('click',getGenderInfo);
 	}
 	
 	if (document.getElementById('registForm') != null) { //가입화면인 경우
@@ -19,6 +26,10 @@ $(function(){
 		document.getElementById("registSubmitBtn").onclick = function () {
 			registReady = true;
 			//폼 제출
+			getLocationInfo();
+			getGenderInfo();
+			isValidAge(); 
+			
 			isValidId(); 
 			console.log(registReady);
 			isValidEmail(); 
@@ -29,16 +40,12 @@ $(function(){
 			console.log(registReady);
 			isValidNickName(); 
 			console.log(registReady);
-			isValidAge(); 
-			console.log(registReady);
 			isValidCategory();
-			getLocationInfo();
-			getGenderInfo();
 			
 			console.log(registReady);
 			if (registReady == true) {
 				console.log('submit regist');
-				$('#registForm').submit();
+			//	$('#registForm').submit();
 			}
 		}
 	}
@@ -264,7 +271,7 @@ function isValidName() {
 }
 
 //나이 유효성 
-function isValidAge() {
+function isValidAge_origin() {
 	$('#user_birthday').removeAttr('value');
 	var reg = /^\d{6}$/;
 	var age = $('#user_input-birthday').val();
@@ -289,6 +296,25 @@ function isValidAge() {
 		registReady = true && registReady;
 		$('#user_birthday').attr('val',age);
 	}
+}
+
+//나이 유효성 
+function isValidAge() {
+	$('#user_birthday').removeAttr('value');
+	var age = $('#user_input-birthday').val();
+	age= age.split('/');
+	
+	// 04/11/2018
+	var year=age[2].substring(2,4);
+	var mon= age[1];
+	var day= age[0];
+	
+	age=year+mon+day;
+	console.log(age);
+	
+	$('#valid_user_birthday').css('visibility', 'hidden');
+	$('#user_birthday').attr('val',age);
+	registReady = true && registReady;
 }
 
 //카테고리 선택 이벤트
@@ -394,8 +420,15 @@ function getLocationInfo(){
 
 
 function getGenderInfo(){
-	var userGender=$('#genders option:selected').val();
-	$('input#user_gender').attr('value',userGender);
-	console.log($('input#user_gender'));
+	console.log($('#select2-genders-container').attr('title'));
+	
+	var userGender=$('#select2-genders-container').attr('title');
+	if(userGender == 'Male'){
+		$('input#user_gender').attr('value','M');
+	} else if (userGender == 'FeMale'){
+		$('input#user_gender').attr('value','F');
+	}
+	
+	//console.log($('input#user_gender'));
 	
 }
