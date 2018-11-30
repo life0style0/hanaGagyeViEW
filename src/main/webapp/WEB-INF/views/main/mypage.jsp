@@ -72,10 +72,13 @@
 						</h3>
 						<div class="creative_filds_block">
 							<div class="ul">
-								<a data-filter=".category-1" class="filter">조회 </a>
+							<!-- 	<a data-filter=".category-1" class="filter">조회 </a>
 								<a data-filter=".category-2" class="filter">수정 </a>
 								<a data-filter=".category-3" class="filter">탈퇴 </a>
-								
+								 -->
+								<a id="viewInfo-m" class="filter">조회 </a>
+								<a id="editInfo-m" class="filter">수정 </a>
+								<a id="resign-m" class="filter">탈퇴 </a>
 							</div>
 						</div>
 					</div>
@@ -97,9 +100,10 @@
 				</div>
 
 				<div class="col-md-10">
-					<h2> 내 정보 설정 </h2>
 				
-					<p>principal : <sec:authentication property="principal"/></p>
+				<div id="viewInfo">
+					<h2> 내 정보 설정 </h2>
+					
 					<p>user : <sec:authentication property="principal.user"/></p>
 					<p> 닉네임 : <sec:authentication property="principal.user.user_nickname"/></p>
 					<p> 아이디 : <sec:authentication property="principal.username"/></p>
@@ -115,7 +119,7 @@
 					<p> 관심 카테고리1 : <c:out value="${userPsnsInfo.ctgry1Name}"/> </p>  
 					<p> 관심 카테고리2 : <c:out value="${userPsnsInfo.ctgry2Name}"/> </p>  
 					<p> 관심 카테고리3 : <c:out value="${userPsnsInfo.ctgry3Name}"/> </p>  
-				
+				</div>
 					<!-- <div id="container-mix"  class="row _post-container_">
 						<div class="category-1 mix custom-column-5"></div>
 						<div class="category-2 mix custom-column-5"></div>
