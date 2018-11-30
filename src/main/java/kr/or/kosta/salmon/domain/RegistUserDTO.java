@@ -15,6 +15,7 @@ public class RegistUserDTO {
 	private String user_birthday;
 	private String user_image; //프로필 사진
 	private String user_regdate;
+	private int location_id; //지역정보
 	private int CTGRY_1; //관심카테고리1
 	private int CTGRY_2; //관심카테고리1
 	private int CTGRY_3; //관심카테고리1
@@ -23,7 +24,7 @@ public class RegistUserDTO {
 	
 	private List<Auth> authList; //이 User가 가진 권한 목록
 	
-	public UserDTO makeUserDTO() {
+	public UserDTO makeUserDTO() { //psns 뺀 나머지
 		UserDTO user= new UserDTO();
 		user.setUser_id(this.user_id);
 		user.setUser_nickname(user_nickname);

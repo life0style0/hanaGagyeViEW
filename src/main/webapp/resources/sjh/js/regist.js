@@ -10,6 +10,7 @@ $(function(){
 		$('#user_nickname').on('change',isValidNickName);
 		$('#user_email').on('change',isValidEmail);
 		$('#user_birthday').on('change',isValidAge);
+		$('#locations').on('change',getLocationInfo);
 	}
 	
 	if (document.getElementById('registForm') != null) { //가입화면인 경우
@@ -29,7 +30,9 @@ $(function(){
 			console.log(registReady);
 			isValidAge(); 
 			console.log(registReady);
-
+			isValidCategory();
+			getLocationInfo();
+			
 			console.log(registReady);
 			if (registReady == true) {
 				console.log('submit regist');
@@ -49,7 +52,6 @@ function init() {
 		$('#valid_user_nickname').css('visibility', 'hidden');
 		$('#valid_user_email').css('visibility', 'hidden');
 		$('#valid_user_birthday').css('visibility', 'hidden');
-		
 		initCategories();
 	}
 
@@ -359,8 +361,10 @@ function isValidCategory(){
 		if(categoryNum <1){
 			registReady = false && registReady;
 			return;
+		} else{
+			registReady = true && registReady;
 		}
-		
+		/*
 		if(categoryNum >=1){
 			//1개 이상 선택됨
 			$('#CTGRY_1').attr('value');
@@ -373,6 +377,12 @@ function isValidCategory(){
 		}else{
 			
 		}
-		
+		*/
 	}
+}
+
+function getLocationInfo(){
+	var userLocation=$('#locations option:selected').val();
+	$('#location_id').attr('value',userLocation);
+	
 }

@@ -125,9 +125,16 @@ font-family: 'Noto Sans KR', sans-serif;
                                 </div>
                             </div>
                         </div>
-                        
-                        
-                        <div class="input-group">
+
+						지역
+						<select id="locations" required="required">
+							<option disabled="disabled" selected="selected">선택하세요</option>
+							<option value="1">서울</option>
+							<option value="2">지역2</option>
+						</select>
+						<input type="hidden" id="location_id">
+
+						<div class="input-group">
                         
                         <ul id="categories">
                         	<li name="category" class="unselected" id="category-li-1"> 
