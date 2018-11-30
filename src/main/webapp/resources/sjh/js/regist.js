@@ -11,6 +11,7 @@ $(function(){
 		$('#user_email').on('change',isValidEmail);
 		$('#user_birthday').on('change',isValidAge);
 		$('#locations').on('change',getLocationInfo);
+		$('#genders').on('change',getGenderInfo);
 	}
 	
 	if (document.getElementById('registForm') != null) { //가입화면인 경우
@@ -32,6 +33,7 @@ $(function(){
 			console.log(registReady);
 			isValidCategory();
 			getLocationInfo();
+			getGenderInfo();
 			
 			console.log(registReady);
 			if (registReady == true) {
@@ -263,8 +265,9 @@ function isValidName() {
 
 //나이 유효성 
 function isValidAge() {
+	$('#user_birthday').removeAttr('value');
 	var reg = /^\d{6}$/;
-	var age = $('#user_birthday').val();
+	var age = $('#user_input-birthday').val();
 	age= age.split('/');
 	
 	// 04/11/2018
@@ -282,7 +285,9 @@ function isValidAge() {
 		registReady = false && registReady;
 	} else {
 		$('#valid_user_birthday').css('visibility', 'hidden');
+		$('#user_birthday').attr('val',age);
 		registReady = true && registReady;
+		$('#user_birthday').attr('val',age);
 	}
 }
 
@@ -384,5 +389,13 @@ function isValidCategory(){
 function getLocationInfo(){
 	var userLocation=$('#locations option:selected').val();
 	$('#location_id').attr('value',userLocation);
+	
+}
+
+
+function getGenderInfo(){
+	var userGender=$('#genders option:selected').val();
+	$('input#user_gender').attr('value',userGender);
+	console.log($('input#user_gender'));
 	
 }

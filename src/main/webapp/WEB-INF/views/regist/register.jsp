@@ -81,11 +81,11 @@ font-family: 'Noto Sans KR', sans-serif;
                             <!-- 생년월일 -->
                             <div class="col-2">
                                 <div class="input-group">
-                                    <input class="input--style-1 js-datepicker" type="text" placeholder="생년월일" id="user_birthday" name="user_birthday">
+                                    <input class="input--style-1 js-datepicker" type="text" placeholder="생년월일" id="user_input-birthday" name="user_birthday">
                                     <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+                                	<input type="hidden"  id="user_birthday">
                                 </div>
                                  <div id="valid_user_birthday">생년월일 체크</div>
-                                
                             </div>
 
                   
@@ -99,13 +99,13 @@ font-family: 'Noto Sans KR', sans-serif;
 								      <input type="radio" name="user_gender" id="user_gender_F" value="F">
 								      <label for="user_gender_F">Female</label>
                                      -->
-                                        <select name="gender">
+                                        <select id="genders" name="gender">
                                             <option disabled="disabled" selected="selected">성별</option>
-                                            <option  name="user_gender" id="user_gender_M" value="M" >Male</option>
-                                            <option name="user_gender" id="user_gender_F" value="F" >Female</option>
+                                            <option id="user_gender_M" value="M" >Male</option>
+                                            <option id="user_gender_F" value="F" >Female</option>
                                         </select>
-                                        
                                         <div class="select-dropdown"></div>
+                                    	<input type="hidden" id="user_gender">
                                     </div>
                                 </div>
                             </div>
