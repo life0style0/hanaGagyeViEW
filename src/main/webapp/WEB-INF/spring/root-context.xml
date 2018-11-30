@@ -47,5 +47,5 @@
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	
 	<mybatis-spring:scan base-package="kr.or.kosta.salmon.mapper"/>
-
+	
 </beans>

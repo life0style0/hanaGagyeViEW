@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<mapper namespace="kr.or.kosta.salmon.mapper.GaArticleMapper">
+	
+	<!-- 1:N ResultMap 설정 -->
+	<resultMap type="kr.or.kosta.salmon.domain.ArticleDTO" id="articleMap">
+		<id property="article_id" column="article_id"/>
+		<result property="article_id" column="article_id"/>
+		<result property="article_ctgry_id" column="article_ctgry_id"/>
+		<result property="article_scope" column="article_scope"/>
+		<result property="article_regdate" column="article_regdate"/>
+		<result property="article_editdate" column="article_editdate"/>
+		<result property="article_payment_type" column="article_payment_type"/>
+		<result property="article_payment_fee" column="article_payment_fee"/>
+		<result property="article_photo" column="article_photo"/>
+		<result property="article_title" column="article_title"/>
+		<result property="article_content" column="article_content"/>
+		<result property="article_proposal_status" column="article_proposal_status"/>
+		<result property="group_id" column="group_id"/>
+		<result property="user_id" column="user_id"/>
+		<result property="article_deleted" column="article_deleted"/>
+		<collection property="articleList" resultMap="articleMap"/>
+	</resultMap>
+
+	
+	
+	<insert id="createGaArticle" >
+		INSERT INTO articles 
+		            (article_id, 
+		             article_ctgry_id, 
+		             article_scope, 
+		             article_regdate, 
+		             article_editdate, 
+		             article_payment_type, 
+		             article_payment_fee,
+		             article_photo,
+		             article_title,
+		             article_content,
+		             article_proposal_status,
+		             article_group_id,
+		             article_user_id,
+		             article_deleted
+		             ) 
+		VALUES     (#{article_id}, 
+		            #{article_ctgry_id}, 
+		            #{article_scope}, 
+		            #{article_regdate}, 
+		            #{article_editdate}, 
+		            #{article_payment_type}, 
+		            #{article_payment_fee},
+		            #{article_photo},
+		            #{article_title},
+		            #{article_content},
+		            #{article_proposal_status},
+		            #{article_group_id},
+		            #{article_user_id},
+		            #{article_deleted} ) 
+	</insert>
+	
+	<select id="getCategory" resultType="string">
+		SELECT ctgry_name
+		FROM ctgries
+	</select>
+		
+	
+</mapper>

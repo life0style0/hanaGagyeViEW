@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,7 +18,7 @@
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 		<script src="https://code.highcharts.com/modules/export-data.js"></script>
-		
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 		<!-- 이미지 드래그 앤 드롭 관련 -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
@@ -64,7 +65,7 @@
 	  <!-- 이미지업로드 CSS -->   
 	
 	</head>
-	<body >
+	<body data-spy="scroll" data-target=".be-dropdown-content">
 
 	<!-- THE LOADER -->
 
@@ -107,16 +108,14 @@
 											<input class="form-input" name="article_payment_fee"  type="text" placeholder="">
 										</div>								
 									</div>
-									<div class="input-col col-xs-12 col-sm-4">
+									<div class="input-col col-xs-12 col-sm-4" >
 										<div class="form-label">카테고리</div>
 										<div class="be-drop-down icon-none">
-											<span name="article_category" class="be-dropdown-content"> 여행 </span>
-											<ul class="drop-down-list">
-												<li><a>문화</a></li>
-												<li><a>동적생성</a></li>
-												<li><a>해줄</a></li>
-												<li><a>꼬야</a></li>
-												<li><a>!!</a></li>
+											<span name="article_category" class="be-dropdown-content">선택해주세요 </span>
+											<ul class="drop-down-list" style="overflow:scroll; height:200px">
+											<c:forEach var="catList" items="${categoryList}">
+												<li><a>${catList}</a></li>
+											</c:forEach>
 											</ul>
 										</div>							
 									</div>
@@ -140,8 +139,8 @@
 										<div class="col-md-6">
 											<div class="form-label">공개범위</div>
 											<div class="be-drop-down icon-none">
-												<span class="be-dropdown-content">private </span>
-												<ul class="drop-down-list">
+												<span class="be-dropdown-content" name="article_scope">private </span>
+												<ul class="drop-down-list" >
 													<li><a>private</a></li>
 													<li><a>public</a></li>
 												</ul>

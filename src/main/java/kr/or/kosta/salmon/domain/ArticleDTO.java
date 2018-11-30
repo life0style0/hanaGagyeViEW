@@ -1,5 +1,16 @@
 package kr.or.kosta.salmon.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@ToString
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ArticleDTO {
 	private int article_id;
 	private int artice_ctgry_id;
@@ -15,5 +26,4 @@ public class ArticleDTO {
 	private int group_id;
 	private String user_id;
 	private String article_deleted;
-	
 }
