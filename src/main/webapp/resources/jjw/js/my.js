@@ -89,7 +89,7 @@ function sortCtgryMapping(ctgryName, delemeterSrc, replacerSrc) {
  * @param {*} data 가계부 정보
  */
 function showGgvToCalendar(data) {
-    let html = `<div class="ggv sort-ggv-ctgry-${sortCtgryMapping(data.ctgryName)} sort-ggv-money" data-money="${data.articlePaymentFee}"><input type="hidden" name="articleId" value="${data.articleId}"><div class="ggv-title"><span>카테고리 : ${data.ctgryName}</span>`;
+    let html = `<div class="ggv sort-ggv-ctgry-${sortCtgryMapping(data.ctgryName)} sort-ggv-money sort-ggv-scope" data-money="${data.articlePaymentFee}" data-scope="${data.articleScope}"><input type="hidden" name="articleId" value="${data.articleId}"><div class="ggv-title"><span>${data.ctgryName}</span>`;
     html += `<span class="ggv-scope">${checkScope(data.articleScope)}</span></div>`;
     html += `<div class="ggv-content">${data.articlePaymentFee}</div></div>`;
     return html;
@@ -102,9 +102,9 @@ function showGgvToCalendar(data) {
 function addDataToCalendar(data) {
     const regdate = data.articleRegdate.split('-'); // 2018-01-01 형식
     const ggv = $(`#calendar-${Number(regdate[2]) + Number(startDayNum)}`);
-    if (data.articleCtgryType === '지출') {
+    if (data.articleCtgryType === 'spend') {
         ggv.find('.calendar-spend').append(showGgvToCalendar(data));
-    } else if (data.articleCtgryType === '수입') {
+    } else if (data.articleCtgryType === 'income') {
         ggv.find('.calendar-income').append(showGgvToCalendar(data));
     }
 }
@@ -116,15 +116,14 @@ function setGgvCategories() {
     $('.ggv-category').html('');
     $('.ggv-category').append(`<li><a class="sorting-ggv-ctgry selected">전체</a></li>`);
     ggvCategory.forEach(function (item) {
-        console.log('item :', item);
         $('.ggv-category').append(`<li><a class="sorting-ggv-ctgry">${item}</a></li>`);
     });
 }
 
 function setSortingMoney(minMoney, maxMoney) {
-    $('.sorting-cal-money').html(`Filter by price interval: <b>${minMoney}원</b>
+    $('.sorting-cal-money').html(`수입/지출액 필터 : 최소 <b class="min-money">${minMoney}</b>원
     <input id="money-slider" type="text" class="" value="" data-slider-min="${minMoney}" data-slider-max="${maxMoney}" data-slider-step="1000"
-     data-slider-value="[${minMoney},${maxMoney}]" /> <b>${maxMoney}원</b>`);
+     data-slider-value="[${minMoney},${maxMoney}]" /> 최대 <b class="max-money">${maxMoney}</b>원`);
     moneySlider = new Slider('#money-slider', {});
 }
 
@@ -177,8 +176,8 @@ function requestCalendarDataToServer(year, month) {
  * 달력의 년도와 월을 설정해주는 함수
  */
 function setCalendarMY(moveDirection) {
-    const month = Number($('.calendar.month').html());
-    const year = Number($('.calendar.year').html());
+    const month = Number($('.calendar.month').text());
+    const year = Number($('.calendar.year').text());
     let monthChanged;
     let yearChanged;
 
@@ -221,14 +220,15 @@ function setCalendarMY(moveDirection) {
     resetCalendar();
 
     makeCalendar(yearChanged, monthChanged);
-
+    
     if (monthChanged < 10) {
         monthChanged = '0' + monthChanged;
     }
-    $('.calendar.month').html(monthChanged);
-    $('.calendar.year').html(yearChanged);
 
     requestCalendarDataToServer(yearChanged, monthChanged);
+    
+    $('.calendar.month').html(monthChanged);
+    $('.calendar.year').html(yearChanged);
 }
 
 /**
@@ -332,9 +332,11 @@ function initCalendar() {
     $('.calendar.year').html(date.getFullYear());
 }
 
+/**
+ * 필터 기능 초기화 함수
+ */
 function initSorting() {
     $(".drop-down-list li").on("click", function () {
-        console.log('mixitup');
         const ggvType = $('.ggv-type').html().trim();
         if (!ggvType) {
             alert('값이 없습니다.');
@@ -366,10 +368,15 @@ function initSorting() {
     });
 }
 
+/**
+ * 금액 기준으로 필터해주는 함수
+ */
 function sortCalByMoney() {
     moneySlider.on('slideStop', function () {
         const min = moneySlider.getValue()[0];
         const max = moneySlider.getValue()[1];
+        $('.min-money').html(min);
+        $('.max-money').html(max);
         $('.sort-ggv-money').each(function () {
             const money = Number($(this).data('money'));
             if (money < min || money > max) {

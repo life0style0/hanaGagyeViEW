@@ -92,7 +92,8 @@
   margin-left: 40px;
 }
 
-.calendar-left:hover, .calendar-right:hover {
+.calendar-left:hover,
+.calendar-right:hover {
   color: #f6aa006e;
   cursor: pointer;
 }
@@ -106,6 +107,7 @@
 .calendar-spend .ggv .ggv-content {
   background: #B64926;
   padding: 3px 4px;
+  color: white;
 }
 
 .calendar-income .ggv .ggv-title {
@@ -116,6 +118,7 @@
 .calendar-income .ggv .ggv-content {
   background: #468966;
   padding: 3px 4px;
+  color: white;
 }
 
 .calendar-head .calendar.month {
@@ -283,6 +286,23 @@
   color: white;
 }
 
-.hidden-ctgry, .hidden-money, .hidden-ggvType {
-  display: none!important;
+.hidden-ctgry,
+.hidden-money,
+.hidden-ggvType {
+  display: none !important;
+}
+
+.sorting-cal-money {
+  top: 17px;
+  position: relative;
+  background-color: #cacaca;
+  font-size: large;
+  font-weight: 100;
+  color: azure;
+  text-align: center;
+}
+
+.slider {
+  width: 45%;
+  margin: 0px 20px;
 }

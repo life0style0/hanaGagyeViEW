@@ -40,7 +40,7 @@ FROM   articles
         join article_ctgries using(article_ctgry_id)
 WHERE  user_id = #{userId} 
        AND To_char(article_regdate, 'YYYY-MM') = #{year}||'-'||#{month} 
-       AND article_ctgry_type IN ('지출','수입')
+       AND article_ctgry_type IN ('income','spend')
 ORDER BY article_regdate
         </select>
 

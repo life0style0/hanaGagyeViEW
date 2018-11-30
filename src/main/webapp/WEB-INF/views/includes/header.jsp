@@ -1,9 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags" %>
 <header>
   <div class="container-fluid custom-container">
     <div class="row no_row row-header">
       <div class="brand-be">
-        <a href="index.html">
+        <a href="/salmon">
           <img class="logo-c active be_logo" src="/salmon/resources/template/img/logo.png" alt="logo" style="width:200px;height:48px">
           <img class="logo-c be_logo" src="/salmon/resources/template/img/logo-green.png" alt="logo2">
           <img class="logo-c be_logo" src="/salmon/resources/template/img/logo-orang.png" alt="logo3">
@@ -13,10 +14,10 @@
       <div class="header-menu-block">
         <button class="cmn-toggle-switch cmn-toggle-switch__htx"><span></span></button>
         <ul class="header-menu" id="one">
-          <li><a href="activity.html">Activity</a></li>
+          <li><a href="/salmon/accountbook/calendar">AccountBook</a></li>
           <li><a href="search.html">Discover</a>
             <ul>
-              <li><a href="search.html">Explore</a></li>
+              <li><a href="search.html">안녕</a></li>
               <li><a href="people.html">People</a></li>
               <li><a href="gallery.html">Galleries</a></li>
             </ul>

@@ -45,15 +45,6 @@
 
 	<!-- MAIN CONTENT -->
 	<div id="content-block">
-		<div class="head-bg">
-			<div class="head-bg-img"></div>
-			<div class="head-bg-content">
-				<h1>Your Best Social Network Template</h1>
-				<p>Donec in rhoncus tortor. Sed tristique auctor ligula vel viverra</p>
-				<a class="btn color-1 size-1 hover-1"><i class="fa fa-facebook"></i>sign up via facebook</a>
-				<a class="be-register btn color-3 size-1 hover-6"><i class="fa fa-lock"></i>sign up now</a>
-			</div>
-		</div>
 		<div class="container-fluid cd-main-content custom-container">
 			<div class="row">
 				<div class="col-md-2 left-field">
@@ -63,7 +54,7 @@
 						<input type="submit" value="">
 					</form>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<div class="for-be-dropdowns">
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
@@ -75,8 +66,19 @@
 							</ul>
 						</div>
 					</div>
+					<div class="for-be-dropdowns">
+							<div class="be-drop-down">
+								<i class="icon-projects"></i>
+								<span class="be-dropdown-content ggv-type">공개/나만</span>
+								<ul class="drop-down-list">
+									<li><a data-type="calendar-all">공개/나만</a></li>
+									<li><a data-type="calendar-income">공개</a></li>
+									<li><a data-type="calendar-spend">나만</a></li>
+								</ul>
+							</div>
+						</div>
 				</div>
-				<div class="col-md-5">
+				<div class="col-md-7">
 					<div class="sorting-cal-money">
 					</div>
 				</div>
@@ -181,6 +183,9 @@
 							<div class="ggv-col-6">
 								<div class="col-md-6 text-center ggv-content-left">결제 방법</div>
 								<div class="col-md-6 text-center ggv-content-right" id="ggvPayType">카드</div>
+							</div>
+							<div class="ggv-col-12">
+								간단한 메모
 							</div>
 							<div class="ggv-col-12" id="ggvContent">
 								여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용
