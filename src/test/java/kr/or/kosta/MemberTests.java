@@ -194,7 +194,7 @@ public class MemberTests {
 		ruser.setLocation_id(2);
 		ruser.setCtgry_1(1);
 		ruser.setCtgry_2(2);
-		ruser.setCtgry_3(3);
+		ruser.setCtgry_3(-1);
 		
 		
 	//	usermapper.createUser(user);

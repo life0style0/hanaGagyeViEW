@@ -325,16 +325,16 @@ function initCategories(){
 					if(categoryNum ==1){
 						unclickCategory(cat);
 						$('#CTGRY_1').removeAttr('value');
-						$('#CTGRY_1').attr('value','-1');
+						$('#CTGRY_1').attr('value',-1);
 						//다 뺴면 categoryNum = 0 됨
 					}else if(categoryNum==2){
 						unclickCategory(cat);
 						$('#CTGRY_2').removeAttr('value');
-						$('#CTGRY_2').attr('value','-1');
+						$('#CTGRY_2').attr('value',-1);
 					}else if(categoryNum==3){
 						unclickCategory(cat);
 						$('#CTGRY_3').removeAttr('value');
-						$('#CTGRY_3').attr('value','-1');
+						$('#CTGRY_3').attr('value',-1);
 					}else{
 						
 					}
