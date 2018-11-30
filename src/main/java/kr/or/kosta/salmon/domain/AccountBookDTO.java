@@ -18,4 +18,5 @@ public class AccountBookDTO {
     private String articleContent;
     private String articleCtgryType;
     private List<String> imagePaths;
+    private List<String> hashtags;
 }

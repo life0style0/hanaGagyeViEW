@@ -91,7 +91,8 @@ function sortCtgryMapping(ctgryName, delemeterSrc, replacerSrc) {
 function showGgvToCalendar(data) {
     let html = `<div class="ggv sort-ggv-ctgry-${sortCtgryMapping(data.ctgryName)} sort-ggv-money sort-ggv-scope" data-money="${data.articlePaymentFee}" data-scope="${data.articleScope}"><input type="hidden" name="articleId" value="${data.articleId}"><div class="ggv-title"><span>${data.ctgryName}</span>`;
     html += `<span class="ggv-scope">${checkScope(data.articleScope)}</span></div>`;
-    html += `<div class="ggv-content">${data.articlePaymentFee}</div></div>`;
+    html += `<div class="ggv-content">${data.articlePaymentFee}`;
+    html += `</div></div>`;
     return html;
 }
 
@@ -128,8 +129,8 @@ function setSortingMoney(minMoney, maxMoney) {
 }
 
 /**
- * 달력에 가계부 정보를 입력하기 위해 서버로부터 ajax 통신을 통해 json
- * 형태의 값을 받아오는 함수
+ * 달력에 가계부 정보를 입력하기 위해 서버로부터 ajax 통신을 통해 
+ * json 형태의 값을 받아오는 함수
  * @param {*} year 년 정보
  * @param {*} month 월 정보
  */
@@ -145,7 +146,7 @@ function requestCalendarDataToServer(year, month) {
         success: function (datas) {
             ggvCategory.clear();
             if (!datas || datas.length === 0) {
-
+                setSortingMoney(0, 0);
             } else {
                 let minMoney;
                 let maxMoney;
@@ -220,13 +221,13 @@ function setCalendarMY(moveDirection) {
     resetCalendar();
 
     makeCalendar(yearChanged, monthChanged);
-    
+
     if (monthChanged < 10) {
         monthChanged = '0' + monthChanged;
     }
 
     requestCalendarDataToServer(yearChanged, monthChanged);
-    
+
     $('.calendar.month').html(monthChanged);
     $('.calendar.year').html(yearChanged);
 }
@@ -248,7 +249,14 @@ function setGgv(data) {
     $('#ggvMoney').html(`${data.articlePaymentFee}원`);
     $('#ggvCtgry').html(data.articleCtgryType);
     $('#ggvPayType').html(data.articlePaymentType);
-    $('#ggvContent').html(data.articleContent);
+
+    let articleContentHTML = data.articleContent;
+    console.log('data :', data);
+    for (let i = 0; i < data.hashtags.length; i += 1) {
+        const hashtag = data.hashtags[i];
+        articleContentHTML += ` <a class="hashtag">${hashtag}</a>`;
+    }
+    $('#ggvContent').html(articleContentHTML);
 
     if (scope === '나만') {
         $('.ggv-footer').html(`<button type="button" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</button>
@@ -302,8 +310,8 @@ function setGgvInfos(info) {
             $('#ggv-modal').modal('show');
 
             $('#ggv-modal').on('shown.bs.modal', function () {
-                $('.owl-prev').css('top', `-${(400 + 50) / 2}px`);
-                $('.owl-next').css('top', `-${(400 + 50) / 2}px`);
+                $('.owl-prev').css('top', `-${(523 + 50) / 2}px`);
+                $('.owl-next').css('top', `-${(523 + 50) / 2}px`);
             });
         }
     });
@@ -388,6 +396,13 @@ function sortCalByMoney() {
     });
 }
 
+function calendarMYClicked() {
+    const month = $('.calendar.month').html();
+    const year = $('.calendar.year').html();
+    $('.calendar-head .datepic').datepicker('update', new Date(year, month - 1, 1));
+    $('.calendar-head .datepic').datepicker('show');
+}
+
 /**
  * DOM 객체가 load 된 이후에 실행하기 위한 코드들
  */
@@ -399,22 +414,16 @@ $(function () {
         startView: 1,
         minViewMode: 1,
         language: "kr",
-        orientation: "top right",
+        orientation: "top left",
         autoclose: true
     });
 
     $('.calendar.month').on('click', function () {
-        const month = $('.calendar.month').html();
-        const year = $('.calendar.year').html();
-        $('.calendar-head .datepic').datepicker('update', new Date(year, month - 1, 1));
-        $('.calendar-head .datepic').datepicker('show');
+        calendarMYClicked();
     });
 
     $('.calendar.year').on('click', function () {
-        const month = $('.calendar.month').html();
-        const year = $('.calendar.year').html();
-        $('.calendar-head .datepic').datepicker('update', new Date(year, month - 1, 1));
-        $('.calendar-head .datepic').datepicker('show');
+        calendarMYClicked();
     });
 
     $('.calendar-head .datepic').datepicker().on('hide', function () {
