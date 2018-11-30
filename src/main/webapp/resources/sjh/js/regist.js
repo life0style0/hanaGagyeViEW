@@ -1,5 +1,6 @@
 $(function(){ 
 	registReady = true;
+	categoryNum = 0;
 	init();
 
 	if($('#registForm') != null){
@@ -48,6 +49,8 @@ function init() {
 		$('#valid_user_nickname').css('visibility', 'hidden');
 		$('#valid_user_email').css('visibility', 'hidden');
 		$('#valid_user_birthday').css('visibility', 'hidden');
+		
+		initCategories();
 	}
 
 }
@@ -260,6 +263,16 @@ function isValidName() {
 function isValidAge() {
 	var reg = /^\d{6}$/;
 	var age = $('#user_birthday').val();
+	age= age.split('/');
+	
+	// 04/11/2018
+	var year=age[2].substring(2,4);
+	var mon= age[1];
+	var day= age[0];
+	
+	age=year+mon+day;
+	console.log(age);
+	
 	if (!reg.test(age)) {
 		//유효하지 않은 나이
 		$('#valid_user_birthday').html('나이 형식에 맞지 않습니다 ');
@@ -268,5 +281,98 @@ function isValidAge() {
 	} else {
 		$('#valid_user_birthday').css('visibility', 'hidden');
 		registReady = true && registReady;
+	}
+}
+
+//카테고리 선택 이벤트
+function initCategories(){
+	if( $('[name="category"]')!= null ){
+		$('#CTGRY_1').removeAttr('value');
+		$('#CTGRY_2').removeAttr('value');
+		$('#CTGRY_3').removeAttr('value');
+		
+		var cats= $('[name="category"]');
+		cats.each(function(i,cat){
+			
+			$(cat).on('click',function(e){
+				//alert('category'+i);
+				var selectedVal=$(cat).find('div').attr('value');
+				if($(cat).hasClass('unselected')){
+					//선택
+					
+					if(categoryNum ==0){
+						clickCategory(cat);
+						$('#CTGRY_1').attr('value',selectedVal);
+					}else if(categoryNum==1){
+						clickCategory(cat);
+						$('#CTGRY_2').attr('value',selectedVal);
+					}else if(categoryNum==2){
+						clickCategory(cat);
+						$('#CTGRY_3').attr('value',selectedVal);
+					}else{
+						//4개 이상 선택 불가
+						//categoryNum이 3일때부터 가만히있기
+					}
+					
+				} else if($(cat).hasClass('selected')){
+					//선택해제
+					
+					if(categoryNum ==1){
+						unclickCategory(cat);
+						$('#CTGRY_1').removeAttr('value');
+						//다 뺴면 categoryNum = 0 됨
+					}else if(categoryNum==2){
+						unclickCategory(cat);
+						$('#CTGRY_2').removeAttr('value');
+					}else if(categoryNum==3){
+						unclickCategory(cat);
+						$('#CTGRY_3').removeAttr('value');
+					}else{
+						
+					}
+				}
+				
+				//console.log(categoryNum);
+				
+			});
+		});
+	}
+}
+
+function clickCategory(cat){
+	$(cat).removeClass('unselected');
+	$(cat).addClass('selected');
+	$(cat).css('color','red');
+	categoryNum++;
+}
+
+function unclickCategory(cat){
+	$(cat).removeClass('selected');
+	$(cat).addClass('unselected');
+	$(cat).css('color','black');
+	categoryNum--;
+}
+
+//카테고리 유효성
+function isValidCategory(){
+	if( $('[name="category"]')!= null ){
+		if(categoryNum <1){
+			registReady = false && registReady;
+			return;
+		}
+		
+		if(categoryNum >=1){
+			//1개 이상 선택됨
+			$('#CTGRY_1').attr('value');
+		}else if(categoryNum >=2){
+			//2개 이상 선택됨
+			$('#CTGRY_2').attr('value');
+		}else if(categoryNum >=3){
+			//3개 선택됨
+			$('#CTGRY_3').attr('value');
+		}else{
+			
+		}
+		
 	}
 }

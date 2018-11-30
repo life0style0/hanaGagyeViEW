@@ -129,38 +129,41 @@ font-family: 'Noto Sans KR', sans-serif;
                         
                         <div class="input-group">
                         
-                        <ul>
-                        	<li name="category" id="category-li-1"> 
-                        		<div id="category-1" value="독서">독서</div>
+                        <ul id="categories">
+                        	<li name="category" class="unselected" id="category-li-1"> 
+                        		<div id="category-1" class="unselected" value="독서">독서</div>
                         	</li>
-                        	<li name="category" id="category-li-2"> 
-                        		<div id="category-2" value="여행">여행</div>
+                        	<li name="category"  class="unselected" id="category-li-2"> 
+                        		<div id="category-2" class="unselected" value="여행">여행</div>
                         	</li>
-                        	<li name="category" id="category-li-3"> 
-                        		<div id="category-3" value="수영">수영</div>
+                        	<li name="category"  class="unselected" id="category-li-3"> 
+                        		<div id="category-3" class="unselected" value="수영">수영</div>
                         	</li>
-                        	<li name="category" id="category-li-4"> 
-                        		<div id="category-4" value="등산">등산</div>
+                        	<li name="category"  class="unselected" id="category-li-4"> 
+                        		<div id="category-4" class="unselected" value="등산">등산</div>
                         	</li>
-                        	<li name="category" id="category-li-5"> 
-                        		<div id="category-5" value="음식">음식</div>
+                        	<li name="category"  class="unselected" id="category-li-5"> 
+                        		<div id="category-5" class="unselected" value="음식">음식</div>
                         	</li>
-                        	<li name="category" id="category-li-6"> 
-                        		<div id="category-6" value="공예">공예</div>
+                        	<li name="category"  class="unselected" id="category-li-6"> 
+                        		<div id="category-6" class="unselected" value="공예">공예</div>
                         	</li>
-                        	<li name="category" id="category-li-7"> 
-                        		<div id="category-7" value="영화">영화</div>
+                        	<li name="category"  class="unselected" id="category-li-7"> 
+                        		<div id="category-7" class="unselected" value="영화">영화</div>
                         	</li>
-                        	<li name="category" id="category-li-8"> 
-                        		<div id="category-8" value="반려동물">반려동물</div>
+                        	<li name="category"  class="unselected" id="category-li-8"> 
+                        		<div id="category-8" class="unselected" value="반려동물">반려동물</div>
                         	</li>
-                        	<li name="category" id="category-li-9"> 
-                        		<div id="category-9" value="음악">음악</div>
+                        	<li name="category"  class="unselected" id="category-li-9"> 
+                        		<div id="category-9" class="unselected" value="음악">음악</div>
                         	</li>
-                        	<li name="category" id="category-li-10"> 
-                        		<div id="category-10" value="댄스">댄스</div>
+                        	<li name="category"  class="unselected" id="category-li-10"> 
+                        		<div id="category-10" class="unselected" value="댄스">댄스</div>
                         	</li>
                         </ul>
+                        <input type="hidden" id="CTGRY_1">
+                        <input type="hidden" id="CTGRY_2">
+                        <input type="hidden" id="CTGRY_3">
                        
                             <div class="rs-select2 js-select-simple select--no-search">
                                 <!-- <select name="class">

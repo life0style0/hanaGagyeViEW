@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.service.UserService;
 import lombok.extern.log4j.Log4j;
@@ -38,7 +39,7 @@ public class UserRegistController {
 	}
 	
 	@PostMapping("/register")
-	public String register(UserDTO user, RedirectAttributes rttr) {
+	public String register(RegistUserDTO user, RedirectAttributes rttr) {
 		log.info(" 회원가입 처리 : "+user);
 		log.info("userService: "+service);
 		log.info("passwordEncoder : "+pwEncoder);
