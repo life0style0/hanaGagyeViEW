@@ -57,7 +57,7 @@ $(function() {
 	/*============================*/
 	/* 04 - function on page load */
 	/*============================*/
-	$(window).load(function(){
+	$(window).on('load',function(){
 		$(".be-loader").fadeOut("slow");
 		initSwiper();
 		notification();

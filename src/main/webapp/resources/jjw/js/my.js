@@ -1,4 +1,5 @@
 var startDayNum;
+var ggvCategory = new Set();
 
 /**
  * 기본 달력을 만드는 함수
@@ -65,12 +66,30 @@ function checkScope(scope) {
 }
 
 /**
+ * 카테고리에 들어 있는 특정 문자를 변경해주는 함수
+ * @param {*} ctgryName 카테고리
+ * @param {*} delemeter 구분자
+ * @param {*} replacer 바꾸고 싶은 구분자
+ */
+function sortCtgryMapping(ctgryName, delemeterSrc, replacerSrc) {
+    const delemeter = delemeterSrc || '/';
+    const replacer = replacerSrc || '-';
+    if (!ctgryName) {
+        alert('ctgryName is empty');
+    } else if (!ctgryName.includes(delemeter)) {
+        return ctgryName;
+    } else {
+        return ctgryName.replace(delemeter, replacer);
+    }
+}
+
+/**
  * 달력에 가계부 정보를 받아 입력해주는 함수
  * @param {*} data 가계부 정보
  */
 function showGgvToCalendar(data) {
     let html = '';
-    html = `<div class="ggv"><input type="hidden" name="articleId" value="${data.articleId}"><div class="ggv-title"><span>카테고리 : ${data.ctgryName}</span>`;
+    html = `<div class="ggv sort-ggv-${sortCtgryMapping(data.ctgryName)}"><input type="hidden" name="articleId" value="${data.articleId}"><div class="ggv-title"><span>카테고리 : ${data.ctgryName}</span>`;
     html += `<span class="ggv-scope">${checkScope(data.articleScope)}</span></div>`;
     html += `<div class="ggv-content">${data.articlePaymentFee}</div></div>`;
     return html;
@@ -91,6 +110,17 @@ function addDataToCalendar(data) {
 }
 
 /**
+ * 왼쪽 화면에 카테고리 세팅하는 함수
+ */
+function setGgvCategories() {
+    $('.ggv-category').html('');
+    ggvCategory.forEach(function (item) {
+        console.log('item :', item);
+        $('.ggv-category').append(`<li><a class="sorting-ggv-ctgry">${item}</a></li>`);
+    });
+}
+
+/**
  * 달력에 가계부 정보를 입력하기 위해 서버로부터 ajax 통신을 통해 json
  * 형태의 값을 받아오는 함수
  * @param {*} year 년 정보
@@ -106,10 +136,13 @@ function requestCalendarDataToServer(year, month) {
         },
         dataType: 'json',
         success: function (datas) {
+            ggvCategory.clear();
             for (let i = 0; i < datas.length; i += 1) {
                 const data = datas[i];
+                ggvCategory.add(data.ctgryName);
                 addDataToCalendar(data);
             }
+            setGgvCategories();
         }
     });
 }
@@ -274,15 +307,6 @@ function initCalendar() {
 }
 
 function myMixIt() {
-    // In this example, we must bind 'change' event handlers to
-    // our <select> elements, then interact with the mixer via
-    // its .filter() and .sort() API methods.
-    var mixer = [];
-    $('.calendar-sort').each(function () {
-        mixer.push(mixitup(this));
-    });
-    console.log('mixer :', mixer);
-
     $(".drop-down-list li").on("click", function () {
         console.log('mixitup');
         const ggvType = $('.ggv-type').html().trim();
@@ -290,15 +314,22 @@ function myMixIt() {
             alert('값이 없습니다.');
             return;
         } else if (ggvType === '수입') {
-            for (let i = 0; i < mixer.length; i += 1) {
-                const element = mixer[i];
-                element.filter('.calendar-spend');
-            }
+            $('[class*="sort-cal-"]').addClass('hidden');
+            $('.sort-cal-income').removeClass('hidden');
         } else if (ggvType === '지출') {
-            for (let i = 0; i < mixer.length; i += 1) {
-                const element = mixer[i];
-                element.filter('.calendar-income');
-            }
+            $('[class*="sort-cal-"]').addClass('hidden');
+            $('.sort-cal-spend').removeClass('hidden');
+        }
+    });
+
+    $('.ggv-category').on('click', '.sorting-ggv-ctgry', function () {
+        const ggvCtgry = $(this).text();
+        if (!ggvCtgry) {
+            alert('값이 없습니다.');
+            return;
+        } else {
+            $('[class*="sort-ggv-"]').addClass('hidden');
+            $(`.sort-ggv-${sortCtgryMapping(ggvCtgry)}`).removeClass('hidden');
         }
     });
 }

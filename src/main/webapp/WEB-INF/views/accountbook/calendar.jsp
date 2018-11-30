@@ -130,62 +130,20 @@
 					</div>
 					<div class="be-vidget">
 						<h3 class="letf-menu-article">
-							Popular Tags
+							카테고리
 						</h3>
 						<div class="tags_block clearfix">
-							<ul>
-								<li><a data-filter=".category-6" class="filter">photoshop</a></li>
-								<li><a data-filter=".category-1" class="filter">graphic</a></li>
-								<li><a data-filter=".category-2" class="filter">art</a></li>
-								<li><a data-filter=".category-3" class="filter">website</a></li>
-								<li><a data-filter=".category-4" class="filter">logo</a></li>
-								<li><a data-filter=".category-5" class="filter">identity</a></li>
-								<li><a data-filter=".category-6" class="filter">logo design</a></li>
-								<li><a data-filter=".category-1" class="filter">interactive</a></li>
-								<li><a data-filter=".category-2" class="filter">blue</a></li>
-								<li><a data-filter=".category-3" class="filter">branding</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="be-vidget">
-						<h3 class="letf-menu-article">
-							Filter By
-						</h3>
-						<div class="filter-block">
-							<ul>
-								<li><a><i class="fa fa-graduation-cap"></i>Schools</a>
-									<div class="be-popup">
-										<h3 class="letf-menu-article">
-											Enter School
-										</h3>
-										<form action="./" class="input-search">
-											<input class="filters-input" type="text" required placeholder="Start typing to see list">
-										</form>
-										<i class="fa fa-times"></i>
-									</div>
-								</li>
-								<li><a><i class="fa fa-wrench"></i>Tools Used</a>
-									<div class="be-popup">
-										<h3 class="letf-menu-article">
-											Tools
-										</h3>
-										<form action="./" class="input-search">
-											<input class="filters-input" type="text" required placeholder="Start typing to see list">
-										</form>
-										<i class="fa fa-times"></i>
-									</div>
-								</li>
-								<li><a><i class="fa fa-camera-retro"></i>Visit Gallery</a>
-									<div class="be-popup">
-										<h3 class="letf-menu-article">
-											Galerry
-										</h3>
-										<form action="./" class="input-search">
-											<input class="filters-input" type="text" required placeholder="Start typing to see list">
-										</form>
-										<i class="fa fa-times"></i>
-									</div>
-								</li>
+							<ul class="ggv-category">
+								<li><a >photoshop</a></li>
+								<li><a >graphic</a></li>
+								<li><a >art</a></li>
+								<li><a >website</a></li>
+								<li><a >logo</a></li>
+								<li><a >identity</a></li>
+								<li><a >logo design</a></li>
+								<li><a >interactive</a></li>
+								<li><a >blue</a></li>
+								<li><a >branding</a></li>
 							</ul>
 						</div>
 					</div>
@@ -211,11 +169,19 @@
 								<tr>
 									<c:forEach begin="1" end="7" var="dateNum">
 										<td id="calendar-${dateNum+(weekNum*7)}">
+<<<<<<< HEAD
 											<ul>
 												<li class="calendar-date"></li>
 												<li class="calendar-spend"></li>
 												<li class="calendar-income"></li>
 											</ul>
+=======
+											<div class="calendar-sort">
+												<div class="calendar-date"></div>
+												<div class="calendar-spend sort-cal-spend"></div>
+												<div class="calendar-income sort-cal-income"></div>
+											</div>
+>>>>>>> Add filter sorting
 										</td>
 									</c:forEach>
 								</tr>
@@ -290,6 +256,7 @@
 		<div class="open"><img src="/salmon/resources/template/img/icon-134.png" alt=""></div>
 	</div>
 	<!-- SCRIPTS	 -->
+	<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
 	<script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>
 	<script src="/salmon/resources/template/script/jquery-ui.min.js"></script>
 	<script src="/salmon/resources/template/script/bootstrap.min.js"></script>
