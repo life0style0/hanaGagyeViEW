@@ -138,34 +138,34 @@ font-family: 'Noto Sans KR', sans-serif;
                         
                         <ul id="categories">
                         	<li name="category" class="unselected" id="category-li-1"> 
-                        		<div id="category-1" class="unselected" value="독서">독서</div>
+                        		<div id="category-1" class="unselected" value="1">독서</div>
                         	</li>
                         	<li name="category"  class="unselected" id="category-li-2"> 
-                        		<div id="category-2" class="unselected" value="여행">여행</div>
+                        		<div id="category-2" class="unselected" value="2">여행</div>
                         	</li>
                         	<li name="category"  class="unselected" id="category-li-3"> 
-                        		<div id="category-3" class="unselected" value="수영">수영</div>
+                        		<div id="category-3" class="unselected" value="3">수영</div>
                         	</li>
                         	<li name="category"  class="unselected" id="category-li-4"> 
-                        		<div id="category-4" class="unselected" value="등산">등산</div>
+                        		<div id="category-4" class="unselected" value="4">등산</div>
                         	</li>
                         	<li name="category"  class="unselected" id="category-li-5"> 
-                        		<div id="category-5" class="unselected" value="음식">음식</div>
+                        		<div id="category-5" class="unselected" value="5">음식</div>
                         	</li>
                         	<li name="category"  class="unselected" id="category-li-6"> 
-                        		<div id="category-6" class="unselected" value="공예">공예</div>
+                        		<div id="category-6" class="unselected" value="6">공예</div>
                         	</li>
                         	<li name="category"  class="unselected" id="category-li-7"> 
-                        		<div id="category-7" class="unselected" value="영화">영화</div>
+                        		<div id="category-7" class="unselected" value="7">영화</div>
                         	</li>
                         	<li name="category"  class="unselected" id="category-li-8"> 
-                        		<div id="category-8" class="unselected" value="반려동물">반려동물</div>
+                        		<div id="category-8" class="unselected" value="8">반려동물</div>
                         	</li>
                         	<li name="category"  class="unselected" id="category-li-9"> 
-                        		<div id="category-9" class="unselected" value="음악">음악</div>
+                        		<div id="category-9" class="unselected" value="9">음악</div>
                         	</li>
                         	<li name="category"  class="unselected" id="category-li-10"> 
-                        		<div id="category-10" class="unselected" value="댄스">댄스</div>
+                        		<div id="category-10" class="unselected" value="10">댄스</div>
                         	</li>
                         </ul>
                         <input type="hidden" id="CTGRY_1">
