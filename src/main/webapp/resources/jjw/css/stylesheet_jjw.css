@@ -211,7 +211,7 @@
 .ggv-btn {
   font-size: 16px;
   line-height: 1.3333;
-  margin: none;
+  margin: unset;
   margin-left: 10px;
 }
 
@@ -264,4 +264,17 @@
 
 .datepic {
   width: 0px;
+}
+
+.new-ggv {
+  text-align: right;
+  position: relative;
+  top: 80px;
+}
+
+.new-ggv .my-btn {
+  font-size: 16px;
+  line-height: 1.3333;
+  margin: unset;
+  margin-left: 10px;
 }

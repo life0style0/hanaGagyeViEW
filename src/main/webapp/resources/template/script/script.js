@@ -83,23 +83,23 @@ $(function(){
 		$(this).toggleClass("be-dropdown-active");
 		$(this).find(".drop-down-list").stop().slideToggle();
 	});
-	$(".drop-down-list li").on("click", function(){
+	$(".drop-down-list li").on("click", function () {
 		var new_value = $(this).find("a").text();
 		$(this).parent().parent().find(".be-dropdown-content").text(new_value);
-	})
+	});
 	
 	//
 
 
-	$(".login_block").on("click",function(){
+	$(".login_block").on("click", function () {
 		$(".large-popup.login").slideToggle();
 		return false;
-	})
+	});
 
-	$(".be-signup-link").on("click", function(){
+	$(".be-signup-link").on("click", function () {
 		$(".large-popup.login").slideDown();
 		return false;
-	})
+	});
 	$(".large-popup.login .close-button").on("click", function(){
 		$(".large-popup.login").slideUp();
 	})

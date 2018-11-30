@@ -101,8 +101,8 @@ function requestCalendarDataToServer(year, month) {
         url: '/salmon/accountbook/ggv',
         method: 'get',
         data: {
-            'year': year,
-            'month': month
+            year: year,
+            month: month
         },
         dataType: 'json',
         success: function (datas) {
@@ -262,12 +262,45 @@ function resetCalendar() {
     });
 }
 
+/**
+ * 달력 초기화 함수
+ */
 function initCalendar() {
     const date = new Date();
     makeCalendar(date.getFullYear(), date.getMonth() + 1);
     requestCalendarDataToServer(date.getFullYear(), date.getMonth() + 1);
     $('.calendar.month').html(date.getMonth() + 1);
     $('.calendar.year').html(date.getFullYear());
+}
+
+function myMixIt() {
+    // In this example, we must bind 'change' event handlers to
+    // our <select> elements, then interact with the mixer via
+    // its .filter() and .sort() API methods.
+    var mixer = [];
+    $('.calendar-sort').each(function () {
+        mixer.push(mixitup(this));
+    });
+    console.log('mixer :', mixer);
+
+    $(".drop-down-list li").on("click", function () {
+        console.log('mixitup');
+        const ggvType = $('.ggv-type').html().trim();
+        if (!ggvType) {
+            alert('값이 없습니다.');
+            return;
+        } else if (ggvType === '수입') {
+            for (let i = 0; i < mixer.length; i += 1) {
+                const element = mixer[i];
+                element.filter('.calendar-spend');
+            }
+        } else if (ggvType === '지출') {
+            for (let i = 0; i < mixer.length; i += 1) {
+                const element = mixer[i];
+                element.filter('.calendar-income');
+            }
+        }
+    });
 }
 
 /**
@@ -322,4 +355,6 @@ $(function () {
     $('.calendar-right').on('click', function () {
         setCalendarMY('right');
     });
+
+    myMixIt();
 });
