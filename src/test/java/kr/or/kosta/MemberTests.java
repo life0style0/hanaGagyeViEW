@@ -199,7 +199,7 @@ public class MemberTests {
 		
 	//	usermapper.createUser(user);
 	//	usermapper.insertUserAuth(user);
-		usermapper.insertBasicPsns(ruser);
+		usermapper.insertBasicPsns3(ruser);
 		
 		log.info("회원가입 완료");
 	}

@@ -10,16 +10,7 @@ $(function(){
 		$('#user_nickname').on('change',isValidNickName);
 		$('#user_email').on('change',isValidEmail);
 		
-	/*	$('#user_input-birthday').on('change',
-				function(){
-			alert('!');
-			isValidAge();
-		}
-				);*/
-		
 		$('#locations').on('change',getLocationInfo);
-	//	$('#select2-genders-container').on('click',getGenderInfo);
-	//	$('#user_input-birthday').on('click',isValidAge);
 	}
 	
 	if (document.getElementById('registForm') != null) { //가입화면인 경우
@@ -273,36 +264,6 @@ function isValidName() {
 }
 
 //나이 유효성 
-/*function isValidAge_origin() {
-	$('#user_birthday').removeAttr('value');
-	var reg = /^\d{6}$/;
-	var age = $('#user_input-birthday').val();
-	age= age.split('/');
-	
-	// 04/11/2018
-	var year=age[2].substring(2,4);
-	var mon= age[1];
-	var day= age[0];
-	
-	age=year+mon+day;
-	console.log(age);
-	
-	if (!reg.test(age)) {
-		//유효하지 않은 나이
-		$('#valid_user_birthday').html('나이 형식에 맞지 않습니다 ');
-		$('#valid_user_birthday').css('visibility', 'visible');
-		registReady = false && registReady;
-	} else {
-		$('#valid_user_birthday').css('visibility', 'hidden');
-		$('#user_birthday').attr('val',age);
-		registReady = true && registReady;
-		$('#user_birthday').attr('val',age);
-	}
-}
-
-*/
-
-//나이 유효성 
 function isValidAge() {
 	$('#user_birthday').removeAttr('value');
 	var age = $('#user_input-birthday').val();
@@ -364,13 +325,16 @@ function initCategories(){
 					if(categoryNum ==1){
 						unclickCategory(cat);
 						$('#CTGRY_1').removeAttr('value');
+						$('#CTGRY_1').attr('value','-1');
 						//다 뺴면 categoryNum = 0 됨
 					}else if(categoryNum==2){
 						unclickCategory(cat);
 						$('#CTGRY_2').removeAttr('value');
+						$('#CTGRY_2').attr('value','-1');
 					}else if(categoryNum==3){
 						unclickCategory(cat);
 						$('#CTGRY_3').removeAttr('value');
+						$('#CTGRY_3').attr('value','-1');
 					}else{
 						
 					}

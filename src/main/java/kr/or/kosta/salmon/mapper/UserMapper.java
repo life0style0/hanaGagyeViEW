@@ -26,7 +26,9 @@ public interface UserMapper {
 	//닉네임으로 User찾기
 	public UserDTO searchUserByNickname(String user_nickname);
 	
-	//가입시 초기 개인화 정보 저장 (지역, 관심카테고리)
-	public void insertBasicPsns(RegistUserDTO user);
+	//가입시 초기 개인화 정보 저장 (지역, 관심카테고리) - 카테고 리개수별 
+	public void insertBasicPsns1(RegistUserDTO user);
+	public void insertBasicPsns2(RegistUserDTO user);
+	public void insertBasicPsns3(RegistUserDTO user);
 	
 }

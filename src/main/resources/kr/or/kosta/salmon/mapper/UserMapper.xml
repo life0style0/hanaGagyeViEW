@@ -85,7 +85,7 @@
 		            #{user_id}, 
 		            'ROLE_ADMIN') 
 	</insert>
-	<insert id="insertBasicPsns">
+	<insert id="insertBasicPsns3">
 		INSERT INTO psns 
 		            (psn_id, 
 		             user_id, 
@@ -99,6 +99,32 @@
 		            #{ctgry_1},   
 		            #{ctgry_2},   
 		            #{ctgry_3})
+	</insert>
+	
+	<insert id="insertBasicPsns1">
+		INSERT INTO psns 
+		            (psn_id, 
+		             user_id, 
+		             location_id, 
+		             ctgry_1) 
+		VALUES     (psn_id_seq.NEXTVAL, 
+		            #{user_id}, 
+		            #{location_id},  
+		            #{ctgry_1})
+	</insert>
+	
+	<insert id="insertBasicPsns2">
+		INSERT INTO psns 
+		            (psn_id, 
+		             user_id, 
+		             location_id, 
+		             ctgry_1, 
+		             ctgry_2) 
+		VALUES     (psn_id_seq.NEXTVAL, 
+		            #{user_id}, 
+		            #{location_id},  
+		            #{ctgry_1},   
+		            #{ctgry_2})
 	</insert>
 	
 	<select id="searchUserById" resultMap="userMap">

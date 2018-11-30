@@ -29,7 +29,18 @@ public class UserServiceImpl implements UserService {
 		log.info("createUser 끝");
 		usermapper.insertUserAuth(simpleUser); //spring security 권한 부여
 		log.info("insertUserAuth 끝");
-		usermapper.insertBasicPsns(user); //기본정보 저장
+		if(user.getCtgry_3() != -1) {
+			usermapper.insertBasicPsns3(user); //기본정보 저장
+		}else {
+			if(user.getCtgry_2() != -1) {
+				usermapper.insertBasicPsns2(user);
+			}else {
+				if(user.getCtgry_1()!= -1) {
+					usermapper.insertBasicPsns1(user);
+				}
+			}
+		}
+		
 		log.info("insertBasicPsns 끝");
 		log.info("회원가입 끝");
 	}
