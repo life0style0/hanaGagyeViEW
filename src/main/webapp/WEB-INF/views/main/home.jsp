@@ -15,9 +15,13 @@
 		<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
 		<link rel="stylesheet" href="/salmon/resources/template/style/jquery-ui.css">
 		<link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
+		<link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
+
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 		<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+
 		<!--[if lt IE 10]>
 			<link rel="stylesheet" type="text/css" href="style/ie-9.css" />
 		<![endif]-->		
@@ -369,7 +373,7 @@
 
 				<div class="col-md-10">
 					<div id="container-mix"  class="row _post-container_">
-						<div class="category-1 mix custom-column-5">
+						<div class="category-1 mix custom-column-3">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p1.jpg" alt="omg">
@@ -391,7 +395,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-2 mix custom-column-5">
+						<div class="category-2 mix custom-column-3">
 							<div class="be-post">
 								<a href="page2.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p2.jpg" alt="omg">
@@ -413,7 +417,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-3 mix custom-column-5">
+						<div class="category-3 mix custom-column-3">
 							<div class="be-post">
 								<a href="page3.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p3.jpg" alt="omg">
@@ -435,7 +439,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-4 mix custom-column-5">
+						<div class="category-4 mix custom-column-3">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p4.jpg" alt="omg">
@@ -457,7 +461,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-5 mix custom-column-5">
+						<div class="category-5 mix custom-column-3">
 							<div class="be-post">
 								<a href="page2.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p5.jpg" alt="omg">
@@ -479,7 +483,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-6 mix custom-column-5">
+						<div class="category-6 mix custom-column-3">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p13.jpg" alt="omg">
@@ -501,7 +505,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-5 mix custom-column-5">
+						<div class="category-5 mix custom-column-3">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p7.jpg" alt="omg">
@@ -523,7 +527,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-3 mix custom-column-5">
+						<div class="category-3 mix custom-column-3">
 							<div class="be-post">
 								<a href="page3.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p8.jpg" alt="omg">
@@ -545,7 +549,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-2 mix custom-column-5">
+						<div class="category-2 mix custom-column-3">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p9.jpg" alt="omg">
@@ -567,7 +571,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-4 mix custom-column-5">
+						<div class="category-4 mix custom-column-3">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p10.jpg" alt="omg">
@@ -589,7 +593,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-6 mix custom-column-5">
+						<div class="category-6 mix custom-column-3">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p11.jpg" alt="omg">
@@ -611,7 +615,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-2 mix custom-column-5">
+						<div class="category-2 mix custom-column-3">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p12.jpg" alt="omg">
@@ -633,7 +637,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-1 mix custom-column-5">
+						<div class="category-1 mix custom-column-3">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p13.jpg" alt="omg">
@@ -655,7 +659,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-3 mix custom-column-5">
+						<div class="category-3 mix custom-column-3">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p14.jpg" alt="omg">
@@ -677,7 +681,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="category-1 mix custom-column-5">
+						<div class="category-1 mix custom-column-3">
 							<div class="be-post">
 								<a href="page1.html" class="be-img-block">
 								<img src="/salmon/resources/template/img/p15.jpg" alt="omg">
