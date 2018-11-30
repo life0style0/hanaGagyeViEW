@@ -3,9 +3,16 @@ package kr.or.kosta.salmon.mapper;
 import java.util.ArrayList;
 
 import kr.or.kosta.salmon.domain.ArticleDTO;
+import kr.or.kosta.salmon.domain.CategoryDTO;
+import kr.or.kosta.salmon.domain.HashTagDTO;
 
 public interface GaArticleMapper {
 
-	public void createGaArticle(ArticleDTO article);
+	public int createGaArticle(ArticleDTO article);
 	public ArrayList<String> getCategory();
+	public String getCategoryByName(String categoryName);
+	public String getArticleCategoryByName(String article_ctgry_name);
+	public void createCategory(CategoryDTO category);
+	public void createHashTag(HashTagDTO hashTagDTO);
+	public void createHashTagRef(HashTagDTO hashTagDTO);
 }

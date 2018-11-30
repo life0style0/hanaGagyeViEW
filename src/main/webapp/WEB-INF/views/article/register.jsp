@@ -93,12 +93,12 @@
 						<a class="btn full color-1 size-1 hover-1" href="author.html"><i class="fa fa-chevron-left"></i>나의 가계ViEW로 돌아가기</a>
 					</div>
 				</div>
-				<form method="post" action="/salmon/article/submit">
+				<form name="articleForm" id="articleForm" method="post" action="/salmon/article/submit">
 				<div class="col-xs-12 col-md-9 _editor-content_">
 					<div class="sec"  data-sec="gagyeInfo">
 						<div class="be-large-post">
 							<div class="info-block style-2">
-								<div class="be-large-post-align"><h3 class="info-block-label">가계부 정보 <span style="float:right;"><input class="btn btn-success" type="submit" value="등 록"><input class="btn btn-danger" type="reset" value="초기화"></span></h3></div>
+								<div class="be-large-post-align"><h3 class="info-block-label">가계부 정보 <span style="float:right;"><input class="btn btn-success" type="button" id="submitBtn" value="등 록"><input class="btn btn-danger" type="reset" value="초기화"></span></h3></div>
 							</div>
 							<div class="be-large-post-align">
 								<div class="row">
@@ -111,7 +111,8 @@
 									<div class="input-col col-xs-12 col-sm-4" >
 										<div class="form-label">카테고리</div>
 										<div class="be-drop-down icon-none">
-											<span name="article_category" class="be-dropdown-content">선택해주세요 </span>
+											<span class="be-dropdown-content" id="selCategory">선택해주세요 </span>
+											<input type="hidden" name="categoryName" id="inputCategory">
 											<ul class="drop-down-list" style="overflow:scroll; height:200px">
 											<c:forEach var="catList" items="${categoryList}">
 												<li><a>${catList}</a></li>
@@ -122,12 +123,11 @@
 									<div class="input-col col-xs-12 col-sm-4">
 										<div class="form-label">결제수단</div>
 										<div class="be-drop-down icon-none">
-											<span class="be-dropdown-content">선택 </span>
+											<span class="be-dropdown-content" id="selPayType">선택해주세요 </span>
+											<input type="hidden" name="article_payment_type" id="inputPayType">
 											<ul class="drop-down-list">
 												<li><a>카드</a></li>
 												<li><a>현금</a></li>
-												<li><a>사채</a></li>
-												<li><a>담보</a></li>
 											</ul>
 										</div>								
 									</div>													
@@ -136,17 +136,29 @@
 							<div class="be-large-post-align">
 								<div class="row">
 									<div class="col-md-12">
-										<div class="col-md-6">
+										<div class="col-md-4">
+											<div class="form-label">구분</div>
+											<div class="be-drop-down icon-none">
+												<span class="be-dropdown-content" id="selArtiCategory">선택하세요 </span>
+												<input type="hidden" name="article_ctgry_name" id="inputArtiCategory">
+												<ul class="drop-down-list" >
+													<li><a>지출</a></li>
+													<li><a>수입</a></li>
+												</ul>
+											</div>	
+										</div>
+										<div class="col-md-4">
 											<div class="form-label">공개범위</div>
 											<div class="be-drop-down icon-none">
-												<span class="be-dropdown-content" name="article_scope">private </span>
+												<span class="be-dropdown-content" id="selScope">private </span>
+												<input type="hidden" name="article_scope" id="inputScope">
 												<ul class="drop-down-list" >
 													<li><a>private</a></li>
 													<li><a>public</a></li>
 												</ul>
 											</div>	
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-4">
 											<div class="form-label">날짜 선택</div>
 											<div class='input-group date' id='datetimepicker1'>
 												<input type='text' class="form-control " name="article_regdate" value="${searchStartDay}" /> <span class="input-group-addon">
@@ -179,7 +191,7 @@
 								<div class="be-change-ava">
 									<!-- 이미지 업로드 시작 -->
 									  <div id="filesUpload" class="dropzone"><a href="javascript:inputFileEvent()">Drag & Drop Files Here</a></button></div>
-									  <input type="file" name="article_photo" id="inputFile" style="display:none;">
+									  <input type="file" name="files" id="inputFile" multiple="multiple" style="display:none;">
 									  <div class="row upload-image-preview"></div>
 									  <div class="row text-center">
 									    <button id="upload" class="btn btn-defualt">Upload</button>
@@ -205,7 +217,6 @@
 						</div>																
 					</div>				
 				</div>
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
 			</div>
 		</div>
@@ -336,7 +347,6 @@
 
     function uploadFiles(fileObject) {
       let files = fileObject;
-		console.log("hi");
       if (files) {
         for (let i = 0; i < files.length; i += 1) {
         	console.log("file");
@@ -357,6 +367,7 @@
       } else {
         alert("등록하고자 하는 파일이 없습니다.");
       }
+      
     }
 
     $('#upload').on('click', function (event) {
@@ -415,6 +426,27 @@
 		   var inputTypeFile = document.querySelector('input[type=file]').files;
 		   uploadFiles(inputTypeFile);
 	   });
+	   $("#submitBtn").on("click", function(){
+		   $("#inputCategory").val($("#selCategory").text()); 
+		   $("#inputScope").val($("#selScope").text());
+		   $("#inputPayType").val($("#selPayType").text());
+		   $("#inputArtiCategory").val($("#selArtiCategory").text());
+		   var articleForm = $("#articleForm").serialize();
+		   $.ajax({
+			   	  cache : false,
+		          url: '/salmon/article/submit?_csrf=${_csrf.token}',
+		          data: articleForm,
+		          type: 'post',
+		          success: function (articleId) {
+		            if(parseInt(articleId) > 0){
+		            	alert('hi');
+		            }else{
+		            	alert("shit")
+		            }
+		          }
+		    });
+		   //articleForm.submit();
+	   })
 	});
 	
 	function setDatetimepickerSetting() {
