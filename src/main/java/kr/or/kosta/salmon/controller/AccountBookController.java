@@ -1,5 +1,6 @@
 package kr.or.kosta.salmon.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,12 +37,12 @@ public class AccountBookController {
 
     @GetMapping(value = "/ggv", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
     public @ResponseBody ResponseEntity<List<AccountBookDTO>> getAccountBooks(@RequestParam("year") int year,
-            @RequestParam("month") int month) {
+            @RequestParam("month") int month, Principal principal) {
         log.info("calendar get....");
         List<AccountBookDTO> abDTOs = null;
         ResponseEntity<List<AccountBookDTO>> rEntity = null;
         try {
-            abDTOs = abs.getAccountBooks("heyrim5", year, month);
+            abDTOs = abs.getAccountBooks(principal.getName(), year, month);
             rEntity = new ResponseEntity<>(abDTOs, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,12 +52,12 @@ public class AccountBookController {
     }
 
     @GetMapping(value = "/ggv/{articleId}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-    public @ResponseBody ResponseEntity<AccountBookDTO> getAccountBook(@PathVariable("articleId") int articleId) {
+    public @ResponseBody ResponseEntity<AccountBookDTO> getAccountBook(@PathVariable("articleId") int articleId, Principal principal) {
         log.info("getAccountBook request....");
         AccountBookDTO abDTO = null;
         ResponseEntity<AccountBookDTO> rEntity = null;
         try {
-            abDTO = abs.getAccountBookByArticleId("heyrim5", articleId);
+            abDTO = abs.getAccountBookByArticleId(principal.getName(), articleId);
             rEntity = new ResponseEntity<>(abDTO, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
