@@ -16,12 +16,15 @@
 
 <!-- Spring Security(Interceptor) 설정 -->
 <security:http>
+
 	<!-- 로그인 처리  -->
 	<security:intercept-url pattern="/auth/all" access="permitAll"/>
 	<security:intercept-url pattern="/auth/user" access="hasRole('ROLE_USER')"/>
 	<security:intercept-url pattern="/auth/member" access="hasRole('ROLE_MEMBER')"/>
 	<security:intercept-url pattern="/auth/admin" access="hasRole('ROLE_ADMIN')"/>
-	<security:form-login login-page="/login/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
+	
+	<security:intercept-url pattern="/main/home" access="hasRole('ROLE_USER')"/>
+	<security:form-login login-page="/login" authentication-success-handler-ref="customLoginSuccess"/>
 	
 	<!-- 로그아웃 처리 -->
 	<security:logout logout-url="/customLogout" invalidate-session="true"/>

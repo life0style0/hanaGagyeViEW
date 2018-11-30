@@ -1,7 +1,6 @@
 package kr.or.kosta;
 
-import java.text.DateFormat;
-import java.util.Date;
+import java.security.Principal;
 import java.util.Locale;
 
 import org.springframework.stereotype.Controller;
@@ -18,21 +17,17 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class HomeController {
 	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model, Principal principal) {
 		log.info("Welcome home! The client locale is {}.");
+		log.info( "is login info null : "+(principal == null));
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";
+		//return "login";
+		if(principal != null) {
+			return "main/home";
+		} else {
+			return "login";
+		}
 	}
 	
 }

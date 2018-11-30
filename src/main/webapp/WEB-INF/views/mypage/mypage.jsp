@@ -46,9 +46,9 @@
 		</div>
 	</div>
 	<!-- THE HEADER -->
-	<%@ include file="includes/header.jsp"%>
-	<!-- THE HEADER -->
-
+		<!-- THE HEADER -->
+	<%@ include file="/WEB-INF/views/includes/header.jsp"%>
+		
 	<!-- MAIN CONTENT -->
 	<div id="content-block">
 		<div class="head-bg">
@@ -709,11 +709,11 @@
 	</div>
 
 	<!-- THE FOOTER -->
-	<%@ include file="includes/footer.jsp"%>
-	<!-- THE FOOTER -->
+	<%@ include file="/WEB-INF/views/includes/footer.jsp"%>
 
 	<div class="be-fixed-filter"></div>
-
+	
+	<!--  로그인 팝업 -->
 	<div class="large-popup login">
 		<div class="large-popup-fixed"></div>
 		<div class="container large-popup-container">
@@ -722,8 +722,14 @@
 					<div class="row">
 						<div class="col-md-12">
 							<i class="fa fa-times close-button"></i>
-							<h5 class="large-popup-title">Log in</h5>
+							<h5 class="large-popup-title">로그아웃</h5>
 						</div>
+						
+						<form method="post" action="/salmon/customLogout"  class="popup-input-search">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+							<button  class="be-popup-sign-button">로그아웃</button>
+						</form>
+						<!-- 
 						<form action="./" class="popup-input-search">
 							<div class="col-md-6">
 								<input class="input-signtype" type="email" required="" placeholder="Your email">
@@ -747,11 +753,15 @@
 								<input type="submit" class="be-popup-sign-button" value="SIGN IN">
 							</div>
 						</form>
+						 -->
+						
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+		<!--  로그인 팝업 끝-->
+	
 	<div class="large-popup register">
 		<div class="large-popup-fixed"></div>
 		<div class="container large-popup-container">

@@ -18,8 +18,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {@Override
+public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 	
+	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication auth) throws IOException, ServletException {
 		
@@ -36,11 +37,13 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			return;
 		}
 		if(roleNames.contains("ROLE_MEMBER")) {
-			response.sendRedirect("/salmon/auth/member");
+			//response.sendRedirect("/salmon/auth/member");
+			response.sendRedirect("/salmon/main/home");
 			return;
 		}
 		if(roleNames.contains("ROLE_USER")) {
-			response.sendRedirect("/salmon/auth/user");
+			//response.sendRedirect("/salmon/auth/user");
+			response.sendRedirect("/salmon/main/home");
 			return;
 		}
 		response.sendRedirect("/");

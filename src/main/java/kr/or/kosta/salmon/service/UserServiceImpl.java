@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.mapper.UserMapper;
 import lombok.extern.log4j.Log4j;
@@ -21,10 +22,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional
 	@Override
-	public void userRegist(UserDTO user) {
+	public void userRegist(RegistUserDTO user) {
 		log.info("회원가입 시작");
-		usermapper.createUser(user); //user 생성
-		usermapper.insertUserAuth(user); //spring security 권한 부여
+		UserDTO simpleUser= user.makeUserDTO();
+		usermapper.createUser(simpleUser); //user 생성
+		usermapper.insertUserAuth(simpleUser); //spring security 권한 부여
+		usermapper.insertBasicPsns(user); //기본정보 저장
 		log.info("회원가입 끝");
 	}
 
@@ -66,4 +69,6 @@ public class UserServiceImpl implements UserService {
 			return false; //없는 닉네임
 		}
 	}
+
+	
 }

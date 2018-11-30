@@ -14,13 +14,19 @@ import lombok.extern.log4j.Log4j;
 @Controller
 public class CommonController {
 	
+	@GetMapping("/main/home")
+	public void mainHome() {
+		log.info(" 메인 홈 테스트");
+	}
+	
 	@GetMapping("/login/accessError")
 	public void accessDenied(Authentication auth, Model model) {
 		log.info("access denied "+auth);
 		model.addAttribute("msg","Access Denied");
 	}
 	
-	@RequestMapping("/login/customLogin")
+//	@RequestMapping("/login/customLogin")
+	@RequestMapping("/login")
 	public void loginInput(String error, String logout, Model model) {
 		log.info(" 로그인 요청 ");
 		log.info("error : "+error);
@@ -47,5 +53,10 @@ public class CommonController {
 	public void logoutPOST() {
 		//실제 로그아웃 처리
 		log.info(" 로그아웃 처리 ");
+	}
+	
+	@GetMapping("/mypage")
+	public void mpageGet() {
+		log.info(" 마이페이지 요청 ");
 	}
 }
