@@ -9,7 +9,7 @@ $(function(){
 		$('#same_user_passwd').on('change',isSamePasswd);
 		$('#user_nickname').on('change',isValidNickName);
 		$('#user_email').on('change',isValidEmail);
-		$('#user_birthday').on('change',isValidAge);
+		
 		$('#locations').on('change',getLocationInfo);
 	}
 	
@@ -18,25 +18,27 @@ $(function(){
 		document.getElementById("registSubmitBtn").onclick = function () {
 			registReady = true;
 			//폼 제출
-			isValidId(); 
-			console.log(registReady);
-			isValidEmail(); 
-			console.log(registReady);
-			isSamePasswd(); 
-			console.log(registReady);
-			isValidPasswd(); 
-			console.log(registReady);
-			isValidNickName(); 
-			console.log(registReady);
-			isValidAge(); 
-			console.log(registReady);
-			isValidCategory();
 			getLocationInfo();
+			getGenderInfo();
+			isValidAge(); 
+			console.log($('input[name="user_birthday"]'));
+			
+			isValidId(); 
+		//	console.log(registReady);
+			isValidEmail(); 
+		//	console.log(registReady);
+			isSamePasswd(); 
+		//	console.log(registReady);
+			isValidPasswd(); 
+		//	console.log(registReady);
+			isValidNickName(); 
+		//	console.log(registReady);
+			isValidCategory();
 			
 			console.log(registReady);
 			if (registReady == true) {
 				console.log('submit regist');
-				$('#registForm').submit();
+			//	$('#registForm').submit();
 			}
 		}
 	}
@@ -263,25 +265,26 @@ function isValidName() {
 
 //나이 유효성 
 function isValidAge() {
-	var reg = /^\d{6}$/;
-	var age = $('#user_birthday').val();
+	$('#user_birthday').removeAttr('value');
+	var age = $('#user_input-birthday').val();
 	age= age.split('/');
 	
 	// 04/11/2018
-	var year=age[2].substring(2,4);
+	var year=$(age)[2].substring(2,4);
 	var mon= age[1];
 	var day= age[0];
 	
 	age=year+mon+day;
 	console.log(age);
 	
-	if (!reg.test(age)) {
-		//유효하지 않은 나이
-		$('#valid_user_birthday').html('나이 형식에 맞지 않습니다 ');
-		$('#valid_user_birthday').css('visibility', 'visible');
+	$('#valid_user_birthday').css('visibility', 'hidden');
+	$('#user_birthday').attr('value',age);
+	
+	if($('input[name="user_birthday"]').attr('value').length== 0){
+		alert('birthday error');
 		registReady = false && registReady;
-	} else {
-		$('#valid_user_birthday').css('visibility', 'hidden');
+	}else{
+		alert($('input[name="user_birthday"]').attr('value')+'!');
 		registReady = true && registReady;
 	}
 }
@@ -322,13 +325,16 @@ function initCategories(){
 					if(categoryNum ==1){
 						unclickCategory(cat);
 						$('#CTGRY_1').removeAttr('value');
+						$('#CTGRY_1').attr('value',-1);
 						//다 뺴면 categoryNum = 0 됨
 					}else if(categoryNum==2){
 						unclickCategory(cat);
 						$('#CTGRY_2').removeAttr('value');
+						$('#CTGRY_2').attr('value',-1);
 					}else if(categoryNum==3){
 						unclickCategory(cat);
 						$('#CTGRY_3').removeAttr('value');
+						$('#CTGRY_3').attr('value',-1);
 					}else{
 						
 					}
@@ -364,20 +370,7 @@ function isValidCategory(){
 		} else{
 			registReady = true && registReady;
 		}
-		/*
-		if(categoryNum >=1){
-			//1개 이상 선택됨
-			$('#CTGRY_1').attr('value');
-		}else if(categoryNum >=2){
-			//2개 이상 선택됨
-			$('#CTGRY_2').attr('value');
-		}else if(categoryNum >=3){
-			//3개 선택됨
-			$('#CTGRY_3').attr('value');
-		}else{
-			
-		}
-		*/
+	
 	}
 }
 
@@ -385,4 +378,18 @@ function getLocationInfo(){
 	var userLocation=$('#locations option:selected').val();
 	$('#location_id').attr('value',userLocation);
 	
+}
+
+
+function getGenderInfo(){
+	console.log($('#select2-genders-container').attr('title'));
+	
+	var userGender=$('#select2-genders-container').attr('title');
+	if(userGender == 'Male'){
+		$('input#user_gender').attr('value','M');
+	} else if (userGender == 'Female'){
+		$('input#user_gender').attr('value','F');
+	}
+	
+	console.log($('input#user_gender').attr('value'));
 }

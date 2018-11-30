@@ -58,7 +58,7 @@ font-family: 'Noto Sans KR', sans-serif;
             <!-- 자동로그인-->
          <div class="form-check">
             <div class="left">
-               <input type="checkbox" value="Remember me">자동 로그인
+               <input type="checkbox" name="remember-me">자동 로그인
             </div>
                 <!-- 비밀번호 까먹은사람! -->
             <div class="right">

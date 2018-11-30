@@ -1,6 +1,10 @@
 package kr.or.kosta.salmon.controller;
 
 
+import java.security.Principal;
+
+import javax.inject.Inject;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,11 +12,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
+import kr.or.kosta.salmon.service.UserService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
 public class CommonController {
+	
+	@Inject
+	UserService service;
 	
 	@GetMapping("/main/home")
 	public void mainHome() {
@@ -55,8 +64,12 @@ public class CommonController {
 		log.info(" 로그아웃 처리 ");
 	}
 	
-	@GetMapping("/mypage")
-	public void mpageGet() {
-		log.info(" 마이페이지 요청 ");
+	@GetMapping("/main/mypage")
+	public void mpageGet(Principal principal, Model model) {
+		log.info(" 마이페이지 요청  : "+principal.getName());
+		//카테고리,지역 정보 가져오기
+		UserLocAndCatsDTO user= service.getUserSimplePsns(principal.getName());
+		user.setCtgrNames();
+		model.addAttribute("userPsnsInfo",user);
 	}
 }

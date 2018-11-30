@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.mapper.UserMapper;
 import lombok.Setter;
@@ -179,8 +180,9 @@ public class MemberTests {
 	@Test
 	public void testCreateUser() {
 		UserDTO user= new UserDTO();
+		RegistUserDTO ruser= new RegistUserDTO();
 		
-		user.setUser_id("newid");
+		user.setUser_id("newid1");
 		user.setUser_nickname("newNickname");
 		user.setUser_email("new@mail.com");
 		user.setUser_birthday("941225");
@@ -188,8 +190,16 @@ public class MemberTests {
 		user.setUser_passwd(pwEncoder.encode("1234"));
 		user.setUser_image("https://notefolio.net/data/covers/39320_t2.jpg");
 		
-		usermapper.createUser(user);
-		usermapper.insertUserAuth(user);
+		ruser.setUser_id("heyrim19");
+		ruser.setLocation_id(2);
+		ruser.setCtgry_1(1);
+		ruser.setCtgry_2(2);
+		ruser.setCtgry_3(-1);
+		
+		
+	//	usermapper.createUser(user);
+	//	usermapper.insertUserAuth(user);
+		usermapper.insertBasicPsns3(ruser);
 		
 		log.info("회원가입 완료");
 	}
