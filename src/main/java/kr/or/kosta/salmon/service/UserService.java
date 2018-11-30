@@ -22,4 +22,7 @@ public interface UserService {
 	
 	//사용자 관심 카테고리+지역정보+아이디 리턴 (마이페이지 조회용)
 	public UserLocAndCatsDTO getUserSimplePsns(String user_id);
+
+	//사용자 닉네임 변경
+	public void changeNickname(UserDTO user);
 }

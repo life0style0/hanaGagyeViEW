@@ -77,7 +77,8 @@
 								<a data-filter=".category-3" class="filter">탈퇴 </a>
 								 -->
 								<a id="viewInfo-m" class="filter">조회 </a>
-								<a id="editInfo-m" class="filter">수정 </a>
+								<a id="editProfile-m" class="filter">프로필 수정 </a>
+								<a id="editInfo-m" class="filter">개인정보 수정 </a>
 								<a id="resign-m" class="filter">탈퇴 </a>
 							</div>
 						</div>
@@ -102,9 +103,10 @@
 				<div class="col-md-10">
 				
 				<div id="viewInfo">
-					<h2> 내 정보 설정 </h2>
+					<h2> 내 정보 조회 </h2>
 					
-					<p>user : <sec:authentication property="principal.user"/></p>
+					<div> 
+					<%-- <p>user : <sec:authentication property="principal.user"/></p> --%>
 					<p> 닉네임 : <sec:authentication property="principal.user.user_nickname"/></p>
 					<p> 아이디 : <sec:authentication property="principal.username"/></p>
 					<p> 이메일 : <sec:authentication property="principal.user.user_email"/></p>
@@ -119,6 +121,35 @@
 					<p> 관심 카테고리1 : <c:out value="${userPsnsInfo.ctgry1Name}"/> </p>  
 					<p> 관심 카테고리2 : <c:out value="${userPsnsInfo.ctgry2Name}"/> </p>  
 					<p> 관심 카테고리3 : <c:out value="${userPsnsInfo.ctgry3Name}"/> </p>  
+					</div>
+				</div>
+				<div id="editProfile">
+					<h2> 프로필 수정 </h2>
+					닉네임, 프로필 사진 수정
+					
+					<form role="form" id="editProfileForm" method="post" action="/salmon/main/mypage/editprofile">
+						
+						닉네임
+						<input id="user_nickname" name="user_nickname"  required="required"  type="text" placeholder="닉네임">
+						<div id="valid_user_nickname">닉넴 체크</div>
+						사진 
+						<input type="file" name="user_image">
+						
+						<input type="button" id="editProfileSubmitBtn" value="수정하기">
+					</form>
+
+				</div>
+				<div id="editInfo">
+					<h2> 내 정보 수정 </h2>
+					
+					비밀번호, 이메일, 생일, 지역, 관심카테고리 수정
+					
+					<input type="button" value="수정하기">
+				</div>
+				
+				<div id="resign">
+					<h2> 탈퇴 </h2>
+					
 				</div>
 					<!-- <div id="container-mix"  class="row _post-container_">
 						<div class="category-1 mix custom-column-5"></div>
@@ -321,6 +352,9 @@
 	<script src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
 	<script src="/salmon/resources/template/script/filters.js"></script>
 	<script src="/salmon/resources/template/script/global.js"></script>
+	
+	<!-- 주현 스크립트 추가  -->
+    <script type="text/javascript" src="/salmon/resources/sjh/js/mypage.js"></script>
 	<script>
 	Highcharts.createElement('link', {
 	    href: 'https://fonts.googleapis.com/css?family=Unica+One',

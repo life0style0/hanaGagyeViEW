@@ -177,7 +177,7 @@ public class MemberTests {
 	}
 	
 	//회원가입 테스트
-	@Test
+//	@Test
 	public void testCreateUser() {
 		UserDTO user= new UserDTO();
 		RegistUserDTO ruser= new RegistUserDTO();
@@ -202,5 +202,17 @@ public class MemberTests {
 		usermapper.insertBasicPsns3(ruser);
 		
 		log.info("회원가입 완료");
+	}
+	
+	//회원정보 수정 테스트
+	@Test
+	public void testUpdateUser() {
+		UserDTO user= new UserDTO();
+		
+		user.setUser_id("heyrim19");
+		usermapper.searchUserById(user.getUser_id());
+		user.setUser_nickname("hh19");
+		usermapper.changeNickname(user);
+		usermapper.searchUserById(user.getUser_id());
 	}
 }

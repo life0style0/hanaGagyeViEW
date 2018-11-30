@@ -92,5 +92,10 @@ public class UserServiceImpl implements UserService {
 		return usermapper.getUserSimplePsns(user_id);
 	}
 
+	//닉네임 변경
+	@Override
+	public void changeNickname(UserDTO user) {
+		usermapper.changeNickname(user);
+	}
 	
 }

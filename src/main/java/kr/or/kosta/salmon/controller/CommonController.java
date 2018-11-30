@@ -63,13 +63,5 @@ public class CommonController {
 		//실제 로그아웃 처리
 		log.info(" 로그아웃 처리 ");
 	}
-	
-	@GetMapping("/main/mypage")
-	public void mpageGet(Principal principal, Model model) {
-		log.info(" 마이페이지 요청  : "+principal.getName());
-		//카테고리,지역 정보 가져오기
-		UserLocAndCatsDTO user= service.getUserSimplePsns(principal.getName());
-		user.setCtgrNames();
-		model.addAttribute("userPsnsInfo",user);
-	}
+
 }

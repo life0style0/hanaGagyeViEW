@@ -38,4 +38,7 @@ public interface UserMapper {
 	//사용자 관심 카테고리+지역정보+아이디 리턴
 	public UserLocAndCatsDTO getUserSimplePsns(String user_id);
 	
+	//닉네임 수정
+	public void changeNickname(UserDTO user);
+	
 }

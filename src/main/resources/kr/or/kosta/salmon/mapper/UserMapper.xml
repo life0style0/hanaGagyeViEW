@@ -203,14 +203,14 @@
 		                  ctgry_name) 
 		GROUP  BY "user_id", 
 		          "locationname"
-		 
-		<!-- SELECT user_id, 
-		 	   location_id,
-			   ctgry_1, 
-		       ctgry_2, 
-		       ctgry_3
-		FROM   psns 
-		WHERE  user_id = #{user_id} -->
+	
 	</select>
+	
+	<update id="changeNickname">
+		UPDATE users 
+		SET    user_nickname = #{user_nickname} 
+		WHERE  user_id = #{user_id}
+	</update>
+	
 
 </mapper>
