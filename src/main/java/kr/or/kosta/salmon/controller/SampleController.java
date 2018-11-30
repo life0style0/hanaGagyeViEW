@@ -1,5 +1,7 @@
 package kr.or.kosta.salmon.controller;
 
+import java.security.Principal;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +19,9 @@ public class SampleController {
 	}
 	
 	@GetMapping("/user")
-	public void doUser() {
-		log.info("회원 가능 페이지");			
+	public void doUser(Principal principal) {
+		log.info("회원 가능 페이지");	
+		log.info("user id : "+principal.getName());
 	}
 		
 	@GetMapping("/member")
