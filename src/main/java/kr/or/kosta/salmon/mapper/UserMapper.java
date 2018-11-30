@@ -2,6 +2,7 @@ package kr.or.kosta.salmon.mapper;
 
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
+import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
 
 public interface UserMapper {
 
@@ -30,5 +31,11 @@ public interface UserMapper {
 	public void insertBasicPsns1(RegistUserDTO user);
 	public void insertBasicPsns2(RegistUserDTO user);
 	public void insertBasicPsns3(RegistUserDTO user);
+	
+	public UserLocAndCatsDTO getUserCategories(String user_id);
+	public UserLocAndCatsDTO getUserLocation(String user_id);
+	
+	//사용자 관심 카테고리+지역정보+아이디 리턴
+	public UserLocAndCatsDTO getUserSimplePsns(String user_id);
 	
 }

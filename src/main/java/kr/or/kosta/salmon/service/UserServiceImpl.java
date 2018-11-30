@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
+import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
 import kr.or.kosta.salmon.mapper.UserMapper;
 import lombok.extern.log4j.Log4j;
 
@@ -82,6 +83,13 @@ public class UserServiceImpl implements UserService {
 		} else {
 			return false; //없는 닉네임
 		}
+	}
+
+	//마이페이지 정보조회용
+	@Override
+	public UserLocAndCatsDTO getUserSimplePsns(String user_id) {
+		log.info(" 지역 정보와 관심사 정보 조회");
+		return usermapper.getUserSimplePsns(user_id);
 	}
 
 	
