@@ -261,7 +261,6 @@
   background-color: #ededed;
 }
 
-
 .datepic {
   width: 0px;
 }
@@ -277,4 +276,13 @@
   line-height: 1.3333;
   margin: unset;
   margin-left: 10px;
+}
+
+.sorting-ggv-ctgry.selected {
+  background-color: #0d58c8;
+  color: white;
+}
+
+.hidden-ctgry, .hidden-money, .hidden-ggvType {
+  display: none!important;
 }
