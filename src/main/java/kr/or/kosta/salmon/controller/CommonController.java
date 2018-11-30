@@ -55,7 +55,7 @@ public class CommonController {
 		log.info(" 로그아웃 처리 ");
 	}
 	
-	@GetMapping("/mypage")
+	@GetMapping("/main/mypage")
 	public void mpageGet() {
 		log.info(" 마이페이지 요청 ");
 	}
