@@ -146,7 +146,7 @@
 				<div id="editInfo">
 					<h2> 내 정보 수정 </h2>
 					
-					비밀번호, 이메일, 생일, 지역 수정
+					비밀번호, 이메일, 생일, 지역 수정 
 						<!-- 비밀번호 -->
 				 <form role="form" id="registForm" method="post" action="/salmon/main/mypage/editmyinfo">
 					<div class="row row-space">
