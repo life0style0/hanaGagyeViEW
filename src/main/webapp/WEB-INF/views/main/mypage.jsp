@@ -135,7 +135,7 @@
 						<input id="user_nickname" name="user_nickname"  required="required"  type="text" placeholder="닉네임">
 						</div>
 						<div id="valid_user_nickname">닉넴 체크</div>
-						사진 
+						프로필사진 
 						<input type="file" name="user_image">
 						
 						<input type="button" id="editProfileSubmitBtn" value="수정하기">
