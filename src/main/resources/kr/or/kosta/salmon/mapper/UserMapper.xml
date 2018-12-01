@@ -181,6 +181,12 @@
 		FROM   psns 
 		WHERE  user_id = #{user_id}
 	</select>
+	
+	<select id="getUserEmail" resultType="String">
+		SELECT user_email
+		FROM   users 
+		WHERE  user_id = #{user_id}
+	</select>
 
 	<select id="getUserSimplePsns" resultType="kr.or.kosta.salmon.domain.UserLocAndCatsDTO">
 		SELECT "user_id", 
@@ -203,14 +209,34 @@
 		                  ctgry_name) 
 		GROUP  BY "user_id", 
 		          "locationname"
-		 
-		<!-- SELECT user_id, 
-		 	   location_id,
-			   ctgry_1, 
-		       ctgry_2, 
-		       ctgry_3
-		FROM   psns 
-		WHERE  user_id = #{user_id} -->
+	
 	</select>
-
+	
+	<update id="changeNickname">
+		UPDATE users 
+		SET    user_nickname = #{user_nickname} 
+		WHERE  user_id = #{user_id}
+	</update>
+	
+	<update id="changeUserInfo">
+		UPDATE users 
+		SET    user_passwd = #{user_passwd},
+		       user_email = #{user_email},
+		       user_birthday = #{user_birthday},
+		       user_gender = #{user_gender}
+		WHERE  user_id = #{user_id}
+	</update>
+	
+	<update id="changeUserLocation">
+		UPDATE psns 
+		SET    location_id= #{location_id}
+		WHERE  user_id = #{user_id}
+	</update>
+	
+	<select id="getAllCategories" resultType="kr.or.kosta.salmon.domain.CategoryDTO_sjh">
+		SELECT ctgry_id, 
+		       ctgry_name 
+		FROM   ctgries
+	</select>
+	
 </mapper>
