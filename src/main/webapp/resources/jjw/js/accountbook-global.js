@@ -7,6 +7,8 @@ $(function () {
     $('.view-chart').on('click', function () {
         $('.accountbook-calendar').addClass('hidden');
         $('.accountbook-chart').removeClass('hidden');
+        monthSpendChart();
+        setMonthSpendChart(monthSpendDatas);
     });
 
 });
