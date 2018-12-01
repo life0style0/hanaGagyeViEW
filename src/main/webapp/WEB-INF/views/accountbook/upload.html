@@ -203,9 +203,12 @@
         var formData = new FormData();
         for (let i = 0; i < fileList.length; i += 1) {
           const file = fileList[i];
-          formData.append('uploadFile', file);
+          console.log('file :', file);
+          formData.append('uploadFile', file, file.name);
         }
-
+        console.log('formData :', formData);
+        console.log('formData :', formData.keys().next());
+        console.log('formData :', formData.values().next());
         $.ajax({
           url: '/spring/upload/uploadAjaxAction',
           processData: false,

@@ -4,14 +4,18 @@
 
 <mapper namespace="kr.or.kosta.salmon.mapper.AccountBookMapper">
 
-        <resultMap type="kr.or.kosta.salmon.domain.AccountBookDTO" id="AccountBookToCalendar">
+        <resultMap type="kr.or.kosta.salmon.domain.AccountBookDTO" id="AccountBooks">
                 <result property="articleId" column="article_id"/>
                 <result property="ctgryName" column="ctgry_name"/>
                 <result property="articleScope" column="article_scope"/>
                 <result property="articleRegdate" column="article_regdate"/>
+                <result property="articlePaymentType" column="article_payment_type"/>
                 <result property="articlePaymentFee" column="article_payment_fee"/>
+                <result property="articleTitle" column="article_title"/>
                 <result property="articleContent" column="article_content"/>
                 <result property="articleCtgryType" column="article_ctgry_type"/>
+                <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
+                <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
         </resultMap>
 
         <resultMap type="kr.or.kosta.salmon.domain.AccountBookDTO" id="AccountBookToGgv">
@@ -28,12 +32,14 @@
                 <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
         </resultMap>
 
-        <select id="getAccountBooks" resultMap="AccountBookToCalendar">
+        <select id="getAccountBooks" resultMap="AccountBooks">
 SELECT article_id,
        ctgry_name,
        article_scope,
        to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
+       article_payment_type,
        article_payment_fee,
+       article_title,
        article_content,
         article_ctgry_type
 FROM   articles 

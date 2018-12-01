@@ -7,6 +7,15 @@ $(function () {
     $('.view-chart').on('click', function () {
         $('.accountbook-calendar').addClass('hidden');
         $('.accountbook-chart').removeClass('hidden');
+        if (chartDatas.has('monthBarSpendChart')) {
+            Highcharts.chart('accountbook-chart', chartDatas.get('monthBarSpendChart'));
+        } else {
+            monthSpendChart();
+            Highcharts.chart('accountbook-chart', chartDatas.get('monthBarSpendChart'));
+        }
+        $().on('click', function () {
+            Highcharts.chart('accountbook-chart', chartDatas.get('monthLineSpendIncomeChart')) 
+        });
     });
 
 });
