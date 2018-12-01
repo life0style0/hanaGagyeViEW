@@ -203,7 +203,7 @@
 		                 ON c.ctgry_id = p.ctgry_1 
 		                     OR c.ctgry_id = p.ctgry_2 
 		                     OR c.ctgry_id = p.ctgry_3 
-		        WHERE  user_id = 'heyrim19' 
+		        WHERE  user_id = #{user_id} 
 		        GROUP  BY user_id, 
 		                  location_name, 
 		                  ctgry_name) 
@@ -241,8 +241,7 @@
 	
 	<update id="changeUserCategories">
 		UPDATE psns 
-		SET    location_id= #{location_id},
-			   ctgry_1= #{ctgry_1},
+		SET    ctgry_1= #{ctgry_1},
 			   ctgry_2= #{ctgry_2},
 			   ctgry_3= #{ctgry_3}
 		WHERE  user_id = #{user_id}

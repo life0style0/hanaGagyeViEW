@@ -129,17 +129,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void changeUserCategories(UserLocAndCatsDTO userCats) {
 		log.info("관심카테고리 수정 "+userCats);
-		if(userCats.getCtgry_3() != -1) {
-			usermapper.insertBasicPsns3(userCats); //기본정보 저장
-		}else {
-			if(userCats.getCtgry_2() != -1) {
-				usermapper.insertBasicPsns2(userCats);
-			}else {
-				if(userCats.getCtgry_1()!= -1) {
-					usermapper.insertBasicPsns1(userCats);
-				}
-			}
+		
+		if(userCats.getCtgry_1() == -1) {
+			userCats.setCtgry_1(0);
 		}
+		if(userCats.getCtgry_2()==-1) {
+			userCats.setCtgry_2(0);
+		}
+		
+		usermapper.changeUserCategories(userCats);
 	}
 	
 }

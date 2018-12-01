@@ -2,6 +2,8 @@ $(function(){
 	
 	init();
 	eventRegist();
+	categoryNum = 0;
+	
 	if($('#editProfileForm') != null){
 		$('#user_nickname').on('change',isValidNickName);
 	}
@@ -78,11 +80,13 @@ function init() {
 }
 
 function eventRegist(){
+	
 	if($('#viewInfo-m') != null){
 		$('#viewInfo-m').on('click',function(){
 			$('#editInfo').css('display','none');
 			$('#resign').css('display','none');
 			$('#editProfile').css('display','none');
+			$('#editCats').css('display','none');
 			$('#viewInfo').css('display','block');
 		})
 	}
@@ -124,6 +128,7 @@ function eventRegist(){
 			$('#resign').css('display','block');
 		})
 	}
+	
 }
 
 
@@ -321,6 +326,7 @@ function initCategories(){
 		
 		var cats= $('[name="category"]');
 		cats.each(function(i,cat){
+		//	unclickCategory(cat);	
 			
 			$(cat).on('click',function(e){
 				//alert('category'+i);

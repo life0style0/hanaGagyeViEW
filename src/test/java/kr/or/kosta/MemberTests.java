@@ -24,6 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
+import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
 import kr.or.kosta.salmon.mapper.UserMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -205,7 +206,7 @@ public class MemberTests {
 	
 	//user dummy
 	//Users 더미데이터 (i값 변경해서 쓰기) 비밀번호 1234
-	@Test
+//	@Test
 	public void testInsertMemberUser() {
 		log.info(" users DUMMY 삽입 ");
 		
@@ -330,6 +331,12 @@ public class MemberTests {
 		for (CategoryDTO_sjh categoryDTO : list) {
 			log.info(categoryDTO);
 		}
+	}
+	
+	@Test
+	public void test() {
+		usermapper.getUserSimplePsns("inin11");
+		
 	}
 	
 	

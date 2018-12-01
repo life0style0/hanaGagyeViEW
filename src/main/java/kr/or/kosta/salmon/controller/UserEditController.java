@@ -42,10 +42,15 @@ public class UserEditController {
 	@GetMapping("/main/mypage")
 	public void mypageGet(Principal principal, Model model) {
 		log.info(" 마이페이지 요청  : "+principal.getName());
-		//카테고리,지역 정보 가져오기
-		UserLocAndCatsDTO userPsnsInfo= service.getUserSimplePsns(principal.getName());
-		userPsnsInfo.setCtgrNames();
+		//user 정보
 		UserDTO user= service.searchUserById(principal.getName());
+		log.info(user);
+		
+		//카테고리,지역 정보 가져오기
+		UserLocAndCatsDTO userPsnsInfo= service.getUserSimplePsns(user.getUser_id());
+		userPsnsInfo.setCtgrNames();
+		log.info(userPsnsInfo);
+		
 		List<CategoryDTO_sjh> categories= service.getAllCategories();
 		model.addAttribute("userPsnsInfo",userPsnsInfo);
 		model.addAttribute("user",user);
@@ -99,6 +104,7 @@ public class UserEditController {
 	public String editCategoriesPost(UserLocAndCatsDTO userCats, Principal principal) {
 		//비밀번호, 이메일, 성별, 생년월일, 지역 수정
 		log.info(" 카테고리 수정 처리  : "+principal.getName());
+		userCats.setUser_id(principal.getName());
 		log.info(userCats);
 		service.changeUserCategories(userCats);
 		log.info(" 카테고리 수정 완료 ");
