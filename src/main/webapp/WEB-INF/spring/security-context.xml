@@ -23,7 +23,7 @@
 	<security:intercept-url pattern="/auth/member" access="hasRole('ROLE_MEMBER')"/>
 	<security:intercept-url pattern="/auth/admin" access="hasRole('ROLE_ADMIN')"/>
 	
-	<security:intercept-url pattern="/main/home" access="hasRole('ROLE_USER')"/>
+	<security:intercept-url pattern="/main/**" access="hasRole('ROLE_USER')"/>
 
 	<security:intercept-url pattern="/accountbook/**" access="hasRole('ROLE_USER')"/>
 	<security:form-login login-page="/login" authentication-success-handler-ref="customLoginSuccess"/>

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
+import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
 import kr.or.kosta.salmon.mapper.UserMapper;
 import lombok.extern.log4j.Log4j;
 
@@ -26,8 +27,22 @@ public class UserServiceImpl implements UserService {
 		log.info("회원가입 시작");
 		UserDTO simpleUser= user.makeUserDTO();
 		usermapper.createUser(simpleUser); //user 생성
+		log.info("createUser 끝");
 		usermapper.insertUserAuth(simpleUser); //spring security 권한 부여
-		usermapper.insertBasicPsns(user); //기본정보 저장
+		log.info("insertUserAuth 끝");
+		if(user.getCtgry_3() != -1) {
+			usermapper.insertBasicPsns3(user); //기본정보 저장
+		}else {
+			if(user.getCtgry_2() != -1) {
+				usermapper.insertBasicPsns2(user);
+			}else {
+				if(user.getCtgry_1()!= -1) {
+					usermapper.insertBasicPsns1(user);
+				}
+			}
+		}
+		
+		log.info("insertBasicPsns 끝");
 		log.info("회원가입 끝");
 	}
 
@@ -70,5 +85,37 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	//마이페이지 정보조회용
+	@Override
+	public UserLocAndCatsDTO getUserSimplePsns(String user_id) {
+		log.info(" 지역 정보와 관심사 정보 조회");
+		return usermapper.getUserSimplePsns(user_id);
+	}
+
+	//닉네임 변경
+	@Override
+	public void changeNickname(UserDTO user) {
+		usermapper.changeNickname(user);
+	}
+
+	@Override
+	public UserDTO searchUserById(String user_id) {
+		return usermapper.searchUserById(user_id);
+	}
+
+	@Override
+	public String getUserEmail(String user_id) {
+		return usermapper.getUserEmail(user_id);
+	}
+
+	@Override
+	public void changeUserInfo(RegistUserDTO user) {
+		usermapper.changeUserInfo(user);
+	}
+
+	@Override
+	public void changeUserLocation(RegistUserDTO user) {
+		usermapper.changeUserLocation(user);
+	}
 	
 }

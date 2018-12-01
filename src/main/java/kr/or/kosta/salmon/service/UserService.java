@@ -5,6 +5,7 @@ import kr.or.kosta.salmon.domain.RegistUserDTO;
  * @author 송주현
  */
 import kr.or.kosta.salmon.domain.UserDTO;
+import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
 
 public interface UserService {
 
@@ -12,10 +13,30 @@ public interface UserService {
 	
 	public void userUpdate(UserDTO user);
 	
+	//아이디로 User찾기
+	public UserDTO searchUserById(String user_id);
+	
 	//가입할때 아이디 중복 검사
 	public boolean isExistId(String user_id);
 	//가입할때 이메일  중복 검사
 	public boolean isExistEmail(String user_email);
 	//가입할때 닉네임  중복 검사
 	public boolean isExistNickname(String user_nickname);
+	
+	//사용자 관심 카테고리+지역정보+아이디 리턴 (마이페이지 조회용)
+	public UserLocAndCatsDTO getUserSimplePsns(String user_id);
+
+	//사용자 닉네임 변경
+	public void changeNickname(UserDTO user);
+	
+	//지역정보 변경
+	public void changeUserLocation(RegistUserDTO user);
+		
+	
+	//개인정보 수정
+	public void changeUserInfo(RegistUserDTO user);
+	
+	//이메일 조회
+	public String getUserEmail(String user_id);
+	
 }

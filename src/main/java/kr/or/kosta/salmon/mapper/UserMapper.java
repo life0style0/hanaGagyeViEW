@@ -1,7 +1,11 @@
 package kr.or.kosta.salmon.mapper;
 
+import java.util.List;
+
+import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
+import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
 
 public interface UserMapper {
 
@@ -26,7 +30,30 @@ public interface UserMapper {
 	//닉네임으로 User찾기
 	public UserDTO searchUserByNickname(String user_nickname);
 	
-	//가입시 초기 개인화 정보 저장 (지역, 관심카테고리)
-	public UserDTO insertBasicPsns(RegistUserDTO user);
+	//가입시 초기 개인화 정보 저장 (지역, 관심카테고리) - 카테고 리개수별 
+	public void insertBasicPsns1(RegistUserDTO user);
+	public void insertBasicPsns2(RegistUserDTO user);
+	public void insertBasicPsns3(RegistUserDTO user);
+	
+	public UserLocAndCatsDTO getUserCategories(String user_id);
+	public UserLocAndCatsDTO getUserLocation(String user_id);
+	
+	//사용자 관심 카테고리+지역정보+아이디 리턴
+	public UserLocAndCatsDTO getUserSimplePsns(String user_id);
+	
+	//닉네임 수정
+	public void changeNickname(UserDTO user);
+	
+	//지역정보 수정
+	public void changeUserLocation(RegistUserDTO user);
+	
+	//개인정보 수정
+	public void changeUserInfo(RegistUserDTO user);
+	
+	//아이디로 이메일 찾기 
+	public String getUserEmail(String user_id);
+	
+	//카테고리 가져오기
+	public List<CategoryDTO_sjh> getAllCategories();
 	
 }
