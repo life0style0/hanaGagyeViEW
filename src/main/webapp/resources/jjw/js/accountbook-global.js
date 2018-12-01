@@ -10,7 +10,7 @@ $(function () {
         if (chartDatas.has('monthBarSpendChart')) {
             Highcharts.chart('accountbook-chart', chartDatas.get('monthBarSpendChart'));
         } else {
-            monthSpendChart();
+            monthBarSpendChart();
             Highcharts.chart('accountbook-chart', chartDatas.get('monthBarSpendChart'));
         }
         $().on('click', function () {
