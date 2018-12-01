@@ -60,8 +60,7 @@ public class GaArticleServiceImpl implements GaArticleService{
 
 	@Override
 	public void createImageInfo(ImageDTO imageDTO) {
-		// TODO Auto-generated method stub
-		
+		gaArticleMapper.createImageInfo(imageDTO);
 	}
 	
 }
