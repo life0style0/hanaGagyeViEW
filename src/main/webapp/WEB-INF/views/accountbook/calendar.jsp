@@ -116,13 +116,24 @@
 								</div>
 							</div>
 						</div>
-						<div class="be-vidget">
+						<div class="be-vidget accountbook-calendar">
 							<h3 class="letf-menu-article">
 								카테고리
 							</h3>
 							<div class="tags_block clearfix">
 								<ul class="ggv-category">
 								</ul>
+							</div>
+						</div>
+						<div class="be-vidget accountbook-chart hidden">
+							<h3 class="letf-menu-article">
+								Select Chart
+							</h3>
+							<div class="creative_filds_block">
+								<div class="ul">
+									<a class="chart-month-spend">월별 지출 비교 차트</a>
+									<a class="chart-day-line">일간 소비/수입 총합 차트</a>
+								</div>
 							</div>
 						</div>
 					</div>

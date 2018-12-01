@@ -13,9 +13,24 @@ $(function () {
             monthBarSpendChart();
             Highcharts.chart('accountbook-chart', chartDatas.get('monthBarSpendChart'));
         }
-        $().on('click', function () {
-            Highcharts.chart('accountbook-chart', chartDatas.get('monthLineSpendIncomeChart')) 
-        });
     });
+
+    $('.chart-month-spend').on('click', function () {
+        if (chartDatas.has('monthBarSpendChart')) {
+            Highcharts.chart('accountbook-chart', chartDatas.get('monthBarSpendChart'));
+        } else {
+            monthBarSpendChart();
+            Highcharts.chart('accountbook-chart', chartDatas.get('monthBarSpendChart'));
+        }
+    });
+
+    $('.chart-day-line').on('click', function () {
+        if (chartDatas.has('monthLineSpendIncomeChart')) {
+            // Highcharts.chart('accountbook-chart', chartDatas.get('monthLineSpendIncomeChart'));
+        } else {
+            Highcharts.chart('accountbook-chart', monthLineSpendIncomeChart(2018, 11));
+        }
+    });
+
 
 });

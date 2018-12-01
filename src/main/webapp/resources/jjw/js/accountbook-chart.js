@@ -89,29 +89,64 @@ function monthBarSpendChart() {
     chartDatas.set('monthBarSpendChart', chartData);
 }
 
+/**
+ * 일 단위로 지출과 소비의 총합을 선 그래프로 보여주는 함수
+ * @param {*} year 보고 싶은 년도
+ * @param {*} month 보고 싶은 월
+ */
 function monthLineSpendIncomeChart(year, month) {
+    const monthSpendLineData = new Map();
+    const monthIncomeLineData = new Map();
     calendarData.forEach(function (monthDatas, date) {
-        if (date) {
-            
+        console.log('start');
+        if (date === `${month}-${year}`) {
+            monthDatas.forEach(function (monthData) {
+                const day = Number(monthData.articleRegdate.split('-')[2]);
+                if (monthData.articleCtgryType === 'spend') {
+                    if (monthSpendLineData.has(day)) {
+                        monthSpendLineData.set(day, monthSpendLineData.get(day) + Number(monthData.articlePaymentFee));
+                    } else {
+                        monthSpendLineData.set(day, Number(monthData.articlePaymentFee));
+                    }
+                } else if (monthData.articleCtgryType === 'income') {
+                    if (monthIncomeLineData.has(day)) {
+                        monthIncomeLineData.set(day, monthIncomeLineData.get(day) + Number(monthData.articlePaymentFee));
+                    } else {
+                        monthIncomeLineData.set(day, Number(monthData.articlePaymentFee));
+                    }
+                }
+            });
+
+            console.log('end');
         }
     });
+
+    const spendDataToArray = [...monthSpendLineData.entries()];
+    const incomeDataToArray = [...monthIncomeLineData.entries()];
+    console.log('spendDataToArray :', spendDataToArray);
 
     const chartData = {
         chart: {
             type: 'line'
         },
         title: {
-            text: 'Monthly Average Temperature'
-        },
-        subtitle: {
-            text: 'Source: WorldClimate.com'
+            text: `${year}년 ${month}월 지출/수입`
         },
         xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            title: {
+                text: '일자'
+            },
+            tickInterval: 1
         },
         yAxis: {
+            min: 0,
             title: {
-                text: 'Temperature (°C)'
+                text: '금액(원)'
+            },
+            labels: {
+                formatter: function () {
+                    return this.value / 1000 + '천원';
+                }
             }
         },
         plotOptions: {
@@ -123,15 +158,16 @@ function monthLineSpendIncomeChart(year, month) {
             }
         },
         series: [{
-            name: 'Tokyo',
-            data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+            name: '지출',
+            data: spendDataToArray
         }, {
-            name: 'London',
-            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+            name: '수입',
+            data: incomeDataToArray
         }]
     };
 
-    chartDatas.set('monthLineSpendIncomeChart', chartData);
+    // chartDatas.set('monthLineSpendIncomeChart', chartData);
+    return chartData;
 }
 
 $(function () {
