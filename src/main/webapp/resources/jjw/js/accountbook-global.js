@@ -7,8 +7,12 @@ $(function () {
     $('.view-chart').on('click', function () {
         $('.accountbook-calendar').addClass('hidden');
         $('.accountbook-chart').removeClass('hidden');
-        monthSpendChart();
-        setMonthSpendChart(monthSpendDatas);
+        if (chartDatas.has('ctgryToSpend')) {
+            Highcharts.chart('accountbook-chart', chartDatas.get('ctgryToSpend'));
+        } else {
+            monthSpendChart();
+            Highcharts.chart('accountbook-chart', chartDatas.get('ctgryToSpend'));
+        }
     });
 
 });
