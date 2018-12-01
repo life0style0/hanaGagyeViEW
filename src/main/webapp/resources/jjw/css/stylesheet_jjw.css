@@ -329,13 +329,14 @@
 }
 
 .sorting-cal-money {
-  top: 17px;
-  position: relative;
+  display: inline-block;
   background-color: #cacaca;
   font-size: large;
   font-weight: 100;
   color: azure;
   text-align: center;
+  /* top: 17px;
+  position: relative; */
 }
 
 .slider {

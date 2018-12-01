@@ -54,7 +54,7 @@
 						<input type="submit" value="">
 					</form>
 				</div>
-				<div class="col-md-2 accountbook-calendar">
+				<div class="col-md-10 accountbook-calendar">
 					<div class="for-be-dropdowns">
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
@@ -65,10 +65,6 @@
 								<li><a>지출</a></li>
 							</ul>
 						</div>
-					</div>
-				</div>
-				<div class="col-md-2 accountbook-calendar">
-					<div class="for-be-dropdowns">
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
 							<span class="be-dropdown-content ggv-type">나만/공개</span>
@@ -78,9 +74,12 @@
 								<li><a>나만</a></li>
 							</ul>
 						</div>
+						<div class="sorting-cal-money">
+						</div>
 					</div>
+
 				</div>
-				<div class="col-md-2 accountbook-chart hidden">
+				<div class="col-md-10 accountbook-chart hidden">
 					<div class="for-be-dropdowns">
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
@@ -91,10 +90,6 @@
 								<li><a>지출</a></li>
 							</ul>
 						</div>
-					</div>
-				</div>
-				<div class="col-md-2 accountbook-chart hidden">
-					<div class="for-be-dropdowns">
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
 							<span class="be-dropdown-content ggv-type">차트 범위</span>
@@ -104,10 +99,6 @@
 								<li><a>나만</a></li>
 							</ul>
 						</div>
-					</div>
-				</div>
-				<div class="col-md-5">
-					<div class="sorting-cal-money">
 					</div>
 				</div>
 			</div>

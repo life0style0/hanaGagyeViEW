@@ -1,6 +1,7 @@
 var startDayNum;
 var ggvCategory = new Set();
 var moneySlider;
+var calendarData = new Map();
 
 /**
  * 기본 달력을 만드는 함수
@@ -128,6 +129,35 @@ function setSortingMoney(minMoney, maxMoney) {
     moneySlider = new Slider('#money-slider', {});
 }
 
+function setDatasToCalendar(datas) {
+    ggvCategory.clear();
+    if (!datas || datas.length === 0) {
+        setSortingMoney(0, 0);
+    } else {
+        let minMoney;
+        let maxMoney;
+        for (let i = 0; i < datas.length; i += 1) {
+            const data = datas[i];
+            if (!minMoney) {
+                minMoney = data.articlePaymentFee;
+            } else if (minMoney > data.articlePaymentFee) {
+                minMoney = data.articlePaymentFee;
+            }
+            if (!maxMoney) {
+                maxMoney = data.articlePaymentFee;
+            } else if (maxMoney < data.articlePaymentFee) {
+                maxMoney = data.articlePaymentFee;
+            }
+            ggvCategory.add(data.ctgryName);
+            addDataToCalendar(data);
+        }
+        setSortingMoney(minMoney, maxMoney);
+        sortCalByMoney();
+    }
+    setGgvCategories();
+    return datas;
+}
+
 /**
  * 달력에 가계부 정보를 입력하기 위해 서버로부터 ajax 통신을 통해 
  * json 형태의 값을 받아오는 함수
@@ -135,42 +165,23 @@ function setSortingMoney(minMoney, maxMoney) {
  * @param {*} month 월 정보
  */
 function requestCalendarDataToServer(year, month) {
-    $.ajax({
-        url: '/salmon/accountbook/ggv',
-        method: 'get',
-        data: {
-            year: year,
-            month: month
-        },
-        dataType: 'json',
-        success: function (datas) {
-            ggvCategory.clear();
-            if (!datas || datas.length === 0) {
-                setSortingMoney(0, 0);
-            } else {
-                let minMoney;
-                let maxMoney;
-                for (let i = 0; i < datas.length; i += 1) {
-                    const data = datas[i];
-                    if (!minMoney) {
-                        minMoney = data.articlePaymentFee;
-                    } else if (minMoney > data.articlePaymentFee) {
-                        minMoney = data.articlePaymentFee;
-                    }
-                    if (!maxMoney) {
-                        maxMoney = data.articlePaymentFee;
-                    } else if (maxMoney < data.articlePaymentFee) {
-                        maxMoney = data.articlePaymentFee;
-                    }
-                    ggvCategory.add(data.ctgryName);
-                    addDataToCalendar(data);
-                }
-                setSortingMoney(minMoney, maxMoney);
-                setGgvCategories();
-                sortCalByMoney();
+    if (calendarData.has(`${month}-${year}`)) {
+        setDatasToCalendar(calendarData.get(`${month}-${year}`));
+    } else {
+        $.ajax({
+            url: '/salmon/accountbook/ggv',
+            method: 'get',
+            data: {
+                year: year,
+                month: month
+            },
+            dataType: 'json',
+            success: function (datas) {
+                setDatasToCalendar(datas);
+                calendarData.set(`${month}-${year}`, datas);
             }
-        }
-    });
+        });
+    }
 }
 
 /**
