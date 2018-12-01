@@ -4,6 +4,10 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 	
+<web-app version="3.1" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd">
+
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -60,4 +64,12 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
+
+	<multipart-config>
+		<location>C:\\upload</location>
+		<max-file-size>524280</max-file-size>
+		<max-request-size>1048560</max-request-size>
+		<file-size-threshold>524280</file-size-threshold>
+	</multipart-config>
+
 </web-app>

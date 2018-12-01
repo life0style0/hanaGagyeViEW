@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<mapper namespace="kr.or.kosta.salmon.mapper.GaArticleMapper">
+	
+	<!-- 1:N ResultMap 설정 -->
+	<resultMap type="kr.or.kosta.salmon.domain.ArticleDTO" id="articleMap">
+		<id property="article_id" column="article_id"/>
+		<result property="article_id" column="article_id"/>
+		<result property="article_ctgry_id" column="article_ctgry_id"/>
+		<result property="article_scope" column="article_scope"/>
+		<result property="article_regdate" column="article_regdate"/>
+		<result property="article_editdate" column="article_editdate"/>
+		<result property="article_payment_type" column="article_payment_type"/>
+		<result property="article_payment_fee" column="article_payment_fee"/>
+		<result property="article_title" column="article_title"/>
+		<result property="article_content" column="article_content"/>
+		<result property="article_proposal_status" column="article_proposal_status"/>
+		<result property="group_id" column="group_id"/>
+		<result property="user_id" column="user_id"/>
+		<result property="article_deleted" column="article_deleted"/>
+		<collection property="articleList" resultMap="articleMap"/>
+	</resultMap>
+
+	
+	
+	<insert id="createGaArticle">
+		<selectKey keyProperty="article_id" resultType="int" order="AFTER">
+				select article_id_seq.NEXTVAL as "article_id" from dual
+		</selectKey>
+		INSERT INTO articles 
+		            (article_id, 
+		             article_ctgry_id, 
+		             article_scope, 
+		             article_regdate, 
+		             article_editdate, 
+		             article_payment_type, 
+		             article_payment_fee,
+		             article_title,
+		             article_content,
+		             article_proposal_status,
+		             group_id,
+		             user_id,
+		             article_deleted
+		             ) 
+		VALUES     (article_id_seq.NEXTVAL, 
+		            #{article_ctgry_id}, 
+		            #{article_scope}, 
+		            #{article_regdate}, 
+		            sysdate, 
+		            #{article_payment_type}, 
+		            #{article_payment_fee},
+		            #{article_title},
+		            #{article_content},
+		            null,
+		            null,
+		            #{user_id},
+		            'N') 
+
+	</insert>
+		
+	<insert id="createCategory">
+		INSERT INTO ctgry_values(
+			ctgry_value_id,
+			ctgry_id,
+			article_id
+		
+		)VALUES(
+			ctgry_value_id_seq.NEXTVAL,
+			#{ctgry_id},
+			#{article_id}
+		)
+	</insert>
+	
+	<select id="getCategory" resultType="string">
+		SELECT ctgry_name
+		FROM ctgries
+	</select>
+	
+	<select id="getCategoryByName" resultType="string">
+		SELECT 	ctgry_id
+		FROM 	ctgries
+		WHERE	ctgry_name =#{article_ctgry_name}
+	</select>
+	
+	<select id="getArticleCategoryByName" resultType="string">
+		SELECT 	article_ctgry_id
+		FROM 	article_ctgries
+		WHERE	article_ctgry_description = #{article_ctgry_name}
+	</select>
+	
+	<insert id="createHashTag">
+		<selectKey keyProperty="hashtag_id" resultType="int" order="AFTER">
+				select hashtag_id_seq.NEXTVAL as "hashtag_id" from dual
+		</selectKey>
+		INSERT INTO hashtags(
+			hashtag_id,
+			hashtag_value
+		)VALUES(
+			hashtag_id_seq.NEXTVAL,
+			#{hashtag_value}
+		)
+	</insert>
+	
+	<insert id="createHashTagRef">
+		INSERT INTO hashtag_refs(
+			hashtag_ref_id,
+			article_id,
+			hashtag_id
+		)VALUES(
+			hashtag_ref_id_seq.NEXTVAL,
+			#{article_id},
+			#{hashtag_id}
+		)
+	</insert>
+	
+	<insert id="createImageInfo">
+		INSERT INTO images(
+			image_id,
+			article_id,
+			image_path
+		)VALUES(
+			image_id_seq.NEXTVAL,
+			#{article_id},
+			#{image_path}
+		)
+	</insert>
+	
+		
+	
+</mapper>

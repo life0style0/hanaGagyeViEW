@@ -55,8 +55,8 @@
 		
 		<!-- 비밀번호 암호화 처리 -->
 		<security:password-encoder ref="bcryptPasswordEncoder"/>
-
+		
 	</security:authentication-provider>
 </security:authentication-manager>
-
+	
 </beans>
