@@ -1,4 +1,7 @@
 package kr.or.kosta.salmon.service;
+import java.util.List;
+
+import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 /**
  * User 관련 처리
@@ -38,5 +41,8 @@ public interface UserService {
 	
 	//이메일 조회
 	public String getUserEmail(String user_id);
+	
+	//카테고리 가져오기
+	public List<CategoryDTO_sjh> getAllCategories();
 	
 }

@@ -1,5 +1,6 @@
 package kr.or.kosta.salmon.controller;
 import java.security.Principal;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -41,8 +43,10 @@ public class UserEditController {
 		UserLocAndCatsDTO userPsnsInfo= service.getUserSimplePsns(principal.getName());
 		userPsnsInfo.setCtgrNames();
 		UserDTO user= service.searchUserById(principal.getName());
+		List<CategoryDTO_sjh> categories= service.getAllCategories();
 		model.addAttribute("userPsnsInfo",userPsnsInfo);
 		model.addAttribute("user",user);
+		model.addAttribute("categories", categories);
 	}
 	
 	@PostMapping("/main/mypage/editprofile")
