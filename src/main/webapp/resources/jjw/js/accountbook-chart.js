@@ -24,20 +24,19 @@ function setMonthSpendChart(monthSpendDatas) {
     const sortedMonthSpendDatas = new Map([...monthSpendDatas.entries()].sort());
     const months = [];
     const ctgryToSpend = new Map(); // key=ctgry, value=spend
+    
     sortedMonthSpendDatas.forEach(function (monthSpendChartData, date) {
         months.push(date);
-
+        let lenMax = ctgryToSpend.size === 0 ? 0 : ctgryToSpend.values().next().value.length;
         monthSpendChartData.forEach(function (articlePaymentFee, ctgryName) {
             if (ctgryToSpend.has(ctgryName)) {
-                ctgryToSpend.set(ctgryName, ctgryToSpend.get(ctgryName).push(articlePaymentFee));
-            } else if (ctgryToSpend.size === 0){
-                ctgryToSpend.set(ctgryName, blankArray);
+                ctgryToSpend.get(ctgryName).push(articlePaymentFee);
             } else {
-                const blankSize = ctgryToSpend.values().next().value.length + 1;
                 const blankArray = [];
-                for (let i = 0; i < blankSize; i += 1) {
+                for (let i = 0; i < lenMax; i += 1) {
                     blankArray.push(0);
                 }
+                blankArray.push(articlePaymentFee);
                 ctgryToSpend.set(ctgryName, blankArray);
             }
         });
@@ -49,7 +48,6 @@ function setMonthSpendChart(monthSpendDatas) {
         });
 
     });
-
     const seriesDatas = [];
     ctgryToSpend.forEach(function (spend, ctgry) {
         seriesDatas.push({
