@@ -148,7 +148,7 @@
 					
 					비밀번호, 이메일, 생일, 지역 수정 
 						<!-- 비밀번호 -->
-				 <form role="form" id="registForm" method="post" action="/salmon/main/mypage/editmyinfo">
+				 <form role="form" id="editInfoForm" method="post" action="/salmon/main/mypage/editmyinfo">
 					<div class="row row-space">
 						<!-- 비밀번호 입력 -->
 						<div class="col-2">
@@ -174,7 +174,8 @@
 							<div class="input-group">
 								<input class="input--style-1 js-datepicker" type="text"
 									placeholder="생년월일" id="user_input-birthday"
-									name="user_input-birthday"> 
+									name="user_input-birthday"
+									value="<c:out value="${user.user_birthday}"/> "> 
 									<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
 								<input type="hidden" name="user_birthday" id="user_birthday">
 							</div>
@@ -184,9 +185,23 @@
 							<div class="input-group">
 								<div class="rs-select2 js-select-simple select--no-search">
 									<select id="genders" name="gender">
-										<option disabled="disabled" selected="selected">성별</option>
-										<option id="user_gender_M" value="M">Male</option>
-										<option id="user_gender_F" value="F">Female</option>
+									<c:choose>
+										<c:when test="${user.user_gender eq 'F'}">
+											<option disabled="disabled">성별</option>
+											<option id="user_gender_M" value="M">Male</option>
+											<option id="user_gender_F" value="F"  selected="selected">Female</option>
+										</c:when>
+										<c:when test="${user.user_gender eq 'M' }">
+											<option disabled="disabled">성별</option>
+											<option id="user_gender_M" value="M"  selected="selected">Male</option>
+											<option id="user_gender_F" value="F">Female</option>
+										</c:when>
+										<c:otherwise>
+											<option disabled="disabled" selected="selected">성별</option>
+											<option id="user_gender_M" value="M">Male</option>
+											<option id="user_gender_F" value="F">Female</option>
+										</c:otherwise>
+									</c:choose>
 									</select>
 									<div class="select-dropdown"></div>
 									<input type="hidden" id="user_gender" name="user_gender">
@@ -199,27 +214,29 @@
 					<div class="col-2">
 						<div class="input-group">
 							<input class="input--style-1" id="user_email" name="user_email"
-								required="required" type="text"
-								placeholder="이메일  ex) hyerim123@gmail.com">
+								type="text" placeholder="이메일  ex) hyerim123@gmail.com"
+								value="<c:out value="${user.user_email}"/> ">
 						</div>
 						<div id="valid_user_email">이메일 체크</div>
 					</div>
 
 						<div class="col-2">
 							<div class="input-group">
+								<div><c:out value="${userPsnsInfo.locationname}"/></div>
 								<div class="rs-select2 js-select-simple select--no-search">
 									<select id="locations" required="required">
 										<option disabled="disabled" selected="selected">지역</option>
 										<option value="1">서울</option>
 										<option value="2">부산</option>
 									</select> 
-									<input type="hidden" id="location_id" name="location_id">
+									<input type="hidden" id="location_id" name="location_id" 
+									value="<c:out value="${userPsnsInfo.locationname}"/>">
 									<div class="select-dropdown"></div>
 								</div>
 							</div>
 						</div>
 
-						<input type="button" value="수정하기">
+						<input type="button" id="editInfoSubmitBtn" value="수정하기">
 					</form>
 					</div>
 
@@ -437,355 +454,6 @@
 	
 	<!-- 주현 스크립트 추가  -->
     <script type="text/javascript" src="/salmon/resources/sjh/js/mypage.js"></script>
-	<script>
-	Highcharts.createElement('link', {
-	    href: 'https://fonts.googleapis.com/css?family=Unica+One',
-	    rel: 'stylesheet',
-	    type: 'text/css'
-	}, null, document.getElementsByTagName('head')[0]);
 	
-	Highcharts.theme = {
-	    colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
-	        '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
-	    chart: {
-	        backgroundColor: {
-	            linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
-	            stops: [
-	                [0, '#2a2a2b'],
-	                [1, '#3e3e40']
-	            ]
-	        },
-	        style: {
-	            fontFamily: '\'Unica One\', sans-serif'
-	        },
-	        plotBorderColor: '#606063'
-	    },
-	    title: {
-	        style: {
-	            color: '#E0E0E3',
-	            textTransform: 'uppercase',
-	            fontSize: '20px'
-	        }
-	    },
-	    subtitle: {
-	        style: {
-	            color: '#E0E0E3',
-	            textTransform: 'uppercase'
-	        }
-	    },
-	    xAxis: {
-	        gridLineColor: '#707073',
-	        labels: {
-	            style: {
-	                color: '#E0E0E3'
-	            }
-	        },
-	        lineColor: '#707073',
-	        minorGridLineColor: '#505053',
-	        tickColor: '#707073',
-	        title: {
-	            style: {
-	                color: '#A0A0A3'
-	
-	            }
-	        }
-	    },
-	    yAxis: {
-	        gridLineColor: '#707073',
-	        labels: {
-	            style: {
-	                color: '#E0E0E3'
-	            }
-	        },
-	        lineColor: '#707073',
-	        minorGridLineColor: '#505053',
-	        tickColor: '#707073',
-	        tickWidth: 1,
-	        title: {
-	            style: {
-	                color: '#A0A0A3'
-	            }
-	        }
-	    },
-	    tooltip: {
-	        backgroundColor: 'rgba(0, 0, 0, 0.85)',
-	        style: {
-	            color: '#F0F0F0'
-	        }
-	    },
-	    plotOptions: {
-	        series: {
-	            dataLabels: {
-	                color: '#B0B0B3'
-	            },
-	            marker: {
-	                lineColor: '#333'
-	            }
-	        },
-	        boxplot: {
-	            fillColor: '#505053'
-	        },
-	        candlestick: {
-	            lineColor: 'white'
-	        },
-	        errorbar: {
-	            color: 'white'
-	        }
-	    },
-	    legend: {
-	        itemStyle: {
-	            color: '#E0E0E3'
-	        },
-	        itemHoverStyle: {
-	            color: '#FFF'
-	        },
-	        itemHiddenStyle: {
-	            color: '#606063'
-	        }
-	    },
-	    credits: {
-	        style: {
-	            color: '#666'
-	        }
-	    },
-	    labels: {
-	        style: {
-	            color: '#707073'
-	        }
-	    },
-	
-	    drilldown: {
-	        activeAxisLabelStyle: {
-	            color: '#F0F0F3'
-	        },
-	        activeDataLabelStyle: {
-	            color: '#F0F0F3'
-	        }
-	    },
-	
-	    navigation: {
-	        buttonOptions: {
-	            symbolStroke: '#DDDDDD',
-	            theme: {
-	                fill: '#505053'
-	            }
-	        }
-	    },
-	
-	    // scroll charts
-	    rangeSelector: {
-	        buttonTheme: {
-	            fill: '#505053',
-	            stroke: '#000000',
-	            style: {
-	                color: '#CCC'
-	            },
-	            states: {
-	                hover: {
-	                    fill: '#707073',
-	                    stroke: '#000000',
-	                    style: {
-	                        color: 'white'
-	                    }
-	                },
-	                select: {
-	                    fill: '#000003',
-	                    stroke: '#000000',
-	                    style: {
-	                        color: 'white'
-	                    }
-	                }
-	            }
-	        },
-	        inputBoxBorderColor: '#505053',
-	        inputStyle: {
-	            backgroundColor: '#333',
-	            color: 'silver'
-	        },
-	        labelStyle: {
-	            color: 'silver'
-	        }
-	    },
-	
-	    navigator: {
-	        handles: {
-	            backgroundColor: '#666',
-	            borderColor: '#AAA'
-	        },
-	        outlineColor: '#CCC',
-	        maskFill: 'rgba(255,255,255,0.1)',
-	        series: {
-	            color: '#7798BF',
-	            lineColor: '#A6C7ED'
-	        },
-	        xAxis: {
-	            gridLineColor: '#505053'
-	        }
-	    },
-	
-	    scrollbar: {
-	        barBackgroundColor: '#808083',
-	        barBorderColor: '#808083',
-	        buttonArrowColor: '#CCC',
-	        buttonBackgroundColor: '#606063',
-	        buttonBorderColor: '#606063',
-	        rifleColor: '#FFF',
-	        trackBackgroundColor: '#404043',
-	        trackBorderColor: '#404043'
-	    },
-	
-	    // special colors for some of the
-	    legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
-	    background2: '#505053',
-	    dataLabelsColor: '#B0B0B3',
-	    textColor: '#C0C0C0',
-	    contrastTextColor: '#F0F0F3',
-	    maskColor: 'rgba(255,255,255,0.3)'
-	};
-	
-	// 카테고리별 분포
-	Highcharts.setOptions(Highcharts.theme);
-	
-	
-		Highcharts.chart('container', {
-			  chart: {
-			    plotBackgroundColor: null,
-			    plotBorderWidth: null,
-			    plotShadow: false,
-			    type: 'pie'
-			  },
-			  title: {
-			    text: '기준 월 소비 현황, 11월'
-			  },
-			  tooltip: {
-			    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-			  },
-			  plotOptions: {
-			    pie: {
-			      allowPointSelect: true,
-			      cursor: 'pointer',
-			      dataLabels: {
-			        enabled: true,
-			        format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-			        style: {
-			          color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-			        }
-			      }
-			    }
-			  },
-			  series: [{
-			    name: 'category',
-			    colorByPoint: true,
-			    data: [{
-			      name: '주류',
-			      y: 61.41,
-			      sliced: true,
-			      selected: true
-			    }, {
-			      name: '유류비',
-			      y: 11.84
-			    }, {
-			      name: '여행',
-			      y: 10.85
-			    }, {
-			      name: '문화',
-			      y: 4.67
-			    }, {
-			      name: '영화',
-			      y: 4.18
-			    }, {
-			      name: '간식',
-			      y: 1.64
-			    }, {
-			      name: '식사',
-			      y: 1.6
-			    }, {
-			      name: '여가활동',
-			      y: 1.2
-			    }, {
-			      name: '기타',
-			      y: 2.61
-			    }]
-			  }]
-			});
-		
-		//목표 지출 달성
-		
-		Highcharts.chart('container2', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: '목표지출 달성 현황'
-    },
-    xAxis: {
-        categories: [
-            '총 지출',
-            '더넣을거잇나..',
-            '없겟지?'
-        ]
-    },
-    yAxis: [{
-        min: 0,
-        title: {
-            text: 'Employees'
-        }
-    }, {
-        title: {
-            text: 'Profit (millions)'
-        },
-        opposite: true
-    }],
-    legend: {
-        shadow: false
-    },
-    tooltip: {
-        shared: true
-    },
-    plotOptions: {
-        column: {
-            grouping: false,
-            shadow: false,
-            borderWidth: 0
-        }
-    },
-    series: [{
-        name: 'Employees',
-        color: 'rgba(165,170,217,1)',
-        data: [150, 73, 20],
-        pointPadding: 0.3,
-        pointPlacement: -0.2
-    }, {
-        name: 'Employees Optimized',
-        color: 'rgba(126,86,134,.9)',
-        data: [140, 90, 40],
-        pointPadding: 0.4,
-        pointPlacement: -0.2
-    }, {
-        name: 'Profit',
-        color: 'rgba(248,161,63,1)',
-        data: [183.6, 178.8, 198.5],
-        tooltip: {
-            valuePrefix: '$',
-            valueSuffix: ' M'
-        },
-        pointPadding: 0.3,
-        pointPlacement: 0.2,
-        yAxis: 1
-    }, {
-        name: 'Profit Optimized',
-        color: 'rgba(186,60,61,.9)',
-        data: [203.6, 198.8, 208.5],
-        tooltip: {
-            valuePrefix: '$',
-            valueSuffix: ' M'
-        },
-        pointPadding: 0.4,
-        pointPlacement: 0.2,
-        yAxis: 1
-    }]
-});
-		
-		</script>
 	</body>
 </html>

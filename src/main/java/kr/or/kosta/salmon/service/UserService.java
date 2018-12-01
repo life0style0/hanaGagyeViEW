@@ -28,4 +28,6 @@ public interface UserService {
 
 	//사용자 닉네임 변경
 	public void changeNickname(UserDTO user);
+	
+	
 }
