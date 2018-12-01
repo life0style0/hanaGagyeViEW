@@ -1,3 +1,5 @@
+calendarData
+
 Highcharts.chart('accountbook-chart', {
     chart: {
         type: 'column'
