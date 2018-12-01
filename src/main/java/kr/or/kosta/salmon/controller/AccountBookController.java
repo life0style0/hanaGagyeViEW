@@ -36,8 +36,8 @@ public class AccountBookController {
     }
 
     @GetMapping(value = "/ggv", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-    public @ResponseBody ResponseEntity<List<AccountBookDTO>> getAccountBooks(@RequestParam("year") int year,
-            @RequestParam("month") int month, Principal principal) {
+    public @ResponseBody ResponseEntity<List<AccountBookDTO>> getAccountBooks(@RequestParam("year") String year,
+            @RequestParam("month") String month, Principal principal) {
         log.info("calendar get....");
         List<AccountBookDTO> abDTOs = null;
         ResponseEntity<List<AccountBookDTO>> rEntity = null;

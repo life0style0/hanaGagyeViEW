@@ -19,7 +19,7 @@ public class AccountBookServiceImpl implements AccountBookService {
     private AccountBookMapper abm;
 
     @Override
-    public List<AccountBookDTO> getAccountBooks(String userId, int year, int month) throws Exception{
+    public List<AccountBookDTO> getAccountBooks(String userId, String year, String month) throws Exception{
         return abm.getAccountBooks(userId, year, month);
     }
 

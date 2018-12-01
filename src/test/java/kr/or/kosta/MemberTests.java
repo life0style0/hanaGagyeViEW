@@ -16,7 +16,6 @@ import javax.sql.DataSource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -49,13 +48,14 @@ public class MemberTests {
 		
 		try {
 			con=datasource.getConnection();
-			pstmt= con.prepareStatement(sql);
+			pstmt = con.prepareStatement(sql);
+			log.info(pstmt);
 		}catch (Exception e) {
 		}
 	}
 	
 	//Users 더미데이터 (i값 변경해서 쓰기) 비밀번호 1234
-//	@Test
+	@Test
 	public void testInsertMember() {
 		log.info(" users DUMMY 삽입 ");
 		
