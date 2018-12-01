@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
 import kr.or.kosta.salmon.domain.HashTagDTO;
+import kr.or.kosta.salmon.domain.ImageDTO;
 
 public interface GaArticleMapper {
 
@@ -15,4 +16,5 @@ public interface GaArticleMapper {
 	public void createCategory(CategoryDTO category);
 	public void createHashTag(HashTagDTO hashTagDTO);
 	public void createHashTagRef(HashTagDTO hashTagDTO);
+	public void createImageInfo(ImageDTO imageDTO);
 }

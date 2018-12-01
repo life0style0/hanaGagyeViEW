@@ -60,7 +60,7 @@
 	</servlet-mapping>
 	
 	<multipart-config>
-		<location>C:\\upload\\temp</location>
+		<location>C:\\upload</location>
 		<max-file-size>524280</max-file-size>
 		<max-request-size>1048560</max-request-size>
 		<file-size-threshold>524280</file-size-threshold>

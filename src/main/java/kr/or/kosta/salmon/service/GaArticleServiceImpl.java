@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
 import kr.or.kosta.salmon.domain.HashTagDTO;
+import kr.or.kosta.salmon.domain.ImageDTO;
 import kr.or.kosta.salmon.mapper.GaArticleMapper;
 import lombok.extern.log4j.Log4j;
 
@@ -43,8 +44,7 @@ public class GaArticleServiceImpl implements GaArticleService{
 
 	@Override
 	public void createCategory(CategoryDTO category) {
-		gaArticleMapper.createCategory(category);
-		
+		gaArticleMapper.createCategory(category);	
 	}
 
 	@Override
@@ -58,7 +58,11 @@ public class GaArticleServiceImpl implements GaArticleService{
 	public void createHashTagRef(HashTagDTO hashTagDTO) {
 		gaArticleMapper.createHashTagRef(hashTagDTO);
 	}
-	
-	
+
+	@Override
+	public void createImageInfo(ImageDTO imageDTO) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

@@ -1,7 +1,11 @@
 package kr.or.kosta.salmon.controller;
 
+import java.io.File;
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -12,10 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
 import kr.or.kosta.salmon.domain.HashTagDTO;
+import kr.or.kosta.salmon.domain.ImageDTO;
 import kr.or.kosta.salmon.service.GaArticleService;
 import lombok.extern.log4j.Log4j;
 
@@ -88,6 +96,52 @@ public class GagyeviewController {
 		}
 
 		return hashList;
+	}
+	
+	@PostMapping("/imageUpload")
+	public ResponseEntity<String> registImage(@RequestParam("uploadFile") MultipartFile[] uploadFile, @RequestParam("articleId") String articleId){
+		log.info("articleId check : " + articleId);
+		log.info("formData check : " + uploadFile);
+		log.info("formData size : " + uploadFile.length);
+		log.info("formdata toString : " + uploadFile.toString());
+		String uploadFolder = "C:\\upload";
+		File uploadPath = new File(uploadFolder, getFolder());
+		log.info("upload path:" + uploadPath);
+		if(uploadPath.exists()==false){
+			uploadPath.mkdirs();
+		}
+		for(MultipartFile multipartFile : uploadFile){
+			log.info("----------테스트-----------");
+			log.info("upload file name : " + multipartFile.getOriginalFilename());
+			log.info("upload File size: " + multipartFile.getSize());
+			String uploadFileName = multipartFile.getOriginalFilename();
+			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+			log.info("only file name : " + uploadFileName);
+			UUID uuid = UUID.randomUUID();
+			
+			uploadFileName = uuid.toString() + "_" +uploadFileName;
+			File saveFile = new File(uploadPath, uploadFileName);
+			ImageDTO imageDTO = new ImageDTO();
+			imageDTO.setArticle_id(Integer.parseInt(articleId));
+			imageDTO.setImage_path(uploadPath+uploadFileName);
+			gaArticleService.createImageInfo(imageDTO);
+			
+			try{
+				multipartFile.transferTo(saveFile);
+			}catch(Exception e){
+				log.error(e.getMessage());
+			}
+		}
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	private String getFolder(){
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String str = sdf.format(date);
+		
+		//String reValue = str.replaceAll("-",  File.separator).concat(principal.getName());
+		return str.replace("-", File.separator);
 	}
 	
 }

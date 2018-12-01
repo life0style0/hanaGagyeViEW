@@ -191,12 +191,8 @@
 								<div class="be-change-ava">
 									<!-- 이미지 업로드 시작 -->
 									  <div id="filesUpload" class="dropzone"><a href="javascript:inputFileEvent()">Drag & Drop Files Here</a></button></div>
-									  <input type="file" name="files" id="inputFile" multiple="multiple" style="display:none;">
+									  <input type="file" name="inputF" id="inputFile" multiple="multiple" style="display:none;">
 									  <div class="row upload-image-preview"></div>
-									  <div class="row text-center">
-									    <button id="upload" class="btn btn-defualt">Upload</button>
-									    <button id="cancel" class="btn btn-defualt">Cancel</button>
-									  </div>
 									
 									<div class="modal fade image-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 									  <div class="modal-dialog modal-lg">
@@ -370,28 +366,29 @@
       
     }
 
-    $('#upload').on('click', function (event) {
+    function imgUpload(articleId) {
+      var formData = new FormData();
       if (fileList.length <= 0) {
-        alert('업로드할 파일이 없습니다.');
+        return;
       } else {
-        var formData = new FormData();
-        for (let i = 0; i < fileList.length; i += 1) {
-          const file = fileList[i];
-          formData.append('uploadFile', file);
+        for (var i = 0; i < fileList.length; i += 1) {
+          var file = fileList[i];
+          console.log(formData.values().next())
+          formData.append("uploadFile",fileList[i]);
         }
-
+        console.log(formData.values().next())
         $.ajax({
-          url: '/spring/upload/uploadAjaxAction',
+          url: '/salmon/article/imageUpload?_csrf=${_csrf.token}&articleId='+articleId,
           processData: false,
           contentType: false,
-          data: formData,
+          data:  formData,
           type: 'post',
           success: function (result) {
-            alert("uploaded");
+            alert(result);
           }
         });
       }
-    })
+    };
 	
     function addInfo(){
     	$("#snsInfo").attr('style','display:block');
@@ -432,6 +429,7 @@
 		   $("#inputPayType").val($("#selPayType").text());
 		   $("#inputArtiCategory").val($("#selArtiCategory").text());
 		   var articleForm = $("#articleForm").serialize();
+		   var article_id;
 		   $.ajax({
 			   	  cache : false,
 		          url: '/salmon/article/submit?_csrf=${_csrf.token}',
@@ -439,13 +437,17 @@
 		          type: 'post',
 		          success: function (articleId) {
 		            if(parseInt(articleId) > 0){
-		            	alert('hi');
+		            	imgUpload(articleId);
 		            }else{
-		            	alert("shit")
+		            	alert("shit");
 		            }
+		          },
+		          error: function (xhr,status,er) {
+		  			alert('게시글 등록 실패');
 		          }
 		    });
-		   //articleForm.submit();
+		   imgUpload(article_id);
+		   
 	   })
 	});
 	

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
 import kr.or.kosta.salmon.domain.HashTagDTO;
+import kr.or.kosta.salmon.domain.ImageDTO;
 
 public interface GaArticleService {
 	
@@ -21,4 +22,6 @@ public interface GaArticleService {
 	//해시태그 추가
 	public void createHashTag(HashTagDTO hashTagDTO);
 	public void createHashTagRef(HashTagDTO hashTagDTO);
+	//이미지 추가
+	public void createImageInfo(ImageDTO imageDTO);
 }

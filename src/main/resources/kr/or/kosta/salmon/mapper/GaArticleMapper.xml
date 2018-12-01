@@ -114,6 +114,19 @@
 			#{hashtag_id}
 		)
 	</insert>
+	
+	<insert id="createImageInfo">
+		INSERT INTO images(
+			image_id,
+			article_id,
+			image_path
+		)VALUES(
+			image_id_seq.NEXTVAL,
+			#{article_id},
+			#{image_path}
+		)
+	</insert>
+	
 		
 	
 </mapper>
