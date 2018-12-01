@@ -8,6 +8,7 @@ package kr.or.kosta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.mapper.UserMapper;
@@ -63,6 +65,7 @@ public class MemberTests {
 		String adminAuthSql="insert into users_auth(user_auth_id, user_id, user_auth) values(users_auth_id_seq.nextval,?,'ROLE_ADMIN')";
 		String managerAuthSql="insert into users_auth(user_auth_id, user_id, user_auth) values(users_auth_id_seq.nextval,?,'ROLE_MEMBER')";
 		String userAuthSql="insert into users_auth(user_auth_id, user_id, user_auth) values(users_auth_id_seq.nextval,?,'ROLE_USER')";
+		String userPsnsSql="insert into psns(psn_id, user_id, location_id,ctgry_1,ctgry_2,ctgry_3) values(psn_id_seq.NEXTVAL,?,?,?,?,?)";
 		
 		for(int i=0; i<20; i++) {
 			Connection con=null;
@@ -70,11 +73,13 @@ public class MemberTests {
 			PreparedStatement adminAuthPstmt= null;
 			PreparedStatement managerAuthPstmt= null;
 			PreparedStatement userAuthPstmt= null;
+			PreparedStatement userPsnsPstmt= null;
 			
 			try {
 				con=datasource.getConnection();
 				pstmt= con.prepareStatement(createUserSql);
 				userAuthPstmt= con.prepareStatement(userAuthSql);
+				userPsnsPstmt= con.prepareStatement(userPsnsSql);
 				
 				if(i==0) {
 					//관리자 계정
@@ -111,6 +116,13 @@ public class MemberTests {
 					pstmt.setString(5, "F"); //성별
 					pstmt.setString(6, "941225"); //생년월일
 					pstmt.setString(7, "https://t1.daumcdn.net/cfile/tistory/243C6749533255D51D"); //이미지
+					
+					
+					userPsnsPstmt.setString(1,  "manager"+i);
+					userPsnsPstmt.setString(2,  "1"); //location
+					userPsnsPstmt.setString(3,  "3"); //category1
+					userPsnsPstmt.setString(4,  "2"); //category2
+					userPsnsPstmt.setString(5,  "1"); //category3
 				} else {
 					//일반 사용자
 					userAuthPstmt.setString(1, "heyrim"+i); //아이디
@@ -123,6 +135,12 @@ public class MemberTests {
 					pstmt.setString(5, "F"); //성별
 					pstmt.setString(6, "901111"); //생년월일
 					pstmt.setString(7, "https://notefolio.net/data/covers/39320_t2.jpg"); //이미지
+				
+					userPsnsPstmt.setString(1,  "heyrim"+i);
+					userPsnsPstmt.setString(2,  "1"); //location
+					userPsnsPstmt.setString(3,  "3"); //category1
+					userPsnsPstmt.setString(4,  "2"); //category2
+					userPsnsPstmt.setString(5,  "1"); //category3
 				}
 				
 				
@@ -134,6 +152,8 @@ public class MemberTests {
 				if(adminAuthPstmt != null) {
 					adminAuthPstmt.executeUpdate();
 				}
+				userPsnsPstmt.executeQuery(); //psns 테이블
+				
 			}catch (Exception e) {
 				
 			} finally {
@@ -165,6 +185,13 @@ public class MemberTests {
 						e.printStackTrace();
 					} 
 				}
+				if(userPsnsPstmt!=null) { 
+					try {
+						userPsnsPstmt.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} 
+				}
 				if(con!=null) { 
 					try {
 					con.close();
@@ -177,7 +204,7 @@ public class MemberTests {
 	}
 	
 	//회원가입 테스트
-	@Test
+//	@Test
 	public void testCreateUser() {
 		UserDTO user= new UserDTO();
 		RegistUserDTO ruser= new RegistUserDTO();
@@ -202,5 +229,25 @@ public class MemberTests {
 		usermapper.insertBasicPsns3(ruser);
 		
 		log.info("회원가입 완료");
+	}
+	
+	//회원정보 수정 테스트
+//	@Test
+	public void testUpdateUser() {
+		UserDTO user= new UserDTO();
+		
+		user.setUser_id("heyrim19");
+		usermapper.searchUserById(user.getUser_id());
+		user.setUser_nickname("hh19");
+		usermapper.changeNickname(user);
+		usermapper.searchUserById(user.getUser_id());
+	}
+	
+	@Test
+	public void testCtgry() {
+		List<CategoryDTO_sjh> list = usermapper.getAllCategories();
+		for (CategoryDTO_sjh categoryDTO : list) {
+			log.info(categoryDTO);
+		}
 	}
 }

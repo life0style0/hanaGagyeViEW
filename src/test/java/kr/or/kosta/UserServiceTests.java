@@ -54,7 +54,7 @@ public class UserServiceTests {
 	}
 	
 	//마이페이지에서 지역, 카테고리 정보 조회 테스트 
-	@Test
+//	@Test
 	public void testSimplePsns() {
 		log.info("결과 : "+service.getUserSimplePsns("heyrim19"));
 		UserLocAndCatsDTO user= service.getUserSimplePsns("heyrim19");
@@ -65,5 +65,12 @@ public class UserServiceTests {
 		log.info(user.getLocationname());
 	//	UserLocAndCatsDTO user= service.getUserSimplePsns("heyrim19");
 	//	System.out.println(user);
+	}
+	
+	@Test
+	public void testGetEmails() {
+		log.info("결과 : "+service.getUserEmail("newID6"));
+		log.info("결과 : "+service.getUserEmail("heyrim19"));
+		
 	}
 }

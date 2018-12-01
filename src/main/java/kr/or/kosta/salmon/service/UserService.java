@@ -1,4 +1,7 @@
 package kr.or.kosta.salmon.service;
+import java.util.List;
+
+import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 /**
  * User 관련 처리
@@ -13,6 +16,9 @@ public interface UserService {
 	
 	public void userUpdate(UserDTO user);
 	
+	//아이디로 User찾기
+	public UserDTO searchUserById(String user_id);
+	
 	//가입할때 아이디 중복 검사
 	public boolean isExistId(String user_id);
 	//가입할때 이메일  중복 검사
@@ -22,4 +28,21 @@ public interface UserService {
 	
 	//사용자 관심 카테고리+지역정보+아이디 리턴 (마이페이지 조회용)
 	public UserLocAndCatsDTO getUserSimplePsns(String user_id);
+
+	//사용자 닉네임 변경
+	public void changeNickname(UserDTO user);
+	
+	//지역정보 변경
+	public void changeUserLocation(RegistUserDTO user);
+		
+	
+	//개인정보 수정
+	public void changeUserInfo(RegistUserDTO user);
+	
+	//이메일 조회
+	public String getUserEmail(String user_id);
+	
+	//카테고리 가져오기
+	public List<CategoryDTO_sjh> getAllCategories();
+	
 }

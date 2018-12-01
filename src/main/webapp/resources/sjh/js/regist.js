@@ -281,10 +281,10 @@ function isValidAge() {
 	$('#user_birthday').attr('value',age);
 	
 	if($('input[name="user_birthday"]').attr('value').length== 0){
-		alert('birthday error');
+	//	alert('birthday error');
 		registReady = false && registReady;
 	}else{
-		alert($('input[name="user_birthday"]').attr('value')+'!');
+	//	alert($('input[name="user_birthday"]').attr('value')+'!');
 		registReady = true && registReady;
 	}
 }
@@ -377,7 +377,7 @@ function isValidCategory(){
 function getLocationInfo(){
 	var userLocation=$('#locations option:selected').val();
 	$('#location_id').attr('value',userLocation);
-	
+	console.log($('#location_id').attr('value'));
 }
 
 

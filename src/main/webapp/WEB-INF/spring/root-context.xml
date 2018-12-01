@@ -27,6 +27,7 @@
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
 		destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
+		
 	</bean>
 
 	<!--  mybatis Sqlsession 설정  -->
@@ -47,4 +48,5 @@
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	
 	<mybatis-spring:scan base-package="kr.or.kosta.salmon.mapper"/>
+
 </beans>

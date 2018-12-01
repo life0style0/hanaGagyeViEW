@@ -1,4 +1,6 @@
 package kr.or.kosta.salmon.service;
+import java.util.List;
+
 /**
  * 회원가입, 회원정보 수정 
  * @author 송주현
@@ -8,6 +10,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -92,5 +95,35 @@ public class UserServiceImpl implements UserService {
 		return usermapper.getUserSimplePsns(user_id);
 	}
 
+	//닉네임 변경
+	@Override
+	public void changeNickname(UserDTO user) {
+		usermapper.changeNickname(user);
+	}
+
+	@Override
+	public UserDTO searchUserById(String user_id) {
+		return usermapper.searchUserById(user_id);
+	}
+
+	@Override
+	public String getUserEmail(String user_id) {
+		return usermapper.getUserEmail(user_id);
+	}
+
+	@Override
+	public void changeUserInfo(RegistUserDTO user) {
+		usermapper.changeUserInfo(user);
+	}
+
+	@Override
+	public void changeUserLocation(RegistUserDTO user) {
+		usermapper.changeUserLocation(user);
+	}
+
+	@Override
+	public List<CategoryDTO_sjh> getAllCategories() {
+		return usermapper.getAllCategories();
+	}
 	
 }
