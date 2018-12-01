@@ -19,5 +19,7 @@ public interface AccountBookMapper {
 
     public List<AccountBookDTO> getAccountBooksByYear(@Param("userId") String userId, @Param("year") String year)
             throws Exception;
-    
+
+    public List<String> getYearMonth(@Param("userId") String userId) throws Exception;
+
 }

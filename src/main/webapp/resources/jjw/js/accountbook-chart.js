@@ -171,3 +171,13 @@ function monthLineSpendIncomeChart(yearSrc, monthSrc) {
 
     chartDatas.set(`monthLineSpendIncomeChart-${year}-${month}`, chartData);
 }
+
+$(function () {
+    $(".drop-down-list.chart-year").on("click",'li', function () {
+        console.log('hi');
+    });
+
+    $(".drop-down-list.chart-year").on("click",'li', function () {
+console.log('hi');
+    });
+});

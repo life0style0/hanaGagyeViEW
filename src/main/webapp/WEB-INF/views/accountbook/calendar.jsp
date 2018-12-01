@@ -59,7 +59,7 @@
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
 							<span class="be-dropdown-content ggv-type">수입/지출</span>
-							<ul class="drop-down-list">
+							<ul class="drop-down-list ggv-type-list">
 								<li><a>수입/지출</a></li>
 								<li><a>수입</a></li>
 								<li><a>지출</a></li>
@@ -67,8 +67,8 @@
 						</div>
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
-							<span class="be-dropdown-content ggv-type">나만/공개</span>
-							<ul class="drop-down-list">
+							<span class="be-dropdown-content ggv-scope">나만/공개</span>
+							<ul class="drop-down-list ggv-scope-list">
 								<li><a>나만/공개</a></li>
 								<li><a>공개</a></li>
 								<li><a>나만</a></li>
@@ -83,20 +83,14 @@
 					<div class="for-be-dropdowns">
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
-							<span class="be-dropdown-content ggv-type">차트 종류</span>
-							<ul class="drop-down-list">
-								<li><a>수입/지출</a></li>
-								<li><a>수입</a></li>
-								<li><a>지출</a></li>
+							<span class="be-dropdown-content chart-year"></span>
+							<ul class="drop-down-list chart-year-list">
 							</ul>
 						</div>
-						<div class="be-drop-down">
+						<div class="be-drop-down hidden">
 							<i class="icon-projects"></i>
-							<span class="be-dropdown-content ggv-type">차트 범위</span>
-							<ul class="drop-down-list">
-								<li><a>나만/공개</a></li>
-								<li><a>공개</a></li>
-								<li><a>나만</a></li>
+							<span class="be-dropdown-content chart-month"></span>
+							<ul class="drop-down-list chart-month-list">
 							</ul>
 						</div>
 					</div>

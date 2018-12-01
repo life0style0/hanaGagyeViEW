@@ -15,4 +15,6 @@ public interface AccountBookService {
     public AccountBookDTO getAccountBookByArticleId(String userId, int articleId) throws Exception;
 
     public Map<String, List<AccountBookDTO>> getAccountBooksByYear(String userId, String year) throws Exception;
+
+    public List<String> getYearMonth(String userId) throws Exception;
 }

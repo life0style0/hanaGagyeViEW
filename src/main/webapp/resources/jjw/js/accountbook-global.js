@@ -1,4 +1,3 @@
-
 function requestChartMonthSpend(year) {
     if (chartDatas.has(`monthBarSpendChart-${year}`)) {
         Highcharts.chart('accountbook-chart', chartDatas.get(`monthBarSpendChart-${year}`));
@@ -18,6 +17,40 @@ function requestMLSIChart(year, month) {
 }
 
 $(function () {
+    $('.chart-year').text(`${(new Date()).getFullYear()}년`);
+
+    $.ajax({
+        url: '/salmon/accountbook/ggv/year',
+        method: 'get',
+        dataType: 'json',
+        success: function (yearMonth) {
+            const yearlist = $('.chart-year-list');
+            const monthlist = $('.chart-month').next();
+            yearlist.html('');
+            monthlist.html('');
+            if (yearMonth.length === 0) {
+                const today = new Date();
+                $('.chart-year').html(`${today.getFullYear()}년`);
+                $('.chart-month').html(`${today.getMonth()}월`);
+            } else {
+                yearMonth.forEach(data => {
+                    const ym = data.split('-');
+                    const year = ym[0];
+                    const month = ym[1];
+                    if (yearlist.children().last().text() !== `${year}년`) {
+                        yearlist.append(`<li><a>${year}년</a></li>`);
+                    }
+                    monthlist.append(`<li><a>${month}월</a></li>`);
+                });
+                const temp = yearMonth[0].split('-');
+                const year = temp[0];
+                const month = temp[1];
+                $('.chart-year').html(`${year}년`);
+                $('.chart-month').html(`${month}월`);
+            }
+        }
+    });
+
     $('.view-calendar').on('click', function () {
         $('.accountbook-calendar').removeClass('hidden');
         $('.accountbook-chart').addClass('hidden');
@@ -26,16 +59,17 @@ $(function () {
     $('.view-chart').on('click', function () {
         $('.accountbook-calendar').addClass('hidden');
         $('.accountbook-chart').removeClass('hidden');
-        requestChartMonthSpend(2018);
+        requestChartMonthSpend($('.chart-year').text().substr(0, 4));
     });
 
     $('.chart-month-spend').on('click', function () {
-        requestChartMonthSpend(2018);
+        requestChartMonthSpend($('.chart-year').text().substr(0, 4));
+        $('.chart-month').parent().addClass('hidden');
     });
 
     $('.chart-day-line').on('click', function () {
-        requestMLSIChart(2018, 11);
+        requestMLSIChart($('.chart-year').text().substr(0, 4), $('.chart-month').text().substr(0, 2));
+        $('.chart-month').parent().removeClass('hidden');
     });
-
 
 });

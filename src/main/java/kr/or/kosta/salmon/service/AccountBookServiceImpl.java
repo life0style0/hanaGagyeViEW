@@ -49,4 +49,9 @@ public class AccountBookServiceImpl implements AccountBookService {
         return result;
     }
 
+    @Override
+    public List<String> getYearMonth(String userId) throws Exception {
+        return abm.getYearMonth(userId);
+    }
+
 }
