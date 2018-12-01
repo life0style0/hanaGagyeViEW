@@ -1,8 +1,6 @@
 package kr.or.kosta.salmon.controller;
 
 
-import java.security.Principal;
-
 import javax.inject.Inject;
 
 import org.springframework.security.core.Authentication;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
 import kr.or.kosta.salmon.service.UserService;
 import lombok.extern.log4j.Log4j;
 
