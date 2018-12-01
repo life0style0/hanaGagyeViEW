@@ -1,4 +1,6 @@
 package kr.or.kosta.salmon.controller;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author 송주현
  */
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.service.UserService;
@@ -34,8 +38,10 @@ public class UserRegistController {
 	private PasswordEncoder pwEncoder;
 	
 	@GetMapping("/register")
-	public void regist() {
+	public void regist(Model model) {
 		log.info(" 회원가입 페이지 요청 ");
+		List<CategoryDTO_sjh> categories= service.getAllCategories();
+		model.addAttribute("categories", categories);
 	}
 	
 	@PostMapping("/register")
