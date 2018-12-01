@@ -168,9 +168,10 @@
 					<h2> 내 정보 수정 </h2>
 					
 					비밀번호, 이메일, 생일, 지역 수정 
-						<!-- 비밀번호 -->
+						
 				 <form role="form" id="editInfoForm" method="post" action="/salmon/main/mypage/editmyinfo">
 					<input type="hidden" name="user_id" id="user_id" value="<sec:authentication property="principal.username"/>">
+					 <!-- 비밀번호 -->
 					<div class="row row-space">
 						<!-- 비밀번호 입력 -->
 						<div class="col-2">
@@ -261,9 +262,39 @@
 					</div>
 
 				<div id="editCats">
-					<h2> 관심카테고리 수정 </h2>
-				</div>
-				
+					<h2>관심카테고리 수정</h2>
+
+
+				<form role="form" id="editCategoriesForm" method="post" action="/salmon/main/mypage/editCategories">
+					<div class="input-group">
+						<ul id="categories">
+							<c:choose>
+								<c:when test="${not empty categories}">
+									<c:forEach var="category" items="${categories}"
+										varStatus="status">
+										<li name="category" class="unselected" id="category-li-1">
+											<div id="category-1" class="unselected"
+												value="<c:out value="${category.ctgry_id}"/>">
+												<c:out value="${category.ctgry_name}" />
+											</div>
+										</li>
+									</c:forEach>
+								</c:when>
+								<c:otherwise>
+								</c:otherwise>
+							</c:choose>
+						</ul>
+						<input type="hidden" id="CTGRY_1" name="ctgry_1"> 
+						<input type="hidden" id="CTGRY_2" name="ctgry_2"> 
+						<input type="hidden" id="CTGRY_3" name="ctgry_3">
+					</div>
+					
+					<input type="button" id="editCategoriesSubmitBtn" value="수정하기">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				</form>
+
+				</div><!-- 카테고리 수정 창 -->
+
 				<div id="resign">
 					<h2> 탈퇴 </h2>
 					<input type="button" value="탈퇴하기">
@@ -277,7 +308,6 @@
 				</div>
 
 			</div>
-		</div>
 		</div>
 	
 	<!-- THE FOOTER -->

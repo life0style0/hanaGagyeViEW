@@ -93,5 +93,15 @@ public class UserEditController {
 					return new ResponseEntity<>("usedEmail",HttpStatus.OK);
 				}
 			}
-		}	
+		}
+	
+	@PostMapping("/main/mypage/editCategories")
+	public String editCategoriesPost(UserLocAndCatsDTO userCats, Principal principal) {
+		//비밀번호, 이메일, 성별, 생년월일, 지역 수정
+		log.info(" 카테고리 수정 처리  : "+principal.getName());
+		log.info(userCats);
+		service.changeUserCategories(userCats);
+		log.info(" 카테고리 수정 완료 ");
+		return "redirect:/main/mypage";
+	}
 }

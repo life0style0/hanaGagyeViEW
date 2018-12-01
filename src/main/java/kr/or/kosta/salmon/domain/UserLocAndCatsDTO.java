@@ -8,9 +8,9 @@ public class UserLocAndCatsDTO {
 	private String user_id;
 	
 	private int location_id;
-	private int CTGRY_1;
-	private int CTGRY_2;
-	private int CTGRY_3;
+	private int ctgry_1;
+	private int ctgry_2;
+	private int ctgry_3;
 
 	private String locationname;
 	private String categories;

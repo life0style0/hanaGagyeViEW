@@ -142,48 +142,26 @@ font-family: 'Noto Sans KR', sans-serif;
 
 						<div class="input-group">
                         
-                        <ul id="categories">
+	                        <ul id="categories">
+	                         <c:choose>
+						     	<c:when test="${not empty categories}">
+						     	<c:forEach var="category" items="${categories}" varStatus="status">
+							     	<li name="category" class="unselected" id="category-li-1"> 
+		                        		<div id="category-1" class="unselected" value="<c:out value="${category.ctgry_id}"/>">
+		                        		<c:out value="${category.ctgry_name}"/>
+		                        		</div>
+		                        	</li>
+						     	</c:forEach>
+						     	</c:when>
+						     	<c:otherwise>
+						     	</c:otherwise>
+						     </c:choose>
+	                        </ul>
                         
-                         <c:choose>
-					     	<c:when test="${not empty categories}">
-					     	<c:forEach var="category" items="${categories}" varStatus="status">
-						     	<li name="category" class="unselected" id="category-li-1"> 
-	                        		<div id="category-1" class="unselected" value="<c:out value="${category.ctgry_id}"/>">
-	                        		<c:out value="${category.ctgry_name}"/>
-	                        		</div>
-	                        	</li>
-					     	</c:forEach>
-					     	</c:when>
-					     </c:choose>
-                        <!-- 
-                        	<li name="category" class="unselected" id="category-li-1"> 
-                        		<div id="category-1" class="unselected" value="1">독서</div>
-                        	</li>
-                        	<li name="category"  class="unselected" id="category-li-2"> 
-                        		<div id="category-2" class="unselected" value="2">여행</div>
-                        	</li>
-                        	<li name="category"  class="unselected" id="category-li-3"> 
-                        		<div id="category-3" class="unselected" value="3">수영</div>
-                        	</li>
-                        	 -->
-                        </ul>
-                        
-                        
-                        <input type="hidden" id="CTGRY_1" name="ctgry_1">
-                        <input type="hidden" id="CTGRY_2" name="ctgry_2">
-                        <input type="hidden" id="CTGRY_3" name="ctgry_3">
+	                        <input type="hidden" id="CTGRY_1" name="ctgry_1">
+	                        <input type="hidden" id="CTGRY_2" name="ctgry_2">
+	                        <input type="hidden" id="CTGRY_3" name="ctgry_3">
                        
-                            <div class="rs-select2 js-select-simple select--no-search">
-                                <!-- <select name="class">
-                                    <option disabled="disabled" selected="selected">CLASS</option>
-                                    <option>Class 1</option>
-                                    <option>Class 2</option>
-                                    <option>Class 3</option>
-                                </select> -->
-                               
-                                
-                                <div class="select-dropdown"></div>
-                            </div>
                         </div>
                         
                         

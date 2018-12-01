@@ -125,5 +125,21 @@ public class UserServiceImpl implements UserService {
 	public List<CategoryDTO_sjh> getAllCategories() {
 		return usermapper.getAllCategories();
 	}
+
+	@Override
+	public void changeUserCategories(UserLocAndCatsDTO userCats) {
+		log.info("관심카테고리 수정 "+userCats);
+		if(userCats.getCtgry_3() != -1) {
+			usermapper.insertBasicPsns3(userCats); //기본정보 저장
+		}else {
+			if(userCats.getCtgry_2() != -1) {
+				usermapper.insertBasicPsns2(userCats);
+			}else {
+				if(userCats.getCtgry_1()!= -1) {
+					usermapper.insertBasicPsns1(userCats);
+				}
+			}
+		}
+	}
 	
 }

@@ -45,4 +45,7 @@ public interface UserService {
 	//카테고리 가져오기
 	public List<CategoryDTO_sjh> getAllCategories();
 	
+	//관심카테고리 변경
+	public void changeUserCategories(UserLocAndCatsDTO userCats);
+	
 }

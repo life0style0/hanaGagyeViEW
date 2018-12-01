@@ -56,4 +56,12 @@ public interface UserMapper {
 	//카테고리 가져오기
 	public List<CategoryDTO_sjh> getAllCategories();
 	
+	//관심카테고리 변경
+	public void changeUserCategories(UserLocAndCatsDTO userCats);
+	
+	//관심 카테고리 수정  (마이페이지)
+	public void insertBasicPsns1(UserLocAndCatsDTO user);
+	public void insertBasicPsns2(UserLocAndCatsDTO user);
+	public void insertBasicPsns3(UserLocAndCatsDTO user);
+	
 }

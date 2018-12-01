@@ -38,7 +38,7 @@ $(function(){
 			console.log(registReady);
 			if (registReady == true) {
 				console.log('submit regist');
-			//	$('#registForm').submit();
+				$('#registForm').submit();
 			}
 		}
 	}
