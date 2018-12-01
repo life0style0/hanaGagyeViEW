@@ -469,20 +469,4 @@ $(function () {
 
     initSorting();
 
-    $(".be-drop-down").on("click", function (e) {
-        const dropdown = this;
-        e.preventDefault();
-        e.stopPropagation();
-        $(dropdown).toggleClass("be-dropdown-active");
-        $(dropdown).find(".drop-down-list").stop().slideToggle();
-
-        $(document).one('click', function closeMenu(e) {
-            if ($(dropdown).has(e.target).length === 0) {
-                $(dropdown).toggleClass("be-dropdown-active");
-                $(dropdown).find(".drop-down-list").stop().slideToggle();
-            } else {
-                $(document).one('click', closeMenu);
-            }
-        });
-    });
 });

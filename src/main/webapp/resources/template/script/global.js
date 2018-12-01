@@ -278,15 +278,53 @@ $(function() {
 		$(this).addClass("active-color");
 	});
 
+
+	// 원래 만들어져 있던 be-drop-down 이벤트
 	// $(".be-drop-down").on("click" ,function(){
 	// 	$(this).toggleClass("be-dropdown-active");
 	// 	$(this).find(".drop-down-list").stop().slideToggle();
 	// });
-	$(".drop-down-list li").on("click", function(){
-		var new_value = $(this).find("a").text();
-		$(this).parent().parent().find(".be-dropdown-content").text(new_value);
-			return false;
-	});
+	// $(".drop-down-list li").on("click", function(){
+	// 	var new_value = $(this).find("a").text();
+	// 	$(this).parent().parent().find(".be-dropdown-content").text(new_value);
+	// 		return false;
+	// });
+
+	// Jjw가 수정한 be-drop-down 이벤트
+	// be-drop-down이 down 되어 잇을 때 다른 요소를 클릭하면 닫히게 수정
+	$(".be-drop-down").on("click", function (e) {
+        const dropdown = this;
+
+        $(".be-drop-down").each(function () {
+            if (!$(dropdown).hasClass("be-dropdown-active")) {
+                $(this).removeClass("be-dropdown-active");
+                $(this).find(".drop-down-list").stop().slideUp();
+            }
+        })
+
+        e.preventDefault();
+        e.stopPropagation();
+        $(dropdown).toggleClass("be-dropdown-active");
+        $(dropdown).find(".drop-down-list").stop().slideToggle();
+
+        $(document).one('click', function closeMenu(e) {
+            if ($(dropdown).has(e.target).length === 0) {
+                $(dropdown).removeClass("be-dropdown-active");
+                $(dropdown).find(".drop-down-list").stop().slideUp();
+            } else {
+                $(document).one('click', closeMenu);
+            }
+        });
+    });
+
+    $(".drop-down-list li").on("click", function () {
+        var new_value = $(this).find("a").text();
+        $(this).parent().parent().find(".be-dropdown-content").text(new_value);
+        $(this).closest('.be-drop-down').removeClass("be-dropdown-active");
+        $(this).closest('.be-drop-down').find(".drop-down-list").stop().slideUp();
+        return false;
+    });
+
 
 	$('.creative_filds_block').on('click','a', function (e) {
 		e.preventDefault();

@@ -45,7 +45,7 @@
 
 	<!-- MAIN CONTENT -->
 	<div id="content-block">
-		<div class="container-fluid cd-main-content custom-container">
+		<div class="container-fluid cd-main-content custom-container top-margin-100">
 			<div class="row">
 				<div class="col-md-2 left-field">
 					<form action="./" class="input-search">
@@ -54,7 +54,7 @@
 						<input type="submit" value="">
 					</form>
 				</div>
-				<div class="col-md-2">
+				<div class="col-md-2 accountbook-calendar">
 					<div class="for-be-dropdowns">
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
@@ -66,6 +66,8 @@
 							</ul>
 						</div>
 					</div>
+				</div>
+				<div class="col-md-2 accountbook-calendar">
 					<div class="for-be-dropdowns">
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
@@ -78,26 +80,48 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-7">
+				<div class="col-md-2 accountbook-chart hidden">
+					<div class="for-be-dropdowns">
+						<div class="be-drop-down">
+							<i class="icon-projects"></i>
+							<span class="be-dropdown-content ggv-type">차트 종류</span>
+							<ul class="drop-down-list">
+								<li><a>수입/지출</a></li>
+								<li><a>수입</a></li>
+								<li><a>지출</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-2 accountbook-chart hidden">
+					<div class="for-be-dropdowns">
+						<div class="be-drop-down">
+							<i class="icon-projects"></i>
+							<span class="be-dropdown-content ggv-type">차트 범위</span>
+							<ul class="drop-down-list">
+								<li><a>나만/공개</a></li>
+								<li><a>공개</a></li>
+								<li><a>나만</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-5">
 					<div class="sorting-cal-money">
 					</div>
 				</div>
 			</div>
 			<div class="container-fluid custom-container">
 				<div class="row">
-
 					<div class="col-md-2 left-field">
 						<div class="be-vidget">
 							<h3 class="letf-menu-article">
-								Popular Creative Filds
+								Select Views
 							</h3>
 							<div class="creative_filds_block">
 								<div class="ul">
-									<a data-filter=".category-1" class="filter">Graphic Design </a>
-									<a data-filter=".category-2" class="filter">Photography </a>
-									<a data-filter=".category-3" class="filter">Interaction Design </a>
-									<a data-filter=".category-4" class="filter">Art Direction </a>
-									<a data-filter=".category-5" class="filter">Illustration </a>
+									<a class="view-calendar">Calendar</a>
+									<a class="view-chart">Chart</a>
 								</div>
 							</div>
 						</div>
@@ -112,7 +136,7 @@
 						</div>
 					</div>
 
-					<div class="col-md-10" id="calendar-main">
+					<div class="col-md-10 accountbook-calendar" id="accountbook-calendar">
 						<div class="new-ggv"><button type="button" class="btn btn-primary my-btn">새 가계부글 올리기</button><button type="button"
 							 class="btn btn-info my-btn">월 공유</button></div>
 						<div class="calendar-head text-center"><span><i class="fa fa-chevron-left calendar-left"></i></span><span class="calendar month"></span><input
@@ -146,6 +170,11 @@
 							</tbody>
 						</table>
 					</div>
+
+					<div class="col-md-10 accountbook-chart hidden" id="accountbook-chart">
+
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -232,7 +261,11 @@
 		<script src="/salmon/resources/jjw/js/bootstrap-datepicker.kr.min.js"></script>
 		<script src="/salmon/resources/jjw/js/owl.carousel.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.3.2/bootstrap-slider.min.js"></script>
-		<script src="/salmon/resources/jjw/js/my.js"></script>
+		<script src="https://code.highcharts.com/highcharts.src.js"></script>
+		<script src="/salmon/resources/jjw/js/accountbook-calendar.js"></script>
+		<script src="/salmon/resources/jjw/js/accountbook-chart.js"></script>
+		<script src="/salmon/resources/jjw/js/accountbook-global.js"></script>
+
 </body>
 
 </html>
