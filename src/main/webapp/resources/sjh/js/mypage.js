@@ -11,7 +11,7 @@ $(function(){
 		$('#user_passwd').on('change',isValidPasswd);
 		$('#same_user_passwd').on('change',isSamePasswd);
 		$('#user_email').on('change',isValidEmail);
-		$('#locations').on('change',getLocationInfo);
+	//	$('#locations').on('change',getLocationInfo);
 	}
 	
 	
@@ -50,11 +50,20 @@ $(function(){
 })
 
 function init() {
+	$('#valid_user_passwd').css('visibility', 'hidden');
+	$('#same_valid_user_passwd').css('visibility', 'hidden');
+	$('#valid_user_email').css('visibility', 'hidden');
+	$('#valid_user_birthday').css('visibility', 'hidden');
+	
+	
 	$('#viewInfo').css('display','block');
 	$('#resign').css('display','none');
 	$('#editProfile').css('display','none');
 	$('#editInfo').css('display','none');
 	$('#editCats').css('display','none');
+	
+
+	
 }
 
 function eventRegist(){
@@ -158,6 +167,7 @@ function isValidNickName() {
 
 //이메일 중복
 function isValidEmail() {
+	console.log('이메일 검사 시작');
 	var user_email = $('#user_email').val();
 	if (user_email.trim().length == 0 || user_email == null) {
 		$('#valid_user_email').html('이메일을 입력해주세요');
@@ -166,26 +176,31 @@ function isValidEmail() {
 		return;
 	}
 	
-
+	var user_id= $('#editInfoForm #user_id').val();
 	user_email = $('#user_email').serialize();
 	console.log(user_email);
 	$.ajax({
 		data: user_email,
 		type: 'get',
 		 async: false,
-		url: '/salmon/regist/emailValidator/',
+		url: '/salmon/main/mypage/emailValidator/'+user_id+'/',
 
 		success: function (data) {
 			data = data.trim();
 
 			if (data === 'newEmail') { //없는 이메일
-				$('#valid_user_email').html('사용가능한 이메일 입니다')
+				$('#valid_user_email').html('사용가능한 이메일 입니다');
 				$('#valid_user_email').css('visibility', 'visible');
 				editInfoReady = true && editInfoReady;
 				console.log(editInfoReady);
 
+			} else if (data === 'myEmail'){ //기존 내 이메일
+				$('#valid_user_email').css('visibility', 'hidden');
+				editInfoReady = true && editInfoReady;
+				console.log(editInfoReady);
+				
 			} else if (data === 'usedEmail') { //존재하는 이메일
-				$('#valid_user_email').html('이미 사용중인 이메일 입니다')
+				$('#valid_user_email').html('이미 사용중인 이메일 입니다');
 				$('#valid_user_email').css('visibility', 'visible');
 				editInfoReady = false && editInfoReady;
 				console.log(editInfoReady);
@@ -242,3 +257,47 @@ function isSamePasswd() {
 		}
 	}
 }
+
+
+//나이 유효성 
+function isValidAge() {
+	var reg = /^\d{6}$/;
+	var age = $('#user_birthday').val();
+	if (!reg.test(age)) {
+		//유효하지 않은 나이
+		$('#valid_user_birthday').html('생년월일 여섯자리를 입력하세요');
+		$('#valid_user_birthday').css('visibility','visible');
+		
+		editInfoReady = false && editInfoReady;
+	} else {
+		$('#valid_user_birthday').css('visibility','hidden');
+		document.getElementById('valid_user_birthday').style.display = 'none';
+		editInfoReady = true && editInfoReady;
+	}
+}
+
+function getLocationInfo(){
+	if($('#locations option:selected').is('[disabled]')){
+	//	alert('hi');
+		editInfoReady = false && editInfoReady;
+		return;
+	} 
+	var userLocation=$('#locations option:selected').val();
+	$('#location_id').attr('value',userLocation);
+	console.log($('#location_id').attr('value'));
+}
+
+
+function getGenderInfo(){
+	if($('#genders option:selected').is('[disabled]')){
+	//	alert('hi');
+		editInfoReady = false && editInfoReady;
+		return;
+	} 
+	var userGender=$('#genders option:selected').val();
+	$('#user_gender').attr('value',userGender);
+	console.log($('#user_gender').attr('value'));
+
+}
+
+

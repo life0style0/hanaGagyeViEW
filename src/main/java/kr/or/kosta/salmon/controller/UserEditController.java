@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author 송주현
  */
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,13 +59,35 @@ public class UserEditController {
 		return "redirect:/main/mypage";
 	}
 	
+	@Transactional
 	@PostMapping("/main/mypage/editmyinfo")
 	public String editMyInfoPost(RegistUserDTO user, Principal principal) {
 		//비밀번호, 이메일, 성별, 생년월일, 지역 수정
 		log.info(" 개인정보 수정 처리  : "+principal.getName());
 		log.info(user);
-		
+		service.changeUserInfo(user); //users 테이블 변경
+		service.changeUserLocation(user); //psns 테이블 변경
 		log.info(" 개인정보 수정 완료 ");
 		return "redirect:/main/mypage";
 	}
+	
+	//이메일 중복검사 ( 본인 이메일 제외)
+	@GetMapping(value="/main/mypage/emailValidator/{userid}/*",
+				produces= {MediaType.TEXT_PLAIN_VALUE})
+		public ResponseEntity<String> isValidEmail(@PathVariable("userid") String user_id, @RequestParam String user_email, Principal principal) {
+			log.info("이메일 중복검사 시작 : "+user_email);
+			log.info("아이디 : "+user_id);
+			if(service.isExistEmail(user_email) == false) { //없는 메일
+				return new ResponseEntity<>("newEmail",HttpStatus.OK);
+			}else{ //존재하는 메일
+				String mail = service.getUserEmail(user_id);
+				log.info(mail);
+				if(mail.equals(user_email)) { //내 메일
+					log.info("my mail");
+					return new ResponseEntity<>("myEmail",HttpStatus.OK);
+				}else { 
+					return new ResponseEntity<>("usedEmail",HttpStatus.OK);
+				}
+			}
+		}	
 }

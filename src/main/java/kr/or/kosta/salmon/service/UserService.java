@@ -29,5 +29,15 @@ public interface UserService {
 	//사용자 닉네임 변경
 	public void changeNickname(UserDTO user);
 	
+	//지역정보 변경
+	public void changeUserLocation(RegistUserDTO user);
+		
+	
+	//개인정보 수정
+	public void changeUserInfo(RegistUserDTO user);
+	
+	//이메일 조회
+	public String getUserEmail(String user_id);
+	
 	
 }

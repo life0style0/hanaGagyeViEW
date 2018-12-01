@@ -41,4 +41,13 @@ public interface UserMapper {
 	//닉네임 수정
 	public void changeNickname(UserDTO user);
 	
+	//지역정보 수정
+	public void changeUserLocation(RegistUserDTO user);
+	
+	//개인정보 수정
+	public void changeUserInfo(RegistUserDTO user);
+	
+	//아이디로 이메일 찾기 
+	public String getUserEmail(String user_id);
+	
 }

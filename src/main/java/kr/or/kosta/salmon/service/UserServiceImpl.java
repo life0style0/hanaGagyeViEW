@@ -102,5 +102,20 @@ public class UserServiceImpl implements UserService {
 	public UserDTO searchUserById(String user_id) {
 		return usermapper.searchUserById(user_id);
 	}
+
+	@Override
+	public String getUserEmail(String user_id) {
+		return usermapper.getUserEmail(user_id);
+	}
+
+	@Override
+	public void changeUserInfo(RegistUserDTO user) {
+		usermapper.changeUserInfo(user);
+	}
+
+	@Override
+	public void changeUserLocation(RegistUserDTO user) {
+		usermapper.changeUserLocation(user);
+	}
 	
 }

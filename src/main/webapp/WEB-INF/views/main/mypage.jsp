@@ -20,6 +20,26 @@
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 		<script src="https://code.highcharts.com/modules/export-data.js"></script>
 		
+		
+		<!-- 혜림 css 추가 -->
+		
+    <!-- Icons font CSS-->
+    <link href="/salmon/resources/SignUp/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="/salmon/resources/SignUp/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet"> -->
+
+    <!-- Vendor CSS-->
+    <link href="/salmon/resources/SignUp/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="/salmon/resources/SignUp/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="/salmon/resources/SignUp/css/main.css" rel="stylesheet" media="all">
+		<!-- 혜림 css 추가 -->
+		
+		
 	</head>
 	<body >
 
@@ -131,7 +151,8 @@
 					<form role="form" id="editProfileForm" method="post" action="/salmon/main/mypage/editprofile">
 						
 						<div>현재 닉네임 : <c:out value="${user.user_nickname}"/></div>
-						<div>수정할 닉네임 : 
+						<div class="input-group">
+						수정할 닉네임 : 
 						<input id="user_nickname" name="user_nickname"  required="required"  type="text" placeholder="닉네임">
 						</div>
 						<div id="valid_user_nickname">닉넴 체크</div>
@@ -149,6 +170,7 @@
 					비밀번호, 이메일, 생일, 지역 수정 
 						<!-- 비밀번호 -->
 				 <form role="form" id="editInfoForm" method="post" action="/salmon/main/mypage/editmyinfo">
+					<input type="hidden" name="user_id" id="user_id" value="<sec:authentication property="principal.username"/>">
 					<div class="row row-space">
 						<!-- 비밀번호 입력 -->
 						<div class="col-2">
@@ -173,18 +195,17 @@
 						<div class="col-2">
 							<div class="input-group">
 								<input class="input--style-1 js-datepicker" type="text"
-									placeholder="생년월일" id="user_input-birthday"
-									name="user_input-birthday"
-									value="<c:out value="${user.user_birthday}"/> "> 
-									<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
-								<input type="hidden" name="user_birthday" id="user_birthday">
+									placeholder="생년월일" id="user_birthday"
+									name="user_birthday" required="required"
+									value="<c:out value="${user.user_birthday}"/>"> 
 							</div>
 							<div id="valid_user_birthday">생년월일 체크</div>
 						</div>
+						
 						<div class="col-2">
 							<div class="input-group">
-								<div class="rs-select2 js-select-simple select--no-search">
-									<select id="genders" name="gender">
+								<div class="">
+									<select id="genders" name="gender" required="required">
 									<c:choose>
 										<c:when test="${user.user_gender eq 'F'}">
 											<option disabled="disabled">성별</option>
@@ -203,7 +224,6 @@
 										</c:otherwise>
 									</c:choose>
 									</select>
-									<div class="select-dropdown"></div>
 									<input type="hidden" id="user_gender" name="user_gender">
 								</div>
 							</div>
@@ -215,7 +235,7 @@
 						<div class="input-group">
 							<input class="input--style-1" id="user_email" name="user_email"
 								type="text" placeholder="이메일  ex) hyerim123@gmail.com"
-								value="<c:out value="${user.user_email}"/> ">
+								value="<c:out value="${user.user_email}"/>">
 						</div>
 						<div id="valid_user_email">이메일 체크</div>
 					</div>
@@ -223,20 +243,20 @@
 						<div class="col-2">
 							<div class="input-group">
 								<div><c:out value="${userPsnsInfo.locationname}"/></div>
-								<div class="rs-select2 js-select-simple select--no-search">
+								<div class="">
 									<select id="locations" required="required">
 										<option disabled="disabled" selected="selected">지역</option>
 										<option value="1">서울</option>
 										<option value="2">부산</option>
 									</select> 
 									<input type="hidden" id="location_id" name="location_id" 
-									value="<c:out value="${userPsnsInfo.locationname}"/>">
-									<div class="select-dropdown"></div>
+									>
 								</div>
 							</div>
 						</div>
 
 						<input type="button" id="editInfoSubmitBtn" value="수정하기">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					</form>
 					</div>
 
@@ -455,5 +475,7 @@
 	<!-- 주현 스크립트 추가  -->
     <script type="text/javascript" src="/salmon/resources/sjh/js/mypage.js"></script>
 	
+	
+		
 	</body>
 </html>
