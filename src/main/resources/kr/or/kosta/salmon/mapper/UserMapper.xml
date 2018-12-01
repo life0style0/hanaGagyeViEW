@@ -233,4 +233,10 @@
 		WHERE  user_id = #{user_id}
 	</update>
 	
+	<select id="getAllCategories" resultType="kr.or.kosta.salmon.domain.CategoryDTO_sjh">
+		SELECT ctgry_id, 
+		       ctgry_name 
+		FROM   ctgries
+	</select>
+	
 </mapper>

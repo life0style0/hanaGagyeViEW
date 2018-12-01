@@ -39,5 +39,4 @@ public interface UserService {
 	//이메일 조회
 	public String getUserEmail(String user_id);
 	
-	
 }

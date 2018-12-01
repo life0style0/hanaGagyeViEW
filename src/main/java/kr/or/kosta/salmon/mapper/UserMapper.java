@@ -1,5 +1,8 @@
 package kr.or.kosta.salmon.mapper;
 
+import java.util.List;
+
+import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -49,5 +52,8 @@ public interface UserMapper {
 	
 	//아이디로 이메일 찾기 
 	public String getUserEmail(String user_id);
+	
+	//카테고리 가져오기
+	public List<CategoryDTO_sjh> getAllCategories();
 	
 }

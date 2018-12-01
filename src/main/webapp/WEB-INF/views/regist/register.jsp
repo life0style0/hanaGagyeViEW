@@ -143,6 +143,19 @@ font-family: 'Noto Sans KR', sans-serif;
 						<div class="input-group">
                         
                         <ul id="categories">
+                        
+                         <c:choose>
+					     	<c:when test="${not empty categories}">
+					     	<c:forEach var="category" items="${categories}" varStatus="status">
+						     	<li name="category" class="unselected" id="category-li-1"> 
+	                        		<div id="category-1" class="unselected" value="<c:out value="${category.ctgry_id}"/>">
+	                        		<c:out value="${category.ctgry_name}"/>
+	                        		</div>
+	                        	</li>
+					     	</c:forEach>
+					     	</c:when>
+					     </c:choose>
+                        <!-- 
                         	<li name="category" class="unselected" id="category-li-1"> 
                         		<div id="category-1" class="unselected" value="1">독서</div>
                         	</li>
@@ -152,28 +165,10 @@ font-family: 'Noto Sans KR', sans-serif;
                         	<li name="category"  class="unselected" id="category-li-3"> 
                         		<div id="category-3" class="unselected" value="3">수영</div>
                         	</li>
-                        	<li name="category"  class="unselected" id="category-li-4"> 
-                        		<div id="category-4" class="unselected" value="4">등산</div>
-                        	</li>
-                        	<li name="category"  class="unselected" id="category-li-5"> 
-                        		<div id="category-5" class="unselected" value="5">음식</div>
-                        	</li>
-                        	<li name="category"  class="unselected" id="category-li-6"> 
-                        		<div id="category-6" class="unselected" value="6">공예</div>
-                        	</li>
-                        	<li name="category"  class="unselected" id="category-li-7"> 
-                        		<div id="category-7" class="unselected" value="7">영화</div>
-                        	</li>
-                        	<li name="category"  class="unselected" id="category-li-8"> 
-                        		<div id="category-8" class="unselected" value="8">반려동물</div>
-                        	</li>
-                        	<li name="category"  class="unselected" id="category-li-9"> 
-                        		<div id="category-9" class="unselected" value="9">음악</div>
-                        	</li>
-                        	<li name="category"  class="unselected" id="category-li-10"> 
-                        		<div id="category-10" class="unselected" value="10">댄스</div>
-                        	</li>
+                        	 -->
                         </ul>
+                        
+                        
                         <input type="hidden" id="CTGRY_1" name="ctgry_1">
                         <input type="hidden" id="CTGRY_2" name="ctgry_2">
                         <input type="hidden" id="CTGRY_3" name="ctgry_3">

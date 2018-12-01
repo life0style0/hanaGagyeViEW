@@ -8,6 +8,7 @@ package kr.or.kosta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.mapper.UserMapper;
@@ -230,7 +232,7 @@ public class MemberTests {
 	}
 	
 	//회원정보 수정 테스트
-	@Test
+//	@Test
 	public void testUpdateUser() {
 		UserDTO user= new UserDTO();
 		
@@ -239,5 +241,13 @@ public class MemberTests {
 		user.setUser_nickname("hh19");
 		usermapper.changeNickname(user);
 		usermapper.searchUserById(user.getUser_id());
+	}
+	
+	@Test
+	public void testCtgry() {
+		List<CategoryDTO_sjh> list = usermapper.getAllCategories();
+		for (CategoryDTO_sjh categoryDTO : list) {
+			log.info(categoryDTO);
+		}
 	}
 }
