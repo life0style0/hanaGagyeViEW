@@ -173,11 +173,17 @@ function monthLineSpendIncomeChart(yearSrc, monthSrc) {
 }
 
 $(function () {
-    $(".drop-down-list.chart-year").on("click",'li', function () {
-        console.log('hi');
+    $(".chart-year-list").on("click", 'li', function () {
+        console.log('start');
+        if ($('.chart-month-spend').hasClass('active')){
+            console.log('here');
+            requestChartMonthSpend($('.chart-year-dropdown').text().substr(0, 4));
+        } else if ($('.chart-day-line').hasClass('active')){
+            requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));    
+        }
     });
 
-    $(".drop-down-list.chart-year").on("click",'li', function () {
-console.log('hi');
+    $(".chart-month-list").on("click",'li', function () {
+        requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
     });
 });

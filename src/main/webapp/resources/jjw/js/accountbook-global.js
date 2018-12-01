@@ -17,7 +17,7 @@ function requestMLSIChart(year, month) {
 }
 
 $(function () {
-    $('.chart-year').text(`${(new Date()).getFullYear()}년`);
+    $('.chart-year-dropdown').text(`${(new Date()).getFullYear()}년`);
 
     $.ajax({
         url: '/salmon/accountbook/ggv/year',
@@ -25,13 +25,13 @@ $(function () {
         dataType: 'json',
         success: function (yearMonth) {
             const yearlist = $('.chart-year-list');
-            const monthlist = $('.chart-month').next();
+            const monthlist = $('.chart-month-list');
             yearlist.html('');
             monthlist.html('');
             if (yearMonth.length === 0) {
                 const today = new Date();
-                $('.chart-year').html(`${today.getFullYear()}년`);
-                $('.chart-month').html(`${today.getMonth()}월`);
+                $('.chart-year-dropdown').html(`${today.getFullYear()}년`);
+                $('.chart-month-dropdown').html(`${today.getMonth()}월`);
             } else {
                 yearMonth.forEach(data => {
                     const ym = data.split('-');
@@ -45,8 +45,8 @@ $(function () {
                 const temp = yearMonth[0].split('-');
                 const year = temp[0];
                 const month = temp[1];
-                $('.chart-year').html(`${year}년`);
-                $('.chart-month').html(`${month}월`);
+                $('.chart-year-dropdown').html(`${year}년`);
+                $('.chart-month-dropdown').html(`${month}월`);
             }
         }
     });
@@ -59,17 +59,17 @@ $(function () {
     $('.view-chart').on('click', function () {
         $('.accountbook-calendar').addClass('hidden');
         $('.accountbook-chart').removeClass('hidden');
-        requestChartMonthSpend($('.chart-year').text().substr(0, 4));
+        requestChartMonthSpend($('.chart-year-dropdown').text().substr(0, 4));
     });
 
     $('.chart-month-spend').on('click', function () {
-        requestChartMonthSpend($('.chart-year').text().substr(0, 4));
-        $('.chart-month').parent().addClass('hidden');
+        requestChartMonthSpend($('.chart-year-dropdown').text().substr(0, 4));
+        $('.chart-month-dropdown').parent().addClass('hidden');
     });
 
     $('.chart-day-line').on('click', function () {
-        requestMLSIChart($('.chart-year').text().substr(0, 4), $('.chart-month').text().substr(0, 2));
-        $('.chart-month').parent().removeClass('hidden');
+        requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
+        $('.chart-month-dropdown').parent().removeClass('hidden');
     });
 
 });

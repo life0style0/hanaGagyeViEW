@@ -58,38 +58,37 @@
 					<div class="for-be-dropdowns">
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
-							<span class="be-dropdown-content ggv-type">수입/지출</span>
-							<ul class="drop-down-list ggv-type-list">
-								<li><a>수입/지출</a></li>
-								<li><a>수입</a></li>
-								<li><a>지출</a></li>
-							</ul>
-						</div>
-						<div class="be-drop-down">
-							<i class="icon-projects"></i>
-							<span class="be-dropdown-content ggv-scope">나만/공개</span>
+							<span class="be-dropdown-content ggv-scope-dropdown">나만/공개</span>
 							<ul class="drop-down-list ggv-scope-list">
 								<li><a>나만/공개</a></li>
 								<li><a>공개</a></li>
 								<li><a>나만</a></li>
 							</ul>
 						</div>
+						<div class="be-drop-down">
+							<i class="icon-projects"></i>
+							<span class="be-dropdown-content ggv-type-dropdown">수입/지출</span>
+							<ul class="drop-down-list ggv-type-list">
+								<li><a>수입/지출</a></li>
+								<li><a>수입</a></li>
+								<li><a>지출</a></li>
+							</ul>
+						</div>
 						<div class="sorting-cal-money">
 						</div>
 					</div>
-
 				</div>
 				<div class="col-md-10 accountbook-chart hidden">
 					<div class="for-be-dropdowns">
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
-							<span class="be-dropdown-content chart-year"></span>
+							<span class="be-dropdown-content chart-year-dropdown"></span>
 							<ul class="drop-down-list chart-year-list">
 							</ul>
 						</div>
 						<div class="be-drop-down hidden">
 							<i class="icon-projects"></i>
-							<span class="be-dropdown-content chart-month"></span>
+							<span class="be-dropdown-content chart-month-dropdown"></span>
 							<ul class="drop-down-list chart-month-list">
 							</ul>
 						</div>
@@ -105,7 +104,7 @@
 							</h3>
 							<div class="creative_filds_block">
 								<div class="ul">
-									<a class="view-calendar">Calendar</a>
+									<a class="view-calendar active">Calendar</a>
 									<a class="view-chart">Chart</a>
 								</div>
 							</div>
@@ -125,7 +124,7 @@
 							</h3>
 							<div class="creative_filds_block">
 								<div class="ul">
-									<a class="chart-month-spend">월별 지출 비교 차트</a>
+									<a class="chart-month-spend active">월별 지출 비교 차트</a>
 									<a class="chart-day-line">일간 소비/수입 총합 차트</a>
 								</div>
 							</div>
