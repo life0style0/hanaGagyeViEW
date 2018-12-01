@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.or.kosta.salmon.domain.AccountBookDTO;
-import kr.or.kosta.salmon.domain.CtgryDTO;
 
 /**
  * AccountBookMapper
