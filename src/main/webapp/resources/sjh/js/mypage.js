@@ -31,6 +31,7 @@ function init() {
 	$('#resign').css('display','none');
 	$('#editProfile').css('display','none');
 	$('#editInfo').css('display','none');
+	$('#editCats').css('display','none');
 }
 
 function eventRegist(){
@@ -48,7 +49,18 @@ function eventRegist(){
 			$('#viewInfo').css('display','none');
 			$('#resign').css('display','none');
 			$('#editInfo').css('display','none');
+			$('#editCats').css('display','none');
 			$('#editProfile').css('display','block');
+		})
+	}
+	if($('#editCats-m') != null){
+		$('#editCats-m').on('click',function(){
+		//	alert('카테고리수정');
+			$('#viewInfo').css('display','none');
+			$('#resign').css('display','none');
+			$('#editProfile').css('display','none');
+			$('#editInfo').css('display','none');
+			$('#editCats').css('display','block');
 		})
 	}
 	if($('#editInfo-m') != null){
@@ -56,6 +68,7 @@ function eventRegist(){
 			$('#viewInfo').css('display','none');
 			$('#resign').css('display','none');
 			$('#editProfile').css('display','none');
+			$('#editCats').css('display','none');
 			$('#editInfo').css('display','block');
 		})
 	}
@@ -64,6 +77,7 @@ function eventRegist(){
 			$('#editInfo').css('display','none');
 			$('#viewInfo').css('display','none');
 			$('#editProfile').css('display','none');
+			$('#editCats').css('display','none');
 			$('#resign').css('display','block');
 		})
 	}

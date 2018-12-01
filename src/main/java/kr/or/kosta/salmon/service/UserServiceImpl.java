@@ -97,5 +97,10 @@ public class UserServiceImpl implements UserService {
 	public void changeNickname(UserDTO user) {
 		usermapper.changeNickname(user);
 	}
+
+	@Override
+	public UserDTO searchUserById(String user_id) {
+		return usermapper.searchUserById(user_id);
+	}
 	
 }

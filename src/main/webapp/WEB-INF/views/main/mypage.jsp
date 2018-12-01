@@ -79,6 +79,7 @@
 								<a id="viewInfo-m" class="filter">조회 </a>
 								<a id="editProfile-m" class="filter">프로필 수정 </a>
 								<a id="editInfo-m" class="filter">개인정보 수정 </a>
+								<a id="editCats-m" class="filter">관심카테고리 수정 </a>
 								<a id="resign-m" class="filter">탈퇴 </a>
 							</div>
 						</div>
@@ -107,11 +108,11 @@
 					
 					<div> 
 					<%-- <p>user : <sec:authentication property="principal.user"/></p> --%>
-					<p> 닉네임 : <sec:authentication property="principal.user.user_nickname"/></p>
+					<p> 닉네임 : <c:out value="${user.user_nickname}"/> </p>
 					<p> 아이디 : <sec:authentication property="principal.username"/></p>
-					<p> 이메일 : <sec:authentication property="principal.user.user_email"/></p>
-					<p> 성별 : <sec:authentication property="principal.user.user_gender"/></p>
-					<p> 생일 : <sec:authentication property="principal.user.user_birthday"/></p>
+					<p> 이메일 : <c:out value="${user.user_email}"/> </p>
+					<p> 성별 : <c:out value="${user.user_gender}"/></p>
+					<p> 생일 : <c:out value="${user.user_birthday}"/> </p>
 					<p> 프로필사진 : <sec:authentication property="principal.user.user_image"/></p>
 					<p> 가입일 : <sec:authentication property="principal.user.user_regdate"/></p>
 					
@@ -129,28 +130,108 @@
 					
 					<form role="form" id="editProfileForm" method="post" action="/salmon/main/mypage/editprofile">
 						
-						닉네임
+						<div>현재 닉네임 : <c:out value="${user.user_nickname}"/></div>
+						<div>수정할 닉네임 : 
 						<input id="user_nickname" name="user_nickname"  required="required"  type="text" placeholder="닉네임">
+						</div>
 						<div id="valid_user_nickname">닉넴 체크</div>
 						사진 
 						<input type="file" name="user_image">
 						
 						<input type="button" id="editProfileSubmitBtn" value="수정하기">
+						 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					</form>
 
 				</div>
 				<div id="editInfo">
 					<h2> 내 정보 수정 </h2>
 					
-					비밀번호, 이메일, 생일, 지역, 관심카테고리 수정
-					
-					<input type="button" value="수정하기">
+					비밀번호, 이메일, 생일, 지역 수정
+						<!-- 비밀번호 -->
+				 <form role="form" id="registForm" method="post" action="/salmon/main/mypage/editmyinfo">
+					<div class="row row-space">
+						<!-- 비밀번호 입력 -->
+						<div class="col-2">
+							<div class="input-group">
+								<input class="input--style-1" type="password" placeholder="비밀번호"
+									id="user_passwd" name="user_passwd">
+							</div>
+							<div id="valid_user_passwd">비밀번호 체크</div>
+						</div>
+						<!-- 비밀번호 입력 확인 -->
+						<div class="col-2">
+							<div class="input-group">
+								<input class="input--style-1" type="password"
+									placeholder="비밀번호 확인" id="same_user_passwd" name="same_passwd">
+							</div>
+							<div id="same_valid_user_passwd">비밀번호 체크</div>
+						</div>
+					</div>
+
+					<div class="row row-space">
+						<!-- 생년월일 -->
+						<div class="col-2">
+							<div class="input-group">
+								<input class="input--style-1 js-datepicker" type="text"
+									placeholder="생년월일" id="user_input-birthday"
+									name="user_input-birthday"> 
+									<i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
+								<input type="hidden" name="user_birthday" id="user_birthday">
+							</div>
+							<div id="valid_user_birthday">생년월일 체크</div>
+						</div>
+						<div class="col-2">
+							<div class="input-group">
+								<div class="rs-select2 js-select-simple select--no-search">
+									<select id="genders" name="gender">
+										<option disabled="disabled" selected="selected">성별</option>
+										<option id="user_gender_M" value="M">Male</option>
+										<option id="user_gender_F" value="F">Female</option>
+									</select>
+									<div class="select-dropdown"></div>
+									<input type="hidden" id="user_gender" name="user_gender">
+								</div>
+							</div>
+						</div>
+					</div>
+
+						<!-- 이메일 입력 -->
+					<div class="col-2">
+						<div class="input-group">
+							<input class="input--style-1" id="user_email" name="user_email"
+								required="required" type="text"
+								placeholder="이메일  ex) hyerim123@gmail.com">
+						</div>
+						<div id="valid_user_email">이메일 체크</div>
+					</div>
+
+						<div class="col-2">
+							<div class="input-group">
+								<div class="rs-select2 js-select-simple select--no-search">
+									<select id="locations" required="required">
+										<option disabled="disabled" selected="selected">지역</option>
+										<option value="1">서울</option>
+										<option value="2">부산</option>
+									</select> 
+									<input type="hidden" id="location_id" name="location_id">
+									<div class="select-dropdown"></div>
+								</div>
+							</div>
+						</div>
+
+						<input type="button" value="수정하기">
+					</form>
+					</div>
+
+				<div id="editCats">
+					<h2> 관심카테고리 수정 </h2>
 				</div>
 				
 				<div id="resign">
 					<h2> 탈퇴 </h2>
-					
+					<input type="button" value="탈퇴하기">
 				</div>
+				
 					<!-- <div id="container-mix"  class="row _post-container_">
 						<div class="category-1 mix custom-column-5"></div>
 						<div class="category-2 mix custom-column-5"></div>
@@ -159,6 +240,7 @@
 				</div>
 
 			</div>
+		</div>
 		</div>
 	
 	<!-- THE FOOTER -->

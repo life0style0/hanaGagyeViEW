@@ -13,6 +13,9 @@ public interface UserService {
 	
 	public void userUpdate(UserDTO user);
 	
+	//아이디로 User찾기
+	public UserDTO searchUserById(String user_id);
+	
 	//가입할때 아이디 중복 검사
 	public boolean isExistId(String user_id);
 	//가입할때 이메일  중복 검사

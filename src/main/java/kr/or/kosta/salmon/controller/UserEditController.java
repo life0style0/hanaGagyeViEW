@@ -40,18 +40,31 @@ public class UserEditController {
 	public void mypageGet(Principal principal, Model model) {
 		log.info(" 마이페이지 요청  : "+principal.getName());
 		//카테고리,지역 정보 가져오기
-		UserLocAndCatsDTO user= service.getUserSimplePsns(principal.getName());
-		user.setCtgrNames();
-		model.addAttribute("userPsnsInfo",user);
+		UserLocAndCatsDTO userPsnsInfo= service.getUserSimplePsns(principal.getName());
+		userPsnsInfo.setCtgrNames();
+		UserDTO user= service.searchUserById(principal.getName());
+		model.addAttribute("userPsnsInfo",userPsnsInfo);
+		model.addAttribute("user",user);
 	}
 	
 	@PostMapping("/main/mypage/editprofile")
-	public String editProfileGet(UserDTO user, Principal principal, Model model) {
+	public String editProfilePost(UserDTO user, Principal principal) {
+		//닉네임, 프로필사진 수정
 		log.info(" 프로필 수정 처리  : "+principal.getName());
 		user.setUser_id(principal.getName());
 		log.info(user);
 		service.changeNickname(user);
 		log.info(" 프로필 수정 완료 ");
-		return "redirect:/main/mypage/editprofile";
+		return "redirect:/main/mypage";
+	}
+	
+	@PostMapping("/main/mypage/editmyinfo")
+	public String editMyInfoPost(RegistUserDTO user, Principal principal) {
+		//비밀번호, 이메일, 성별, 생년월일, 지역 수정
+		log.info(" 개인정보 수정 처리  : "+principal.getName());
+		log.info(user);
+		
+		log.info(" 개인정보 수정 완료 ");
+		return "redirect:/main/mypage";
 	}
 }

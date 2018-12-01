@@ -47,13 +47,13 @@ font-family: 'Noto Sans KR', sans-serif;
                     <form role="form" id="registForm" method="post" action="/salmon/regist/register">
                         <!-- 아이디 -->
                         <div class="input-group">
-                            <input class="input--style-1"  id="user_id" name="user_id" required="required"  type="text" placeholder="아이디" name="name">
+                            <input class="input--style-1"  id="user_id" name="user_id" required="required"  type="text" placeholder="아이디">
                         </div>
                          <div id="valid_user_id">아이디 확인결과</div>       
                         
                         <!-- 닉네임 -->
                         <div class="input-group">
-                            <input class="input--style-1"   id="user_nickname" name="user_nickname"  required="required"  type="text" placeholder="닉네임" name="name">
+                            <input class="input--style-1"   id="user_nickname" name="user_nickname"  required="required"  type="text" placeholder="닉네임">
                         </div>
                          <div id="valid_user_nickname">닉넴 체크</div>
                         
@@ -126,13 +126,19 @@ font-family: 'Noto Sans KR', sans-serif;
                             </div>
                         </div>
 
-						지역
-						<select id="locations" required="required">
-							<option disabled="disabled" selected="selected">선택하세요</option>
-							<option value="1">서울</option>
-							<option value="2">지역2</option>
-						</select>
-						<input type="hidden" id="location_id" name="location_id">
+						<div class="col-2">
+							<div class="input-group">
+								<div class="rs-select2 js-select-simple select--no-search">
+									<select id="locations" required="required">
+										<option disabled="disabled" selected="selected">지역</option>
+										<option value="1">서울</option>
+										<option value="2">부산</option>
+									</select> 
+									<input type="hidden" id="location_id" name="location_id">
+									<div class="select-dropdown"></div>
+								</div>
+							</div>
+						</div>
 
 						<div class="input-group">
                         
