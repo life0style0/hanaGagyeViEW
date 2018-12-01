@@ -184,6 +184,25 @@ function requestCalendarDataToServer(year, month) {
     }
 }
 
+function requestCalendarDataToServerByYear(year) {
+    $.ajax({
+        async: false,
+        url: '/salmon/accountbook/ggv/year',
+        method: 'get',
+        data: {
+            year: year
+        },
+        dataType: 'json',
+        success: function (datas) {
+            $.each(datas, function (month, data) {
+                if (!calendarData.has(`${month}-${year}`)) {
+                    calendarData.set(`${month}-${year}`, data);
+                }
+            });
+        }
+    });
+}
+
 /**
  * 달력의 년도와 월을 설정해주는 함수
  */

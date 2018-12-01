@@ -1,3 +1,22 @@
+
+function requestChartMonthSpend(year) {
+    if (chartDatas.has(`monthBarSpendChart-${year}`)) {
+        Highcharts.chart('accountbook-chart', chartDatas.get(`monthBarSpendChart-${year}`));
+    } else {
+        monthBarSpendChart(year);
+        Highcharts.chart('accountbook-chart', chartDatas.get(`monthBarSpendChart-${year}`));
+    }
+}
+
+function requestMLSIChart(year, month) {
+    if (chartDatas.has(`monthLineSpendIncomeChart-${year}-${month}`)) {
+        Highcharts.chart('accountbook-chart', chartDatas.get(`monthLineSpendIncomeChart-${year}-${month}`));
+    } else {
+        monthLineSpendIncomeChart(year, month);
+        Highcharts.chart('accountbook-chart', chartDatas.get(`monthLineSpendIncomeChart-${year}-${month}`));
+    }
+}
+
 $(function () {
     $('.view-calendar').on('click', function () {
         $('.accountbook-calendar').removeClass('hidden');
@@ -7,29 +26,15 @@ $(function () {
     $('.view-chart').on('click', function () {
         $('.accountbook-calendar').addClass('hidden');
         $('.accountbook-chart').removeClass('hidden');
-        if (chartDatas.has('monthBarSpendChart')) {
-            Highcharts.chart('accountbook-chart', chartDatas.get('monthBarSpendChart'));
-        } else {
-            monthBarSpendChart();
-            Highcharts.chart('accountbook-chart', chartDatas.get('monthBarSpendChart'));
-        }
+        requestChartMonthSpend(2018);
     });
 
     $('.chart-month-spend').on('click', function () {
-        if (chartDatas.has('monthBarSpendChart')) {
-            Highcharts.chart('accountbook-chart', chartDatas.get('monthBarSpendChart'));
-        } else {
-            monthBarSpendChart();
-            Highcharts.chart('accountbook-chart', chartDatas.get('monthBarSpendChart'));
-        }
+        requestChartMonthSpend(2018);
     });
 
     $('.chart-day-line').on('click', function () {
-        if (chartDatas.has('monthLineSpendIncomeChart')) {
-            // Highcharts.chart('accountbook-chart', chartDatas.get('monthLineSpendIncomeChart'));
-        } else {
-            Highcharts.chart('accountbook-chart', monthLineSpendIncomeChart(2018, 11));
-        }
+        requestMLSIChart(2018, 11);
     });
 
 

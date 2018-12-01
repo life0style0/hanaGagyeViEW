@@ -82,4 +82,24 @@ FROM   hashtag_refs
 WHERE  article_id = #{articleId}        
         </select>
 
+        <select id="getAccountBooksByYear" resultMap="AccountBooks">
+SELECT article_id,
+       ctgry_name,
+       article_scope,
+       to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
+       article_payment_type,
+       article_payment_fee,
+       article_title,
+       article_content,
+        article_ctgry_type
+FROM   articles 
+        join ctgry_values USING(article_id) 
+        join ctgries USING(ctgry_id)
+        join article_ctgries using(article_ctgry_id)
+WHERE  user_id = #{userId} 
+       AND To_char(article_regdate, 'YYYY') = #{year}
+       AND article_ctgry_type IN ('income','spend')
+ORDER BY article_regdate        
+        </select>
+
 </mapper>

@@ -16,4 +16,8 @@ public interface AccountBookMapper {
 
     public AccountBookDTO getAccountBookByArticleId(@Param("userId") String userId, @Param("articleId") int articleId)
             throws Exception;
+
+    public List<AccountBookDTO> getAccountBooksByYear(@Param("userId") String userId, @Param("year") String year)
+            throws Exception;
+    
 }

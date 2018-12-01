@@ -2,6 +2,7 @@ package kr.or.kosta.salmon.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -51,8 +52,25 @@ public class AccountBookController {
         return rEntity;
     }
 
+    @GetMapping(value = "/ggv/year", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+    public @ResponseBody ResponseEntity<Map<String,List<AccountBookDTO>>> getAccountBooksByYear(@RequestParam("year") String year,
+            Principal principal) {
+        log.info("calendar year get....");
+        Map<String,List<AccountBookDTO>> abDTOs = null;
+        ResponseEntity<Map<String,List<AccountBookDTO>>> rEntity = null;
+        try {
+            abDTOs = abs.getAccountBooksByYear(principal.getName(), year);
+            rEntity = new ResponseEntity<>(abDTOs, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return rEntity;
+    }
+
     @GetMapping(value = "/ggv/{articleId}", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
-    public @ResponseBody ResponseEntity<AccountBookDTO> getAccountBook(@PathVariable("articleId") int articleId, Principal principal) {
+    public @ResponseBody ResponseEntity<AccountBookDTO> getAccountBook(@PathVariable("articleId") int articleId,
+            Principal principal) {
         log.info("getAccountBook request....");
         AccountBookDTO abDTO = null;
         ResponseEntity<AccountBookDTO> rEntity = null;

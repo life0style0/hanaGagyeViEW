@@ -3,7 +3,11 @@ var chartDatas = new Map();
 /**
  * 월별 소비량을 보여주는 차트를 만들어주는 함수.
  */
-function monthBarSpendChart() {
+function monthBarSpendChart(yearSrc) {
+    const year = yearSrc || (new Date()).getFullYear();
+
+    requestCalendarDataToServerByYear(year);
+
     const monthSpendDatas = new Map(); // key = 월 value = 월 차트 데이터 
     calendarData.forEach(function (monthDatas, date) {
         const monthSpendChartData = new Map();
@@ -86,7 +90,7 @@ function monthBarSpendChart() {
         series: seriesDatas
     };
 
-    chartDatas.set('monthBarSpendChart', chartData);
+    chartDatas.set(`monthBarSpendChart-${year}`, chartData);
 }
 
 /**
@@ -94,11 +98,13 @@ function monthBarSpendChart() {
  * @param {*} year 보고 싶은 년도
  * @param {*} month 보고 싶은 월
  */
-function monthLineSpendIncomeChart(year, month) {
+function monthLineSpendIncomeChart(yearSrc, monthSrc) {
+    const year = yearSrc || (new Date()).getFullYear();
+    const month = monthSrc || (new Date()).getMonth();
     const monthSpendLineData = new Map();
     const monthIncomeLineData = new Map();
+
     calendarData.forEach(function (monthDatas, date) {
-        console.log('start');
         if (date === `${month}-${year}`) {
             monthDatas.forEach(function (monthData) {
                 const day = Number(monthData.articleRegdate.split('-')[2]);
@@ -116,18 +122,15 @@ function monthLineSpendIncomeChart(year, month) {
                     }
                 }
             });
-
-            console.log('end');
         }
     });
 
     const spendDataToArray = [...monthSpendLineData.entries()];
     const incomeDataToArray = [...monthIncomeLineData.entries()];
-    console.log('spendDataToArray :', spendDataToArray);
 
     const chartData = {
         chart: {
-            type: 'line'
+            type: 'column'
         },
         title: {
             text: `${year}년 ${month}월 지출/수입`
@@ -166,10 +169,5 @@ function monthLineSpendIncomeChart(year, month) {
         }]
     };
 
-    // chartDatas.set('monthLineSpendIncomeChart', chartData);
-    return chartData;
+    chartDatas.set(`monthLineSpendIncomeChart-${year}-${month}`, chartData);
 }
-
-$(function () {
-
-});
