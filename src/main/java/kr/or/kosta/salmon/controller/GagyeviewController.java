@@ -51,20 +51,20 @@ public class GagyeviewController {
 	public ResponseEntity<String> registArticle(ArticleDTO article, String article_ctgry_name, String categoryName ,Principal principal, Model model){
 		//create 준비과정
 		article.setArticle_ctgry_id(Integer.parseInt(gaArticleService.getArticleCategoryByName(article_ctgry_name.trim())));
-		article.setUser_id("jiwon");
+		article.setUser_id(principal.getName());
 		//카테고리 생성 준비
 		int categoryNum = Integer.parseInt(gaArticleService.getCategoryByName(categoryName));
 		ArrayList<String> hashTagList = getHashTag(article.getArticle_content());
 		
 		switch(article.getArticle_scope().trim()){
 		case "public":
-			article.setArticle_scope("1");
+			article.setArticle_scope("u");
 			break;
 		case "private":
-			article.setArticle_scope("2");
+			article.setArticle_scope("r");
 			break;
 		case "group":
-			article.setArticle_scope("3");
+			article.setArticle_scope("g");
 			break;
 		}
 		int lastId = gaArticleService.createGaArticle(article)-1;
@@ -107,7 +107,7 @@ public class GagyeviewController {
 		log.info("formData size : " + uploadFile.length);
 		log.info("formdata toString : " + uploadFile.toString());
 		String uploadFolder = "C:\\upload";
-		File uploadPath = new File(uploadFolder, getFolder());
+		File uploadPath = new File(uploadFolder, "\\images");
 		log.info("upload path:" + uploadPath);
 		if(uploadPath.exists()==false){
 			uploadPath.mkdirs();
@@ -126,7 +126,7 @@ public class GagyeviewController {
 			ImageDTO imageDTO = new ImageDTO();
 			int article_id = Integer.parseInt(articleId);
 			imageDTO.setArticle_id(article_id);
-			imageDTO.setImage_path(uploadPath+uploadFileName);
+			imageDTO.setImage_path(uploadFileName);
 			log.info(imageDTO.toString());
 			gaArticleService.createImageInfo(imageDTO);
 			

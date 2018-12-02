@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -95,14 +94,14 @@
 					<div class="sec"  data-sec="gagyeInfo">
 						<div class="be-large-post">
 							<div class="info-block style-2">
-								<div class="be-large-post-align"><h3 class="info-block-label">가계부 정보</h3></div>
+								<div class="be-large-post-align"><h3 class="info-block-label">가계부 정보</h3><span style="float:right;color:red;" id="infoSpot"></span></div>
 							</div>
 							<div class="be-large-post-align">
 								<div class="row">
 									<div class="input-col col-xs-12 col-sm-4">
 										<div class="form-group focus-2">
 											<div class="form-label">금액</div>									
-											<input class="form-input" name="article_payment_fee"  type="text" placeholder="">
+											<input class="form-input" name="article_payment_fee" id="article_payment_fee"  type="text" placeholder="">
 										</div>								
 									</div>
 									<div class="input-col col-xs-12 col-sm-4" >
@@ -136,7 +135,7 @@
 										<div class="col-md-4">
 											<div class="form-label">구분</div>
 											<div class="be-drop-down icon-none">
-												<span class="be-dropdown-content" id="selArtiCategory">선택하세요 </span>
+												<span class="be-dropdown-content" id="selArtiCategory">선택해주세요 </span>
 												<input type="hidden" name="article_ctgry_name" id="inputArtiCategory">
 												<ul class="drop-down-list" >
 													<li><a>지출</a></li>
@@ -247,10 +246,40 @@
 			   uploadFiles(inputTypeFile);
 		   });
 		   $("#submitBtn").on("click", function(){
-			   $("#inputCategory").val($("#selCategory").text()); 
-			   $("#inputScope").val($("#selScope").text());
-			   $("#inputPayType").val($("#selPayType").text());
-			   $("#inputArtiCategory").val($("#selArtiCategory").text());
+			   if($("#article_payment_fee").val == ""){
+				   $("#article_payment_fee").focus();
+				   $("#infoSpot").text("금액을 입력해주세요");
+				   return;
+			   }
+			   if($("#selCategory").text()!="선택해주세요"){
+				   $("#inputCategory").val($("#selCategory").text()); 
+			   }else{
+				   $("#selCategory").focus();
+				   $("#infoSpot").text("카테고리를 선택해주세요");
+				   return;
+			   }
+			   if($("#selScope").text() != "선택해주세요"){
+				   $("#inputScope").val($("#selScope").text());
+			   }else{
+				   $("#selScope").focus();
+				   $("#infoSpot").text("공개범위를 선택해주세요");
+				   return;
+			   }		   
+			   if($("#selPayType").text() != "선택해주세요"){
+				   $("#inputPayType").val($("#selPayType").text());
+			   }else{
+				   $("#selPayType").focus(); 
+				   $("#infoSpot").text("결제수단을 선택해주세요");
+				   return;
+			   }
+			   if($("#selArtiCategory").text() != "선택해주세요"){
+				   $("#inputArtiCategory").val($("#selArtiCategory").text());
+			   }else{
+				   $("#selArtiCategory").focus();
+				   $("#infoSpot").text("구분을 선택해주세요");
+				   return;
+			   }
+			   
 			   var articleForm = $("#articleForm").serialize();
 			   var article_id;
 			   $.ajax({
