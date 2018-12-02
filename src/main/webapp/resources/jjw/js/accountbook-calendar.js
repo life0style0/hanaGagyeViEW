@@ -102,8 +102,8 @@ function showGgvToCalendar(data) {
  * @param {*} data 가계부 정보
  */
 function addDataToCalendar(data) {
-    const regdate = data.articleRegdate.split('-'); // 2018-01-01 형식
-    const ggv = $(`#calendar-${Number(regdate[2]) + Number(startDayNum)}`);
+    const regdate = data.articleRegdate.substr(10, 2); // 2018년 01월 01일 형식
+    const ggv = $(`#calendar-${Number(regdate) + Number(startDayNum)}`);
     if (data.articleCtgryType === 'spend') {
         ggv.find('.calendar-spend').append(showGgvToCalendar(data));
     } else if (data.articleCtgryType === 'income') {
@@ -277,6 +277,7 @@ function setGgv(data) {
     $('#ggvCtgry').html(data.articleCtgryType);
     $('#ggvPayType').html(data.articlePaymentType);
     $('#ggvTitle').html(data.articleTitle);
+    $('#ggv-modal-label').html(data.articleRegdate);
 
     let articleContentHTML = data.articleContent;
     for (let i = 0; i < data.hashtags.length; i += 1) {

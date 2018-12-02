@@ -37,7 +37,7 @@ public class AccountBookServiceImpl implements AccountBookService {
         Map<String, List<AccountBookDTO>> result = new HashMap<String, List<AccountBookDTO>>();
         String month = null;
         for (AccountBookDTO abd : abds) {
-            month = abd.getArticleRegdate().substring(5, 7);
+            month = abd.getArticleRegdate().substring(6, 8); //2018년 01월 01일
             if (result.containsKey(month)) {
                 result.get(month).add(abd);
             } else {

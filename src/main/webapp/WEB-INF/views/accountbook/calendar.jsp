@@ -90,6 +90,18 @@
 							<i class="icon-projects"></i>
 							<span class="be-dropdown-content chart-month-dropdown"></span>
 							<ul class="drop-down-list chart-month-list">
+								<li class="chart-months" data-month="12"><a>12월</a></li>
+								<li class="chart-months" data-month="11"><a>11월</a></li>
+								<li class="chart-months" data-month="10"><a>10월</a></li>
+								<li class="chart-months" data-month="09"><a>09월</a></li>
+								<li class="chart-months" data-month="08"><a>08월</a></li>
+								<li class="chart-months" data-month="07"><a>07월</a></li>
+								<li class="chart-months" data-month="06"><a>06월</a></li>
+								<li class="chart-months" data-month="05"><a>05월</a></li>
+								<li class="chart-months" data-month="04"><a>04월</a></li>
+								<li class="chart-months" data-month="03"><a>03월</a></li>
+								<li class="chart-months" data-month="02"><a>02월</a></li>
+								<li class="chart-months" data-month="01"><a>01월</a></li>
 							</ul>
 						</div>
 					</div>
@@ -126,7 +138,7 @@
 								<div class="ul">
 									<a class="chart-month-spend active">월별 지출 비교 차트</a>
 									<a class="chart-day-bar">일간 소비/수입 총합 차트</a>
-									<a class="chart-month-goal">월 지출 목표 대비 지출 현황</a>
+									<a class="chart-month-goal hidden">월 지출 목표 대비 지출 현황</a>
 								</div>
 							</div>
 						</div>
