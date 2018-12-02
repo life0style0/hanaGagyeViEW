@@ -15,12 +15,17 @@ function setMonthSpendChartData(data) {
             min: 0,
             title: {
                 text: '금액(원)'
-            },
-            labels: {
-                formatter: function () {
-                    return this.value / 1000 + '천원';
-                }
             }
+            // ,
+            // labels: {
+            //     formatter: function () {
+            //         return this.value / 1000 + '천원';
+            //     }
+            // }
+        },
+        tooltip: {
+            headerFormat: `<b>${{point.key}.substr(3,4)}년 {(point.key).substr(0,2)}월</b><br>`,
+            pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}</b>원<br/>'
         },
         legend: {
             reversed: true
@@ -55,31 +60,18 @@ function setMLSIChartData(year, month, data) {
         xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: {
-                month: '%b %e일',
-                year: '%b'
+                day: '%b %e일'
             },
             title: {
                 text: '일'
-            }
-            // tickInterval: 86400000,
-            // labels: {
-            //     formatter: function () {
-            //         return `${this.value}일`; // clean, unformatted number for year
-            //     }
-            // },
-            // categories: data[2]
+            },
+            tickInterval: 86400000
         },
         yAxis: {
             min: 0,
             title: {
                 text: '금액(원)'
             }
-            // ,
-            // labels: {
-            //     formatter: function () {
-            //         return this.value / 1000 + '천원';
-            //     }
-            // }
         },
         tooltip: {
             headerFormat: '<b>{series.name}</b><br>',
@@ -105,14 +97,6 @@ function setMLSIChartData(year, month, data) {
 }
 
 function requestMLSIChart(year, month) {
-    Highcharts.setOptions({
-        lang: {
-            numericSymbols: ['천원', '백만원'],
-            numericSymbolMagnitude: 1000,
-            thousandsSep: ',',
-            shortMonths: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
-        }
-    });
     if (chartDatas.has(`monthLineSpendIncomeChart-${year}-${month}`)) {
         Highcharts.chart('accountbook-chart', setMLSIChartData(year, month, chartDatas.get(`monthLineSpendIncomeChart-${year}-${month}`)));
     } else {
@@ -191,13 +175,6 @@ function setStackedSpendChart(data) {
 }
 
 function requestStackedSpendChart(year, month) {
-    Highcharts.setOptions({
-        lang: {
-            numericSymbols: ['천원', '백만원'],
-            numericSymbolMagnitude: 1000,
-            thousandsSep: ','
-        }
-    });
     if (chartDatas.has(`stackedSpend-${year}-${month}`)) {
         Highcharts.chart('accountbook-chart', setStackedSpendChart(chartDatas.get(`stackedSpend-${year}-${month}`)));
     } else {
@@ -215,13 +192,8 @@ $(function () {
         dataType: 'json',
         success: function (yearMonth) {
             const yearlist = $('.chart-year-list');
-            const monthlist = $('.chart-month-list');
             yearlist.html('');
-            if (yearMonth.length === 0) {
-                const today = new Date();
-                $('.chart-year-dropdown').html(`${today.getFullYear()}년`);
-                $('.chart-month-dropdown').html(`${today.getMonth()}월`);
-            } else {
+            if (yearMonth.length !== 0) {
                 yearMonth.forEach(data => {
                     const ym = data.split('-');
                     const year = ym[0];
@@ -229,12 +201,10 @@ $(function () {
                         yearlist.append(`<li><a>${year}년</a></li>`);
                     }
                 });
-                const temp = yearMonth[0].split('-');
-                const year = temp[0];
-                const month = temp[1];
-                $('.chart-year-dropdown').html(`${year}년`);
-                $('.chart-month-dropdown').html(`${month}월`);
             }
+            const today = new Date();
+            $('.chart-year-dropdown').html(`${today.getFullYear()}년`);
+            $('.chart-month-dropdown').html(`${today.getMonth()+1}월`);
         }
     });
 

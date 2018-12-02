@@ -90,18 +90,18 @@
 							<i class="icon-projects"></i>
 							<span class="be-dropdown-content chart-month-dropdown"></span>
 							<ul class="drop-down-list chart-month-list">
-								<li class="chart-months" data-month="12"><a>12월</a></li>
-								<li class="chart-months" data-month="11"><a>11월</a></li>
-								<li class="chart-months" data-month="10"><a>10월</a></li>
-								<li class="chart-months" data-month="09"><a>09월</a></li>
-								<li class="chart-months" data-month="08"><a>08월</a></li>
-								<li class="chart-months" data-month="07"><a>07월</a></li>
-								<li class="chart-months" data-month="06"><a>06월</a></li>
-								<li class="chart-months" data-month="05"><a>05월</a></li>
-								<li class="chart-months" data-month="04"><a>04월</a></li>
-								<li class="chart-months" data-month="03"><a>03월</a></li>
-								<li class="chart-months" data-month="02"><a>02월</a></li>
-								<li class="chart-months" data-month="01"><a>01월</a></li>
+								<li class="chart-month-data-12" data-month="12"><a>12월</a></li>
+								<li class="chart-month-data-11" data-month="11"><a>11월</a></li>
+								<li class="chart-month-data-10" data-month="10"><a>10월</a></li>
+								<li class="chart-month-data-09" data-month="09"><a>09월</a></li>
+								<li class="chart-month-data-08" data-month="08"><a>08월</a></li>
+								<li class="chart-month-data-07" data-month="07"><a>07월</a></li>
+								<li class="chart-month-data-06" data-month="06"><a>06월</a></li>
+								<li class="chart-month-data-05" data-month="05"><a>05월</a></li>
+								<li class="chart-month-data-04" data-month="04"><a>04월</a></li>
+								<li class="chart-month-data-03" data-month="03"><a>03월</a></li>
+								<li class="chart-month-data-02" data-month="02"><a>02월</a></li>
+								<li class="chart-month-data-01" data-month="01"><a>01월</a></li>
 							</ul>
 						</div>
 					</div>
