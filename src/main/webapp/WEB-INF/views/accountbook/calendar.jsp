@@ -45,16 +45,7 @@
 
 	<!-- MAIN CONTENT -->
 	<div id="content-block">
-		<div class="head-bg">
-			<div class="head-bg-img"></div>
-			<div class="head-bg-content">
-				<h1>Your Best Social Network Template</h1>
-				<p>Donec in rhoncus tortor. Sed tristique auctor ligula vel viverra</p>
-				<a class="btn color-1 size-1 hover-1"><i class="fa fa-facebook"></i>sign up via facebook</a>
-				<a class="be-register btn color-3 size-1 hover-6"><i class="fa fa-lock"></i>sign up now</a>
-			</div>
-		</div>
-		<div class="container-fluid cd-main-content custom-container">
+		<div class="container-fluid cd-main-content custom-container top-margin-100">
 			<div class="row">
 				<div class="col-md-2 left-field">
 					<form action="./" class="input-search">
@@ -63,43 +54,74 @@
 						<input type="submit" value="">
 					</form>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-10 accountbook-calendar">
 					<div class="for-be-dropdowns">
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
-							<span class="be-dropdown-content ggv-type">수입/지출</span>
-							<ul class="drop-down-list">
-								<li><a data-type="calendar-all">수입/지출</a></li>
-								<li><a data-type="calendar-income">수입</a></li>
-								<li><a data-type="calendar-spend">지출</a></li>
+							<span class="be-dropdown-content ggv-scope-dropdown">나만/공개</span>
+							<ul class="drop-down-list ggv-scope-list">
+								<li><a>나만/공개</a></li>
+								<li><a>공개</a></li>
+								<li><a>나만</a></li>
 							</ul>
+						</div>
+						<div class="be-drop-down">
+							<i class="icon-projects"></i>
+							<span class="be-dropdown-content ggv-type-dropdown">수입/지출</span>
+							<ul class="drop-down-list ggv-type-list">
+								<li><a>수입/지출</a></li>
+								<li><a>수입</a></li>
+								<li><a>지출</a></li>
+							</ul>
+						</div>
+						<div class="sorting-cal-money">
 						</div>
 					</div>
 				</div>
-				<div class="col-md-5">
-					<div class="sorting-cal-money">
+				<div class="col-md-10 accountbook-chart hidden">
+					<div class="for-be-dropdowns">
+						<div class="be-drop-down">
+							<i class="icon-projects"></i>
+							<span class="be-dropdown-content chart-year-dropdown"></span>
+							<ul class="drop-down-list chart-year-list">
+							</ul>
+						</div>
+						<div class="be-drop-down hidden">
+							<i class="icon-projects"></i>
+							<span class="be-dropdown-content chart-month-dropdown"></span>
+							<ul class="drop-down-list chart-month-list">
+								<li class="chart-months" data-month="12"><a>12월</a></li>
+								<li class="chart-months" data-month="11"><a>11월</a></li>
+								<li class="chart-months" data-month="10"><a>10월</a></li>
+								<li class="chart-months" data-month="09"><a>09월</a></li>
+								<li class="chart-months" data-month="08"><a>08월</a></li>
+								<li class="chart-months" data-month="07"><a>07월</a></li>
+								<li class="chart-months" data-month="06"><a>06월</a></li>
+								<li class="chart-months" data-month="05"><a>05월</a></li>
+								<li class="chart-months" data-month="04"><a>04월</a></li>
+								<li class="chart-months" data-month="03"><a>03월</a></li>
+								<li class="chart-months" data-month="02"><a>02월</a></li>
+								<li class="chart-months" data-month="01"><a>01월</a></li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="container-fluid custom-container">
 				<div class="row">
-
 					<div class="col-md-2 left-field">
 						<div class="be-vidget">
 							<h3 class="letf-menu-article">
-								Popular Creative Filds
+								Select Views
 							</h3>
 							<div class="creative_filds_block">
 								<div class="ul">
-									<a data-filter=".category-1" class="filter">Graphic Design </a>
-									<a data-filter=".category-2" class="filter">Photography </a>
-									<a data-filter=".category-3" class="filter">Interaction Design </a>
-									<a data-filter=".category-4" class="filter">Art Direction </a>
-									<a data-filter=".category-5" class="filter">Illustration </a>
+									<a class="view-calendar active">Calendar</a>
+									<a class="view-chart">Chart</a>
 								</div>
 							</div>
 						</div>
-						<div class="be-vidget">
+						<div class="be-vidget accountbook-calendar">
 							<h3 class="letf-menu-article">
 								카테고리
 							</h3>
@@ -108,9 +130,21 @@
 								</ul>
 							</div>
 						</div>
+						<div class="be-vidget accountbook-chart hidden">
+							<h3 class="letf-menu-article">
+								Select Chart
+							</h3>
+							<div class="creative_filds_block">
+								<div class="ul">
+									<a class="chart-month-spend active">월별 지출 비교 차트</a>
+									<a class="chart-day-bar">일간 소비/수입 총합 차트</a>
+									<a class="chart-month-goal hidden">월 지출 목표 대비 지출 현황</a>
+								</div>
+							</div>
+						</div>
 					</div>
 
-					<div class="col-md-10" id="calendar-main">
+					<div class="col-md-10 accountbook-calendar" id="accountbook-calendar">
 						<div class="new-ggv"><button type="button" class="btn btn-primary my-btn">새 가계부글 올리기</button><button type="button"
 							 class="btn btn-info my-btn">월 공유</button></div>
 						<div class="calendar-head text-center"><span><i class="fa fa-chevron-left calendar-left"></i></span><span class="calendar month"></span><input
@@ -144,6 +178,11 @@
 							</tbody>
 						</table>
 					</div>
+
+					<div class="col-md-10 accountbook-chart hidden" id="accountbook-chart">
+
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -163,27 +202,33 @@
 						<h4 class="modal-title" id="ggv-modal-label">2018년 11월 27일 오후 1시 12분</h4>
 					</div>
 					<div class="ggv-body">
-						<div class="ggv-carousel owl-carousel owl-theme">
+						<div class="col-md-6">
+							<div class="ggv-carousel owl-carousel owl-theme">
+							</div>
 						</div>
-						<div class="ggv-modal-content">
-							<div class="ggv-col-6">
-								<div class="col-md-6 text-center ggv-content-left">공개 범위</div>
-								<div class="col-md-6 text-center ggv-content-right" id="ggvScope">나만</div>
-							</div>
-							<div class="ggv-col-6">
-								<div class="col-md-6 text-center ggv-content-left">금액</div>
-								<div class="col-md-6 text-center ggv-content-right" id="ggvMoney">100,000원</div>
-							</div>
-							<div class="ggv-col-6">
-								<div class="col-md-6 text-center ggv-content-left">카테고리</div>
-								<div class="col-md-6 text-center ggv-content-right" id="ggvCtgry">음식</div>
-							</div>
-							<div class="ggv-col-6">
-								<div class="col-md-6 text-center ggv-content-left">결제 방법</div>
-								<div class="col-md-6 text-center ggv-content-right" id="ggvPayType">카드</div>
-							</div>
-							<div class="ggv-col-12" id="ggvContent">
-								여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용여기가 리뷰 내용
+						<div class="col-md-6">
+							<div class="ggv-modal-content">
+								<div class="col-md-12 ggv-col-6">
+									<div class="col-xs-6 col-md-6 text-center ggv-content-left">공개 범위</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvScope">나만</div>
+								</div>
+								<div class="col-md-12 ggv-col-6">
+									<div class="col-xs-6 col-md-6 text-center ggv-content-left">금액</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvMoney">100,000원</div>
+								</div>
+								<div class="col-md-12 ggv-col-6">
+									<div class="col-xs-6 col-md-6 text-center ggv-content-left">카테고리</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvCtgry">음식</div>
+								</div>
+								<div class="col-md-12 ggv-col-6">
+									<div class="col-xs-6 col-md-6 text-center ggv-content-left">결제 방법</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvPayType">카드</div>
+								</div>
+								<div class="ggv-col-12" id="ggvTitle">
+									간단한 메모
+								</div>
+								<div class="ggv-col-12" id="ggvContent">
+								</div>
 							</div>
 						</div>
 					</div>
@@ -224,7 +269,11 @@
 		<script src="/salmon/resources/jjw/js/bootstrap-datepicker.kr.min.js"></script>
 		<script src="/salmon/resources/jjw/js/owl.carousel.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.3.2/bootstrap-slider.min.js"></script>
-		<script src="/salmon/resources/jjw/js/my.js"></script>
+		<script src="https://code.highcharts.com/highcharts.src.js"></script>
+		<script src="/salmon/resources/jjw/js/accountbook-calendar.js"></script>
+		<script src="/salmon/resources/jjw/js/accountbook-chart.js"></script>
+		<script src="/salmon/resources/jjw/js/accountbook-global.js"></script>
+
 </body>
 
 </html>

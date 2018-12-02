@@ -1,4 +1,4 @@
-package kr.or.kosta;
+package kr.or.kosta.salmon.controller;
 
 import java.security.Principal;
 import java.util.Locale;

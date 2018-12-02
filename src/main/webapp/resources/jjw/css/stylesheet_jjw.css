@@ -92,7 +92,8 @@
   margin-left: 40px;
 }
 
-.calendar-left:hover, .calendar-right:hover {
+.calendar-left:hover,
+.calendar-right:hover {
   color: #f6aa006e;
   cursor: pointer;
 }
@@ -106,6 +107,7 @@
 .calendar-spend .ggv .ggv-content {
   background: #B64926;
   padding: 3px 4px;
+  color: white;
 }
 
 .calendar-income .ggv .ggv-title {
@@ -116,6 +118,7 @@
 .calendar-income .ggv .ggv-content {
   background: #468966;
   padding: 3px 4px;
+  color: white;
 }
 
 .calendar-head .calendar.month {
@@ -128,17 +131,23 @@
   padding-left: 10px;
 }
 
+.calendar-head .calendar.month:hover,
+.calendar-head .calendar.year:hover {
+  cursor: pointer;
+}
+
 .calendar-body ul {
   padding: 3px;
 }
 
 .ggv-image {
-  height: 400px !important;
+  height: 523px !important;
   width: auto !important;
 }
 
-.ggv-image .ggv-carousel {
-  display: inline-grid;
+.ggv-carousel {
+  /* display: inline-grid; */
+  background-color: #ededed;
 }
 
 .ggv-carousel .owl-nav {
@@ -171,6 +180,17 @@
   padding: 6px 15px;
 }
 
+#ggvTitle {
+  height: 100px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+}
+
+#ggvContent {
+  overflow-y: scroll;
+  height: 200px;
+}
+
 .ggv-content {
   width: 100%;
   display: inline-block;
@@ -184,8 +204,12 @@
   padding: 5px 10px;
   margin: unset;
   border: none;
-  position: relative;
-  top: -60px;
+  /* position: relative;
+  top: -60px; */
+}
+
+#ggv-modal .modal-dialog {
+  width: 70%;
 }
 
 .ggv-content-left {
@@ -200,6 +224,7 @@
 
 .ggv-body {
   margin-bottom: -50px;
+  height: 600px;
 }
 
 .ggv-footer {
@@ -215,13 +240,24 @@
   margin-left: 10px;
 }
 
-.ggv-col-6 {
+.ggv-body-2 {
   width: 48%;
   display: inline-flex;
   margin: 5px;
   padding: unset;
   border: none;
-  float: left;
+  border-radius: 30px;
+  font-size: 20px;
+}
+
+.ggv-col-6 {
+  /* width: 48%;
+  display: inline-flex;
+  margin: 5px;
+  border: none;
+  float: left; */
+  margin-bottom: 14px;
+  padding: unset;
   background-color: #ededed;
   border-radius: 30px;
   font-size: 20px;
@@ -238,7 +274,7 @@
   border: none;
   float: left;
   background-color: #ededed;
-  border-radius: 20px;
+  /* border-radius: 20px; */
 }
 
 .text-gray {
@@ -269,6 +305,8 @@
   text-align: right;
   position: relative;
   top: 80px;
+  margin-left: auto;
+  width: fit-content;
 }
 
 .new-ggv .my-btn {
@@ -283,6 +321,45 @@
   color: white;
 }
 
-.hidden-ctgry, .hidden-money, .hidden-ggvType {
-  display: none!important;
+.hidden-ctgry,
+.hidden-money,
+.hidden-ggvType,
+.hidden-ggvScope {
+  display: none !important;
+}
+
+.sorting-cal-money {
+  display: inline-block;
+  background-color: #cacaca;
+  font-size: large;
+  font-weight: 100;
+  color: azure;
+  text-align: center;
+  /* top: 17px;s
+  position: relative; */
+}
+
+.slider {
+  width: 45%;
+  margin: 0px 20px;
+}
+
+.hashtag {
+  background-color: transparent;
+  font-weight: 400;
+  color: #337ab7;
+  border: unset;
+  border-radius: 0;
+}
+
+.hashtag:hover {
+  cursor: pointer;
+}
+
+.datepicker {
+  top: 0px !important;
+}
+
+.top-margin-100 {
+  margin-top: 100px;
 }

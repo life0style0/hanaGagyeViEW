@@ -49,7 +49,7 @@ public class UserServiceTests {
 		
 		log.info(service);
 		log.info(pwEncoder);
-	//	service.userRegist(ruser);
+		service.userRegist(ruser);
 		log.info("회원가입 완료");
 	}
 	

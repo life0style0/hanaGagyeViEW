@@ -31,9 +31,6 @@
 		    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	    <![endif]-->
-		
-
-		
 		<!-- 이미지업로드 CSS -->
 		 <style>
     .dropzone {
@@ -98,7 +95,7 @@
 					<div class="sec"  data-sec="gagyeInfo">
 						<div class="be-large-post">
 							<div class="info-block style-2">
-								<div class="be-large-post-align"><h3 class="info-block-label">가계부 정보 <span style="float:right;"><input class="btn btn-success" type="button" id="submitBtn" value="등 록"><input class="btn btn-danger" type="reset" value="초기화"></span></h3></div>
+								<div class="be-large-post-align"><h3 class="info-block-label">가계부 정보</h3></div>
 							</div>
 							<div class="be-large-post-align">
 								<div class="row">
@@ -213,193 +210,17 @@
 						</div>																
 					</div>				
 				</div>
+				 <span style="float:right;"><input class="btn btn-success" type="button" id="submitBtn" value="등 록"><input class="btn btn-danger" type="reset" value="초기화"></span>
 				</form>
 			</div>
 		</div>
 	</div>
 	
-	
+	<form name="imgForm" id="imgForm"></form>
 	
 	
 	<!-- THE FOOTER -->
 	<%@ include file="../includes/footer.jsp"%>
-
-	<!-- 이미지 업로드 자바스크립트 -->
-	<script>
-    let fileCnt = 0;
-    let fileList = [];
-    let totalFileSize = 0;
-    const fileRegex = new RegExp('(.*?)\.(jpg|jpeg|png|gif)$');
-    const maxUploadSize = 524280; // 5MB
-
-    $(function () {
-      $(document).on({
-        dragover: function (e) {
-          e.preventDefault();
-          return false;
-        },
-        drop: function (e) {
-          e.preventDefault();
-          return false;
-        }
-      });
-
-      const dropzone = $("#filesUpload");
-      dropzone.on({
-        dragenter: function (e) {
-          console.log('dragenter');
-          e.stopPropagation();
-          e.preventDefault();
-          $(this).toggleClass('drag-on');
-          return false;
-        },
-        dragleave: function (e) {
-          console.log('dragleave');
-          e.stopPropagation();
-          e.preventDefault();
-          $(this).toggleClass('drag-on');
-          return false;
-        },
-        dragover: function (e) {
-          console.log('dragover');
-          e.stopPropagation();
-          e.preventDefault();
-          return false;
-        },
-        drop: function (e) {
-          console.log('drop');
-          e.preventDefault();
-          $(this).toggleClass('drag-on');
-
-          var files = e.originalEvent.dataTransfer.files;
-          if (files.length < 1) {
-            return;
-          }
-          uploadFiles(files);
-          // F_FileMultiUpload(files, obj);
-          return false;
-        }
-      });
-
-      $('.upload-image-preview').on('click', '.close', function (e) {
-        const fileNameT = $(this).next().val();
-        const fileSizeT = $(this).next().next().val();
-        fileList.some((file, index) => {
-          if (file.name === fileNameT && file.size == fileSizeT) {
-            fileList.splice(index, 1);
-            fileCnt -= 1;
-            totalFileSize -= file.size;
-            $(this).closest('.col-md-3').remove();
-            return true;
-          }
-          return false;
-        })
-      });
-
-      $('#cancel').on('click', function () {
-        fileList = [];
-        fileCnt = 0;
-        totalFileSize = 0;
-        $('.upload-image-preview').html('');
-      });
-
-      $('.upload-image-preview').on('click', '.thumbnail-image', function() {
-        $('.image-modal').find('.upload-image').attr('src', $(this).attr('src'));
-        $('.image-modal').modal('show');
-      })
-    });
-
-    function makePreview(file) {
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const img = '<div class="col-xs-3 col-md-3"><div class="thumbnail">'+
-          '<img class="img-responsive thumbnail-image" src="'+e.target.result+'" />'+
-          '<div class="caption">'+
-          '<p>file name : '+file.name + '</p>'+
-          '<p>file size : '+file.size + '</p>'+
-          '<p><span class="invisible">.</span>' +
-          '<button type="button" class="close">삭제</button>' +
-          '<input type="hidden" name="fileName" value="'+file.name +'">' +
-          '<input type="hidden" name="fileSize" value="'+file.size+'">' +
-          '</p></div></div></div>';
-          $('.upload-image-preview').append(img);
-        }
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function checkUploadFile(fileName, fileSize) {
-      if (!fileRegex.test(fileName)) {
-        alert('해당 종류의 파일은 업로드 할 수 없습니다.');
-        return false;
-      }
-      if (fileSize > maxUploadSize) {
-        alert("용량 초과\n업로드 가능 용량 : " + maxUploadSize + " MB");
-        return false;
-      }
-      return true;
-    }
-
-    function uploadFiles(fileObject) {
-      let files = fileObject;
-      if (files) {
-        for (let i = 0; i < files.length; i += 1) {
-        	console.log("file");
-          const fileName = files[i].name;
-          const fileSize = files[i].size;
-          console.log(fileName);
-          console.log(fileSize);
-          if (!checkUploadFile(fileName, fileSize)) {
-          } else {
-            totalFileSize += fileSize;
-            fileList[fileCnt] = files[i];
-            fileCnt += 1;
-
-            // Preview image 생성
-            makePreview(files[i]);
-          }
-        }
-      } else {
-        alert("등록하고자 하는 파일이 없습니다.");
-      }
-      
-    }
-
-    function imgUpload(articleId) {
-      var formData = new FormData();
-      if (fileList.length <= 0) {
-        return;
-      } else {
-        for (var i = 0; i < fileList.length; i += 1) {
-          var file = fileList[i];
-          console.log(formData.values().next())
-          formData.append("uploadFile",fileList[i]);
-        }
-        console.log(formData.values().next())
-        $.ajax({
-          url: '/salmon/article/imageUpload?_csrf=${_csrf.token}&articleId='+articleId,
-          processData: false,
-          contentType: false,
-          data:  formData,
-          type: 'post',
-          success: function (result) {
-            alert(result);
-          }
-        });
-      }
-    };
-	
-    function addInfo(){
-    	$("#snsInfo").attr('style','display:block');
-    	$("#addInfoBtn").attr('disabled','disabled');
-    }
-    
-    function inputFileEvent(){
-    	$("#inputFile").trigger("click");
-    }
-  </script>
-  <!-- 끝 -->
 
 	<!-- SCRIPTS	 -->
 	<script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>
@@ -415,56 +236,100 @@
 	<link rel="stylesheet" href="/salmon/resources/hjh/css/bootstrap-datetimepicker.css">
 	<script type='text/javascript' src="/salmon/resources/hjh/js/moment-with-locales.min.js"></script>
 	<script type='text/javascript' src="/salmon/resources/hjh/js/bootstrap-datetimepicker.js"></script>
-		<!-- date picker test -->
+	<script type='text/javascript' src="/salmon/resources/hjh/js/articleRegist.js"></script>
+	
 	<script type="text/javascript">
+	
 	$(function () {
-	   setDatetimepickerSetting();
-	   $("#inputFile").on("change", function(){
-		   var inputTypeFile = document.querySelector('input[type=file]').files;
-		   uploadFiles(inputTypeFile);
-	   });
-	   $("#submitBtn").on("click", function(){
-		   $("#inputCategory").val($("#selCategory").text()); 
-		   $("#inputScope").val($("#selScope").text());
-		   $("#inputPayType").val($("#selPayType").text());
-		   $("#inputArtiCategory").val($("#selArtiCategory").text());
-		   var articleForm = $("#articleForm").serialize();
-		   var article_id;
-		   $.ajax({
-			   	  cache : false,
-		          url: '/salmon/article/submit?_csrf=${_csrf.token}',
-		          data: articleForm,
-		          type: 'post',
-		          success: function (articleId) {
-		            if(parseInt(articleId) > 0){
-		            	imgUpload(articleId);
-		            }else{
-		            	alert("shit");
-		            }
-		          },
-		          error: function (xhr,status,er) {
-		  			alert('게시글 등록 실패');
-		          }
+		   setDatetimepickerSetting();
+		   $("#inputFile").on("change", function(){
+			   var inputTypeFile = document.querySelector('input[type=file]').files;
+			   uploadFiles(inputTypeFile);
+		   });
+		   $("#submitBtn").on("click", function(){
+			   $("#inputCategory").val($("#selCategory").text()); 
+			   $("#inputScope").val($("#selScope").text());
+			   $("#inputPayType").val($("#selPayType").text());
+			   $("#inputArtiCategory").val($("#selArtiCategory").text());
+			   var articleForm = $("#articleForm").serialize();
+			   var article_id;
+			   $.ajax({
+				   	  cache : false,
+			          url: '/salmon/article/submit?_csrf=${_csrf.token}',
+			          data: articleForm,
+			          type: 'post',
+			          success: function (articleId) {
+			            if(parseInt(articleId) > 0){
+			            	imgUpload(articleId);
+			            }else{
+			            	alert("shit");
+			            }
+			          },
+			          error: function (xhr,status,er) {
+			  			alert('게시글 등록 실패');
+			          }
+			    });
+			   
+		   })
+		});
+	
+	function imgUpload(articleId) {
+		  var formData = new FormData();
+		  if (fileList.length <= 0) {
+		    return;
+		  } else {
+		    for (var i = 0; i < fileList.length; i += 1) {
+		      var file = fileList[i];
+		      console.log(formData.values().next())
+		      formData.append("uploadFile",fileList[i]);
+		    }
+		    console.log(formData.values().next())
+		    $.ajax({
+		      url: '/salmon/article/imageUpload?_csrf=${_csrf.token}&articleId='+articleId,
+		      processData: false,
+		      contentType: false,
+		      cache:false,
+		      enctype:'multipart/form-data',
+		      data:  formData,
+		      type: 'post',
+		      success: function (result) {
+		        console.log("success");
+		        $("#resultModal").modal({
+		        	keyboard:false,
+		        	show:true,
+		        	backdrop:true
+		        });
+		      }
 		    });
-		   imgUpload(article_id);
-		   
-	   })
-	});
-	
-	function setDatetimepickerSetting() {
-	    $('#datetimepicker1').datetimepicker({
-	        locale: 'ko',
-	        format: 'YYYY-MM-DD',
-	        icons: {
-	            next: "fa fa-chevron-right",
-	            previous: "fa fa-chevron-left",
-	        },
-	        defaultDate: 'now'
-	    });
-	}
-	
-	
+		  }
+		};
+
 	</script>
+	<!-- 성공시 모달 -->
+	<div class="modal fade bs-example-modal-sm" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static">
+  		<div class="modal-dialog modal-sm">
+    		<div class="modal-content">
+      			<div class="modal-header">
+          			<h4 class="modal-title" id="gridSystemModalLabel">게시글 작성 결과</h4>
+        		</div>
+        		<div class="modal-body">
+        		 	<h5>게시글 작성이 완료되었습니다.</h5>
+        		 	<div>
+        		 	계속 작성
+        		 		 <button type="button" class="btn btn-default" aria-label="Left Align" onclick="location.href='/salmon/article/register'" value="계속 작성">
+  							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						</button>
+        		 	</div>
+        		 	<div>
+        		 		메인으로
+        		 		 <button type="button" class="btn btn-default" aria-label="Left Align" onclick="location.href='/salmon'" value="홈으로">
+  							<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+						</button>
+        		 	</div>
+        		</div>
+    		</div>
+  		</div>
+	</div>
 	
 	
 	</body>

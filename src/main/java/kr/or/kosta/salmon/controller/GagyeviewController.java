@@ -1,6 +1,8 @@
 package kr.or.kosta.salmon.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.or.kosta.salmon.domain.ArticleDTO;
@@ -26,6 +27,7 @@ import kr.or.kosta.salmon.domain.HashTagDTO;
 import kr.or.kosta.salmon.domain.ImageDTO;
 import kr.or.kosta.salmon.service.GaArticleService;
 import lombok.extern.log4j.Log4j;
+import net.coobird.thumbnailator.Thumbnailator;
 
 
 @Log4j
@@ -122,8 +124,10 @@ public class GagyeviewController {
 			uploadFileName = uuid.toString() + "_" +uploadFileName;
 			File saveFile = new File(uploadPath, uploadFileName);
 			ImageDTO imageDTO = new ImageDTO();
-			imageDTO.setArticle_id(Integer.parseInt(articleId));
+			int article_id = Integer.parseInt(articleId);
+			imageDTO.setArticle_id(article_id);
 			imageDTO.setImage_path(uploadPath+uploadFileName);
+			log.info(imageDTO.toString());
 			gaArticleService.createImageInfo(imageDTO);
 			
 			try{
@@ -134,6 +138,8 @@ public class GagyeviewController {
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	
 	
 	private String getFolder(){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

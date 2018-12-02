@@ -11,9 +11,15 @@ import kr.or.kosta.salmon.domain.AccountBookDTO;
  */
 public interface AccountBookMapper {
 
-    public List<AccountBookDTO> getAccountBooks(@Param("userId") String userId, @Param("year") int year,
-            @Param("month") int month) throws Exception;
+    public List<AccountBookDTO> getAccountBooks(@Param("userId") String userId, @Param("year") String year,
+            @Param("month") String month) throws Exception;
 
     public AccountBookDTO getAccountBookByArticleId(@Param("userId") String userId, @Param("articleId") int articleId)
             throws Exception;
+
+    public List<AccountBookDTO> getAccountBooksByYear(@Param("userId") String userId, @Param("year") String year)
+            throws Exception;
+
+    public List<String> getYearMonth(@Param("userId") String userId) throws Exception;
+
 }

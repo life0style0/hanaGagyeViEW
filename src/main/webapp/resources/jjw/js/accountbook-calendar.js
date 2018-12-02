@@ -1,6 +1,7 @@
 var startDayNum;
 var ggvCategory = new Set();
 var moneySlider;
+var calendarData = new Map();
 
 /**
  * 기본 달력을 만드는 함수
@@ -89,9 +90,10 @@ function sortCtgryMapping(ctgryName, delemeterSrc, replacerSrc) {
  * @param {*} data 가계부 정보
  */
 function showGgvToCalendar(data) {
-    let html = `<div class="ggv sort-ggv-ctgry-${sortCtgryMapping(data.ctgryName)} sort-ggv-money" data-money="${data.articlePaymentFee}"><input type="hidden" name="articleId" value="${data.articleId}"><div class="ggv-title"><span>카테고리 : ${data.ctgryName}</span>`;
+    let html = `<div class="ggv sort-ggv-ctgry-${sortCtgryMapping(data.ctgryName)} sort-ggv-money sort-ggv-scope" data-money="${data.articlePaymentFee}" data-scope="${data.articleScope}"><input type="hidden" name="articleId" value="${data.articleId}"><div class="ggv-title"><span>${data.ctgryName}</span>`;
     html += `<span class="ggv-scope">${checkScope(data.articleScope)}</span></div>`;
-    html += `<div class="ggv-content">${data.articlePaymentFee}</div></div>`;
+    html += `<div class="ggv-content">${data.articlePaymentFee}`;
+    html += `</div></div>`;
     return html;
 }
 
@@ -100,11 +102,11 @@ function showGgvToCalendar(data) {
  * @param {*} data 가계부 정보
  */
 function addDataToCalendar(data) {
-    const regdate = data.articleRegdate.split('-'); // 2018-01-01 형식
-    const ggv = $(`#calendar-${Number(regdate[2]) + Number(startDayNum)}`);
-    if (data.articleCtgryType === '지출') {
+    const regdate = data.articleRegdate.substr(10, 2); // 2018년 01월 01일 형식
+    const ggv = $(`#calendar-${Number(regdate) + Number(startDayNum)}`);
+    if (data.articleCtgryType === 'spend') {
         ggv.find('.calendar-spend').append(showGgvToCalendar(data));
-    } else if (data.articleCtgryType === '수입') {
+    } else if (data.articleCtgryType === 'income') {
         ggv.find('.calendar-income').append(showGgvToCalendar(data));
     }
 }
@@ -116,59 +118,84 @@ function setGgvCategories() {
     $('.ggv-category').html('');
     $('.ggv-category').append(`<li><a class="sorting-ggv-ctgry selected">전체</a></li>`);
     ggvCategory.forEach(function (item) {
-        console.log('item :', item);
         $('.ggv-category').append(`<li><a class="sorting-ggv-ctgry">${item}</a></li>`);
     });
 }
 
 function setSortingMoney(minMoney, maxMoney) {
-    $('.sorting-cal-money').html(`Filter by price interval: <b>${minMoney}원</b>
+    $('.sorting-cal-money').html(`수입/지출액 필터 : 최소 <b class="min-money">${minMoney}</b>원
     <input id="money-slider" type="text" class="" value="" data-slider-min="${minMoney}" data-slider-max="${maxMoney}" data-slider-step="1000"
-     data-slider-value="[${minMoney},${maxMoney}]" /> <b>${maxMoney}원</b>`);
+     data-slider-value="[${minMoney},${maxMoney}]" /> 최대 <b class="max-money">${maxMoney}</b>원`);
     moneySlider = new Slider('#money-slider', {});
 }
 
+function setDatasToCalendar(datas) {
+    ggvCategory.clear();
+    if (!datas || datas.length === 0) {
+        setSortingMoney(0, 0);
+    } else {
+        let minMoney;
+        let maxMoney;
+        for (let i = 0; i < datas.length; i += 1) {
+            const data = datas[i];
+            if (!minMoney) {
+                minMoney = data.articlePaymentFee;
+            } else if (minMoney > data.articlePaymentFee) {
+                minMoney = data.articlePaymentFee;
+            }
+            if (!maxMoney) {
+                maxMoney = data.articlePaymentFee;
+            } else if (maxMoney < data.articlePaymentFee) {
+                maxMoney = data.articlePaymentFee;
+            }
+            ggvCategory.add(data.ctgryName);
+            addDataToCalendar(data);
+        }
+        setSortingMoney(minMoney, maxMoney);
+        sortCalByMoney();
+    }
+    setGgvCategories();
+    return datas;
+}
+
 /**
- * 달력에 가계부 정보를 입력하기 위해 서버로부터 ajax 통신을 통해 json
- * 형태의 값을 받아오는 함수
+ * 달력에 가계부 정보를 입력하기 위해 서버로부터 ajax 통신을 통해 
+ * json 형태의 값을 받아오는 함수
  * @param {*} year 년 정보
  * @param {*} month 월 정보
  */
 function requestCalendarDataToServer(year, month) {
+    if (calendarData.has(`${month}-${year}`)) {
+        setDatasToCalendar(calendarData.get(`${month}-${year}`));
+    } else {
+        $.ajax({
+            url: '/salmon/accountbook/ggv',
+            method: 'get',
+            data: {
+                year: year,
+                month: month
+            },
+            dataType: 'json',
+            success: function (datas) {
+                setDatasToCalendar(datas);
+                calendarData.set(`${month}-${year}`, datas);
+            }
+        });
+    }
+}
+
+function requestCalendarDataToServerByYear(year) {
     $.ajax({
-        url: '/salmon/accountbook/ggv',
+        async: false,
+        url: `/salmon/accountbook/ggv/year/${year}`,
         method: 'get',
-        data: {
-            year: year,
-            month: month
-        },
         dataType: 'json',
         success: function (datas) {
-            ggvCategory.clear();
-            if (!datas || datas.length === 0) {
-
-            } else {
-                let minMoney;
-                let maxMoney;
-                for (let i = 0; i < datas.length; i += 1) {
-                    const data = datas[i];
-                    if (!minMoney) {
-                        minMoney = data.articlePaymentFee;
-                    } else if (minMoney > data.articlePaymentFee) {
-                        minMoney = data.articlePaymentFee;
-                    }
-                    if (!maxMoney) {
-                        maxMoney = data.articlePaymentFee;
-                    } else if (maxMoney < data.articlePaymentFee) {
-                        maxMoney = data.articlePaymentFee;
-                    }
-                    ggvCategory.add(data.ctgryName);
-                    addDataToCalendar(data);
+            $.each(datas, function (month, data) {
+                if (!calendarData.has(`${month}-${year}`)) {
+                    calendarData.set(`${month}-${year}`, data);
                 }
-                setSortingMoney(minMoney, maxMoney);
-                setGgvCategories();
-                sortCalByMoney();
-            }
+            });
         }
     });
 }
@@ -177,8 +204,8 @@ function requestCalendarDataToServer(year, month) {
  * 달력의 년도와 월을 설정해주는 함수
  */
 function setCalendarMY(moveDirection) {
-    const month = Number($('.calendar.month').html());
-    const year = Number($('.calendar.year').html());
+    const month = Number($('.calendar.month').text());
+    const year = Number($('.calendar.year').text());
     let monthChanged;
     let yearChanged;
 
@@ -225,10 +252,11 @@ function setCalendarMY(moveDirection) {
     if (monthChanged < 10) {
         monthChanged = '0' + monthChanged;
     }
-    $('.calendar.month').html(monthChanged);
-    $('.calendar.year').html(yearChanged);
 
     requestCalendarDataToServer(yearChanged, monthChanged);
+
+    $('.calendar.month').html(monthChanged);
+    $('.calendar.year').html(yearChanged);
 }
 
 /**
@@ -248,7 +276,15 @@ function setGgv(data) {
     $('#ggvMoney').html(`${data.articlePaymentFee}원`);
     $('#ggvCtgry').html(data.articleCtgryType);
     $('#ggvPayType').html(data.articlePaymentType);
-    $('#ggvContent').html(data.articleContent);
+    $('#ggvTitle').html(data.articleTitle);
+    $('#ggv-modal-label').html(data.articleRegdate);
+
+    let articleContentHTML = data.articleContent;
+    for (let i = 0; i < data.hashtags.length; i += 1) {
+        const hashtag = data.hashtags[i];
+        articleContentHTML += ` <a class="hashtag">${hashtag}</a>`;
+    }
+    $('#ggvContent').html(articleContentHTML);
 
     if (scope === '나만') {
         $('.ggv-footer').html(`<button type="button" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</button>
@@ -302,8 +338,8 @@ function setGgvInfos(info) {
             $('#ggv-modal').modal('show');
 
             $('#ggv-modal').on('shown.bs.modal', function () {
-                $('.owl-prev').css('top', `-${(400 + 50) / 2}px`);
-                $('.owl-next').css('top', `-${(400 + 50) / 2}px`);
+                $('.owl-prev').css('top', `-${(523 + 50) / 2}px`);
+                $('.owl-next').css('top', `-${(523 + 50) / 2}px`);
             });
         }
     });
@@ -332,10 +368,12 @@ function initCalendar() {
     $('.calendar.year').html(date.getFullYear());
 }
 
+/**
+ * 필터 기능 초기화 함수
+ */
 function initSorting() {
-    $(".drop-down-list li").on("click", function () {
-        console.log('mixitup');
-        const ggvType = $('.ggv-type').html().trim();
+    $(".ggv-type-list li").on("click", function () {
+        const ggvType = $(this).text().trim();
         if (!ggvType) {
             alert('값이 없습니다.');
             return;
@@ -347,6 +385,30 @@ function initSorting() {
         } else if (ggvType === '지출') {
             $('[class*="sort-cal-"]').addClass('hidden-ggvType');
             $('.sort-cal-spend').removeClass('hidden-ggvType');
+        }
+    });
+
+    $(".ggv-scope-list li").on("click", function () {
+        const ggvScope = $(this).text().trim();
+        if (!ggvScope) {
+            alert('값이 없습니다.');
+            return;
+        } else if (ggvScope === '나만/공개') {
+            $('.sort-ggv-scope').removeClass('hidden-ggvScope');
+        } else if (ggvScope === '나만') {
+            $('.sort-ggv-scope').addClass('hidden-ggvScope');
+            $('.sort-ggv-scope').each(function () {
+                if ($(this).data('scope') === 'r') {
+                    $(this).removeClass('hidden-ggvScope');
+                }
+            });
+        } else if (ggvScope === '공개') {
+            $('.sort-ggv-scope').addClass('hidden-ggvScope');
+            $('.sort-ggv-scope').each(function () {
+                if ($(this).data('scope') === 'u') {
+                    $(this).removeClass('hidden-ggvScope');
+                }
+            });
         }
     });
 
@@ -366,10 +428,15 @@ function initSorting() {
     });
 }
 
+/**
+ * 금액 기준으로 필터해주는 함수
+ */
 function sortCalByMoney() {
     moneySlider.on('slideStop', function () {
         const min = moneySlider.getValue()[0];
         const max = moneySlider.getValue()[1];
+        $('.min-money').html(min);
+        $('.max-money').html(max);
         $('.sort-ggv-money').each(function () {
             const money = Number($(this).data('money'));
             if (money < min || money > max) {
@@ -379,6 +446,13 @@ function sortCalByMoney() {
             }
         });
     });
+}
+
+function calendarMYClicked() {
+    const month = $('.calendar.month').html();
+    const year = $('.calendar.year').html();
+    $('.calendar-head .datepic').datepicker('update', new Date(year, month - 1, 1));
+    $('.calendar-head .datepic').datepicker('show');
 }
 
 /**
@@ -392,22 +466,16 @@ $(function () {
         startView: 1,
         minViewMode: 1,
         language: "kr",
-        orientation: "top right",
+        orientation: "top left",
         autoclose: true
     });
 
     $('.calendar.month').on('click', function () {
-        const month = $('.calendar.month').html();
-        const year = $('.calendar.year').html();
-        $('.calendar-head .datepic').datepicker('update', new Date(year, month - 1, 1));
-        $('.calendar-head .datepic').datepicker('show');
+        calendarMYClicked();
     });
 
     $('.calendar.year').on('click', function () {
-        const month = $('.calendar.month').html();
-        const year = $('.calendar.year').html();
-        $('.calendar-head .datepic').datepicker('update', new Date(year, month - 1, 1));
-        $('.calendar-head .datepic').datepicker('show');
+        calendarMYClicked();
     });
 
     $('.calendar-head .datepic').datepicker().on('hide', function () {
@@ -435,4 +503,5 @@ $(function () {
     });
 
     initSorting();
+
 });
