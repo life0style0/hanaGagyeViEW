@@ -136,7 +136,10 @@ function setStackedSpendChart(data, year, monthSrc) {
     const oneDayMax = psnMonthlyPayment / betweenDays;
     const spendGoal = [];
     for (let i = 1; i <= betweenDays; i += 1) {
-        spendGoal.push([dayStartUTC + 86400000 * (i - 1), oneDayMax * i]);
+        // 86400000 값은 하루의 millisecond 값이고
+        // 32400000 값은 Date.UTC()와 new Date() 함수가 같은 날이어도 millisecond 값의 차이가 나는데
+        // 이를 방지하기 위해 더함
+        spendGoal.push([dayStartUTC + 86400000 * (i - 1) + 32400000, oneDayMax * i]);
     }
     const chartData = {
         chart: {
