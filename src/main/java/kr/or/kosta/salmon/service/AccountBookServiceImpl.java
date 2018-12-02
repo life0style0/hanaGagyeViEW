@@ -22,8 +22,9 @@ public class AccountBookServiceImpl implements AccountBookService {
     private AccountBookMapper abm;
 
     @Override
-    public List<AccountBookDTO> getAccountBooks(String userId, String year, String month) throws Exception {
-        return abm.getAccountBooks(userId, year, month);
+    public List<AccountBookDTO> getAccountBooks(String userId, String year, String year2, String month, String month2)
+            throws Exception {
+        return abm.getAccountBooks(userId, year, year2, month, month2);
     }
 
     @Override
@@ -52,6 +53,11 @@ public class AccountBookServiceImpl implements AccountBookService {
     @Override
     public List<String> getYearMonth(String userId) throws Exception {
         return abm.getYearMonth(userId);
+    }
+
+    @Override
+    public int getPsnMonthStart(String userId) throws Exception {
+        return abm.getPsnMonthStart(userId);
     }
 
 }

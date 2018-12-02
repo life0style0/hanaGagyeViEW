@@ -61,7 +61,8 @@ function setMLSIChartData(year, month, data) {
                     return `${this.value}일`; // clean, unformatted number for year
                 }
             },
-            tickInterval: 1
+            // tickInterval: 1,
+            categories: [25,26,27,28,29,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
         },
         yAxis: {
             min: 0,
@@ -158,6 +159,7 @@ function setStackedSpendChart(data) {
         series: [{
             name: '목표 지출 금액',
             data: [
+                [29, 102000],
                 [1, 102000],
                 [2, 202000],
                 [5, 502000],

@@ -1,4 +1,7 @@
 var startDayNum;
+var startDateNum;
+var startDayToEndDateNum;
+var startDayEndDateNum;
 var ggvCategory = new Set();
 var moneySlider;
 var calendarData = new Map();
@@ -8,12 +11,37 @@ var calendarData = new Map();
  * @param {*} yearSrc 보고 싶은 년도
  * @param {*} monthSrc 보고 싶은 월
  */
-function makeCalendar(yearSrc, monthSrc) {
-    const year = Number(yearSrc);
-    const month = Number(monthSrc);
+function makeCalendar(yearSrc, monthSrc, daySrc) {
+    let year;
+    let month;
+    let day;
+    let daySrcN;
+    if (!daySrc) {
+        year = Number(yearSrc);
+        month = Number(monthSrc);
+        day = 1;
+    } else {
+        daySrcN = Number(daySrc);
+        if (daySrcN >= 16 && daySrcN <= 31) {
+            year = Number(yearSrc);
+            if (monthSrc === 1) {
+                month = 12;
+            } else {
+                month = Number(monthSrc) - 1;
+            }
+            day = daySrcN;
+        } else if (daySrcN >= 1 && daySrcN <= 15) {
+            year = Number(yearSrc);
+            month = Number(monthSrc);
+            day = daySrcN;
+        }
+    }
+    
     let prevStartDate;
     let startDay;
+    let startEndDate;
     let endDate;
+    let endEndDate;
     if (!year || year < 1900 || year > 3000) {
         alert('잘못된 년도입니다.');
         return;
@@ -23,19 +51,29 @@ function makeCalendar(yearSrc, monthSrc) {
     }
 
     if (month === 1) {
-        prevStartDate = (new Date(year - 1, 11, 0)).getDate();
-        startDay = new Date(year, month - 1, 1).getDay();
-        endDate = new Date(year, month, 0).getDate();
+        prevStartDate = (new Date(year - 1, 11, day - 1)).getDate();
+        startDay = new Date(year, month - 1, day).getDay();
+        startEndDate = new Date(year, month, 0).getDate();
+        endDate = new Date(year, month, day - 1).getDate();
+        endEndDate = new Date(year, month + 1, 0).getDate();
     } else if (month === 12) {
-        prevStartDate = (new Date(year, month - 1, 0)).getDate();
-        startDay = new Date(year, month - 1, 1).getDay();
-        endDate = new Date(year + 1, 0, 0).getDate();
+        prevStartDate = (new Date(year, month - 1, day - 1)).getDate();
+        startDay = new Date(year, month - 1, day).getDay();
+        startEndDate = new Date(year + 1, 0, 0).getDate();
+        endDate = new Date(year + 1, 0, day - 1).getDate();
+        endEndDate = new Date(year, 1, 0).getDate();
     } else {
-        prevStartDate = (new Date(year, month - 1, 0)).getDate();
-        startDay = new Date(year, month - 1, 1).getDay();
-        endDate = new Date(year, month, 0).getDate();
+        prevStartDate = (new Date(year, month - 1, day - 1)).getDate();
+        startDay = new Date(year, month - 1, day).getDay();
+        startEndDate = new Date(year, month, 0).getDate();
+        endDate = new Date(year, month, day - 1).getDate();
+        endEndDate = new Date(year, month + 1, 0).getDate();
     }
-    startDayNum = startDay;
+
+    startDayNum = Number(startDay);
+    startDateNum = Number(day);
+    startDayEndDateNum = Number(startEndDate);
+    startDayToEndDateNum = Number(startEndDate) - day + 1;
     let calNum = 1;
     for (let i = 1; i <= 42; i += 7) {
         $(`#calendar-${i}`).find('.calendar-date').addClass('text-red');
@@ -46,11 +84,19 @@ function makeCalendar(yearSrc, monthSrc) {
     for (let i = startDay - 1; i >= 0; i -= 1) {
         $(`#calendar-${calNum++}`).addClass('bg-lightgray').find('.calendar-date').removeClass('text-red').addClass('text-gray').html(`<strong>${prevStartDate - i}</strong>`);
     }
-    for (let i = 1; i <= endDate; i += 1) {
+    for (let i = day; i <= startEndDate; i += 1) {
         $(`#calendar-${calNum++}`).removeClass('bg-lightgray').find('.calendar-date').removeClass('text-gray').html(`<strong>${i}</strong>`);
     }
-    for (; calNum <= 42;) {
-        $(`#calendar-${calNum++}`).addClass('bg-lightgray').find('.calendar-date').removeClass('text-red text-blue').addClass('text-gray').html(`<strong>${calNum - endDate - startDay - 1}</strong>`);
+    if (day !== 1) {
+        for (let i = 1; i <= endDate; i += 1) {
+            $(`#calendar-${calNum++}`).removeClass('bg-lightgray').find('.calendar-date').removeClass('text-gray').html(`<strong>${i}</strong>`);
+        }
+        for (let i = day; i <= endEndDate; i += 1) {
+            $(`#calendar-${calNum++}`).addClass('bg-lightgray').find('.calendar-date').removeClass('text-red text-blue').addClass('text-gray').html(`<strong>${i}</strong>`);
+        }
+    }
+    for (let i = 1; calNum <= 42;) {
+        $(`#calendar-${calNum++}`).addClass('bg-lightgray').find('.calendar-date').removeClass('text-red text-blue').addClass('text-gray').html(`<strong>${i++}</strong>`);
     }
 }
 
@@ -103,7 +149,12 @@ function showGgvToCalendar(data) {
  */
 function addDataToCalendar(data) {
     const regdate = data.articleRegdate.split('-'); // 2018-01-01 형식
-    const ggv = $(`#calendar-${Number(regdate[2]) + Number(startDayNum)}`);
+    let ggv;
+    if (Number(regdate[2]) >= startDateNum) {
+        ggv = $(`#calendar-${Number(regdate[2]) + startDayNum - startDateNum + 1}`);
+    } else {
+        ggv = $(`#calendar-${Number(regdate[2]) + startDayNum + startDayToEndDateNum}`);
+    }
     if (data.articleCtgryType === 'spend') {
         ggv.find('.calendar-spend').append(showGgvToCalendar(data));
     } else if (data.articleCtgryType === 'income') {
@@ -246,8 +297,8 @@ function setCalendarMY(moveDirection) {
     }
 
     resetCalendar();
-
-    makeCalendar(yearChanged, monthChanged);
+    console.log('monthChanged :', monthChanged);
+    makeCalendar(yearChanged, monthChanged, 25);
 
     if (monthChanged < 10) {
         monthChanged = '0' + monthChanged;
@@ -277,6 +328,8 @@ function setGgv(data) {
     $('#ggvCtgry').html(data.articleCtgryType);
     $('#ggvPayType').html(data.articlePaymentType);
     $('#ggvTitle').html(data.articleTitle);
+
+    $('#ggv-modal-label').html(data.articleRegdate);
 
     let articleContentHTML = data.articleContent;
     for (let i = 0; i < data.hashtags.length; i += 1) {
@@ -361,7 +414,7 @@ function resetCalendar() {
  */
 function initCalendar() {
     const date = new Date();
-    makeCalendar(date.getFullYear(), date.getMonth() + 1);
+    makeCalendar(date.getFullYear(), date.getMonth() + 1, 25);
     requestCalendarDataToServer(date.getFullYear(), date.getMonth() + 1);
     $('.calendar.month').html(date.getMonth() + 1);
     $('.calendar.year').html(date.getFullYear());
