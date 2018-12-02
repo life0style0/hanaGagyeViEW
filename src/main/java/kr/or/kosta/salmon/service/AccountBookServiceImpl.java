@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import kr.or.kosta.salmon.domain.AccountBookDTO;
+import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.mapper.AccountBookMapper;
 
 /**
@@ -95,5 +96,10 @@ public class AccountBookServiceImpl implements AccountBookService {
     public int getPsnMonthStart(String userId) throws Exception {
         return abm.getPsnMonthStart(userId);
     }
+
+    @Override
+    public PsnsDTO getPsns(String userId) throws Exception {
+        return abm.getPsns(userId);
+	}
 
 }

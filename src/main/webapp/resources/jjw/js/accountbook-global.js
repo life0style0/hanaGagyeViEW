@@ -1,4 +1,6 @@
 var chartDatas = new Map();
+var psnMonthlyPayment;
+var psnMonthStart;
 
 function setMonthSpendChartData(data) {
     const chartData = {
@@ -24,8 +26,8 @@ function setMonthSpendChartData(data) {
             // }
         },
         tooltip: {
-            headerFormat: `<b>${{point.key}.substr(3,4)}년 {(point.key).substr(0,2)}월</b><br>`,
-            pointFormat: '<span style="color:{point.color}">●</span> {series.name}: <b>{point.y}</b>원<br/>'
+            headerFormat: `<span style="font-size: 10px">{point.key}</span><br/>`,
+            pointFormat: '<span style="color:{point.color}">●</span> <b>{series.name}</b> <b>{point.y}</b>원<br/>'
         },
         legend: {
             reversed: true
@@ -105,7 +107,37 @@ function requestMLSIChart(year, month) {
     }
 }
 
-function setStackedSpendChart(data) {
+function setStackedSpendChart(data, year, monthSrc) {
+    const month = Number(monthSrc) - 1;
+    const psnMonthStartT = Number(psnMonthStart) || 1;
+    let betweenDays;
+    let dayStartUTC;
+    if (psnMonthStartT >= 16 && psnMonthStartT <= 31) {
+        if (month === 0) {
+            betweenDays = ((new Date(year, 0, psnMonthStartT)) - (new Date(year - 1, 11, psnMonthStartT))) / 86400000;
+            dayStartUTC = (new Date(year-1, 11, psnMonthStartT))*1;
+        } else {
+            betweenDays = ((new Date(year, month, psnMonthStartT)) - (new Date(year, month - 1, psnMonthStartT))) / 86400000;
+            dayStartUTC = (new Date(year, month-1, psnMonthStartT))*1;
+        }
+    } else if (psnMonthStartT >= 1 && psnMonthStartT <= 15) {
+        if (month === 11) {
+            betweenDays = ((new Date(year + 1, 0, psnMonthStartT)) - (new Date(year, 11, psnMonthStartT))) / 86400000;
+            dayStartUTC = (new Date(year, 11, psnMonthStartT))*1;
+        } else {
+            betweenDays = ((new Date(year, month + 1, psnMonthStartT)) - (new Date(year, month, psnMonthStartT))) / 86400000;
+            dayStartUTC = (new Date(year, month, psnMonthStartT))*1;
+        }
+    } else {
+        alert('개인화 정보 오류');
+        return;
+    }
+
+    const oneDayMax = psnMonthlyPayment / betweenDays;
+    const spendGoal = [];
+    for (let i = 1; i <= betweenDays; i += 1) {
+        spendGoal.push([dayStartUTC + 86400000 * (i - 1), oneDayMax * i]);
+    }
     const chartData = {
         chart: {
             type: 'area'
@@ -119,13 +151,14 @@ function setStackedSpendChart(data) {
                 'armscontrol.org</a>'
         },
         xAxis: {
-            allowDecimals: false,
-            labels: {
-                formatter: function () {
-                    return `${this.value}일`; // clean, unformatted number for year
-                }
+            type: 'datetime',
+            dateTimeLabelFormats: {
+                day: '%b %e일'
             },
-            tickInterval: 1,
+            title: {
+                text: '일'
+            },
+            tickInterval: 86400000,
             tickmarkPlacement: 'on'
         },
         yAxis: {
@@ -136,7 +169,7 @@ function setStackedSpendChart(data) {
         tooltip: {
             shared: true,
             useHTML: true,
-            headerFormat: '<b>{point.key}</b>일 누적 금액<table>',
+            headerFormat: '<b>{point.x:%b %e일} 누적 금액<table>',
             pointFormat: '<tr><td style="color: {series.color}">{series.name}: </td>' +
                 '<td style="text-align: right"><b>{point.y} 원</b></td></tr>',
             footerFormat: '</table>',
@@ -153,33 +186,23 @@ function setStackedSpendChart(data) {
         },
         series: [{
             name: '목표 지출 금액',
-            data: [
-                [29, 102000],
-                [1, 102000],
-                [2, 202000],
-                [5, 502000],
-                [8, 802000],
-                [9, 902000],
-                [11, 1102000],
-                [14, 1202000],
-                [15, 1502000],
-                [18, 1802000],
-                [19, 1902000]
-            ]
+            data: spendGoal
         }, {
             name: '현재 지출 누계',
             data: data
         }]
     };
+    console.log('spendGaol :', spendGoal);
+    console.log('data :', data);
     return chartData;
 }
 
 function requestStackedSpendChart(year, month) {
     if (chartDatas.has(`stackedSpend-${year}-${month}`)) {
-        Highcharts.chart('accountbook-chart', setStackedSpendChart(chartDatas.get(`stackedSpend-${year}-${month}`)));
+        Highcharts.chart('accountbook-chart', setStackedSpendChart(chartDatas.get(`stackedSpend-${year}-${month}`), year, month));
     } else {
         chartDatas.set(`stackedSpend-${year}-${month}`, stackedSpendChart(year, month));
-        Highcharts.chart('accountbook-chart', setStackedSpendChart(chartDatas.get(`stackedSpend-${year}-${month}`)));
+        Highcharts.chart('accountbook-chart', setStackedSpendChart(chartDatas.get(`stackedSpend-${year}-${month}`), year, month));
     }
 }
 
@@ -205,6 +228,16 @@ $(function () {
             const today = new Date();
             $('.chart-year-dropdown').html(`${today.getFullYear()}년`);
             $('.chart-month-dropdown').html(`${today.getMonth()+1}월`);
+        }
+    });
+
+    $.ajax({
+        url: '/salmon/accountbook/psns',
+        method: 'get',
+        dataType: 'json',
+        success: function (psns) {
+            psnMonthlyPayment = psns.psnMonthlyPayment;
+            psnMonthStart = psns.psnMonthStart;
         }
     });
 

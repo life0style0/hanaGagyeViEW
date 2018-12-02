@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.or.kosta.salmon.domain.AccountBookDTO;
+import kr.or.kosta.salmon.domain.PsnsDTO;
 
 /**
  * AccountBookService
@@ -20,4 +21,6 @@ public interface AccountBookService {
     public List<String> getYearMonth(String userId) throws Exception;
 
     public int getPsnMonthStart(String userId) throws Exception;
+
+    public PsnsDTO getPsns(String userId) throws Exception;
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.or.kosta.salmon.domain.AccountBookDTO;
+import kr.or.kosta.salmon.domain.PsnsDTO;
 
 /**
  * AccountBookMapper
@@ -25,4 +26,6 @@ public interface AccountBookMapper {
         public List<String> getYearMonth(@Param("userId") String userId) throws Exception;
 
         public int getPsnMonthStart(@Param("userId") String userId) throws Exception;
+
+        public PsnsDTO getPsns(@Param("userId") String userId) throws Exception;
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.kosta.salmon.domain.AccountBookDTO;
+import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.service.AccountBookService;
 import lombok.extern.log4j.Log4j;
 
@@ -68,6 +69,7 @@ public class AccountBookController {
         } catch (Exception e) {
             e.printStackTrace();
             rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return rEntity;
         }
         return rEntity;
     }
@@ -93,6 +95,7 @@ public class AccountBookController {
         } catch (Exception e) {
             e.printStackTrace();
             rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return rEntity;
         }
         return rEntity;
     }
@@ -108,6 +111,7 @@ public class AccountBookController {
         } catch (Exception e) {
             e.printStackTrace();
             rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return rEntity;
         }
         return rEntity;
     }
@@ -124,6 +128,23 @@ public class AccountBookController {
         } catch (Exception e) {
             e.printStackTrace();
             rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return rEntity;
+        }
+        return rEntity;
+    }
+
+    @GetMapping(value = "/psns", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+    public @ResponseBody ResponseEntity<PsnsDTO> getPsns(Principal principal) {
+        log.info("getPsns request....");
+        PsnsDTO psnsDTO = null;
+        ResponseEntity<PsnsDTO> rEntity = null;
+        try {
+            psnsDTO = abs.getPsns(principal.getName());
+            rEntity = new ResponseEntity<>(psnsDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return rEntity;
         }
         return rEntity;
     }
