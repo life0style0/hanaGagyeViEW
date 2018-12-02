@@ -1,5 +1,3 @@
-var chartDatas = new Map();
-
 /**
  * 월별 소비량을 보여주는 차트를 만들어주는 함수.
  */
@@ -58,39 +56,7 @@ function monthBarSpendChart(yearSrc) {
         });
     });
 
-    const chartData = {
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: '월별 소비 비율 통계'
-        },
-        xAxis: {
-            categories: months
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: '금액(원)'
-            },
-            labels: {
-                formatter: function () {
-                    return this.value / 1000 + '천원';
-                }
-            }
-        },
-        legend: {
-            reversed: true
-        },
-        plotOptions: {
-            series: {
-                stacking: 'normal'
-            }
-        },
-        series: seriesDatas
-    };
-
-    chartDatas.set(`monthBarSpendChart-${year}`, chartData);
+    return [months, seriesDatas];
 }
 
 /**
@@ -128,62 +94,59 @@ function monthLineSpendIncomeChart(yearSrc, monthSrc) {
     const spendDataToArray = [...monthSpendLineData.entries()];
     const incomeDataToArray = [...monthIncomeLineData.entries()];
 
-    const chartData = {
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: `${year}년 ${month}월 지출/수입`
-        },
-        xAxis: {
-            title: {
-                text: '일자'
-            },
-            tickInterval: 1
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: '금액(원)'
-            },
-            labels: {
-                formatter: function () {
-                    return this.value / 1000 + '천원';
-                }
-            }
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: false
-            }
-        },
-        series: [{
-            name: '지출',
-            data: spendDataToArray
-        }, {
-            name: '수입',
-            data: incomeDataToArray
-        }]
-    };
-
-    chartDatas.set(`monthLineSpendIncomeChart-${year}-${month}`, chartData);
+    return [spendDataToArray, incomeDataToArray];
 }
+
+function stackedSpendChart(yearSrc, monthSrc) {
+    const year = yearSrc || (new Date()).getFullYear();
+    const month = monthSrc || (new Date()).getMonth();
+
+    let spendNowTotal = 0;
+    const spendNow = []; // key=ctgry, value=spend
+    calendarData.forEach(function (monthDatas, date) {
+        if (date === `${month}-${year}`) {
+            if (chartDatas.has(`monthLineSpendIncomeChart-${year}-${month}`)) {
+                const spendDataToArray = chartDatas.get(`monthLineSpendIncomeChart-${year}-${month}`)[0];
+                spendDataToArray.forEach(function (data) {
+                    spendNowTotal += Number(data[1]);
+                    spendNow.push([data[0], spendNowTotal]);
+                });
+            } else {
+                const monthSpendLineData = new Map();
+                monthDatas.forEach(function (monthData) {
+                    const day = Number(monthData.articleRegdate.split('-')[2]);
+                    if (monthData.articleCtgryType === 'spend') {
+                        if (monthSpendLineData.has(day)) {
+                            monthSpendLineData.set(day, monthSpendLineData.get(day) + Number(monthData.articlePaymentFee));
+                        } else {
+                            monthSpendLineData.set(day, Number(monthData.articlePaymentFee));
+                        }
+                    }
+                });
+                monthSpendLineData.forEach(function (money, day) {
+                    spendNowTotal += Number(money);
+                    spendNow.push([day, spendNowTotal]);
+                });
+            }
+        }
+    });
+
+    return spendNow;
+}
+
 
 $(function () {
     $(".chart-year-list").on("click", 'li', function () {
         console.log('start');
-        if ($('.chart-month-spend').hasClass('active')){
+        if ($('.chart-month-spend').hasClass('active')) {
             console.log('here');
             requestChartMonthSpend($('.chart-year-dropdown').text().substr(0, 4));
-        } else if ($('.chart-day-line').hasClass('active')){
-            requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));    
+        } else if ($('.chart-day-bar').hasClass('active')) {
+            requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
         }
     });
 
-    $(".chart-month-list").on("click",'li', function () {
+    $(".chart-month-list").on("click", 'li', function () {
         requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
     });
 });

@@ -125,7 +125,8 @@
 							<div class="creative_filds_block">
 								<div class="ul">
 									<a class="chart-month-spend active">월별 지출 비교 차트</a>
-									<a class="chart-day-line">일간 소비/수입 총합 차트</a>
+									<a class="chart-day-bar">일간 소비/수입 총합 차트</a>
+									<a class="chart-month-goal">월 지출 목표 대비 지출 현황</a>
 								</div>
 							</div>
 						</div>
