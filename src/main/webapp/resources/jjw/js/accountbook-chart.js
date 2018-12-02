@@ -72,31 +72,38 @@ function monthLineSpendIncomeChart(yearSrc, monthSrc) {
     const monthSpendLineData = new Map();
     const monthIncomeLineData = new Map();
 
+    const days = new Set();
     calendarData.forEach(function (monthDatas, date) {
         if (date === `${month}-${year}`) {
             monthDatas.forEach(function (monthData) {
+                const year = Number(monthData.articleRegdate.substr(0, 4)); //2018년 01월 12일 ~~ 형식
+                const month = Number(monthData.articleRegdate.substr(6, 2)); //2018년 01월 12일 ~~ 형식
                 const day = Number(monthData.articleRegdate.substr(10, 2)); //2018년 01월 12일 ~~ 형식
+                const utc = Date.UTC(year, month - 1, day);
                 if (monthData.articleCtgryType === 'spend') {
-                    if (monthSpendLineData.has(day)) {
-                        monthSpendLineData.set(day, monthSpendLineData.get(day) + Number(monthData.articlePaymentFee));
+                    if (monthSpendLineData.has(utc)) {
+                        monthSpendLineData.set(utc, monthSpendLineData.get(utc) + Number(monthData.articlePaymentFee));
                     } else {
-                        monthSpendLineData.set(day, Number(monthData.articlePaymentFee));
+                        days.add(utc);
+                        monthSpendLineData.set(utc, Number(monthData.articlePaymentFee));
                     }
                 } else if (monthData.articleCtgryType === 'income') {
-                    if (monthIncomeLineData.has(day)) {
-                        monthIncomeLineData.set(day, monthIncomeLineData.get(day) + Number(monthData.articlePaymentFee));
+                    if (monthIncomeLineData.has(utc)) {
+                        monthIncomeLineData.set(utc, monthIncomeLineData.get(utc) + Number(monthData.articlePaymentFee));
                     } else {
-                        monthIncomeLineData.set(day, Number(monthData.articlePaymentFee));
+                        days.add(utc);
+                        monthIncomeLineData.set(utc, Number(monthData.articlePaymentFee));
                     }
                 }
             });
         }
     });
 
+    console.log('days :', days);
     const spendDataToArray = [...monthSpendLineData.entries()];
     const incomeDataToArray = [...monthIncomeLineData.entries()];
 
-    return [spendDataToArray, incomeDataToArray];
+    return [spendDataToArray, incomeDataToArray, [...days.keys()]];
 }
 
 function stackedSpendChart(yearSrc, monthSrc) {

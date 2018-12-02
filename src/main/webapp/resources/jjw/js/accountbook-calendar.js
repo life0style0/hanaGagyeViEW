@@ -150,10 +150,10 @@ function showGgvToCalendar(data) {
 function addDataToCalendar(data) {
     const regdate = data.articleRegdate.substr(10, 2); // 2018년 01월 01일 형식
     let ggv;
-    if (Number(regdate[2]) >= startDateNum) {
-        ggv = $(`#calendar-${Number(regdate[2]) + startDayNum - startDateNum + 1}`);
+    if (Number(regdate) >= startDateNum) {
+        ggv = $(`#calendar-${Number(regdate) + startDayNum - startDateNum + 1}`);
     } else {
-        ggv = $(`#calendar-${Number(regdate[2]) + startDayNum + startDayToEndDateNum}`);
+        ggv = $(`#calendar-${Number(regdate) + startDayNum + startDayToEndDateNum}`);
     }
     
     if (data.articleCtgryType === 'spend') {
@@ -329,8 +329,6 @@ function setGgv(data) {
     $('#ggvCtgry').html(data.articleCtgryType);
     $('#ggvPayType').html(data.articlePaymentType);
     $('#ggvTitle').html(data.articleTitle);
-    $('#ggv-modal-label').html(data.articleRegdate);
-
     $('#ggv-modal-label').html(data.articleRegdate);
 
     let articleContentHTML = data.articleContent;

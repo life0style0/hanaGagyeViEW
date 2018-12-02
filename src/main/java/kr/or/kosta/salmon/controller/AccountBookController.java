@@ -39,8 +39,7 @@ public class AccountBookController {
     @GetMapping(value = "/ggv", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
     public @ResponseBody ResponseEntity<List<AccountBookDTO>> getAccountBooks(@RequestParam("year") String year,
             @RequestParam("month") String month, Principal principal) {
-        log.info("calendar get....");
-        log.info(month);
+        log.info("calendar get.... " + month);
         int psnStartDay = 1;
         List<AccountBookDTO> abDTOs = null;
         ResponseEntity<List<AccountBookDTO>> rEntity = null;
@@ -77,10 +76,19 @@ public class AccountBookController {
     public @ResponseBody ResponseEntity<Map<String, List<AccountBookDTO>>> getAccountBooksByYear(
             @PathVariable("year") String year, Principal principal) {
         log.info("calendar year get....");
+        int psnStartDay = 1;
         Map<String, List<AccountBookDTO>> abDTOs = null;
         ResponseEntity<Map<String, List<AccountBookDTO>>> rEntity = null;
+        int yearTemp = Integer.parseInt(year);
         try {
-            abDTOs = abs.getAccountBooksByYear(principal.getName(), year);
+            psnStartDay = abs.getPsnMonthStart(principal.getName());
+            if (psnStartDay >= 16 && psnStartDay <= 31) {
+                abDTOs = abs.getAccountBooksByYear(principal.getName(), (yearTemp - 1) + "", year, "12", "12",
+                        psnStartDay);
+            } else if (psnStartDay >= 1 && psnStartDay <= 15) {
+                abDTOs = abs.getAccountBooksByYear(principal.getName(), year, (yearTemp + 1) + "", "01", "01",
+                        psnStartDay);
+            }
             rEntity = new ResponseEntity<>(abDTOs, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();

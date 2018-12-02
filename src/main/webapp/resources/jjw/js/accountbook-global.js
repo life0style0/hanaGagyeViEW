@@ -53,27 +53,37 @@ function setMLSIChartData(year, month, data) {
             text: `${year}년 ${month}월 지출/수입`
         },
         xAxis: {
+            type: 'datetime',
+            dateTimeLabelFormats: {
+                month: '%b %e일',
+                year: '%b'
+            },
             title: {
                 text: '일'
-            },
-            labels: {
-                formatter: function () {
-                    return `${this.value}일`; // clean, unformatted number for year
-                }
-            },
-            // tickInterval: 1,
-            categories: [25,26,27,28,29,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+            }
+            // tickInterval: 86400000,
+            // labels: {
+            //     formatter: function () {
+            //         return `${this.value}일`; // clean, unformatted number for year
+            //     }
+            // },
+            // categories: data[2]
         },
         yAxis: {
             min: 0,
             title: {
                 text: '금액(원)'
-            },
-            labels: {
-                formatter: function () {
-                    return this.value / 1000 + '천원';
-                }
             }
+            // ,
+            // labels: {
+            //     formatter: function () {
+            //         return this.value / 1000 + '천원';
+            //     }
+            // }
+        },
+        tooltip: {
+            headerFormat: '<b>{series.name}</b><br>',
+            pointFormat: '{point.x:%b %e일}: {point.y}원'
         },
         plotOptions: {
             line: {
@@ -99,7 +109,8 @@ function requestMLSIChart(year, month) {
         lang: {
             numericSymbols: ['천원', '백만원'],
             numericSymbolMagnitude: 1000,
-            thousandsSep: ','
+            thousandsSep: ',',
+            shortMonths: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
         }
     });
     if (chartDatas.has(`monthLineSpendIncomeChart-${year}-${month}`)) {
