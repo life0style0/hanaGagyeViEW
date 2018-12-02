@@ -8,17 +8,19 @@ function monthBarSpendChart(yearSrc) {
 
     const monthSpendDatas = new Map(); // key = 월 value = 월 차트 데이터 
     calendarData.forEach(function (monthDatas, date) {
-        const monthSpendChartData = new Map();
-        monthDatas.forEach(function (monthData) {
-            if (!monthData.articleCtgryType === 'spend') {
-                console.log('not spend');
-            } else if (monthSpendChartData.has(monthData.ctgryName)) {
-                monthSpendChartData.set(monthData.ctgryName, monthSpendChartData.get(monthData.ctgryName) + Number(monthData.articlePaymentFee));
-            } else {
-                monthSpendChartData.set(monthData.ctgryName, Number(monthData.articlePaymentFee));
-            }
-        });
-        monthSpendDatas.set(date, monthSpendChartData);
+        if (date.substr(3, 4) === year) {
+            const monthSpendChartData = new Map();
+            monthDatas.forEach(function (monthData) {
+                if (!monthData.articleCtgryType === 'spend') {
+                    console.log('not spend');
+                } else if (monthSpendChartData.has(monthData.ctgryName)) {
+                    monthSpendChartData.set(monthData.ctgryName, monthSpendChartData.get(monthData.ctgryName) + Number(monthData.articlePaymentFee));
+                } else {
+                    monthSpendChartData.set(monthData.ctgryName, Number(monthData.articlePaymentFee));
+                }
+            });
+            monthSpendDatas.set(date, monthSpendChartData);
+        }
     });
 
     const sortedMonthSpendDatas = new Map([...monthSpendDatas.entries()].sort());
@@ -73,7 +75,7 @@ function monthLineSpendIncomeChart(yearSrc, monthSrc) {
     calendarData.forEach(function (monthDatas, date) {
         if (date === `${month}-${year}`) {
             monthDatas.forEach(function (monthData) {
-                const day = Number(monthData.articleRegdate.split('-')[2]);
+                const day = Number(monthData.articleRegdate.substr(10, 2)); //2018년 01월 12일 ~~ 형식
                 if (monthData.articleCtgryType === 'spend') {
                     if (monthSpendLineData.has(day)) {
                         monthSpendLineData.set(day, monthSpendLineData.get(day) + Number(monthData.articlePaymentFee));
@@ -114,7 +116,7 @@ function stackedSpendChart(yearSrc, monthSrc) {
             } else {
                 const monthSpendLineData = new Map();
                 monthDatas.forEach(function (monthData) {
-                    const day = Number(monthData.articleRegdate.split('-')[2]);
+                    const day = Number(monthData.articleRegdate.substr(10, 2));
                     if (monthData.articleCtgryType === 'spend') {
                         if (monthSpendLineData.has(day)) {
                             monthSpendLineData.set(day, monthSpendLineData.get(day) + Number(monthData.articlePaymentFee));
@@ -137,10 +139,8 @@ function stackedSpendChart(yearSrc, monthSrc) {
 
 $(function () {
     $(".chart-year-list").on("click", 'li', function () {
-        console.log('start');
         if ($('.chart-month-spend').hasClass('active')) {
-            console.log('here');
-            requestChartMonthSpend($('.chart-year-dropdown').text().substr(0, 4));
+            requestMonthSpendChart($('.chart-year-dropdown').text().substr(0, 4));
         } else if ($('.chart-day-bar').hasClass('active')) {
             requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
         }
