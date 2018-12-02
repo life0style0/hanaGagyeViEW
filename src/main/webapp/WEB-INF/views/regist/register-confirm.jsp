@@ -37,7 +37,10 @@ form {
 .blackbox-sjh{
 	background-color: rgba(0, 0, 0, 0.75);
     padding: 10px 10px;
-    width: 50%
+    width: 50%;
+    margin: auto;
+    
+    
 }
 
 </style>
@@ -61,6 +64,13 @@ form {
 				아이디 :
 				<c:out value="${user_id}" />
 			</h2>
+      
+      
+      <h2 style="text-align: center; font-size: 17pt;">
+        가계ViEW 회원가입을 환영합니다.
+      </h2>
+      
+      
 	
 		</div>
 		<div class="submit-agileits">

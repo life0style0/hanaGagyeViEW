@@ -20,8 +20,12 @@
 		<script src="https://code.highcharts.com/modules/exporting.js"></script>
 		<script src="https://code.highcharts.com/modules/export-data.js"></script>
 		
+    
+     <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+    
 	</head>
-	<body >
+	<body style="font-family: 'Noto Sans KR', sans-serif;">
 
 	<!-- THE LOADER -->
 	<div class="be-loader">
@@ -102,28 +106,175 @@
 				</div>
 
 				<div class="col-md-10">
-				
-				<div id="viewInfo">
-					<h2> 내 정보 조회 </h2>
-					
-					<div> 
+				<!--  내 정보 조회 부분 CSS 입히는 중  -->
+        <div class="col-xs-12 col-md-9 _editor-content_">
+        <div class="sec" data-sec="">
+				<div id="viewInfo"> <!-- 혜림수정부분 -->
+        <style>
+        .card-heading{
+            background: url(../resources/SignUp/images/bg-head-02.jpg) center center/cover no-repeat;
+    padding-top: 210px;
+}
+        </style>
+        
+        
+        <div class="card-heading"></div>
+        
+              <div class="info-block style-2">
+                <div class="be-large-post-align">
+                  <h2 class="info-block-label" style="font-size: 18pt; font-family: 'Noto Sans KR', sans-serif;">나의 정보 조회</h2>
+                </div>
+              </div>
+
+
+              <div> 
 					<%-- <p>user : <sec:authentication property="principal.user"/></p> --%>
-					<p> 닉네임 : <c:out value="${user.user_nickname}"/> </p>
-					<p> 아이디 : <sec:authentication property="principal.username"/></p>
-					<p> 이메일 : <c:out value="${user.user_email}"/> </p>
-					<p> 성별 : <c:out value="${user.user_gender}"/></p>
-					<p> 생일 : <c:out value="${user.user_birthday}"/> </p>
-					<p> 프로필사진 : <sec:authentication property="principal.user.user_image"/></p>
-					<p> 가입일 : <sec:authentication property="principal.user.user_regdate"/></p>
-					
-					<p> 권한 목록 : <sec:authentication property="principal.user.authList"/></p>  
-					
-					<p> 지역 : <c:out value="${userPsnsInfo.locationname}"/> </p>  
-					<p> 관심 카테고리1 : <c:out value="${userPsnsInfo.ctgry1Name}"/> </p>  
-					<p> 관심 카테고리2 : <c:out value="${userPsnsInfo.ctgry2Name}"/> </p>  
-					<p> 관심 카테고리3 : <c:out value="${userPsnsInfo.ctgry3Name}"/> </p>  
-					</div>
-				</div>
+          <!-- 프로필 사진 보여주기 -->
+          
+                  <div class="be-large-post-align" style="margin: auto; padding-bottom: 10px;">
+                    <div class="be-change-ava" style="margin: auto;>
+                <!-- <a class="be-ava-user style-2" " "> -->
+                        <p style="text-align: center;">  프로필사진 : <sec:authentication  property="principal.user.user_image" />   </p>
+                        
+                        
+                          <p style="text-align: center;">
+                          <a class="be-ava-user style-2">
+ <img src="https://media.glamour.com/photos/576aaba37f743c3e35b97512/master/pass/0816-GL-OBSE03-01.jpg"  class="img-circle" alt="Cinque Terre" width="250" height="250" style="float: center;">
+                    </a>
+                      </p>
+                   <!--    </a> --> 
+                    </div>
+                  </div>
+                <style>
+.effect-2{ border: 0; padding: 7px 0; border-bottom: 1px solid #ccc;}
+.effect-2 ~ .focus-border {position: absolute; bottom: 0; left: 50%; width: 0; height: 2px; background-color: #0d58c8; transition: 0.4s;}
+.effect-2:focus ~ .focus-border{width: 100%; transition: 0.4s; left: 0;}           
+                </style>
+                <!-- 아이디 보여주기  -->
+                  <div class="be-large-post-align">
+                    <div class="row">
+                      <div class="input-col col-xs-12 col-sm-6">
+                        <div class="form-group fg_icon focus-2">
+                          <div class="form-label">아이디</div>
+                          <%--         <p> 아이디 : <sec:authentication property="principal.username"/></p> --%>
+                          <input class="effect-2" type="text" value="<sec:authentication property="principal.username"/>" style="color: black" readonly="readonly">
+                           <span class="focus-border"></span>
+                        </div>
+                      </div>
+
+                      <!-- 닉네임 보여주기 -->
+                      <div class="input-col col-xs-12 col-sm-6">
+                        <div class="form-group focus-2">
+                          <div class="form-label">닉네임</div>
+                          <%--      <p> 닉네임 : <c:out value="${user.user_nickname}"/> </p>         --%>
+                          <input class="effect-2" type="text" value="<c:out value="${user.user_nickname}"/>" style="color: black" readonly="readonly">
+                         <span class="focus-border"></span>
+                        </div>
+                      </div>
+
+                      <!-- 이메일 보여주기 -->
+                      <div class="input-col col-xs-12 col-sm-4">
+                        <div class="form-group focus-2">
+                          <div class="form-label">이메일</div>
+                          <%--     <p> 이메일 : <c:out value="${user.user_email}"/> </p>    --%>
+                          <input class="effect-2" type="text" value="<c:out value="${user.user_email}"/>" style="color:black" readonly="readonly">
+                        
+                        </div>
+                      </div>
+
+                     <!-- 성별 보여주기 -->
+                      <div class="input-col col-xs-12 col-sm-4">
+                        <div class="form-group focus-2">
+                          <div class="form-label">성별</div>
+                          <%--     <p> 성별 :  <c:out value="${user.user_gender}" />   --%>
+                          <input class="effect-2" type="text" value=" <c:out value="${user.user_gender}" />" style="color:black" readonly="readonly">
+                                                <span class="focus-border"></span>
+                     
+                        </div>
+                      </div>
+
+                     <!-- 생년월일 보여주기 -->
+                      <div class="input-col col-xs-12 col-sm-4">
+                        <div class="form-group focus-2">
+                          <div class="form-label">생년월일</div>
+                          <%--       <p>생일 : <c:out value="${user.user_birthday}" /> </p>  --%>
+                          <input class="effect-2" type="text" value="<c:out value="${user.user_birthday}" />" style="color:black" readonly="readonly">
+                         <span class="focus-border"></span>
+                      
+                        </div>
+                      </div>
+
+                     <!-- 가입일 보여주기 -->
+                      <div class="input-col col-xs-12 col-sm-4">
+                        <div class="form-group focus-2">
+                          <div class="form-label">가입일</div>
+                          <%-- <p> 가입일 : <sec:authentication property="principal.user.user_regdate" /> </p>  --%>
+                          <input class="effect-2" type="text" value="<sec:authentication property="principal.user.user_regdate" />" style="color:black" readonly="readonly">
+                          <span class="focus-border"></span>
+                        </div>
+                      </div>
+                    
+                     <!-- 권한목록 보여주기 -->
+                      <div class="input-col col-xs-12 col-sm-4">
+                        <div class="form-group focus-2">
+                          <div class="form-label">권한목록</div>
+                          <%--   <p> 권한 목록 : <sec:authentication property="principal.user.authList" /> </p>  --%>
+                          <input class="effect-2" type="text" value="<sec:authentication property="principal.user.authList" />" style="color:black" readonly="readonly">
+                        <span class="focus-border"></span>
+                        </div>
+                      </div>
+
+                     <!-- 지역 보여주기 -->
+                      <div class="input-col col-xs-12 col-sm-4">
+                        <div class="form-group focus-2">
+                          <div class="form-label">지역</div>
+                          <%-- <p> 지역 : <c:out value="${userPsnsInfo.locationname}" /> </p>  --%>
+                          <input class="effect-2" type="text" value="<c:out value="${userPsnsInfo.locationname}" />" style="color:black" readonly="readonly">
+                          <span class="focus-border"></span>
+                   
+                        </div>
+                      </div>
+
+                      <!-- 관심 카테고리1  보여주기 -->
+                      <div class="input-col col-xs-12 col-sm-4">
+                        <div class="form-group focus-2">
+                          <div class="form-label">관심 카테고리1</div>
+                          <%-- <p> 관심 카테고리1 : <c:out value="${userPsnsInfo.ctgry1Name}" /> </p> --%>
+                          <input class="effect-2" type="text" value="<c:out value="${userPsnsInfo.ctgry1Name}" />" style="color:black" readonly="readonly">
+                          <span class="focus-border"></span>
+        
+                        </div>
+                      </div>
+                      
+                      <!-- 관심 카테고리2  보여주기 -->
+                      <div class="input-col col-xs-12 col-sm-4">
+                        <div class="form-group focus-2">
+                          <div class="form-label">관심 카테고리2</div>
+                          <%-- <p> 관심 카테고리2 : <c:out value="${userPsnsInfo.ctgry2Name}" /> </p> --%>
+                          <input class="effect-2" type="text" value="<c:out value="${userPsnsInfo.ctgry2Name}" />" style="color:black" readonly="readonly">
+                        <span class="focus-border"></span>
+     
+                        </div>
+                      </div>
+                      
+                      <!-- 관심 카테고리3  보여주기 -->
+                      <div class="input-col col-xs-12 col-sm-4">
+                        <div class="form-group focus-2">
+                          <div class="form-label">관심 카테고리3</div>
+                          <%--  <p> 관심 카테고리3 : <c:out value="${userPsnsInfo.ctgry3Name}" /> </p> --%>
+                          <input class="effect-2" type="text" value="<c:out value="${userPsnsInfo.ctgry3Name}" />" style="color:black" readonly="readonly">
+                         <span class="focus-border"></span>
+     
+                        </div>
+                      </div>                 
+
+                    </div>
+                  </div>
+                </div>
+        </div>
+        
+        
+        <!-- 프로필 수정 css입히는 중  -->
 				<div id="editProfile">
 					<h2> 프로필 수정 </h2>
 					닉네임, 프로필 사진 수정
