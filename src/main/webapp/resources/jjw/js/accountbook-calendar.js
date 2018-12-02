@@ -102,8 +102,8 @@ function showGgvToCalendar(data) {
  * @param {*} data 가계부 정보
  */
 function addDataToCalendar(data) {
-    const regdate = data.articleRegdate.split('-'); // 2018-01-01 형식
-    const ggv = $(`#calendar-${Number(regdate[2]) + Number(startDayNum)}`);
+    const regdate = data.articleRegdate.substr(10, 2); // 2018년 01월 01일 형식
+    const ggv = $(`#calendar-${Number(regdate) + Number(startDayNum)}`);
     if (data.articleCtgryType === 'spend') {
         ggv.find('.calendar-spend').append(showGgvToCalendar(data));
     } else if (data.articleCtgryType === 'income') {
@@ -184,6 +184,22 @@ function requestCalendarDataToServer(year, month) {
     }
 }
 
+function requestCalendarDataToServerByYear(year) {
+    $.ajax({
+        async: false,
+        url: `/salmon/accountbook/ggv/year/${year}`,
+        method: 'get',
+        dataType: 'json',
+        success: function (datas) {
+            $.each(datas, function (month, data) {
+                if (!calendarData.has(`${month}-${year}`)) {
+                    calendarData.set(`${month}-${year}`, data);
+                }
+            });
+        }
+    });
+}
+
 /**
  * 달력의 년도와 월을 설정해주는 함수
  */
@@ -261,6 +277,7 @@ function setGgv(data) {
     $('#ggvCtgry').html(data.articleCtgryType);
     $('#ggvPayType').html(data.articlePaymentType);
     $('#ggvTitle').html(data.articleTitle);
+    $('#ggv-modal-label').html(data.articleRegdate);
 
     let articleContentHTML = data.articleContent;
     for (let i = 0; i < data.hashtags.length; i += 1) {
@@ -355,9 +372,8 @@ function initCalendar() {
  * 필터 기능 초기화 함수
  */
 function initSorting() {
-    $(".drop-down-list li").on("click", function () {
+    $(".ggv-type-list li").on("click", function () {
         const ggvType = $(this).text().trim();
-        console.log('ggvType :', ggvType);
         if (!ggvType) {
             alert('값이 없습니다.');
             return;
@@ -369,16 +385,24 @@ function initSorting() {
         } else if (ggvType === '지출') {
             $('[class*="sort-cal-"]').addClass('hidden-ggvType');
             $('.sort-cal-spend').removeClass('hidden-ggvType');
-        } else if (ggvType === '나만/공개') {
+        }
+    });
+
+    $(".ggv-scope-list li").on("click", function () {
+        const ggvScope = $(this).text().trim();
+        if (!ggvScope) {
+            alert('값이 없습니다.');
+            return;
+        } else if (ggvScope === '나만/공개') {
             $('.sort-ggv-scope').removeClass('hidden-ggvScope');
-        } else if (ggvType === '나만') {
+        } else if (ggvScope === '나만') {
             $('.sort-ggv-scope').addClass('hidden-ggvScope');
             $('.sort-ggv-scope').each(function () {
                 if ($(this).data('scope') === 'r') {
                     $(this).removeClass('hidden-ggvScope');
                 }
             });
-        } else if (ggvType === '공개') {
+        } else if (ggvScope === '공개') {
             $('.sort-ggv-scope').addClass('hidden-ggvScope');
             $('.sort-ggv-scope').each(function () {
                 if ($(this).data('scope') === 'u') {

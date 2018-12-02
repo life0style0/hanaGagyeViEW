@@ -1,22 +1,26 @@
-var chartDatas = new Map();
-
 /**
  * 월별 소비량을 보여주는 차트를 만들어주는 함수.
  */
-function monthBarSpendChart() {
+function monthBarSpendChart(yearSrc) {
+    const year = yearSrc || (new Date()).getFullYear();
+
+    requestCalendarDataToServerByYear(year);
+
     const monthSpendDatas = new Map(); // key = 월 value = 월 차트 데이터 
     calendarData.forEach(function (monthDatas, date) {
-        const monthSpendChartData = new Map();
-        monthDatas.forEach(function (monthData) {
-            if (!monthData.articleCtgryType === 'spend') {
-                console.log('not spend');
-            } else if (monthSpendChartData.has(monthData.ctgryName)) {
-                monthSpendChartData.set(monthData.ctgryName, monthSpendChartData.get(monthData.ctgryName) + Number(monthData.articlePaymentFee));
-            } else {
-                monthSpendChartData.set(monthData.ctgryName, Number(monthData.articlePaymentFee));
-            }
-        });
-        monthSpendDatas.set(date, monthSpendChartData);
+        if (date.substr(3, 4) === year) {
+            const monthSpendChartData = new Map();
+            monthDatas.forEach(function (monthData) {
+                if (!monthData.articleCtgryType === 'spend') {
+                    console.log('not spend');
+                } else if (monthSpendChartData.has(monthData.ctgryName)) {
+                    monthSpendChartData.set(monthData.ctgryName, monthSpendChartData.get(monthData.ctgryName) + Number(monthData.articlePaymentFee));
+                } else {
+                    monthSpendChartData.set(monthData.ctgryName, Number(monthData.articlePaymentFee));
+                }
+            });
+            monthSpendDatas.set(date, monthSpendChartData);
+        }
     });
 
     const sortedMonthSpendDatas = new Map([...monthSpendDatas.entries()].sort());
@@ -54,86 +58,95 @@ function monthBarSpendChart() {
         });
     });
 
-    const chartData = {
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: '월별 소비 비율 통계'
-        },
-        xAxis: {
-            categories: months
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: '금액(원)'
-            },
-            labels: {
-                formatter: function () {
-                    return this.value / 1000 + '천원';
-                }
-            }
-        },
-        legend: {
-            reversed: true
-        },
-        plotOptions: {
-            series: {
-                stacking: 'normal'
-            }
-        },
-        series: seriesDatas
-    };
-
-    chartDatas.set('monthBarSpendChart', chartData);
+    return [months, seriesDatas];
 }
 
-function monthLineSpendIncomeChart(year, month) {
+/**
+ * 일 단위로 지출과 소비의 총합을 선 그래프로 보여주는 함수
+ * @param {*} year 보고 싶은 년도
+ * @param {*} month 보고 싶은 월
+ */
+function monthLineSpendIncomeChart(yearSrc, monthSrc) {
+    const year = yearSrc || (new Date()).getFullYear();
+    const month = monthSrc || (new Date()).getMonth();
+    const monthSpendLineData = new Map();
+    const monthIncomeLineData = new Map();
+
     calendarData.forEach(function (monthDatas, date) {
-        if (date) {
-            
+        if (date === `${month}-${year}`) {
+            monthDatas.forEach(function (monthData) {
+                const day = Number(monthData.articleRegdate.substr(10, 2)); //2018년 01월 12일 ~~ 형식
+                if (monthData.articleCtgryType === 'spend') {
+                    if (monthSpendLineData.has(day)) {
+                        monthSpendLineData.set(day, monthSpendLineData.get(day) + Number(monthData.articlePaymentFee));
+                    } else {
+                        monthSpendLineData.set(day, Number(monthData.articlePaymentFee));
+                    }
+                } else if (monthData.articleCtgryType === 'income') {
+                    if (monthIncomeLineData.has(day)) {
+                        monthIncomeLineData.set(day, monthIncomeLineData.get(day) + Number(monthData.articlePaymentFee));
+                    } else {
+                        monthIncomeLineData.set(day, Number(monthData.articlePaymentFee));
+                    }
+                }
+            });
         }
     });
 
-    const chartData = {
-        chart: {
-            type: 'line'
-        },
-        title: {
-            text: 'Monthly Average Temperature'
-        },
-        subtitle: {
-            text: 'Source: WorldClimate.com'
-        },
-        xAxis: {
-            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        },
-        yAxis: {
-            title: {
-                text: 'Temperature (°C)'
-            }
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: false
-            }
-        },
-        series: [{
-            name: 'Tokyo',
-            data: [7.0, 6.9, 9.5, 14.5, 18.4, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
-        }, {
-            name: 'London',
-            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-        }]
-    };
+    const spendDataToArray = [...monthSpendLineData.entries()];
+    const incomeDataToArray = [...monthIncomeLineData.entries()];
 
-    chartDatas.set('monthLineSpendIncomeChart', chartData);
+    return [spendDataToArray, incomeDataToArray];
 }
 
-$(function () {
+function stackedSpendChart(yearSrc, monthSrc) {
+    const year = yearSrc || (new Date()).getFullYear();
+    const month = monthSrc || (new Date()).getMonth();
 
+    let spendNowTotal = 0;
+    const spendNow = []; // key=ctgry, value=spend
+    calendarData.forEach(function (monthDatas, date) {
+        if (date === `${month}-${year}`) {
+            if (chartDatas.has(`monthLineSpendIncomeChart-${year}-${month}`)) {
+                const spendDataToArray = chartDatas.get(`monthLineSpendIncomeChart-${year}-${month}`)[0];
+                spendDataToArray.forEach(function (data) {
+                    spendNowTotal += Number(data[1]);
+                    spendNow.push([data[0], spendNowTotal]);
+                });
+            } else {
+                const monthSpendLineData = new Map();
+                monthDatas.forEach(function (monthData) {
+                    const day = Number(monthData.articleRegdate.substr(10, 2));
+                    if (monthData.articleCtgryType === 'spend') {
+                        if (monthSpendLineData.has(day)) {
+                            monthSpendLineData.set(day, monthSpendLineData.get(day) + Number(monthData.articlePaymentFee));
+                        } else {
+                            monthSpendLineData.set(day, Number(monthData.articlePaymentFee));
+                        }
+                    }
+                });
+                monthSpendLineData.forEach(function (money, day) {
+                    spendNowTotal += Number(money);
+                    spendNow.push([day, spendNowTotal]);
+                });
+            }
+        }
+    });
+
+    return spendNow;
+}
+
+
+$(function () {
+    $(".chart-year-list").on("click", 'li', function () {
+        if ($('.chart-month-spend').hasClass('active')) {
+            requestMonthSpendChart($('.chart-year-dropdown').text().substr(0, 4));
+        } else if ($('.chart-day-bar').hasClass('active')) {
+            requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
+        }
+    });
+
+    $(".chart-month-list").on("click", 'li', function () {
+        requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
+    });
 });

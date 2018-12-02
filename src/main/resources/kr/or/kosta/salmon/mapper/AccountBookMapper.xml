@@ -36,7 +36,7 @@
 SELECT article_id,
        ctgry_name,
        article_scope,
-       to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
+       to_char(article_regdate,'YYYY"년" MM"월" DD"일" AM HH"시" mm"분"') "article_regdate",
        article_payment_type,
        article_payment_fee,
        article_title,
@@ -61,7 +61,7 @@ FROM images where article_id = #{article_id}
 SELECT article_id,
        ctgry_name,
        article_scope,
-       to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
+       to_char(article_regdate,'YYYY"년" MM"월" DD"일" AM HH"시" mm"분"') "article_regdate",
        article_payment_type,
        article_payment_fee,
        article_title,
@@ -80,6 +80,35 @@ SELECT hashtag_value
 FROM   hashtag_refs 
        join hashtags USING(hashtag_id) 
 WHERE  article_id = #{articleId}        
+        </select>
+
+        <select id="getAccountBooksByYear" resultMap="AccountBooks">
+SELECT article_id,
+       ctgry_name,
+       article_scope,
+       to_char(article_regdate,'YYYY"년" MM"월" DD"일" AM HH"시" mm"분"') "article_regdate",
+       article_payment_type,
+       article_payment_fee,
+       article_title,
+       article_content,
+        article_ctgry_type
+FROM   articles 
+        join ctgry_values USING(article_id) 
+        join ctgries USING(ctgry_id)
+        join article_ctgries using(article_ctgry_id)
+WHERE  user_id = #{userId} 
+       AND To_char(article_regdate, 'YYYY') = #{year}
+       AND article_ctgry_type IN ('income','spend')
+ORDER BY article_regdate        
+        </select>
+
+        <select id="getYearMonth" resultType="string">
+SELECT "year" 
+FROM  (SELECT To_char(article_regdate, 'YYYY-MM') "year" 
+       FROM   articles 
+       WHERE  user_id = #{userId}) 
+GROUP  BY "year"
+order by "year" desc
         </select>
 
 </mapper>

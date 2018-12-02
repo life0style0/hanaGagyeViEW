@@ -317,7 +317,7 @@ $(function() {
         });
     });
 
-    $(".drop-down-list li").on("click", function () {
+    $(".drop-down-list").on("click",'li', function () {
         var new_value = $(this).find("a").text();
         $(this).parent().parent().find(".be-dropdown-content").text(new_value);
         $(this).closest('.be-drop-down').removeClass("be-dropdown-active");
