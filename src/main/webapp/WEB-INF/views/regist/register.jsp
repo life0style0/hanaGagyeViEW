@@ -131,8 +131,16 @@ font-family: 'Noto Sans KR', sans-serif;
 								<div class="rs-select2 js-select-simple select--no-search">
 									<select id="locations" required="required">
 										<option disabled="disabled" selected="selected">지역</option>
-										<option value="1">서울</option>
-										<option value="2">부산</option>
+										<c:choose>
+									     	<c:when test="${not empty locations}">
+									     	<c:forEach var="location" items="${locations}" varStatus="status">
+										     	<option value="${location.location_id}">
+										     		<c:out value="${location.location_name}"/>
+										     	</option>
+									     	</c:forEach>
+									     	</c:when>
+									     	<c:otherwise></c:otherwise>
+									     </c:choose>
 									</select> 
 									<input type="hidden" id="location_id" name="location_id">
 									<div class="select-dropdown"></div>
@@ -146,15 +154,20 @@ font-family: 'Noto Sans KR', sans-serif;
 	                         <c:choose>
 						     	<c:when test="${not empty categories}">
 						     	<c:forEach var="category" items="${categories}" varStatus="status">
-							     	<li name="category" class="unselected" id="category-li-1"> 
-		                        		<div id="category-1" class="unselected" value="<c:out value="${category.ctgry_id}"/>">
-		                        		<c:out value="${category.ctgry_name}"/>
-		                        		</div>
-		                        	</li>
+							     	<c:choose>
+							     		<c:when test="${category.ctgry_id < 0 }">
+							     		</c:when>
+							     		<c:otherwise>
+								     		<li name="category" class="unselected" id="category-li-1"> 
+				                        		<div id="category-1" class="unselected" value="<c:out value="${category.ctgry_id}"/>">
+				                        		<c:out value="${category.ctgry_name}"/>
+				                        		</div>
+			                        		</li>
+							     		</c:otherwise>
+							     	</c:choose>
 						     	</c:forEach>
 						     	</c:when>
-						     	<c:otherwise>
-						     	</c:otherwise>
+						     	<c:otherwise></c:otherwise>
 						     </c:choose>
 	                        </ul>
                         

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.domain.LocationDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -55,6 +56,9 @@ public class UserEditController {
 		model.addAttribute("userPsnsInfo",userPsnsInfo);
 		model.addAttribute("user",user);
 		model.addAttribute("categories", categories);
+		
+		List<LocationDTO_sjh> locations= service.getAllLocations();
+		model.addAttribute("locations",locations);
 	}
 	
 	@PostMapping("/main/mypage/editprofile")

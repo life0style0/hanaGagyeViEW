@@ -247,6 +247,12 @@
 		WHERE  user_id = #{user_id}
 	</update>
 	
+	<select id="getAllLocations" resultType="kr.or.kosta.salmon.domain.LocationDTO_sjh">
+		SELECT location_id, 
+		       location_name 
+		FROM   locations
+	</select>
+	
 	<update id="setUserResign">
 		UPDATE users 
 		SET    user_state='R'

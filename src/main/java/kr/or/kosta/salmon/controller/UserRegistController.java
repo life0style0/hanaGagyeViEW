@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.domain.LocationDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.service.UserService;
@@ -42,6 +43,8 @@ public class UserRegistController {
 		log.info(" 회원가입 페이지 요청 ");
 		List<CategoryDTO_sjh> categories= service.getAllCategories();
 		model.addAttribute("categories", categories);
+		List<LocationDTO_sjh> locations= service.getAllLocations();
+		model.addAttribute("locations",locations);
 	}
 	
 	@PostMapping("/register")

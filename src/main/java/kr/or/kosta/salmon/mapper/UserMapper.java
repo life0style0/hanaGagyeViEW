@@ -3,6 +3,7 @@ package kr.or.kosta.salmon.mapper;
 import java.util.List;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.domain.LocationDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -72,5 +73,8 @@ public interface UserMapper {
 	
 	//권한 삭제
 	public void deleteUserAuth(String user_id);
+	
+	//지역정보 전체 가져오기
+	public List<LocationDTO_sjh> getAllLocations();
 	
 }

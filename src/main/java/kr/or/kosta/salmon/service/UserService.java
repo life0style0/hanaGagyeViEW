@@ -2,6 +2,7 @@ package kr.or.kosta.salmon.service;
 import java.util.List;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.domain.LocationDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 /**
  * User 관련 처리
@@ -59,5 +60,8 @@ public interface UserService {
 	
 	//권한 삭제
 	public void deleteUserAuth(String user_id);
+	
+	//지역정보 전체 가져오기
+	public List<LocationDTO_sjh> getAllLocations();
 	
 }

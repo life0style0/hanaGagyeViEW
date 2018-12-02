@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.domain.LocationDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -172,6 +173,11 @@ public class UserServiceImpl implements UserService {
 			log.info("비밀번호 불일치! 탈퇴 불가");
 			return false;
 		}
+	}
+
+	@Override
+	public List<LocationDTO_sjh> getAllLocations() {
+		return usermapper.getAllLocations();
 	}
 
 }
