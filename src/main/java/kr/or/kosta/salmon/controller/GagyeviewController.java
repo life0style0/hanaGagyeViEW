@@ -25,6 +25,7 @@ import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
 import kr.or.kosta.salmon.domain.HashTagDTO;
 import kr.or.kosta.salmon.domain.ImageDTO;
+import kr.or.kosta.salmon.domain.MainArticleDTO;
 import kr.or.kosta.salmon.service.GaArticleService;
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -43,6 +44,14 @@ public class GagyeviewController {
 	public void register(Model model) {
 		ArrayList<String> categoryList = gaArticleService.getCategory();
 		model.addAttribute("categoryList", categoryList);
+	}
+	
+	@GetMapping("/edit")
+	public void edit(Model model, int article_id) {
+		MainArticleDTO editArticle = gaArticleService.getEditArticle(article_id);
+		ArrayList<String> categoryList = gaArticleService.getCategory();
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("editArticle", editArticle);
 	}
 	
 	

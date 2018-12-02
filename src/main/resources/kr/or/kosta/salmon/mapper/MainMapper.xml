@@ -71,6 +71,7 @@
         </select>
         
         <select id="getHashTagGroup" resultType="kr.or.kosta.salmon.domain.HashTagGroupDTO">
+        <![CDATA[
         SELECT count(hashtag_id) count_hashtag_value, hashtag_value
         FROM hashtags join hashtag_refs using(hashtag_id)
         WHERE article_id in(
@@ -86,8 +87,9 @@
 				   				 WHERE 		group_id in (
 				   				 						 SELECT 	group_id
 				   				 						 FROM	 	users us inner join group_users gus on us.user_id = gus.user_id 
-				   				 						 WHERE		us.user_id=#{user_id}))))
-		GROUP BY hashtag_value
+				   				 						 WHERE		us.user_id=#{user_id})))) and rownum <10
+		GROUP BY hashtag_value 
+		ORDER BY count_hashtag_value desc ]]>
         </select>
         
         <select id="getChartTotalFee" resultMap="ChartMap">

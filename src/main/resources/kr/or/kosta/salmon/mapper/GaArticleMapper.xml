@@ -5,7 +5,7 @@
 <mapper namespace="kr.or.kosta.salmon.mapper.GaArticleMapper">
 
 	<!-- 1:N ResultMap 설정 -->
-	<resultMap type="kr.or.kosta.salmon.domain.ArticleDTO" id="articleMap">
+	<resultMap type="kr.or.kosta.salmon.domain.MainArticleDTO" id="articleMap">
 		<id property="article_id" column="article_id"/>
 		<result property="article_id" column="article_id"/>
 		<result property="article_ctgry_id" column="article_ctgry_id"/>
@@ -20,9 +20,9 @@
 		<result property="group_id" column="group_id"/>
 		<result property="user_id" column="user_id"/>
 		<result property="article_deleted" column="article_deleted"/>
-		<collection property="articleList" resultMap="articleMap"/>
+		<collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
+        <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
 	</resultMap>
-
 	
 	
 	<insert id="createGaArticle">
@@ -127,6 +127,40 @@
 		)
 	</insert>
 	
+	
+	<select id="getEditArticle" resultMap="articleMap">
+		SELECT article_id,
+		       article_ctgry_id,
+		       article_scope,
+		       to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
+		       article_editdate,
+		       article_payment_type,
+		       article_payment_fee,
+		       article_title,
+		       article_content,
+		       article_proposal_status,
+		       group_id,
+		       user_id,
+		       article_deleted
+		FROM   articles
+		WHERE  article_id = #{article_id}
+        </select>
+	
+	
+	<select id="getImages" resultType="string">
+		SELECT image_path
+		FROM images where article_id = #{article_id}
+    </select>
+		
+		
+	<select id="getHashtagByArticleId" resultType="string">
+		SELECT hashtag_value 
+		FROM   hashtag_refs ref
+		       inner join hashtags hash on ref.hashtag_id=hash.hashtag_id 
+		WHERE  article_id = #{articleId}        
+    </select>
+    
+    
 		
 	
 </mapper>

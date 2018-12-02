@@ -6,8 +6,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
+import kr.or.kosta.salmon.domain.MainArticleDTO;
 import kr.or.kosta.salmon.domain.MainChartDTO;
 import kr.or.kosta.salmon.mapper.MainMapper;
 import lombok.extern.log4j.Log4j;
@@ -19,7 +19,7 @@ public class MainServiceImpl implements MainService{
 	MainMapper mainMapper;
 
 	@Override
-	public ArrayList<ArticleDTO> getListSprint1(String user_id) {
+	public ArrayList<MainArticleDTO> getListSprint1(String user_id) {
 		return mainMapper.getListSprint1(user_id);
 	}
 

@@ -6,6 +6,7 @@ import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
 import kr.or.kosta.salmon.domain.HashTagDTO;
 import kr.or.kosta.salmon.domain.ImageDTO;
+import kr.or.kosta.salmon.domain.MainArticleDTO;
 
 public interface GaArticleService {
 	
@@ -24,4 +25,7 @@ public interface GaArticleService {
 	public void createHashTagRef(HashTagDTO hashTagDTO);
 	//이미지 추가
 	public void createImageInfo(ImageDTO imageDTO);
+	
+	//수정 게시글 정보 가져오기
+	public MainArticleDTO getEditArticle(int article_id);
 }
