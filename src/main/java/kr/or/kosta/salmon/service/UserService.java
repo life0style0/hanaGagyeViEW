@@ -47,5 +47,17 @@ public interface UserService {
 	
 	//관심카테고리 변경
 	public void changeUserCategories(UserLocAndCatsDTO userCats);
+
+	// 회원탈퇴
+	public void setUserResign(String user_id);
+
+	// 비밀번호 가져오기
+	public String getUserPw(String user_id);
+	
+	//비밀번호 확인 후 탈퇴
+	public boolean checkPWandResigh(String user_id, String user_password);
+	
+	//권한 삭제
+	public void deleteUserAuth(String user_id);
 	
 }

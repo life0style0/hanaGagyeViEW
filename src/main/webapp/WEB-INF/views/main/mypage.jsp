@@ -297,7 +297,14 @@
 
 				<div id="resign">
 					<h2> 탈퇴 </h2>
-					<input type="button" value="탈퇴하기">
+					
+					<!-- 탈퇴를 원하시면 비밀번호를 한번 더 입력해주세요
+					<input type="password" name="resign-user_password" id="resign-user_password"> -->
+					<button type="button" class="btn btn-danger" name="resignOpenBtn"
+                                data-toggle="modal"  data-target="#resign-Modal">
+                                        모달 열기 버튼    
+                        </button>
+					
 				</div>
 				
 					<!-- <div id="container-mix"  class="row _post-container_">
@@ -313,7 +320,11 @@
 	<!-- THE FOOTER -->
 	<%@ include file="/WEB-INF/views/includes/footer.jsp"%>
 
+
 	<div class="be-fixed-filter"></div>
+	
+	<%--탈퇴 모달 --%>
+	<%@ include file="/WEB-INF/views/main/resign-Modal.jsp"%>
 	
 	<!--  로그인 팝업 -->
 	<div class="large-popup login">

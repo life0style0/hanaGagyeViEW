@@ -247,4 +247,21 @@
 		WHERE  user_id = #{user_id}
 	</update>
 	
+	<update id="setUserResign">
+		UPDATE users 
+		SET    user_state='R'
+		WHERE  user_id = #{user_id}
+	</update>
+	
+	<select id="getUserPw" resultType="String">
+		SELECT user_password 
+		FROM   users
+		WHERE  user_id = #{user_id}
+	</select>
+	
+	<delete id="deleteUserAuth">
+		DELETE FROM users_auth 
+		WHERE  user_id = #{user_id}; 
+	</delete>
+	
 </mapper>

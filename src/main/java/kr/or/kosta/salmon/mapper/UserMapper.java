@@ -64,4 +64,13 @@ public interface UserMapper {
 	public void insertBasicPsns2(UserLocAndCatsDTO user);
 	public void insertBasicPsns3(UserLocAndCatsDTO user);
 	
+	//회원탈퇴
+	public void setUserResign(String user_id);
+	
+	//비밀번호 가져오기
+	public String getUserPw(String user_id);
+	
+	//권한 삭제
+	public void deleteUserAuth(String user_id);
+	
 }

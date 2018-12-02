@@ -110,4 +110,28 @@ public class UserEditController {
 		log.info(" 카테고리 수정 완료 ");
 		return "redirect:/main/mypage";
 	}
+	
+	@PostMapping("/main/mypage/resign")
+	public String resignPost(Principal principal) {
+		// 회원탈퇴
+		log.info(" 탈퇴 처리  : "+principal.getName());
+		//users 테이블 user_state 변경
+		//users_auth 테이블 레코드 삭제
+		//쿠키 JSESSION_ID 삭제
+		//rediredt:/
+		service.deleteUserAuth(principal.getName());
+		service.setUserResign(principal.getName());
+		log.info(" 탈퇴 완료 ");
+		return "redirect:/";
+		/*
+		if( ) {
+			log.info(" 탈퇴 완료 ");
+			return "redirect:/";
+		}else {
+			log.info(" 탈퇴 실패 ");
+			return "redirect:/main/mypage";
+		}
+		*/
+	}
+
 }

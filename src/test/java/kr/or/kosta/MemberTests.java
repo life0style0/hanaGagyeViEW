@@ -56,7 +56,7 @@ public class MemberTests {
 	}
 	
 	//Users 더미데이터 (i값 변경해서 쓰기) 비밀번호 1234
-//	@Test
+	@Test
 	public void testInsertMember() {
 		log.info(" users DUMMY 삽입 ");
 		
@@ -88,11 +88,8 @@ public class MemberTests {
 					managerAuthPstmt= con.prepareStatement(managerAuthSql);
 					
 					userAuthPstmt.setString(1, "admin"); //아이디
-					//userAuthPstmt.setString(2, "ROLE_USER"); //권한
 					adminAuthPstmt.setString(1, "admin");
-					//adminAuthPstmt.setString(2, "ROLE_ADMIN");
 					managerAuthPstmt.setString(1, "admin");
-					//managerAuthPstmt.setString(2, "ROLE_MANAGER");
 					
 					pstmt.setString(1, "admin"); //아이디
 					pstmt.setString(2, "admin"); //닉네임
@@ -106,9 +103,7 @@ public class MemberTests {
 					managerAuthPstmt= con.prepareStatement(managerAuthSql);
 					
 					userAuthPstmt.setString(1, "manager"+i); //아이디
-					//userAuthPstmt.setString(2, "ROLE_USER"); //권한
 					managerAuthPstmt.setString(1, "manager"+i);
-					//managerAuthPstmt.setString(2, "ROLE_MANAGER");
 					
 					pstmt.setString(1, "manager"+i); //아이디
 					pstmt.setString(2, "manager"+i); //닉네임
@@ -127,21 +122,20 @@ public class MemberTests {
 				} else {
 					//일반 사용자
 					userAuthPstmt.setString(1, "heyrim"+i); //아이디
-					//userAuthPstmt.setString(2, "ROLE_USER"); //권한
 					
 					pstmt.setString(1, "heyrim"+i); //아이디
 					pstmt.setString(2, "heyrim"+i); //닉네임
 					pstmt.setString(3, "heyrim"+i+"@mail.com"); //이메일
 					pstmt.setString(4, pwEncoder.encode("1234")); //비밀번호 암호화
 					pstmt.setString(5, "F"); //성별
-					pstmt.setString(6, "901111"); //생년월일
+					pstmt.setString(6, "901225"); //생년월일
 					pstmt.setString(7, "https://notefolio.net/data/covers/39320_t2.jpg"); //이미지
 				
 					userPsnsPstmt.setString(1,  "heyrim"+i);
-					userPsnsPstmt.setString(2,  "1"); //location
-					userPsnsPstmt.setString(3,  "3"); //category1
-					userPsnsPstmt.setString(4,  "2"); //category2
-					userPsnsPstmt.setString(5,  "1"); //category3
+					userPsnsPstmt.setString(2,  "3"); //location
+					userPsnsPstmt.setString(3,  "9"); //category1
+					userPsnsPstmt.setString(4,  "7"); //category2
+					userPsnsPstmt.setString(5,  "2"); //category3
 				}
 				
 				
@@ -333,7 +327,7 @@ public class MemberTests {
 		}
 	}
 	
-	@Test
+//	@Test
 	public void test() {
 		usermapper.getUserSimplePsns("inin11");
 		

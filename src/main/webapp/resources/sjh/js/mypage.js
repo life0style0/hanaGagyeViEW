@@ -16,7 +16,7 @@ $(function(){
 	//	$('#locations').on('change',getLocationInfo);
 	}
 	
-	
+	//프로필 수정 (닉네임,사진)
 	if (document.getElementById('editProfileForm') != null) { //프로필 변경 화면
 		document.getElementById("editProfileSubmitBtn").onclick = function () {
 			editPrifileReady = true;
@@ -30,6 +30,7 @@ $(function(){
 		}
 	}
 	
+	//개인정보 수정(비밀번호,이메일,지역,성별,나이)
 	if (document.getElementById('editInfoForm') != null) { //개인정보 변경 화면 경우
 		document.getElementById("editInfoSubmitBtn").onclick = function () {
 			editInfoReady = true;
@@ -49,6 +50,7 @@ $(function(){
 		}
 	}
 	
+	//관심카테고리 수정
 	if (document.getElementById('editCategoriesForm') != null) { //카테고리 변경 경우
 		document.getElementById("editCategoriesSubmitBtn").onclick = function () {
 			categoryReady = true;
@@ -58,6 +60,20 @@ $(function(){
 			if (categoryReady == true) {
 				console.log('submit edit categories');
 				$('#editCategoriesForm').submit();
+			}
+		}
+	}
+	
+	//탈퇴
+	if (document.getElementById('resignForm') != null) { //카테고리 변경 경우
+		document.getElementById("resignSubmitBtn").onclick = function () {
+			resignReady = true;
+			//폼 제출
+		//	isCorrectPassword();
+			console.log(resignReady);
+			if (resignReady == true) {
+				console.log('submit resign');
+				$('#resignForm').submit();
 			}
 		}
 	}
@@ -398,5 +414,13 @@ function isValidCategory(){
 			categoryReady = true && categoryReady;
 		}
 	
+	}
+}
+
+//탈퇴시 비밀번호검사
+function isCorrectPassword(){
+	if($('#resign') != null){
+		var inputPW=$('#resign-user_password').val();
+		
 	}
 }
