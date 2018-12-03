@@ -7,10 +7,12 @@ import java.util.List;
  */
 import javax.inject.Inject;
 
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.domain.LocationDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -125,5 +127,57 @@ public class UserServiceImpl implements UserService {
 	public List<CategoryDTO_sjh> getAllCategories() {
 		return usermapper.getAllCategories();
 	}
+
+	@Override
+	public void changeUserCategories(UserLocAndCatsDTO userCats) {
+		log.info("관심카테고리 수정 "+userCats);
+		
+		if(userCats.getCtgry_1() == -1) {
+			userCats.setCtgry_1(0);
+		}
+		if(userCats.getCtgry_2()==-1) {
+			userCats.setCtgry_2(0);
+		}
+		
+		usermapper.changeUserCategories(userCats);
+	}
+
+	@Override
+	public String getUserPw(String user_id) {
+		return usermapper.getUserPw(user_id);
+	}
 	
+	//회원 탈퇴
+	@Transactional
+	@Override
+	public void setUserResign(String user_id) {
+		usermapper.setUserResign(user_id); //user_state 변경
+		usermapper.deleteUserAuth(user_id); //auth 제거
+	}
+
+	// 권한 삭제
+	@Override
+	public void deleteUserAuth(String user_id) {
+		usermapper.deleteUserAuth(user_id);
+	}
+
+	//비밀번호 확인 후 탈퇴
+	@Transactional
+	@Override
+	public boolean checkPWandResigh(String user_id, String user_password) {
+		if(user_password.equals(usermapper.getUserPw(user_id))) {
+			log.info("비밀번호 일치 ! 탈퇴 시작");
+			usermapper.setUserResign(user_id);
+			return true;
+		}else {
+			log.info("비밀번호 불일치! 탈퇴 불가");
+			return false;
+		}
+	}
+
+	@Override
+	public List<LocationDTO_sjh> getAllLocations() {
+		return usermapper.getAllLocations();
+	}
+
 }

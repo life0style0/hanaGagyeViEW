@@ -203,7 +203,7 @@
 		                 ON c.ctgry_id = p.ctgry_1 
 		                     OR c.ctgry_id = p.ctgry_2 
 		                     OR c.ctgry_id = p.ctgry_3 
-		        WHERE  user_id = 'heyrim19' 
+		        WHERE  user_id = #{user_id} 
 		        GROUP  BY user_id, 
 		                  location_name, 
 		                  ctgry_name) 
@@ -238,5 +238,36 @@
 		       ctgry_name 
 		FROM   ctgries
 	</select>
+	
+	<update id="changeUserCategories">
+		UPDATE psns 
+		SET    ctgry_1= #{ctgry_1},
+			   ctgry_2= #{ctgry_2},
+			   ctgry_3= #{ctgry_3}
+		WHERE  user_id = #{user_id}
+	</update>
+	
+	<select id="getAllLocations" resultType="kr.or.kosta.salmon.domain.LocationDTO_sjh">
+		SELECT location_id, 
+		       location_name 
+		FROM   locations
+	</select>
+	
+	<update id="setUserResign">
+		UPDATE users 
+		SET    user_state='R'
+		WHERE  user_id = #{user_id}
+	</update>
+	
+	<select id="getUserPw" resultType="String">
+		SELECT user_password 
+		FROM   users
+		WHERE  user_id = #{user_id}
+	</select>
+	
+	<delete id="deleteUserAuth">
+		DELETE FROM users_auth 
+		WHERE  user_id = #{user_id}; 
+	</delete>
 	
 </mapper>

@@ -1,6 +1,8 @@
 package kr.or.kosta.salmon.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,8 +25,10 @@ import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
 import kr.or.kosta.salmon.domain.HashTagDTO;
 import kr.or.kosta.salmon.domain.ImageDTO;
+import kr.or.kosta.salmon.domain.MainArticleDTO;
 import kr.or.kosta.salmon.service.GaArticleService;
 import lombok.extern.log4j.Log4j;
+import net.coobird.thumbnailator.Thumbnailator;
 
 
 @Log4j
@@ -42,26 +46,34 @@ public class GagyeviewController {
 		model.addAttribute("categoryList", categoryList);
 	}
 	
+	@GetMapping("/edit")
+	public void edit(Model model, int article_id) {
+		MainArticleDTO editArticle = gaArticleService.getEditArticle(article_id);
+		ArrayList<String> categoryList = gaArticleService.getCategory();
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("editArticle", editArticle);
+	}
+	
 	
 	
 	@PostMapping("/submit")
 	public ResponseEntity<String> registArticle(ArticleDTO article, String article_ctgry_name, String categoryName ,Principal principal, Model model){
 		//create 준비과정
 		article.setArticle_ctgry_id(Integer.parseInt(gaArticleService.getArticleCategoryByName(article_ctgry_name.trim())));
-		article.setUser_id("jiwon");
+		article.setUser_id(principal.getName());
 		//카테고리 생성 준비
 		int categoryNum = Integer.parseInt(gaArticleService.getCategoryByName(categoryName));
 		ArrayList<String> hashTagList = getHashTag(article.getArticle_content());
 		
 		switch(article.getArticle_scope().trim()){
 		case "public":
-			article.setArticle_scope("1");
+			article.setArticle_scope("u");
 			break;
 		case "private":
-			article.setArticle_scope("2");
+			article.setArticle_scope("r");
 			break;
 		case "group":
-			article.setArticle_scope("3");
+			article.setArticle_scope("g");
 			break;
 		}
 		int lastId = gaArticleService.createGaArticle(article)-1;
@@ -104,7 +116,7 @@ public class GagyeviewController {
 		log.info("formData size : " + uploadFile.length);
 		log.info("formdata toString : " + uploadFile.toString());
 		String uploadFolder = "C:\\upload";
-		File uploadPath = new File(uploadFolder, getFolder());
+		File uploadPath = new File(uploadFolder, "\\images");
 		log.info("upload path:" + uploadPath);
 		if(uploadPath.exists()==false){
 			uploadPath.mkdirs();
@@ -121,8 +133,10 @@ public class GagyeviewController {
 			uploadFileName = uuid.toString() + "_" +uploadFileName;
 			File saveFile = new File(uploadPath, uploadFileName);
 			ImageDTO imageDTO = new ImageDTO();
-			imageDTO.setArticle_id(Integer.parseInt(articleId));
-			imageDTO.setImage_path(uploadPath+uploadFileName);
+			int article_id = Integer.parseInt(articleId);
+			imageDTO.setArticle_id(article_id);
+			imageDTO.setImage_path(uploadFileName);
+			log.info(imageDTO.toString());
 			gaArticleService.createImageInfo(imageDTO);
 			
 			try{
@@ -133,6 +147,8 @@ public class GagyeviewController {
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+	
+	
 	
 	private String getFolder(){
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

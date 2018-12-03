@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.domain.LocationDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -39,14 +40,23 @@ public class UserEditController {
 	@GetMapping("/main/mypage")
 	public void mypageGet(Principal principal, Model model) {
 		log.info(" 마이페이지 요청  : "+principal.getName());
-		//카테고리,지역 정보 가져오기
-		UserLocAndCatsDTO userPsnsInfo= service.getUserSimplePsns(principal.getName());
-		userPsnsInfo.setCtgrNames();
+		//user 정보
 		UserDTO user= service.searchUserById(principal.getName());
+		log.info(user);
+		
+		//카테고리,지역 정보 가져오기
+		UserLocAndCatsDTO userPsnsInfo= service.getUserSimplePsns(user.getUser_id());
+		userPsnsInfo.setCtgrNames();
+		userPsnsInfo.setCtgryNamesArr();
+		log.info(userPsnsInfo);
+		
 		List<CategoryDTO_sjh> categories= service.getAllCategories();
 		model.addAttribute("userPsnsInfo",userPsnsInfo);
 		model.addAttribute("user",user);
 		model.addAttribute("categories", categories);
+		
+		List<LocationDTO_sjh> locations= service.getAllLocations();
+		model.addAttribute("locations",locations);
 	}
 	
 	@PostMapping("/main/mypage/editprofile")
@@ -90,5 +100,40 @@ public class UserEditController {
 					return new ResponseEntity<>("usedEmail",HttpStatus.OK);
 				}
 			}
-		}	
+		}
+	
+	@PostMapping("/main/mypage/editCategories")
+	public String editCategoriesPost(UserLocAndCatsDTO userCats, Principal principal) {
+		//비밀번호, 이메일, 성별, 생년월일, 지역 수정
+		log.info(" 카테고리 수정 처리  : "+principal.getName());
+		userCats.setUser_id(principal.getName());
+		log.info(userCats);
+		service.changeUserCategories(userCats);
+		log.info(" 카테고리 수정 완료 ");
+		return "redirect:/main/mypage";
+	}
+	
+	@PostMapping("/main/mypage/resign")
+	public String resignPost(Principal principal) {
+		// 회원탈퇴
+		log.info(" 탈퇴 처리  : "+principal.getName());
+		//users 테이블 user_state 변경
+		//users_auth 테이블 레코드 삭제
+		//쿠키 JSESSION_ID 삭제
+		//rediredt:/
+		service.deleteUserAuth(principal.getName());
+		service.setUserResign(principal.getName());
+		log.info(" 탈퇴 완료 ");
+		return "redirect:/";
+		/*
+		if( ) {
+			log.info(" 탈퇴 완료 ");
+			return "redirect:/";
+		}else {
+			log.info(" 탈퇴 실패 ");
+			return "redirect:/main/mypage";
+		}
+		*/
+	}
+
 }

@@ -3,6 +3,7 @@ package kr.or.kosta.salmon.mapper;
 import java.util.List;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.domain.LocationDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -55,5 +56,25 @@ public interface UserMapper {
 	
 	//카테고리 가져오기
 	public List<CategoryDTO_sjh> getAllCategories();
+	
+	//관심카테고리 변경
+	public void changeUserCategories(UserLocAndCatsDTO userCats);
+	
+	//관심 카테고리 수정  (마이페이지)
+	public void insertBasicPsns1(UserLocAndCatsDTO user);
+	public void insertBasicPsns2(UserLocAndCatsDTO user);
+	public void insertBasicPsns3(UserLocAndCatsDTO user);
+	
+	//회원탈퇴
+	public void setUserResign(String user_id);
+	
+	//비밀번호 가져오기
+	public String getUserPw(String user_id);
+	
+	//권한 삭제
+	public void deleteUserAuth(String user_id);
+	
+	//지역정보 전체 가져오기
+	public List<LocationDTO_sjh> getAllLocations();
 	
 }

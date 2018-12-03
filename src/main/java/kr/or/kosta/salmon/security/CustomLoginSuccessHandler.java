@@ -46,6 +46,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 			response.sendRedirect("/salmon/main/home");
 			return;
 		}
+		
 		response.sendRedirect("/");
 	}
 

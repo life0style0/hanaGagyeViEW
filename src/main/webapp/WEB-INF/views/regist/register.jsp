@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" %>%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <html>
@@ -28,6 +28,9 @@
 
     <!-- Main CSS-->
     <link href="../resources/SignUp/css/main.css" rel="stylesheet" media="all">
+    
+    <!-- 카테고리 선택 css (ul li) 송주현 -->
+    <link href="/salmon/resources/sjh/css/ul-list.css" rel="stylesheet" media="all">
 <style>
 .card-1 .card-body {
 font-family: 'Noto Sans KR', sans-serif;
@@ -131,8 +134,16 @@ font-family: 'Noto Sans KR', sans-serif;
 								<div class="rs-select2 js-select-simple select--no-search">
 									<select id="locations" required="required">
 										<option disabled="disabled" selected="selected">지역</option>
-										<option value="1">서울</option>
-										<option value="2">부산</option>
+										<c:choose>
+									     	<c:when test="${not empty locations}">
+									     	<c:forEach var="location" items="${locations}" varStatus="status">
+										     	<option value="${location.location_id}">
+										     		<c:out value="${location.location_name}"/>
+										     	</option>
+									     	</c:forEach>
+									     	</c:when>
+									     	<c:otherwise></c:otherwise>
+									     </c:choose>
 									</select> 
 									<input type="hidden" id="location_id" name="location_id">
 									<div class="select-dropdown"></div>
@@ -142,54 +153,37 @@ font-family: 'Noto Sans KR', sans-serif;
 
 						<div class="input-group">
                         
-                        <ul id="categories">
+	                        <ul id="categories" class="categories">
+	                         <c:choose>
+						     	<c:when test="${not empty categories}">
+						     	<c:forEach var="category" items="${categories}" varStatus="status">
+							     	<c:choose>
+							     		<c:when test="${category.ctgry_id < 0 }">
+							     		</c:when>
+							     		<c:otherwise>
+								     		<li name="category" class="unselected" id="category-li-1"> 
+				                        		<div id="category-1" class="unselected" value="<c:out value="${category.ctgry_id}"/>">
+				                        		<c:out value="${category.ctgry_name}"/>
+				                        		</div>
+			                        		</li>
+							     		</c:otherwise>
+							     	</c:choose>
+						     	</c:forEach>
+						     	</c:when>
+						     	<c:otherwise></c:otherwise>
+						     </c:choose>
+	                        </ul>
                         
-                         <c:choose>
-					     	<c:when test="${not empty categories}">
-					     	<c:forEach var="category" items="${categories}" varStatus="status">
-						     	<li name="category" class="unselected" id="category-li-1"> 
-	                        		<div id="category-1" class="unselected" value="<c:out value="${category.ctgry_id}"/>">
-	                        		<c:out value="${category.ctgry_name}"/>
-	                        		</div>
-	                        	</li>
-					     	</c:forEach>
-					     	</c:when>
-					     </c:choose>
-                        <!-- 
-                        	<li name="category" class="unselected" id="category-li-1"> 
-                        		<div id="category-1" class="unselected" value="1">독서</div>
-                        	</li>
-                        	<li name="category"  class="unselected" id="category-li-2"> 
-                        		<div id="category-2" class="unselected" value="2">여행</div>
-                        	</li>
-                        	<li name="category"  class="unselected" id="category-li-3"> 
-                        		<div id="category-3" class="unselected" value="3">수영</div>
-                        	</li>
-                        	 -->
-                        </ul>
-                        
-                        
-                        <input type="hidden" id="CTGRY_1" name="ctgry_1">
-                        <input type="hidden" id="CTGRY_2" name="ctgry_2">
-                        <input type="hidden" id="CTGRY_3" name="ctgry_3">
+	                        <input type="hidden" id="CTGRY_1" name="ctgry_1">
+	                        <input type="hidden" id="CTGRY_2" name="ctgry_2">
+	                        <input type="hidden" id="CTGRY_3" name="ctgry_3">
                        
-                            <div class="rs-select2 js-select-simple select--no-search">
-                                <!-- <select name="class">
-                                    <option disabled="disabled" selected="selected">CLASS</option>
-                                    <option>Class 1</option>
-                                    <option>Class 2</option>
-                                    <option>Class 3</option>
-                                </select> -->
-                               
-                                
-                                <div class="select-dropdown"></div>
-                            </div>
                         </div>
                         
                         
                   
                         <div class="p-t-20">
-                            <button class="btn btn--radius btn--green"  id="registSubmitBtn" >가입하기</button>
+                            <button type="button" class="btn btn--radius btn--green"  id="registSubmitBtn" >가입하기</button>
                         </div>
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                     </form>

@@ -23,4 +23,6 @@ public interface AccountBookService {
     public int getPsnMonthStart(String userId) throws Exception;
 
     public PsnsDTO getPsns(String userId) throws Exception;
+
+    public Boolean editPsns(PsnsDTO psnsDTO, String userId) throws Exception;
 }

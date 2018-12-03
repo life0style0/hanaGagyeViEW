@@ -37,7 +37,8 @@ form {
 .blackbox-sjh{
 	background-color: rgba(0, 0, 0, 0.75);
     padding: 10px 10px;
-    width: 50%
+    width: 50%;
+    margin: auto;
 }
 
 </style>

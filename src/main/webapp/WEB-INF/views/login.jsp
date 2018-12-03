@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <!DOCTYPE html>
@@ -22,9 +22,7 @@ function hideURLbar(){ window.scrollTo(0,1); } </script>
 <style>
 form {
 font-family: 'Noto Sans KR', sans-serif;
-
 }
-
 </style>
 </head>
 <body>

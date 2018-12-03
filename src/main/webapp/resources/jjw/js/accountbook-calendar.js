@@ -36,7 +36,7 @@ function makeCalendar(yearSrc, monthSrc, daySrc) {
             day = daySrcN;
         }
     }
-    
+
     let prevStartDate;
     let startDay;
     let startEndDate;
@@ -155,7 +155,7 @@ function addDataToCalendar(data) {
     } else {
         ggv = $(`#calendar-${Number(regdate) + startDayNum + startDayToEndDateNum}`);
     }
-    
+
     if (data.articleCtgryType === 'spend') {
         ggv.find('.calendar-spend').append(showGgvToCalendar(data));
     } else if (data.articleCtgryType === 'income') {
@@ -299,7 +299,7 @@ function setCalendarMY(moveDirection) {
 
     resetCalendar();
     console.log('monthChanged :', monthChanged);
-    makeCalendar(yearChanged, monthChanged, 25);
+    makeCalendar(yearChanged, monthChanged, psnMonthStart);
 
     if (monthChanged < 10) {
         monthChanged = '0' + monthChanged;
@@ -420,7 +420,7 @@ function resetCalendar() {
  */
 function initCalendar() {
     const date = new Date();
-    makeCalendar(date.getFullYear(), date.getMonth() + 1, 25);
+    makeCalendar(date.getFullYear(), date.getMonth() + 1, psnMonthStart);
     requestCalendarDataToServer(date.getFullYear(), date.getMonth() + 1);
     $('.calendar.month').html(date.getMonth() + 1);
     $('.calendar.year').html(date.getFullYear());
@@ -517,6 +517,19 @@ function calendarMYClicked() {
  * DOM 객체가 load 된 이후에 실행하기 위한 코드들
  */
 $(function () {
+    // $.ajax({
+    //     async: false,
+    //     url: '/salmon/accountbook/psns',
+    //     method: 'get',
+    //     dataType: 'json',
+    //     success: function (psns) {
+    //         psnMonthlyPayment = psns.psnMonthlyPayment;
+    //         psnMonthStart = psns.psnMonthStart;
+    //     }
+    // });
+    psnMonthStart = $('input[name="psnMonthStart"]').val();
+    psnMonthlyPayment = $('input[name="psnMonthlyPayment"]').val();
+
     initCalendar();
 
     $('.calendar-head .datepic').datepicker({
@@ -560,6 +573,86 @@ $(function () {
         setCalendarMY('right');
     });
 
+    $('.btn-edit-psn').on('click', function () {
+        $('#psn-modal').modal('show');
+    });
+
+    $('#psn-edit').on('click', function () {
+        const monthStart = $('input[name="psnMonthStart"]').val();
+        const monthStartT = $('#psnMonthStartT').val();
+        const monthlyPayment = $('input[name="psnMonthlyPayment"]').val();
+        const monthlyPaymentT = $('#psnMonthlyPaymentT').val();
+        if (!monthStart || !monthlyPayment) {
+            alert('전송 할 값이 없음');
+        } else if (!monthStartT && !monthlyPaymentT) {
+            $('#psn-edit').before(`<div class="jjw-alert alert-month-start alert-monthly-payment alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>경고!</strong> 값을 입력하지 않고는 수정할 수 없습니다!</div>`);
+        } else if (!monthStart && (!isValidIntJjw(monthStartT, 1, 2) || monthStartT < 1 || monthStartT > 31)) {
+            if (!$('#psn-edit').prev().hasClass('alert-month-start')) {
+                $('#psn-edit').before(`<div class="jjw-alert alert-month-start alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>경고!</strong> 달력 기준일 설정은 1 ~ 31 사이의 값만 가능합니다!</div>`);
+            } else if ($('#psn-edit').prev().hasClass('alert-monthly-payment')) {
+                $('#psn-edit').prev().html(`<div class="jjw-alert alert-month-start alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>경고!</strong> 달력 기준일 설정은 1 ~ 31 사이의 값만 가능합니다!</div>`);
+            }
+            return false;
+        } else if (!monthlyPayment && (!isValidIntJjw(monthlyPaymentT, 1, 10) || monthlyPaymentT < 0)) {
+            if (!$('#psn-edit').prev().hasClass('alert-monthly-payment')) {
+                $('#psn-edit').before(`<div class="jjw-alert alert-monthly-payment alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>경고!</strong> 월 목표 지출액은 양수만 입력 가능합니다!</div>`);
+            } else if ($('#psn-edit').prev().hasClass('alert-month-start')) {
+                $('#psn-edit').prev().html(`<div class="jjw-alert alert-monthly-payment alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>경고!</strong> 월 목표 지출액은 양수만 입력 가능합니다!</div>`);
+            }
+            return false;
+        } else {
+            $('#psn-form').submit();
+        }
+    });
+
     initSorting();
+
+    $('#psnMonthStartT').on('keyup', function () {
+        const value = $(this).val();
+        if (!value) {
+            $('input[name="psnMonthStart"]').val(psnMonthStart);
+        } else if (!isValidIntJjw(value, 1, 2) || value < 1 || value > 31) {
+            if (!$('#psn-edit').prev().hasClass('alert-month-start')) {
+                $('#psn-edit').before(`<div class="jjw-alert alert-month-start alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>경고!</strong> 달력 기준일 설정은 1 ~ 31 사이의 값만 가능합니다!</div>`);
+            } else if ($('#psn-edit').prev().hasClass('alert-monthly-payment')) {
+                $('#psn-edit').prev().html(`<div class="jjw-alert alert-month-start alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>경고!</strong> 달력 기준일 설정은 1 ~ 31 사이의 값만 가능합니다!</div>`);
+            }
+        } else {
+            $('input[name="psnMonthStart"]').val(value);
+        }
+    });
+
+    $('#psnMonthlyPaymentT').on('keyup', function () {
+        const value = $(this).val();
+        if (!value) {
+            $('input[name="psnMonthlyPayment"]').val(psnMonthlyPayment);
+        } else if (!isValidIntJjw(value, 1, 10) || value < 0) {
+            if (!$('#psn-edit').prev().hasClass('alert-monthly-payment')) {
+                $('#psn-edit').before(`<div class="jjw-alert alert-monthly-payment alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>경고!</strong> 월 목표 지출액은 양수만 입력 가능합니다!</div>`);
+            } else if ($('#psn-edit').prev().hasClass('alert-month-start')) {
+                $('#psn-edit').prev().html(`<div class="jjw-alert alert-monthly-payment alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>경고!</strong> 월 목표 지출액은 양수만 입력 가능합니다!</div>`);
+            }
+        } else {
+            $('input[name="psnMonthlyPayment"]').val(value);
+        }
+    });
 
 });
