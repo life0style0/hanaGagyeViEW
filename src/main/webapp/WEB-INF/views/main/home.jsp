@@ -458,6 +458,19 @@
 	  }
   });
   </script>
+  <!-- data만들기 -->
+  <script>
+  var data = [];
+  <c:set var="chartInfo" scope="page" value="${mainchartInfo}"/>
+  <c:forEach var='categoryInfo' items='${chartInfo.ctGroupFee}'>
+  	var categoryBlock = {};
+  	categoryBlock['name']='${categoryInfo.ctgry_name}';
+  	categoryBlock['y']=parseFloat(parseFloat('${categoryInfo.ctgry_fee_sum/chartInfo.totalFee*100}').toFixed(2));
+  	data.push(categoryBlock);
+  </c:forEach>
+  console.log(data);
+  </script>
+  
   <script>
     Highcharts.createElement('link', {
       href: 'https://fonts.googleapis.com/css?family=Unica+One',
@@ -703,36 +716,7 @@
       series: [{
         name: 'category',
         colorByPoint: true,
-        data: [{
-          name: '주류',
-          y: 61.41,
-          sliced: true,
-          selected: true
-        }, {
-          name: '유류비',
-          y: 11.84
-        }, {
-          name: '여행',
-          y: 10.85
-        }, {
-          name: '문화',
-          y: 4.67
-        }, {
-          name: '영화',
-          y: 4.18
-        }, {
-          name: '간식',
-          y: 1.64
-        }, {
-          name: '식사',
-          y: 1.6
-        }, {
-          name: '여가활동',
-          y: 1.2
-        }, {
-          name: '기타',
-          y: 2.61
-        }]
+        data: data
       }]
     });
 

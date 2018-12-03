@@ -20,4 +20,15 @@ public interface GaArticleMapper {
 	public void createImageInfo(ImageDTO imageDTO);
 	
 	public MainArticleDTO getEditArticle(int article_id);
+	
+	public String getCtgryName(int ctgry_id); 
+	public void updateArticle(ArticleDTO article);
+	public void deleteImages(int article_id);
+	public void deleteHash(int article_id);
+	public void deleteCtgry(int article_id);
+	
+	public void deleteHashRefs(int article_id);
+
+
+	
 }

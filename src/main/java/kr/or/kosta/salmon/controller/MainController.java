@@ -29,6 +29,7 @@ public class MainController {
 	@Inject
 	MainService mainService;
 	
+	
 	@GetMapping("/main/home")
 	public void mainHome(Principal principal, Model model) {
 		log.info("main컨트롤러 진입");
@@ -36,6 +37,8 @@ public class MainController {
 		ArrayList<HashTagGroupDTO> hashTagList = (ArrayList)mainService.getHashTagGroup(user_id);
 		ArrayList<MainArticleDTO> articleList = (ArrayList)mainService.getListSprint1(user_id);
 		MainChartDTO mainchartInfo = mainService.getChartTotalFee(user_id);
+		mainchartInfo.setCtGroupFee(mainService.getChartCategoryFee(user_id));
+		log.info(mainchartInfo.toString());
 		model.addAttribute("mainchartInfo", mainchartInfo);
 		model.addAttribute("articleList", articleList);
 		model.addAttribute("hashTagList", hashTagList);
