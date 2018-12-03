@@ -25,6 +25,8 @@
     
     <!--  div용  -->
     <link href="/salmon/resources/sjh/css/card-sjh.css" rel="stylesheet" media="all">
+    
+    <link href="/salmon/resources/sjh/css/uploadImg-sjh.css" rel="stylesheet" media="all">
 		
 	</head>
 	<body >
@@ -87,10 +89,10 @@
 						</h3>
 						<div class="tags_block clearfix">
 							<ul>
-								<li><a data-filter=".category-6" class="filter">주현이</a></li>
-								<li><a data-filter=".category-1" class="filter">남친과</a></li>
-								<li><a data-filter=".category-2" class="filter">언제</a></li>
-								<li><a data-filter=".category-3" class="filter">식사할수</a></li>
+								<li><a data-filter=".category-6" class="filter">hashtag1</a></li>
+								<li><a data-filter=".category-1" class="filter">hashtag2</a></li>
+								<li><a data-filter=".category-2" class="filter">hashtag3</a></li>
+								<li><a data-filter=".category-3" class="filter">hashtag4</a></li>
 							
 							</ul>
 						</div>
@@ -104,6 +106,9 @@
 					
 					<div> 
 					<%-- <p>user : <sec:authentication property="principal.user"/></p> --%>
+					<div class="col-md-3 padding-1-sjh"> 프로필사진 </div> 
+					<div class="col-md-9 padding-1-sjh"> <sec:authentication property="principal.user.user_image"/> </div>
+						
 						<div class="col-md-3 padding-1-sjh"> 닉네임 </div> 
 						<div class="col-md-9 padding-1-sjh"> <c:out value="${user.user_nickname}"/> </div>
 						<div class="col-md-3 padding-1-sjh"> 아이디 </div> 
@@ -114,8 +119,6 @@
 						<div class="col-md-9 padding-1-sjh"> <c:out value="${user.user_gender}"/> </div>
 						<div class="col-md-3 padding-1-sjh"> 생일 </div> 
 						<div class="col-md-9 padding-1-sjh"> <c:out value="${user.user_birthday}"/>  </div>
-						<div class="col-md-3 padding-1-sjh"> 프로필사진 </div> 
-						<div class="col-md-9 padding-1-sjh"> <sec:authentication property="principal.user.user_image"/> </div>
 						<div class="col-md-3 padding-1-sjh"> 가입일 </div>
 						<div class="col-md-9 padding-1-sjh"> <sec:authentication property="principal.user.user_regdate"/> </div>
 						
@@ -510,7 +513,7 @@
 	
 	<!-- 주현 스크립트 추가  -->
     <script type="text/javascript" src="/salmon/resources/sjh/js/mypage.js"></script>
-	
+	<script type="text/javascript" src="/salmon/resources/sjh/js/uploadImg.js"></script>
 	
 		
 	</body>
