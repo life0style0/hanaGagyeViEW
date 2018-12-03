@@ -186,7 +186,7 @@
 							<div class="be-large-post-align">
 								<div class="be-change-ava">
 									<!-- 이미지 업로드 시작 -->
-									  <div id="filesUpload" class="dropzone"><a href="javascript:`()">Drag & Drop Files Here</a></button></div>
+									  <div id="filesUpload" class="dropzone"><a href="javascript:inputFileEvent()">Drag & Drop Files Here</a></button></div>
 									  <input type="file" name="inputF" id="inputFile" multiple="multiple" style="display:none;">
 									  <div class="row upload-image-preview"></div>
 									

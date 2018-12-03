@@ -23,3 +23,8 @@ img.preview {
 .caption p {
 	word-break: break-all;
 }
+
+.image-body {
+	height: 600px;
+	padding-bottom: 50px;
+}

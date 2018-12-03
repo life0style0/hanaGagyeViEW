@@ -20,7 +20,6 @@
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
 
-
 	<!-- 카테고리 선택 css (ul li) 송주현 -->
 	<link href="/salmon/resources/sjh/css/ul-list.css" rel="stylesheet" media="all">
 
@@ -28,6 +27,8 @@
 	<link href="/salmon/resources/sjh/css/card-sjh.css" rel="stylesheet" media="all">
 
 	<link href="/salmon/resources/sjh/css/uploadImg-sjh.css" rel="stylesheet" media="all">
+
+	<link rel="stylesheet" href="/salmon/resources/jjw/css/croppie.css">
 
 </head>
 
@@ -108,43 +109,43 @@
 
 					<div>
 						<%-- <p>user : <sec:authentication property="principal.user"/></p> --%>
-						<div class="col-md-3 padding-1-sjh"> 프로필사진 </div>
+						<div class="col-md-3 padding-1-sjh text-right "><strong>프로필사진</strong></div>
 						<div class="col-md-9 padding-1-sjh">
 							<img class="img-responsive" src="/salmon/image?fileName=${user.user_image}" alt="">
 						</div>
-						<div class="col-md-3 padding-1-sjh"> 닉네임 </div>
+						<div class="col-md-3 padding-1-sjh text-right "><strong>닉네임</strong></div>
 						<div class="col-md-9 padding-1-sjh">
 							<c:out value="${user.user_nickname}" />
 						</div>
-						<div class="col-md-3 padding-1-sjh"> 아이디 </div>
+						<div class="col-md-3 padding-1-sjh text-right "><strong>아이디</strong></div>
 						<div class="col-md-9 padding-1-sjh">
 							<sec:authentication property="principal.username" />
 						</div>
-						<div class="col-md-3 padding-1-sjh"> 이메일 </div>
+						<div class="col-md-3 padding-1-sjh text-right "><strong>이메일</strong></div>
 						<div class="col-md-9 padding-1-sjh">
 							<c:out value="${user.user_email}" />
 						</div>
-						<div class="col-md-3 padding-1-sjh"> 성별 </div>
+						<div class="col-md-3 padding-1-sjh text-right "><strong>성별 </strong></div>
 						<div class="col-md-9 padding-1-sjh">
 							<c:out value="${user.user_gender}" />
 						</div>
-						<div class="col-md-3 padding-1-sjh"> 생일 </div>
+						<div class="col-md-3 padding-1-sjh text-right "><strong>생일 </strong></div>
 						<div class="col-md-9 padding-1-sjh">
 							<c:out value="${user.user_birthday}" />
 						</div>
-						<div class="col-md-3 padding-1-sjh"> 가입일 </div>
+						<div class="col-md-3 padding-1-sjh text-right "><strong>가입일</strong></div>
 						<div class="col-md-9 padding-1-sjh">
 							<sec:authentication property="principal.user.user_regdate" />
 						</div>
 
 						<%-- <div> 권한 목록 : <sec:authentication property="principal.user.authList"/> </div> --%>
 
-						<div class="col-md-3 padding-1-sjh"> 지역</div>
+						<div class="col-md-3 padding-1-sjh text-right"><strong>지역</strong></div>
 						<div class="col-md-9 padding-1-sjh">
 							<c:out value="${userPsnsInfo.locationname}" />
 						</div>
 
-						<div class="col-md-3 padding-1-sjh"> 관심 카테고리 </div>
+						<div class="col-md-3 padding-1-sjh text-right"><strong>관심 카테고리</strong></div>
 						<c:choose>
 							<c:when test="${not empty userPsnsInfo.ctgryNames}">
 								<c:forEach var="ctgryName" items="${userPsnsInfo.ctgryNames}" varStatus="status">
@@ -177,7 +178,21 @@
 						<div id="valid_user_nickname">닉넴 체크</div>
 						<div class="form-group">
 							<label for="user_image"> 프로필사진 </label>
-							<input type="file" id="user_image" class="form-control-file" name="user_image">
+							<div id="filesUpload" class="dropzone"><a href="javascript:inputFileEvent()">Drag & Drop Files Here</a></button></div>
+							<input type="file" name="inputF" id="inputFile" multiple style="display:none;">
+							<div class="modal fade user-image" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-body image-body">
+											<div class="modal-image"></div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" id="uploadImage" class="btn btn-danger ggv-btn">업로드</button>
+											<button type="button" class="btn btn-warning ggv-btn" data-dismiss="modal" value="close">취소</button>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<input type="button" id="editProfileSubmitBtn" class="btn btn-info ggv-btn" value="수정하기">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
@@ -211,7 +226,7 @@
 						<!-- 생년월일 -->
 						<div class="form-group">
 							<input class="form-control" type="text" placeholder="생년월일" id="user_birthday" name="user_birthday" required="required"
-							 value="<c:out value=" ${user.user_birthday}" />">
+							 value='<c:out value=" ${user.user_birthday}" />'>
 							<div id="valid_user_birthday">생년월일 체크</div>
 						</div>
 
@@ -282,48 +297,48 @@
 												</c:when>
 												<c:otherwise>
 													<li name="category" class="unselected" id="category-li-1">
-														<div id="category-1" class="unselected" value="<c:out value=" ${category.ctgry_id}" />">
-														<c:out value="${category.ctgry_name}" />
+														<div id="category-1" class="unselected" value='<c:out value="${category.ctgry_id}" />'>
+															<c:out value="${category.ctgry_name}" />
+														</div>
+													</li>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+									</c:when>
+									<c:otherwise></c:otherwise>
+								</c:choose>
+							</ul>
+							<input type="hidden" id="CTGRY_1" name="ctgry_1">
+							<input type="hidden" id="CTGRY_2" name="ctgry_2">
+							<input type="hidden" id="CTGRY_3" name="ctgry_3">
 						</div>
-						</li>
-						</c:otherwise>
-						</c:choose>
-						</c:forEach>
-						</c:when>
-						<c:otherwise></c:otherwise>
-						</c:choose>
-						</ul>
-						<input type="hidden" id="CTGRY_1" name="ctgry_1">
-						<input type="hidden" id="CTGRY_2" name="ctgry_2">
-						<input type="hidden" id="CTGRY_3" name="ctgry_3">
-				</div>
 
-				<input type="button" id="editCategoriesSubmitBtn" class="btn btn-info ggv-btn" value="수정하기">
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-				</form>
+						<input type="button" id="editCategoriesSubmitBtn" class="btn btn-info ggv-btn" value="수정하기">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+					</form>
 
-			</div><!-- 카테고리 수정 창 -->
+				</div><!-- 카테고리 수정 창 -->
 
 
 
-			<div id="resign">
-				<h2> 탈퇴 </h2>
+				<div id="resign">
+					<h2> 탈퇴 </h2>
 
-				<!-- 탈퇴를 원하시면 비밀번호를 한번 더 입력해주세요
+					<!-- 탈퇴를 원하시면 비밀번호를 한번 더 입력해주세요
 					<input type="password" name="resign-user_password" id="resign-user_password"> -->
-				<button type="button" class="btn btn-danger ggv-btn" name="resignOpenBtn" data-toggle="modal" data-target="#resign-Modal">
-					탈퇴하기
-				</button>
+					<button type="button" class="btn btn-danger ggv-btn" name="resignOpenBtn" data-toggle="modal" data-target="#resign-Modal">
+						탈퇴하기
+					</button>
 
+				</div>
 			</div>
-		</div>
 
-		<!-- <div id="container-mix"  class="row _post-container_">
+			<!-- <div id="container-mix"  class="row _post-container_">
 						<div class="category-1 mix custom-column-5"></div>
 						<div class="category-2 mix custom-column-5"></div>
 						<div class="category-3 mix custom-column-5"></div>
 					</div> -->
-	</div>
+		</div>
 
 	</div>
 	</div>
@@ -528,6 +543,8 @@
 	<!-- 주현 스크립트 추가  -->
 	<script type="text/javascript" src="/salmon/resources/sjh/js/mypage.js"></script>
 	<script type="text/javascript" src="/salmon/resources/sjh/js/uploadImg.js"></script>
+	<script type="text/javascript" src="/salmon/resources/jjw/js/croppie.min.js"></script>
+	<script type="text/javascript" src="/salmon/resources/sjh/js/image.js"></script>
 
 
 </body>
