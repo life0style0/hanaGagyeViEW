@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import kr.or.kosta.salmon.domain.AccountBookDTO;
+import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.mapper.AccountBookMapper;
 
 /**
@@ -22,8 +23,9 @@ public class AccountBookServiceImpl implements AccountBookService {
     private AccountBookMapper abm;
 
     @Override
-    public List<AccountBookDTO> getAccountBooks(String userId, String year, String month) throws Exception {
-        return abm.getAccountBooks(userId, year, month);
+    public List<AccountBookDTO> getAccountBooks(String userId, String year, String year2, String month, String month2)
+            throws Exception {
+        return abm.getAccountBooks(userId, year, year2, month, month2);
     }
 
     @Override
@@ -32,18 +34,54 @@ public class AccountBookServiceImpl implements AccountBookService {
     }
 
     @Override
-    public Map<String, List<AccountBookDTO>> getAccountBooksByYear(String userId, String year) throws Exception {
-        List<AccountBookDTO> abds = abm.getAccountBooksByYear(userId, year);
+    public Map<String, List<AccountBookDTO>> getAccountBooksByYear(String userId, String year, String year2,
+            String month1, String month2, int psnStartDay) throws Exception {
+        List<AccountBookDTO> abds = abm.getAccountBooksByYear(userId, year, year2, month1, month2);
         Map<String, List<AccountBookDTO>> result = new HashMap<String, List<AccountBookDTO>>();
         String month = null;
-        for (AccountBookDTO abd : abds) {
-            month = abd.getArticleRegdate().substring(6, 8); //2018년 01월 01일
-            if (result.containsKey(month)) {
-                result.get(month).add(abd);
-            } else {
-                List<AccountBookDTO> lists = new ArrayList<AccountBookDTO>();
-                lists.add(abd);
-                result.put(month, lists);
+        List<AccountBookDTO> lists = null;
+        String yearT = null;
+        int monthT = 0;
+        int dayT = 0;
+        if (psnStartDay >= 16 && psnStartDay <= 31) {
+            for (AccountBookDTO abd : abds) {
+                yearT = abd.getArticleRegdate().substring(0, 5);
+                monthT = Integer.parseInt(abd.getArticleRegdate().substring(6, 8)); // 2018년 01월 01일
+                dayT = Integer.parseInt(abd.getArticleRegdate().substring(10, 12));
+                if (yearT.equals(year)) {
+                    month = "01";
+                } else if (dayT < psnStartDay) {
+                    month = abd.getArticleRegdate().substring(6, 8); // 2018년 01월 01일
+                } else if (dayT >= psnStartDay) {
+                    month = monthT <= 8 ? "0" + (monthT + 1) : (monthT + 1) + "";
+                }
+                if (result.containsKey(month)) {
+                    result.get(month).add(abd);
+                } else {
+                    lists = new ArrayList<AccountBookDTO>();
+                    lists.add(abd);
+                    result.put(month, lists);
+                }
+            }
+        } else if (psnStartDay >= 1 && psnStartDay <= 15) {
+            for (AccountBookDTO abd : abds) {
+                yearT = abd.getArticleRegdate().substring(0, 5);
+                monthT = Integer.parseInt(abd.getArticleRegdate().substring(6, 8)); // 2018년 01월 01일
+                dayT = Integer.parseInt(abd.getArticleRegdate().substring(10, 12));
+                if (yearT.equals(year2)) {
+                    month = "12";
+                } else if (dayT < psnStartDay) {
+                    month = monthT <= 10 ? "0" + (monthT - 1) : (monthT - 1) + "";
+                } else if (dayT >= psnStartDay) {
+                    month = abd.getArticleRegdate().substring(6, 8); // 2018년 01월 01일
+                }
+                if (result.containsKey(month)) {
+                    result.get(month).add(abd);
+                } else {
+                    lists = new ArrayList<AccountBookDTO>();
+                    lists.add(abd);
+                    result.put(month, lists);
+                }
             }
         }
         return result;
@@ -53,5 +91,15 @@ public class AccountBookServiceImpl implements AccountBookService {
     public List<String> getYearMonth(String userId) throws Exception {
         return abm.getYearMonth(userId);
     }
+
+    @Override
+    public int getPsnMonthStart(String userId) throws Exception {
+        return abm.getPsnMonthStart(userId);
+    }
+
+    @Override
+    public PsnsDTO getPsns(String userId) throws Exception {
+        return abm.getPsns(userId);
+	}
 
 }

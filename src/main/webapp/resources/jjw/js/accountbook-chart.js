@@ -28,7 +28,7 @@ function monthBarSpendChart(yearSrc) {
     const ctgryToSpend = new Map(); // key=ctgry, value=spend
 
     sortedMonthSpendDatas.forEach(function (monthSpendChartData, date) {
-        months.push(date);
+        months.push(`${date.substr(3,4)}년 ${date.substr(0,2)}월`);
         let lenMax = ctgryToSpend.size === 0 ? 0 : ctgryToSpend.values().next().value.length;
         monthSpendChartData.forEach(function (articlePaymentFee, ctgryName) {
             if (ctgryToSpend.has(ctgryName)) {
@@ -68,25 +68,28 @@ function monthBarSpendChart(yearSrc) {
  */
 function monthLineSpendIncomeChart(yearSrc, monthSrc) {
     const year = yearSrc || (new Date()).getFullYear();
-    const month = monthSrc || (new Date()).getMonth();
+    const month = monthSrc || (new Date()).getMonth() + 1;
     const monthSpendLineData = new Map();
     const monthIncomeLineData = new Map();
 
     calendarData.forEach(function (monthDatas, date) {
         if (date === `${month}-${year}`) {
             monthDatas.forEach(function (monthData) {
+                const yearA = Number(monthData.articleRegdate.substr(0, 4)); //2018년 01월 12일 ~~ 형식
+                const monthA = Number(monthData.articleRegdate.substr(6, 2)); //2018년 01월 12일 ~~ 형식
                 const day = Number(monthData.articleRegdate.substr(10, 2)); //2018년 01월 12일 ~~ 형식
+                const utc = Date.UTC(yearA, monthA - 1, day);
                 if (monthData.articleCtgryType === 'spend') {
-                    if (monthSpendLineData.has(day)) {
-                        monthSpendLineData.set(day, monthSpendLineData.get(day) + Number(monthData.articlePaymentFee));
+                    if (monthSpendLineData.has(utc)) {
+                        monthSpendLineData.set(utc, monthSpendLineData.get(utc) + Number(monthData.articlePaymentFee));
                     } else {
-                        monthSpendLineData.set(day, Number(monthData.articlePaymentFee));
+                        monthSpendLineData.set(utc, Number(monthData.articlePaymentFee));
                     }
                 } else if (monthData.articleCtgryType === 'income') {
-                    if (monthIncomeLineData.has(day)) {
-                        monthIncomeLineData.set(day, monthIncomeLineData.get(day) + Number(monthData.articlePaymentFee));
+                    if (monthIncomeLineData.has(utc)) {
+                        monthIncomeLineData.set(utc, monthIncomeLineData.get(utc) + Number(monthData.articlePaymentFee));
                     } else {
-                        monthIncomeLineData.set(day, Number(monthData.articlePaymentFee));
+                        monthIncomeLineData.set(utc, Number(monthData.articlePaymentFee));
                     }
                 }
             });
@@ -101,38 +104,40 @@ function monthLineSpendIncomeChart(yearSrc, monthSrc) {
 
 function stackedSpendChart(yearSrc, monthSrc) {
     const year = yearSrc || (new Date()).getFullYear();
-    const month = monthSrc || (new Date()).getMonth();
+    const month = monthSrc || (new Date()).getMonth() + 1;
 
     let spendNowTotal = 0;
     const spendNow = []; // key=ctgry, value=spend
-    calendarData.forEach(function (monthDatas, date) {
-        if (date === `${month}-${year}`) {
-            if (chartDatas.has(`monthLineSpendIncomeChart-${year}-${month}`)) {
-                const spendDataToArray = chartDatas.get(`monthLineSpendIncomeChart-${year}-${month}`)[0];
-                spendDataToArray.forEach(function (data) {
-                    spendNowTotal += Number(data[1]);
-                    spendNow.push([data[0], spendNowTotal]);
-                });
-            } else {
+    if (chartDatas.has(`monthLineSpendIncomeChart-${year}-${month}`)) {
+        const spendDataToArray = chartDatas.get(`monthLineSpendIncomeChart-${year}-${month}`)[0];
+        spendDataToArray.forEach(function (data) {
+            spendNowTotal += Number(data[1]);
+            spendNow.push([data[0], spendNowTotal]);
+        });
+    } else {
+        calendarData.forEach(function (monthDatas, date) {
+            if (date === `${month}-${year}`) {
                 const monthSpendLineData = new Map();
                 monthDatas.forEach(function (monthData) {
+                    const yearA = Number(monthData.articleRegdate.substr(0, 4)); //2018년 01월 12일 ~~ 형식
+                    const monthA = Number(monthData.articleRegdate.substr(6, 2)); //2018년 01월 12일 ~~ 형식
                     const day = Number(monthData.articleRegdate.substr(10, 2));
+                    const utc = Date.UTC(yearA, monthA - 1, day);
                     if (monthData.articleCtgryType === 'spend') {
-                        if (monthSpendLineData.has(day)) {
-                            monthSpendLineData.set(day, monthSpendLineData.get(day) + Number(monthData.articlePaymentFee));
+                        if (monthSpendLineData.has(utc)) {
+                            monthSpendLineData.set(utc, monthSpendLineData.get(utc) + Number(monthData.articlePaymentFee));
                         } else {
-                            monthSpendLineData.set(day, Number(monthData.articlePaymentFee));
+                            monthSpendLineData.set(utc, Number(monthData.articlePaymentFee));
                         }
                     }
                 });
-                monthSpendLineData.forEach(function (money, day) {
+                monthSpendLineData.forEach(function (money, utc) {
                     spendNowTotal += Number(money);
-                    spendNow.push([day, spendNowTotal]);
+                    spendNow.push([utc, spendNowTotal]);
                 });
             }
-        }
-    });
-
+        });
+    }
     return spendNow;
 }
 
@@ -142,11 +147,26 @@ $(function () {
         if ($('.chart-month-spend').hasClass('active')) {
             requestMonthSpendChart($('.chart-year-dropdown').text().substr(0, 4));
         } else if ($('.chart-day-bar').hasClass('active')) {
+            $('[class="chart-month-data-"]').addClass('hidden');
+            calendarData.forEach(function (value, key) {
+                if (key.substr(5, 4) === '2018') {
+                    $(`.chart-month-data-${key.substr(0, 2)}`).removeClass('hidden');
+                }
+            });
             requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
         }
     });
 
     $(".chart-month-list").on("click", 'li', function () {
         requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
+    });
+
+    Highcharts.setOptions({
+        lang: {
+            numericSymbols: ['천원', '백만원'],
+            numericSymbolMagnitude: 1000,
+            thousandsSep: ',',
+            shortMonths: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월']
+        }
     });
 });
