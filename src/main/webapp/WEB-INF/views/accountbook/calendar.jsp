@@ -147,7 +147,7 @@
 					<div class="col-md-10 accountbook-calendar" id="accountbook-calendar">
 						<div>
 							<div class="edit-psn"><button type="button" class="btn btn-warning my-btn btn-edit-psn">가계부 설정</button></div>
-							<div class="new-ggv"><button type="button" class="btn btn-primary my-btn">새 가계부글 올리기</button><button type="button"
+							<div class="new-ggv"><a href="/salmon/article/register" class="btn btn-primary my-btn">새 가계부글 올리기</a><button type="button"
 								 class="btn btn-info my-btn">월 공유</button></div>
 						</div>
 						<div class="calendar-head text-center"><span><i class="fa fa-chevron-left calendar-left"></i></span><span class="calendar month"></span><input

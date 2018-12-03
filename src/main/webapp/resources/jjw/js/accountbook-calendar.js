@@ -350,11 +350,11 @@ function setGgv(data) {
     $('#ggvContent').html(articleContentHTML);
 
     if (scope === '나만') {
-        $('.ggv-footer').html(`<button type="button" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</button>
+        $('.ggv-footer').html(`<a href="/salmon/article/edit?article_id=${data.articleId}" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</a>
         <button type="button" class="btn btn-info ggv-btn" id="ggv-share">공유하기</button>
         <button type="button" class="btn btn-warning ggv-btn" data-dismiss="modal">닫기</button>`);
     } else if (scope === '공개') {
-        $('.ggv-footer').html(`<button type="button" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</button>
+        $('.ggv-footer').html(`<a href="/salmon/article/edit?article_id=${data.articleId}" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</a>
         <button type="button" class="btn btn-warning ggv-btn" data-dismiss="modal">닫기</button>`);
     }
 }
