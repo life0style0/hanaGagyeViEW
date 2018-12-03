@@ -20,7 +20,7 @@ public interface AccountBookMapper {
                         @Param("articleId") int articleId) throws Exception;
 
         public List<AccountBookDTO> getAccountBooksByYear(@Param("userId") String userId, @Param("year") String year,
-        @Param("year2") String year2, @Param("month") String month, @Param("month2") String month2)
+                        @Param("year2") String year2, @Param("month") String month, @Param("month2") String month2)
                         throws Exception;
 
         public List<String> getYearMonth(@Param("userId") String userId) throws Exception;
@@ -28,4 +28,6 @@ public interface AccountBookMapper {
         public int getPsnMonthStart(@Param("userId") String userId) throws Exception;
 
         public PsnsDTO getPsns(@Param("userId") String userId) throws Exception;
+
+        public Boolean editPsns(@Param("psns") PsnsDTO psnsDTO, @Param("userId") String userId) throws Exception;
 }

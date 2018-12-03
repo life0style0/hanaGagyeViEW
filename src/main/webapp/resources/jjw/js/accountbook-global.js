@@ -107,7 +107,8 @@ function requestMLSIChart(year, month) {
     }
 }
 
-function setStackedSpendChart(data, year, monthSrc) {
+function setStackedSpendChart(data, yearSrc, monthSrc) {
+    const year = Number(yearSrc) || Number((new Date()).getFullYear());
     const month = Number(monthSrc) - 1;
     const psnMonthStartT = Number(psnMonthStart) || 1;
     let betweenDays;
@@ -132,8 +133,7 @@ function setStackedSpendChart(data, year, monthSrc) {
         alert('개인화 정보 오류');
         return;
     }
-
-    const oneDayMax = psnMonthlyPayment / betweenDays;
+    const oneDayMax = parseInt(psnMonthlyPayment / betweenDays);
     const spendGoal = [];
     for (let i = 1; i <= betweenDays; i += 1) {
         // 86400000 값은 하루의 millisecond 값이고
@@ -146,13 +146,13 @@ function setStackedSpendChart(data, year, monthSrc) {
             type: 'area'
         },
         title: {
-            text: 'US and USSR nuclear stockpiles'
+            text: '목표 지출 금액과 현재 지출 금액 차트'
         },
-        subtitle: {
-            text: 'Sources: <a href="https://thebulletin.org/2006/july/global-nuclear-stockpiles-1945-2006">' +
-                'thebulletin.org</a> &amp; <a href="https://www.armscontrol.org/factsheets/Nuclearweaponswhohaswhat">' +
-                'armscontrol.org</a>'
-        },
+        // subtitle: {
+        //     text: 'Sources: <a href="https://thebulletin.org/2006/july/global-nuclear-stockpiles-1945-2006">' +
+        //         'thebulletin.org</a> &amp; <a href="https://www.armscontrol.org/factsheets/Nuclearweaponswhohaswhat">' +
+        //         'armscontrol.org</a>'
+        // },
         xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: {
@@ -195,8 +195,6 @@ function setStackedSpendChart(data, year, monthSrc) {
             data: data
         }]
     };
-    console.log('spendGaol :', spendGoal);
-    console.log('data :', data);
     return chartData;
 }
 
@@ -206,6 +204,16 @@ function requestStackedSpendChart(year, month) {
     } else {
         chartDatas.set(`stackedSpend-${year}-${month}`, stackedSpendChart(year, month));
         Highcharts.chart('accountbook-chart', setStackedSpendChart(chartDatas.get(`stackedSpend-${year}-${month}`), year, month));
+    }
+}
+
+function checkChartTypes() {
+    if ($('.chart-month-spend').hasClass('active')) {
+        $('.chart-month-dropdown').parent().addClass('hidden');
+    } else if ($('.chart-day-bar').hasClass('active')) {
+        $('.chart-month-dropdown').parent().removeClass('hidden');
+    } else if ($('.chart-month-goal').hasClass('active')) {
+        $('.chart-month-dropdown').parent().removeClass('hidden');
     }
 }
 
@@ -234,39 +242,38 @@ $(function () {
         }
     });
 
-    $.ajax({
-        url: '/salmon/accountbook/psns',
-        method: 'get',
-        dataType: 'json',
-        success: function (psns) {
-            psnMonthlyPayment = psns.psnMonthlyPayment;
-            psnMonthStart = psns.psnMonthStart;
-        }
-    });
-
     $('.view-calendar').on('click', function () {
         $('.accountbook-calendar').removeClass('hidden');
         $('.accountbook-chart').addClass('hidden');
     });
 
     $('.view-chart').on('click', function () {
+        const year = $('.chart-year-dropdown').text().substr(0, 4);
         $('.accountbook-calendar').addClass('hidden');
         $('.accountbook-chart').removeClass('hidden');
-        requestMonthSpendChart($('.chart-year-dropdown').text().substr(0, 4));
+        checkChartTypes();
+        requestMonthSpendChart(year);
+        settingMonths(year);
     });
 
     $('.chart-month-spend').on('click', function () {
-        requestMonthSpendChart($('.chart-year-dropdown').text().substr(0, 4));
+        const year = $('.chart-year-dropdown').text().substr(0, 4);
+        requestMonthSpendChart(year);
+        settingMonths(year);
         $('.chart-month-dropdown').parent().addClass('hidden');
     });
 
     $('.chart-day-bar').on('click', function () {
-        requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
+        const year = $('.chart-year-dropdown').text().substr(0, 4);
+        requestMLSIChart(year, $('.chart-month-dropdown').text().substr(0, 2));
+        settingMonths(year);
         $('.chart-month-dropdown').parent().removeClass('hidden');
     });
 
     $('.chart-month-goal').on('click', function () {
-        requestStackedSpendChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
+        const year = $('.chart-year-dropdown').text().substr(0, 4);
+        requestStackedSpendChart(year, $('.chart-month-dropdown').text().substr(0, 2));
+        settingMonths(year);
         $('.chart-month-dropdown').parent().removeClass('hidden');
     });
 

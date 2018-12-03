@@ -80,13 +80,13 @@
 				</div>
 				<div class="col-md-10 accountbook-chart hidden">
 					<div class="for-be-dropdowns">
-						<div class="be-drop-down">
+						<div class="be-drop-down chart-year">
 							<i class="icon-projects"></i>
 							<span class="be-dropdown-content chart-year-dropdown"></span>
 							<ul class="drop-down-list chart-year-list">
 							</ul>
 						</div>
-						<div class="be-drop-down hidden">
+						<div class="be-drop-down chart-month hidden">
 							<i class="icon-projects"></i>
 							<span class="be-dropdown-content chart-month-dropdown"></span>
 							<ul class="drop-down-list chart-month-list">
@@ -145,8 +145,11 @@
 					</div>
 
 					<div class="col-md-10 accountbook-calendar" id="accountbook-calendar">
-						<div class="new-ggv"><button type="button" class="btn btn-primary my-btn">새 가계부글 올리기</button><button type="button"
-							 class="btn btn-info my-btn">월 공유</button></div>
+						<div>
+							<div class="edit-psn"><button type="button" class="btn btn-warning my-btn btn-edit-psn">가계부 설정</button></div>
+							<div class="new-ggv"><a href="/salmon/article/register" class="btn btn-primary my-btn">새 가계부글 올리기</a><button type="button"
+								 class="btn btn-info my-btn">월 공유</button></div>
+						</div>
 						<div class="calendar-head text-center"><span><i class="fa fa-chevron-left calendar-left"></i></span><span class="calendar month"></span><input
 							 type="text" id="datePic" class="invisible datepic"><span class="calendar year"></span><span><i class="fa fa-chevron-right calendar-right"></i></span></div>
 						<table id="calendar">
@@ -238,6 +241,40 @@
 			</div>
 		</div>
 
+		<div class="modal fade" id="psn-modal" tabindex="-1" role="dialog" aria-labelledby="psn-modal-label" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="psn-modal-label">달력 설정</h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal" id="psn-form" action="/salmon/accountbook/psns" method="POST">
+							<div class="form-group">
+								<label for="inputEmail3" class="col-sm-6 control-label">달력 시작일 설정</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="psnMonthStartT" placeholder="ex) 25" title="달력은 15일 전과 후로 표시되는 모습이 조금 다릅니다!">
+									<input type="hidden" name="psnMonthStart" value="${psns.psnMonthStart}">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword3" class="col-sm-6 control-label">월 목표 지출액 설정</label>
+								<div class="col-sm-6">
+									<input type="text" class="form-control" id="psnMonthlyPaymentT" placeholder="ex) 1000000" title="0보다 큰 양수만 입력해주세요">
+									<input type="hidden" name="psnMonthlyPayment" value="${psns.psnMonthlyPayment}">
+								</div>
+							</div>
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary psn-btn" id="psn-edit">수정하기</button>
+						<button type="button" class="btn btn-warning psn-btn" data-dismiss="modal">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="theme-config">
 			<div class="main-color">
 				<div class="title">Main Color:</div>
@@ -270,6 +307,7 @@
 		<script src="/salmon/resources/jjw/js/owl.carousel.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.3.2/bootstrap-slider.min.js"></script>
 		<script src="https://code.highcharts.com/highcharts.src.js"></script>
+		<script src="/salmon/resources/jjw/js/validator.js"></script>
 		<script src="/salmon/resources/jjw/js/accountbook-calendar.js"></script>
 		<script src="/salmon/resources/jjw/js/accountbook-chart.js"></script>
 		<script src="/salmon/resources/jjw/js/accountbook-global.js"></script>
