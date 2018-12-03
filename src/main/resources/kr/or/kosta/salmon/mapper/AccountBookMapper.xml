@@ -71,7 +71,7 @@ FROM   articles
        join ctgry_values USING(article_id) 
        join ctgries USING(ctgry_id) 
        join article_ctgries USING(article_ctgry_id), 
-       (SELECT psn_month_start "pms" 
+       (SELECT trim(to_char(psn_month_start,'00')) "pms1" ,trim(to_char(psn_month_start-1,'00')) "pms2"
         FROM   psns 
         WHERE  user_id = #{userId}) 
 WHERE  user_id = #{userId} 
@@ -79,11 +79,11 @@ WHERE  user_id = #{userId}
                                                           ||'-' 
                                                           ||#{month}
                                                           ||'-' 
-                                                          ||"pms" AND #{year2} 
+                                                          ||"pms1" AND #{year2} 
                                                                       ||'-' 
                                                                       ||(#{month2})
                                                                       ||'-' 
-                                                                      ||("pms"-1) 
+                                                                      ||"pms2" 
        AND article_ctgry_type IN ( 'income', 'spend' ) 
 ORDER  BY article_regdate        
         </select>
@@ -132,7 +132,7 @@ FROM   articles
         join ctgry_values USING(article_id) 
         join ctgries USING(ctgry_id)
         join article_ctgries using(article_ctgry_id),
-        (SELECT psn_month_start "pms" 
+        (SELECT trim(to_char(psn_month_start,'00')) "pms1" ,trim(to_char(psn_month_start-1,'00')) "pms2"
         FROM   psns 
         WHERE  user_id = #{userId}) 
 WHERE  user_id = #{userId} 
@@ -140,11 +140,11 @@ WHERE  user_id = #{userId}
                                                           ||'-' 
                                                           ||#{month}
                                                           ||'-' 
-                                                          ||"pms" AND #{year2} 
+                                                          ||"pms1" AND #{year2} 
                                                                       ||'-' 
-                                                                      ||(#{month2})
+                                                                      ||#{month2}
                                                                       ||'-' 
-                                                                      ||("pms"-1)
+                                                                      ||"pms2"
        AND article_ctgry_type IN ('income','spend')
 ORDER BY article_regdate        
         </select>
@@ -170,5 +170,14 @@ SELECT psn_monthly_payment,
 FROM   psns 
 WHERE  user_id = #{userId}
         </select>
+
+        <update id="editPsns">
+UPDATE psns
+    <set>
+      <if test="psns.psnMonthlyPayment != null">psn_monthly_payment=#{psns.psnMonthlyPayment},</if>
+      <if test="psns.psnMonthStart != null">psn_month_start=#{psns.psnMonthStart},</if>
+    </set>
+WHERE user_id = #{userId}
+        </update>
 
 </mapper>

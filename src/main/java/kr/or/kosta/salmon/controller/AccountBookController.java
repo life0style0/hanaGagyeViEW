@@ -10,11 +10,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.kosta.salmon.domain.AccountBookDTO;
 import kr.or.kosta.salmon.domain.PsnsDTO;
@@ -33,8 +36,15 @@ public class AccountBookController {
     private AccountBookService abs;
 
     @GetMapping(value = "/calendar")
-    public void calendar() {
+    public void calendar(Principal principal, Model model) {
         log.info("calendar...");
+        PsnsDTO psnsDTO = null;
+        try {
+            psnsDTO = abs.getPsns(principal.getName());
+            model.addAttribute("psns", psnsDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @GetMapping(value = "/ggv", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
@@ -46,6 +56,7 @@ public class AccountBookController {
         ResponseEntity<List<AccountBookDTO>> rEntity = null;
         int yearTemp = Integer.parseInt(year);
         int monthTemp = Integer.parseInt(month);
+        log.info(monthTemp);
         try {
             psnStartDay = abs.getPsnMonthStart(principal.getName());
             if (psnStartDay >= 16 && psnStartDay <= 31) {
@@ -147,5 +158,16 @@ public class AccountBookController {
             return rEntity;
         }
         return rEntity;
+    }
+
+    @PostMapping(value = "/psns")
+    public String editPsns(PsnsDTO psnsDTO, Principal principal, RedirectAttributes rttr) {
+        log.info("psns edit request...." + psnsDTO);
+        try {
+            rttr.addFlashAttribute("result", abs.editPsns(psnsDTO, principal.getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/accountbook/calendar";
     }
 }

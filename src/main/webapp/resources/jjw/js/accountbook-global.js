@@ -107,7 +107,8 @@ function requestMLSIChart(year, month) {
     }
 }
 
-function setStackedSpendChart(data, year, monthSrc) {
+function setStackedSpendChart(data, yearSrc, monthSrc) {
+    const year = Number(yearSrc) || Number((new Date()).getFullYear());
     const month = Number(monthSrc) - 1;
     const psnMonthStartT = Number(psnMonthStart) || 1;
     let betweenDays;
@@ -132,8 +133,7 @@ function setStackedSpendChart(data, year, monthSrc) {
         alert('개인화 정보 오류');
         return;
     }
-
-    const oneDayMax = psnMonthlyPayment / betweenDays;
+    const oneDayMax = parseInt(psnMonthlyPayment / betweenDays);
     const spendGoal = [];
     for (let i = 1; i <= betweenDays; i += 1) {
         // 86400000 값은 하루의 millisecond 값이고
@@ -146,13 +146,13 @@ function setStackedSpendChart(data, year, monthSrc) {
             type: 'area'
         },
         title: {
-            text: 'US and USSR nuclear stockpiles'
+            text: '목표 지출 금액과 현재 지출 금액 차트'
         },
-        subtitle: {
-            text: 'Sources: <a href="https://thebulletin.org/2006/july/global-nuclear-stockpiles-1945-2006">' +
-                'thebulletin.org</a> &amp; <a href="https://www.armscontrol.org/factsheets/Nuclearweaponswhohaswhat">' +
-                'armscontrol.org</a>'
-        },
+        // subtitle: {
+        //     text: 'Sources: <a href="https://thebulletin.org/2006/july/global-nuclear-stockpiles-1945-2006">' +
+        //         'thebulletin.org</a> &amp; <a href="https://www.armscontrol.org/factsheets/Nuclearweaponswhohaswhat">' +
+        //         'armscontrol.org</a>'
+        // },
         xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: {
@@ -195,8 +195,6 @@ function setStackedSpendChart(data, year, monthSrc) {
             data: data
         }]
     };
-    console.log('spendGaol :', spendGoal);
-    console.log('data :', data);
     return chartData;
 }
 
@@ -231,16 +229,6 @@ $(function () {
             const today = new Date();
             $('.chart-year-dropdown').html(`${today.getFullYear()}년`);
             $('.chart-month-dropdown').html(`${today.getMonth()+1}월`);
-        }
-    });
-
-    $.ajax({
-        url: '/salmon/accountbook/psns',
-        method: 'get',
-        dataType: 'json',
-        success: function (psns) {
-            psnMonthlyPayment = psns.psnMonthlyPayment;
-            psnMonthStart = psns.psnMonthStart;
         }
     });
 
