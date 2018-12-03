@@ -301,12 +301,36 @@
   width: 0px;
 }
 
+.edit-psn {
+  text-align: left;
+  position: relative;
+  top: 80px;
+  width: 50%;
+  float: left;
+  display: inline-block;
+}
+
+.edit-psn .my-btn {
+  font-size: 16px;
+  line-height: 1.3333;
+  margin: unset;
+  margin-right: 10px;
+}
+
+.psn-btn {
+  font-size: 16px;
+  line-height: 1.3333;
+  margin: unset;
+  margin-left: 10px;
+}
+
 .new-ggv {
   text-align: right;
   position: relative;
   top: 80px;
-  margin-left: auto;
-  width: fit-content;
+  width: 50%;
+  float: left;
+  display: inline-block;
 }
 
 .new-ggv .my-btn {
@@ -362,4 +386,31 @@
 
 .top-margin-100 {
   margin-top: 100px;
+}
+
+.jjw-alert {
+  text-align: left;
+  position: relative;
+  font-size: 13px;
+  line-height: 22px;
+  color: #7a8192;
+  background: #fcf8e3;
+  border: 1px solid #edeff2;
+  margin-bottom: 20px;
+  border-radius: 3px;
+  text-align: left;
+  padding: 15px;
+}
+
+.jjw-alert .close {
+  height: 24px;
+  color: black;
+  opacity: 1;
+  font-size: 20px;
+  position: inherit;
+  top: -1px;
+  left: unset;
+  right: unset;
+  width: inherit;
+  background: inherit;
 }

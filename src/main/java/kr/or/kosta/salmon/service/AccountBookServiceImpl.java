@@ -100,6 +100,11 @@ public class AccountBookServiceImpl implements AccountBookService {
     @Override
     public PsnsDTO getPsns(String userId) throws Exception {
         return abm.getPsns(userId);
-	}
+    }
+
+    @Override
+    public Boolean editPsns(PsnsDTO psnsDTO, String userId) throws Exception {
+        return abm.editPsns(psnsDTO, userId);
+    }
 
 }

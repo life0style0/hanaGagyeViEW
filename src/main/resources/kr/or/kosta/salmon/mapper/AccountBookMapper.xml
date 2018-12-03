@@ -171,4 +171,13 @@ FROM   psns
 WHERE  user_id = #{userId}
         </select>
 
+        <update id="editPsns">
+UPDATE psns
+    <set>
+      <if test="psns.psnMonthlyPayment != null">psn_monthly_payment=#{psns.psnMonthlyPayment},</if>
+      <if test="psns.psnMonthStart != null">psn_month_start=#{psns.psnMonthStart},</if>
+    </set>
+WHERE user_id = #{userId}
+        </update>
+
 </mapper>
