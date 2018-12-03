@@ -49,9 +49,12 @@ public class GagyeviewController {
 	@GetMapping("/edit")
 	public void edit(Model model, int article_id) {
 		MainArticleDTO editArticle = gaArticleService.getEditArticle(article_id);
+		editArticle.setArticle_id(article_id);
+		String ctgryName = gaArticleService.getCtgryName(editArticle.getArticle_ctgry_id());
 		ArrayList<String> categoryList = gaArticleService.getCategory();
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("editArticle", editArticle);
+		model.addAttribute("ctgryName", ctgryName);
 	}
 	
 	
@@ -96,6 +99,56 @@ public class GagyeviewController {
 
 		return new ResponseEntity<>(Integer.toString(lastId),HttpStatus.OK);
 	}
+	
+	@PostMapping("/update")
+	public ResponseEntity<String> updateArticle(ArticleDTO article, String article_ctgry_name, String categoryName ,Principal principal, Model model){
+		//update 사전작업
+		int article_id = article.getArticle_id();
+		gaArticleService.deleteCtgry(article_id);
+		gaArticleService.deleteHash(article_id);
+		gaArticleService.deleteHashRefs(article_id);
+		gaArticleService.deleteImages(article_id);
+		
+		//update준비과정
+		article.setArticle_ctgry_id(Integer.parseInt(gaArticleService.getArticleCategoryByName(article_ctgry_name.trim())));
+		article.setUser_id(principal.getName());
+		//카테고리 생성 준비
+		int categoryNum = Integer.parseInt(gaArticleService.getCategoryByName(categoryName));
+		ArrayList<String> hashTagList = getHashTag(article.getArticle_content());
+		
+		switch(article.getArticle_scope().trim()){
+		case "public":
+			article.setArticle_scope("u");
+			break;
+		case "private":
+			article.setArticle_scope("r");
+			break;
+		case "group":
+			article.setArticle_scope("g");
+			break;
+		}
+		gaArticleService.updateArticle(article);
+		
+		CategoryDTO categoryDto = new CategoryDTO();
+		categoryDto.setCtgry_id(categoryNum);
+		categoryDto.setArticle_id(article_id);
+		gaArticleService.createCategory(categoryDto);
+		
+		//해시태그 처리
+		if(hashTagList.size() > 0){
+			HashTagDTO hashTagDTO;
+			for(int j = 0; j < hashTagList.size(); j++){
+				hashTagDTO = new HashTagDTO();
+				hashTagDTO.setHashtag_value((String)hashTagList.get(j));
+				hashTagDTO.setArticle_id(article_id);
+				gaArticleService.createHashTag(hashTagDTO);
+			}
+		}
+
+		return new ResponseEntity<>(Integer.toString(article_id),HttpStatus.OK);
+	}
+	
+	
 	
 	public ArrayList<String> getHashTag(String content){
 		ArrayList<String> hashList = new ArrayList<>();

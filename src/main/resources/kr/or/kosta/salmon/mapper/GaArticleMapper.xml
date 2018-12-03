@@ -160,7 +160,45 @@
 		WHERE  article_id = #{articleId}        
     </select>
     
+    <select id="getCtgryName" resultType="String">
+    	SELECT	 ctgry_name 
+    	FROM	 ctgries 
+    	WHERE	 ctgry_id = #{ctgry_id}
+    </select>
     
-		
+    <update id="updateArticle">
+    	UPDATE articles
+    	SET
+		       article_ctgry_id = #{article_ctgry_id},
+		       article_scope = #{article_scope},
+		       article_regdate = #{article_regdate},,
+		       article_editdate = sysdate,
+		       article_payment_type = #{article_payment_type},
+		       article_payment_fee = #{article_payment_fee},
+		       article_title = #{article_title},
+		       article_content = #{article_content},
+		       article_proposal_status = #{article_proposal_status},
+		       group_id = #{group_id},
+		       user_id = #{user_id},
+		       article_deleted = #{article_deleted}
+		WHERE  article_id = #{article_id}
+    </update>
+
+    <delete id="deleteImages">
+    	DELETE FROM images
+    	WHERE article_id = #{article_id}
+    </delete>
+    
+    <delete id="deleteHash">
+    	DELETE FROM hashtags WHERE hashtag_id in (SELECT hashtag_id from hashtag_refs where article_id = #{article_id})
+    </delete>
+    
+    <delete id="deleteCtgry">
+    	DELETE FROM ctgry_values WHERE article_id = #{article_id}
+    </delete>
+	
+	<delete id="deleteHashRefs">
+		DELETE FROM hashtag_refs WHERE aritlce_id = #{article_id}
+	</delete>
 	
 </mapper>

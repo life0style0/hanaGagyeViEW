@@ -28,4 +28,16 @@ public interface GaArticleService {
 	
 	//수정 게시글 정보 가져오기
 	public MainArticleDTO getEditArticle(int article_id);
+	
+	//카테고리 번호로 이름 가져오기
+	public String getCtgryName(int ctgry_id);
+	
+	//게시글 수정하기
+	public void updateArticle(ArticleDTO article);
+	
+	//게시글 수정을 위한 사전작업
+	public void deleteImages(int article_id);
+	public void deleteHash(int article_id);
+	public void deleteCtgry(int article_id);
+	public void deleteHashRefs(int article_id);
 }

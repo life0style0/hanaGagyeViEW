@@ -111,7 +111,13 @@
 											<input type="hidden" name="categoryName" id="inputCategory">
 											<ul class="drop-down-list" style="overflow:scroll; height:200px">
 											<c:forEach var="catList" items="${categoryList}">
-												<li><a>${catList}</a></li>
+												<c:choose>
+													<c:when test="${catList=='-1' }">
+													</c:when>
+													<c:otherwise>
+													<li><a>${catList}</a></li>
+													</c:otherwise>
+												</c:choose>
 											</c:forEach>
 											</ul>
 										</div>							
