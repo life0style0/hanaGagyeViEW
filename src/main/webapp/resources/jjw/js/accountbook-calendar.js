@@ -311,6 +311,16 @@ function setCalendarMY(moveDirection) {
     $('.calendar.year').html(yearChanged);
 }
 
+function checkCtgryType(type) {
+    if (!type) {
+        alert('빈 type 입력');
+    } else if (type === 'income') {
+        return '수입';
+    } else if (type === 'spend') {
+        return '지출';
+    }
+}
+
 /**
  * 특정 가계부 정보를 클릭시 보여줄 값들을 세팅하는 함수
  * @param {*} data 가계부 정보
@@ -321,12 +331,13 @@ function setGgv(data) {
     }
     for (let i = 0; i < data.imagePaths.length; i += 1) {
         const imagePath = data.imagePaths[i];
-        $('.ggv-carousel').append(`<img class="ggv-image center-block" src="/salmon/image?fileName=${imagePath}" alt="">`);
+        // $('.ggv-carousel').append(`<img class="ggv-image center-block" src="/salmon/image?fileName=${imagePath}" alt="">`);
+        $('.ggv-carousel').append(`<img class="ggv-image center-block owl-lazy" data-src="/salmon/image?fileName=${imagePath}" alt="">`);
     }
     const scope = checkScope(data.articleScope);
     $('#ggvScope').html(scope);
     $('#ggvMoney').html(`${data.articlePaymentFee}원`);
-    $('#ggvCtgry').html(data.articleCtgryType);
+    $('#ggvCtgry').html(checkCtgryType(data.articleCtgryType));
     $('#ggvPayType').html(data.articlePaymentType);
     $('#ggvTitle').html(data.articleTitle);
     $('#ggv-modal-label').html(data.articleRegdate);
@@ -384,15 +395,10 @@ function setGgvInfos(info) {
                     "<i class='fa fa-angle-right'></i>"
                 ],
                 dots: false,
-                lazyLoad: false
+                lazyLoad: true
             });
 
             $('#ggv-modal').modal('show');
-
-            $('#ggv-modal').on('shown.bs.modal', function () {
-                $('.owl-prev').css('top', `-${(523 + 50) / 2}px`);
-                $('.owl-next').css('top', `-${(523 + 50) / 2}px`);
-            });
         }
     });
 }
