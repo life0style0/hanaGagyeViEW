@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -156,7 +155,7 @@
 							<label for="user_image"> 프로필사진 </label> 
 							<input type="file" id="user_image" class="form-control-file"  name="user_image">
 						</div>
-						<input type="button" id="editProfileSubmitBtn" class="btn btn-info" value="수정하기">
+						<input type="button" id="editProfileSubmitBtn" class="btn btn-info ggv-btn" value="수정하기">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					</form>
 				</div>
@@ -170,28 +169,31 @@
 							action="/salmon/main/mypage/editmyinfo">
 							<input type="hidden" name="user_id" id="user_id"
 								value="<sec:authentication property="principal.username"/>">
+							
 							<!-- 비밀번호 입력 -->
 							<div class="form-group">
 								<input class="form-control" type="password" placeholder="비밀번호"
 									id="user_passwd" name="user_passwd">
+								<div id="valid_user_passwd">비밀번호 체크</div>
 							</div>
-							<div id="valid_user_passwd">비밀번호 체크</div>
+							
 
 							<!-- 비밀번호 입력 확인 -->
 							<div class="form-group">
 								<input class="form-control" type="password"
 									placeholder="비밀번호 확인" id="same_user_passwd" name="same_passwd">
+								<div id="same_valid_user_passwd">비밀번호 체크</div>
 							</div>
-							<div id="same_valid_user_passwd">비밀번호 체크</div>
+							
 
 							<!-- 생년월일 -->
 							<div class="form-group">
 								<input class="form-control" type="text" placeholder="생년월일"
 									id="user_birthday" name="user_birthday" required="required"
 									value="<c:out value="${user.user_birthday}"/>">
+								<div id="valid_user_birthday">생년월일 체크</div>
 							</div>
-							<div id="valid_user_birthday">생년월일 체크</div>
-
+							
 							<div class="form-group">
 								<select id="genders" name="gender" class="form-control"
 									required="required">
@@ -241,7 +243,7 @@
 								</select> <input type="hidden" id="location_id" name="location_id">
 							</div>
 
-							<input type="button" id="editInfoSubmitBtn" class="btn btn-info"
+							<input type="button" id="editInfoSubmitBtn" class="btn btn-info ggv-btn"
 								value="수정하기"> <input type="hidden"
 								name="${_csrf.parameterName}" value="${_csrf.token}">
 						</form>
@@ -279,7 +281,7 @@
 						<input type="hidden" id="CTGRY_3" name="ctgry_3">
 					</div>
 					
-					<input type="button" id="editCategoriesSubmitBtn" class="btn btn-info" value="수정하기">
+					<input type="button" id="editCategoriesSubmitBtn" class="btn btn-info ggv-btn" value="수정하기">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
 
@@ -292,7 +294,7 @@
 					
 					<!-- 탈퇴를 원하시면 비밀번호를 한번 더 입력해주세요
 					<input type="password" name="resign-user_password" id="resign-user_password"> -->
-					<button type="button" class="btn btn-danger" name="resignOpenBtn"
+					<button type="button" class="btn btn-danger ggv-btn" name="resignOpenBtn"
                                 data-toggle="modal"  data-target="#resign-Modal">
                                         탈퇴하기   
                         </button>

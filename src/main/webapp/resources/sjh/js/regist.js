@@ -9,7 +9,6 @@ $(function(){
 		$('#same_user_passwd').on('change',isSamePasswd);
 		$('#user_nickname').on('change',isValidNickName);
 		$('#user_email').on('change',isValidEmail);
-		
 		$('#locations').on('change',getLocationInfo);
 	}
 	
@@ -17,22 +16,21 @@ $(function(){
 		
 		document.getElementById("registSubmitBtn").onclick = function () {
 			registReady = true;
+			
 			//폼 제출
 			getLocationInfo();
 			getGenderInfo();
+			isValidGender();
+			isValidLocation();
+			
 			isValidAge(); 
 			console.log($('input[name="user_birthday"]'));
 			
 			isValidId(); 
-		//	console.log(registReady);
 			isValidEmail(); 
-		//	console.log(registReady);
 			isSamePasswd(); 
-		//	console.log(registReady);
 			isValidPasswd(); 
-		//	console.log(registReady);
 			isValidNickName(); 
-		//	console.log(registReady);
 			isValidCategory();
 			
 			console.log(registReady);
@@ -363,9 +361,12 @@ function unclickCategory(cat){
 
 //카테고리 유효성
 function isValidCategory(){
+//	alert(categoryNum);
+	
 	if( $('[name="category"]')!= null ){
 		if(categoryNum <1){
 			registReady = false && registReady;
+			alert('category null');
 			return;
 		} else{
 			registReady = true && registReady;
@@ -392,4 +393,22 @@ function getGenderInfo(){
 	}
 	
 	console.log($('input#user_gender').attr('value'));
+}
+
+function isValidGender(){
+	if($('input#user_gender').attr('value')== null || $('input#user_gender').attr('value').length == 0 ){
+		registReady = false && registReady;
+	//	alert('gender miss');
+	} else{
+	//	alert('gender not miss ');
+	}
+}
+
+function isValidLocation(){
+	if($('#location_id').attr('value') == '지역'){
+		registReady = false && registReady;
+	//	alert('location miss');
+	} else{
+	//	alert('location not miss ');
+	}
 }

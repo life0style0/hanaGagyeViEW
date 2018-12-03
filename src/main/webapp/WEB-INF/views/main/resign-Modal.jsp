@@ -1,6 +1,5 @@
    <%-- <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%> --%>
-   <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" %>
    <!-- 예약취소 모달 -->
         <div class="modal fade" id="resign-Modal" role="dialog">
           <div class="modal-dialog">
@@ -13,14 +12,13 @@
                 <p class="row">
                 	<p> 닉네임 : <c:out value="${user.user_nickname}"/> </p>
 					<p> 아이디 : <sec:authentication property="principal.username"/></p>
-                  <span id="modal-resign-user-id"> </span> 님
                 </p>
                 <p> 정말 탈퇴 하시겠습니까? </p>
               </div>
               <div class="modal-footer">
               	<form role="form" id="resignForm" method="post" action="/salmon/main/mypage/resign">	
-					<input type="button" id="resignSubmitBtn" value="탈퇴하기">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<input type="button" id="resignSubmitBtn" value="탈퇴하기" class="btn btn-danger ggv-btn">
+					<input type="button" class="btn btn-default ggv-btn" data-dismiss="modal" value="close"></button>
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
 				<!-- 	
