@@ -101,7 +101,7 @@
 									<div class="input-col col-xs-12 col-sm-4">
 										<div class="form-group focus-2">
 											<div class="form-label">금액</div>									
-											<input class="form-input" name="article_payment_fee" id="article_payment_fee"  type="text" placeholder="">
+											<input class="form-input" name="article_payment_fee" id="article_payment_fee"  type="text" placeholder="" value="${editArticle.article_payment_fee }">
 										</div>								
 									</div>
 									<div class="input-col col-xs-12 col-sm-4" >
@@ -119,7 +119,7 @@
 									<div class="input-col col-xs-12 col-sm-4">
 										<div class="form-label">결제수단</div>
 										<div class="be-drop-down icon-none">
-											<span class="be-dropdown-content" id="selPayType">선택해주세요 </span>
+											<span class="be-dropdown-content" id="selPayType">${editArticle.article_payment_type } </span>
 											<input type="hidden" name="article_payment_type" id="inputPayType">
 											<ul class="drop-down-list">
 												<li><a>카드</a></li>
@@ -135,7 +135,10 @@
 										<div class="col-md-4">
 											<div class="form-label">구분</div>
 											<div class="be-drop-down icon-none">
-												<span class="be-dropdown-content" id="selArtiCategory">선택해주세요 </span>
+												<span class="be-dropdown-content" id="selArtiCategory">
+												<c:if test="${editArticle.article_ctgry_id=='1'}">수입 </c:if>
+												<c:if test="${editArticle.article_ctgry_id=='2'}">지출 </c:if>
+												</span>
 												<input type="hidden" name="article_ctgry_name" id="inputArtiCategory">
 												<ul class="drop-down-list" >
 													<li><a>지출</a></li>
@@ -146,7 +149,10 @@
 										<div class="col-md-4">
 											<div class="form-label">공개범위</div>
 											<div class="be-drop-down icon-none">
-												<span class="be-dropdown-content" id="selScope">private </span>
+												<span class="be-dropdown-content" id="selScope">
+													<c:if test="${editArticle.article_scope=='u'}">public </c:if>
+													<c:if test="${editArticle.article_scope=='r'}">private </c:if>
+												</span>
 												<input type="hidden" name="article_scope" id="inputScope">
 												<ul class="drop-down-list" >
 													<li><a>private</a></li>
@@ -170,7 +176,7 @@
 									<div class="input-col col-xs-12">
 										<div class="form-group focus-2">
 											<div class="form-label">간단 메모</div>									
-											<input class="form-input" name="article_title" type="text">
+											<input class="form-input" name="article_title" type="text" value="${editArticle.article_title }">
 										</div>								
 									</div>	
 								</div>
@@ -203,7 +209,7 @@
 							<div class="be-large-post-align">
 								<div class="form-group focus-2">
 									<div class="form-label">내용</div>
-									<textarea name="article_content" class="form-input" placeholder="여러분의 합리적인 소비생활을 소개해주세요"></textarea>
+									<textarea name="article_content" class="form-input" placeholder="여러분의 합리적인 소비생활을 소개해주세요">${editArticle.article_content}</textarea>
 								</div>						
 							</div>
 						</div>																

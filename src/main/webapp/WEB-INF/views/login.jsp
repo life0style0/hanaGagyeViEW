@@ -30,7 +30,7 @@ font-family: 'Noto Sans KR', sans-serif;
 <div class="form">
       <!-- 회원가입 폼으로 이동하기 -->
       <div class="submit-agileits">
-        <a href="http://localhost/salmon/regist/register"><input class="login" type="submit" value="SignUp" style="float: right; width: 120px;"></a>
+        <a href="http://localhost:8080/salmon/regist/register"><input class="login" type="submit" value="SignUp" style="float: right; width: 120px;"></a>
       </div>
 <h1>가계 ViEW</h1>
    <div class="form-content">

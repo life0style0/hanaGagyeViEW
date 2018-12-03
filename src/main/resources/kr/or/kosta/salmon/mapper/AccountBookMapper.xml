@@ -32,7 +32,12 @@
                 <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
         </resultMap>
 
-        <select id="getAccountBooks" resultMap="AccountBooks">
+        <resultMap type="kr.or.kosta.salmon.domain.PsnsDTO" id="Psns">
+                <result property="psnMonthlyPayment" column="psn_monthly_payment"/>
+                <result property="psnMonthStart" column="psn_month_start"/>
+        </resultMap>
+
+        <select id="getAccountBooksT" resultMap="AccountBooks">
 SELECT article_id,
        ctgry_name,
        article_scope,
@@ -50,6 +55,37 @@ WHERE  user_id = #{userId}
        AND To_char(article_regdate, 'YYYY-MM') = #{year}||'-'||#{month} 
        AND article_ctgry_type IN ('income','spend')
 ORDER BY article_regdate
+        </select>
+
+        <select id="getAccountBooks" resultMap="AccountBooks">
+SELECT article_id, 
+       ctgry_name, 
+       article_scope, 
+       To_char(article_regdate, 'YYYY"년" MM"월" DD"일" AM HH"시" mm"분"') "article_regdate", 
+       article_payment_type, 
+       article_payment_fee, 
+       article_title, 
+       article_content, 
+       article_ctgry_type
+FROM   articles 
+       join ctgry_values USING(article_id) 
+       join ctgries USING(ctgry_id) 
+       join article_ctgries USING(article_ctgry_id), 
+       (SELECT psn_month_start "pms" 
+        FROM   psns 
+        WHERE  user_id = #{userId}) 
+WHERE  user_id = #{userId} 
+       AND To_char(article_regdate, 'YYYY-MM-DD') BETWEEN #{year}
+                                                          ||'-' 
+                                                          ||#{month}
+                                                          ||'-' 
+                                                          ||"pms" AND #{year2} 
+                                                                      ||'-' 
+                                                                      ||(#{month2})
+                                                                      ||'-' 
+                                                                      ||("pms"-1) 
+       AND article_ctgry_type IN ( 'income', 'spend' ) 
+ORDER  BY article_regdate        
         </select>
 
         <select id="getImages" resultType="string">
@@ -95,9 +131,20 @@ SELECT article_id,
 FROM   articles 
         join ctgry_values USING(article_id) 
         join ctgries USING(ctgry_id)
-        join article_ctgries using(article_ctgry_id)
+        join article_ctgries using(article_ctgry_id),
+        (SELECT psn_month_start "pms" 
+        FROM   psns 
+        WHERE  user_id = #{userId}) 
 WHERE  user_id = #{userId} 
-       AND To_char(article_regdate, 'YYYY') = #{year}
+       AND To_char(article_regdate, 'YYYY-MM-DD') BETWEEN #{year}
+                                                          ||'-' 
+                                                          ||#{month}
+                                                          ||'-' 
+                                                          ||"pms" AND #{year2} 
+                                                                      ||'-' 
+                                                                      ||(#{month2})
+                                                                      ||'-' 
+                                                                      ||("pms"-1)
        AND article_ctgry_type IN ('income','spend')
 ORDER BY article_regdate        
         </select>
@@ -109,6 +156,19 @@ FROM  (SELECT To_char(article_regdate, 'YYYY-MM') "year"
        WHERE  user_id = #{userId}) 
 GROUP  BY "year"
 order by "year" desc
+        </select>
+
+        <select id="getPsnMonthStart" resultType="int">
+SELECT psn_month_start "psnMonthStart" 
+FROM   psns 
+WHERE  user_id = #{userId}
+        </select>
+
+        <select id="getPsns" resultMap="Psns">
+SELECT psn_monthly_payment,
+        psn_month_start
+FROM   psns 
+WHERE  user_id = #{userId}
         </select>
 
 </mapper>

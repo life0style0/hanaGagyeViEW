@@ -10,6 +10,7 @@ import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
 import kr.or.kosta.salmon.domain.HashTagDTO;
 import kr.or.kosta.salmon.domain.ImageDTO;
+import kr.or.kosta.salmon.domain.MainArticleDTO;
 import kr.or.kosta.salmon.mapper.GaArticleMapper;
 import lombok.extern.log4j.Log4j;
 
@@ -62,5 +63,11 @@ public class GaArticleServiceImpl implements GaArticleService{
 	public void createImageInfo(ImageDTO imageDTO) {
 		gaArticleMapper.createImageInfo(imageDTO);
 	}
+
+	@Override
+	public MainArticleDTO getEditArticle(int article_id) {
+		return gaArticleMapper.getEditArticle(article_id);
+	}
+	
 	
 }

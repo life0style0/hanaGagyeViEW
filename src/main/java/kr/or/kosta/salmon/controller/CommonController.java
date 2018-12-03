@@ -20,10 +20,6 @@ public class CommonController {
 	@Inject
 	UserService service;
 	
-	@GetMapping("/main/home")
-	public void mainHome() {
-		log.info(" 메인 홈 테스트");
-	}
 	
 	@GetMapping("/login/accessError")
 	public void accessDenied(Authentication auth, Model model) {
