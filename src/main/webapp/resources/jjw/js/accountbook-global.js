@@ -133,7 +133,7 @@ function setStackedSpendChart(data, yearSrc, monthSrc) {
         alert('개인화 정보 오류');
         return;
     }
-    const oneDayMax = psnMonthlyPayment / betweenDays;
+    const oneDayMax = parseInt(psnMonthlyPayment / betweenDays);
     const spendGoal = [];
     for (let i = 1; i <= betweenDays; i += 1) {
         // 86400000 값은 하루의 millisecond 값이고
@@ -146,13 +146,13 @@ function setStackedSpendChart(data, yearSrc, monthSrc) {
             type: 'area'
         },
         title: {
-            text: 'US and USSR nuclear stockpiles'
+            text: '목표 지출 금액과 현재 지출 금액 차트'
         },
-        subtitle: {
-            text: 'Sources: <a href="https://thebulletin.org/2006/july/global-nuclear-stockpiles-1945-2006">' +
-                'thebulletin.org</a> &amp; <a href="https://www.armscontrol.org/factsheets/Nuclearweaponswhohaswhat">' +
-                'armscontrol.org</a>'
-        },
+        // subtitle: {
+        //     text: 'Sources: <a href="https://thebulletin.org/2006/july/global-nuclear-stockpiles-1945-2006">' +
+        //         'thebulletin.org</a> &amp; <a href="https://www.armscontrol.org/factsheets/Nuclearweaponswhohaswhat">' +
+        //         'armscontrol.org</a>'
+        // },
         xAxis: {
             type: 'datetime',
             dateTimeLabelFormats: {

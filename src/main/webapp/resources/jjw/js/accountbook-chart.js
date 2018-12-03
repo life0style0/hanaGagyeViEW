@@ -111,7 +111,7 @@ function stackedSpendChart(yearSrc, monthSrc) {
     if (chartDatas.has(`monthLineSpendIncomeChart-${year}-${month}`)) {
         const spendDataToArray = chartDatas.get(`monthLineSpendIncomeChart-${year}-${month}`)[0];
         spendDataToArray.forEach(function (data) {
-            spendNowTotal += Number(data[1]);
+            spendNowTotal += parseInt(data[1]);
             spendNow.push([data[0], spendNowTotal]);
         });
     } else {
@@ -144,6 +144,7 @@ function stackedSpendChart(yearSrc, monthSrc) {
 
 $(function () {
     $(".chart-year-list").on("click", 'li', function () {
+        console.log('hi');
         if ($('.chart-month-spend').hasClass('active')) {
             requestMonthSpendChart($('.chart-year-dropdown').text().substr(0, 4));
         } else if ($('.chart-day-bar').hasClass('active')) {

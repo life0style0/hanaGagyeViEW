@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import kr.or.kosta.salmon.domain.AccountBookDTO;
 import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.mapper.AccountBookMapper;
+import lombok.extern.log4j.Log4j;
 
 /**
  * AccountBookServiceImpl
@@ -45,7 +46,7 @@ public class AccountBookServiceImpl implements AccountBookService {
         int dayT = 0;
         if (psnStartDay >= 16 && psnStartDay <= 31) {
             for (AccountBookDTO abd : abds) {
-                yearT = abd.getArticleRegdate().substring(0, 5);
+                yearT = abd.getArticleRegdate().substring(0, 4);
                 monthT = Integer.parseInt(abd.getArticleRegdate().substring(6, 8)); // 2018년 01월 01일
                 dayT = Integer.parseInt(abd.getArticleRegdate().substring(10, 12));
                 if (yearT.equals(year)) {
@@ -65,8 +66,8 @@ public class AccountBookServiceImpl implements AccountBookService {
             }
         } else if (psnStartDay >= 1 && psnStartDay <= 15) {
             for (AccountBookDTO abd : abds) {
-                yearT = abd.getArticleRegdate().substring(0, 5);
-                monthT = Integer.parseInt(abd.getArticleRegdate().substring(6, 8)); // 2018년 01월 01일
+                yearT = abd.getArticleRegdate().substring(0, 4);
+                monthT = Integer.parseInt(abd.getArticleRegdate().substring(6, 8)); // 2018년 12월 05일
                 dayT = Integer.parseInt(abd.getArticleRegdate().substring(10, 12));
                 if (yearT.equals(year2)) {
                     month = "12";

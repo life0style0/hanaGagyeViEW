@@ -80,13 +80,13 @@
 				</div>
 				<div class="col-md-10 accountbook-chart hidden">
 					<div class="for-be-dropdowns">
-						<div class="be-drop-down">
+						<div class="be-drop-down chart-year">
 							<i class="icon-projects"></i>
 							<span class="be-dropdown-content chart-year-dropdown"></span>
 							<ul class="drop-down-list chart-year-list">
 							</ul>
 						</div>
-						<div class="be-drop-down hidden">
+						<div class="be-drop-down chart-month hidden">
 							<i class="icon-projects"></i>
 							<span class="be-dropdown-content chart-month-dropdown"></span>
 							<ul class="drop-down-list chart-month-list">

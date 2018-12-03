@@ -56,6 +56,7 @@ public class AccountBookController {
         ResponseEntity<List<AccountBookDTO>> rEntity = null;
         int yearTemp = Integer.parseInt(year);
         int monthTemp = Integer.parseInt(month);
+        log.info(monthTemp);
         try {
             psnStartDay = abs.getPsnMonthStart(principal.getName());
             if (psnStartDay >= 16 && psnStartDay <= 31) {
