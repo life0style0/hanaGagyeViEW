@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
 import kr.or.kosta.salmon.domain.MainArticleDTO;
 import kr.or.kosta.salmon.domain.MainChartDTO;
+import kr.or.kosta.salmon.domain.MainGroupCtFeeDTO;
 
 public interface MainService {
 	
@@ -17,5 +18,6 @@ public interface MainService {
 	
 	//차트정보
 	public MainChartDTO getChartTotalFee(String user_id);
+	public ArrayList<MainGroupCtFeeDTO> getChartCategoryFee(String user_id);
 	
 }

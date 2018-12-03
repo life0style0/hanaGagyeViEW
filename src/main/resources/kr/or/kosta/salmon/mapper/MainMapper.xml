@@ -25,7 +25,6 @@
 	</resultMap>
 	<resultMap type="kr.or.kosta.salmon.domain.MainChartDTO" id="ChartMap">
 		<result property="totalFee" column="totalFee"/>
-		<collection property="ctGroupFee" column="user_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.MainGroupCtFeeDTO" select="getChartCategoryFee"/>
 	</resultMap>
 	
 
@@ -104,7 +103,7 @@
         	WHERE 		article_id in (
         								SELECT 	article_id 
         								FROM 	articles 
-        								WHERE	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and user_id = 'heojae'))  
+        								WHERE	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and user_id = #{user_id}))  
         	GROUP BY	ctgry_name
         </select>
 	

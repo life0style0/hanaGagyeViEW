@@ -68,6 +68,37 @@ public class GaArticleServiceImpl implements GaArticleService{
 	public MainArticleDTO getEditArticle(int article_id) {
 		return gaArticleMapper.getEditArticle(article_id);
 	}
-	
+
+	@Override
+	public String getCtgryName(int ctgry_id) {
+		return gaArticleMapper.getCtgryName(ctgry_id);
+	}
+
+	@Override
+	public void updateArticle(ArticleDTO article) {
+		gaArticleMapper.updateArticle(article);
+	}
+
+	@Override
+	public void deleteImages(int article_id) {
+		gaArticleMapper.deleteImages(article_id);
+	}
+
+	@Override
+	public void deleteHash(int article_id) {
+		gaArticleMapper.deleteHash(article_id);
+		
+	}
+
+	@Override
+	public void deleteCtgry(int article_id) {
+		gaArticleMapper.deleteCtgry(article_id);
+		
+	}
+
+	@Override
+	public void deleteHashRefs(int article_id) {
+		gaArticleMapper.deleteHashRefs(article_id);
+	}
 	
 }
