@@ -118,7 +118,7 @@ font-family: 'Noto Sans KR', sans-serif;
 
 
 						<!-- 파일 업로드 -->
-						<!-- <div class="row row-space">
+						<div class="row row-space">
 							<div class="col-2">
 								<div class="input-group">
 									<input class="input--style-1"
@@ -126,7 +126,7 @@ font-family: 'Noto Sans KR', sans-serif;
 										name="user_image">
 								</div>
 							</div>
-						</div> -->
+						</div>
 						
 						<div class="col-2">
 							<div class="input-group">

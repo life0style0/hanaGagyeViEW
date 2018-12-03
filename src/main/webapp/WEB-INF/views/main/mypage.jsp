@@ -27,6 +27,7 @@
     <link href="/salmon/resources/sjh/css/card-sjh.css" rel="stylesheet" media="all">
     
     <link href="/salmon/resources/sjh/css/uploadImg-sjh.css" rel="stylesheet" media="all">
+      <link rel="stylesheet" href="/salmon/resources/sjh/css/main-sjh.css">
 		
 	</head>
 	<body >
@@ -49,11 +50,11 @@
 		
 	<!-- MAIN CONTENT -->
 	<div id="content-block">
-		<div class="head-bg">
-			<div class="head-bg-img"></div>
-			<div class="head-bg-content">
-				<h1>당신의 소중한 자산관리 하나에게 맡기세요</h1>
-				<p>이제부터 눈으로 가계부를 쓰세요</p>
+		<div class="head-bg-sjh" id="chartInfoBlock">
+	      <div class="head-bg-img"></div>
+	      <div class="head-bg-content font-sjh">
+	        <h1>당신의 소중한 자산관리 하나에게 맡기세요</h1>
+	        <p>이제부터 눈으로 가계부를 쓰세요</p>
 			</div>
 			</div>	
 		</div>
