@@ -1,0 +1,38 @@
+.padding-1-sjh{
+	    padding: 1.2rem;
+	  
+}
+
+.ctgry-badge{
+	display: inline-block;
+    min-width: 10px;
+/*     padding: 3px 7px; */
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+   color: black;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #F6CEE3;
+   border-radius: 3px;
+    margin: 2px;
+
+/* 
+ 	line-height: 40px;
+    display: inline-block;
+    padding: 0 25px;
+    cursor: pointer;
+    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+    color: black;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    font-size: 14px;
+    font-weight: 700;
+    width : 30%;
+    background-color: #F6CEE3;
+    border-radius: 3px;
+    margin: 2px; */
+}

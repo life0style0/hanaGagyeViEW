@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags" %>
 <header>
   <div class="container-fluid custom-container">
@@ -13,9 +14,8 @@
       </div>
       <div class="header-menu-block">
         <button class="cmn-toggle-switch cmn-toggle-switch__htx"><span></span></button>
-        <div>
-          <sec:authentication property="principal.username" />님 </div>
         <ul class="header-menu" id="one">
+          <li><sec:authentication property="principal.username" />님</li>
           <li><a href="/salmon/main/mypage">MYPAGE</a></li>
           <li><a href="/salmon/accountbook/calendar">AccountBook</a></li>
         </ul>

@@ -1,0 +1,24 @@
+
+ ul.categories li{
+ 	line-height: 40px;
+    display: inline-block;
+    padding: 0 25px;
+    cursor: pointer;
+    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
+    color: black;
+    -webkit-transition: all 0.4s ease;
+    -o-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+    font-size: 14px;
+    font-weight: 700;
+    width : 30%;
+    background-color: #F6CEE3;
+    border-radius: 3px;
+    margin: 2px;
+ }
+ 
+ ul.categories li.selected{
+ 	color: #FFF;
+ 	background-color: #FE2E9A;
+ }

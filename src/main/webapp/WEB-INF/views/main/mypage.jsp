@@ -21,24 +21,11 @@
 		<script src="https://code.highcharts.com/modules/export-data.js"></script>
 		
 		
-		<!-- 혜림 css 추가 -->
-		
-    <!-- Icons font CSS-->
-    <link href="/salmon/resources/SignUp/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-    <link href="/salmon/resources/SignUp/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+	<!-- 카테고리 선택 css (ul li) 송주현 -->
+    <link href="/salmon/resources/sjh/css/ul-list.css" rel="stylesheet" media="all">
     
-    <!-- Font special for pages-->
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet"> -->
-
-    <!-- Vendor CSS-->
-    <link href="/salmon/resources/SignUp/vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="/salmon/resources/SignUp/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
-
-    <!-- Main CSS-->
-    <link href="/salmon/resources/SignUp/css/main.css" rel="stylesheet" media="all">
-		<!-- 혜림 css 추가 -->
-		
+    <!--  div용  -->
+    <link href="/salmon/resources/sjh/css/card-sjh.css" rel="stylesheet" media="all">
 		
 	</head>
 	<body >
@@ -71,14 +58,9 @@
 		</div>
 		<div class="container-fluid cd-main-content custom-container">
 			<div class="row">
-				<div class="col-md-2 left-feild">
-							
-				</div>			
+				<div class="col-md-2 left-feild"></div>			
 				<div class="col-md-10 ">
-					<div class="for-be-dropdowns">
-						
-						
-					</div>				
+					<div class="for-be-dropdowns"></div>				
 				</div>
 			</div>
 		</div>		
@@ -92,10 +74,6 @@
 						</h3>
 						<div class="creative_filds_block">
 							<div class="ul">
-							<!-- 	<a data-filter=".category-1" class="filter">조회 </a>
-								<a data-filter=".category-2" class="filter">수정 </a>
-								<a data-filter=".category-3" class="filter">탈퇴 </a>
-								 -->
 								<a id="viewInfo-m" class="filter">조회 </a>
 								<a id="editProfile-m" class="filter">프로필 수정 </a>
 								<a id="editInfo-m" class="filter">개인정보 수정 </a>
@@ -118,7 +96,6 @@
 							</ul>
 						</div>
 					</div>
-					
 				</div>
 
 				<div class="col-md-10">
@@ -128,94 +105,105 @@
 					
 					<div> 
 					<%-- <p>user : <sec:authentication property="principal.user"/></p> --%>
-					<p> 닉네임 : <c:out value="${user.user_nickname}"/> </p>
-					<p> 아이디 : <sec:authentication property="principal.username"/></p>
-					<p> 이메일 : <c:out value="${user.user_email}"/> </p>
-					<p> 성별 : <c:out value="${user.user_gender}"/></p>
-					<p> 생일 : <c:out value="${user.user_birthday}"/> </p>
-					<p> 프로필사진 : <sec:authentication property="principal.user.user_image"/></p>
-					<p> 가입일 : <sec:authentication property="principal.user.user_regdate"/></p>
-					
-					<p> 권한 목록 : <sec:authentication property="principal.user.authList"/></p>  
-					
-					<p> 지역 : <c:out value="${userPsnsInfo.locationname}"/> </p>  
-					<p> 관심 카테고리1 : <c:out value="${userPsnsInfo.ctgry1Name}"/> </p>  
-					<p> 관심 카테고리2 : <c:out value="${userPsnsInfo.ctgry2Name}"/> </p>  
-					<p> 관심 카테고리3 : <c:out value="${userPsnsInfo.ctgry3Name}"/> </p>  
-					</div>
-				</div>
+						<div class="col-md-3 padding-1-sjh"> 닉네임 </div> 
+						<div class="col-md-9 padding-1-sjh"> <c:out value="${user.user_nickname}"/> </div>
+						<div class="col-md-3 padding-1-sjh"> 아이디 </div> 
+						<div class="col-md-9 padding-1-sjh"> <sec:authentication property="principal.username"/> </div>
+						<div class="col-md-3 padding-1-sjh"> 이메일 </div>
+						<div class="col-md-9 padding-1-sjh"> <c:out value="${user.user_email}"/>  </div>
+						<div class="col-md-3 padding-1-sjh"> 성별 </div> 
+						<div class="col-md-9 padding-1-sjh"> <c:out value="${user.user_gender}"/> </div>
+						<div class="col-md-3 padding-1-sjh"> 생일 </div> 
+						<div class="col-md-9 padding-1-sjh"> <c:out value="${user.user_birthday}"/>  </div>
+						<div class="col-md-3 padding-1-sjh"> 프로필사진 </div> 
+						<div class="col-md-9 padding-1-sjh"> <sec:authentication property="principal.user.user_image"/> </div>
+						<div class="col-md-3 padding-1-sjh"> 가입일 </div>
+						<div class="col-md-9 padding-1-sjh"> <sec:authentication property="principal.user.user_regdate"/> </div>
+						
+						<%-- <div> 권한 목록 : <sec:authentication property="principal.user.authList"/> </div> --%>
+						
+						<div class="col-md-3 padding-1-sjh"> 지역</div> 
+						<div class="col-md-9 padding-1-sjh"> <c:out value="${userPsnsInfo.locationname}"/> </div>
+						
+						<div class="col-md-3 padding-1-sjh"> 관심 카테고리 </div>
+							<c:choose>
+								<c:when test="${not empty userPsnsInfo.ctgryNames}">
+									<c:forEach var="ctgryName" items="${userPsnsInfo.ctgryNames}"
+										varStatus="status">
+										<div class="padding-1-sjh ctgry-badge"><c:out value="${ctgryName}" /> </div>
+									</c:forEach>
+								</c:when>
+								<c:otherwise></c:otherwise>
+							</c:choose>
+						</div> 
+					</div> <!-- viewInfo -->
+				
+				
 				<div id="editProfile">
-					<h2> 프로필 수정 </h2>
-					닉네임, 프로필 사진 수정
+					<div class="col-md-12"><h2> 프로필 수정 </h2></div>
+					<div class="col-md-12">닉네임, 프로필 사진 수정</div>
 					
-					<form role="form" id="editProfileForm" method="post" action="/salmon/main/mypage/editprofile">
+					<form role="form" id="editProfileForm" method="post" class="col-md-8"
+					action="/salmon/main/mypage/editprofile">
 						
 						<div>현재 닉네임 : <c:out value="${user.user_nickname}"/></div>
-						<div class="input-group">
-						수정할 닉네임 : 
-						<input id="user_nickname" name="user_nickname"  required="required"  type="text" placeholder="닉네임">
+						<div class="form-group">
+							<label for="user_nickname">수정할 닉네임 </label>
+							<input id="user_nickname" name="user_nickname"  required="required"  type="text" class="form-control" placeholder="닉네임">
 						</div>
 						<div id="valid_user_nickname">닉넴 체크</div>
-						프로필사진 
-						<input type="file" name="user_image">
-						
-						<input type="button" id="editProfileSubmitBtn" value="수정하기">
-						 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+						<div class="form-group">
+							<label for="user_image"> 프로필사진 </label> 
+							<input type="file" id="user_image" class="form-control-file"  name="user_image">
+						</div>
+						<input type="button" id="editProfileSubmitBtn" class="btn btn-info" value="수정하기">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					</form>
-
 				</div>
+				
+				
 				<div id="editInfo">
-					<h2> 내 정보 수정 </h2>
-					
-					비밀번호, 이메일, 생일, 지역 수정 
-						
-				 <form role="form" id="editInfoForm" method="post" action="/salmon/main/mypage/editmyinfo">
-					<input type="hidden" name="user_id" id="user_id" value="<sec:authentication property="principal.username"/>">
-					 <!-- 비밀번호 -->
-					<div class="row row-space">
-						<!-- 비밀번호 입력 -->
-						<div class="col-2">
-							<div class="input-group">
-								<input class="input--style-1" type="password" placeholder="비밀번호"
+					<div class="col-md-12"><h2> 내 정보 수정 </h2></div>
+					<div class="col-md-12">비밀번호, 이메일, 생일, 지역 수정 </div>
+
+						<form role="form" id="editInfoForm" method="post" class="col-md-8"
+							action="/salmon/main/mypage/editmyinfo">
+							<input type="hidden" name="user_id" id="user_id"
+								value="<sec:authentication property="principal.username"/>">
+							<!-- 비밀번호 입력 -->
+							<div class="form-group">
+								<input class="form-control" type="password" placeholder="비밀번호"
 									id="user_passwd" name="user_passwd">
 							</div>
 							<div id="valid_user_passwd">비밀번호 체크</div>
-						</div>
-						<!-- 비밀번호 입력 확인 -->
-						<div class="col-2">
-							<div class="input-group">
-								<input class="input--style-1" type="password"
+
+							<!-- 비밀번호 입력 확인 -->
+							<div class="form-group">
+								<input class="form-control" type="password"
 									placeholder="비밀번호 확인" id="same_user_passwd" name="same_passwd">
 							</div>
 							<div id="same_valid_user_passwd">비밀번호 체크</div>
-						</div>
-					</div>
 
-					<div class="row row-space">
-						<!-- 생년월일 -->
-						<div class="col-2">
-							<div class="input-group">
-								<input class="input--style-1 js-datepicker" type="text"
-									placeholder="생년월일" id="user_birthday"
-									name="user_birthday" required="required"
-									value="<c:out value="${user.user_birthday}"/>"> 
+							<!-- 생년월일 -->
+							<div class="form-group">
+								<input class="form-control" type="text" placeholder="생년월일"
+									id="user_birthday" name="user_birthday" required="required"
+									value="<c:out value="${user.user_birthday}"/>">
 							</div>
 							<div id="valid_user_birthday">생년월일 체크</div>
-						</div>
-						
-						<div class="col-2">
-							<div class="input-group">
-								<div class="">
-									<select id="genders" name="gender" required="required">
+
+							<div class="form-group">
+								<select id="genders" name="gender" class="form-control"
+									required="required">
 									<c:choose>
 										<c:when test="${user.user_gender eq 'F'}">
 											<option disabled="disabled">성별</option>
 											<option id="user_gender_M" value="M">Male</option>
-											<option id="user_gender_F" value="F"  selected="selected">Female</option>
+											<option id="user_gender_F" value="F" selected="selected">Female</option>
 										</c:when>
 										<c:when test="${user.user_gender eq 'M' }">
 											<option disabled="disabled">성별</option>
-											<option id="user_gender_M" value="M"  selected="selected">Male</option>
+											<option id="user_gender_M" value="M" selected="selected">Male</option>
 											<option id="user_gender_F" value="F">Female</option>
 										</c:when>
 										<c:otherwise>
@@ -224,58 +212,49 @@
 											<option id="user_gender_F" value="F">Female</option>
 										</c:otherwise>
 									</c:choose>
-									</select>
-									<input type="hidden" id="user_gender" name="user_gender">
-								</div>
+								</select> <input type="hidden" id="user_gender" name="user_gender">
 							</div>
-						</div>
-					</div>
 
-						<!-- 이메일 입력 -->
-					<div class="col-2">
-						<div class="input-group">
-							<input class="input--style-1" id="user_email" name="user_email"
-								type="text" placeholder="이메일  ex) hyerim123@gmail.com"
-								value="<c:out value="${user.user_email}"/>">
-						</div>
-						<div id="valid_user_email">이메일 체크</div>
-					</div>
-
-						<div class="col-2">
-							<div class="input-group">
-								<div><c:out value="${userPsnsInfo.locationname}"/></div>
-								<div class="">
-									<select id="locations" required="required">
-										<option disabled="disabled" selected="selected">지역</option>
-										<c:choose>
-									     	<c:when test="${not empty locations}">
-									     	<c:forEach var="location" items="${locations}" varStatus="status">
-										     	<option value="${location.location_id}">
-										     		<c:out value="${location.location_name}"/>
-										     	</option>
-									     	</c:forEach>
-									     	</c:when>
-									     	<c:otherwise></c:otherwise>
-									     </c:choose>
-									</select> 
-									<input type="hidden" id="location_id" name="location_id" 
-									>
-								</div>
+							<!-- 이메일 입력 -->
+							<div class="form-group">
+								<input class="form-control" id="user_email" name="user_email"
+									type="text" placeholder="이메일  ex) hyerim123@gmail.com"
+									value="<c:out value="${user.user_email}"/>">
+								<div id="valid_user_email">이메일 체크</div>
 							</div>
-						</div>
 
-						<input type="button" id="editInfoSubmitBtn" value="수정하기">
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-					</form>
+
+							<div class="form-group">
+								<select id="locations" class="form-control" required="required">
+									<option disabled="disabled" selected="selected">지역</option>
+									<c:choose>
+										<c:when test="${not empty locations}">
+											<c:forEach var="location" items="${locations}"
+												varStatus="status">
+												<option value="${location.location_id}">
+													<c:out value="${location.location_name}" />
+												</option>
+											</c:forEach>
+										</c:when>
+										<c:otherwise></c:otherwise>
+									</c:choose>
+								</select> <input type="hidden" id="location_id" name="location_id">
+							</div>
+
+							<input type="button" id="editInfoSubmitBtn" class="btn btn-info"
+								value="수정하기"> <input type="hidden"
+								name="${_csrf.parameterName}" value="${_csrf.token}">
+						</form>
 					</div>
+					
 
+				
 				<div id="editCats">
 					<h2>관심카테고리 수정</h2>
 
-
 				<form role="form" id="editCategoriesForm" method="post" action="/salmon/main/mypage/editCategories">
-					<div class="input-group">
-						<ul id="categories">
+					<div class="form-group">
+						<ul id="categories" class="categories">
 							<c:choose>
 						     	<c:when test="${not empty categories}">
 						     	<c:forEach var="category" items="${categories}" varStatus="status">
@@ -300,12 +279,14 @@
 						<input type="hidden" id="CTGRY_3" name="ctgry_3">
 					</div>
 					
-					<input type="button" id="editCategoriesSubmitBtn" value="수정하기">
+					<input type="button" id="editCategoriesSubmitBtn" class="btn btn-info" value="수정하기">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				</form>
 
 				</div><!-- 카테고리 수정 창 -->
-
+				
+				
+				
 				<div id="resign">
 					<h2> 탈퇴 </h2>
 					
@@ -313,9 +294,10 @@
 					<input type="password" name="resign-user_password" id="resign-user_password"> -->
 					<button type="button" class="btn btn-danger" name="resignOpenBtn"
                                 data-toggle="modal"  data-target="#resign-Modal">
-                                        모달 열기 버튼    
+                                        탈퇴하기   
                         </button>
 					
+				</div>
 				</div>
 				
 					<!-- <div id="container-mix"  class="row _post-container_">

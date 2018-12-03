@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <html>
@@ -28,6 +29,9 @@
 
     <!-- Main CSS-->
     <link href="../resources/SignUp/css/main.css" rel="stylesheet" media="all">
+    
+    <!-- 카테고리 선택 css (ul li) 송주현 -->
+    <link href="/salmon/resources/sjh/css/ul-list.css" rel="stylesheet" media="all">
 <style>
 .card-1 .card-body {
 font-family: 'Noto Sans KR', sans-serif;
@@ -150,7 +154,7 @@ font-family: 'Noto Sans KR', sans-serif;
 
 						<div class="input-group">
                         
-	                        <ul id="categories">
+	                        <ul id="categories" class="categories">
 	                         <c:choose>
 						     	<c:when test="${not empty categories}">
 						     	<c:forEach var="category" items="${categories}" varStatus="status">

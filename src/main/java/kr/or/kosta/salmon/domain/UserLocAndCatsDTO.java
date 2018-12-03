@@ -19,6 +19,7 @@ public class UserLocAndCatsDTO {
 	private String ctgry2Name;
 	private String ctgry3Name;
 	
+	private String[] ctgryNames;
 	
 	public void setCtgrNames() {
 		if(this.categories != null || this.categories.length() != 0) {
@@ -26,6 +27,12 @@ public class UserLocAndCatsDTO {
 			this.ctgry1Name= strs[0];
 			this.ctgry2Name= strs[1];
 			this.ctgry3Name= strs[2];
+		}
+	}
+	
+	public void setCtgryNamesArr() {
+		if(this.categories != null || this.categories.length() != 0) {
+			ctgryNames=categories.split(",");
 		}
 	}
 }

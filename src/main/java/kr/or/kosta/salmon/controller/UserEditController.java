@@ -47,6 +47,7 @@ public class UserEditController {
 		//카테고리,지역 정보 가져오기
 		UserLocAndCatsDTO userPsnsInfo= service.getUserSimplePsns(user.getUser_id());
 		userPsnsInfo.setCtgrNames();
+		userPsnsInfo.setCtgryNamesArr();
 		log.info(userPsnsInfo);
 		
 		List<CategoryDTO_sjh> categories= service.getAllCategories();

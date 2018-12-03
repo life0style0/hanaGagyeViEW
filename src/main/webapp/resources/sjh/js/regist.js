@@ -350,14 +350,14 @@ function initCategories(){
 function clickCategory(cat){
 	$(cat).removeClass('unselected');
 	$(cat).addClass('selected');
-	$(cat).css('color','red');
+	//$(cat).css('color','red');
 	categoryNum++;
 }
 
 function unclickCategory(cat){
 	$(cat).removeClass('selected');
 	$(cat).addClass('unselected');
-	$(cat).css('color','black');
+	//$(cat).css('color','black');
 	categoryNum--;
 }
 

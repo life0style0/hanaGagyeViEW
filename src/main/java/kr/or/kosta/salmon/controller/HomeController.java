@@ -24,6 +24,7 @@ public class HomeController {
 		
 		//return "login";
 		if(principal != null) {
+		//	log.info(" main home ");
 			return "main/home";
 		} else {
 			return "login";
