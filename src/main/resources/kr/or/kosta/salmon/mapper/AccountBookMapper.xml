@@ -37,26 +37,6 @@
                 <result property="psnMonthStart" column="psn_month_start"/>
         </resultMap>
 
-        <select id="getAccountBooksT" resultMap="AccountBooks">
-SELECT article_id,
-       ctgry_name,
-       article_scope,
-       to_char(article_regdate,'YYYY"년" MM"월" DD"일" AM HH"시" mm"분"') "article_regdate",
-       article_payment_type,
-       article_payment_fee,
-       article_title,
-       article_content,
-        article_ctgry_type
-FROM   articles 
-        join ctgry_values USING(article_id) 
-        join ctgries USING(ctgry_id)
-        join article_ctgries using(article_ctgry_id)
-WHERE  user_id = #{userId} 
-       AND To_char(article_regdate, 'YYYY-MM') = #{year}||'-'||#{month} 
-       AND article_ctgry_type IN ('income','spend')
-ORDER BY article_regdate
-        </select>
-
         <select id="getAccountBooks" resultMap="AccountBooks">
 SELECT article_id, 
        ctgry_name, 
