@@ -170,4 +170,23 @@ public class AccountBookController {
         }
         return "redirect:/accountbook/calendar";
     }
+
+    @GetMapping(value = "/share")
+    public @ResponseBody ResponseEntity<String> shareArticle(@RequestParam("articleId") String articleId,
+            Principal principal) {
+        log.info("shareArticle request...." + articleId);
+        ResponseEntity<String> rEntity = null;
+        try {
+            if (abs.shareArticle(articleId, principal.getName())) {
+                rEntity = new ResponseEntity<>("success", HttpStatus.OK);
+            } else {
+                rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return rEntity;
+        }
+        return rEntity;
+    }
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
-<div class="modal fade ggv-modal blog-list" id="ggv-modal" tabindex="-1" role="dialog" aria-labelledby="ggv-modal-label"
+<div class="modal fade article-modal blog-list" id="article-modal" tabindex="-1" role="dialog" aria-labelledby="article-modal-label"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -8,7 +8,7 @@
           <div class="row">
             <div class="col-xs-12 col-sm-6 h-404">
               <div class="post-preview">
-                <div class="ggv-carousel owl-carousel owl-theme">
+                <div class="article-carousel owl-carousel owl-theme">
                 </div>
               </div>
             </div>
@@ -17,6 +17,7 @@
                 <div class="post-category" id="article-ctgry-name">카테고리이름 ex) 음식, 영화</div>
                 <div class="post-label"><span id="article-money">285400원, </span><span id="article-title">메모 or 제목</span></div>
                 <div class="post-text" id="article-content">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure quaerat tempore tenetur repudiandae pariatur velit perspiciatis inventore, dicta ea reiciendis impedit voluptatibus cumque assumenda quod autem quia et quisquam doloremque?
                 </div>
                 <div class="author-post">
                   <img src="img/a1.png" alt="" class="ava-author" id="article-writer-photo">

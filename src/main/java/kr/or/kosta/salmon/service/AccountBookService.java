@@ -25,4 +25,6 @@ public interface AccountBookService {
     public PsnsDTO getPsns(String userId) throws Exception;
 
     public Boolean editPsns(PsnsDTO psnsDTO, String userId) throws Exception;
+
+    public Boolean shareArticle(String articleId, String userId) throws Exception;
 }

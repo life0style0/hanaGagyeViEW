@@ -108,4 +108,9 @@ public class AccountBookServiceImpl implements AccountBookService {
         return abm.editPsns(psnsDTO, userId);
     }
 
+    @Override
+    public Boolean shareArticle(String articleId, String userId) throws Exception {
+        return abm.shareArticle(articleId, userId);
+    }
+
 }

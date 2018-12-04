@@ -325,85 +325,58 @@ function checkCtgryType(type) {
  * 특정 가계부 정보를 클릭시 보여줄 값들을 세팅하는 함수
  * @param {*} data 가계부 정보
  */
-function setGgv2(data) {
-    if (!data) {
-        alert('data가 없습니다.');
-    }
-    console.log('data.imagePaths.length :', data.imagePaths.length);
-    if (data.imagePaths.length === 0) {
-        $('#ggv-modal .modal-dialog').addClass('ggv-no-image');
-    } else {
-        $('#ggv-modal .modal-dialog').removeClass('ggv-no-image');
-    }
-
-    for (let i = 0; i < data.imagePaths.length; i += 1) {
-        const imagePath = data.imagePaths[i];
-        // $('.ggv-carousel').append(`<img class="ggv-image center-block" src="/salmon/image?fileName=${imagePath}" alt="">`);
-        $('.ggv-carousel').append(`<img class="ggv-image center-block owl-lazy" data-src="/salmon/image?fileName=${imagePath}" alt="">`);
-    }
-    const scope = checkScope(data.articleScope);
-    $('#ggvScope').html(scope);
-    $('#ggvMoney').html(`${data.articlePaymentFee}원`);
-    $('#ggvCtgry').html(checkCtgryType(data.articleCtgryType));
-    $('#ggvPayType').html(data.articlePaymentType);
-    $('#ggvTitle').html(data.articleTitle);
-    $('#ggv-modal-label').html(data.articleRegdate);
-
-    let articleContentHTML = data.articleContent;
-    for (let i = 0; i < data.hashtags.length; i += 1) {
-        const hashtag = data.hashtags[i];
-        articleContentHTML += ` <a class="hashtag">${hashtag}</a>`;
-    }
-    $('#ggvContent').html(articleContentHTML);
-
-    if (scope === '나만') {
-        $('.ggv-footer').html(`<a href="/salmon/article/edit?article_id=${data.articleId}" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</a>
-        <button type="button" class="btn btn-info ggv-btn" id="ggv-share">공유하기</button>
-        <button type="button" class="btn btn-warning ggv-btn" data-dismiss="modal">닫기</button>`);
-    } else if (scope === '공개') {
-        $('.ggv-footer').html(`<a href="/salmon/article/edit?article_id=${data.articleId}" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</a>
-        <button type="button" class="btn btn-warning ggv-btn" data-dismiss="modal">닫기</button>`);
-    }
-}
-
 function setGgv(data) {
     if (!data) {
         alert('data가 없습니다.');
     }
     if (data.imagePaths.length === 0) {
-        $('#ggv-modal .modal-dialog').addClass('ggv-no-image');
+        $('#article-modal .modal-dialog').addClass('ggv-no-image');
     } else {
-        $('#ggv-modal .modal-dialog').removeClass('ggv-no-image');
+        $('#article-modal .modal-dialog').removeClass('ggv-no-image');
     }
 
     for (let i = 0; i < data.imagePaths.length; i += 1) {
         const imagePath = data.imagePaths[i];
-        $('.ggv-carousel').append(`<img class="ggv-image center-block owl-lazy" data-src="/salmon/image?fileName=${imagePath}" alt="">`);
+        $('.article-carousel').append(`<img class="article-image center-block owl-lazy" data-src="/salmon/image?fileName=${imagePath}" alt="">`);
     }
     const scope = checkScope(data.articleScope);
-    $('#ggvScope').html(scope);
-    $('#ggvMoney').html(`${data.articlePaymentFee}원`);
-    $('#ggvCtgry').html(checkCtgryType(data.articleCtgryType));
-    $('#ggvPayType').html(data.articlePaymentType);
-    $('#ggvTitle').html(`메모 : ${data.articleTitle}`);
-    $('#ggvRegdate').html(data.articleRegdate);
-    $('#userId').html($('#loginUserId').text());
-    $('#ggvCtgryName').html(data.ctgryName);
+    $('#article-ctgry-name').html(data.ctgryName);
+    if (!data.articleTitle) {
+        $('#article-money').html(`${data.articlePaymentFee}원`);
+        $('#article-title').html('');
+    } else {
+        $('#article-money').html(`${data.articlePaymentFee}원, `);
+        $('#article-title').html(`메모 : ${data.articleTitle}`);
+    }
 
     let articleContentHTML = data.articleContent;
     for (let i = 0; i < data.hashtags.length; i += 1) {
         const hashtag = data.hashtags[i];
         articleContentHTML += ` <a class="hashtag">${hashtag}</a>`;
     }
-    $('#ggvContent').html(`SNS : ${articleContentHTML}`);
+    $('#article-content').html(`${articleContentHTML}`);
+    $('#article-writer-nickname').html($('#loginUserId').text());
+    $('#article-regdate').html(data.articleRegdate);
+    $('#article-pay-type').html(`, ${data.articlePaymentType}`);
+    $('#article-ctgry').html(`(${checkCtgryType(data.articleCtgryType)})`);
+    $('#article-scope').html(`, ${scope}`);
+
 
     if (scope === '나만') {
-        $('.ggv-footer').html(`<a href="/salmon/article/edit?article_id=${data.articleId}" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</a>
-        <button type="button" class="btn btn-info ggv-btn" id="ggv-share">공유하기</button>
-        <button type="button" class="btn btn-warning ggv-btn" data-dismiss="modal">닫기</button>`);
+        $('#article-share-btn').removeClass('hidden');
+        $('#article-share-btn a').attr('data-articleId', data.articleId);
     } else if (scope === '공개') {
-        $('.ggv-footer').html(`<a href="/salmon/article/edit?article_id=${data.articleId}" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</a>
-        <button type="button" class="btn btn-warning ggv-btn" data-dismiss="modal">닫기</button>`);
+        $('#article-share-btn').addClass('hidden');
+        $('#article-share-btn a').attr('href', '');
+    }
+
+    // 내가 쓴 글일 때 수정하는 버튼 보여주기
+    if (true) {
+        // 내가 쓴 글이면 수정이 보여야 함.
+        $('#article-edit-btn').removeClass('hidden');
+        $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=${data.articleId}`);
+    } else {
+        $('#article-edit-btn').addClass('hidden');
     }
 }
 
@@ -411,8 +384,8 @@ function setGgv(data) {
  * 특정 가계부 정보를 초기화하는 메소드
  */
 function resetGgvModal() {
-    $('.ggv-carousel').trigger('destroy.owl.carousel');
-    $('.ggv-carousel').html('');
+    $('.article-carousel').trigger('destroy.owl.carousel');
+    $('.article-carousel').html('');
 }
 
 /**
@@ -433,7 +406,7 @@ function setGgvInfos(info) {
         success: function (data) {
             setGgv(data);
 
-            $('.ggv-carousel').owlCarousel({
+            $('.article-carousel').owlCarousel({
                 items: 1,
                 loop: true,
                 margin: 10,
@@ -446,7 +419,7 @@ function setGgvInfos(info) {
                 lazyLoad: true
             });
 
-            $('#ggv-modal').modal('show');
+            $('#article-modal').modal('show');
         }
     });
 }
@@ -609,7 +582,7 @@ $(function () {
         setGgvInfos(this);
     });
 
-    $('#ggv-modal').on('hidden.bs.modal', function () {
+    $('#article-modal').on('hidden.bs.modal', function () {
         resetGgvModal();
     });
 
@@ -701,6 +674,26 @@ $(function () {
         } else {
             $('input[name="psnMonthlyPayment"]').val(value);
         }
+    });
+
+    $('#article-share-btn a').on('click', function (e) {
+        e.preventDefault();
+        const articleId = $(this).attr('data-articleId');
+        $.ajax({
+            url: '/salmon/accountbook/share',
+            data: {
+                articleId: articleId
+            },
+            method: 'get',
+            success: function (result) {
+                if (result === 'success') {
+                    console.log('result :', result);
+                    $('#article-share-btn').addClass('hidden');
+                } else {
+                    console.log('result :', result);
+                }
+            }
+        });
     });
 
 });

@@ -160,4 +160,10 @@ UPDATE psns
 WHERE user_id = #{userId}
         </update>
 
+        <update id="shareArticle">
+UPDATE articles
+set article_scope = 'u'
+where article_id = #{articleId} and user_id = #{userId}
+        </update>
+
 </mapper>
