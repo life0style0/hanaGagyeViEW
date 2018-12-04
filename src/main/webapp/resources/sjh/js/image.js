@@ -111,9 +111,10 @@ function setCroppie(file) {
                 $('.user-image').modal('hide');
                 
                 myCroppie.croppie('result', {
-                    type: 'html',
-                    size: 'original'
-                }).then(function(html) {
+                    type: 'base64',
+                    size: 'viewport'
+                }).then(function (base64) {
+                    const html = `<div class="croppie-result" style="height: 300px;"><img src="${base64}"></div>`;
                     $('.dropzone').before(html).remove();
                 });
             });

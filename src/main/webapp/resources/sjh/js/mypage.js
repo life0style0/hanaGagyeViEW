@@ -22,10 +22,14 @@ $(function () {
 			editPrifileReady = true;
 			//폼 제출
 			isValidNickName();
+
+
+			//지원 추가
 			if (!uploadProfileImage()) {
 				console.log('프로필 이미지 업로드 실패');
 				return;
 			}
+			//지원 추가 끝 
 
 			console.log(editPrifileReady);
 			if (editPrifileReady == true) {
@@ -98,6 +102,7 @@ function init() {
 	$('#editProfile').css('display', 'none');
 	$('#editInfo').css('display', 'none');
 	$('#editCats').css('display', 'none');
+	$('#profileImage').attr('src', showProfileImage($('#profilePath').val()));
 }
 
 function eventRegist() {
@@ -437,11 +442,11 @@ function uploadProfileImage() {
 	const realData = block[1].split(",")[1]; // In this case "R0lGODlhPQBEAPeoAJosM...."
 
 	// Convert it to a blob to upload
-	const blob = b64toBlob(realData, contentType);
+	const profileImage = b64toBlob(realData, contentType);
 
 	// Create a FormData and append the file with "image" as parameter name
-	const formDataToUpload = new FormData();
-	formDataToUpload.append("profileImage", blob);
+	const formDataToUpload = new FormData($('#imageUploadForm'));
+	formDataToUpload.append("profileImage", profileImage);
 
 	const csrf = $('input[name="_csrf"]').val();
 
@@ -465,4 +470,8 @@ function uploadProfileImage() {
 		}
 	});
 	return result;
+}
+
+function showProfileImage(path) {
+	return encodeURI(path);
 }

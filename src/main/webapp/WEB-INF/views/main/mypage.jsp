@@ -111,7 +111,8 @@
 						<%-- <p>user : <sec:authentication property="principal.user"/></p> --%>
 						<div class="col-md-3 padding-1-sjh text-right "><strong>프로필사진</strong></div>
 						<div class="col-md-9 padding-1-sjh">
-							<img class="img-responsive" src="/salmon/image?fileName=${user.user_image}" alt="">
+							<input type="hidden" id="profilePath" value="/salmon/image?fileName=${user.user_image}">
+							<img class="img-responsive" id="profileImage" alt="">
 						</div>
 						<div class="col-md-3 padding-1-sjh text-right "><strong>닉네임</strong></div>
 						<div class="col-md-9 padding-1-sjh">
@@ -178,7 +179,8 @@
 						<div id="valid_user_nickname">닉넴 체크</div>
 						<div class="form-group">
 							<label for="user_image"> 프로필사진 </label>
-							<div id="filesUpload" class="dropzone"><a href="javascript:inputFileEvent()">Drag & Drop Files Here</a></button></div>
+							<div id="filesUpload" class="dropzone" style="height: 200px;line-height: 200px;font-size: 30px;"><a
+								 href="javascript:inputFileEvent()"><ins>Drag & Drop Files Here</ins></a></button></div>
 							<input type="file" name="inputF" id="inputFile" multiple style="display:none;">
 							<div class="modal fade user-image" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
@@ -197,6 +199,7 @@
 						<input type="button" id="editProfileSubmitBtn" class="btn btn-info ggv-btn" value="수정하기">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					</form>
+					<form id="imageUploadForm" class="hidden"></form>
 				</div>
 
 
