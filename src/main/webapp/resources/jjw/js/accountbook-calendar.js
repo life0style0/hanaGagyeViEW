@@ -321,11 +321,62 @@ function checkCtgryType(type) {
     }
 }
 
+function eventRegistOnShare(data, info) {
+    $('#article-share-btn a').on('click', function (e) {
+        data.articleScope = 'u';
+        const scopeT = checkScope(data.articleScope);
+        $(info).find('.ggv-scope').html(scopeT);
+        $('#article-scope').html(`, ${scopeT}`);
+        e.preventDefault();
+        const articleId = data.articleId;
+        $.ajax({
+            url: '/salmon/accountbook/share',
+            data: {
+                articleId: articleId
+            },
+            method: 'get',
+            success: function (result) {
+                if (result === 'success') {
+                    console.log('result :', result);
+                    $('#article-share-btn').addClass('hidden');
+                    $('#article-share-cancel-btn').removeClass('hidden');
+                } else {
+                    console.log('result :', result);
+                }
+            }
+        });
+    });
+    $('#article-share-cancel-btn a').on('click', function (e) {
+        data.articleScope = 'r';
+        const scopeT = checkScope(data.articleScope);
+        $(info).find('.ggv-scope').html(scopeT);
+        $('#article-scope').html(`, ${scopeT}`);
+        e.preventDefault();
+        const articleId = data.articleId;
+        $.ajax({
+            url: '/salmon/accountbook/sharecancel',
+            data: {
+                articleId: articleId
+            },
+            method: 'get',
+            success: function (result) {
+                if (result === 'success') {
+                    console.log('result :', result);
+                    $('#article-share-btn').removeClass('hidden');
+                    $('#article-share-cancel-btn').addClass('hidden');
+                } else {
+                    console.log('result :', result);
+                }
+            }
+        });
+    });
+}
+
 /**
  * 특정 가계부 정보를 클릭시 보여줄 값들을 세팅하는 함수
  * @param {*} data 가계부 정보
  */
-function setGgv(data) {
+function setGgv(data, info) {
     if (!data) {
         alert('data가 없습니다.');
     }
@@ -360,18 +411,20 @@ function setGgv(data) {
     $('#article-pay-type').html(`, ${data.articlePaymentType}`);
     $('#article-ctgry').html(`(${checkCtgryType(data.articleCtgryType)})`);
     $('#article-scope').html(`, ${scope}`);
-
-
-    if (scope === '나만') {
-        $('#article-share-btn').removeClass('hidden');
-        $('#article-share-btn a').attr('data-articleId', data.articleId);
-    } else if (scope === '공개') {
-        $('#article-share-btn').addClass('hidden');
-        $('#article-share-btn a').attr('href', '');
-    }
+    $('#article-share-btn a').attr('data-articleId', data.articleId);
 
     // 내가 쓴 글일 때 수정하는 버튼 보여주기
     if (true) {
+        if (scope === '나만') {
+            $('#article-share-btn').removeClass('hidden');
+            $('#article-share-cancel-btn').addClass('hidden');
+            eventRegistOnShare(data, info);
+        } else if (scope === '공개') {
+            $('#article-share-btn').addClass('hidden');
+            $('#article-share-cancel-btn').removeClass('hidden');
+            eventRegistOnShare(data, info);
+        }
+
         // 내가 쓴 글이면 수정이 보여야 함.
         $('#article-edit-btn').removeClass('hidden');
         $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=${data.articleId}`);
@@ -399,29 +452,56 @@ function setGgvInfos(info) {
         alert("error!");
         return;
     }
-    $.ajax({
-        url: `/salmon/accountbook/ggv/${articleId}`,
-        method: 'get',
-        dataType: 'json',
-        success: function (data) {
-            setGgv(data);
+    const month = $('.calendar.month').html().trim();
+    const year = $('.calendar.year').html().trim();
+    if (month && year && calendarData.has(`${month}-${year}`)) {
+        calendarData.get(`${month}-${year}`).some(function (value) {
+            if (value.articleId === Number(articleId)) {
+                setGgv(value, info);
 
-            $('.article-carousel').owlCarousel({
-                items: 1,
-                loop: true,
-                margin: 10,
-                nav: true,
-                navText: [
-                    "<i class='fa fa-angle-left'></i>",
-                    "<i class='fa fa-angle-right'></i>"
-                ],
-                dots: false,
-                lazyLoad: true
-            });
+                $('.article-carousel').owlCarousel({
+                    items: 1,
+                    loop: true,
+                    margin: 10,
+                    nav: true,
+                    navText: [
+                        "<i class='fa fa-angle-left'></i>",
+                        "<i class='fa fa-angle-right'></i>"
+                    ],
+                    dots: false,
+                    lazyLoad: true
+                });
 
-            $('#article-modal').modal('show');
-        }
-    });
+                $('#article-modal').modal('show');
+                return true;
+            }
+            return false;
+        });
+    } else {
+        $.ajax({
+            url: `/salmon/accountbook/ggv/${articleId}`,
+            method: 'get',
+            dataType: 'json',
+            success: function (data) {
+                setGgv(data);
+
+                $('.article-carousel').owlCarousel({
+                    items: 1,
+                    loop: true,
+                    margin: 10,
+                    nav: true,
+                    navText: [
+                        "<i class='fa fa-angle-left'></i>",
+                        "<i class='fa fa-angle-right'></i>"
+                    ],
+                    dots: false,
+                    lazyLoad: true
+                });
+
+                $('#article-modal').modal('show');
+            }
+        });
+    }
 }
 
 /**
@@ -674,26 +754,6 @@ $(function () {
         } else {
             $('input[name="psnMonthlyPayment"]').val(value);
         }
-    });
-
-    $('#article-share-btn a').on('click', function (e) {
-        e.preventDefault();
-        const articleId = $(this).attr('data-articleId');
-        $.ajax({
-            url: '/salmon/accountbook/share',
-            data: {
-                articleId: articleId
-            },
-            method: 'get',
-            success: function (result) {
-                if (result === 'success') {
-                    console.log('result :', result);
-                    $('#article-share-btn').addClass('hidden');
-                } else {
-                    console.log('result :', result);
-                }
-            }
-        });
     });
 
 });

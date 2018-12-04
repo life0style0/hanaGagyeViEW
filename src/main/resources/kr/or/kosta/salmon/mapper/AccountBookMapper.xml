@@ -153,16 +153,22 @@ WHERE  user_id = #{userId}
 
         <update id="editPsns">
 UPDATE psns
-    <set>
-      <if test="psns.psnMonthlyPayment != null">psn_monthly_payment=#{psns.psnMonthlyPayment},</if>
-      <if test="psns.psnMonthStart != null">psn_month_start=#{psns.psnMonthStart},</if>
-    </set>
+                <set>
+                        <if test="psns.psnMonthlyPayment != null">psn_monthly_payment=#{psns.psnMonthlyPayment},</if>
+                        <if test="psns.psnMonthStart != null">psn_month_start=#{psns.psnMonthStart},</if>
+                </set>
 WHERE user_id = #{userId}
         </update>
 
         <update id="shareArticle">
 UPDATE articles
 set article_scope = 'u'
+where article_id = #{articleId} and user_id = #{userId}
+        </update>
+
+        <update id="shareCancelArticle">
+UPDATE articles
+set article_scope = 'r'
 where article_id = #{articleId} and user_id = #{userId}
         </update>
 

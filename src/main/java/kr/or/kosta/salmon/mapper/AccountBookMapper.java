@@ -33,4 +33,7 @@ public interface AccountBookMapper {
 
         public Boolean shareArticle(@Param("articleId") String articleId, @Param("userId") String userId)
                         throws Exception;
+
+        public Boolean shareCancelArticle(@Param("articleId") String articleId, @Param("userId") String userId)
+                        throws Exception;
 }

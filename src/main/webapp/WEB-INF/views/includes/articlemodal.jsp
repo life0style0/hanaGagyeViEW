@@ -31,6 +31,7 @@
                   <span id="article-scraps-num"><i class="fa fa-eye"></i> 789</span>
                   <span id="article-comments-num"><i class="fa fa-comment-o"></i> 20</span>
                   <span id="article-share-btn"><a><i class="fa fa-share-alt"></i> 공유</a></span>
+                  <span id="article-share-cancel-btn"><a><i class="fa fa-ban"></i> 공유 취소</a></span>
                   <div class="article-right-btns">
                     <span id="article-edit-btn"><a><i class="fa fa-edit"></i> 수정</a></span>
                     <span id="article-exit-btn"><button data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i> 종료</button></span>

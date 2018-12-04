@@ -437,6 +437,9 @@ function isCorrectPassword() {
 
 function uploadProfileImage() {
 	const ImageURL = $('.croppie-result img').attr('src');
+	if (!ImageURL) {
+		return false;
+	}
 	const block = ImageURL.split(";");
 	const contentType = block[0].split(":")[1]; // In this case "image/gif"
 	const realData = block[1].split(",")[1]; // In this case "R0lGODlhPQBEAPeoAJosM...."

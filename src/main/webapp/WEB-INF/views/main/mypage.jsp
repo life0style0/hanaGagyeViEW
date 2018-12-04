@@ -165,10 +165,10 @@
 					<div class="col-md-12">
 						<h2> 프로필 수정 </h2>
 					</div>
-					<div class="col-md-12">닉네임, 프로필 사진 수정</div>
 
 					<form role="form" id="editProfileForm" method="post" class="col-md-8" action="/salmon/main/mypage/editprofile">
-
+						<div class="col-md-12" style="margin-bottom:20px;">닉네임, 프로필 사진 수정<input type="button" id="editProfileSubmitBtn"
+							 class="btn btn-info ggv-btn" value="수정하기"></div>
 						<div>현재 닉네임 :
 							<c:out value="${user.user_nickname}" />
 						</div>
@@ -179,8 +179,8 @@
 						<div id="valid_user_nickname">닉넴 체크</div>
 						<div class="form-group">
 							<label for="user_image"> 프로필사진 </label>
-							<div id="filesUpload" class="dropzone" style="height: 200px;line-height: 200px;font-size: 30px;"><a
-								 href="javascript:inputFileEvent()"><ins>Drag & Drop Files Here</ins></a></button></div>
+							<div id="filesUpload" class="dropzone" style="height: 200px;line-height: 200px;font-size: 30px;"><a href="javascript:inputFileEvent()"><ins>Drag
+										& Drop Files Here</ins></a></button></div>
 							<input type="file" name="inputF" id="inputFile" multiple style="display:none;">
 							<div class="modal fade user-image" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 								<div class="modal-dialog">
@@ -196,7 +196,6 @@
 								</div>
 							</div>
 						</div>
-						<input type="button" id="editProfileSubmitBtn" class="btn btn-info ggv-btn" value="수정하기">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					</form>
 					<form id="imageUploadForm" class="hidden"></form>
@@ -287,9 +286,8 @@
 
 
 				<div id="editCats">
-					<h2>관심카테고리 수정</h2>
-
 					<form role="form" id="editCategoriesForm" method="post" action="/salmon/main/mypage/editCategories">
+						<h2 style="margin-bottom:20px;">관심카테고리 수정<input type="button" id="editCategoriesSubmitBtn" class="btn btn-info ggv-btn" value="수정하기"></h2>
 						<div class="form-group">
 							<ul id="categories" class="categories">
 								<c:choose>
@@ -299,7 +297,7 @@
 												<c:when test="${category.ctgry_id < 0 }">
 												</c:when>
 												<c:otherwise>
-													<li name="category" class="unselected" id="category-li-1">
+													<li name="category" class="unselected square" id='category-li-<c:out value="${category.ctgry_id}" />'>
 														<div id="category-1" class="unselected" value='<c:out value="${category.ctgry_id}" />'>
 															<c:out value="${category.ctgry_name}" />
 														</div>
@@ -315,8 +313,6 @@
 							<input type="hidden" id="CTGRY_2" name="ctgry_2">
 							<input type="hidden" id="CTGRY_3" name="ctgry_3">
 						</div>
-
-						<input type="button" id="editCategoriesSubmitBtn" class="btn btn-info ggv-btn" value="수정하기">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					</form>
 

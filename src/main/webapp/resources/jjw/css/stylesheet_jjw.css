@@ -98,6 +98,9 @@
   cursor: pointer;
 }
 
+.ggv:hover {
+  cursor: pointer;
+}
 
 .calendar-spend .ggv .ggv-title {
   background: gainsboro;
@@ -429,14 +432,12 @@
 } */
 
 .article-image {
-  /* height: 404px !important; */
-  height: 444px !important;
+  height: 524px !important;
   width: auto !important;
 }
 
 .post-desc {
-  /* height: 380px; */
-  height: 420px;
+  height: 500px;
 }
 
 #article-modal .blog-post {
@@ -444,11 +445,11 @@
 }
 
 #article-modal .blog-post .h-404 {
-  height: 444px !important;
+  height: 524px !important;
 }
 
 #article-modal .blog-post .post-text {
-  height: 196px;
+  height: 276px;
   padding-bottom: unset;
   margin-right: -40px;
   overflow-y: auto;

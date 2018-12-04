@@ -189,4 +189,23 @@ public class AccountBookController {
         }
         return rEntity;
     }
+
+    @GetMapping(value = "/sharecancel")
+    public @ResponseBody ResponseEntity<String> shareCancelArticle(@RequestParam("articleId") String articleId,
+            Principal principal) {
+        log.info("shareCancelArticle request...." + articleId);
+        ResponseEntity<String> rEntity = null;
+        try {
+            if (abs.shareCancelArticle(articleId, principal.getName())) {
+                rEntity = new ResponseEntity<>("success", HttpStatus.OK);
+            } else {
+                rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return rEntity;
+        }
+        return rEntity;
+    }
 }

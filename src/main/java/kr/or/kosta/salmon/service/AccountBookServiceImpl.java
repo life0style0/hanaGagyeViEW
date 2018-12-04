@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import kr.or.kosta.salmon.domain.AccountBookDTO;
 import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.mapper.AccountBookMapper;
-import lombok.extern.log4j.Log4j;
 
 /**
  * AccountBookServiceImpl
@@ -111,6 +110,11 @@ public class AccountBookServiceImpl implements AccountBookService {
     @Override
     public Boolean shareArticle(String articleId, String userId) throws Exception {
         return abm.shareArticle(articleId, userId);
+    }
+
+    @Override
+    public Boolean shareCancelArticle(String articleId, String userId) throws Exception {
+        return abm.shareCancelArticle(articleId, userId);
     }
 
 }
