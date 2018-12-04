@@ -197,15 +197,15 @@
 		<div class="be-fixed-filter"></div>
 
 		<!-- Modal -->
-		<div class="modal fade" id="ggv-modal" tabindex="-1" role="dialog" aria-labelledby="ggv-modal-label" aria-hidden="true">
-			<div class="modal-dialog">
+		<div class="modal fade ggv-modal" id="ggv-modal" tabindex="-1" role="dialog" aria-labelledby="ggv-modal-label" aria-hidden="true">
+			<div class="modal-dialog ggv-no-image">
 				<div class="modal-content">
 					<div class="ggv-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<h4 class="modal-title" id="ggv-modal-label">2018년 11월 27일 오후 1시 12분</h4>
 					</div>
 					<div class="ggv-body">
-						<div class="col-md-6">
+						<div class="col-md-6 ggv-modal-image">
 							<div class="ggv-carousel owl-carousel owl-theme">
 							</div>
 						</div>
@@ -213,22 +213,21 @@
 							<div class="ggv-modal-content">
 								<div class="col-md-12 ggv-col-6">
 									<div class="col-xs-6 col-md-6 text-center ggv-content-left">공개 범위</div>
-									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvScope">나만</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvScope"></div>
 								</div>
 								<div class="col-md-12 ggv-col-6">
 									<div class="col-xs-6 col-md-6 text-center ggv-content-left">금액</div>
-									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvMoney">100,000원</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvMoney"></div>
 								</div>
 								<div class="col-md-12 ggv-col-6">
 									<div class="col-xs-6 col-md-6 text-center ggv-content-left">카테고리</div>
-									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvCtgry">음식</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvCtgry"></div>
 								</div>
 								<div class="col-md-12 ggv-col-6">
 									<div class="col-xs-6 col-md-6 text-center ggv-content-left">결제 방법</div>
-									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvPayType">카드</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvPayType"></div>
 								</div>
 								<div class="ggv-col-12" id="ggvTitle">
-									간단한 메모
 								</div>
 								<div class="ggv-col-12" id="ggvContent">
 								</div>

@@ -209,7 +209,7 @@
   top: -60px; */
 }
 
-#ggv-modal .modal-dialog {
+.ggv-modal .modal-dialog {
   width: 70%;
 }
 
@@ -225,7 +225,7 @@
 
 .ggv-body {
   margin-bottom: -50px;
-  height: 600px;
+  height: 1200px;
 }
 
 .ggv-footer {
@@ -412,4 +412,23 @@
   right: unset;
   width: inherit;
   background: inherit;
+}
+
+.modal-dialog.ggv-no-image {
+  width: 35%;
+}
+
+.ggv-no-image .ggv-body>.ggv-modal-image {
+  display: none;
+}
+
+.ggv-no-image .ggv-body>.col-md-6 {
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .ggv-body {
+    margin-bottom: -50px;
+    height: 600px;
+  }
 }

@@ -329,6 +329,13 @@ function setGgv(data) {
     if (!data) {
         alert('data가 없습니다.');
     }
+    console.log('data.imagePaths.length :', data.imagePaths.length);
+    if (data.imagePaths.length === 0) {
+        $('#ggv-modal .modal-dialog').addClass('ggv-no-image');
+    } else {
+        $('#ggv-modal .modal-dialog').removeClass('ggv-no-image');
+    }
+
     for (let i = 0; i < data.imagePaths.length; i += 1) {
         const imagePath = data.imagePaths[i];
         // $('.ggv-carousel').append(`<img class="ggv-image center-block" src="/salmon/image?fileName=${imagePath}" alt="">`);
