@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" %>%>
+<%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page session="false" %>
 <html>
@@ -31,6 +31,8 @@
     
     <!-- 카테고리 선택 css (ul li) 송주현 -->
     <link href="/salmon/resources/sjh/css/ul-list.css" rel="stylesheet" media="all">
+    <!-- 이미지 -->
+   <!--  <link href="/salmon/resources/sjh/css/uploadImg-sjh.css" rel="stylesheet" media="all"> -->
 <style>
 .card-1 .card-body {
 font-family: 'Noto Sans KR', sans-serif;
@@ -96,12 +98,7 @@ font-family: 'Noto Sans KR', sans-serif;
                             <div class="col-2">
                                 <div class="input-group">
                                     <div class="rs-select2 js-select-simple select--no-search">
-                                    <!-- 
-                                     <input type="radio" name="user_gender" id="user_gender_M" value="M">
-								      <label for="user_gender_M">Male</label>
-								      <input type="radio" name="user_gender" id="user_gender_F" value="F">
-								      <label for="user_gender_F">Female</label>
-                                     -->
+                                 
                                         <select id="genders" name="gender">
                                             <option disabled="disabled" selected="selected">성별</option>
                                             <option id="user_gender_M" value="M" >Male</option>
@@ -118,17 +115,19 @@ font-family: 'Noto Sans KR', sans-serif;
                           <input class="input--style-1"  id="user_email" name="user_email" required="required"  type="text" placeholder="이메일  ex) hyerim123@gmail.com">
                         </div>
                           <div id="valid_user_email">이메일 체크</div>
-                        
-                        
-                        <!-- 파일 업로드 -->
-                              <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <input class="input--style-1" class="btn btn--radius btn--green" type="file"id="user_image" name="user_image" >
-                                </div>
-                            </div>
-                        </div>
 
+
+						<!-- 파일 업로드 -->
+						<!-- <div class="row row-space">
+							<div class="col-2">
+								<div class="input-group">
+									<input class="input--style-1"
+										class="btn btn--radius btn--green" type="file" id="user_image"
+										name="user_image">
+								</div>
+							</div>
+						</div> -->
+						
 						<div class="col-2">
 							<div class="input-group">
 								<div class="rs-select2 js-select-simple select--no-search">
@@ -152,7 +151,7 @@ font-family: 'Noto Sans KR', sans-serif;
 						</div>
 
 						<div class="input-group">
-                        
+                        <div>관심 카테고리 설정 (최대 3개)</div>
 	                        <ul id="categories" class="categories">
 	                         <c:choose>
 						     	<c:when test="${not empty categories}">
@@ -210,6 +209,7 @@ font-family: 'Noto Sans KR', sans-serif;
  <!-- 송주현 스크립트 추가 -->
     <script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="/salmon/resources/sjh/js/regist.js"></script>
+   <!--  <script type="text/javascript" src="/salmon/resources/sjh/js/uploadImg.js"></script> -->
    
    
  <!--  혜림 스크립트 만지는 중  -->  

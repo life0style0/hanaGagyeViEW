@@ -1,27 +1,36 @@
-$(function(){ 
-	
+$(function () {
+
 	init();
 	eventRegist();
 	categoryNum = 0;
-	
-	if($('#editProfileForm') != null){
-		$('#user_nickname').on('change',isValidNickName);
+
+	if ($('#editProfileForm') != null) {
+		$('#user_nickname').on('change', isValidNickName);
 	}
-	
-	if($('#editInfoForm') != null){
-	//	$('#user_nickname').on('change',isValidNickName);
-		$('#user_passwd').on('change',isValidPasswd);
-		$('#same_user_passwd').on('change',isSamePasswd);
-		$('#user_email').on('change',isValidEmail);
-	//	$('#locations').on('change',getLocationInfo);
+
+	if ($('#editInfoForm') != null) {
+		//	$('#user_nickname').on('change',isValidNickName);
+		$('#user_passwd').on('change', isValidPasswd);
+		$('#same_user_passwd').on('change', isSamePasswd);
+		$('#user_email').on('change', isValidEmail);
+		//	$('#locations').on('change',getLocationInfo);
 	}
-	
+
 	//프로필 수정 (닉네임,사진)
 	if (document.getElementById('editProfileForm') != null) { //프로필 변경 화면
 		document.getElementById("editProfileSubmitBtn").onclick = function () {
 			editPrifileReady = true;
 			//폼 제출
-			isValidNickName(); 
+			isValidNickName();
+
+
+			//지원 추가
+			if (!uploadProfileImage()) {
+				console.log('프로필 이미지 업로드 실패');
+				return;
+			}
+			//지원 추가 끝 
+
 			console.log(editPrifileReady);
 			if (editPrifileReady == true) {
 				console.log('submit editprofile');
@@ -29,7 +38,7 @@ $(function(){
 			}
 		}
 	}
-	
+
 	//개인정보 수정(비밀번호,이메일,지역,성별,나이)
 	if (document.getElementById('editInfoForm') != null) { //개인정보 변경 화면 경우
 		document.getElementById("editInfoSubmitBtn").onclick = function () {
@@ -37,11 +46,11 @@ $(function(){
 			//폼 제출
 			getLocationInfo();
 			getGenderInfo();
-			isValidAge(); 
-			isValidEmail(); 
-			isSamePasswd(); 
-			isValidPasswd(); 
-			
+			isValidAge();
+			isValidEmail();
+			isSamePasswd();
+			isValidPasswd();
+
 			console.log(editInfoReady);
 			if (editInfoReady == true) {
 				console.log('submit editInfo');
@@ -49,7 +58,7 @@ $(function(){
 			}
 		}
 	}
-	
+
 	//관심카테고리 수정
 	if (document.getElementById('editCategoriesForm') != null) { //카테고리 변경 경우
 		document.getElementById("editCategoriesSubmitBtn").onclick = function () {
@@ -63,13 +72,13 @@ $(function(){
 			}
 		}
 	}
-	
+
 	//탈퇴
 	if (document.getElementById('resignForm') != null) { //카테고리 변경 경우
 		document.getElementById("resignSubmitBtn").onclick = function () {
 			resignReady = true;
 			//폼 제출
-		//	isCorrectPassword();
+			//	isCorrectPassword();
 			console.log(resignReady);
 			if (resignReady == true) {
 				console.log('submit resign');
@@ -85,66 +94,67 @@ function init() {
 	$('#same_valid_user_passwd').css('visibility', 'hidden');
 	$('#valid_user_email').css('visibility', 'hidden');
 	$('#valid_user_birthday').css('visibility', 'hidden');
-	
+
 	initCategories();
-	
-	$('#viewInfo').css('display','block');
-	$('#resign').css('display','none');
-	$('#editProfile').css('display','none');
-	$('#editInfo').css('display','none');
-	$('#editCats').css('display','none');
+
+	$('#viewInfo').css('display', 'block');
+	$('#resign').css('display', 'none');
+	$('#editProfile').css('display', 'none');
+	$('#editInfo').css('display', 'none');
+	$('#editCats').css('display', 'none');
+	$('#profileImage').attr('src', showProfileImage($('#profilePath').val()));
 }
 
-function eventRegist(){
-	
-	if($('#viewInfo-m') != null){
-		$('#viewInfo-m').on('click',function(){
-			$('#editInfo').css('display','none');
-			$('#resign').css('display','none');
-			$('#editProfile').css('display','none');
-			$('#editCats').css('display','none');
-			$('#viewInfo').css('display','block');
+function eventRegist() {
+
+	if ($('#viewInfo-m') != null) {
+		$('#viewInfo-m').on('click', function () {
+			$('#editInfo').css('display', 'none');
+			$('#resign').css('display', 'none');
+			$('#editProfile').css('display', 'none');
+			$('#editCats').css('display', 'none');
+			$('#viewInfo').css('display', 'block');
 		})
 	}
-	if($('#editProfile-m') != null){
-		$('#editProfile-m').on('click',function(){
+	if ($('#editProfile-m') != null) {
+		$('#editProfile-m').on('click', function () {
 			$('#valid_user_nickname').css('visibility', 'hidden');
-			$('#viewInfo').css('display','none');
-			$('#resign').css('display','none');
-			$('#editInfo').css('display','none');
-			$('#editCats').css('display','none');
-			$('#editProfile').css('display','block');
+			$('#viewInfo').css('display', 'none');
+			$('#resign').css('display', 'none');
+			$('#editInfo').css('display', 'none');
+			$('#editCats').css('display', 'none');
+			$('#editProfile').css('display', 'block');
 		})
 	}
-	if($('#editCats-m') != null){
-		$('#editCats-m').on('click',function(){
-		//	alert('카테고리수정');
-			$('#viewInfo').css('display','none');
-			$('#resign').css('display','none');
-			$('#editProfile').css('display','none');
-			$('#editInfo').css('display','none');
-			$('#editCats').css('display','block');
+	if ($('#editCats-m') != null) {
+		$('#editCats-m').on('click', function () {
+			//	alert('카테고리수정');
+			$('#viewInfo').css('display', 'none');
+			$('#resign').css('display', 'none');
+			$('#editProfile').css('display', 'none');
+			$('#editInfo').css('display', 'none');
+			$('#editCats').css('display', 'block');
 		})
 	}
-	if($('#editInfo-m') != null){
-		$('#editInfo-m').on('click',function(){
-			$('#viewInfo').css('display','none');
-			$('#resign').css('display','none');
-			$('#editProfile').css('display','none');
-			$('#editCats').css('display','none');
-			$('#editInfo').css('display','block');
+	if ($('#editInfo-m') != null) {
+		$('#editInfo-m').on('click', function () {
+			$('#viewInfo').css('display', 'none');
+			$('#resign').css('display', 'none');
+			$('#editProfile').css('display', 'none');
+			$('#editCats').css('display', 'none');
+			$('#editInfo').css('display', 'block');
 		})
 	}
-	if($('#resign-m') != null){
-		$('#resign-m').on('click',function(){
-			$('#editInfo').css('display','none');
-			$('#viewInfo').css('display','none');
-			$('#editProfile').css('display','none');
-			$('#editCats').css('display','none');
-			$('#resign').css('display','block');
+	if ($('#resign-m') != null) {
+		$('#resign-m').on('click', function () {
+			$('#editInfo').css('display', 'none');
+			$('#viewInfo').css('display', 'none');
+			$('#editProfile').css('display', 'none');
+			$('#editCats').css('display', 'none');
+			$('#resign').css('display', 'block');
 		})
 	}
-	
+
 }
 
 
@@ -166,16 +176,16 @@ function isValidNickName() {
 		editPrifileReady = false && editPrifileReady;
 		return;
 	}
-	
+
 	$.ajax({
 		data: user_nickname,
 		type: "get",
-		 async: false,
-		url: "/salmon/regist/nicknameValidator/"+user_nickname,
+		async: false,
+		url: "/salmon/regist/nicknameValidator/" + user_nickname,
 
 		success: function (data) {
 			data = data.trim();
-			
+
 			if (data === 'newNickname') { //없는 닉네임
 				$('#valid_user_nickname').html('사용가능한 닉네임 입니다')
 				$('#valid_user_nickname').css('visibility', 'visible');
@@ -194,7 +204,7 @@ function isValidNickName() {
 		}
 
 	});
-	
+
 }
 
 //이메일 중복
@@ -207,15 +217,15 @@ function isValidEmail() {
 		editInfoReady = false && editInfoReady;
 		return;
 	}
-	
-	var user_id= $('#editInfoForm #user_id').val();
+
+	var user_id = $('#editInfoForm #user_id').val();
 	user_email = $('#user_email').serialize();
 	console.log(user_email);
 	$.ajax({
 		data: user_email,
 		type: 'get',
-		 async: false,
-		url: '/salmon/main/mypage/emailValidator/'+user_id+'/',
+		async: false,
+		url: '/salmon/main/mypage/emailValidator/' + user_id + '/',
 
 		success: function (data) {
 			data = data.trim();
@@ -226,11 +236,11 @@ function isValidEmail() {
 				editInfoReady = true && editInfoReady;
 				console.log(editInfoReady);
 
-			} else if (data === 'myEmail'){ //기존 내 이메일
+			} else if (data === 'myEmail') { //기존 내 이메일
 				$('#valid_user_email').css('visibility', 'hidden');
 				editInfoReady = true && editInfoReady;
 				console.log(editInfoReady);
-				
+
 			} else if (data === 'usedEmail') { //존재하는 이메일
 				$('#valid_user_email').html('이미 사용중인 이메일 입니다');
 				$('#valid_user_email').css('visibility', 'visible');
@@ -238,7 +248,7 @@ function isValidEmail() {
 				console.log(editInfoReady);
 			}
 		},
-		error: function (xhr,status,er) {
+		error: function (xhr, status, er) {
 			alert('데이터 수신 에러');
 			console.log(user_email);
 			console.log(xhr);
@@ -250,7 +260,7 @@ function isValidEmail() {
 
 //비밀번호 유효성 검사
 function isValidPasswd() {
-	var passwd =  $('#user_passwd').val();
+	var passwd = $('#user_passwd').val();
 
 	if (passwd.length > 30) {
 		//너무 긴 비밀번호
@@ -298,129 +308,170 @@ function isValidAge() {
 	if (!reg.test(age)) {
 		//유효하지 않은 나이
 		$('#valid_user_birthday').html('생년월일 여섯자리를 입력하세요');
-		$('#valid_user_birthday').css('visibility','visible');
-		
+		$('#valid_user_birthday').css('visibility', 'visible');
+
 		editInfoReady = false && editInfoReady;
 	} else {
-		$('#valid_user_birthday').css('visibility','hidden');
+		$('#valid_user_birthday').css('visibility', 'hidden');
 		document.getElementById('valid_user_birthday').style.display = 'none';
 		editInfoReady = true && editInfoReady;
 	}
 }
 
-function getLocationInfo(){
-	if($('#locations option:selected').is('[disabled]')){
-	//	alert('hi');
+function getLocationInfo() {
+	if ($('#locations option:selected').is('[disabled]')) {
+		//	alert('hi');
 		editInfoReady = false && editInfoReady;
 		return;
-	} 
-	var userLocation=$('#locations option:selected').val();
-	$('#location_id').attr('value',userLocation);
+	}
+	var userLocation = $('#locations option:selected').val();
+	$('#location_id').attr('value', userLocation);
 	console.log($('#location_id').attr('value'));
 }
 
 
-function getGenderInfo(){
-	if($('#genders option:selected').is('[disabled]')){
-	//	alert('hi');
+function getGenderInfo() {
+	if ($('#genders option:selected').is('[disabled]')) {
+		//	alert('hi');
 		editInfoReady = false && editInfoReady;
 		return;
-	} 
-	var userGender=$('#genders option:selected').val();
-	$('#user_gender').attr('value',userGender);
+	}
+	var userGender = $('#genders option:selected').val();
+	$('#user_gender').attr('value', userGender);
 	console.log($('#user_gender').attr('value'));
 
 }
 
 
 //카테고리 선택 이벤트
-function initCategories(){
-	if( $('[name="category"]')!= null ){
+function initCategories() {
+	if ($('[name="category"]') != null) {
 		$('#CTGRY_1').removeAttr('value');
 		$('#CTGRY_2').removeAttr('value');
 		$('#CTGRY_3').removeAttr('value');
-		
-		var cats= $('[name="category"]');
-		cats.each(function(i,cat){
-		//	unclickCategory(cat);	
-			
-			$(cat).on('click',function(e){
+
+		var cats = $('[name="category"]');
+		cats.each(function (i, cat) {
+			//	unclickCategory(cat);	
+
+			$(cat).on('click', function (e) {
 				//alert('category'+i);
-				var selectedVal=$(cat).find('div').attr('value');
-				if($(cat).hasClass('unselected')){
+				var selectedVal = $(cat).find('div').attr('value');
+				if ($(cat).hasClass('unselected')) {
 					//선택
-					
-					if(categoryNum ==0){
+
+					if (categoryNum == 0) {
 						clickCategory(cat);
-						$('#CTGRY_1').attr('value',selectedVal);
-					}else if(categoryNum==1){
+						$('#CTGRY_1').attr('value', selectedVal);
+					} else if (categoryNum == 1) {
 						clickCategory(cat);
-						$('#CTGRY_2').attr('value',selectedVal);
-					}else if(categoryNum==2){
+						$('#CTGRY_2').attr('value', selectedVal);
+					} else if (categoryNum == 2) {
 						clickCategory(cat);
-						$('#CTGRY_3').attr('value',selectedVal);
-					}else{
+						$('#CTGRY_3').attr('value', selectedVal);
+					} else {
 						//4개 이상 선택 불가
 						//categoryNum이 3일때부터 가만히있기
 					}
-					
-				} else if($(cat).hasClass('selected')){
+
+				} else if ($(cat).hasClass('selected')) {
 					//선택해제
-					
-					if(categoryNum ==1){
+
+					if (categoryNum == 1) {
 						unclickCategory(cat);
 						$('#CTGRY_1').removeAttr('value');
-						$('#CTGRY_1').attr('value',-1);
+						$('#CTGRY_1').attr('value', -1);
 						//다 뺴면 categoryNum = 0 됨
-					}else if(categoryNum==2){
+					} else if (categoryNum == 2) {
 						unclickCategory(cat);
 						$('#CTGRY_2').removeAttr('value');
-						$('#CTGRY_2').attr('value',-1);
-					}else if(categoryNum==3){
+						$('#CTGRY_2').attr('value', -1);
+					} else if (categoryNum == 3) {
 						unclickCategory(cat);
 						$('#CTGRY_3').removeAttr('value');
-						$('#CTGRY_3').attr('value',-1);
-					}else{
-						
+						$('#CTGRY_3').attr('value', -1);
+					} else {
+
 					}
 				}
-				
+
 			});
 		});
 	}
 }
 
-function clickCategory(cat){
+function clickCategory(cat) {
 	$(cat).removeClass('unselected');
 	$(cat).addClass('selected');
-//	$(cat).css('color','red');
+	//	$(cat).css('color','red');
 	categoryNum++;
 }
 
-function unclickCategory(cat){
+function unclickCategory(cat) {
 	$(cat).removeClass('selected');
 	$(cat).addClass('unselected');
-//	$(cat).css('color','black');
+	//	$(cat).css('color','black');
 	categoryNum--;
 }
 
 //카테고리 유효성
-function isValidCategory(){
-	if( $('[name="category"]')!= null ){
-		if(categoryNum <1){
+function isValidCategory() {
+	if ($('[name="category"]') != null) {
+		if (categoryNum < 1) {
 			categoryReady = false && categoryReady;
 			return;
-		} else{
+		} else {
 			categoryReady = true && categoryReady;
 		}
-	
+
 	}
 }
 
 //탈퇴시 비밀번호검사
-function isCorrectPassword(){
-	if($('#resign') != null){
-		var inputPW=$('#resign-user_password').val();
-		
+function isCorrectPassword() {
+	if ($('#resign') != null) {
+		var inputPW = $('#resign-user_password').val();
+
 	}
+}
+
+function uploadProfileImage() {
+	const ImageURL = $('.croppie-result img').attr('src');
+	const block = ImageURL.split(";");
+	const contentType = block[0].split(":")[1]; // In this case "image/gif"
+	const realData = block[1].split(",")[1]; // In this case "R0lGODlhPQBEAPeoAJosM...."
+
+	// Convert it to a blob to upload
+	const profileImage = b64toBlob(realData, contentType);
+
+	// Create a FormData and append the file with "image" as parameter name
+	const formDataToUpload = new FormData($('#imageUploadForm'));
+	formDataToUpload.append("profileImage", profileImage);
+
+	const csrf = $('input[name="_csrf"]').val();
+
+	let result = false;
+	$.ajax({
+		async: false,
+		url: `/salmon/image/profileimage?_csrf=${csrf}`,
+		data: formDataToUpload, // Add as Data the Previously create formData
+		type: "POST",
+		contentType: false,
+		processData: false,
+		cache: false,
+		error: function (err) {
+			console.error(err);
+		},
+		success: function (res) {
+			result = res === 'success' ? true : false;
+		},
+		complete: function () {
+			console.log("Request finished.");
+		}
+	});
+	return result;
+}
+
+function showProfileImage(path) {
+	return encodeURI(path);
 }

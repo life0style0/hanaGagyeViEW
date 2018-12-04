@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags" %>
-<header>
+<header class="bgcolor-sjh">
   <div class="container-fluid custom-container">
     <div class="row no_row row-header">
       <div class="brand-be">

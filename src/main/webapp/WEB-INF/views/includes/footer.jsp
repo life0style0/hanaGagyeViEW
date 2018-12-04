@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
-<footer>
+<footer class="bgcolor-sjh">
   <div class="footer_slider">
     <div class="swiper-container" data-autoplay="0" data-loop="1" data-speed="500" data-center="0" data-slides-per-view="responsive"
       data-xs-slides="4" data-sm-slides="8" data-md-slides="14" data-lg-slides="19" data-add-slides="19">
@@ -129,7 +129,7 @@
   </div>
   <div class="footer-main">
     <div class="container-fluid custom-container">
-      <div class="row">
+<!--       <div class="row">
         <div class="col-md-3 col-xl-4">
           <div class="footer-block">
             <h1 class="footer-title">About Us</h1>
@@ -215,7 +215,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="footer-bottom">

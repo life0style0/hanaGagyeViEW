@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="/salmon/resources/template/style/jquery-ui.css">
   <link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
   <link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
+  <link rel="stylesheet" href="/salmon/resources/sjh/css/main-sjh.css">
 
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -54,9 +55,9 @@
 
   <!-- MAIN CONTENT -->
   <div id="content-block">
-    <div class="head-bg" id="chartInfoBlock">
+    <div class="head-bg-sjh" id="chartInfoBlock">
       <div class="head-bg-img"></div>
-      <div class="head-bg-content">
+      <div class="head-bg-content font-sjh">
         <h1>당신의 소중한 자산관리 하나에게 맡기세요</h1>
         <p>이제부터 눈으로 가계부를 쓰세요</p>
 
