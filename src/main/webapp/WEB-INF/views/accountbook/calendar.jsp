@@ -147,8 +147,8 @@
 					<div class="col-md-10 accountbook-calendar" id="accountbook-calendar">
 						<div>
 							<div class="edit-psn"><button type="button" class="btn btn-warning my-btn btn-edit-psn">가계부 설정</button></div>
-							<div class="new-ggv"><a href="/salmon/article/register" class="btn btn-primary my-btn">새 가계부글 올리기</a><button type="button"
-								 class="btn btn-info my-btn">월 공유</button></div>
+							<div class="new-ggv"><a href="/salmon/article/register" class="btn btn-primary my-btn">새 가계부글 올리기</a><button
+								 type="button" class="btn btn-info my-btn">월 공유</button></div>
 						</div>
 						<div class="calendar-head text-center"><span><i class="fa fa-chevron-left calendar-left"></i></span><span class="calendar month"></span><input
 							 type="text" id="datePic" class="invisible datepic"><span class="calendar year"></span><span><i class="fa fa-chevron-right calendar-right"></i></span></div>
@@ -197,7 +197,8 @@
 		<div class="be-fixed-filter"></div>
 
 		<!-- Modal -->
-		<div class="modal fade ggv-modal" id="ggv-modal" tabindex="-1" role="dialog" aria-labelledby="ggv-modal-label" aria-hidden="true">
+		<div class="modal fade ggv-modal" id="ggv-modal2" tabindex="-1" role="dialog" aria-labelledby="ggv-modal-label"
+		 aria-hidden="true">
 			<div class="modal-dialog ggv-no-image">
 				<div class="modal-content">
 					<div class="ggv-header">
@@ -239,6 +240,49 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Modal -->
+		<div class="modal fade ggv-modal blog-list" id="ggv-modal" tabindex="-1" role="dialog" aria-labelledby="ggv-modal-label"
+		 aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="blog-post">
+							<div class="row">
+								<div class="col-xs-12 col-sm-6 h-404">
+									<div class="post-preview">
+										<div class="ggv-carousel owl-carousel owl-theme">
+										</div>
+									</div>
+								</div>
+								<div class="col-xs-12 col-sm-6 h-404">
+									<div class="post-desc">
+										<div class="post-category">Art, Street, Drawing</div>
+										<a class="post-label" href="blog-detail.html">Street Art on the London big wall</a>
+										<div class="post-text">Morbi efficitur feugiat erat a efficitur. Donec interdum, nunc ac elementum auctor,
+											dui
+											nisl placerat odio, eget sagittis sem neque venenatis libero. Vestibulum pharetra sollicitudin urna nec
+											eleifend.Suspendisse id augue ut nunc vestibulum euismod. Donec a libero ut lectus ullamcorper rhoncus vel
+											quis
+											erat. Nunc ornare sed dolor sed mattis.</div>
+										<div class="author-post">
+											<img src="img/a1.png" alt="" class="ava-author">
+											<span>by <a href="blog-detail-2.html">Hoang Nguyen</a>, April 23, 2015</span>
+										</div>
+										<div class="info-block">
+											<span><i class="fa fa-thumbs-o-up"></i> 360</span>
+											<span><i class="fa fa-eye"></i> 789</span>
+											<span><i class="fa fa-comment-o"></i> 20</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 		<div class="modal fade" id="psn-modal" tabindex="-1" role="dialog" aria-labelledby="psn-modal-label" aria-hidden="true">
 			<div class="modal-dialog">
