@@ -325,7 +325,7 @@ function checkCtgryType(type) {
  * 특정 가계부 정보를 클릭시 보여줄 값들을 세팅하는 함수
  * @param {*} data 가계부 정보
  */
-function setGgv(data) {
+function setGgv2(data) {
     if (!data) {
         alert('data가 없습니다.');
     }
@@ -355,6 +355,47 @@ function setGgv(data) {
         articleContentHTML += ` <a class="hashtag">${hashtag}</a>`;
     }
     $('#ggvContent').html(articleContentHTML);
+
+    if (scope === '나만') {
+        $('.ggv-footer').html(`<a href="/salmon/article/edit?article_id=${data.articleId}" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</a>
+        <button type="button" class="btn btn-info ggv-btn" id="ggv-share">공유하기</button>
+        <button type="button" class="btn btn-warning ggv-btn" data-dismiss="modal">닫기</button>`);
+    } else if (scope === '공개') {
+        $('.ggv-footer').html(`<a href="/salmon/article/edit?article_id=${data.articleId}" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</a>
+        <button type="button" class="btn btn-warning ggv-btn" data-dismiss="modal">닫기</button>`);
+    }
+}
+
+function setGgv(data) {
+    if (!data) {
+        alert('data가 없습니다.');
+    }
+    if (data.imagePaths.length === 0) {
+        $('#ggv-modal .modal-dialog').addClass('ggv-no-image');
+    } else {
+        $('#ggv-modal .modal-dialog').removeClass('ggv-no-image');
+    }
+
+    for (let i = 0; i < data.imagePaths.length; i += 1) {
+        const imagePath = data.imagePaths[i];
+        $('.ggv-carousel').append(`<img class="ggv-image center-block owl-lazy" data-src="/salmon/image?fileName=${imagePath}" alt="">`);
+    }
+    const scope = checkScope(data.articleScope);
+    $('#ggvScope').html(scope);
+    $('#ggvMoney').html(`${data.articlePaymentFee}원`);
+    $('#ggvCtgry').html(checkCtgryType(data.articleCtgryType));
+    $('#ggvPayType').html(data.articlePaymentType);
+    $('#ggvTitle').html(`메모 : ${data.articleTitle}`);
+    $('#ggvRegdate').html(data.articleRegdate);
+    $('#userId').html($('#loginUserId').text());
+    $('#ggvCtgryName').html(data.ctgryName);
+
+    let articleContentHTML = data.articleContent;
+    for (let i = 0; i < data.hashtags.length; i += 1) {
+        const hashtag = data.hashtags[i];
+        articleContentHTML += ` <a class="hashtag">${hashtag}</a>`;
+    }
+    $('#ggvContent').html(`SNS : ${articleContentHTML}`);
 
     if (scope === '나만') {
         $('.ggv-footer').html(`<a href="/salmon/article/edit?article_id=${data.articleId}" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</a>

@@ -203,7 +203,7 @@
 				<div class="modal-content">
 					<div class="ggv-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="ggv-modal-label">2018년 11월 27일 오후 1시 12분</h4>
+						<h4 class="modal-title">2018년 11월 27일 오후 1시 12분</h4>
 					</div>
 					<div class="ggv-body">
 						<div class="col-md-6 ggv-modal-image">
@@ -214,23 +214,23 @@
 							<div class="ggv-modal-content">
 								<div class="col-md-12 ggv-col-6">
 									<div class="col-xs-6 col-md-6 text-center ggv-content-left">공개 범위</div>
-									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvScope"></div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right"></div>
 								</div>
 								<div class="col-md-12 ggv-col-6">
 									<div class="col-xs-6 col-md-6 text-center ggv-content-left">금액</div>
-									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvMoney"></div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right"></div>
 								</div>
 								<div class="col-md-12 ggv-col-6">
 									<div class="col-xs-6 col-md-6 text-center ggv-content-left">카테고리</div>
-									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvCtgry"></div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right"></div>
 								</div>
 								<div class="col-md-12 ggv-col-6">
 									<div class="col-xs-6 col-md-6 text-center ggv-content-left">결제 방법</div>
-									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvPayType"></div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right"></div>
 								</div>
-								<div class="ggv-col-12" id="ggvTitle">
+								<div class="ggv-col-12">
 								</div>
-								<div class="ggv-col-12" id="ggvContent">
+								<div class="ggv-col-12">
 								</div>
 							</div>
 						</div>
@@ -242,46 +242,7 @@
 		</div>
 
 		<!-- Modal -->
-		<div class="modal fade ggv-modal blog-list" id="ggv-modal" tabindex="-1" role="dialog" aria-labelledby="ggv-modal-label"
-		 aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-body">
-						<div class="blog-post">
-							<div class="row">
-								<div class="col-xs-12 col-sm-6 h-404">
-									<div class="post-preview">
-										<div class="ggv-carousel owl-carousel owl-theme">
-										</div>
-									</div>
-								</div>
-								<div class="col-xs-12 col-sm-6 h-404">
-									<div class="post-desc">
-										<div class="post-category">Art, Street, Drawing</div>
-										<a class="post-label" href="blog-detail.html">Street Art on the London big wall</a>
-										<div class="post-text">Morbi efficitur feugiat erat a efficitur. Donec interdum, nunc ac elementum auctor,
-											dui
-											nisl placerat odio, eget sagittis sem neque venenatis libero. Vestibulum pharetra sollicitudin urna nec
-											eleifend.Suspendisse id augue ut nunc vestibulum euismod. Donec a libero ut lectus ullamcorper rhoncus vel
-											quis
-											erat. Nunc ornare sed dolor sed mattis.</div>
-										<div class="author-post">
-											<img src="img/a1.png" alt="" class="ava-author">
-											<span>by <a href="blog-detail-2.html">Hoang Nguyen</a>, April 23, 2015</span>
-										</div>
-										<div class="info-block">
-											<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-											<span><i class="fa fa-eye"></i> 789</span>
-											<span><i class="fa fa-comment-o"></i> 20</span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<%@ include file="../includes/articlemodal.jsp"%>
 
 
 		<div class="modal fade" id="psn-modal" tabindex="-1" role="dialog" aria-labelledby="psn-modal-label" aria-hidden="true">
