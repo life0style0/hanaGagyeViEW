@@ -103,17 +103,17 @@ public class AccountBookServiceImpl implements AccountBookService {
     }
 
     @Override
-    public Boolean editPsns(PsnsDTO psnsDTO, String userId) throws Exception {
+    public boolean editPsns(PsnsDTO psnsDTO, String userId) throws Exception {
         return abm.editPsns(psnsDTO, userId);
     }
 
     @Override
-    public Boolean shareArticle(String articleId, String userId) throws Exception {
+    public boolean shareArticle(String articleId, String userId) throws Exception {
         return abm.shareArticle(articleId, userId);
     }
 
     @Override
-    public Boolean shareCancelArticle(String articleId, String userId) throws Exception {
+    public boolean shareCancelArticle(String articleId, String userId) throws Exception {
         return abm.shareCancelArticle(articleId, userId);
     }
 
