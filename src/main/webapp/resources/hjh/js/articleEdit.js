@@ -26,23 +26,27 @@ $(function () {
   const dropzone = $("#filesUpload");
   dropzone.on({
     dragenter: function (e) {
+      console.log('dragenter');
       e.stopPropagation();
       e.preventDefault();
       $(this).toggleClass('drag-on');
       return false;
     },
     dragleave: function (e) {
+      console.log('dragleave');
       e.stopPropagation();
       e.preventDefault();
       $(this).toggleClass('drag-on');
       return false;
     },
     dragover: function (e) {
+      console.log('dragover');
       e.stopPropagation();
       e.preventDefault();
       return false;
     },
     drop: function (e) {
+      console.log('drop');
       e.preventDefault();
       $(this).toggleClass('drag-on');
 
@@ -84,14 +88,15 @@ $(function () {
   })
 });
 
-function makePreview(file) {
+function makePreviewBefore(file, curFilePath) {
+  console.log('imain')
   if (file) {
     const reader = new FileReader();
     reader.onload = function (e) {
       const img = '<div class="col-xs-3 col-md-3"><div class="thumbnail">'+
-      '<img class="img-responsive thumbnail-image" src="'+e.target.result+'" />'+
+      '<img class="img-responsive thumbnail-image" src="/salmon/main/image?fileName='+file.name+'" />'+
       '<div class="caption">'+
-      '<p>file name : '+file.name + '</p>'+
+      '<p>file name : '+curFilePath + '</p>'+
       '<p>file size : '+file.size + '</p>'+
       '<p><span class="invisible">.</span>' +
       '<button type="button" class="close">삭제</button>' +
@@ -116,12 +121,16 @@ function checkUploadFile(fileName, fileSize) {
   return true;
 }
 
-function uploadFiles(fileObject) {
+function uploadFilesBefore(fileObject, curFilePath) {
   let files = fileObject;
+  console.log(files);
   if (files) {
     for (let i = 0; i < files.length; i += 1) {
+      console.log("name바꼇니" + files[i].name);
       const fileName = files[i].name;
       const fileSize = files[i].size;
+      console.log(fileName);
+      console.log(fileSize);
       if (!checkUploadFile(fileName, fileSize)) {
       } else {
         totalFileSize += fileSize;
@@ -129,7 +138,7 @@ function uploadFiles(fileObject) {
         fileCnt += 1;
 
         // Preview image 생성
-        makePreview(files[i]);
+        makePreviewBefore(files[i], curFilePath);
       }
     }
   } else {
@@ -164,6 +173,53 @@ function setDatetimepickerSetting() {
     });
 }
 
+
+function uploadFiles(fileObject) {
+	  console.log(fileObject);
+	  let files = fileObject;
+	  console.log(files);
+	  if (files) {
+	    for (let i = 0; i < files.length; i += 1) {
+	    	console.log("file");
+	      const fileName = files[i].name;
+	      const fileSize = files[i].size;
+	      console.log(fileName);
+	      console.log(fileSize);
+	      if (!checkUploadFile(fileName, fileSize)) {
+	      } else {
+	        totalFileSize += fileSize;
+	        fileList[fileCnt] = files[i];
+	        fileCnt += 1;
+
+	        // Preview image 생성
+	        makePreview(files[i]);
+	      }
+	    }
+	  } else {
+	    alert("등록하고자 하는 파일이 없습니다.");
+	  }
+	  
+	}
+function makePreview(file) {
+	  console.log('imain')
+	  if (file) {
+	    const reader = new FileReader();
+	    reader.onload = function (e) {
+	      const img = '<div class="col-xs-3 col-md-3"><div class="thumbnail">'+
+	      '<img class="img-responsive thumbnail-image" src="'+e.target.result+'" />'+
+	      '<div class="caption">'+
+	      '<p>file name : '+file.name + '</p>'+
+	      '<p>file size : '+file.size + '</p>'+
+	      '<p><span class="invisible">.</span>' +
+	      '<button type="button" class="close">삭제</button>' +
+	      '<input type="hidden" name="fileName" value="'+file.name +'">' +
+	      '<input type="hidden" name="fileSize" value="'+file.size+'">' +
+	      '</p></div></div></div>';
+	      $('.upload-image-preview').append(img);
+	    }
+	    reader.readAsDataURL(file);
+	  }
+	}
 
 
 
