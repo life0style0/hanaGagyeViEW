@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="/salmon/resources/jjw/css/croppie.css" />
+</head>
+
+<body>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+  <script src="/salmon/resources/jjw/js/croppie.min.js"></script>
+  <!-- <script>
+    $('.demo').croppie({
+      url: '/salmon/image?fileName=39320_t2.jpg',
+    });
+  </script> -->
+  <!-- or even simpler -->
+  <div class="demo" style=>
+    <!-- <img class="my-image img-responsive" height="300px" width="300px" src="/salmon/image?fileName=39320_t2.jpg" /> -->
+
+  </div>
+  <script>
+    setTimeout(() => {
+      var basic = $('.demo').croppie({
+        viewport: {
+          width: 150,
+          height: 200
+        }
+      });
+      basic.croppie('bind', {
+        url: '/salmon/image?fileName=39320_t2.jpg',
+        points: [77, 469, 280, 739]
+      });
+      //on button click
+      basic.croppie('result', 'html').then(function (html) {
+        // html is div (overflow hidden)
+        // with img positioned inside.
+      });
+    }, 2000);
+  </script>
+
+</body>
+
+</html>

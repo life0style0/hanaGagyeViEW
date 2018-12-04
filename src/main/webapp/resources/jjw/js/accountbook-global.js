@@ -207,6 +207,16 @@ function requestStackedSpendChart(year, month) {
     }
 }
 
+function checkChartTypes() {
+    if ($('.chart-month-spend').hasClass('active')) {
+        $('.chart-month-dropdown').parent().addClass('hidden');
+    } else if ($('.chart-day-bar').hasClass('active')) {
+        $('.chart-month-dropdown').parent().removeClass('hidden');
+    } else if ($('.chart-month-goal').hasClass('active')) {
+        $('.chart-month-dropdown').parent().removeClass('hidden');
+    }
+}
+
 $(function () {
     $('.chart-year-dropdown').text(`${(new Date()).getFullYear()}년`);
 
@@ -238,23 +248,32 @@ $(function () {
     });
 
     $('.view-chart').on('click', function () {
+        const year = $('.chart-year-dropdown').text().substr(0, 4);
         $('.accountbook-calendar').addClass('hidden');
         $('.accountbook-chart').removeClass('hidden');
-        requestMonthSpendChart($('.chart-year-dropdown').text().substr(0, 4));
+        checkChartTypes();
+        requestMonthSpendChart(year);
+        settingMonths(year);
     });
 
     $('.chart-month-spend').on('click', function () {
-        requestMonthSpendChart($('.chart-year-dropdown').text().substr(0, 4));
+        const year = $('.chart-year-dropdown').text().substr(0, 4);
+        requestMonthSpendChart(year);
+        settingMonths(year);
         $('.chart-month-dropdown').parent().addClass('hidden');
     });
 
     $('.chart-day-bar').on('click', function () {
-        requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
+        const year = $('.chart-year-dropdown').text().substr(0, 4);
+        requestMLSIChart(year, $('.chart-month-dropdown').text().substr(0, 2));
+        settingMonths(year);
         $('.chart-month-dropdown').parent().removeClass('hidden');
     });
 
     $('.chart-month-goal').on('click', function () {
-        requestStackedSpendChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
+        const year = $('.chart-year-dropdown').text().substr(0, 4);
+        requestStackedSpendChart(year, $('.chart-month-dropdown').text().substr(0, 2));
+        settingMonths(year);
         $('.chart-month-dropdown').parent().removeClass('hidden');
     });
 

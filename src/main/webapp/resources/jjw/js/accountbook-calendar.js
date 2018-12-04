@@ -311,40 +311,125 @@ function setCalendarMY(moveDirection) {
     $('.calendar.year').html(yearChanged);
 }
 
+function checkCtgryType(type) {
+    if (!type) {
+        alert('빈 type 입력');
+    } else if (type === 'income') {
+        return '수입';
+    } else if (type === 'spend') {
+        return '지출';
+    }
+}
+
+function eventRegistOnShare(data, info) {
+    $('#article-share-btn a').on('click', function (e) {
+        data.articleScope = 'u';
+        const scopeT = checkScope(data.articleScope);
+        $(info).find('.ggv-scope').html(scopeT);
+        $('#article-scope').html(`, ${scopeT}`);
+        e.preventDefault();
+        const articleId = data.articleId;
+        $.ajax({
+            url: '/salmon/accountbook/share',
+            data: {
+                articleId: articleId
+            },
+            method: 'get',
+            success: function (result) {
+                if (result === 'success') {
+                    console.log('result :', result);
+                    $('#article-share-btn').addClass('hidden');
+                    $('#article-share-cancel-btn').removeClass('hidden');
+                } else {
+                    console.log('result :', result);
+                }
+            }
+        });
+    });
+    $('#article-share-cancel-btn a').on('click', function (e) {
+        data.articleScope = 'r';
+        const scopeT = checkScope(data.articleScope);
+        $(info).find('.ggv-scope').html(scopeT);
+        $('#article-scope').html(`, ${scopeT}`);
+        e.preventDefault();
+        const articleId = data.articleId;
+        $.ajax({
+            url: '/salmon/accountbook/sharecancel',
+            data: {
+                articleId: articleId
+            },
+            method: 'get',
+            success: function (result) {
+                if (result === 'success') {
+                    console.log('result :', result);
+                    $('#article-share-btn').removeClass('hidden');
+                    $('#article-share-cancel-btn').addClass('hidden');
+                } else {
+                    console.log('result :', result);
+                }
+            }
+        });
+    });
+}
+
 /**
  * 특정 가계부 정보를 클릭시 보여줄 값들을 세팅하는 함수
  * @param {*} data 가계부 정보
  */
-function setGgv(data) {
+function setGgv(data, info) {
     if (!data) {
         alert('data가 없습니다.');
     }
+    if (data.imagePaths.length === 0) {
+        $('#article-modal .modal-dialog').addClass('ggv-no-image');
+    } else {
+        $('#article-modal .modal-dialog').removeClass('ggv-no-image');
+    }
+
     for (let i = 0; i < data.imagePaths.length; i += 1) {
         const imagePath = data.imagePaths[i];
-        $('.ggv-carousel').append(`<img class="ggv-image center-block" src="/salmon/image?fileName=${imagePath}" alt="">`);
+        $('.article-carousel').append(`<img class="article-image center-block owl-lazy" data-src="/salmon/image?fileName=${imagePath}" alt="">`);
     }
     const scope = checkScope(data.articleScope);
-    $('#ggvScope').html(scope);
-    $('#ggvMoney').html(`${data.articlePaymentFee}원`);
-    $('#ggvCtgry').html(data.articleCtgryType);
-    $('#ggvPayType').html(data.articlePaymentType);
-    $('#ggvTitle').html(data.articleTitle);
-    $('#ggv-modal-label').html(data.articleRegdate);
+    $('#article-ctgry-name').html(data.ctgryName);
+    if (!data.articleTitle) {
+        $('#article-money').html(`${data.articlePaymentFee}원`);
+        $('#article-title').html('');
+    } else {
+        $('#article-money').html(`${data.articlePaymentFee}원, `);
+        $('#article-title').html(`메모 : ${data.articleTitle}`);
+    }
 
     let articleContentHTML = data.articleContent;
     for (let i = 0; i < data.hashtags.length; i += 1) {
         const hashtag = data.hashtags[i];
         articleContentHTML += ` <a class="hashtag">${hashtag}</a>`;
     }
-    $('#ggvContent').html(articleContentHTML);
+    $('#article-content').html(`${articleContentHTML}`);
+    $('#article-writer-nickname').html($('#loginUserId').text());
+    $('#article-regdate').html(data.articleRegdate);
+    $('#article-pay-type').html(`, ${data.articlePaymentType}`);
+    $('#article-ctgry').html(`(${checkCtgryType(data.articleCtgryType)})`);
+    $('#article-scope').html(`, ${scope}`);
+    $('#article-share-btn a').attr('data-articleId', data.articleId);
 
-    if (scope === '나만') {
-        $('.ggv-footer').html(`<button type="button" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</button>
-        <button type="button" class="btn btn-info ggv-btn" id="ggv-share">공유하기</button>
-        <button type="button" class="btn btn-warning ggv-btn" data-dismiss="modal">닫기</button>`);
-    } else if (scope === '공개') {
-        $('.ggv-footer').html(`<button type="button" class="btn btn-primary ggv-btn" id="ggv-edit">수정하기</button>
-        <button type="button" class="btn btn-warning ggv-btn" data-dismiss="modal">닫기</button>`);
+    // 내가 쓴 글일 때 수정하는 버튼 보여주기
+    if (true) {
+        if (scope === '나만') {
+            $('#article-share-btn').removeClass('hidden');
+            $('#article-share-cancel-btn').addClass('hidden');
+            eventRegistOnShare(data, info);
+        } else if (scope === '공개') {
+            $('#article-share-btn').addClass('hidden');
+            $('#article-share-cancel-btn').removeClass('hidden');
+            eventRegistOnShare(data, info);
+        }
+
+        // 내가 쓴 글이면 수정이 보여야 함.
+        $('#article-edit-btn').removeClass('hidden');
+        $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=${data.articleId}`);
+    } else {
+        $('#article-edit-btn').addClass('hidden');
     }
 }
 
@@ -352,8 +437,8 @@ function setGgv(data) {
  * 특정 가계부 정보를 초기화하는 메소드
  */
 function resetGgvModal() {
-    $('.ggv-carousel').trigger('destroy.owl.carousel');
-    $('.ggv-carousel').html('');
+    $('.article-carousel').trigger('destroy.owl.carousel');
+    $('.article-carousel').html('');
 }
 
 /**
@@ -367,34 +452,56 @@ function setGgvInfos(info) {
         alert("error!");
         return;
     }
-    $.ajax({
-        url: `/salmon/accountbook/ggv/${articleId}`,
-        method: 'get',
-        dataType: 'json',
-        success: function (data) {
-            setGgv(data);
+    const month = $('.calendar.month').html().trim();
+    const year = $('.calendar.year').html().trim();
+    if (month && year && calendarData.has(`${month}-${year}`)) {
+        calendarData.get(`${month}-${year}`).some(function (value) {
+            if (value.articleId === Number(articleId)) {
+                setGgv(value, info);
 
-            $('.ggv-carousel').owlCarousel({
-                items: 1,
-                loop: true,
-                margin: 10,
-                nav: true,
-                navText: [
-                    "<i class='fa fa-angle-left'></i>",
-                    "<i class='fa fa-angle-right'></i>"
-                ],
-                dots: false,
-                lazyLoad: false
-            });
+                $('.article-carousel').owlCarousel({
+                    items: 1,
+                    loop: true,
+                    margin: 10,
+                    nav: true,
+                    navText: [
+                        "<i class='fa fa-angle-left'></i>",
+                        "<i class='fa fa-angle-right'></i>"
+                    ],
+                    dots: false,
+                    lazyLoad: true
+                });
 
-            $('#ggv-modal').modal('show');
+                $('#article-modal').modal('show');
+                return true;
+            }
+            return false;
+        });
+    } else {
+        $.ajax({
+            url: `/salmon/accountbook/ggv/${articleId}`,
+            method: 'get',
+            dataType: 'json',
+            success: function (data) {
+                setGgv(data);
 
-            $('#ggv-modal').on('shown.bs.modal', function () {
-                $('.owl-prev').css('top', `-${(523 + 50) / 2}px`);
-                $('.owl-next').css('top', `-${(523 + 50) / 2}px`);
-            });
-        }
-    });
+                $('.article-carousel').owlCarousel({
+                    items: 1,
+                    loop: true,
+                    margin: 10,
+                    nav: true,
+                    navText: [
+                        "<i class='fa fa-angle-left'></i>",
+                        "<i class='fa fa-angle-right'></i>"
+                    ],
+                    dots: false,
+                    lazyLoad: true
+                });
+
+                $('#article-modal').modal('show');
+            }
+        });
+    }
 }
 
 /**
@@ -555,7 +662,7 @@ $(function () {
         setGgvInfos(this);
     });
 
-    $('#ggv-modal').on('hidden.bs.modal', function () {
+    $('#article-modal').on('hidden.bs.modal', function () {
         resetGgvModal();
     });
 

@@ -102,6 +102,11 @@ function monthLineSpendIncomeChart(yearSrc, monthSrc) {
     return [spendDataToArray, incomeDataToArray];
 }
 
+/**
+ * 지출 목표량과 현재 지출의 데이터를 리턴하는 함수
+ * @param {*} yearSrc 
+ * @param {*} monthSrc 
+ */
 function stackedSpendChart(yearSrc, monthSrc) {
     const year = yearSrc || (new Date()).getFullYear();
     const month = monthSrc || (new Date()).getMonth() + 1;
@@ -141,25 +146,38 @@ function stackedSpendChart(yearSrc, monthSrc) {
     return spendNow;
 }
 
+function settingMonths(year) {
+    $('[class^="chart-month-data-"]').addClass('hidden');
+    calendarData.forEach(function (value, key) {
+        if (key.substr(3, 4) === year) {
+            $(`.chart-month-data-${key.substr(0, 2)}`).removeClass('hidden');
+        }
+    });
+}
 
 $(function () {
-    $(".chart-year-list").on("click", 'li', function () {
-        console.log('hi');
+    $(".chart-year-list").on('click', 'li', function () {
+        const year = $('.chart-year-dropdown').text().substr(0, 4);
+        const month = $('.chart-month-dropdown').text().substr(0, 2);
         if ($('.chart-month-spend').hasClass('active')) {
-            requestMonthSpendChart($('.chart-year-dropdown').text().substr(0, 4));
+            requestMonthSpendChart(year);
         } else if ($('.chart-day-bar').hasClass('active')) {
-            $('[class="chart-month-data-"]').addClass('hidden');
-            calendarData.forEach(function (value, key) {
-                if (key.substr(5, 4) === '2018') {
-                    $(`.chart-month-data-${key.substr(0, 2)}`).removeClass('hidden');
-                }
-            });
-            requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
+            settingMonths(year);
+            requestMLSIChart(year, month);
+        } else if ($('.chart-month-goal').hasClass('active')) {
+            settingMonths(year);
+            requestStackedSpendChart(year, month);
         }
     });
 
     $(".chart-month-list").on("click", 'li', function () {
-        requestMLSIChart($('.chart-year-dropdown').text().substr(0, 4), $('.chart-month-dropdown').text().substr(0, 2));
+        const year = $('.chart-year-dropdown').text().substr(0, 4);
+        const month = $('.chart-month-dropdown').text().substr(0, 2);
+        if ($('.chart-day-bar').hasClass('active')) {
+            requestMLSIChart(year, month);
+        } else if ($('.chart-month-goal').hasClass('active')) {
+            requestStackedSpendChart(year, month);
+        }
     });
 
     Highcharts.setOptions({
