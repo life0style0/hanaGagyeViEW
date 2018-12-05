@@ -151,16 +151,17 @@ public class GagyeviewController {
 	
 	
 	public ArrayList<String> getHashTag(String content){
-		ArrayList<String> hashList = new ArrayList<>();
-		String[] divContent = content.trim().split("#");
-		for(String tagTarget : divContent){
-			if(tagTarget.length() > 0){
-				hashList.add(tagTarget.split(" ")[0]);
-			}
-		}
-
-		return hashList;
-	}
+	      ArrayList<String> hashList = new ArrayList<>();
+	      String[] divContent = content.trim().split("#");
+	      int count = 1;
+	      for(String tagTarget : divContent){
+	         if(tagTarget.length() > 0 && count>1){
+	            hashList.add(tagTarget.split(" ")[0]);
+	         }
+	         count++;
+	      }
+	      return hashList;
+	   }
 	
 	@PostMapping("/imageUpload")
 	public ResponseEntity<String> registImage(@RequestParam("uploadFile") MultipartFile[] uploadFile, @RequestParam("articleId") String articleId){

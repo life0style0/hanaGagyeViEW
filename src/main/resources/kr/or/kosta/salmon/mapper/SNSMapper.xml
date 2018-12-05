@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<mapper namespace="kr.or.kosta.salmon.mapper.SNSMapper">
+	
+	<!-- 1:N ResultMap 설정 -->
+	<resultMap type="kr.or.kosta.salmon.domain.SNSArticleDTO_sjh" id="articleMap">
+		<id property="article_id" column="article_id"/>
+		<result property="article_id" column="article_id"/>
+		<result property="article_ctgry_id" column="article_ctgry_id"/>
+		<result property="article_scope" column="article_scope"/>
+		<result property="article_regdate" column="article_regdate"/>
+		<result property="article_editdate" column="article_editdate"/>
+		<result property="article_payment_type" column="article_payment_type"/>
+		<result property="article_payment_fee" column="article_payment_fee"/>
+		<result property="article_title" column="article_title"/>
+		<result property="article_content" column="article_content"/>
+		<result property="article_proposal_status" column="article_proposal_status"/>
+		<result property="group_id" column="group_id"/>
+		<result property="article_deleted" column="article_deleted"/>
+		<collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
+        <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
+        <collection property="likes" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.LikeDTO" select="getLikesByArticleId"/>
+        <collection property="scraps" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.ScrapDTO" select="getScrapsByArticleId"/>
+        <collection property="comments" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.CommentDTO" select="getCommentsByArticleId"/>
+	</resultMap>
+	<resultMap type="kr.or.kosta.salmon.domain.MainChartDTO" id="ChartMap">
+		<result property="totalFee" column="totalFee"/>
+	</resultMap>
+	
+
+	  <select id="getSNSArticles" resultMap="articleMap">
+		SELECT article_id,
+		       article_ctgry_id,
+		       article_scope,
+		       to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
+		       article_editdate,
+		       article_payment_type,
+		       article_payment_fee,
+		       article_title,
+		       article_content,
+		       article_proposal_status,
+		       group_id,
+		       user_id,
+		       article_deleted
+		FROM   articles
+		WHERE  article_scope in ('u','g') and 
+			   user_id in (#{user_id},
+			   				(SELECT 	fol.follower_user_id user_id 
+			   				 FROM 		users us inner join followers fol on us.user_id = fol.user_id
+			   				 WHERE 		us.user_id=#{user_id}),
+			   				(SELECT 	user_id
+			   				 FROM 		group_users 
+			   				 WHERE 		group_id in (
+			   				 						 SELECT 	group_id
+			   				 						 FROM	 	users us inner join group_users gus on us.user_id = gus.user_id 
+			   				 						 WHERE		us.user_id=#{user_id})))
+        </select>
+        
+	 	<select id="getImages" resultType="string">
+		SELECT image_path
+		FROM images where article_id = #{article_id}
+        </select>
+		
+		
+		<select id="getHashtagByArticleId" resultType="string">
+		SELECT hashtag_value 
+		FROM   hashtag_refs ref
+		       inner join hashtags hash on ref.hashtag_id=hash.hashtag_id 
+		WHERE  article_id = #{articleId}        
+        </select>
+        
+        <select id="getHashTagGroup" resultType="kr.or.kosta.salmon.domain.HashTagGroupDTO">
+        <![CDATA[
+        SELECT count(hashtag_id) count_hashtag_value, hashtag_value
+        FROM hashtags join hashtag_refs using(hashtag_id)
+        WHERE article_id in(
+			SELECT article_id
+			FROM   articles
+			WHERE  article_scope in ('u','g') and 
+				   user_id in (#{user_id},
+				   				(SELECT 	fol.follower_user_id user_id 
+				   				 FROM 		users us inner join followers fol on us.user_id = fol.user_id
+				   				 WHERE 		us.user_id=#{user_id}),
+				   				(SELECT 	user_id
+				   				 FROM 		group_users 
+				   				 WHERE 		group_id in (
+				   				 						 SELECT 	group_id
+				   				 						 FROM	 	users us inner join group_users gus on us.user_id = gus.user_id 
+				   				 						 WHERE		us.user_id=#{user_id})))) and rownum <10
+		GROUP BY hashtag_value 
+		ORDER BY count_hashtag_value desc ]]>
+        </select>
+        
+        <select id="getChartTotalFee" resultMap="ChartMap">
+        	SELECT 	sum(article_payment_fee) totalFee
+        	FROM 	articles 
+        	WHERE 	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and user_id = #{user_id}
+        </select>
+        
+        <select id="getChartCategoryFee" resultType="kr.or.kosta.salmon.domain.MainGroupCtFeeDTO">
+        	SELECT 		ctgry_name, sum(article_payment_fee) ctgry_fee_sum 
+        	FROM 		ctgry_values join articles using(article_id) join ctgries using(ctgry_id) where ctgry_id in (select ctgry_id from ctgry_values join ctgries using(ctgry_id) 
+        	WHERE 		article_id in (
+        								SELECT 	article_id 
+        								FROM 	articles 
+        								WHERE	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and user_id = #{user_id}))  
+        	GROUP BY	ctgry_name
+        </select>
+        
+        
+        
+        <select id="getLikesByArticleId" resultType="kr.or.kosta.salmon.domain.LikeDTO">
+        	SELECT like_id,
+        		   user_id,
+        		   article_id,
+        		   to_char(like_regdate,'YYYY-MM-DD') "like_regdate" 
+			FROM   likes 
+			WHERE  article_id = #{article_id}
+        </select>
+        
+         <select id="getCommentsByArticleId" resultType="kr.or.kosta.salmon.domain.CommentDTO">
+        	SELECT comment_id,
+        		   comment_content,
+        		   to_char(comment_regdate,'YYYY-MM-DD') "comment_regdate", 
+        		   to_char(comment_editdate,'YYYY-MM-DD') "comment_editdate",
+        		   article_id,
+                   us.user_nickname
+			FROM   comments co
+	        join   users us on us.user_id=co.user_id
+		    WHERE  article_id =  #{article_id}
+        </select>
+        
+        <select id="getScrapsByArticleId" resultType="kr.or.kosta.salmon.domain.ScrapDTO">
+        	SELECT scrap_id,
+        		   user_id,
+        		   article_id,
+        		   to_char(scrap_regdate,'YYYY-MM-DD') "scrap_regdate" 
+			FROM   scraps 
+			WHERE  article_id = #{article_id}
+        </select>
+        
+        <select id="getSNSArticleByWriter" resultMap="articleMap">
+	        SELECT article_id,
+			       article_ctgry_id,
+			       article_scope,
+			       to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
+			       article_editdate,
+			       article_payment_type,
+			       article_payment_fee,
+			       article_title,
+			       article_content,
+			       article_proposal_status,
+			       group_id,
+			       user_id,
+			       article_deleted
+			FROM   articles
+	    	where user_id=#{user_id}
+        </select>
+	
+	<insert id="askFollow">
+		INSERT INTO followers 
+		            (follower_id, 
+		             follower_regdate, 
+		             follower_user_id, 
+		             user_id) 
+		VALUES     (follower_id_seq.NEXTVAL, 
+			        SYSDATE, 
+			        #{follower_user_id}, 
+			        #{user_id})
+	</insert>
+	
+	<delete id="askUnfollow">
+		DELETE followers 
+		WHERE  follower_user_id = #{follower_user_id} 
+		AND    user_id = #{user_id}
+	</delete>
+	
+	<select id="checkFollowing" resultType="int">
+		SELECT count(follower_id) 
+		FROM   followers 
+		WHERE  follower_user_id = #{follower_user_id} 
+		       AND user_id = #{user_id}
+	</select>
+	
+</mapper>
