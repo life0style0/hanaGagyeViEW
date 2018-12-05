@@ -48,8 +48,8 @@
 		</div>
 	</div>
 	<!-- THE HEADER -->
-	<!-- THE HEADER -->
 	<%@ include file="/WEB-INF/views/includes/header.jsp"%>
+	<!-- THE HEADER -->
 
 	<!-- MAIN CONTENT -->
 	<div id="content-block">
@@ -113,7 +113,7 @@
 						<div class="col-md-3 padding-1-sjh text-right "><strong>프로필사진</strong></div>
 						<div class="col-md-9 padding-1-sjh">
 							<input type="hidden" id="profilePath" value="/salmon/image?fileName=${user.user_image}">
-							<img class="img-responsive" id="profileImage" alt="">
+							<img class="img-responsive img-thumbnail" id="profileImage" alt="">
 						</div>
 						<div class="col-md-3 padding-1-sjh text-right "><strong>닉네임</strong></div>
 						<div class="col-md-9 padding-1-sjh">
