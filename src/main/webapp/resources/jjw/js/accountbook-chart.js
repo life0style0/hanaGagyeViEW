@@ -8,18 +8,20 @@ function monthBarSpendChart(yearSrc) {
 
     const monthSpendDatas = new Map(); // key = 월 value = 월 차트 데이터 
     calendarData.forEach(function (monthDatas, date) {
-        if (date.substr(3, 4) === year) {
-            const monthSpendChartData = new Map();
-            monthDatas.forEach(function (monthData) {
-                if (!monthData.articleCtgryType === 'spend') {
-                    console.log('not spend');
-                } else if (monthSpendChartData.has(monthData.ctgryName)) {
-                    monthSpendChartData.set(monthData.ctgryName, monthSpendChartData.get(monthData.ctgryName) + Number(monthData.articlePaymentFee));
-                } else {
-                    monthSpendChartData.set(monthData.ctgryName, Number(monthData.articlePaymentFee));
-                }
-            });
-            monthSpendDatas.set(date, monthSpendChartData);
+        if (monthDatas.length > 0) {
+            if (date.substr(3, 4) === year) {
+                const monthSpendChartData = new Map();
+                monthDatas.forEach(function (monthData) {
+                    if (!monthData.articleCtgryType === 'spend') {
+                        console.log('not spend');
+                    } else if (monthSpendChartData.has(monthData.ctgryName)) {
+                        monthSpendChartData.set(monthData.ctgryName, monthSpendChartData.get(monthData.ctgryName) + Number(monthData.articlePaymentFee));
+                    } else {
+                        monthSpendChartData.set(monthData.ctgryName, Number(monthData.articlePaymentFee));
+                    }
+                });
+                monthSpendDatas.set(date, monthSpendChartData);
+            }
         }
     });
 

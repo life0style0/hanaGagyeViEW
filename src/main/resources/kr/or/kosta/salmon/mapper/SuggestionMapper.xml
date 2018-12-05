@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.kosta.salmon.mapper.SuggestionMapper">
+
+        <resultMap type="kr.or.kosta.salmon.domain.SuggestionDTO" id="suggestionLists">
+                <result property="articleId" column="article_id"/>
+                <result property="articleScope" column="article_scope"/>
+                <result property="articleRegdate" column="article_regdate"/>
+                <result property="articleTitle" column="article_title"/>
+                <result property="articleContent" column="article_content"/>
+                <result property="articleProposalStatus" column="article_proposal_status"/>
+                <result property="userId" column="user_id"/>
+                <result property="likeCnt" column="likes_num"/>
+                <result property="commentCnt" column="comments_num"/>
+                <result property="scrapCnt" column="scraps_num"/>
+                <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
+                <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
+        </resultMap>
+
+        <resultMap type="kr.or.kosta.salmon.domain.SuggestionDTO" id="suggestions">
+                <result property="articleId" column="article_id"/>
+                <result property="articleRegdate" column="article_regdate"/>
+                <result property="articleEditdate" column="article_editdate"/>
+                <result property="articlePaymentType" column="article_payment_type"/>
+                <result property="articlePaymentFee" column="article_payment_fee"/>
+                <result property="articleTitle" column="article_title"/>
+                <result property="articleContent" column="article_content"/>
+                <result property="articleProposalStatus" column="article_proposal_status"/>
+                <result property="userId" column="user_id"/>
+                <result property="likeCnt" column="likes_num"/>
+                <result property="commentCnt" column="comments_num"/>
+                <result property="scrapCnt" column="scraps_num"/>
+                <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
+                <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
+                <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
+        </resultMap>
+
+        <select id="getSuggestionListWithPaging" resultMap="suggestionLists">
+SELECT "ar".article_id "article_id", 
+       "article_regdate", 
+       article_editdate, 
+       article_title, 
+       article_content, 
+       article_proposal_status, 
+       user_id, 
+       (SELECT Count(li.like_id) 
+        FROM   likes li 
+        WHERE  li.article_id = "ar".article_id) "likes_num", 
+       (SELECT Count(comment_id) 
+        FROM   comments 
+        WHERE  article_id = "ar".article_id)    "comments_num", 
+       (SELECT Count(scrap_id) 
+        FROM   scraps 
+        WHERE  article_id = "ar".article_id)    "scraps_num" 
+FROM   (SELECT ROWNUM   rn, 
+               article_id, 
+               To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
+               article_title, 
+               article_content, 
+               article_proposal_status, 
+               user_id
+        FROM   articles 
+        WHERE  ( article_ctgry_id = 2 
+                 AND To_char(article_regdate, 'YYYY-MM-DD') <![CDATA[ > ]]>
+                     To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N')
+               AND   <include refid="criteria" />
+               ROWNUM   <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}
+        ORDER  BY article_regdate) "ar" 
+WHERE  rn <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
+        </select>
+
+        <select id="getSuggestions" resultMap="suggestions">
+SELECT "ar".article_id, 
+       "article_regdate", 
+       article_editdate, 
+       article_payment_type, 
+       article_payment_fee, 
+       article_title, 
+       article_content, 
+       article_proposal_status, 
+       user_id, 
+       (SELECT Count(li.like_id) 
+        FROM   likes li 
+        WHERE  li.article_id = "ar".article_id) "likes_num", 
+       (SELECT Count(comment_id) 
+        FROM   comments 
+        WHERE  article_id = "ar".article_id)    "comments_num", 
+       (SELECT Count(scrap_id) 
+        FROM   scraps 
+        WHERE  article_id = "ar".article_id)    "scraps_num" 
+FROM   (SELECT ROWNUM                                 rn, 
+               article_id, 
+               To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
+               article_editdate, 
+               article_payment_type, 
+               article_payment_fee, 
+               article_title, 
+               article_content, 
+               article_proposal_status, 
+               user_id
+        FROM   articles 
+        WHERE  ( article_ctgry_id = 2 
+                 AND To_char(article_regdate, 'YYYY-MM-DD')    <![CDATA[ > ]]>
+                     To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N' )
+               AND  
+               <include refid="criteria" />
+               ROWNUM   <![CDATA[ <= ]]>
+               #{pageNum} * #{maxArticleNum}
+        ORDER  BY article_regdate) "ar" 
+WHERE  rn  <![CDATA[ > ]]>
+(#{pageNum} - 1) * #{maxArticleNum}
+        </select>
+
+        <select id="getImages" resultType="string">
+SELECT image_path
+FROM images where article_id = #{article_id}
+        </select>
+
+        <select id="getHashtagByArticleId" resultType="string">
+SELECT hashtag_value 
+FROM   hashtag_refs 
+       join hashtags USING(hashtag_id) 
+WHERE  article_id = #{articleId}
+        </select>
+
+        <select id="getCtgryName" resultType="string">
+SELECT ctgry_name 
+FROM   ctgry_values "cv" 
+       join ctgries "ct" 
+         ON "cv".ctgry_id = "ct".ctgry_id 
+WHERE  article_id = #{articleId}
+        </select>
+
+        <sql id="criteria">
+                <trim prefix="(" suffix=") and " prefixOverrides="or">
+                        <foreach item="type" collection="typeArr">
+                                <trim prefix="or">
+                                        <choose>
+                                                <when test="type == 'T'.toString()">
+						 aritcle_title like '%'||#{keyword}||'%'
+                                                </when>
+                                                <when test="type == 'C'.toString()">
+						 article_content like '%'||#{keyword}||'%'
+                                                </when>
+                                                <when test="type == 'W'.toString()">
+						 user_id like '%'||#{keyword}||'%'
+                                                </when>
+                                        </choose>
+                                </trim>
+                        </foreach>
+                </trim>
+        </sql>
+</mapper>

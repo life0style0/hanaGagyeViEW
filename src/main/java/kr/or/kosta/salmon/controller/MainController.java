@@ -34,8 +34,8 @@ public class MainController {
 	public void mainHome(Principal principal, Model model) {
 		log.info("main컨트롤러 진입");
 		String user_id = principal.getName();
-		ArrayList<HashTagGroupDTO> hashTagList = (ArrayList)mainService.getHashTagGroup(user_id);
-		ArrayList<MainArticleDTO> articleList = (ArrayList)mainService.getListSprint1(user_id);
+		ArrayList<HashTagGroupDTO> hashTagList = (ArrayList<HashTagGroupDTO>)mainService.getHashTagGroup(user_id);
+		ArrayList<MainArticleDTO> articleList = (ArrayList<MainArticleDTO>)mainService.getListSprint1(user_id);
 		MainChartDTO mainchartInfo = mainService.getChartTotalFee(user_id);
 		
 		log.info("null test " +user_id);

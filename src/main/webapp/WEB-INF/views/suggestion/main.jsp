@@ -16,8 +16,7 @@
 	<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/jquery-ui.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
-	<link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
-	<link rel="stylesheet" href="/salmon/resources/sjh/css/main-sjh.css">
+	<link rel="stylesheet" href="/salmon/resources/jjw/css/suggestion.css">
 </head>
 
 <body class="page-login">
@@ -45,8 +44,8 @@
 		<div class="head-bg-sjh" id="chartInfoBlock">
 			<div class="head-bg-img"></div>
 			<div class="head-bg-content font-sjh">
-				<h1>당신의 소중한 자산관리 하나에게 맡기세요</h1>
-				<p>이제부터 눈으로 가계부를 쓰세요</p>
+				<h1>여러분들이 가진 의견을 보여주세요</h1>
+				<p>원하시는 상품을 기획해 제안해 사람들과 공유하고 추천을 받아보세요</p>
 			</div>
 		</div>
 		<div class="container be-detail-container">
@@ -120,23 +119,23 @@
 						<div class="tab-nav-wrapper">
 							<div class="nav-tab  clearfix">
 								<div class="nav-tab-item active">
-									<span>Projects</span>
+									<span>최신글</span>
 								</div>
-								<div class="nav-tab-item ">
-									<span>Work In Progress</span>
+								<div class="nav-tab-item">
+									<span>인기글</span>
 								</div>
-								<div class="nav-tab-item ">
-									<span>Appreciated</span>
+								<div class="nav-tab-item">
+									<span>추천글</span>
 								</div>
-								<div class="nav-tab-item ">
-									<span>Collections</span>
+								<div class="nav-tab-item">
+									<span>카테고리별</span>
 								</div>
 							</div>
 						</div>
 						<div class="tabs-content clearfix">
 							<div class="tab-info active">
 								<div class="collection">
-									<div class="collection-entry">
+									<div class="collection-entry suggestion-entry">
 										<h3 class="menu-article">Creative Ideas</h3>
 										<div class="collection-header">
 											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
@@ -163,14 +162,14 @@
 														</div>
 													</div>
 													<a href="page1.html">delete</a>
-	
+
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="collection">
-									<div class="collection-entry">
+									<div class="collection-entry suggestion-entry">
 										<h3 class="menu-article">Creative Ideas</h3>
 										<div class="collection-header">
 											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
@@ -197,106 +196,15 @@
 														</div>
 													</div>
 													<a href="page1.html">delete</a>
-	
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-								<div class="collection">
-									<h3 class="menu-article">Creative Agency</h3>
-									<div class="collection-header">
-										<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
-										<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-										<span><i class="fa fa-eye"></i> 789</span>
-										<div class="edit-collection">
-											<i class="fa fa-pencil"></i>
-											<div class="c_edit">
-												<div class="btn-rename">
-													rename
-													<div class="message-popup">
-														<div class="message-popup-inner container">
-															<div class="row">
-																<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																	<i class="fa fa-times close-button"></i>
-																	<h5 class="large-popup-title">Rename</h5>
-																	<div class="form-group">
-																		<input class="form-input" required="" placeholder="Your text">
-																	</div>
-																	<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<a href="page1.html">delete</a>
-
-											</div>
-										</div>
-									</div>
-									<div class="collection-entry">
-										<a href="page1.html" class="portfolio-link type-2 clearfix">
-											<img src="/salmon/resources/template/img/collection_6.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_7.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_8.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_9.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_10.jpg" alt="">
-											<div class="color_bg">
-												<span>view gallery</span>
-												<span class="child"></span>
-											</div>
-										</a>
-									</div>
-								</div>
-								<div class="collection">
-									<h3 class="menu-article">Creative Agency</h3>
-									<div class="collection-header">
-										<span><i class="fa fa-user"></i>by <a href="page1.html">Inspiration Art</a> </span>
-										<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-										<span><i class="fa fa-eye"></i> 789</span>
-										<div class="edit-collection">
-											<i class="fa fa-pencil"></i>
-											<div class="c_edit">
-												<div class="btn-rename">
-													rename
-													<div class="message-popup">
-														<div class="message-popup-inner container">
-															<div class="row">
-																<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																	<i class="fa fa-times close-button"></i>
-																	<h5 class="large-popup-title">Rename</h5>
-																	<div class="form-group">
-																		<input class="form-input" required="" placeholder="Your text">
-																	</div>
-																	<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<a href="page1.html">delete</a>
-
-											</div>
-										</div>
-									</div>
-									<div class="collection-entry">
-										<a href="page1.html" class="portfolio-link type-2 clearfix">
-											<img src="/salmon/resources/template/img/collection_11.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_12.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_13.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_14.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_15.jpg" alt="">
-											<div class="color_bg">
-												<span>view gallery</span>
-												<span class="child"></span>
-											</div>
-										</a>
 									</div>
 								</div>
 							</div>
 							<div class="tab-info">
 								<div class="collection">
-									<div class="collection-entry">
+									<div class="collection-entry suggestion-entry">
 										<h3 class="menu-article">Creative Ideas</h3>
 										<div class="collection-header">
 											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
@@ -323,14 +231,14 @@
 														</div>
 													</div>
 													<a href="page1.html">delete</a>
-	
+
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="collection">
-									<div class="collection-entry">
+									<div class="collection-entry suggestion-entry">
 										<h3 class="menu-article">Creative Ideas</h3>
 										<div class="collection-header">
 											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
@@ -357,106 +265,15 @@
 														</div>
 													</div>
 													<a href="page1.html">delete</a>
-	
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-								<div class="collection">
-									<h3 class="menu-article">Creative Agency</h3>
-									<div class="collection-header">
-										<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
-										<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-										<span><i class="fa fa-eye"></i> 789</span>
-										<div class="edit-collection">
-											<i class="fa fa-pencil"></i>
-											<div class="c_edit">
-												<div class="btn-rename">
-													rename
-													<div class="message-popup">
-														<div class="message-popup-inner container">
-															<div class="row">
-																<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																	<i class="fa fa-times close-button"></i>
-																	<h5 class="large-popup-title">Rename</h5>
-																	<div class="form-group">
-																		<input class="form-input" required="" placeholder="Your text">
-																	</div>
-																	<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<a href="page1.html">delete</a>
-
-											</div>
-										</div>
-									</div>
-									<div class="collection-entry">
-										<a href="page1.html" class="portfolio-link type-2 clearfix">
-											<img src="/salmon/resources/template/img/collection_6.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_7.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_8.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_9.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_10.jpg" alt="">
-											<div class="color_bg">
-												<span>view gallery</span>
-												<span class="child"></span>
-											</div>
-										</a>
-									</div>
-								</div>
-								<div class="collection">
-									<h3 class="menu-article">Creative Agency</h3>
-									<div class="collection-header">
-										<span><i class="fa fa-user"></i>by <a href="page1.html">Inspiration Art</a> </span>
-										<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-										<span><i class="fa fa-eye"></i> 789</span>
-										<div class="edit-collection">
-											<i class="fa fa-pencil"></i>
-											<div class="c_edit">
-												<div class="btn-rename">
-													rename
-													<div class="message-popup">
-														<div class="message-popup-inner container">
-															<div class="row">
-																<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																	<i class="fa fa-times close-button"></i>
-																	<h5 class="large-popup-title">Rename</h5>
-																	<div class="form-group">
-																		<input class="form-input" required="" placeholder="Your text">
-																	</div>
-																	<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<a href="page1.html">delete</a>
-
-											</div>
-										</div>
-									</div>
-									<div class="collection-entry">
-										<a href="page1.html" class="portfolio-link type-2 clearfix">
-											<img src="/salmon/resources/template/img/collection_11.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_12.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_13.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_14.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_15.jpg" alt="">
-											<div class="color_bg">
-												<span>view gallery</span>
-												<span class="child"></span>
-											</div>
-										</a>
 									</div>
 								</div>
 							</div>
 							<div class="tab-info">
 								<div class="collection">
-									<div class="collection-entry">
+									<div class="collection-entry suggestion-entry">
 										<h3 class="menu-article">Creative Ideas</h3>
 										<div class="collection-header">
 											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
@@ -483,14 +300,14 @@
 														</div>
 													</div>
 													<a href="page1.html">delete</a>
-	
+
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="collection">
-									<div class="collection-entry">
+									<div class="collection-entry suggestion-entry">
 										<h3 class="menu-article">Creative Ideas</h3>
 										<div class="collection-header">
 											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
@@ -517,106 +334,15 @@
 														</div>
 													</div>
 													<a href="page1.html">delete</a>
-	
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-								<div class="collection">
-									<h3 class="menu-article">Creative Agency</h3>
-									<div class="collection-header">
-										<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
-										<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-										<span><i class="fa fa-eye"></i> 789</span>
-										<div class="edit-collection">
-											<i class="fa fa-pencil"></i>
-											<div class="c_edit">
-												<div class="btn-rename">
-													rename
-													<div class="message-popup">
-														<div class="message-popup-inner container">
-															<div class="row">
-																<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																	<i class="fa fa-times close-button"></i>
-																	<h5 class="large-popup-title">Rename</h5>
-																	<div class="form-group">
-																		<input class="form-input" required="" placeholder="Your text">
-																	</div>
-																	<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<a href="page1.html">delete</a>
-
-											</div>
-										</div>
-									</div>
-									<div class="collection-entry">
-										<a href="page1.html" class="portfolio-link type-2 clearfix">
-											<img src="/salmon/resources/template/img/collection_6.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_7.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_8.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_9.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_10.jpg" alt="">
-											<div class="color_bg">
-												<span>view gallery</span>
-												<span class="child"></span>
-											</div>
-										</a>
-									</div>
-								</div>
-								<div class="collection">
-									<h3 class="menu-article">Creative Agency</h3>
-									<div class="collection-header">
-										<span><i class="fa fa-user"></i>by <a href="page1.html">Inspiration Art</a> </span>
-										<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-										<span><i class="fa fa-eye"></i> 789</span>
-										<div class="edit-collection">
-											<i class="fa fa-pencil"></i>
-											<div class="c_edit">
-												<div class="btn-rename">
-													rename
-													<div class="message-popup">
-														<div class="message-popup-inner container">
-															<div class="row">
-																<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																	<i class="fa fa-times close-button"></i>
-																	<h5 class="large-popup-title">Rename</h5>
-																	<div class="form-group">
-																		<input class="form-input" required="" placeholder="Your text">
-																	</div>
-																	<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<a href="page1.html">delete</a>
-
-											</div>
-										</div>
-									</div>
-									<div class="collection-entry">
-										<a href="page1.html" class="portfolio-link type-2 clearfix">
-											<img src="/salmon/resources/template/img/collection_11.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_12.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_13.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_14.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_15.jpg" alt="">
-											<div class="color_bg">
-												<span>view gallery</span>
-												<span class="child"></span>
-											</div>
-										</a>
 									</div>
 								</div>
 							</div>
 							<div class="tab-info">
 								<div class="collection">
-									<div class="collection-entry">
+									<div class="collection-entry suggestion-entry">
 										<h3 class="menu-article">Creative Ideas</h3>
 										<div class="collection-header">
 											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
@@ -643,14 +369,13 @@
 														</div>
 													</div>
 													<a href="page1.html">delete</a>
-	
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 								<div class="collection">
-									<div class="collection-entry">
+									<div class="collection-entry suggestion-entry">
 										<h3 class="menu-article">Creative Ideas</h3>
 										<div class="collection-header">
 											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
@@ -677,100 +402,9 @@
 														</div>
 													</div>
 													<a href="page1.html">delete</a>
-	
 												</div>
 											</div>
 										</div>
-									</div>
-								</div>
-								<div class="collection">
-									<h3 class="menu-article">Creative Agency</h3>
-									<div class="collection-header">
-										<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
-										<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-										<span><i class="fa fa-eye"></i> 789</span>
-										<div class="edit-collection">
-											<i class="fa fa-pencil"></i>
-											<div class="c_edit">
-												<div class="btn-rename">
-													rename
-													<div class="message-popup">
-														<div class="message-popup-inner container">
-															<div class="row">
-																<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																	<i class="fa fa-times close-button"></i>
-																	<h5 class="large-popup-title">Rename</h5>
-																	<div class="form-group">
-																		<input class="form-input" required="" placeholder="Your text">
-																	</div>
-																	<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<a href="page1.html">delete</a>
-
-											</div>
-										</div>
-									</div>
-									<div class="collection-entry">
-										<a href="page1.html" class="portfolio-link type-2 clearfix">
-											<img src="/salmon/resources/template/img/collection_6.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_7.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_8.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_9.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_10.jpg" alt="">
-											<div class="color_bg">
-												<span>view gallery</span>
-												<span class="child"></span>
-											</div>
-										</a>
-									</div>
-								</div>
-								<div class="collection">
-									<h3 class="menu-article">Creative Agency</h3>
-									<div class="collection-header">
-										<span><i class="fa fa-user"></i>by <a href="page1.html">Inspiration Art</a> </span>
-										<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-										<span><i class="fa fa-eye"></i> 789</span>
-										<div class="edit-collection">
-											<i class="fa fa-pencil"></i>
-											<div class="c_edit">
-												<div class="btn-rename">
-													rename
-													<div class="message-popup">
-														<div class="message-popup-inner container">
-															<div class="row">
-																<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																	<i class="fa fa-times close-button"></i>
-																	<h5 class="large-popup-title">Rename</h5>
-																	<div class="form-group">
-																		<input class="form-input" required="" placeholder="Your text">
-																	</div>
-																	<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<a href="page1.html">delete</a>
-
-											</div>
-										</div>
-									</div>
-									<div class="collection-entry">
-										<a href="page1.html" class="portfolio-link type-2 clearfix">
-											<img src="/salmon/resources/template/img/collection_11.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_12.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_13.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_14.jpg" alt="">
-											<img src="/salmon/resources/template/img/collection_15.jpg" alt="">
-											<div class="color_bg">
-												<span>view gallery</span>
-												<span class="child"></span>
-											</div>
-										</a>
 									</div>
 								</div>
 							</div>

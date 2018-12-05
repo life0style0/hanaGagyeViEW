@@ -464,6 +464,7 @@ function uploadProfileImage() {
 		cache: false,
 		error: function (err) {
 			console.error(err);
+			result = false;
 		},
 		success: function (res) {
 			result = res === 'success' ? true : false;
