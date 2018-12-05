@@ -8,6 +8,7 @@
                 <result property="articleId" column="article_id"/>
                 <result property="articleScope" column="article_scope"/>
                 <result property="articleRegdate" column="article_regdate"/>
+                <result property="articleEnddate" column="article_enddate"/>
                 <result property="articleTitle" column="article_title"/>
                 <result property="articleContent" column="article_content"/>
                 <result property="articleProposalStatus" column="article_proposal_status"/>
@@ -22,7 +23,7 @@
         <resultMap type="kr.or.kosta.salmon.domain.SuggestionDTO" id="suggestions">
                 <result property="articleId" column="article_id"/>
                 <result property="articleRegdate" column="article_regdate"/>
-                <result property="articleEditdate" column="article_editdate"/>
+                <result property="articleEnddate" column="article_enddate"/>
                 <result property="articlePaymentType" column="article_payment_type"/>
                 <result property="articlePaymentFee" column="article_payment_fee"/>
                 <result property="articleTitle" column="article_title"/>
@@ -38,42 +39,50 @@
         </resultMap>
 
         <select id="getSuggestionListWithPaging" resultMap="suggestionLists">
-SELECT "ar".article_id "article_id", 
-       "article_regdate", 
-       article_editdate, 
+SELECT article_id, 
+        to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
+        to_char(article_regdate + 30,'YYYY-MM-DD') "article_enddate",
        article_title, 
        article_content, 
        article_proposal_status, 
-       user_id, 
+       user_id,
        (SELECT Count(li.like_id) 
         FROM   likes li 
-        WHERE  li.article_id = "ar".article_id) "likes_num", 
+        WHERE  li.article_id = "ar".article_id)    "likes_num", 
        (SELECT Count(comment_id) 
         FROM   comments 
-        WHERE  article_id = "ar".article_id)    "comments_num", 
+        WHERE  article_id = "ar".article_id)       "comments_num", 
        (SELECT Count(scrap_id) 
         FROM   scraps 
-        WHERE  article_id = "ar".article_id)    "scraps_num" 
-FROM   (SELECT ROWNUM   rn, 
+        WHERE  article_id = "ar".article_id)       "scraps_num" 
+FROM   (SELECT ROWNUM rn, 
                article_id, 
-               To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
-               article_title, 
-               article_content, 
-               article_proposal_status, 
-               user_id
-        FROM   articles 
-        WHERE  ( article_ctgry_id = 2 
-                 AND To_char(article_regdate, 'YYYY-MM-DD') <![CDATA[ > ]]>
-                     To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N')
-               AND   <include refid="criteria" />
-               ROWNUM   <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}
-        ORDER  BY article_regdate) "ar" 
+                article_regdate,
+                article_title, 
+                article_content, 
+                article_proposal_status, 
+                user_id
+        FROM   (SELECT article_id, 
+                        article_regdate,
+                        article_title, 
+                        article_content, 
+                        article_proposal_status, 
+                        user_id
+                FROM   articles 
+                WHERE  ( article_ctgry_id = 2 
+                         AND To_char(article_regdate, 'YYYY-MM-DD') <![CDATA[ > ]]> 
+                             To_char(SYSDATE - 30, 'yyyy-mm-dd') 
+                        AND  <include refid="criteria" />
+                         article_deleted = 'N' ) 
+                ORDER  BY article_regdate desc) 
+        WHERE  ROWNUM <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum} ) "ar" 
 WHERE  rn <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
         </select>
 
         <select id="getSuggestions" resultMap="suggestions">
 SELECT "ar".article_id, 
-       "article_regdate", 
+        to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
+        to_char(article_regdate + 30,'YYYY-MM-DD') "article_enddate", 
        article_editdate, 
        article_payment_type, 
        article_payment_fee, 
@@ -90,9 +99,9 @@ SELECT "ar".article_id,
        (SELECT Count(scrap_id) 
         FROM   scraps 
         WHERE  article_id = "ar".article_id)    "scraps_num" 
-FROM   (SELECT ROWNUM                                 rn, 
+FROM   (SELECT ROWNUM   rn, 
                article_id, 
-               To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
+               article_regdate, 
                article_editdate, 
                article_payment_type, 
                article_payment_fee, 
@@ -102,14 +111,14 @@ FROM   (SELECT ROWNUM                                 rn,
                user_id
         FROM   articles 
         WHERE  ( article_ctgry_id = 2 
-                 AND To_char(article_regdate, 'YYYY-MM-DD')    <![CDATA[ > ]]>
+                 AND To_char(article_regdate, 'YYYY-MM-DD')                    <![CDATA[ > ]]>
                      To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N' )
                AND  
-               <include refid="criteria" />
-               ROWNUM   <![CDATA[ <= ]]>
+                <include refid="criteria" />
+               ROWNUM                   <![CDATA[ <= ]]>
                #{pageNum} * #{maxArticleNum}
         ORDER  BY article_regdate) "ar" 
-WHERE  rn  <![CDATA[ > ]]>
+WHERE  rn                  <![CDATA[ > ]]>
 (#{pageNum} - 1) * #{maxArticleNum}
         </select>
 
@@ -131,6 +140,17 @@ FROM   ctgry_values "cv"
        join ctgries "ct" 
          ON "cv".ctgry_id = "ct".ctgry_id 
 WHERE  article_id = #{articleId}
+        </select>
+
+        <select id="getTotalSuggestion" resultType="int">
+SELECT count(article_id)
+        FROM   articles 
+        WHERE  ( article_ctgry_id = 2 
+                 AND To_char(article_regdate, 'YYYY-MM-DD')                    <![CDATA[ > ]]>
+                     To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N' )
+               AND  
+                <include refid="criteria" />
+               article_id > 0
         </select>
 
         <sql id="criteria">

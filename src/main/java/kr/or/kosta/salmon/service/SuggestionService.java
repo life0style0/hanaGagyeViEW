@@ -1,4 +1,4 @@
-package kr.or.kosta.salmon.mapper;
+package kr.or.kosta.salmon.service;
 
 import java.util.List;
 
@@ -6,11 +6,11 @@ import kr.or.kosta.salmon.common.Criteria;
 import kr.or.kosta.salmon.domain.SuggestionDTO;
 
 /**
- * SuggestionMapper
+ * SuggestionService
  */
-public interface SuggestionMapper {
+public interface SuggestionService {
 
-    public List<SuggestionDTO> getSuggestionListWithPaging(Criteria criteria) throws Exception;
+    List<SuggestionDTO> getSuggestionListWithPaging(Criteria criteria) throws Exception;
 
     public int getTotalSuggestion(Criteria criteria) throws Exception;
 }

@@ -134,71 +134,35 @@
 						</div>
 						<div class="tabs-content clearfix">
 							<div class="tab-info active">
-								<div class="collection">
-									<div class="collection-entry suggestion-entry">
-										<h3 class="menu-article">Creative Ideas</h3>
-										<div class="collection-header">
-											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
-											<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-											<span><i class="fa fa-eye"></i> 789</span>
-											<div class="edit-collection">
-												<i class="fa fa-pencil"></i>
-												<div class="c_edit">
-													<div class="btn-rename">
-														rename
-														<div class="message-popup">
-															<div class="message-popup-inner container">
-																<div class="row">
-																	<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																		<i class="fa fa-times close-button"></i>
-																		<h5 class="large-popup-title">Rename</h5>
-																		<div class="form-group">
-																			<input class="form-input" required="" placeholder="Your text">
-																		</div>
-																		<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<a href="page1.html">delete</a>
-
-												</div>
+								<c:forEach items="${list}" var="suggestion" varStatus="status">
+									<div class="collection" id="sgt-new-${status.count}">
+										<div class="collection-entry suggestion-entry" data-sid="${suggestion.articleId}">
+											<h3 class="menu-article" id="sgt-new-title-${status.count}">${suggestion.articleTitle}</h3>
+											<div class="collection-header">
+												<span><i class="fa fa-user"></i>by <a href="page1.html" id="sgt-new-userId-${status.count}">${suggestion.userId}</a></span>
+												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding" id="sgt-new-like-${status.count}">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding" id="sgt-new-comment-${status.count}">${suggestion.commentCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding" id="sgt-new-date-${status.count}">기간 :
+														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="collection">
-									<div class="collection-entry suggestion-entry">
-										<h3 class="menu-article">Creative Ideas</h3>
-										<div class="collection-header">
-											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
-											<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-											<span><i class="fa fa-eye"></i> 789</span>
-											<div class="edit-collection">
-												<i class="fa fa-pencil"></i>
-												<div class="c_edit">
-													<div class="btn-rename">
-														rename
-														<div class="message-popup">
-															<div class="message-popup-inner container">
-																<div class="row">
-																	<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																		<i class="fa fa-times close-button"></i>
-																		<h5 class="large-popup-title">Rename</h5>
-																		<div class="form-group">
-																			<input class="form-input" required="" placeholder="Your text">
-																		</div>
-																		<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<a href="page1.html">delete</a>
-												</div>
-											</div>
-										</div>
+								</c:forEach>
+								<div class="pull-right">
+									<ul class="pagination sgt-new-paging">
+										<c:if test="${pageBuilder.isPrev}">
+											<li class="paginate-new previous" data-page="${pageBuilder.startPageNum-1}">Prev</li>
+										</c:if>
+										<c:forEach var="num" begin="${pageBuilder.startPageNum}" end="${pageBuilder.lastPageNum}">
+											<li class="paginate-new" data-page="${num}">${num}</li>
+										</c:forEach>
+										<c:if test="${pageBuilder.isNext}">
+											<li class="paginate-new next" data-page="${pageBuilder.lastPageNum+1}">Next</li>
+										</c:if>
+									</ul>
+									<div id="pagination-new-data">
+										<input type="hidden" class="keyword" value="${cri.keyword}">
+										<input type="hidden" class="type" value="${cri.type}">
 									</div>
 								</div>
 							</div>
@@ -418,6 +382,10 @@
 	<!-- THE FOOTER -->
 	<%@ include file="/WEB-INF/views/includes/footer.jsp"%>
 
+	<!-- Modal -->
+	<%@ include file="../includes/articlemodal.jsp"%>
+
+
 	<!-- SCRIPT	-->
 	<script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>
 	<script src="/salmon/resources/template/script/jquery-ui.min.js"></script>
@@ -427,6 +395,7 @@
 	<script src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
 	<script src="/salmon/resources/template/script/filters.js"></script>
 	<script src="/salmon/resources/template/script/global.js"></script>
+	<script src="/salmon/resources/jjw/js/suggestion.js"></script>
 </body>
 
 </html>

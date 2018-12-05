@@ -1,3 +1,12 @@
 .suggestion-entry {
   padding: 20px;
+  background-color: aliceblue;
+}
+
+.suggestion-entry:hover{
+  background-color: antiquewhite;
+}
+
+.no-padding {
+  padding: unset;
 }

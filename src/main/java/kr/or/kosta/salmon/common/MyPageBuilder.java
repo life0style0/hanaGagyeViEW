@@ -36,7 +36,7 @@ public class MyPageBuilder {
     /**
      * 게시판 번호를 받아 해당 번호와 맞는 페이지 넘버링을 해주는 메소드
      */
-    public void build(Criteria criteria) {
+    public MyPageBuilder build(Criteria criteria) {
         this.pageNum = criteria.getPageNum();
         this.maxPageNum = criteria.getMaxPageNum();
         this.maxArticleNum = criteria.getMaxArticleNum();
@@ -47,10 +47,12 @@ public class MyPageBuilder {
                 : maxPageNum * ((pageNum - 1) / maxPageNum + 1);
         articleNum = totalArticles - (pageNum - 1) * maxArticleNum;
 
-        this.isPrevPrev = pageNum != 1 ? true : false;
+        this.isPrevPrev = startPageNum != 1 ? true : false;
         this.isPrev = pageNum != 1 ? true : false;
         this.isNext = pageNum < totalPageNum ? true : false;
         this.isNextNext = lastPageNum != totalPageNum ? true : false;
+
+        return this;
     }
 
     public int getTotalArticles() {

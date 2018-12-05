@@ -11,6 +11,7 @@ import lombok.Data;
 public class SuggestionDTO {
 	private int articleId;
 	private String articleRegdate;
+	private String articleEnddate;
 	private String articleEditdate;
 	private String articlePaymentType;
 	private int articlePaymentFee;
