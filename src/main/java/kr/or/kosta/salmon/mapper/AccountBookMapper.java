@@ -30,4 +30,10 @@ public interface AccountBookMapper {
         public PsnsDTO getPsns(@Param("userId") String userId) throws Exception;
 
         public Boolean editPsns(@Param("psns") PsnsDTO psnsDTO, @Param("userId") String userId) throws Exception;
+
+        public Boolean shareArticle(@Param("articleId") String articleId, @Param("userId") String userId)
+                        throws Exception;
+
+        public Boolean shareCancelArticle(@Param("articleId") String articleId, @Param("userId") String userId)
+                        throws Exception;
 }

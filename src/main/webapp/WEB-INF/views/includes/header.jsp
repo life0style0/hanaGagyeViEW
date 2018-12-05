@@ -14,9 +14,7 @@
       <div class="header-menu-block">
         <button class="cmn-toggle-switch cmn-toggle-switch__htx"><span></span></button>
         <ul class="header-menu" id="one">
-          <li><a href="/salmon/sns/feeds?userid=<sec:authentication property="principal.username"/>">
-          	<sec:authentication property="principal.username"/>님</a>
-          </li>
+          <li><span id="loginUserId"><sec:authentication property="principal.username" /></span>님</li>
           <li><a href="/salmon/main/mypage">MYPAGE</a></li>
           <li><a href="/salmon/accountbook/calendar">AccountBook</a></li>
         </ul>

@@ -49,13 +49,13 @@
     <button id="cancel" class="btn btn-defualt">Cancel</button>
   </div>
 
-<div class="modal fade image-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <img class="img-responsive upload-image">
+  <div class="modal fade image-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <img class="img-responsive upload-image">
+      </div>
     </div>
   </div>
-</div>
 
   <script>
     let fileCnt = 0;
@@ -65,6 +65,47 @@
     const maxUploadSize = 524280; // 5MB
 
     $(function () {
+      $.ajax({
+        url: '/salmon/image?fileName=39320_t2.jpg',
+        method: 'get',
+        cache: false,
+        xhr: function () { // Seems like the only way to get access to the xhr object
+          var xhr = new XMLHttpRequest();
+          xhr.responseType = 'blob'
+          return xhr;
+        },
+        success: function (data) {
+          console.log("2");
+          console.log(data); //ArrayBuffer
+          console.log(new Blob([data])) // Blob
+        },
+        error: function () {
+
+        }
+      });
+
+      $.ajaxSetup({
+        beforeSend: function (jqXHR, settings) {
+          if (settings.dataType === 'binary') {
+            settings.xhr().responseType = 'arraybuffer';
+            settings.processData = false;
+          }
+        }
+      })
+
+      $.ajax({
+        url: '/salmon/image?fileName=39320_t2.jpg',
+        method: 'get',
+        dataType: "binary",
+        success: function (data) {
+          console.log("1");
+          console.log(data); //ArrayBuffer
+          console.log(new Blob([data])) // Blob
+        }
+      });
+
+
+
       $(document).on({
         dragover: function (e) {
           e.preventDefault();
@@ -135,7 +176,7 @@
         $('.upload-image-preview').html('');
       });
 
-      $('.upload-image-preview').on('click', '.thumbnail-image', function() {
+      $('.upload-image-preview').on('click', '.thumbnail-image', function () {
         $('.image-modal').find('.upload-image').attr('src', $(this).attr('src'));
         $('.image-modal').modal('show');
       })
@@ -145,7 +186,8 @@
       if (file) {
         const reader = new FileReader();
         reader.onload = function (e) {
-          const img = `<div class="col-xs-3 col-md-3"><div class="thumbnail">
+          const img =
+            `<div class="col-xs-3 col-md-3"><div class="thumbnail">
           <img class="img-responsive thumbnail-image" src="${e.target.result}" />
           <div class="caption">
           <p>file name : ${file.name}</p>
@@ -181,8 +223,7 @@
           const fileName = files[i].name;
           const fileSize = files[i].size;
 
-          if (!checkUploadFile(fileName, fileSize)) {
-          } else {
+          if (!checkUploadFile(fileName, fileSize)) {} else {
             totalFileSize += fileSize;
             fileList[fileCnt] = files[i];
             fileCnt += 1;
@@ -221,7 +262,6 @@
         });
       }
     })
-
   </script>
 
 </body>

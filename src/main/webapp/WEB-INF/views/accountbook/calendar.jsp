@@ -145,9 +145,11 @@
 					</div>
 
 					<div class="col-md-10 accountbook-calendar" id="accountbook-calendar">
-						<div class="edit-psn"><button type="button" class="btn btn-warning my-btn btn-edit-psn">가계부 설정</button></div>
-						<div class="new-ggv"><button type="button" class="btn btn-primary my-btn">새 가계부글 올리기</button><button type="button"
-							 class="btn btn-info my-btn">월 공유</button></div>
+						<div>
+							<div class="edit-psn"><button type="button" class="btn btn-warning my-btn btn-edit-psn">가계부 설정</button></div>
+							<div class="new-ggv"><a href="/salmon/article/register" class="btn btn-primary my-btn">새 가계부글 올리기</a><button
+								 type="button" class="btn btn-info my-btn">월 공유</button></div>
+						</div>
 						<div class="calendar-head text-center"><span><i class="fa fa-chevron-left calendar-left"></i></span><span class="calendar month"></span><input
 							 type="text" id="datePic" class="invisible datepic"><span class="calendar year"></span><span><i class="fa fa-chevron-right calendar-right"></i></span></div>
 						<table id="calendar">
@@ -195,15 +197,16 @@
 		<div class="be-fixed-filter"></div>
 
 		<!-- Modal -->
-		<div class="modal fade" id="ggv-modal" tabindex="-1" role="dialog" aria-labelledby="ggv-modal-label" aria-hidden="true">
-			<div class="modal-dialog">
+		<div class="modal fade ggv-modal" id="ggv-modal2" tabindex="-1" role="dialog" aria-labelledby="ggv-modal-label"
+		 aria-hidden="true">
+			<div class="modal-dialog ggv-no-image">
 				<div class="modal-content">
 					<div class="ggv-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="ggv-modal-label">2018년 11월 27일 오후 1시 12분</h4>
+						<h4 class="modal-title">2018년 11월 27일 오후 1시 12분</h4>
 					</div>
 					<div class="ggv-body">
-						<div class="col-md-6">
+						<div class="col-md-6 ggv-modal-image">
 							<div class="ggv-carousel owl-carousel owl-theme">
 							</div>
 						</div>
@@ -211,24 +214,23 @@
 							<div class="ggv-modal-content">
 								<div class="col-md-12 ggv-col-6">
 									<div class="col-xs-6 col-md-6 text-center ggv-content-left">공개 범위</div>
-									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvScope">나만</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right"></div>
 								</div>
 								<div class="col-md-12 ggv-col-6">
 									<div class="col-xs-6 col-md-6 text-center ggv-content-left">금액</div>
-									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvMoney">100,000원</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right"></div>
 								</div>
 								<div class="col-md-12 ggv-col-6">
 									<div class="col-xs-6 col-md-6 text-center ggv-content-left">카테고리</div>
-									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvCtgry">음식</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right"></div>
 								</div>
 								<div class="col-md-12 ggv-col-6">
 									<div class="col-xs-6 col-md-6 text-center ggv-content-left">결제 방법</div>
-									<div class="col-xs-6 col-md-6 text-center ggv-content-right" id="ggvPayType">카드</div>
+									<div class="col-xs-6 col-md-6 text-center ggv-content-right"></div>
 								</div>
-								<div class="ggv-col-12" id="ggvTitle">
-									간단한 메모
+								<div class="ggv-col-12">
 								</div>
-								<div class="ggv-col-12" id="ggvContent">
+								<div class="ggv-col-12">
 								</div>
 							</div>
 						</div>
@@ -238,6 +240,10 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Modal -->
+		<%@ include file="../includes/articlemodal.jsp"%>
+
 
 		<div class="modal fade" id="psn-modal" tabindex="-1" role="dialog" aria-labelledby="psn-modal-label" aria-hidden="true">
 			<div class="modal-dialog">

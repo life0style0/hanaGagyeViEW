@@ -190,8 +190,12 @@
           <div class="tags_block clearfix">
             <ul>
             <c:if test="${hashTagList.size() > 0 }">
+            <c:set var="ctHash" value="1" />
             <c:forEach var="hashTag" items="${hashTagList }">
+              <c:if test="${ctHash<10 }">
               <li><a data-filter=".category-hashTag-${hashTag.hashtag_value }" class="filter">${hashTag.hashtag_value }(${hashTag.count_hashtag_value})</a></li>
+              </c:if>
+              <c:set var="ctHash" value="${ctHash+1 }"/>
             </c:forEach>
             </c:if>
             <c:if test="${hashTagList.size() == 0 }">
@@ -228,15 +232,31 @@
               	<!-- <img src="/salmon/resources/hjh/images/noimage.gif" alt="img"> -->
               </c:if>
               <c:if test="${article.imagePaths.size()>0 }">
+                <c:set var="imgCt" value="1"/>
 	          	<c:forEach var="images" items="${article.imagePaths}">
-	          		<div class="article-size" style="text-align:center;">
-	            		<img src="/salmon/main/image?fileName=${images }" alt="img">
-	            	</div>
+                <div class="article-size" style="text-align:center;">
+                  <c:if test="${imgCt < 2 }">
+                  <img src="/salmon/main/image?fileName=${images }" alt="img">
+                  </c:if>
+                </div>
+                <c:set var="imgCt" value="${imgCt+1 }"/>
 	            </c:forEach>
-               </c:if>
-              </a>
+              </c:if>
+              </a>              
               <a id="article-title-<c:out value="${article.article_id}"/>" class="be-post-title">
-              	${article.article_title}
+                ${article.article_title}
+               <!--
+             	<c:if test="${article.imagePaths.size()>0 }">
+             		<c:set var="imgCt" value="1"/>
+              	<c:forEach var="images" items="${article.imagePaths}">
+              	<c:if test="${imgCt < 2 }">
+                  <img src="/salmon/main/image?fileName=${images }" alt="img">
+                </c:if>
+                	<c:set var="imgCt" value="${imgCt+1 }"/>
+                </c:forEach>
+              </c:if>
+              --> 
+
               </a>
               <span>
               	<c:forEach var="tag" items="${article.hashtags }">
@@ -420,6 +440,7 @@
   	data.push(categoryBlock);
   </c:forEach>
   console.log(data);
+  
   </script>
   
   <script>
