@@ -322,6 +322,7 @@ function checkCtgryType(type) {
 }
 
 function eventRegistOnShare(data, info) {
+    $('#article-share-btn a').off('click');
     $('#article-share-btn a').on('click', function (e) {
         data.articleScope = 'u';
         const scopeT = checkScope(data.articleScope);
@@ -346,6 +347,7 @@ function eventRegistOnShare(data, info) {
             }
         });
     });
+    $('#article-share-cancel-btn a').off('click');
     $('#article-share-cancel-btn a').on('click', function (e) {
         data.articleScope = 'r';
         const scopeT = checkScope(data.articleScope);
