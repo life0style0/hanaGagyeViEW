@@ -106,6 +106,7 @@ public class SuggestionController {
     public String getSuggestion(@PathVariable("sno") String sno,Model model, Principal principal) {
         log.info("suggestion...." + sno);
         try {
+            model.addAttribute("checkLike", ss.checkLike(principal.getName(), sno));
             model.addAttribute("article", ss.getSuggestion(sno));
         } catch (Exception e) {
             e.printStackTrace();

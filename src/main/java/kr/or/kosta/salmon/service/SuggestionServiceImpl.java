@@ -49,4 +49,9 @@ public class SuggestionServiceImpl implements SuggestionService {
         return sm.getSuggestion(suggestionId);
     }
 
+    @Override
+    public boolean checkLike(String userId, String articleId) throws Exception {
+        return sm.checkLike(userId, articleId) > 0 ? true : false;
+    }
+
 }

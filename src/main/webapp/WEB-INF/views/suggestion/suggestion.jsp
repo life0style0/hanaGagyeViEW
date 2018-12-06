@@ -16,6 +16,10 @@
 	<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/suggestion.css">
+	<link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
+	<!-- font awsome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+	 crossorigin="anonymous">
 </head>
 
 <body>
@@ -47,14 +51,15 @@
 		</div>
 		<div class="container be-detail-container">
 			<h1 class="article-title">${article.articleTitle}</h1>
-			<h2 class="content-title">참여인원 : ${article.likeCnt}명</h2>
+			<h2 class="content-title">참여인원 : ${article.likeCnt}명, ${article.articleProposalStatus == 'R' ? '진행중' : ''}${article.articleProposalStatus == 'J' ? '심사 중' : ''}${article.articleProposalStatus == 'C' ? '개발 중' : ''}${article.articleProposalStatus == 'F' ? '개발 완료' : ''}</h2>
 			<div class="row row-progress">
 				<div class="col-xs-3 col-md-2">0명</div>
 				<div class="col-xs-6 col-md-8">
 					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="${article.likeCnt > 0 && article.likeCnt < 1000 ? article.likeCnt/10 : ''}${article.likeCnt >= 1000 ? '100' : ''}"
-						 aria-valuemin="0" aria-valuemax="100" style="width:${article.likeCnt > 0 && article.likeCnt < 1000 ? article.likeCnt/10 : ''}${article.likeCnt >= 1000 ? '100' : ''}%">
-							${article.likeCnt > 0 && article.likeCnt < 1000 ? article.likeCnt/10 : '' }${article.likeCnt>= 1000 ? '100' : ''}%
+						<div class="progress-bar" role="progressbar" aria-valuenow="${article.likeCnt gt 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : ''}${article.likeCnt ge 1000 ? '100' : ''}"
+						 aria-valuemin="0" aria-valuemax="100" style="width:${article.likeCnt gt 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : ''}${article.likeCnt ge 1000 ? '100' : ''}%;">
+							${article.likeCnt gt 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : '' }${article.likeCnt ge 1000 ? '100' :
+							''}%
 						</div>
 					</div>
 				</div>
@@ -110,19 +115,6 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-xs-12 col-sm-6">
-										<div class="be-bottom right">
-											<h4 class="be-bottom-title">Share</h4>
-											<ul class="soc_buttons light">
-												<li><a href=""><i class="fa fa-facebook"></i></a></li>
-												<li><a href=""><i class="fa fa-twitter"></i></a></li>
-												<li><a href=""><i class="fa fa-google-plus"></i></a></li>
-												<li><a href=""><i class="fa fa-pinterest-p"></i></a></li>
-												<li><a href=""><i class="fa fa-instagram"></i></a></li>
-												<li><a href=""><i class="fa fa-linkedin"></i></a></li>
-											</ul>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -152,18 +144,6 @@
 							</c:forEach>
 							<form class="form-block">
 								<div class="row">
-									<div class="col-xs-12 col-sm-6">
-										<div class="form-group fl_icon">
-											<div class="icon"><i class="fa fa-user"></i></div>
-											<input class="form-input" type="text" placeholder="Your name">
-										</div>
-									</div>
-									<div class="col-xs-12 col-sm-6 fl_icon">
-										<div class="form-group fl_icon">
-											<div class="icon"><i class="fa fa-envelope-o"></i></div>
-											<input class="form-input" type="text" placeholder="Your email">
-										</div>
-									</div>
 									<div class="col-xs-12">
 										<div class="form-group">
 											<textarea class="form-input" required="" placeholder="Your text"></textarea>
@@ -229,8 +209,15 @@
 							''}${article.userPsns.ctgryName3 != "none" ? article.userPsns.ctgryName3 : ''}
 						</p>
 					</div>
-					<a href="" class="be-button-vidget like-btn blue-style"><i class="fa fa-thumbs-o-up"></i>이 제안
-						추천하기!</a>
+					<c:choose>
+						<c:when test="${checkLike}">
+							<a href="" class="be-button-vidget like-cancel-btn blue-style"><i class="fas fa-thumbs-up"></i></i>추천 취소하기</a>
+						</c:when>
+						<c:otherwise>
+							<a href="" class="be-button-vidget like-btn blue-style"><i class="far fa-thumbs-up"></i></i>이 제안 추천하기!</a>
+						</c:otherwise>
+					</c:choose>
+
 				</div>
 			</div>
 		</div>

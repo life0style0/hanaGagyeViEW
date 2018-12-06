@@ -9,7 +9,7 @@
 }
 
 .no-padding {
-  padding: unset;
+  padding: unset!important;
 }
 
 .be-large-post .be-post-title {
@@ -29,12 +29,13 @@
 }
 
 .row-progress {
-  margin-bottom: 20px;
+  margin-bottom: 100px;
 }
 
 .article-title {
   font-size: 50px;
-  margin: 70px auto;
+  margin-top: 70px;
+  margin-bottom: 20px;
   text-align: center;
   font-family: 'Conv_helveticaneuecyr-bold';
 }
@@ -52,4 +53,21 @@
 
 .row-progress .col-md-2:last-child {
   text-align: left;
+}
+
+.content-title {
+  font-size: 26px;
+}
+
+.be-button-vidget .fa-thumbs-up {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.collection-header {
+  margin-bottom: unset;
+}
+
+.no-margin {
+  margin: unset!important;
 }

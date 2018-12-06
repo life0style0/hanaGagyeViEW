@@ -23,4 +23,6 @@ public interface SuggestionMapper {
     public int getTotalSuggestionByRecommend(Criteria criteria) throws Exception;
 
     public SuggestionDTO getSuggestion(@Param("article_id") String suggestionId) throws Exception;
+
+    public int checkLike(@Param("userId") String userId, @Param("articleId") String articleId) throws Exception;
 }

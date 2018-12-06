@@ -318,6 +318,13 @@ FROM   psns
 WHERE user_id = #{userId}
         </select>
 
+        <select id="checkLike" resultType="int">
+SELECT count(comment_id)
+FROM comments
+WHERE user_id = #{userId}
+        and article_id = #{articleId}
+        </select>
+
         <sql id="criteria">
                 <trim prefix="(" suffix=") and " prefixOverrides="or">
                         <foreach item="type" collection="typeArr">
