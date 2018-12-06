@@ -18,6 +18,8 @@
   <link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
   <link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
   <link rel="stylesheet" href="/salmon/resources/sjh/css/main-sjh.css">
+  <link rel="stylesheet" href="/salmon/resources/sjh/css/article.css">
+  <link rel="stylesheet" href="/salmon/resources/sjh/css/card-sjh.css">
 
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -31,8 +33,6 @@
 		    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	    <![endif]-->
-
-
 </head>
 
 <body>
@@ -190,8 +190,12 @@
           <div class="tags_block clearfix">
             <ul>
             <c:if test="${hashTagList.size() > 0 }">
+            <c:set var="ctHash" value="1" />
             <c:forEach var="hashTag" items="${hashTagList }">
+              <c:if test="${ctHash<10 }">
               <li><a data-filter=".category-hashTag-${hashTag.hashtag_value }" class="filter">${hashTag.hashtag_value }(${hashTag.count_hashtag_value})</a></li>
+              </c:if>
+              <c:set var="ctHash" value="${ctHash+1 }"/>
             </c:forEach>
             </c:if>
             <c:if test="${hashTagList.size() == 0 }">
@@ -217,18 +221,44 @@
        		<c:set var="tag" scope="page" value="${tag } category-hashTag-${hashLoop }"/>
        	</c:forEach>
           <div class="category-1 mix custom-column-3 ${tag }">
-            <div class="be-post">
-              <a href="page1.html" class="be-img-block">
+            <div id="article-post-<c:out value="${article.article_id}"/>" class="be-post-sjh" 
+            style="background-color:cadetblue">
+              <a class="be-img-block">
               <c:if test="${article.imagePaths.size()==0 }">
-              	<img src="/salmon/resources/hjh/images/noimage.gif" alt="img">
+              	<div class="article-size">
+              		<div class="padding-1-sjh">
+              			<c:out value="${article.article_content}"/>
+              		</div>
+              	</div>
+              	<!-- <img src="/salmon/resources/hjh/images/noimage.gif" alt="img"> -->
               </c:if>
-              	<c:if test="${article.imagePaths.size()>0 }">
-	              	<c:forEach var="images" items="${article.imagePaths}">
-	                <img src="/salmon/main/image?fileName=${images }" alt="img">
-	                </c:forEach>
+              <c:if test="${article.imagePaths.size()>0 }">
+                <c:set var="imgCt" value="1"/>
+	          	<c:forEach var="images" items="${article.imagePaths}">
+                <div class="article-size" style="text-align:center;">
+                  <c:if test="${imgCt < 2 }">
+                  <img src="/salmon/main/image?fileName=${images }" alt="img">
+                  </c:if>
+                </div>
+                <c:set var="imgCt" value="${imgCt+1 }"/>
+	            </c:forEach>
+              </c:if>
+              </a>              
+              <a id="article-title-<c:out value="${article.article_id}"/>" class="be-post-title">
+                ${article.article_title}
+               <!--
+             	<c:if test="${article.imagePaths.size()>0 }">
+             		<c:set var="imgCt" value="1"/>
+              	<c:forEach var="images" items="${article.imagePaths}">
+              	<c:if test="${imgCt < 2 }">
+                  <img src="/salmon/main/image?fileName=${images }" alt="img">
                 </c:if>
+                	<c:set var="imgCt" value="${imgCt+1 }"/>
+                </c:forEach>
+              </c:if>
+              --> 
+
               </a>
-              <a href="page1.html" class="be-post-title">${article.article_title}</a>
               <span>
               	<c:forEach var="tag" items="${article.hashtags }">
                 	<a href="blog-detail-2.html" class="be-post-tag">${tag } </a>
@@ -236,23 +266,34 @@
               </span>
               <div class="author-post">
                 <img src="/salmon/resources/template/img/a1.png" alt="" class="ava-author">
-                <span>by <a href="page1.html">${article.user_id }</a></span>
+                <span>by 
+                <a href="/salmon/sns/feeds?userid=${article.user_nickname}">${article.user_nickname}</a>
+                </span>
               </div>
               <div class="info-block">
-                <span><i class="fa fa-thumbs-o-up"></i> 360</span>
-                <span><i class="fa fa-eye"></i> 789</span>
-                <span><i class="fa fa-comment-o"></i> 20</span>
+                <span><i class="fa fa-thumbs-o-up"></i>
+                	<%--좋아요 --%>
+                	<c:out value="${article.likes.size()}"/>
+                </span>
+                <span><i class="fa fa-eye"></i>
+                	<%--스크랩수 --%>
+                	<c:out value="${article.scraps.size()}"/>
+                </span>
+                <span><i class="fa fa-comment-o"></i>
+                	<%--댓글수 --%>
+                	<c:out value="${article.comments.size()}"/>
+                </span>
               </div>
             </div>
           </div>
-                 </c:forEach>
-                 </c:if>
+          </c:forEach>
+          </c:if>
           
         </div>
       </div>
     </div>
   </div>
-  </div>
+  <!-- </div> -->
   <!-- THE FOOTER -->
   <%@ include file="/WEB-INF/views/includes/footer.jsp"%>
 
@@ -281,144 +322,11 @@
     </div>
   </div>
   <!--  로그아웃 팝업 끝-->
+  
+  <!-- 게시글 모달 -->
+<%@ include file="/WEB-INF/views/includes/articlemodal.jsp"%>
+  <!--  게시글 모달끝 -->
 
-  <div class="large-popup register">
-    <div class="large-popup-fixed"></div>
-    <div class="container large-popup-container">
-      <div class="row">
-        <div class="col-md-10 col-md-push-1 col-lg-8 col-lg-push-2 large-popup-content">
-          <div class="row">
-            <div class="col-md-12">
-              <i class="fa fa-times close-button"></i>
-              <h5 class="large-popup-title">Register</h5>
-            </div>
-            <form action="./" class="popup-input-search">
-              <div class="col-md-6">
-                <input class="input-signtype" type="text" required="" placeholder="First Name">
-              </div>
-              <div class="col-md-6">
-                <input class="input-signtype" type="text" required="" placeholder="Last Name">
-              </div>
-              <div class="col-md-6">
-                <div class="be-custom-select-block">
-                  <select class="be-custom-select">
-                    <option value="" disabled selected>
-                      Country
-                    </option>
-                    <option value="">USA</option>
-                    <option value="">Canada</option>
-                    <option value="">England</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <input class="input-signtype" type="text" required="" placeholder="Email">
-              </div>
-              <div class="col-md-6">
-                <input class="input-signtype" type="text" required="" placeholder="Password">
-              </div>
-              <div class="col-md-6">
-                <input class="input-signtype" type="text" required="" placeholder="Repeat Password">
-              </div>
-              <div class="col-md-12 be-date-block">
-                <span class="large-popup-text">
-                  Date of birth
-                </span>
-                <div class="be-custom-select-block mounth">
-                  <select class="be-custom-select">
-                    <option value="" disabled selected>
-                      Mounth
-                    </option>
-                    <option value="">January</option>
-                    <option value="">February</option>
-                    <option value="">March</option>
-                    <option value="">April</option>
-                    <option value="">May</option>
-                    <option value="">June</option>
-                    <option value="">July</option>
-                    <option value="">August</option>
-                    <option value="">September</option>
-                    <option value="">October</option>
-                    <option value="">November</option>
-                    <option value="">December</option>
-                  </select>
-                </div>
-                <div class="be-custom-select-block">
-                  <select class="be-custom-select">
-                    <option value="" disabled selected>
-                      Day
-                    </option>
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4</option>
-                    <option value="">5</option>
-                    <option value="">6</option>
-                    <option value="">7</option>
-                    <option value="">8</option>
-                    <option value="">9</option>
-                    <option value="">10</option>
-                    <option value="">11</option>
-                    <option value="">12</option>
-                    <option value="">13</option>
-                    <option value="">14</option>
-                    <option value="">15</option>
-                    <option value="">16</option>
-                    <option value="">17</option>
-                    <option value="">18</option>
-                    <option value="">19</option>
-                    <option value="">20</option>
-                    <option value="">21</option>
-                    <option value="">22</option>
-                    <option value="">23</option>
-                    <option value="">24</option>
-                    <option value="">25</option>
-                    <option value="">26</option>
-                    <option value="">27</option>
-                    <option value="">28</option>
-                    <option value="">29</option>
-                    <option value="">30</option>
-                  </select>
-                </div>
-                <div class="be-custom-select-block">
-                  <select class="be-custom-select">
-                    <option value="" disabled selected>
-                      Year
-                    </option>
-                    <option value="">1996</option>
-                    <option value="">1997</option>
-                    <option value="">1998</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="be-checkbox">
-                  <label class="check-box">
-                    <input class="checkbox-input" type="checkbox" required="" value=""> <span class="check-box-sign"></span>
-                  </label>
-                  <span class="large-popup-text">
-                    I have read and agree to the <a class="be-popup-terms" href="blog-detail-2.html">Terms of Use</a>
-                    and <a class="be-popup-terms" href="blog-detail-2.html">Privacy Policy</a>.
-                  </span>
-                </div>
-                <div class="be-checkbox">
-                  <label class="check-box">
-                    <input class="checkbox-input" type="checkbox" value=""> <span class="check-box-sign"></span>
-                  </label>
-                  <span class="large-popup-text">
-                    Send me notifications
-                  </span>
-                </div>
-              </div>
-              <div class="col-md-6 for-signin">
-                <input type="submit" class="be-popup-sign-button" value="SIGN IN">
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <div class="theme-config">
     <div class="main-color">
       <div class="title">Main Color:</div>
@@ -436,6 +344,7 @@
     </div>
     <div class="open"><img src="/salmon/resources/template/img/icon-134.png" alt=""></div>
   </div>
+  
   <!-- SCRIPTS	 -->
   <script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>
   <script src="/salmon/resources/template/script/jquery-ui.min.js"></script>
@@ -445,6 +354,24 @@
   <script src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
   <script src="/salmon/resources/template/script/filters.js"></script>
   <script src="/salmon/resources/template/script/global.js"></script>
+  <script src="/salmon/resources/sjh/js/main-article.js"></script>
+  <script src="/salmon/resources/jjw/js/owl.carousel.min.js"></script>
+  
+  
+	<script type="text/javascript">
+	var articlelist;
+	$(function(){ 
+		  //article 불러오기
+		  var article= new Object();
+		  articlelist= ${articleListJSON};
+		  var i=0;
+		 
+		  $(articlelist).each(function(i,e){
+			  console.log(e);
+		  });
+		})
+	</script>
+	
   
   <script type="text/javascript">
   //재혁쓰
@@ -471,6 +398,7 @@
   	data.push(categoryBlock);
   </c:forEach>
   console.log(data);
+  
   </script>
   
   <script>

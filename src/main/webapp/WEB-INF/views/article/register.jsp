@@ -112,7 +112,7 @@
 											<ul class="drop-down-list" style="overflow:scroll; height:200px">
 											<c:forEach var="catList" items="${categoryList}">
 												<c:choose>
-													<c:when test="${catList=='-1' }">
+													<c:when test="${catList=='none' }">
 													</c:when>
 													<c:otherwise>
 													<li><a>${catList}</a></li>

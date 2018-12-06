@@ -113,7 +113,7 @@
 											<ul class="drop-down-list" style="overflow:scroll; height:200px">
 											<c:forEach var="catList" items="${categoryList}">
 												<c:choose>
-													<c:when test="${catList=='-1' }">
+													<c:when test="${catList=='none' }">
 													</c:when>
 													<c:otherwise>
 													<li><a>${catList}</a></li>
@@ -248,7 +248,8 @@
 	<link rel="stylesheet" href="/salmon/resources/hjh/css/bootstrap-datetimepicker.css">
 	<script type='text/javascript' src="/salmon/resources/hjh/js/moment-with-locales.min.js"></script>
 	<script type='text/javascript' src="/salmon/resources/hjh/js/bootstrap-datetimepicker.js"></script>
-	<script type='text/javascript' src="/salmon/resources/hjh/js/articleRegist.js"></script>
+	<script type='text/javascript' src="/salmon/resources/hjh/js/articleEdit.js"></script>
+
 	
 	<script type="text/javascript">
 	
@@ -297,7 +298,7 @@
 			   var article_id;
 			   $.ajax({
 				   	  cache : false,
-			          url: '/salmon/article/submit?_csrf=${_csrf.token}',
+			          url: '/salmon/article/update?_csrf=${_csrf.token}',
 			          data: articleForm,
 			          type: 'post',
 			          success: function (articleId) {
@@ -322,10 +323,8 @@
 		  } else {
 		    for (var i = 0; i < fileList.length; i += 1) {
 		      var file = fileList[i];
-		      console.log(formData.values().next())
 		      formData.append("uploadFile",fileList[i]);
 		    }
-		    console.log(formData.values().next())
 		    $.ajax({
 		      url: '/salmon/article/imageUpload?_csrf=${_csrf.token}&articleId='+articleId,
 		      processData: false,
@@ -335,7 +334,6 @@
 		      data:  formData,
 		      type: 'post',
 		      success: function (result) {
-		        console.log("success");
 		        $("#resultModal").modal({
 		        	keyboard:false,
 		        	show:true,
@@ -366,7 +364,40 @@
     		</div>
   		</div>
 	</div>
-	
+	<script>
+		 <c:if test="${articlePathList.size()>0}">
+		 <c:forEach var="path" items="${articlePathList}">
+		 function blobToFile(blob,filename){
+		     return new File([blob], filename, {type: blob.type, lastModified: Date.now()});
+		}
+		  $(function () {
+		      $.ajax({
+		        url: '/salmon/main/image?fileName=${path}',
+		        method: 'get',
+		        cache: false,
+		        xhr: function () { // Seems like the only way to get access to the xhr object
+		            var xhr = new XMLHttpRequest();
+		            xhr.responseType = 'image/png'
+		            return xhr;
+		          },
+		          success: function (data) {
+		        	var blob = new Blob([data], {type: 'image/png'});
+		        	var curFilePath = '${path}'.split("_")[1];
+		        	var file = blobToFile(blob, '${path}');
+		        	var tempFile = {};
+		        	tempFile[0]= file;
+		        	tempFile['length']=1; 
+		        	uploadFilesBefore(tempFile,curFilePath);
+		          },
+
+		        error: function () {
+
+		        }
+		      });
+		});  
+		</c:forEach>
+		</c:if>
+	</script>
 	
 	</body>
 </html>

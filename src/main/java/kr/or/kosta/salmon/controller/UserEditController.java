@@ -76,6 +76,7 @@ public class UserEditController {
 		//비밀번호, 이메일, 성별, 생년월일, 지역 수정
 		log.info(" 개인정보 수정 처리  : "+principal.getName());
 		log.info(user);
+		user.setUser_passwd(pwEncoder.encode(user.getUser_passwd()));
 		service.changeUserInfo(user); //users 테이블 변경
 		service.changeUserLocation(user); //psns 테이블 변경
 		log.info(" 개인정보 수정 완료 ");

@@ -259,9 +259,10 @@ SELECT comment_id,
        user_id, 
        (SELECT user_image 
         FROM   users us 
-        WHERE  us.user_id = co.user_id) "uesr_image" 
+        WHERE  us.user_id = co.user_id) "user_image",
+        article_id
 FROM   comments co 
-WHERE  article_id = 7        
+WHERE  article_id = #{articleId}
         </select>
 
         <select id="getTotalSuggestion" resultType="int">

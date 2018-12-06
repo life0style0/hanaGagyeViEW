@@ -171,22 +171,19 @@
     	SET
 		       article_ctgry_id = #{article_ctgry_id},
 		       article_scope = #{article_scope},
-		       article_regdate = #{article_regdate},,
+		       article_regdate = #{article_regdate},
 		       article_editdate = sysdate,
 		       article_payment_type = #{article_payment_type},
 		       article_payment_fee = #{article_payment_fee},
 		       article_title = #{article_title},
 		       article_content = #{article_content},
-		       article_proposal_status = #{article_proposal_status},
-		       group_id = #{group_id},
-		       user_id = #{user_id},
-		       article_deleted = #{article_deleted}
+		       user_id =#{user_id}
 		WHERE  article_id = #{article_id}
     </update>
 
     <delete id="deleteImages">
     	DELETE FROM images
-    	WHERE article_id = #{article_id}
+    	WHERE article_id = #{article_id} and image_path = #{image_path}
     </delete>
     
     <delete id="deleteHash">
@@ -198,7 +195,19 @@
     </delete>
 	
 	<delete id="deleteHashRefs">
-		DELETE FROM hashtag_refs WHERE aritlce_id = #{article_id}
+		DELETE FROM hashtag_refs WHERE article_id = #{article_id}
 	</delete>
+	
+	<select id="getArticleFilePath" resultType="String">
+		SELECT 	image_path 
+		FROM 	images 
+		WHERE 	article_id = #{article_id}
+	</select>
+	
+	<select id="imageCheck" resultType="int">
+		SELECT 		count(image_id) image_id 
+		FROM		images 
+		WHERE		article_id=#{article_id} and image_path = #{image_path}
+	</select>
 	
 </mapper>
