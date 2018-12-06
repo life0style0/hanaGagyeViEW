@@ -17,6 +17,7 @@
 	<link rel="stylesheet" href="/salmon/resources/template/style/jquery-ui.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/suggestion.css">
+	<link rel="stylesheet" href="/salmon/resources/jjw/css/common.css">
 </head>
 
 <body class="page-login">
@@ -136,15 +137,16 @@
 							<div class="tab-info active">
 								<c:forEach items="${list}" var="suggestion" varStatus="status">
 									<div class="collection" id="sgt-new-${status.count}">
-										<div class="collection-entry suggestion-entry" data-sid="${suggestion.articleId}">
-											<h3 class="menu-article" id="sgt-new-title-${status.count}">${suggestion.articleTitle}</h3>
+										<div class="collection-entry suggestion-entry">
+											<h3 class="menu-article sgt-title-${status.count}">${suggestion.articleTitle}</h3>
 											<div class="collection-header">
-												<span><i class="fa fa-user"></i>by <a href="page1.html" id="sgt-new-userId-${status.count}">${suggestion.userId}</a></span>
-												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding" id="sgt-new-like-${status.count}">${suggestion.likeCnt}</span></span>
-												<span><i class="fa fa-eye"></i> <span class="no-padding" id="sgt-new-comment-${status.count}">${suggestion.commentCnt}</span></span>
-												<span><i class="fa fa-eye"></i> <span class="no-padding" id="sgt-new-date-${status.count}">기간 :
+												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userId}</a></span>
+												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding sgt-comment">${suggestion.commentCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding sgt-date">기간 :
 														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
 											</div>
+											<input type="hidden" class="sgt-articleId" value="${suggestion.articleId}">
 										</div>
 									</div>
 								</c:forEach>

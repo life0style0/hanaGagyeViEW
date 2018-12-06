@@ -54,14 +54,15 @@ public class SuggestionController {
         ResponseEntity<List<Object>> result = null;
         try {
             List<SuggestionDTO> sgts = ss.getSuggestionListWithPaging(criteria);
-            MyPageBuilder mpb = (new MyPageBuilder(ss.getTotalSuggestion(criteria))).build(criteria);;
+            MyPageBuilder mpb = (new MyPageBuilder(ss.getTotalSuggestion(criteria))).build(criteria);
+            ;
             List<Object> results = new ArrayList<>();
             results.add(sgts);
             results.add(mpb);
             result = new ResponseEntity<>(results, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
-            result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return result;
     }
@@ -83,10 +84,15 @@ public class SuggestionController {
         return "suggestion/main";
     }
 
-    @GetMapping("/{sno}")
-    public @ResponseBody ResponseEntity<SuggestionDTO> getSuggestion(@PathVariable("sno") Long sno) {
+    @GetMapping("/article/{sno}")
+    public @ResponseBody ResponseEntity<SuggestionDTO> getSuggestion(@PathVariable("sno") String sno) {
         ResponseEntity<SuggestionDTO> result = null;
-
+        try {
+            result = new ResponseEntity<>(ss.getSuggestion(sno), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         return result;
     }
 }

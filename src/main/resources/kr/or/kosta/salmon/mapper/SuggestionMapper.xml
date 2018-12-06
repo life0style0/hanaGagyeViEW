@@ -20,7 +20,7 @@
                 <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
         </resultMap>
 
-        <resultMap type="kr.or.kosta.salmon.domain.SuggestionDTO" id="suggestions">
+        <resultMap type="kr.or.kosta.salmon.domain.SuggestionDTO" id="suggestion">
                 <result property="articleId" column="article_id"/>
                 <result property="articleRegdate" column="article_regdate"/>
                 <result property="articleEnddate" column="article_enddate"/>
@@ -79,8 +79,8 @@ FROM   (SELECT ROWNUM rn,
 WHERE  rn <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
         </select>
 
-        <select id="getSuggestions" resultMap="suggestions">
-SELECT "ar".article_id, 
+        <select id="getSuggestion" resultMap="suggestion">
+SELECT article_id, 
         to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
         to_char(article_regdate + 30,'YYYY-MM-DD') "article_enddate", 
        article_editdate, 
@@ -92,34 +92,15 @@ SELECT "ar".article_id,
        user_id, 
        (SELECT Count(li.like_id) 
         FROM   likes li 
-        WHERE  li.article_id = "ar".article_id) "likes_num", 
+        WHERE  li.article_id = #{article_id}) "likes_num", 
        (SELECT Count(comment_id) 
         FROM   comments 
-        WHERE  article_id = "ar".article_id)    "comments_num", 
+        WHERE  article_id = #{article_id})    "comments_num", 
        (SELECT Count(scrap_id) 
         FROM   scraps 
-        WHERE  article_id = "ar".article_id)    "scraps_num" 
-FROM   (SELECT ROWNUM   rn, 
-               article_id, 
-               article_regdate, 
-               article_editdate, 
-               article_payment_type, 
-               article_payment_fee, 
-               article_title, 
-               article_content, 
-               article_proposal_status, 
-               user_id
-        FROM   articles 
-        WHERE  ( article_ctgry_id = 2 
-                 AND To_char(article_regdate, 'YYYY-MM-DD')                    <![CDATA[ > ]]>
-                     To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N' )
-               AND  
-                <include refid="criteria" />
-               ROWNUM                   <![CDATA[ <= ]]>
-               #{pageNum} * #{maxArticleNum}
-        ORDER  BY article_regdate) "ar" 
-WHERE  rn                  <![CDATA[ > ]]>
-(#{pageNum} - 1) * #{maxArticleNum}
+        WHERE  article_id = #{article_id})    "scraps_num" 
+FROM    articles 
+WHERE   article_id = #{article_id}
         </select>
 
         <select id="getImages" resultType="string">

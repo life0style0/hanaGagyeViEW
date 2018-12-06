@@ -13,4 +13,6 @@ public interface SuggestionService {
     List<SuggestionDTO> getSuggestionListWithPaging(Criteria criteria) throws Exception;
 
     public int getTotalSuggestion(Criteria criteria) throws Exception;
+
+    public SuggestionDTO getSuggestion(String suggestionId) throws Exception;
 }

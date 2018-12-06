@@ -29,12 +29,13 @@ function setSuggestions(page, event) {
             pageBuilder = data[1];
             for (let i = 1; i <= suggestionDatas.length; i += 1) {
                 const suggestion = suggestionDatas[i - 1];
-                $(`#sgt-new-${i}`).removeClass('hidden');
-                $(`#sgt-new-title-${i}`).text((suggestion.articleTitle === undefined) ? '' : suggestion.articleTitle);
-                $(`#sgt-new-userId-${i}`).text(suggestion.userId);
-                $(`#sgt-new-like-${i}`).text(suggestion.likeCnt);
-                $(`#sgt-new-comment-${i}`).text(suggestion.commentCnt);
-                $(`#sgt-new-date-${i}`).text(`기간 : ${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}`);
+                const sgtNew = $(`#sgt-new-${i}`).removeClass('hidden');
+                sgtNew.find(`.sgt-title`).text((suggestion.articleTitle === undefined) ? '' : suggestion.articleTitle);
+                sgtNew.find(`.sgt-userId`).text(suggestion.userId);
+                sgtNew.find(`.sgt-like`).text(suggestion.likeCnt);
+                sgtNew.find(`.sgt-comment`).text(suggestion.commentCnt);
+                sgtNew.find(`.sgt-date`).text(`기간 : ${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}`);
+                sgtNew.find(`.sgt-articleId`).val(suggestion.articleId);
             }
             for (let i = suggestionDatas.length + 1; i <= 10; i += 1) {
                 $(`#sgt-new-${i}`).addClass('hidden');
@@ -61,5 +62,18 @@ $(function () {
             }
             $('.sgt-new-paging').html(liH);
         }
+    });
+
+    $('.suggestion-entry').on('click', function () {
+        const sid = $(this).find('.sgt-articleId').val();
+        $.ajax({
+            async: false,
+            url: `/salmon/suggestion/article/${sid}`,
+            method: 'get',
+            dataType: 'json',
+            success: function (suggestion) {
+                setArticle(suggestion);
+            }
+        });
     });
 });

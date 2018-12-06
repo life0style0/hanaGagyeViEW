@@ -1,0 +1,47 @@
+
+.article-image {
+  height: 524px !important;
+  width: auto !important;
+}
+
+.post-desc {
+  height: 500px;
+}
+
+#article-modal .blog-post {
+  margin-bottom: unset;
+}
+
+#article-modal .blog-post .h-404 {
+  height: 524px !important;
+}
+
+#article-modal .blog-post .post-text {
+  height: 276px;
+  padding-bottom: unset;
+  margin-right: -40px;
+  overflow-y: auto;
+}
+
+.article-right-btns {
+  float: right;
+}
+
+#article-exit-btn {
+  color: salmon !important;
+}
+
+#article-exit-btn>button {
+  border: unset;
+  background: transparent;
+  padding: unset;
+  font-size: 13px;
+}
+
+.h-404 .info-block {
+  font-size: 13px;
+}
+
+.article-modal .modal-dialog {
+  width: 70%;
+}

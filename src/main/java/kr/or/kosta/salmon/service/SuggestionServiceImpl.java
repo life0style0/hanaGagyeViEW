@@ -29,5 +29,10 @@ public class SuggestionServiceImpl implements SuggestionService {
         return sm.getTotalSuggestion(criteria);
     }
 
+    @Override
+    public SuggestionDTO getSuggestion(String suggestionId) throws Exception {
+        return sm.getSuggestion(suggestionId);
+    }
+
     
 }
