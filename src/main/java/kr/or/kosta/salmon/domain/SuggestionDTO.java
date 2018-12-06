@@ -25,4 +25,5 @@ public class SuggestionDTO {
     private List<String> imagePaths;
     private List<String> ctgryNames;
     private List<String> hashtags;
+    private List<CommentDTO> comments;
 }

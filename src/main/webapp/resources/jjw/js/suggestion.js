@@ -84,14 +84,8 @@ $(function () {
 
     $('.suggestion-entry').on('click', function () {
         const sid = $(this).find('.sgt-articleId').val();
-        $.ajax({
-            async: false,
-            url: `/salmon/suggestion/article/${sid}`,
-            method: 'get',
-            dataType: 'json',
-            success: function (suggestion) {
-                setArticle(suggestion);
-            }
-        });
+        const form = $('#articleForm');
+        form.attr('action', `${form.attr('action')}${sid}`);
+        form.submit();
     });
 });

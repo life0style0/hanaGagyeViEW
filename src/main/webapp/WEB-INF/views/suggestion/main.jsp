@@ -319,6 +319,11 @@
 	<!-- Modal -->
 	<%@ include file="../includes/articlemodal.jsp"%>
 
+	<div class="hidden">
+		<form action="/salmon/suggestion/article/" method="post" id="articleForm">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		</form>
+	</div>
 
 	<!-- SCRIPT	-->
 	<script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>

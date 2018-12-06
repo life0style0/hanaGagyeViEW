@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -43,7 +44,8 @@ public class SuggestionController {
             model.addAttribute("likeList", ss.getSuggestionListsByLikes(criteria));
             model.addAttribute("pageBuilder", mpg);
             model.addAttribute("recommendList", ss.getSuggestionListsByRecommend(criteria));
-            model.addAttribute("recommendPageBuilder", (new MyPageBuilder(ss.getTotalSuggestion(criteria))).build(criteria));
+            model.addAttribute("recommendPageBuilder",
+                    (new MyPageBuilder(ss.getTotalSuggestion(criteria))).build(criteria));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -87,15 +89,28 @@ public class SuggestionController {
         return result;
     }
 
-    @GetMapping("/article/{sno}")
-    public @ResponseBody ResponseEntity<SuggestionDTO> getSuggestion(@PathVariable("sno") String sno) {
-        ResponseEntity<SuggestionDTO> result = null;
+    // @GetMapping("/article/{sno}")
+    // public @ResponseBody ResponseEntity<SuggestionDTO>
+    // getSuggestion(@PathVariable("sno") String sno) {
+    // ResponseEntity<SuggestionDTO> result = null;
+    // try {
+    // result = new ResponseEntity<>(ss.getSuggestion(sno), HttpStatus.OK);
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // }
+    // return result;
+    // }
+
+    @PostMapping("/article/{sno}")
+    public String getSuggestion(@PathVariable("sno") String sno,Model model, Principal principal) {
+        log.info("suggestion...." + sno);
         try {
-            result = new ResponseEntity<>(ss.getSuggestion(sno), HttpStatus.OK);
+            model.addAttribute("article", ss.getSuggestion(sno));
         } catch (Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return result;
+        return "suggestion/suggestion";
     }
+
 }

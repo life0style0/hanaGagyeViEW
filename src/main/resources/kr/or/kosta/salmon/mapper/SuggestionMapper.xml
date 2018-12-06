@@ -36,6 +36,7 @@
                 <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
                 <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
                 <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
+                <collection property="comments" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.CommentDTO" select="getComments"/>
         </resultMap>
 
         <!-- <select id="getSuggestionListWithPaging" resultMap="suggestionLists">
@@ -249,6 +250,18 @@ FROM   ctgry_values "cv"
        join ctgries "ct" 
          ON "cv".ctgry_id = "ct".ctgry_id 
 WHERE  article_id = #{articleId}
+        </select>
+
+        <select id="getComments" resultType="kr.or.kosta.salmon.domain.CommentDTO">
+SELECT comment_id, 
+       comment_content, 
+       comment_regdate, 
+       user_id, 
+       (SELECT user_image 
+        FROM   users us 
+        WHERE  us.user_id = co.user_id) "uesr_image" 
+FROM   comments co 
+WHERE  article_id = 7        
         </select>
 
         <select id="getTotalSuggestion" resultType="int">
