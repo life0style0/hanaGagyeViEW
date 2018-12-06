@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -19,6 +20,11 @@
 	  <link rel="stylesheet" href="/salmon/resources/sjh/css/main-sjh.css">
 	  <link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
 	
+	<!-- font awsome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<!-- jjw 프로필사진 -->
+	<!-- <link rel="stylesheet" href="/salmon/resources/jjw/css/croppie.css"> -->
+		
 	  <script src="https://code.highcharts.com/highcharts.js"></script>
 	  <script src="https://code.highcharts.com/modules/exporting.js"></script>
 	  <script src="https://code.highcharts.com/modules/export-data.js"></script>
@@ -60,9 +66,13 @@
 			<div class="col-md-3">
 				<div class="be-user-block">
 					<div class="be-user-detail">
-						<a class="be-ava-user" href="blog-detail-2.html"> <img
-							src="img/ava.png" alt="">
-						</a>
+					
+					<input type="hidden" id="profilePath" value="/salmon/image?fileName=${user.user_image}">
+					<img class="img-responsive" id="profileImage" alt="">
+							
+						<!-- <a class="be-ava-user" href="blog-detail-2.html"> 
+							<img src="img/ava.png" alt="">
+						</a> -->
 						<p class="be-use-name">
 							<c:out value="${user.user_nickname}" />
 						</p>
@@ -76,24 +86,29 @@
 							<c:when test="${follow eq 'followable'}">
 								<a id="follow-ask-do-<c:out value="${user.user_id}"/>"
 									class="ask-follow">
-									<i class="fa fa-plus"></i>
+									<i class="far fa-heart"></i>
 									FOLLOW
 								</a>
 							</c:when>
-							<c:otherwise>
+							<c:when test="${follow eq 'unfollowable'}">
 								<a id="follow-ask-undo-<c:out value="${user.user_id}"/>"
 									class="ask-follow">
-									<i class="fa fa-plus"></i>
+									<i class="fa fa-heart"></i>
 									UNFOLLOW
+								</a>
+							</c:when>
+							<c:otherwise>
+								<a id="follow-ask-mypage" class="ask-follow">
+									<i class="fa fa-leaf"></i>
+									MYPAGE
+								</a>
+								<a id="write-article" href="/salmon/article/register" class="ask-follow">
+									<i class="fas fa-pen"></i>
+									글쓰기
 								</a>
 							</c:otherwise>
 							</c:choose>
-							
-								<%-- <a id="ask-follow-<c:out value="${user.user_id}"/>"
-									class="be-user-activity-button be-follow-type">
-									<i class="fa fa-plus"></i>
-									FOLLOW
-								</a> --%>
+								
 								<%-- <a id="follow-ask-do-<c:out value="${user.user_id}"/>"
 									class="ask-follow">
 									<i class="fa fa-plus"></i>
@@ -112,8 +127,16 @@
 							</div> -->
 						</div>
 					</div>
-					<h5 class="be-title">About Project</h5>
-					<p class="be-text-userblock">Fusce dolor libero, magna.</p>
+					<h5 class="be-title">관심사</h5>
+					<c:choose>
+					<c:when test="${fn:length(userPsnsInfo.ctgryNames) > 0}">
+						<c:forEach var="category" items="${userPsnsInfo.ctgryNames}">
+							<p class="be-text-userblock">
+							<c:out value="${category}"/>
+							</p>
+						</c:forEach>
+					</c:when>
+					</c:choose>
 				</div>
 				<!-- 
 				<a href="blog-detail-2.html"
@@ -124,8 +147,46 @@
 					class="be-button-vidget add-btn grey-style"><i
 					class="fa fa-file-o"></i>ADD TO COLLECTION</a> -->
 
-				<h3 class="letf-menu-article text-center">Recent Works</h3>
-				<div class="swiper-container" data-loop="1" data-speed="500"
+				<div id="following-user-list" class="be-user-block">
+					<h3 class="letf-menu-article text-center">팔로잉하는 사용자</h3>
+					<div style="background-color:beige;">
+					<c:choose>
+					<c:when test="${followingList.size() != 0}">
+						<c:forEach var="followingUser" items="${followingList}">
+						<!-- <div class="following-user-info"> -->
+							<a class="following-user-info" href="/salmon/sns/feeds?userid=${followingUser.user_id}">
+								<c:out value="${followingUser.user_nickname}"/>
+								(<c:out value="${followingUser.user_id}"/>)
+							</a>
+						<!-- 	</div> -->
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<div>팔로잉을 시작하세요!</div>
+					</c:otherwise>
+					</c:choose>
+					</div>
+				</div>
+				<div id="joinging-group-list"  class="be-user-block">
+					<h3 class="letf-menu-article text-center">가입한 모임</h3>
+					<div style="background-color:beige;">
+					<c:choose>
+					<c:when test="${groupList.size() != 0}">
+						<c:forEach var="group" items="${groupList}">
+						<!-- <div class="following-user-info"> -->
+							<a class="following-user-info" href="">
+								<c:out value="${group.group_title}"/>
+							</a>
+						<!-- 	</div> -->
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<div>모임에 참여하세요!</div>
+					</c:otherwise>
+					</c:choose>
+					</div>
+				</div>
+				<!-- <div class="swiper-container" data-loop="1" data-speed="500"
 					data-center="0" data-slides-per-view="1">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide">
@@ -151,87 +212,23 @@
 								</div>
 							</div>
 						</div>
-						<div class="swiper-slide">
-							<div class="be-post">
-								<a href="blog-detail-2.html" class="be-img-block"> <img
-									src="img/p9.jpg" height="202" width="269" alt="omg">
-								</a> <a href="blog-detail-2.html" class="be-post-title">NAHA
-									Finalist Hairstylist of the Year Allen Ruiz</a> <span> <a
-									href="blog-detail-2.html" class="be-post-tag">Art direction</a>,
-									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>,
-									<a href="blog-detail-2.html" class="be-post-tag">Interactiob
-										design</a>
-								</span>
-								<div class="author-post">
-									<img src="img/ava.png" alt="" class="ava-author"> <span>by
-										<a href="blog-detail-2.html">Daniel Ng</a>
-									</span>
-								</div>
-								<div class="info-block">
-									<span><i class="fa fa-thumbs-o-up"></i> 253</span> <span><i
-										class="fa fa-eye"></i> 753</span> <span><i
-										class="fa fa-comment-o"></i> 50</span>
-								</div>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="be-post">
-								<a href="blog-detail-2.html" class="be-img-block"> <img
-									src="img/p9.jpg" height="202" width="269" alt="omg">
-								</a> <a href="blog-detail-2.html" class="be-post-title">NAHA
-									Finalist Hairstylist of the Year Allen Ruiz</a> <span> <a
-									href="blog-detail-2.html" class="be-post-tag">Art direction</a>,
-									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>,
-									<a href="blog-detail-2.html" class="be-post-tag">Interactiob
-										design</a>
-								</span>
-								<div class="author-post">
-									<img src="img/ava.png" alt="" class="ava-author"> <span>by
-										<a href="blog-detail-2.html">Daniel Ng</a>
-									</span>
-								</div>
-								<div class="info-block">
-									<span><i class="fa fa-thumbs-o-up"></i> 253</span> <span><i
-										class="fa fa-eye"></i> 753</span> <span><i
-										class="fa fa-comment-o"></i> 50</span>
-								</div>
-							</div>
-						</div>
-						<div class="swiper-slide">
-							<div class="be-post">
-								<a href="blog-detail-2.html" class="be-img-block"> <img
-									src="img/p9.jpg" height="202" width="269" alt="omg">
-								</a> <a href="blog-detail-2.html" class="be-post-title">NAHA
-									Finalist Hairstylist of the Year Allen Ruiz</a> <span> <a
-									href="blog-detail-2.html" class="be-post-tag">Art direction</a>,
-									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>,
-									<a href="blog-detail-2.html" class="be-post-tag">Interactiob
-										design</a>
-								</span>
-								<div class="author-post">
-									<img src="img/ava.png" alt="" class="ava-author"> <span>by
-										<a href="blog-detail-2.html">Daniel Ng</a>
-									</span>
-								</div>
-								<div class="info-block">
-									<span><i class="fa fa-thumbs-o-up"></i> 253</span> <span><i
-										class="fa fa-eye"></i> 753</span> <span><i
-										class="fa fa-comment-o"></i> 50</span>
-								</div>
-							</div>
-						</div>
 					</div>
 					<div class="pagination"></div>
-				</div>
+				</div> -->
 			</div>
-			
-			
-			<div class="row col-md-9">
+
+			<div class="col-md-9 article-menu-bar">
+				<div id="myArticles-btn" class="col-md-4 article-menu">내 게시글</div>
+				<div id="likeArticles-btn" class="col-md-4 article-menu">좋아요한 게시글</div>
+			</div>
+
+			<div class="row col-md-9" id="myArticles">
 			<c:choose>
 			<c:when test="${myArticles.size() != 0}">
 			<c:forEach var="myArticle" items="${myArticles}">
 				<div style="background-color: beige;">
 				<!-- <div class="col-md-9 col-md-push-3" style="background-color: crimson;"> -->
+					
 					<div class="be-large-post">
 						<div class="info-block">
 							<div class="be-large-post-align">
@@ -249,8 +246,9 @@
 								</span>
 							</div>
 						</div>
-						<div class="blog-content popup-gallery be-large-post-align">
-							<h5 class="be-post-title to">
+						<!-- <div class="blog-content popup-gallery be-large-post-align"> -->
+						<div class="blog-content be-large-post-align">
+							<h5 class="feed-article-title">
 								<c:out value="${myArticle.article_title}"></c:out>
 							</h5>
 							<%-- 
@@ -272,11 +270,11 @@
 									</a>
 									<div class="image-text">Ut pulvinar tellus sed elilectus eros, quis sollicitudin lacinia.</div>
 								</div> -->
-								    <a class="popup-a" href="img/l2.jpg">
+								  <!--   <a class="popup-a" href="img/l2.jpg">
 									<img src="/salmon/resources/sjh/img/l2.jpg" alt="" style="height:100px">
-									</a>								
-
-								<p>Mauris sosmod in. Integer sit amet augue ligula.</p>
+									</a> -->
+								
+								<img alt="" style="height:100px">								
 
 							</div>
 						</div>
@@ -313,13 +311,13 @@
 							<c:forEach var="comment" items="${myArticle.comments}">
 							<div class="be-comment">
 									<div class="be-img-comment">	
-										<a href="blog-detail-2.html">
+										<a href="/salmon/sns/feeds?userid=${comment.user_id}">
 											<img src="img/c1.png" alt="" class="be-ava-comment">
 										</a>
 									</div>
 									<div class="be-comment-content">
 										<span class="be-comment-name">
-										<a href="blog-detail-2.html">
+										<a href="/salmon/sns/feeds?userid=${comment.user_id}">
 										${comment.user_nickname}
 										</a>
 										</span>
@@ -337,15 +335,29 @@
 							<c:otherwise>
 							</c:otherwise>
 							</c:choose>
-						
+
+						<form id="reply-form-${myArticle.article_id}" method="get">
+							<input type="hidden" name="article_id" value="${myArticle.article_id}">
+							<c:out value="${user.user_nickname}"/>
+							<input type="text" name="comment_content" required="required">
+							<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> --%>
+							<input type="button" id="reply-write-btn-${myArticle.article_id}" value="등록">
+						</form>
+
 					</div>
 				</div>
 				</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<div>아직 게시글이 없습니다</div>
+					<div class="be-large-post info-block">
+						<h3>아직 게시글이 없습니다</h3>
+					</div>
 				</c:otherwise>
 				</c:choose>
+			</div>
+			
+			<div class="row col-md-9" id="likeArticles">
+			좋아요 한 게시글
 			</div>
 		</div>
 	</div>
@@ -442,8 +454,11 @@
 	    </div>
 	   <div class="open"><img src="img/icon-134.png" alt=""></div>
 	</div>
+	
+	
+	
 	<!-- SCRIPTS	 -->
-	<script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>
+  <script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>
   <script src="/salmon/resources/template/script/jquery-ui.min.js"></script>
   <script src="/salmon/resources/template/script/bootstrap.min.js"></script>
   <script src="/salmon/resources/template/script/idangerous.swiper.min.js"></script>
@@ -451,8 +466,13 @@
   <script src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
   <script src="/salmon/resources/template/script/filters.js"></script>
   <script src="/salmon/resources/template/script/global.js"></script>
+  <!-- <script src="/salmon/resources/sjh/js/main-article.js"></script> -->
   
   <script src="/salmon/resources/sjh/js/feeds.js"></script>
+  
+  <!-- jjw 프로필사진 -->
+<!--   <script type="text/javascript" src="/salmon/resources/jjw/js/croppie.min.js"></script> -->
+  <!-- <script type="text/javascript" src="/salmon/resources/sjh/js/image.js"></script> -->
 
 	</body>
 </html>

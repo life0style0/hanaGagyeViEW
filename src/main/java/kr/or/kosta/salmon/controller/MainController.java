@@ -9,11 +9,13 @@ import javax.inject.Inject;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -82,4 +84,15 @@ public class MainController {
         }
         return result;
     }
+    
+	@GetMapping(value="/main/article/{articleId}",
+			produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<SNSArticleDTO_sjh> getArticleGET(@PathVariable("articleId") int articleId, Principal principal,  Model model) {
+		log.info("article 정보 업데이트");
+		String user_id = principal.getName();
+		SNSArticleDTO_sjh article= snsService.getArticleByArticleId(articleId);
+		log.info(article);
+		return new ResponseEntity<SNSArticleDTO_sjh>(article,HttpStatus.OK);
+		//model.addAttribute("article", article);
+	}
 }

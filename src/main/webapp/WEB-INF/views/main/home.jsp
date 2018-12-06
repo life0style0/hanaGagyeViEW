@@ -221,8 +221,9 @@
        		<c:set var="tag" scope="page" value="${tag } category-hashTag-${hashLoop }"/>
        	</c:forEach>
           <div class="category-1 mix custom-column-3 ${tag }">
-            <div class="be-post-sjh">
-              <a href="page1.html" class="be-img-block">
+            <div id="article-post-<c:out value="${article.article_id}"/>" class="be-post-sjh" 
+            style="background-color:cadetblue">
+              <a class="be-img-block">
               <c:if test="${article.imagePaths.size()==0 }">
               	<div class="article-size">
               		<div class="padding-1-sjh">
@@ -265,7 +266,9 @@
               </span>
               <div class="author-post">
                 <img src="/salmon/resources/template/img/a1.png" alt="" class="ava-author">
-                <span>by <a href="page1.html">${article.user_id }</a></span>
+                <span>by 
+                <a href="/salmon/sns/feeds?userid=${article.user_nickname}">${article.user_nickname}</a>
+                </span>
               </div>
               <div class="info-block">
                 <span><i class="fa fa-thumbs-o-up"></i>
@@ -321,48 +324,8 @@
   <!--  로그아웃 팝업 끝-->
   
   <!-- 게시글 모달 -->
-<div class="modal fade ggv-modal blog-list" id="ggv-modal" tabindex="-1" role="dialog" aria-labelledby="ggv-modal-label"
-       aria-hidden="true">
-         <div class="modal-dialog">
-            <div class="modal-content">
-               <div class="modal-body">
-                  <div class="blog-post">
-                     <div class="row">
-                        <div class="col-xs-12 col-sm-6 h-404">
-                           <div class="post-preview">
-                              <div class="ggv-carousel owl-carousel owl-theme">
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 h-404">
-                           <div class="post-desc">
-                              <div class="post-category">Art, Street, Drawing</div>
-                              <div id="article-modal-title" class="post-label">
-                              	<!-- 게시글 제목 -->
-                              </div>
-                              <div class="post-text">
-                                 Morbi efficitur feugiat erat a efficitur. Donec interdum, nunc ac elementum auctor,
-                                 dui nisl placerat odio, eget sagittis sem neque venenatis libero. Vestibulum pharetra sollicitudin urna nec
-                                 eleifend.Suspendisse id augue ut nunc vestibulum euismod. Donec a libero ut lectus ullamcorper rhoncus vel
-                                 quis erat. Nunc ornare sed dolor sed mattis.</div>
-                              <div class="author-post">
-                                 <img src="img/a1.png" alt="" class="ava-author">
-                                 <span>by <a href="blog-detail-2.html">Hoang Nguyen</a>, April 23, 2015</span>
-                              </div>
-                              <div class="info-block">
-                                 <span><i class="fa fa-thumbs-o-up"></i> 360</span>
-                                 <span><i class="fa fa-eye"></i> 789</span>
-                                 <span><i class="fa fa-comment-o"></i> 20</span>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!--  게시글 모달끝 -->
+<%@ include file="/WEB-INF/views/includes/articlemodal.jsp"%>
+  <!--  게시글 모달끝 -->
 
   <div class="theme-config">
     <div class="main-color">
@@ -392,6 +355,7 @@
   <script src="/salmon/resources/template/script/filters.js"></script>
   <script src="/salmon/resources/template/script/global.js"></script>
   <script src="/salmon/resources/sjh/js/main-article.js"></script>
+  <script src="/salmon/resources/jjw/js/owl.carousel.min.js"></script>
   
   
 	<script type="text/javascript">
@@ -401,13 +365,7 @@
 		  var article= new Object();
 		  articlelist= ${articleListJSON};
 		  var i=0;
-		  /* 
-		  <c:forEach items="${articleListJSON}" var="article">
-		  		//console.log(e);
-			  articlelist[i]="${article}";
-			  i++;
-		  </c:forEach>
-		 */
+		 
 		  $(articlelist).each(function(i,e){
 			  console.log(e);
 		  });

@@ -16,6 +16,8 @@ public class CommentDTO {
 	private String comment_content;
 	private String comment_regdate;
 	private String comment_editDate;
+	private String user_id;
 	private String user_nickname;
+	private String user_image;
 	private int article_id;
 }

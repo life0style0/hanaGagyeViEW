@@ -4,7 +4,7 @@ $(function () {
 	eventRegist();
 	categoryNum = 0;
 
-	if ($('#editProfileForm') != null) {
+	if ($('#editNicknameForm') != null) {
 		$('#user_nickname').on('change', isValidNickName);
 	}
 
@@ -16,26 +16,32 @@ $(function () {
 		//	$('#locations').on('change',getLocationInfo);
 	}
 
-	//프로필 수정 (닉네임,사진)
-	if (document.getElementById('editProfileForm') != null) { //프로필 변경 화면
-		document.getElementById("editProfileSubmitBtn").onclick = function () {
+	//프로필 수정 (닉네임)
+	if (document.getElementById('editNicknameForm') != null) { //프로필 변경 화면
+		document.getElementById("editNicknameSubmitBtn").onclick = function () {
 			editPrifileReady = true;
 			//폼 제출
 			isValidNickName();
-
-
+			console.log(editPrifileReady);
+			if (editPrifileReady == true) {
+				console.log('submit editprofile nickname');
+				$('#editNicknameForm').submit();
+			}
+		}
+	}
+	
+	//프로필 수정 (사진)
+	if (document.getElementById('editPhotoForm') != null) { //프로필 변경 화면
+		document.getElementById("editPhotoSubmitBtn").onclick = function () {
 			//지원 추가
 			if (!uploadProfileImage()) {
 				console.log('프로필 이미지 업로드 실패');
 				return;
+			} else{
+				location.href='/salmon/main/mypage';
 			}
 			//지원 추가 끝 
 
-			console.log(editPrifileReady);
-			if (editPrifileReady == true) {
-				console.log('submit editprofile');
-				$('#editProfileForm').submit();
-			}
 		}
 	}
 
