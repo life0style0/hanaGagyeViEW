@@ -79,7 +79,7 @@ FROM   (SELECT ROWNUM rn,
 WHERE  rn <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
         </select> -->
 
-        <select id="getSuggestionListWithPaging" resultMap="suggestionLists">
+        <select id="getSuggestionListByPaging" resultMap="suggestionLists">
 SELECT article_id, 
        To_char(article_regdate, 'YYYY-MM-DD')      "article_regdate", 
        To_char(article_regdate + 30, 'YYYY-MM-DD') "article_enddate", 
@@ -88,10 +88,7 @@ SELECT article_id,
        article_proposal_status, 
        user_id, 
        "likes_num", 
-       "comments_num", 
-       (SELECT Count(scrap_id) 
-        FROM   scraps sc
-        WHERE  sc.article_id = "ar".article_id)       "scraps_num" 
+       "comments_num"
 FROM   (SELECT /*+INDEX(articles idx_article_ctgry)*/ ROWNUM rn, 
                                                       article_id, 
                                                       article_regdate, 
@@ -102,14 +99,14 @@ FROM   (SELECT /*+INDEX(articles idx_article_ctgry)*/ ROWNUM rn,
                                                       article_like_num "likes_num",
                                                       article_comment_num "comments_num"
         FROM   articles 
-        WHERE  article_ctgry_id = 2 
-               AND article_regdate <![CDATA[ > ]]> '1900-01-01' 
-               AND To_char(article_regdate, 'YYYY-MM-DD') <![CDATA[ > ]]> 
+        WHERE  article_ctgry_id = 3 
+               AND article_regdate                 <![CDATA[ > ]]> '1900-01-01' 
+               AND To_char(article_regdate, 'YYYY-MM-DD')                 <![CDATA[ > ]]> 
                    To_char(SYSDATE - 30, 'yyyy-mm-dd') 
-               AND  <include refid="criteria" />
+               AND                <include refid="criteria" />
                 article_deleted = 'N' 
-               AND ROWNUM <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar" 
-WHERE  rn <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
+               AND ROWNUM                 <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar" 
+WHERE  rn                 <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
         </select>
 
         <select id="getSuggestionListsByLikes" resultMap="suggestionLists">
@@ -144,15 +141,74 @@ FROM   (SELECT ROWNUM rn,
                        article_like_num  "likes_num", 
                        article_comment_num  "comments_num" 
                 FROM   articles
-                WHERE  article_ctgry_id = 2 
-                       AND article_regdate <![CDATA[ > ]]> '1900-01-01' 
-                       AND To_char(article_regdate, 'YYYY-MM-DD') <![CDATA[ > ]]>  
+                WHERE  article_ctgry_id = 3 
+                       AND article_regdate                 <![CDATA[ > ]]> '1900-01-01' 
+                       AND To_char(article_regdate, 'YYYY-MM-DD')                 <![CDATA[ > ]]>  
                            To_char(SYSDATE - 30, 'yyyy-mm-dd') 
-                       AND  <include refid="criteria" />
+                       AND                <include refid="criteria" />
                                 article_deleted = 'N' 
                 ORDER  BY article_like_num DESC) 
-        AND ROWNUM <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar"
-WHERE  rn <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
+        WHERE ROWNUM                 <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar"
+WHERE  rn                 <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
+        </select>
+
+        <select id="getSuggestionListsByRecommend" resultMap="suggestionLists">
+SELECT article_id, 
+       To_char(article_regdate, 'YYYY-MM-DD')      "article_regdate", 
+       To_char(article_regdate + 30, 'YYYY-MM-DD') "article_enddate", 
+       article_title, 
+       article_content, 
+       article_proposal_status, 
+       user_id, 
+       "likes_num", 
+       "comments_num", 
+       (SELECT Count(scrap_id) 
+        FROM   scraps sc 
+        WHERE  sc.article_id = "ar".article_id)    "scraps_num" 
+FROM   (SELECT ROWNUM rn, 
+               article_id, 
+               article_regdate, 
+               article_title, 
+               article_content, 
+               article_proposal_status, 
+               user_id, 
+               "likes_num", 
+               "comments_num" 
+        FROM   (SELECT /*+INDEX(articles idx_article_ctgry)*/ 
+                       article_id, 
+                                                              article_regdate, 
+                                                              article_title, 
+                                                              article_content, 
+                       article_proposal_status, 
+                       user_id, 
+                       article_like_num 
+                       "likes_num", 
+                       article_comment_num 
+                       "comments_num" 
+                FROM   articles 
+                WHERE  article_ctgry_id = 3 
+                       AND article_regdate                 <![CDATA[ > ]]> '1900-01-01' 
+                       AND To_char(article_regdate, 'YYYY-MM-DD')                 <![CDATA[ > ]]>  
+                           To_char(SYSDATE - 30, 'yyyy-mm-dd') 
+                       AND                <include refid="criteria" />
+                                article_deleted = 'N' 
+                       AND article_id IN (SELECT article_id 
+                                          FROM   ctgry_values 
+                                          WHERE  ctgry_id IN (SELECT ctgry_1 
+                                                              FROM   psns 
+                                                              WHERE 
+                                                 user_id = #{userId}) 
+                                                  OR ctgry_id IN (SELECT ctgry_2 
+                                                                  FROM   psns 
+                                                                  WHERE 
+                                                     user_id = #{userId}) 
+                                                  OR ctgry_id IN (SELECT ctgry_3 
+                                                                  FROM   psns 
+                                                                  WHERE 
+                                                     user_id = #{userId})) 
+                ORDER  BY article_like_num DESC) 
+        WHERE ROWNUM                 <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar"
+WHERE  rn                 <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}   
         </select>
 
         <select id="getSuggestion" resultMap="suggestion">
@@ -197,13 +253,40 @@ WHERE  article_id = #{articleId}
 
         <select id="getTotalSuggestion" resultType="int">
 SELECT count(article_id)
-        FROM   articles 
-        WHERE  ( article_ctgry_id = 2 
-                 AND To_char(article_regdate, 'YYYY-MM-DD')                    <![CDATA[ > ]]>
-                     To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N' )
-               AND  
-                <include refid="criteria" />
-               article_id > 0
+FROM   articles 
+WHERE  ( article_ctgry_id = 3 
+                AND article_regdate                 <![CDATA[ > ]]> '1900-01-01'
+                AND To_char(article_regdate, 'YYYY-MM-DD')                                    <![CDATA[ > ]]>
+                To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N' )
+        AND  
+        <include refid="criteria" />
+        article_proposal_status = 'R'
+        </select>
+
+        <select id="getTotalSuggestionByRecommend" resultType="int">
+SELECT count(article_id)
+FROM   articles 
+WHERE  ( article_ctgry_id = 3 
+                AND article_regdate                 <![CDATA[ > ]]> '1900-01-01'
+                AND To_char(article_regdate, 'YYYY-MM-DD')                                    <![CDATA[ > ]]>
+                To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N' )
+        AND  
+        <include refid="criteria" />
+        article_proposal_status = 'R'
+        AND article_id IN (SELECT article_id 
+                                        FROM   ctgry_values 
+                                        WHERE  ctgry_id IN (SELECT ctgry_1 
+                                                        FROM   psns 
+                                                        WHERE 
+                                                user_id = #{userId}) 
+                                                OR ctgry_id IN (SELECT ctgry_2 
+                                                                FROM   psns 
+                                                                WHERE 
+                                                user_id = #{userId}) 
+                                                OR ctgry_id IN (SELECT ctgry_3 
+                                                                FROM   psns 
+                                                                WHERE 
+                                                user_id = #{userId}))
         </select>
 
         <sql id="criteria">

@@ -1,3 +1,6 @@
+.owl-item {
+  overflow: hidden;
+}
 
 .article-image {
   height: 524px !important;

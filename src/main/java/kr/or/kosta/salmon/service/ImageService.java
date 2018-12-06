@@ -5,5 +5,5 @@ package kr.or.kosta.salmon.service;
  */
 public interface ImageService {
 
-    public String registProfileImage(String path, String userId) throws Exception;
+    public boolean registProfileImage(String path, String userId) throws Exception;
 }

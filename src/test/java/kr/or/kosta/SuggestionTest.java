@@ -25,7 +25,7 @@ public class SuggestionTest {
 
         Criteria cri = new Criteria(1, 5, 10);
         log.info(cri);
-        log.info(sm.getSuggestionListWithPaging(cri));
+        log.info(sm.getSuggestionListByPaging(cri));
     }
 
 }

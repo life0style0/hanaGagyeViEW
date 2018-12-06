@@ -12,11 +12,15 @@ import kr.or.kosta.salmon.domain.SuggestionDTO;
  */
 public interface SuggestionMapper {
 
-    public List<SuggestionDTO> getSuggestionListWithPaging(Criteria criteria) throws Exception;
+    public List<SuggestionDTO> getSuggestionListByPaging(Criteria criteria) throws Exception;
 
     public List<SuggestionDTO> getSuggestionListsByLikes(Criteria criteria) throws Exception;
 
+    public List<SuggestionDTO> getSuggestionListsByRecommend(Criteria criteria) throws Exception;
+
     public int getTotalSuggestion(Criteria criteria) throws Exception;
+    
+    public int getTotalSuggestionByRecommend(Criteria criteria) throws Exception;
 
     public SuggestionDTO getSuggestion(@Param("article_id") String suggestionId) throws Exception;
 }

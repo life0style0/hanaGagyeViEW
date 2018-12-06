@@ -20,7 +20,7 @@
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure quaerat tempore tenetur repudiandae pariatur velit perspiciatis inventore, dicta ea reiciendis impedit voluptatibus cumque assumenda quod autem quia et quisquam doloremque?
                 </div>
                 <div class="author-post">
-                  <img src="img/a1.png" alt="" class="ava-author" id="article-writer-photo">
+                  <img src="" alt="" class="ava-author" id="article-writer-photo">
                   <span>by </span><a href="blog-detail-2.html" id="article-writer-nickname">Hoang Nguyen</a>,
                   <span id="article-regdate">작성일</span>
                   <span id="article-pay-type">, 지출 타입</span><span id="article-ctgry">(지출 or 수입)</span>

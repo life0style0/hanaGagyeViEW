@@ -187,89 +187,54 @@
 									</div>
 								</c:forEach>
 								<div class="pull-right">
-									<ul class="pagination sgt-new-paging">
+									<ul class="pagination sgt-like-paging">
 										<c:if test="${pageBuilder.isPrevPrev}">
-											<li class="paginate-new previous" data-page="${pageBuilder.startPageNum-1}">Prev</li>
+											<li class="paginate-like previous" data-page="${pageBuilder.startPageNum-1}">Prev</li>
 										</c:if>
 										<c:forEach var="num" begin="${pageBuilder.startPageNum}" end="${pageBuilder.lastPageNum}">
-											<li class="paginate-new" data-page="${num}">${num}</li>
+											<li class="paginate-like" data-page="${num}">${num}</li>
 										</c:forEach>
 										<c:if test="${pageBuilder.isNextNext}">
-											<li class="paginate-new next" data-page="${pageBuilder.lastPageNum+1}">Next</li>
+											<li class="paginate-like next" data-page="${pageBuilder.lastPageNum+1}">Next</li>
 										</c:if>
 									</ul>
-									<div id="pagination-new-data">
+									<div id="pagination-like-data">
 										<input type="hidden" class="keyword" value="${cri.keyword}">
 										<input type="hidden" class="type" value="${cri.type}">
 									</div>
 								</div>
 							</div>
 							<div class="tab-info">
-								<div class="collection">
-									<div class="collection-entry suggestion-entry">
-										<h3 class="menu-article">Creative Ideas</h3>
-										<div class="collection-header">
-											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
-											<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-											<span><i class="fa fa-eye"></i> 789</span>
-											<div class="edit-collection">
-												<i class="fa fa-pencil"></i>
-												<div class="c_edit">
-													<div class="btn-rename">
-														rename
-														<div class="message-popup">
-															<div class="message-popup-inner container">
-																<div class="row">
-																	<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																		<i class="fa fa-times close-button"></i>
-																		<h5 class="large-popup-title">Rename</h5>
-																		<div class="form-group">
-																			<input class="form-input" required="" placeholder="Your text">
-																		</div>
-																		<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<a href="page1.html">delete</a>
-
-												</div>
+								<c:forEach items="${recommendList}" var="suggestion" varStatus="status">
+									<div class="collection" id="sgt-recommend-${status.count}">
+										<div class="collection-entry suggestion-entry">
+											<h3 class="menu-article sgt-title-${status.count}">${suggestion.articleTitle}</h3>
+											<div class="collection-header">
+												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userId}</a></span>
+												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding sgt-comment">${suggestion.commentCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding sgt-date">기간 :
+														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
 											</div>
+											<input type="hidden" class="sgt-articleId" value="${suggestion.articleId}">
 										</div>
 									</div>
-								</div>
-								<div class="collection">
-									<div class="collection-entry suggestion-entry">
-										<h3 class="menu-article">Creative Ideas</h3>
-										<div class="collection-header">
-											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
-											<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-											<span><i class="fa fa-eye"></i> 789</span>
-											<div class="edit-collection">
-												<i class="fa fa-pencil"></i>
-												<div class="c_edit">
-													<div class="btn-rename">
-														rename
-														<div class="message-popup">
-															<div class="message-popup-inner container">
-																<div class="row">
-																	<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																		<i class="fa fa-times close-button"></i>
-																		<h5 class="large-popup-title">Rename</h5>
-																		<div class="form-group">
-																			<input class="form-input" required="" placeholder="Your text">
-																		</div>
-																		<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<a href="page1.html">delete</a>
-												</div>
-											</div>
-										</div>
+								</c:forEach>
+								<div class="pull-right">
+									<ul class="pagination sgt-recommend-paging">
+										<c:if test="${recommendPageBuilder.isPrevPrev}">
+											<li class="paginate-recommend previous" data-page="${recommendPageBuilder.startPageNum-1}">Prev</li>
+										</c:if>
+										<c:forEach var="num" begin="${recommendPageBuilder.startPageNum}" end="${recommendPageBuilder.lastPageNum}">
+											<li class="paginate-recommend" data-page="${num}">${num}</li>
+										</c:forEach>
+										<c:if test="${recommendPageBuilder.isNextNext}">
+											<li class="paginate-recommend next" data-page="${recommendPageBuilder.lastPageNum+1}">Next</li>
+										</c:if>
+									</ul>
+									<div id="pagination-recommend-data">
+										<input type="hidden" class="keyword" value="${cri.keyword}">
+										<input type="hidden" class="type" value="${cri.type}">
 									</div>
 								</div>
 							</div>

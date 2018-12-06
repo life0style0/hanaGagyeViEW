@@ -1,5 +1,6 @@
 package kr.or.kosta.salmon.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,16 +33,18 @@ public class SuggestionController {
     private SuggestionService ss;
 
     @GetMapping
-    public String getMain(Criteria criteria, Model model) {
+    public String getMain(Criteria criteria, Model model, Principal principal) {
         log.info("suggestion main ....");
-
+        criteria.setUserId(principal.getName());
+        MyPageBuilder mpg = null;
         try {
-            model.addAttribute("newList", ss.getSuggestionListWithPaging(criteria));
+            mpg = (new MyPageBuilder(ss.getTotalSuggestion(criteria))).build(criteria);
+            model.addAttribute("newList", ss.getSuggestionListByPaging(criteria));
             model.addAttribute("likeList", ss.getSuggestionListsByLikes(criteria));
+            model.addAttribute("pageBuilder", mpg);
+            model.addAttribute("recommendList", ss.getSuggestionListsByRecommend(criteria));
+            model.addAttribute("recommendPageBuilder", (new MyPageBuilder(ss.getTotalSuggestion(criteria))).build(criteria));
 
-            MyPageBuilder mpb = (new MyPageBuilder(ss.getTotalSuggestion(criteria))).build(criteria);
-
-            model.addAttribute("pageBuilder", mpb);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,7 +56,7 @@ public class SuggestionController {
         log.info("getNew ..." + criteria);
         ResponseEntity<List<Object>> result = null;
         try {
-            List<SuggestionDTO> sgts = ss.getSuggestionListWithPaging(criteria);
+            List<SuggestionDTO> sgts = ss.getSuggestionListByPaging(criteria);
             MyPageBuilder mpb = (new MyPageBuilder(ss.getTotalSuggestion(criteria))).build(criteria);
             List<Object> results = new ArrayList<>();
             results.add(sgts);
