@@ -36,14 +36,20 @@ public class MainController {
 		String user_id = principal.getName();
 		ArrayList<HashTagGroupDTO> hashTagList = (ArrayList)mainService.getHashTagGroup(user_id);
 		ArrayList<MainArticleDTO> articleList = (ArrayList)mainService.getListSprint1(user_id);
-		MainChartDTO mainchartInfo = mainService.getChartTotalFee(user_id);
+		MainChartDTO mainchartIncomeInfo = mainService.getChartTotalIncomeFee(user_id);
+		MainChartDTO mainchartSpendInfo = mainService.getChartTotalSpendFee(user_id);
 		
 		log.info("null test " +user_id);
-		if(mainchartInfo != null) {
-			mainchartInfo.setCtGroupFee(mainService.getChartCategoryFee(user_id));
-			log.info(mainchartInfo.toString());
+		if(mainchartIncomeInfo != null) {
+			mainchartIncomeInfo.setCtGroupFee(mainService.getChartCategoryIncomeFee(user_id));
+			log.info(mainchartIncomeInfo.toString());
+		}
+		if(mainchartSpendInfo != null) {
+			mainchartSpendInfo.setCtGroupFee(mainService.getChartCategorySpendFee(user_id));
+			log.info(mainchartSpendInfo.toString());
 		} 
-		model.addAttribute("mainchartInfo", mainchartInfo);
+		model.addAttribute("mainchartIncomeInfo", mainchartIncomeInfo);
+		model.addAttribute("mainchartSpendInfo", mainchartSpendInfo);
 		model.addAttribute("articleList", articleList);
 		model.addAttribute("hashTagList", hashTagList);
 	}

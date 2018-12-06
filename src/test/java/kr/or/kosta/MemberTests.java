@@ -60,8 +60,8 @@ public class MemberTests {
 	public void testInsertMember() {
 		log.info(" users DUMMY 삽입 ");
 		
-		String createUserSql="insert into users(user_id, user_nickname,user_email,user_passwd, user_gender,user_birthday,user_image) "+
-				"values(?, ?,?, ?, ?, ?,? )";
+		String createUserSql="insert into users(user_id, user_nickname,user_email,user_passwd, user_gender,user_birthday,user_image, user_regdate) "+
+				"values(?, ?,?, ?, ?, ?,?,add_months(sysdate, -1))";
 		
 		String adminAuthSql="insert into users_auth(user_auth_id, user_id, user_auth) values(users_auth_id_seq.nextval,?,'ROLE_ADMIN')";
 		String managerAuthSql="insert into users_auth(user_auth_id, user_id, user_auth) values(users_auth_id_seq.nextval,?,'ROLE_MEMBER')";
@@ -123,9 +123,9 @@ public class MemberTests {
 					//일반 사용자
 					userAuthPstmt.setString(1, "heyrim"+i); //아이디
 					
-					pstmt.setString(1, "heyrim"+i); //아이디
-					pstmt.setString(2, "heyrim"+i); //닉네임
-					pstmt.setString(3, "heyrim"+i+"@mail.com"); //이메일
+					pstmt.setString(1, "hongis"+i); //아이디
+					pstmt.setString(2, "hongis"+i); //닉네임
+					pstmt.setString(3, "hongis"+i+"@mail.com"); //이메일
 					pstmt.setString(4, pwEncoder.encode("1234")); //비밀번호 암호화
 					pstmt.setString(5, "F"); //성별
 					pstmt.setString(6, "901225"); //생년월일
