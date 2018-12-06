@@ -313,6 +313,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.3.2/bootstrap-slider.min.js"></script>
 		<script src="https://code.highcharts.com/highcharts.src.js"></script>
 		<script src="/salmon/resources/jjw/js/validator.js"></script>
+		<script src="/salmon/resources/jjw/js/global.js"></script>
 		<script src="/salmon/resources/jjw/js/accountbook-calendar.js"></script>
 		<script src="/salmon/resources/jjw/js/accountbook-chart.js"></script>
 		<script src="/salmon/resources/jjw/js/accountbook-global.js"></script>

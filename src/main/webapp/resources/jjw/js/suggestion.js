@@ -48,9 +48,9 @@ function setSuggestions(page, event) {
 $(function () {
     $('.sgt-new-paging').on('click', '.paginate-new', function (event) {
         const pageBuilder = setSuggestions(this, event);
+        console.log('pageBuilder :', pageBuilder);
         if ($(this).hasClass('previous') || $(this).hasClass('next')) {
             let liH = '';
-            console.log('pageBuilder :', pageBuilder);
             if (pageBuilder.isPrevPrev) {
                 liH += `<li class="paginate-new previous" data-page="${pageBuilder.startPageNum - 1}">Prev</li>`;
             }

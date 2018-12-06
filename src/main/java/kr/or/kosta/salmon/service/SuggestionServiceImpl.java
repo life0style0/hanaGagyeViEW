@@ -20,9 +20,14 @@ public class SuggestionServiceImpl implements SuggestionService {
     private SuggestionMapper sm;
 
 	@Override
-	public List<SuggestionDTO> getSuggestionListWithPaging(Criteria criteria) throws Exception {
-		return sm.getSuggestionListWithPaging(criteria);
-	}
+    public List<SuggestionDTO> getSuggestionListWithPaging(Criteria criteria) throws Exception {
+        return sm.getSuggestionListWithPaging(criteria);
+    }
+    
+    @Override
+    public List<SuggestionDTO> getSuggestionListsByLikes(Criteria criteria) throws Exception {
+        return sm.getSuggestionListsByLikes(criteria);
+    }
 
     @Override
     public int getTotalSuggestion(Criteria criteria) throws Exception {
@@ -34,5 +39,4 @@ public class SuggestionServiceImpl implements SuggestionService {
         return sm.getSuggestion(suggestionId);
     }
 
-    
 }

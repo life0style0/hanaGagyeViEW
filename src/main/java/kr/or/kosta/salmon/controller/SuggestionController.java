@@ -37,7 +37,8 @@ public class SuggestionController {
         log.info("suggestion main ....");
 
         try {
-            model.addAttribute("list", ss.getSuggestionListWithPaging(criteria));
+            model.addAttribute("newList", ss.getSuggestionListWithPaging(criteria));
+            model.addAttribute("likeList", ss.getSuggestionListsByLikes(criteria));
 
             MyPageBuilder mpb = (new MyPageBuilder(ss.getTotalSuggestion(criteria))).build(criteria);
 
@@ -55,7 +56,6 @@ public class SuggestionController {
         try {
             List<SuggestionDTO> sgts = ss.getSuggestionListWithPaging(criteria);
             MyPageBuilder mpb = (new MyPageBuilder(ss.getTotalSuggestion(criteria))).build(criteria);
-            ;
             List<Object> results = new ArrayList<>();
             results.add(sgts);
             results.add(mpb);
@@ -67,21 +67,22 @@ public class SuggestionController {
         return result;
     }
 
-    @GetMapping("/ppl")
-    public String getPpl(Criteria criteria, Model model) {
-        log.info("suggestion main ....");
-
+    @GetMapping("/like")
+    public @ResponseBody ResponseEntity<List<Object>> getLike(Criteria criteria) {
+        log.info("getLike ..." + criteria);
+        ResponseEntity<List<Object>> result = null;
         try {
-            model.addAttribute("list", ss.getSuggestionListWithPaging(criteria));
-
-            MyPageBuilder mpb = new MyPageBuilder(ss.getTotalSuggestion(criteria));
-            mpb.build(criteria);
-
-            model.addAttribute("pageBuilder", mpb);
+            List<SuggestionDTO> sgts = ss.getSuggestionListsByLikes(criteria);
+            MyPageBuilder mpb = (new MyPageBuilder(ss.getTotalSuggestion(criteria))).build(criteria);
+            List<Object> results = new ArrayList<>();
+            results.add(sgts);
+            results.add(mpb);
+            result = new ResponseEntity<>(results, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return "suggestion/main";
+        return result;
     }
 
     @GetMapping("/article/{sno}")

@@ -5,6 +5,7 @@
 
 .suggestion-entry:hover{
   background-color: antiquewhite;
+  cursor: pointer;
 }
 
 .no-padding {

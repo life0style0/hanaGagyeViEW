@@ -38,7 +38,7 @@
                 <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
         </resultMap>
 
-        <select id="getSuggestionListWithPaging" resultMap="suggestionLists">
+        <!-- <select id="getSuggestionListWithPaging" resultMap="suggestionLists">
 SELECT article_id, 
         to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
         to_char(article_regdate + 30,'YYYY-MM-DD') "article_enddate",
@@ -77,6 +77,82 @@ FROM   (SELECT ROWNUM rn,
                 ORDER  BY article_regdate desc) 
         WHERE  ROWNUM <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum} ) "ar" 
 WHERE  rn <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
+        </select> -->
+
+        <select id="getSuggestionListWithPaging" resultMap="suggestionLists">
+SELECT article_id, 
+       To_char(article_regdate, 'YYYY-MM-DD')      "article_regdate", 
+       To_char(article_regdate + 30, 'YYYY-MM-DD') "article_enddate", 
+       article_title, 
+       article_content, 
+       article_proposal_status, 
+       user_id, 
+       "likes_num", 
+       "comments_num", 
+       (SELECT Count(scrap_id) 
+        FROM   scraps sc
+        WHERE  sc.article_id = "ar".article_id)       "scraps_num" 
+FROM   (SELECT /*+INDEX(articles idx_article_ctgry)*/ ROWNUM rn, 
+                                                      article_id, 
+                                                      article_regdate, 
+                                                      article_title, 
+                                                      article_content, 
+                                                      article_proposal_status, 
+                                                      user_id,
+                                                      article_like_num "likes_num",
+                                                      article_comment_num "comments_num"
+        FROM   articles 
+        WHERE  article_ctgry_id = 2 
+               AND article_regdate <![CDATA[ > ]]> '1900-01-01' 
+               AND To_char(article_regdate, 'YYYY-MM-DD') <![CDATA[ > ]]> 
+                   To_char(SYSDATE - 30, 'yyyy-mm-dd') 
+               AND  <include refid="criteria" />
+                article_deleted = 'N' 
+               AND ROWNUM <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar" 
+WHERE  rn <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
+        </select>
+
+        <select id="getSuggestionListsByLikes" resultMap="suggestionLists">
+SELECT article_id, 
+       To_char(article_regdate, 'YYYY-MM-DD')      "article_regdate", 
+       To_char(article_regdate + 30, 'YYYY-MM-DD') "article_enddate", 
+       article_title, 
+       article_content, 
+       article_proposal_status, 
+       user_id, 
+       "likes_num", 
+       "comments_num", 
+       (SELECT Count(scrap_id) 
+        FROM   scraps sc 
+        WHERE  sc.article_id = "ar".article_id)    "scraps_num" 
+FROM   (SELECT ROWNUM rn, 
+               article_id, 
+               article_regdate, 
+               article_title, 
+               article_content, 
+               article_proposal_status, 
+               user_id, 
+               "likes_num", 
+               "comments_num" 
+        FROM   (SELECT /*+INDEX(articles idx_article_ctgry)*/ 
+                       article_id, 
+                       article_regdate, 
+                       article_title, 
+                       article_content, 
+                       article_proposal_status, 
+                       user_id, 
+                       article_like_num  "likes_num", 
+                       article_comment_num  "comments_num" 
+                FROM   articles
+                WHERE  article_ctgry_id = 2 
+                       AND article_regdate <![CDATA[ > ]]> '1900-01-01' 
+                       AND To_char(article_regdate, 'YYYY-MM-DD') <![CDATA[ > ]]>  
+                           To_char(SYSDATE - 30, 'yyyy-mm-dd') 
+                       AND  <include refid="criteria" />
+                                article_deleted = 'N' 
+                ORDER  BY article_like_num DESC) 
+        AND ROWNUM <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar"
+WHERE  rn <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
         </select>
 
         <select id="getSuggestion" resultMap="suggestion">
@@ -90,12 +166,8 @@ SELECT article_id,
        article_content, 
        article_proposal_status, 
        user_id, 
-       (SELECT Count(li.like_id) 
-        FROM   likes li 
-        WHERE  li.article_id = #{article_id}) "likes_num", 
-       (SELECT Count(comment_id) 
-        FROM   comments 
-        WHERE  article_id = #{article_id})    "comments_num", 
+       article_like_num "likes_num", 
+       article_comment_num "comments_num", 
        (SELECT Count(scrap_id) 
         FROM   scraps 
         WHERE  article_id = #{article_id})    "scraps_num" 
