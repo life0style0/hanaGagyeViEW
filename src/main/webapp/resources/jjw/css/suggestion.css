@@ -3,11 +3,53 @@
   background-color: aliceblue;
 }
 
-.suggestion-entry:hover{
+.suggestion-entry:hover {
   background-color: antiquewhite;
   cursor: pointer;
 }
 
 .no-padding {
   padding: unset;
+}
+
+.be-large-post .be-post-title {
+  padding-top: 20px;
+  cursor: unset;
+}
+
+.progress {
+  height: 50px;
+}
+
+.progress-bar {
+  line-height: 50px;
+  font-size: 30px;
+  line-height: 50px;
+  min-width: 2em;
+}
+
+.row-progress {
+  margin-bottom: 20px;
+}
+
+.article-title {
+  font-size: 50px;
+  margin: 70px auto;
+  text-align: center;
+  font-family: 'Conv_helveticaneuecyr-bold';
+}
+
+.row-progress .col-md-2 {
+  width: 16.66666667%;
+  line-height: 50px;
+  font-size: 30px;
+  font-family: 'Conv_helveticaneuecyr-bold';
+}
+
+.row-progress .col-md-2:first-child {
+  text-align: right;
+}
+
+.row-progress .col-md-2:last-child {
+  text-align: left;
 }

@@ -29,10 +29,10 @@
                 <result property="articleTitle" column="article_title"/>
                 <result property="articleContent" column="article_content"/>
                 <result property="articleProposalStatus" column="article_proposal_status"/>
-                <result property="userId" column="user_id"/>
                 <result property="likeCnt" column="likes_num"/>
                 <result property="commentCnt" column="comments_num"/>
                 <result property="scrapCnt" column="scraps_num"/>
+                <association property="userPsns" column="user_id" javaType="kr.or.kosta.salmon.domain.PsnsDTO" select="getPsns"/>
                 <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
                 <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
                 <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
@@ -214,8 +214,8 @@ WHERE  rn                 <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
 
         <select id="getSuggestion" resultMap="suggestion">
 SELECT article_id, 
-        to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
-        to_char(article_regdate + 30,'YYYY-MM-DD') "article_enddate", 
+        to_char(article_regdate,'YYYY"년" MM"월" DD"일"') "article_regdate",
+        to_char(article_regdate + 30,'YYYY"년" MM"월" DD"일"') "article_enddate", 
        article_editdate, 
        article_payment_type, 
        article_payment_fee, 
@@ -255,12 +255,11 @@ WHERE  article_id = #{articleId}
         <select id="getComments" resultType="kr.or.kosta.salmon.domain.CommentDTO">
 SELECT comment_id, 
        comment_content, 
-       comment_regdate, 
+       to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
        user_id, 
        (SELECT user_image 
         FROM   users us 
-        WHERE  us.user_id = co.user_id) "user_image",
-        article_id
+        WHERE  us.user_id = co.user_id) "user_image"
 FROM   comments co 
 WHERE  article_id = #{articleId}
         </select>
@@ -301,6 +300,22 @@ WHERE  ( article_ctgry_id = 3
                                                                 FROM   psns 
                                                                 WHERE 
                                                 user_id = #{userId}))
+        </select>
+
+        <select id="getPsns" resultType="kr.or.kosta.salmon.domain.PsnsDTO">
+SELECT psn_id "psnId", 
+       user_id "userId", 
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_1) "ctgryName1", 
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_2) "ctgryName2", 
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_3) "ctgryName3"
+FROM   psns
+WHERE user_id = #{userId}
         </select>
 
         <sql id="criteria">

@@ -21,9 +21,10 @@ public class SuggestionDTO {
 	private String userId;
     private int likeCnt;
     private int commentCnt;
-    private int scrapCnt;
+	private int scrapCnt;
+	private PsnsDTO userPsns;
     private List<String> imagePaths;
     private List<String> ctgryNames;
     private List<String> hashtags;
     private List<CommentDTO> comments;
-}
+} 
