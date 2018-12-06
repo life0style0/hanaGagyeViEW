@@ -223,12 +223,13 @@ SELECT article_id,
        article_content, 
        article_proposal_status, 
        user_id, 
+       user_nickname,
        article_like_num "likes_num", 
        article_comment_num "comments_num", 
        (SELECT Count(scrap_id) 
         FROM   scraps 
         WHERE  article_id = #{article_id})    "scraps_num" 
-FROM    articles 
+FROM    articles join users using(user_id)
 WHERE   article_id = #{article_id}
         </select>
 
@@ -319,11 +320,24 @@ WHERE user_id = #{userId}
         </select>
 
         <select id="checkLike" resultType="int">
-SELECT count(comment_id)
-FROM comments
+SELECT count(like_id)
+FROM likes
 WHERE user_id = #{userId}
         and article_id = #{articleId}
         </select>
+
+        <select id="getLikeNum" resultType="string">
+SELECT article_like_num
+FROM articles
+WHERE article_id = #{article_id}
+        </select>
+
+        <select id="checkFollow" resultType="int">
+		SELECT count(follower_id) 
+		FROM   followers 
+		WHERE  follower_user_id = #{followerId} 
+		       AND user_id = #{userId}
+	</select>
 
         <sql id="criteria">
                 <trim prefix="(" suffix=") and " prefixOverrides="or">

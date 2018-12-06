@@ -23,4 +23,8 @@ public interface SuggestionService {
     public SuggestionDTO getSuggestion(String suggestionId) throws Exception;
 
     public boolean checkLike(String userId, String articleId) throws Exception;
+
+    public boolean checkFollow(String userId, String followerId) throws Exception;
+
+    public String getLikeNum(String articleId) throws Exception;
 }

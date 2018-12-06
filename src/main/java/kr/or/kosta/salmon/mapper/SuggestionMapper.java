@@ -19,10 +19,14 @@ public interface SuggestionMapper {
     public List<SuggestionDTO> getSuggestionListsByRecommend(Criteria criteria) throws Exception;
 
     public int getTotalSuggestion(Criteria criteria) throws Exception;
-    
+
     public int getTotalSuggestionByRecommend(Criteria criteria) throws Exception;
 
     public SuggestionDTO getSuggestion(@Param("article_id") String suggestionId) throws Exception;
 
     public int checkLike(@Param("userId") String userId, @Param("articleId") String articleId) throws Exception;
+    
+    public int checkFollow(@Param("userId") String userId, @Param("followerId") String followerId) throws Exception;
+
+    public String getLikeNum(@Param("articleId") String articleId) throws Exception;
 }

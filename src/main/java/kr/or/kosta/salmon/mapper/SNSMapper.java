@@ -42,8 +42,8 @@ public interface SNSMapper {
 	public SNSUserPageDTO getSNSUserPageInfo(String user_id);
 	
 	//좋아요
-	public void likeArticle(LikeDTO like);
-	public void unlikeArticle(LikeDTO like);
+	public int likeArticle(LikeDTO like);
+	public int unlikeArticle(LikeDTO like);
 	
 	public SNSArticleDTO_sjh getArticleByArticleId(int article_id);
 	

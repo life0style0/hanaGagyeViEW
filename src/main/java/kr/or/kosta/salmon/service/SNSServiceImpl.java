@@ -19,62 +19,62 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Service
-public class SNSServiceImpl implements SNSService{
+public class SNSServiceImpl implements SNSService {
 	@Inject
 	SNSMapper snsMapper;
 
-	//이 사용자의 피드 게시글 조회
+	// 이 사용자의 피드 게시글 조회
 	@Override
 	public ArrayList<SNSArticleDTO_sjh> getSNSArticles(String user_id) {
 		return snsMapper.getSNSArticles(user_id);
 	}
 
-	//작성자로 글목록 찾기
+	// 작성자로 글목록 찾기
 	@Override
 	public ArrayList<SNSArticleDTO_sjh> getSNSArticleByWriter(String user_id) {
 		return snsMapper.getSNSArticleByWriter(user_id);
 	}
-	
+
 	@Override
 	public ArrayList<HashTagGroupDTO> getHashTagGroup(String user_id) {
 		return snsMapper.getHashTagGroup(user_id);
 	}
 
 	@Override
-	public void askFollow(FollowerDTO follower) {
-		snsMapper.askFollow(follower);
+	public boolean askFollow(FollowerDTO follower) {
+		return snsMapper.askFollow(follower);
 	}
-	
+
 	@Override
-	public void askFollow(String follower_id, String followed_id) {
-		FollowerDTO follower= new FollowerDTO();
+	public boolean askFollow(String follower_id, String followed_id) {
+		FollowerDTO follower = new FollowerDTO();
 		follower.setUser_id(followed_id);
 		follower.setFollower_user_id(follower_id);
-		askFollow(follower);
+		return askFollow(follower);
 	}
 
 	@Override
-	public void askUnfollow(FollowerDTO follower) {
-		snsMapper.askUnfollow(follower);
+	public boolean askUnfollow(FollowerDTO follower) {
+		return snsMapper.askUnfollow(follower);
 	}
 
 	@Override
-	public void askUnfollow(String follower_id, String followed_id) {
-		FollowerDTO follower= new FollowerDTO();
+	public boolean askUnfollow(String follower_id, String followed_id) {
+		FollowerDTO follower = new FollowerDTO();
 		follower.setUser_id(followed_id);
 		follower.setFollower_user_id(follower_id);
 		log.info(follower);
-		askUnfollow(follower);
+		return askUnfollow(follower);
 	}
 
 	@Override
 	public boolean checkFollowing(FollowerDTO follower) {
-		log.info("check follow from "+follower.getFollower_user_id()+" to "+follower.getUser_id());
-		if(snsMapper.checkFollowing(follower) >0 ) {
+		log.info("check follow from " + follower.getFollower_user_id() + " to " + follower.getUser_id());
+		if (snsMapper.checkFollowing(follower) > 0) {
 			log.info("following...");
 			return true;
-		}else {
-			if(follower.getUser_id().equals(follower.getFollower_user_id())) {
+		} else {
+			if (follower.getUser_id().equals(follower.getFollower_user_id())) {
 				log.info(" it's me ");
 				return true;
 			}
@@ -102,31 +102,31 @@ public class SNSServiceImpl implements SNSService{
 	}
 
 	@Override
-	public void likeArticle(LikeDTO like) {
-		snsMapper.likeArticle(like);
+	public boolean likeArticle(LikeDTO like) {
 		log.info("좋아요 완료");
+		return snsMapper.likeArticle(like) > 0 ? true : false;
 	}
 
 	@Override
-	public void likeArticle(String user_id, int article_id) {
-		LikeDTO like= new LikeDTO();
+	public boolean likeArticle(String user_id, int article_id) {
+		LikeDTO like = new LikeDTO();
 		like.setUser_id(user_id);
 		like.setArticle_id(article_id);
-		likeArticle(like);
+		return likeArticle(like);
 	}
 
 	@Override
-	public void unlikeArticle(LikeDTO like) {
-		snsMapper.unlikeArticle(like);
+	public boolean unlikeArticle(LikeDTO like) {
 		log.info("안좋아요 완료");
+		return snsMapper.unlikeArticle(like) > 0 ? true : false;
 	}
 
 	@Override
-	public void unlikeArticle(String user_id, int article_id) {
-		LikeDTO like= new LikeDTO();
+	public boolean unlikeArticle(String user_id, int article_id) {
+		LikeDTO like = new LikeDTO();
 		like.setUser_id(user_id);
 		like.setArticle_id(article_id);
-		unlikeArticle(like);
+		return unlikeArticle(like);
 	}
 
 	@Override
@@ -141,20 +141,20 @@ public class SNSServiceImpl implements SNSService{
 
 	@Override
 	public void scrapArticle(String user_id, int article_id) {
-		ScrapDTO scrap= new ScrapDTO();
+		ScrapDTO scrap = new ScrapDTO();
 		scrap.setUser_id(user_id);
 		scrap.setArticle_id(article_id);
 		scrapArticle(scrap);
-		
+
 	}
 
-	//좋아요 한 게시글 목록
+	// 좋아요 한 게시글 목록
 	@Override
 	public ArrayList<SNSArticleDTO_sjh> getArticleByLikeUser(String user_id) {
 		return snsMapper.getArticleByLikeUser(user_id);
 	}
 
-	//댓글쓰기
+	// 댓글쓰기
 	@Override
 	public void writeComment(CommentDTO comment) {
 		snsMapper.writeComment(comment);
@@ -162,7 +162,7 @@ public class SNSServiceImpl implements SNSService{
 
 	@Override
 	public void writeComment(String user_id, int article_id, String comment_content) {
-		CommentDTO comment= new CommentDTO();
+		CommentDTO comment = new CommentDTO();
 		comment.setArticle_id(article_id);
 		comment.setUser_id(user_id);
 		comment.setComment_content(comment_content);

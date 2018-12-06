@@ -38,12 +38,12 @@ public interface SNSService {
 //	public ArrayList<MainGroupCtFeeDTO> getChartCategoryFee(String user_id);
 
 	//팔로우
-	public void askFollow(FollowerDTO follower);
-	public void askFollow(String follower_id, String followed_id);
+	public boolean askFollow(FollowerDTO follower);
+	public boolean askFollow(String follower_id, String followed_id);
 	
 	//언팔
-	public void askUnfollow(FollowerDTO follower);
-	public void askUnfollow(String follower_id, String followed_id);
+	public boolean askUnfollow(FollowerDTO follower);
+	public boolean askUnfollow(String follower_id, String followed_id);
 	
 	//팔로 체크
 	public boolean checkFollowing(FollowerDTO follower);
@@ -54,10 +54,10 @@ public interface SNSService {
 	public SNSUserPageDTO getSNSUserPageInfo(String user_id);
 	
 	//좋아요
-	public void likeArticle(LikeDTO like);
-	public void likeArticle(String user_id, int article_id);
-	public void unlikeArticle(LikeDTO like);
-	public void unlikeArticle(String user_id, int article_id);
+	public boolean likeArticle(LikeDTO like);
+	public boolean likeArticle(String user_id, int article_id);
+	public boolean unlikeArticle(LikeDTO like);
+	public boolean unlikeArticle(String user_id, int article_id);
 	//좋아요 한 게시글
 	public ArrayList<SNSArticleDTO_sjh> getArticleByLikeUser(String user_id);
 	
