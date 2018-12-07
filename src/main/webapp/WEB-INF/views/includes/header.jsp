@@ -22,6 +22,7 @@
           </li>
           <li><a href="/salmon/main/mypage">MYPAGE</a></li>
           <li><a href="/salmon/accountbook/calendar">AccountBook</a></li>
+          <li><a href="/salmon/group/list">소모임</a></li>
           <li><a href="/salmon/suggestion">Suggestion</a></li>
         </ul>
       </div>
