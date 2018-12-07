@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <footer class="bgcolor-sjh">
-  <div class="footer-main">
-    <div class="container-fluid custom-container">
 <!--       <div class="row">
         <div class="col-md-3 col-xl-4">
           <div class="footer-block">
