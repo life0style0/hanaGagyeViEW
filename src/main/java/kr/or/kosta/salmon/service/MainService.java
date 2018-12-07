@@ -17,7 +17,9 @@ public interface MainService {
 	public ArrayList<HashTagGroupDTO> getHashTagGroup(String user_id);
 	
 	//차트정보
-	public MainChartDTO getChartTotalFee(String user_id);
-	public ArrayList<MainGroupCtFeeDTO> getChartCategoryFee(String user_id);
+	public MainChartDTO getChartTotalIncomeFee(String user_id);
+	public MainChartDTO getChartTotalSpendFee(String user_id);
+	public ArrayList<MainGroupCtFeeDTO> getChartCategoryIncomeFee(String user_id);
+	public ArrayList<MainGroupCtFeeDTO> getChartCategorySpendFee(String user_id);
 	
 }

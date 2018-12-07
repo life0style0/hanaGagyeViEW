@@ -11,7 +11,9 @@ public interface MainMapper {
 
 	public ArrayList<MainArticleDTO> getListSprint1(String user_id);
 	public ArrayList<HashTagGroupDTO> getHashTagGroup(String user_id);
-	public MainChartDTO getChartTotalFee(String user_id);
-	public ArrayList<MainGroupCtFeeDTO> getChartCategoryFee(String user_id);
+	public MainChartDTO getChartTotalIncomeFee(String user_id);
+	public MainChartDTO getChartTotalSpendFee(String user_id);
+	public ArrayList<MainGroupCtFeeDTO> getChartCategoryIncomeFee(String user_id);
+	public ArrayList<MainGroupCtFeeDTO> getChartCategorySpendFee(String user_id);
 	
 }

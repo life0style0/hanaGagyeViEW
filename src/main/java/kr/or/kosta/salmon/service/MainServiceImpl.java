@@ -30,13 +30,23 @@ public class MainServiceImpl implements MainService{
 	}
 
 	@Override
-	public MainChartDTO getChartTotalFee(String user_id) {
-		return mainMapper.getChartTotalFee(user_id);
+	public MainChartDTO getChartTotalIncomeFee(String user_id) {
+		return mainMapper.getChartTotalIncomeFee(user_id);
 	}
 
 	@Override
-	public ArrayList<MainGroupCtFeeDTO> getChartCategoryFee(String user_id) {
-		return mainMapper.getChartCategoryFee(user_id);
+	public MainChartDTO getChartTotalSpendFee(String user_id) {
+		return mainMapper.getChartTotalSpendFee(user_id);
+	}
+
+	@Override
+	public ArrayList<MainGroupCtFeeDTO> getChartCategoryIncomeFee(String user_id) {
+		return mainMapper.getChartCategoryIncomeFee(user_id);
+	}
+
+	@Override
+	public ArrayList<MainGroupCtFeeDTO> getChartCategorySpendFee(String user_id) {
+		return mainMapper.getChartCategorySpendFee(user_id);
 	}
 
 	
