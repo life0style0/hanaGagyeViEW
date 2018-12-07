@@ -1,10 +1,12 @@
 package kr.or.kosta.salmon.controller;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -23,6 +25,7 @@ import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
 import kr.or.kosta.salmon.domain.HashTagDTO;
 import kr.or.kosta.salmon.domain.ImageDTO;
+import kr.or.kosta.salmon.domain.ImageEditDTO;
 import kr.or.kosta.salmon.domain.MainArticleDTO;
 import kr.or.kosta.salmon.service.GaArticleService;
 import lombok.extern.log4j.Log4j;
@@ -49,6 +52,8 @@ public class GagyeviewController {
 		editArticle.setArticle_id(article_id);
 		String ctgryName = gaArticleService.getCtgryName(editArticle.getArticle_ctgry_id());
 		ArrayList<String> categoryList = gaArticleService.getCategory();
+		ArrayList<String> articlePathList = gaArticleService.getArticleFilePath(article_id);
+		model.addAttribute("articlePathList", articlePathList);
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("editArticle", editArticle);
 		model.addAttribute("ctgryName", ctgryName);
@@ -62,7 +67,7 @@ public class GagyeviewController {
 		article.setArticle_ctgry_id(Integer.parseInt(gaArticleService.getArticleCategoryByName(article_ctgry_name.trim())));
 		article.setUser_id(principal.getName());
 		//카테고리 생성 준비
-		int categoryNum = Integer.parseInt(gaArticleService.getCategoryByName(categoryName));
+		int categoryNum = Integer.parseInt(gaArticleService.getCategoryByName(categoryName.trim()));
 		ArrayList<String> hashTagList = getHashTag(article.getArticle_content());
 		
 		switch(article.getArticle_scope().trim()){
@@ -99,18 +104,22 @@ public class GagyeviewController {
 	
 	@PostMapping("/update")
 	public ResponseEntity<String> updateArticle(ArticleDTO article, String article_ctgry_name, String categoryName ,Principal principal, Model model){
+		log.info(article.toString());
+		log.info(article_ctgry_name);
+		log.info(categoryName);
+		
 		//update 사전작업
 		int article_id = article.getArticle_id();
 		gaArticleService.deleteCtgry(article_id);
-		gaArticleService.deleteHash(article_id);
 		gaArticleService.deleteHashRefs(article_id);
-		gaArticleService.deleteImages(article_id);
+		gaArticleService.deleteHash(article_id);
+
 		
 		//update준비과정
 		article.setArticle_ctgry_id(Integer.parseInt(gaArticleService.getArticleCategoryByName(article_ctgry_name.trim())));
 		article.setUser_id(principal.getName());
 		//카테고리 생성 준비
-		int categoryNum = Integer.parseInt(gaArticleService.getCategoryByName(categoryName));
+		int categoryNum = Integer.parseInt(gaArticleService.getCategoryByName(categoryName.trim()));
 		ArrayList<String> hashTagList = getHashTag(article.getArticle_content());
 		
 		switch(article.getArticle_scope().trim()){
@@ -124,6 +133,7 @@ public class GagyeviewController {
 			article.setArticle_scope("g");
 			break;
 		}
+		
 		gaArticleService.updateArticle(article);
 		
 		CategoryDTO categoryDto = new CategoryDTO();
@@ -148,65 +158,87 @@ public class GagyeviewController {
 	
 	
 	public ArrayList<String> getHashTag(String content){
-		ArrayList<String> hashList = new ArrayList<>();
-		String[] divContent = content.trim().split("#");
-		for(String tagTarget : divContent){
-			if(tagTarget.length() > 0){
-				hashList.add(tagTarget.split(" ")[0]);
-			}
-		}
-
-		return hashList;
-	}
+	      ArrayList<String> hashList = new ArrayList<>();
+	      String[] divContent = content.trim().split("#");
+	      int count = 1;
+	      for(String tagTarget : divContent){
+	         if(tagTarget.length() > 0 && count>1){
+	            hashList.add(tagTarget.split(" ")[0]);
+	         }
+	         count++;
+	      }
+	      return hashList;
+	   }
 	
 	@PostMapping("/imageUpload")
 	public ResponseEntity<String> registImage(@RequestParam("uploadFile") MultipartFile[] uploadFile, @RequestParam("articleId") String articleId){
-		log.info("articleId check : " + articleId);
-		log.info("formData check : " + uploadFile);
-		log.info("formData size : " + uploadFile.length);
-		log.info("formdata toString : " + uploadFile.toString());
 		String uploadFolder = "C:\\upload";
 		File uploadPath = new File(uploadFolder, "\\images");
-		log.info("upload path:" + uploadPath);
 		if(uploadPath.exists()==false){
 			uploadPath.mkdirs();
 		}
+		HashMap<String,Integer> delPathChekList = new HashMap<>();
+		ArrayList<String> allList = gaArticleService.getArticleFilePath(Integer.parseInt(articleId));
 		for(MultipartFile multipartFile : uploadFile){
-			log.info("----------테스트-----------");
-			log.info("upload file name : " + multipartFile.getOriginalFilename());
-			log.info("upload File size: " + multipartFile.getSize());
 			String uploadFileName = multipartFile.getOriginalFilename();
 			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
-			log.info("only file name : " + uploadFileName);
-			UUID uuid = UUID.randomUUID();
 			
-			uploadFileName = uuid.toString() + "_" +uploadFileName;
-			File saveFile = new File(uploadPath, uploadFileName);
-			ImageDTO imageDTO = new ImageDTO();
-			int article_id = Integer.parseInt(articleId);
-			imageDTO.setArticle_id(article_id);
-			imageDTO.setImage_path(uploadFileName);
-			log.info(imageDTO.toString());
-			gaArticleService.createImageInfo(imageDTO);
-			
-			try{
-				multipartFile.transferTo(saveFile);
-			}catch(Exception e){
-				log.error(e.getMessage());
+			ImageEditDTO imageEditDTO = new ImageEditDTO();
+			imageEditDTO.setArticle_id(Integer.parseInt(articleId));
+			imageEditDTO.setImage_path(uploadFileName);
+			int check = gaArticleService.imageCheck(imageEditDTO);
+			delPathChekList.put(imageEditDTO.getImage_path(),1);
+			if(check==1){
+				
+			}else{
+				
+				UUID uuid = UUID.randomUUID();
+				
+				uploadFileName = uuid.toString() + "_" +uploadFileName;
+				File saveFile = new File(uploadPath, uploadFileName);
+				ImageDTO imageDTO = new ImageDTO();
+				int article_id = Integer.parseInt(articleId);
+				imageDTO.setArticle_id(article_id);
+				imageDTO.setImage_path(uploadFileName);
+				gaArticleService.createImageInfo(imageDTO);
+				
+				try{
+					multipartFile.transferTo(saveFile);
+				}catch(Exception e){
+					log.error(e.getMessage());
+				}
 			}
 		}
+		
+		//이미지삭제 작업 : 파일삭제 후 데이터베이스 삭제
+		
+		ArrayList<String> deleteTarget = new ArrayList<>();
+		for(String path : allList){
+			if(delPathChekList.get(path)==null){
+				deleteTarget.add(path);
+			}
+		}
+		deleteFiles(deleteTarget, articleId);
+		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	
-	
-	private String getFolder(){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		String str = sdf.format(date);
-		
-		//String reValue = str.replaceAll("-",  File.separator).concat(principal.getName());
-		return str.replace("-", File.separator);
+	private void deleteFiles(ArrayList<String> path, String article_id){
+		try{
+			for(String filePath : path){
+				Path file = Paths.get("C:/upload/images/" + filePath);
+				
+				Files.deleteIfExists(file);
+				
+				ImageEditDTO imageEditDTO = new ImageEditDTO();
+				imageEditDTO.setArticle_id(Integer.parseInt(article_id));
+				imageEditDTO.setImage_path(filePath);
+				gaArticleService.deleteImages(imageEditDTO);
+			}
+		}catch(Exception e){
+			log.error("delete error");
+		}
 	}
+	
 	
 }

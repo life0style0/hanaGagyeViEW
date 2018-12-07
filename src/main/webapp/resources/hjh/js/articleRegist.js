@@ -18,32 +18,31 @@ $(function () {
       e.preventDefault();
       return false;
     }
+   
+    
+    
   });
 
   const dropzone = $("#filesUpload");
   dropzone.on({
     dragenter: function (e) {
-      console.log('dragenter');
       e.stopPropagation();
       e.preventDefault();
       $(this).toggleClass('drag-on');
       return false;
     },
     dragleave: function (e) {
-      console.log('dragleave');
       e.stopPropagation();
       e.preventDefault();
       $(this).toggleClass('drag-on');
       return false;
     },
     dragover: function (e) {
-      console.log('dragover');
       e.stopPropagation();
       e.preventDefault();
       return false;
     },
     drop: function (e) {
-      console.log('drop');
       e.preventDefault();
       $(this).toggleClass('drag-on');
 
@@ -121,11 +120,8 @@ function uploadFiles(fileObject) {
   let files = fileObject;
   if (files) {
     for (let i = 0; i < files.length; i += 1) {
-    	console.log("file");
       const fileName = files[i].name;
       const fileSize = files[i].size;
-      console.log(fileName);
-      console.log(fileSize);
       if (!checkUploadFile(fileName, fileSize)) {
       } else {
         totalFileSize += fileSize;

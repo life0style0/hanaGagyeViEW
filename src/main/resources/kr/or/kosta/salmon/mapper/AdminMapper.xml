@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+                        
+<mapper namespace="kr.or.kosta.salmon.mapper.AdminMapper">
+
+<!-- 유저정보 시작 -->
+	<select id="getAgeGroupCount" resultType="int">
+	<![CDATA[
+	SELECT 		count(user_id) ageGroup
+	FROM		users 
+	WHERE		(to_char(sysdate,'yyyy')-(case when substr(user_birthday,0,2) < 19 then 2000 + substr(user_birthday,0,2) else 1900 + substr(user_birthday,0,2) end)) between #{ageGroup} and #{ageGroup}+10
+	]]>
+	</select>
+	
+	<select id="getGroupByGender" resultType="kr.or.kosta.salmon.domain.AdminGbyGenderDTO">
+	SELECT		user_gender, count(user_gender) count_gender
+	FROM		users 
+	GROUP BY  	user_gender
+	</select>
+	
+	<select id="getTotalUser" resultType="Integer">
+	SELECT 		count(user_id)
+	FROM 		users
+	</select>
+	
+	<select id="getRegistGroupMonth" resultType="kr.or.kosta.salmon.domain.AdminRByMonthDTO">
+	SELECT 		to_char(user_regdate,'yy-mm') groupMonth, count(to_char(user_regdate,'yy-mm')) groupMonthCt 
+	FROM		users
+	WHERE		to_char(user_regdate,'yy-mm') between to_char(add_months(sysdate,-4),'yy-mm') and to_char(sysdate,'yy-mm') group by to_char(user_regdate,'yy-mm')
+	</select>
+	
+	<select id="getUserCategory1" resultType="kr.or.kosta.salmon.domain.AdminGetUserCtgryDTO">
+	SELECT 		(
+				SELECT 	ctgry_name 
+				FROM 	ctgries 
+				WHERE ctgry_id = ctgry_1) ctgry_name, count(ctgry_1) ctgry_ct 
+				FROM psns 
+				GROUP BY ctgry_1
+	</select>
+	
+	<select id="getUserCategory2" resultType="kr.or.kosta.salmon.domain.AdminGetUserCtgryDTO">
+	SELECT 		(
+				SELECT 	ctgry_name 
+				FROM 	ctgries 
+				WHERE ctgry_id = ctgry_2) ctgry_name, count(ctgry_2) ctgry_ct 
+				FROM psns 
+				GROUP BY ctgry_2
+	</select>
+	
+	<select id="getUserCategory3" resultType="kr.or.kosta.salmon.domain.AdminGetUserCtgryDTO">
+	SELECT 		(
+				SELECT 	ctgry_name 
+				FROM 	ctgries 
+				WHERE ctgry_id = ctgry_3) ctgry_name, count(ctgry_3) ctgry_ct 
+				FROM psns 
+				GROUP BY ctgry_3
+	</select>
+	
+	<select id="getFollowerTop" resultType="kr.or.kosta.salmon.domain.AdminFollowerTopDTO">
+	SELECT 		user_id ,count(user_id) follower_ct
+	FROM 		followers 
+	GROUP BY 	user_id
+	ORDER BY	count(user_id) desc
+	</select>
+	
+	<select id="getPaymentType" resultType="kr.or.kosta.salmon.domain.AdminPaymentTypeDTO">
+	SELECT		 user_id, article_ctgry_id, sum(article_payment_fee) payment_sum, user_gender
+	FROM 	 	 articles join users using(user_id) 
+	GROUP BY 	 user_id, article_ctgry_id,user_gender
+	</select>
+
+<!-- 유저정보 끝 -->
+
+<!-- 소비정보 시작 -->
+	<select id="getTotalInfo" resultType="kr.or.kosta.salmon.domain.AdminPayInfoTotalDTO">
+	SELECT		 count(article_id) article_ct, sum(article_payment_fee) article_sum, ceil(avg(article_payment_fee)) article_avg, ceil(STDDEV_POP(article_payment_fee)) article_stddev 
+	FROM		 articles
+	</select>
+
+	<select id="getMinAvgCtgry" resultType="kr.or.kosta.salmon.domain.AdminPayInfoAvgDTO">
+	select ctgry_name,ceil(avg(article_payment_fee)) ctgry_avg from ctgry_values join ctgries using(ctgry_id) join articles using(article_id) group by ctgry_name having ceil(avg(article_payment_fee)) = (select ceil(min(averg)) from (select ceil(avg(article_payment_fee)) averg from ctgry_values join ctgries using(ctgry_id) join articles using(article_id) group by ctgry_name))
+	</select>
+
+	<select id="getMaxAvgCtgry" resultType="kr.or.kosta.salmon.domain.AdminPayInfoAvgDTO">
+	select ctgry_name,ceil(avg(article_payment_fee)) ctgry_avg from ctgry_values join ctgries using(ctgry_id) join articles using(article_id) group by ctgry_name having ceil(avg(article_payment_fee)) = (select ceil(max(averg)) from (select ceil(avg(article_payment_fee)) averg from ctgry_values join ctgries using(ctgry_id) join articles using(article_id) group by ctgry_name))
+	</select>
+	
+	<select id="getAvgCtgryByAge" resultType="kr.or.kosta.salmon.domain.AdminPayInfoAvgGroupBYAgeDTO">
+	<![CDATA[
+	SELECT 		ctgry_name, ceil(avg(article_payment_fee)) ctgry_avg 
+	FROM	 	articles join users using(user_id) join ctgry_values using(article_id) join ctgries using(ctgry_id)
+	WHERE		(to_char(sysdate,'yyyy')-(case when substr(user_birthday,0,2) < 19 then 2000 + substr(user_birthday,0,2) else 1900 + substr(user_birthday,0,2) end)) between #{ageGroup} and #{ageGroup}+10 
+	GROUP BY 	ctgry_name
+	]]>
+	</select>
+
+<!-- 소비정보 끝 -->
+
+</mapper>

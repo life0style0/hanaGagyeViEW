@@ -86,24 +86,42 @@
 				   				 WHERE 		group_id in (
 				   				 						 SELECT 	group_id
 				   				 						 FROM	 	users us inner join group_users gus on us.user_id = gus.user_id 
-				   				 						 WHERE		us.user_id=#{user_id})))) and rownum <10
+				   				 						 WHERE		us.user_id=#{user_id}))))
 		GROUP BY hashtag_value 
 		ORDER BY count_hashtag_value desc ]]>
         </select>
         
-        <select id="getChartTotalFee" resultMap="ChartMap">
+        <select id="getChartTotalIncomeFee" resultMap="ChartMap">
         	SELECT 	sum(article_payment_fee) totalFee
         	FROM 	articles 
-        	WHERE 	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and user_id = #{user_id}
+        	WHERE 	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and article_ctgry_id=1 and user_id = #{user_id}
         </select>
         
-        <select id="getChartCategoryFee" resultType="kr.or.kosta.salmon.domain.MainGroupCtFeeDTO">
+        <select id="getChartTotalSpendFee" resultMap="ChartMap">
+        	SELECT 	sum(article_payment_fee) totalFee
+        	FROM 	articles 
+        	WHERE 	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and article_ctgry_id=2 and user_id = #{user_id}
+        </select>
+        
+        <select id="getChartCategoryIncomeFee" resultType="kr.or.kosta.salmon.domain.MainGroupCtFeeDTO">
         	SELECT 		ctgry_name, sum(article_payment_fee) ctgry_fee_sum 
         	FROM 		ctgry_values join articles using(article_id) join ctgries using(ctgry_id) where ctgry_id in (select ctgry_id from ctgry_values join ctgries using(ctgry_id) 
         	WHERE 		article_id in (
         								SELECT 	article_id 
         								FROM 	articles 
-        								WHERE	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and user_id = #{user_id}))  
+        								WHERE	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and user_id = #{user_id}))
+        				AND  article_ctgry_id=1 
+        	GROUP BY	ctgry_name
+        </select>
+        
+         <select id="getChartCategorySpendFee" resultType="kr.or.kosta.salmon.domain.MainGroupCtFeeDTO">
+        	SELECT 		ctgry_name, sum(article_payment_fee) ctgry_fee_sum 
+        	FROM 		ctgry_values join articles using(article_id) join ctgries using(ctgry_id) where ctgry_id in (select ctgry_id from ctgry_values join ctgries using(ctgry_id) 
+        	WHERE 		article_id in (
+        								SELECT 	article_id 
+        								FROM 	articles 
+        								WHERE	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and user_id = #{user_id}))
+        				AND  article_ctgry_id=2 
         	GROUP BY	ctgry_name
         </select>
 	

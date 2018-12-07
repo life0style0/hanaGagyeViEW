@@ -3688,3 +3688,28 @@ body .login-user-down:hover {
     background: transparent !important;
 }
 
+
+/* css 추가 */
+.head-bg-sjh{
+	background: #ffffff;
+    position: relative;
+    padding: 10px;
+}
+
+font-sjh{
+	color: #298478;
+}
+
+.font-sjh h1{
+	color: #298478;
+}
+
+.bgcolor-sjh {
+  background: #298478;
+}
+
+.bgcolor-salmon-sjh{
+	background: #ff7f7f;
+	color:#fffff;
+}
+
