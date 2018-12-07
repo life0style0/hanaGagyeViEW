@@ -49,9 +49,7 @@ public class SuggestionController {
             model.addAttribute("likeList", SS.getSuggestionListsByLikes(criteria));
             model.addAttribute("pageBuilder", mpg);
             model.addAttribute("recommendList", SS.getSuggestionListsByRecommend(criteria));
-            model.addAttribute("recommendPageBuilder",
-                    (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria));
-
+            model.addAttribute("recommendPageBuilder", (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -102,7 +100,7 @@ public class SuggestionController {
             SuggestionDTO sgt = SS.getSuggestion(sno);
             model.addAttribute("article", SS.getSuggestion(sno));
             model.addAttribute("checkLike", SS.checkLike(principal.getName(), sno));
-            model.addAttribute("checkFollow", SS.checkFollow(principal.getName(), sgt.getUserId()));
+            model.addAttribute("checkFollow", SS.checkFollow(principal.getName(), sgt.getUserPsns().getUserId()));
             model.addAttribute("userId", principal.getName());
         } catch (Exception e) {
             e.printStackTrace();

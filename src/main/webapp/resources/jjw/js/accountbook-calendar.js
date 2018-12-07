@@ -109,12 +109,13 @@ function makeCalendar(yearSrc, monthSrc, daySrc) {
 function sortCtgryMapping(ctgryName, delemeterSrc, replacerSrc) {
     const delemeter = delemeterSrc || '/';
     const replacer = replacerSrc || '-';
+    const regex = new RegExp(delemeter, "gm");
     if (!ctgryName) {
         alert('ctgryName is empty');
     } else if (!ctgryName.includes(delemeter)) {
         return ctgryName;
     } else {
-        return ctgryName.replace(delemeter, replacer);
+        return ctgryName.replace(regex, replacer);
     }
 }
 

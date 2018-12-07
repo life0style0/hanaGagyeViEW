@@ -45,6 +45,89 @@ function setSuggestions(page, pageType, event) {
     return pageBuilder;
 }
 
+function appendCommentJjw(comment) {
+    let html = `<div class="be-comment">
+    <input type="hidden" name="comment-id" value="${comment.comment_id}">
+    <input type="hidden" name="article-id" value="${comment.article_id}">
+    <div class="be-img-comment">
+        <a href="">
+            <input type="hidden" class="imagePath" value="/salmon/image?fileName=${comment.user_image}">
+            <img src="" alt="" class="be-ava-comment image-src thumbnail-comment">
+        </a>
+    </div>
+    <div class="be-comment-content">
+        <span class="be-comment-name">
+            <a href="">${comment.user_nickname}</a>
+        </span>
+        <span class="be-comment-time">
+                <span name="comment-delete-btn" class="comment-delete-btn">
+                    <i class="fas fa-times"></i>삭제
+                </span>
+            <i class="fa fa-clock-o"></i>
+            ${comment.comment_regdate}
+        </span>
+        <p class="be-comment-text">
+            ${comment.comment_content}
+        </p>
+    </div>
+</div>`;
+    return html;
+}
+
+function writeReplyJjw(articleId, content, lastCommentId, form) {
+    const sendData = {
+        articleId: articleId,
+        content: content,
+        lastCommentId: lastCommentId
+    };
+    const csrfName = $('#csrf').attr('name');
+    const csrf = $('#csrf').val();
+
+    $.ajax({
+        data: sendData,
+        type: 'post',
+        async: false,
+        url: `/salmon/sns/comment?${csrfName}=${csrf}`,
+        success: function (data) {
+            data.forEach(function (comment) {
+                appendCommentJjw(comment, form);
+            });
+            $('#commentCnt').html(Number($('#commentCnt').html()) + data.length);
+            $(form).find('input[name="commentContent"]').val('');
+        },
+        error: function (xhr, status, er) {
+            alert('데이터 수신 에러');
+            console.log(xhr);
+            console.log(status);
+            console.log(er);
+        }
+    });
+}
+
+function writeReplyJjw2(form) {
+    $.ajax({
+        data: $(form).serialize(),
+        type: 'post',
+        async: false,
+        url: `/salmon/sns/comment`,
+        success: function (data) {
+            data.forEach(function (comment) {
+                $(form).before(appendCommentJjw(comment));
+            });
+            $('#commentCnt').html(Number($('#commentCnt').html()) + data.length);
+            $(form).find('textarea[name="content"]').val('');
+        },
+        error: function (xhr, status, er) {
+            alert('데이터 수신 에러');
+            console.log(xhr);
+            console.log(status);
+            console.log(er);
+        }
+    });
+}
+
+
+
 $(function () {
     $('.sgt-new-paging').on('click', '.paginate-new', function (event) {
         const pageBuilder = setSuggestions(this, 'new', event);
@@ -88,4 +171,22 @@ $(function () {
         form.attr('action', `${form.attr('action')}${sid}`);
         form.submit();
     });
+
+    $('.comment-form').on('submit', function (event) {
+        event.preventDefault();
+        const lastCID = $('.be-comment').last().find('input[name="comment-id"]').val();
+        $(this).find('input[name="lastCommentId"]').val(lastCID);
+        console.log($(this).serialize());
+        writeReplyJjw2(this);
+        // return false;
+    })
+
+    // $('#comment').on('click', function (e) {
+    //     e.preventDefault();
+    //     const lastC = $('.be-comment').last();
+
+    //     const articleId = lastC.find('input[name="article-id"]').val();
+    //     const comment = $(this).closest('form').find('input[name="commentContent"]').val();
+    //     writeReplyJjw(articleId, comment, lastCID, $(this).closest('form'));
+    // });
 });

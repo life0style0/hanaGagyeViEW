@@ -255,11 +255,11 @@ SELECT comment_id,
        comment_content, 
        to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
        user_id, 
-       (SELECT user_image 
-        FROM   users us 
-        WHERE  us.user_id = co.user_id) "user_image"
-FROM   comments co 
+       user_image,
+       user_nickname 
+FROM   comments left outer join users using(user_id)
 WHERE  article_id = #{articleId}
+order by comment_regdate asc
         </select>
 
         <select id="getTotalSuggestion" resultType="int">
@@ -304,6 +304,7 @@ WHERE  ( article_ctgry_id = 3
 SELECT psn_id "psnId", 
        user_id "userId",
        user_nickname "userNickname",
+       user_image "userImage",
        (SELECT ctgry_name 
         FROM   ctgries 
         WHERE  ctgry_id = ctgry_1) "ctgryName1", 

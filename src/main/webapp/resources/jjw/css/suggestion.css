@@ -9,7 +9,7 @@
 }
 
 .no-padding {
-  padding: unset!important;
+  padding: unset !important;
 }
 
 .be-large-post .be-post-title {
@@ -69,5 +69,14 @@
 }
 
 .no-margin {
-  margin: unset!important;
+  margin: unset !important;
+}
+
+.comment-delete-btn {
+  width: fit-content;
+  margin-right: 10px;
+}
+
+.comment-delete-btn i {
+  margin-right: 4px;
 }
