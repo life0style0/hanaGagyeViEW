@@ -2,6 +2,8 @@ package kr.or.kosta.salmon.mapper;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.or.kosta.salmon.domain.CommentDTO;
 import kr.or.kosta.salmon.domain.FollowerDTO;
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
@@ -54,6 +56,8 @@ public interface SNSMapper {
 	//댓글
 	public void writeComment(CommentDTO comment);
 	public ArrayList<CommentDTO> getCommentsByArticle(int article_id);
+	public ArrayList<CommentDTO> getNewCommentsByArticle(@Param("article_id") int article_id, @Param("comment_id") int comment_id);
+	public void deleteComment(int comment_id);
 	
 	public UserDTO getSimpleUser(String user_id);
 	

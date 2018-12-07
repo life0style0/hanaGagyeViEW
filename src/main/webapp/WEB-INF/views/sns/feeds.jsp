@@ -300,28 +300,38 @@
 					</div>
 				
 					<div class="be-comment-block">
-						<h1 class="comments-title">Comments (<c:out value="${myArticle.comments.size()}"/>)</h1>
+						<h1 class="comments-title">Comments (<span name="comment-num" id="comment-num-<c:out value="${myArticle.article_id}"/>"><c:out value="${myArticle.comments.size()}"/></span>)</h1>
 						<p class="about-comment-block">
 							<!-- You must <a href="blog-detail-2.html" class="be-signup-link">SIGN UP</a>
 							 to join the conversation. -->
 						</p>
 						
+						<div name="comment-area">
 						<c:choose>
 						<c:when test="${myArticle.comments.size() ne 0}">
 							<c:forEach var="comment" items="${myArticle.comments}">
 							<div class="be-comment">
+							<input type="hidden" name="comment-id" value="${comment.comment_id}">
+							<input type="hidden" name="article-id" value="${comment.article_id}">
 									<div class="be-img-comment">	
 										<a href="/salmon/sns/feeds?userid=${comment.user_id}">
-											<img src="img/c1.png" alt="" class="be-ava-comment">
+										<input type="hidden" name="user-comment-profile-photo" value="${comment.user_image}">
+										<img src="" alt="" class="be-ava-comment">
 										</a>
 									</div>
 									<div class="be-comment-content">
 										<span class="be-comment-name">
-										<a href="/salmon/sns/feeds?userid=${comment.user_id}">
-										${comment.user_nickname}
-										</a>
+											<a href="/salmon/sns/feeds?userid=${comment.user_id}">
+											${comment.user_nickname}
+											</a>
 										</span>
 										<span class="be-comment-time">
+										<c:if test="${me.user_id eq comment.user_id}">
+											<span name="comment-delete-btn" class="comment-delete-btn">
+											<input type="hidden" name="comment-id" value="${comment.comment_id}">
+												<i class="fas fa-times"></i>삭제 
+											</span>
+										</c:if>
 										<i class="fa fa-clock-o"></i>
 										${comment.comment_regdate}
 										</span>
@@ -335,13 +345,15 @@
 							<c:otherwise>
 							</c:otherwise>
 							</c:choose>
+							</div>
 
 						<form id="reply-form-${myArticle.article_id}" method="get">
-							<input type="hidden" name="article_id" value="${myArticle.article_id}">
-							<c:out value="${user.user_nickname}"/>
-							<input type="text" name="comment_content" required="required">
-							<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> --%>
-							<input type="button" id="reply-write-btn-${myArticle.article_id}" value="등록">
+							<div class="form-group">
+								<input type="hidden" name="article_id" value="${myArticle.article_id}">
+								<c:out value="${me.user_nickname}"/>
+								<input type="text" name="comment_content" required="required" class="form-input">
+								<input type="button" id="reply-write-btn-${myArticle.article_id}" class="btn-sjh pull-right" value="등록">
+							</div>
 						</form>
 
 					</div>
@@ -470,6 +482,15 @@
   
   <script src="/salmon/resources/sjh/js/feeds.js"></script>
   
+  <script type="text/javascript">
+	var me;
+	$(function(){ 
+		  //내정보 불러오기
+		  me= ${meJSON};
+		  
+		});
+	</script>
+	
   <!-- jjw 프로필사진 -->
 <!--   <script type="text/javascript" src="/salmon/resources/jjw/js/croppie.min.js"></script> -->
   <!-- <script type="text/javascript" src="/salmon/resources/sjh/js/image.js"></script> -->

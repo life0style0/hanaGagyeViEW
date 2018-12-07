@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import kr.or.kosta.salmon.domain.CommentDTO;
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
@@ -62,6 +65,9 @@ public class FeedsController {
 		ArrayList<SNSArticleDTO_sjh> myArticles= userPageInfo.getMyArticles();
 		model.addAttribute("myArticles",myArticles);
 		log.info(myArticles);
+		for (SNSArticleDTO_sjh art : myArticles) {
+			log.info(art.getComments());
+		}
 		
 		//이 페이지 유저가 팔로잉하는 유저
 		//ArrayList<UserDTO> followingList= snsService.getFollowingList(user_id);
@@ -87,7 +93,17 @@ public class FeedsController {
 				model.addAttribute("follow","followable");
 			}
 		}
-	
+		
+		UserDTO meDTO= snsService.getSimpleUser(principal.getName());
+		model.addAttribute("me",meDTO);
+		ObjectMapper objmapper= new ObjectMapper();
+		try {
+			String meJSON= objmapper.writeValueAsString(meDTO);
+			model.addAttribute("meJSON", meJSON);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	/**
 	 * 사용자 팔로 요청
@@ -161,12 +177,23 @@ public class FeedsController {
 		return new ResponseEntity<>(snsService.getArticleByArticleId(articleId).getScraps().size()+"",HttpStatus.OK);
 	}
 	
-	@GetMapping(value="/sns/comment/{articleId}/{content}",
+	@GetMapping(value="/sns/comment/{articleId}/{content}/{lastCommentId}",
 			produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<ArrayList<CommentDTO>> commentGET(@PathVariable("articleId") int articleId, @PathVariable("content") String content, Principal principal) {
+	public ResponseEntity<ArrayList<CommentDTO>> commentGET(@PathVariable("articleId") int articleId, @PathVariable("content") String content, @PathVariable("lastCommentId") int lastCommentId, Principal principal) {
 		log.info(" 댓글 입력 요청  from "+principal.getName()+" to "+articleId);
 		snsService.writeComment(principal.getName(), articleId, content);
-		ArrayList<CommentDTO> comments =  snsService.getCommentsByArticle(articleId);
+	//	ArrayList<CommentDTO> comments =  snsService.getCommentsByArticle(articleId);
+		ArrayList<CommentDTO> comments =  snsService.getNewCommentsByArticle(articleId,lastCommentId);
+		log.info(comments);
 		return new ResponseEntity<>(comments,HttpStatus.OK);
+	}
+	
+	@GetMapping(value="/sns/deletecomment/{commentId}",
+			produces= {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> deleteCommentGET(@PathVariable("commentId") int commentId) {
+		log.info(" 댓글 삭제 요청  from "+commentId);
+		snsService.deleteComment(commentId);
+		//snsService.writeComment(principal.getName(), articleId, content);
+		return new ResponseEntity<>("success",HttpStatus.OK);
 	}
 }

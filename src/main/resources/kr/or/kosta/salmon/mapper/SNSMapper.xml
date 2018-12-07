@@ -145,11 +145,31 @@
         		   to_char(comment_regdate,'YYYY-MM-DD') "comment_regdate", 
         		   to_char(comment_editdate,'YYYY-MM-DD') "comment_editdate",
         		   article_id,
-                   us.user_nickname
+                   us.user_nickname,
+                   us.user_id,
+                   us.user_image
 			FROM   comments co
 	        join   users us on us.user_id=co.user_id
 		    WHERE  article_id =  #{article_id}
+		    order by comment_regdate
         </select>
+        
+        <select id="getNewCommentsByArticle" resultType="kr.or.kosta.salmon.domain.CommentDTO">
+        	SELECT comment_id,
+        		   comment_content,
+        		   to_char(comment_regdate,'YYYY-MM-DD') "comment_regdate", 
+        		   to_char(comment_editdate,'YYYY-MM-DD') "comment_editdate",
+        		   article_id,
+                   us.user_nickname,
+                   us.user_id,
+                   us.user_image
+			FROM   comments co
+	        join   users us on us.user_id=co.user_id
+		    WHERE  article_id =  #{article_id}
+		    AND    comment_id <![CDATA[ > #{comment_id} ]]>
+		    order by comment_regdate
+        </select>
+        
         
         <select id="getScrapsByArticleId" resultType="kr.or.kosta.salmon.domain.ScrapDTO">
         	SELECT scrap_id,
@@ -404,4 +424,9 @@
 	FROM   users 
 	WHERE  user_id = #{user_id}
 	</select>
+	
+	<delete id="deleteComment">
+		DELETE comments 
+		WHERE  comment_id = #{comment_id} 
+	</delete>
 </mapper>
