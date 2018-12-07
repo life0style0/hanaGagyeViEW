@@ -74,37 +74,7 @@ function appendCommentJjw(comment) {
     return html;
 }
 
-function writeReplyJjw(articleId, content, lastCommentId, form) {
-    const sendData = {
-        articleId: articleId,
-        content: content,
-        lastCommentId: lastCommentId
-    };
-    const csrfName = $('#csrf').attr('name');
-    const csrf = $('#csrf').val();
-
-    $.ajax({
-        data: sendData,
-        type: 'post',
-        async: false,
-        url: `/salmon/sns/comment?${csrfName}=${csrf}`,
-        success: function (data) {
-            data.forEach(function (comment) {
-                appendCommentJjw(comment, form);
-            });
-            $('#commentCnt').html(Number($('#commentCnt').html()) + data.length);
-            $(form).find('input[name="commentContent"]').val('');
-        },
-        error: function (xhr, status, er) {
-            alert('데이터 수신 에러');
-            console.log(xhr);
-            console.log(status);
-            console.log(er);
-        }
-    });
-}
-
-function writeReplyJjw2(form) {
+function writeReplyJjw(form) {
     $.ajax({
         data: $(form).serialize(),
         type: 'post',
@@ -177,16 +147,50 @@ $(function () {
         const lastCID = $('.be-comment').last().find('input[name="comment-id"]').val();
         $(this).find('input[name="lastCommentId"]').val(lastCID);
         console.log($(this).serialize());
-        writeReplyJjw2(this);
+        writeReplyJjw(this);
         // return false;
     })
 
-    // $('#comment').on('click', function (e) {
-    //     e.preventDefault();
-    //     const lastC = $('.be-comment').last();
+    $('.comment-delete-btn').on('click', function () {
+        $.ajax({
+            data: $(this).closest('.be-comment').find('input[name="comment-id"]').val(),
+            type: 'get',
+            //async: false,
+            url: '/salmon/sns/deletecomment/' + $(this).closest('.be-comment').find('input[name="comment-id"]').val(),
+            success: function (data) {
+                $(this).closest('.be-comment').remove();
+                $('#commentCnt').html(Number($('#commentCnt').html()) - 1);
+            },
+            error: function (xhr, status, er) {
+                alert('데이터 수신 에러');
+                console.log(xhr);
+                console.log(status);
+                console.log(er);
+            }
+        });
+    });
 
-    //     const articleId = lastC.find('input[name="article-id"]').val();
-    //     const comment = $(this).closest('form').find('input[name="commentContent"]').val();
-    //     writeReplyJjw(articleId, comment, lastCID, $(this).closest('form'));
-    // });
+    $('.like-btn').on('click', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: `/salmon/sns/like/${$(this).attr('href')}`,
+            method: 'get',
+            success: function (data) {
+                $(this).addClass('hidden');
+                $('.like-cancel-btn').removeClass('hidden');
+            }
+        });
+    });
+
+    $('.like-cancel-btn').on('click', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: `/salmon/sns/unlike/${$(this).attr('href')}`,
+            method: 'get',
+            success: function (data) {
+                $(this).addClass('hidden');
+                $('.like-btn').removeClass('hidden');
+            }
+        });
+    });
 });

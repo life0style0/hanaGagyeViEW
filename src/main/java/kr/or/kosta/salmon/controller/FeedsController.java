@@ -25,6 +25,7 @@ import kr.or.kosta.salmon.domain.SNSUserPageDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
 import kr.or.kosta.salmon.service.SNSService;
+import kr.or.kosta.salmon.service.SuggestionService;
 import kr.or.kosta.salmon.service.UserService;
 import lombok.extern.log4j.Log4j;
 
@@ -37,6 +38,9 @@ public class FeedsController {
 
 	@Inject
 	SNSService snsService;
+
+	@Inject
+	private SuggestionService suggestionService;
 
 	@GetMapping("/sns/feeds")
 	public void FeedsPageGet(@RequestParam("userid") String user_id, Principal principal, Model model) {
@@ -149,7 +153,12 @@ public class FeedsController {
 	public ResponseEntity<String> likeGet(@PathVariable("article-id") int articleId, Principal principal) {
 		log.info(" 좋아요 요청  from " + principal.getName() + " to " + articleId);
 		snsService.likeArticle(principal.getName(), articleId);
-		return new ResponseEntity<>(snsService.getArticleByArticleId(articleId).getLikes().size() + "", HttpStatus.OK);
+		try {
+			return new ResponseEntity<>(suggestionService.getLikeNum(articleId + ""), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	/**
@@ -163,7 +172,12 @@ public class FeedsController {
 	public ResponseEntity<String> unlikeGet(@PathVariable("article-id") int articleId, Principal principal) {
 		log.info(" 안좋아요 요청  from " + principal.getName() + " to " + articleId);
 		snsService.unlikeArticle(principal.getName(), articleId);
-		return new ResponseEntity<>(snsService.getArticleByArticleId(articleId).getLikes().size() + "", HttpStatus.OK);
+		try {
+			return new ResponseEntity<>(suggestionService.getLikeNum(articleId + ""), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	/**

@@ -137,7 +137,7 @@
 											<a href="">${comment.user_nickname}</a>
 										</span>
 										<span class="be-comment-time">
-											<c:if test="${comment.comment_id != userId}">
+											<c:if test="${comment.user_id == userId}">
 												<span name="comment-delete-btn" class="comment-delete-btn">
 													<i class="fas fa-times"></i>삭제
 												</span>
@@ -195,7 +195,7 @@
 											</a>
 										</c:when>
 										<c:when test="${userId eq article.userPsns.userId}">
-											<a id="follow-ask-mypage" class="ask-follow">
+											<a id="follow-ask-mypage" class="ask-follow" href="/salmon/sns/feeds?userid=${userId}">
 												<i class="fa fa-leaf"></i>
 												MYPAGE
 											</a>
@@ -223,10 +223,10 @@
 					</div>
 					<c:choose>
 						<c:when test="${checkLike}">
-							<a href="" class="be-button-vidget like-cancel-btn blue-style"><i class="fas fa-thumbs-up"></i></i>추천 취소하기</a>
+							<a href="${article.articleId}" class="be-button-vidget like-cancel-btn blue-style"><i class="fas fa-thumbs-up"></i></i>추천 취소하기</a>
 						</c:when>
 						<c:otherwise>
-							<a href="" class="be-button-vidget like-btn blue-style"><i class="far fa-thumbs-up"></i></i>이 제안 추천하기!</a>
+							<a href="${article.articleId}" class="be-button-vidget like-btn blue-style"><i class="far fa-thumbs-up"></i></i>이 제안 추천하기!</a>
 						</c:otherwise>
 					</c:choose>
 				</div>
