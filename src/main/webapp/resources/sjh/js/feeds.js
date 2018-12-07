@@ -1,9 +1,21 @@
 var followId;
 var choice;
 $(function(){ 
-	$('#profileImage').attr('src', showProfileImage($('#profilePath').val()));
 	
-	//checkFollowParam();
+	init();
+	eventRegist();
+	
+	$('#profileImage').attr('src', showProfileImage($('#profilePath').val()));
+	setCommentUserPhoto();
+	
+})
+
+function init(){
+	$('#myArticles').css('display','block');
+	$('#likeArticles').css('display','none');
+}
+
+function eventRegist(){
 	$($('[id^="follow-ask-"]')[0]).on('click',function(){
 		checkFollowParam();
 		if(choice == 'do'){
@@ -30,7 +42,19 @@ $(function(){
 			writeReply(e);
 		});
 	});
-})
+	
+	$('[name="comment-delete-btn"]').each(function(i,btn){
+		$(btn).on('click',function(e){
+			deleteReply(e);
+		});
+	});
+}
+
+function setCommentUserPhoto(){
+	$('input[name="user-comment-profile-photo"]').each(function(i,input){
+		$($(input).closest('a').find('img')[0]).attr('src',`/salmon/image?fileName=`+showProfileImage($(input).attr('value')));
+	})
+}
 
 function checkFollowParam(){
 	followId= $($('[id^="follow-ask-"]')[0]).attr('id').split('-')[3];
@@ -51,7 +75,6 @@ function askFollow(followTo){
 		},
 		error: function (xhr,status,er) {
 			alert('데이터 수신 에러');
-			console.log(user_email);
 			console.log(xhr);
 			console.log(status);
 			console.log(er);
@@ -69,12 +92,10 @@ function askUnfollow(followId){
 		url: '/salmon/sns/unfollow/'+followId,
 
 		success: function (data) {
-			data = data.trim();
-		//	alert(data);
+			
 		},
 		error: function (xhr,status,er) {
 			alert('데이터 수신 에러');
-			console.log(user_email);
 			console.log(xhr);
 			console.log(status);
 			console.log(er);
@@ -99,30 +120,34 @@ function showProfileImage(path) {
 }
 
 function writeReply(e) {
-	//alert('댓글 달기');
-	//console.log(e);
-
+	
 	var content = $(e.target.closest('form')).find('[name="comment_content"]').val();
-	console.log(content);
 	var articleId = $(e.target.closest('form')).find('[name="article_id"]').val();
 	console.log(articleId);
+	console.log($(e.target));
+	var lastCommentId= $(e.target.closest('form')).closest('div.be-comment-block').find('div[name="comment-area"]').find('input[name="comment-id"]').last().attr('value');
+	if(lastCommentId == null){
+		lastCommentId=0;
+	}
+	console.log('마지막 댓글 번호 : '+lastCommentId);
 	
 	$.ajax({
 		data : content,
 		type : 'get',
-		//async: false,
-		url : '/salmon/sns/comment/'+articleId+'/'+content,
+		async: false,
+		url : '/salmon/sns/comment/'+articleId+'/'+content+'/'+lastCommentId,
 
 		success : function(data) {
 			console.log(data);
-			removeComments(e.target.closest('form'));
 			appendComments(e.target.closest('form'),data);
-			//data = data.trim();
-
+			console.log('게시글: '+articleId);
+			var span= 'span#comment-num-'+articleId;
+			setCommentNum($(span),$(data).length);
+			//setCommentNum(e.target,$(data).length);
+			initCommentForm(e.target.closest('form'));
 		},
 		error : function(xhr, status, er) {
 			alert('데이터 수신 에러');
-			console.log(user_email);
 			console.log(xhr);
 			console.log(status);
 			console.log(er);
@@ -130,23 +155,74 @@ function writeReply(e) {
 	});
 }
 
-function removeComments(form){
-	//console.log(form);
-	$($($(form).closest('.be-comment-block')).find('.be-comment')).remove();
+function deleteReply(e) {
+	
+	console.log(e);
+	
+	var commentId= $(e.target.closest('div.be-comment')).find('[name="comment-id"]').val();
+	var articleId= $(e.target.closest('div.be-comment')).find('[name="article-id"]').val();
+	console.log(commentId);
+	console.log('게시글 번호 : '+articleId);
+	
+	$.ajax({
+		data : commentId,
+		type : 'get',
+		//async: false,
+		url : '/salmon/sns/deletecomment/'+commentId,
+
+		success : function(data) {
+			console.log(data);
+			setDeleteComment(e);
+			console.log($(e.target).closest('.be-comment-block'));
+		//	console.log($(e.target).closest('.be-comment-block').find('span[name="comment-num"]'));
+			console.log($('span#comment-num-'+articleId));
+			setCommentNum($('span#comment-num-'+articleId),-1);
+		},
+		error : function(xhr, status, er) {
+			alert('데이터 수신 에러');
+			console.log(xhr);
+			console.log(status);
+			console.log(er);
+		}
+	});
 }
+
+function setCommentNum(span,num){
+	console.log(num);
+	console.log(span);
+	var currentNum= $(span).text();
+	console.log(currentNum);
+	if(Number(num) <0){
+		$(span).html(Number(currentNum)-1);
+	} else{
+		$(span).html(Number(currentNum)+Number(num));
+	}
+	
+}
+
+function initCommentForm(form){
+	$(form).find('input[type="text"]').val('');
+}
+
+function setDeleteComment(e){
+	$(e.target).parents('.be-comment').remove();
+}
+
 function appendComments(form,comments){
-	/*
-	var commentHTML=`<div class="be-comment-block">
-						<h1 class="comments-title">Comments (<c:out value="${myArticle.comments.size()}"/>)</h1>
-						<p class="about-comment-block">
-						</p>`;
-	*/
-	var commentHTML;
+	
+	var commentHTML='';
 	$(comments).each(function(i,comment){
-		commentHTML += `<div class="be-comment">
+		console.log(comment);
+		var commentUserImg= showProfileImage(comment.user_image);
+		
+		commentHTML +=
+			`<div class="be-comment">
+							<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
 									<div class="be-img-comment">	
 										<a href="/salmon/sns/feeds?userid=`+comment.user_id+`">
-											<img src="`+comment.user_image+`" alt="" class="be-ava-comment">
+										<input type="hidden" name="user-comment-profile-photo" value="${comment.user_image}">
+										<input type="hidden" name="article-id" value="`+comment.article_id+`">
+										<img src="/salmon/image?fileName=`+commentUserImg+`" alt="" class="be-ava-comment">
 										</a>
 									</div>
 									<div class="be-comment-content">
@@ -155,8 +231,17 @@ function appendComments(form,comments){
 										`+comment.user_nickname+`
 										</a>
 										</span>
-										<span class="be-comment-time">
-										<i class="fa fa-clock-o"></i>
+										<span class="be-comment-time">`;
+										
+		if(me.user_id == comment.user_id){ //내가쓴 댓글인 경우 삭제 표시 
+				commentHTML +=	
+										`<span name="comment-delete-btn" class="comment-delete-btn">
+										<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
+											<i class="fas fa-times"></i>삭제 
+										</span>`;
+										}
+										
+		commentHTML +=					`<i class="fa fa-clock-o"></i>
 										`+comment.comment_regdate+`
 										</span>
 										<p class="be-comment-text">
@@ -164,14 +249,9 @@ function appendComments(form,comments){
 										</p>
 									</div>
 								</div>`;
+		
 	})
 	
-	var comment=comments[0];
-	commentHTML += `<form id="reply-form-`+comment.article_id+`" method="get">
-							<input type="hidden" name="article_id" value="`+comment.article_id+`">
-							<c:out value="`+comment.user_nickname+`"/>
-							<input type="text" name="comment_content" required="required">
-							<input type="button" id="reply-write-btn-`+comment.article_id+`" value="등록">
-						</form>`;
-	$($(form).closest('.be-comment-block')).html(commentHTML);
+	$(form).siblings('div[name="comment-area"]').append(commentHTML);
+	eventRegist();
 }

@@ -69,6 +69,8 @@ public interface SNSService {
 	public void writeComment(CommentDTO comment);
 	public void writeComment(String user_id, int article_id, String comment_content);
 	public ArrayList<CommentDTO> getCommentsByArticle(int article_id);
+	public ArrayList<CommentDTO> getNewCommentsByArticle(int articleId,int lastCommentId);
 	public UserDTO getSimpleUser(String user_id);
+	public void deleteComment(int comment_id);
 	
 }

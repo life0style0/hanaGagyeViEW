@@ -178,4 +178,15 @@ public class SNSServiceImpl implements SNSService {
 	public UserDTO getSimpleUser(String user_id) {
 		return snsMapper.getSimpleUser(user_id);
 	}
+
+	@Override
+	public ArrayList<CommentDTO> getNewCommentsByArticle(int articleId, int lastCommentId) {
+		return snsMapper.getNewCommentsByArticle(articleId,lastCommentId);
+	}
+
+	@Override
+	public void deleteComment(int comment_id) {
+		log.info("댓글 삭제");
+		snsMapper.deleteComment(comment_id);
+	}
 }
