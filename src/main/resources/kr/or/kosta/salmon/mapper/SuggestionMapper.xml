@@ -119,10 +119,7 @@ SELECT article_id,
        article_proposal_status, 
        user_id, 
        "likes_num", 
-       "comments_num", 
-       (SELECT Count(scrap_id) 
-        FROM   scraps sc 
-        WHERE  sc.article_id = "ar".article_id)    "scraps_num" 
+       "comments_num"
 FROM   (SELECT ROWNUM rn, 
                article_id, 
                article_regdate, 
@@ -305,7 +302,8 @@ WHERE  ( article_ctgry_id = 3
 
         <select id="getPsns" resultType="kr.or.kosta.salmon.domain.PsnsDTO">
 SELECT psn_id "psnId", 
-       user_id "userId", 
+       user_id "userId",
+       user_nickname "userNickname",
        (SELECT ctgry_name 
         FROM   ctgries 
         WHERE  ctgry_id = ctgry_1) "ctgryName1", 
@@ -315,7 +313,7 @@ SELECT psn_id "psnId",
        (SELECT ctgry_name 
         FROM   ctgries 
         WHERE  ctgry_id = ctgry_3) "ctgryName3"
-FROM   psns
+FROM   psns join users using(user_id)
 WHERE user_id = #{userId}
         </select>
 
