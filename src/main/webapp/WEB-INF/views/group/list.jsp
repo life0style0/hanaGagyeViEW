@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- ========================= * 소모임 게시물 리스트 확인 * ================================= -->
 <html>
@@ -50,47 +50,47 @@
 
       <!-- 소모임 새로만들기 버튼 스타일  -->
       <style>
-.button {
-	display: inline-block;
-	border-radius: 4px;
-	background-color: #0d58c8;
-	border: none;
-	color: #FFFFFF;
-	text-align: center;
-	padding: 10px;
-	height: 45px;
-	width: 130px;
-	transition: all 0.5s;
-	cursor: pointer;
-	margin: 5px;
-	transition: all 0.5s;
-}
-
-.button span {
-	cursor: pointer;
-	display: inline-block;
-	position: relative;
-	transition: 0.5s;
-}
-
-.button span:after {
-	content: '\00bb';
-	position: absolute;
-	opacity: 0;
-	top: 0;
-	right: -20px;
-	transition: 0.5s;
-}
-
-.button:hover span {
-	padding-right: 25px;
-}
-
-.button:hover span:after {
-	opacity: 1;
-	right: 0;
-}
-</style>
+      .button {
+      	display: inline-block;
+      	border-radius: 4px;
+      	background-color: #0d58c8;
+      	border: none;
+      	color: #FFFFFF;
+      	text-align: center;
+      	padding: 10px;
+      	height: 45px;
+      	width: 130px;
+      	transition: all 0.5s;
+      	cursor: pointer;
+      	margin: 5px;
+      	transition: all 0.5s;
+      }
+      
+      .button span {
+      	cursor: pointer;
+      	display: inline-block;
+      	position: relative;
+      	transition: 0.5s;
+      }
+      
+      .button span:after {
+      	content: '\00bb';
+      	position: absolute;
+      	opacity: 0;
+      	top: 0;
+      	right: -20px;
+      	transition: 0.5s;
+      }
+      
+      .button:hover span {
+      	padding-right: 25px;
+      }
+      
+      .button:hover span:after {
+      	opacity: 1;
+      	right: 0;
+      }
+      </style>
 
       <!-- 소모임 새로만들기 버튼  -->
       <button type="button" id="regBtn" class="button"
@@ -171,10 +171,9 @@
                             </span>
                           </div>
                           <div class="info-block">
-                            <span><i class="fa fa-thumbs-o-up"></i>
-                              360</span> <span><i class="fa fa-eye"></i>
-                              789</span> <span><i
-                              class="fa fa-comment-o"></i> 20</span>
+                            <span><i class="fa fa-thumbs-o-up"></i> 360</span> 
+                            <span><i class="fa fa-eye"></i> 789</span> 
+                            <span><i class="fa fa-comment-o"></i> 20</span>
                           </div>
                         </div>
                       </div>
@@ -1156,7 +1155,7 @@
                         <img src="img/collection_5.jpg" alt="">
                           <div class="color_bg">
                             <span>view gallery</span> <span
-                              class="child"></span>d
+                              class="child"></span>
                           </div>
                         </a>
                       </div>
