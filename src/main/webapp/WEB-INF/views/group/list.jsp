@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!-- ========================= * 소모임 게시물 리스트 확인 * ================================= -->
 <html>
@@ -1147,16 +1148,15 @@
                         </div>
                       </div>
                       <div class="collection-entry">
-                        <a href="page1.html"
-                          class="portfolio-link type-2 clearfix"> <img
-                          src="img/collection_1.jpg" alt=""> <img
-                          src="img/collection_2.jpg" alt=""> <img
-                          src="img/collection_3.jpg" alt=""> <img
-                          src="img/collection_4.jpg" alt=""> <img
-                          src="img/collection_5.jpg" alt="">
+                        <a href="page1.html" class="portfolio-link type-2 clearfix"> 
+                        <img src="img/collection_1.jpg" alt=""> 
+                        <img src="img/collection_2.jpg" alt=""> 
+                        <img src="img/collection_3.jpg" alt=""> 
+                        <img src="img/collection_4.jpg" alt=""> 
+                        <img src="img/collection_5.jpg" alt="">
                           <div class="color_bg">
                             <span>view gallery</span> <span
-                              class="child"></span>
+                              class="child"></span>d
                           </div>
                         </a>
                       </div>
