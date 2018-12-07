@@ -29,16 +29,16 @@ function setSuggestions(page, pageType, event) {
             pageBuilder = data[1];
             for (let i = 1; i <= suggestionDatas.length; i += 1) {
                 const suggestion = suggestionDatas[i - 1];
-                const sgtNew = $(`#sgt-${pageType}-${i}`).removeClass('hidden');
-                sgtNew.find(`.sgt-title`).text((suggestion.articleTitle === undefined) ? '' : suggestion.articleTitle);
-                sgtNew.find(`.sgt-userId`).text(suggestion.userId);
-                sgtNew.find(`.sgt-like`).text(suggestion.likeCnt);
-                sgtNew.find(`.sgt-comment`).text(suggestion.commentCnt);
-                sgtNew.find(`.sgt-date`).text(`기간 : ${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}`);
-                sgtNew.find(`.sgt-articleId`).val(suggestion.articleId);
+                const sgt = $(`#sgt-${pageType}-${i}`).removeClass('hidden');
+                sgt.find(`.sgt-title`).text((suggestion.articleTitle === undefined) ? '' : suggestion.articleTitle);
+                sgt.find(`.sgt-userNickname`).text(suggestion.userNickname);
+                sgt.find(`.sgt-like`).text(suggestion.likeCnt);
+                sgt.find(`.sgt-comment`).text(suggestion.commentCnt);
+                sgt.find(`.sgt-date`).text(`기간 : ${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}`);
+                sgt.find(`.sgt-articleId`).val(suggestion.articleId);
             }
             for (let i = suggestionDatas.length + 1; i <= 10; i += 1) {
-                $(`#sgt-new-${i}`).addClass('hidden');
+                $(`#sgt-${pageType}-${i}`).addClass('hidden');
             }
         }
     });
@@ -84,7 +84,7 @@ function writeReplyJjw(form) {
             data.forEach(function (comment) {
                 $(form).before(appendCommentJjw(comment));
             });
-            $('#commentCnt').html(Number($('#commentCnt').html()) + data.length);
+            $('.comment-count').html(Number($('.comment-count').html()) + data.length);
             $(form).find('textarea[name="content"]').val('');
         },
         error: function (xhr, status, er) {
@@ -95,8 +95,6 @@ function writeReplyJjw(form) {
         }
     });
 }
-
-
 
 $(function () {
     $('.sgt-new-paging').on('click', '.paginate-new', function (event) {
@@ -115,11 +113,11 @@ $(function () {
             }
             $('.sgt-new-paging').html(liH);
         }
+        $(this).closest('.pull-right').find('input[class="page"]').val(pageBuilder.pageNum);
     });
 
     $('.sgt-like-paging').on('click', '.paginate-like', function (event) {
         const pageBuilder = setSuggestions(this, 'like', event);
-        console.log('pageBuilder :', pageBuilder);
         if ($(this).hasClass('previous') || $(this).hasClass('next')) {
             let liH = '';
             if (pageBuilder.isPrevPrev) {
@@ -133,11 +131,34 @@ $(function () {
             }
             $('.sgt-like-paging').html(liH);
         }
+        $(this).closest('.pull-right').find('input[class="page"]').val(pageBuilder.pageNum);
+    });
+
+    $('.sgt-recommend-paging').on('click', '.paginate-recommend', function (event) {
+        const pageBuilder = setSuggestions(this, 'recommend', event);
+        console.log('pageBuilder :', pageBuilder);
+        if ($(this).hasClass('previous') || $(this).hasClass('next')) {
+            let liH = '';
+            if (pageBuilder.isPrevPrev) {
+                liH += `<li class="paginate-recommend previous" data-page="${pageBuilder.startPageNum - 1}">Prev</li>`;
+            }
+            for (let i = pageBuilder.startPageNum; i <= pageBuilder.lastPageNum; i += 1) {
+                liH += `<li class="paginate-recommend" data-page="${i}">${i}</li>`;
+            }
+            if (pageBuilder.isNextNext) {
+                liH += `<li class="paginate-recommend next" data-page="${pageBuilder.lastPageNum + 1}">Next</li>`;
+            }
+            $('.sgt-recommend-paging').html(liH);
+        }
+        $(this).closest('.pull-right').find('input[class="page"]').val(pageBuilder.pageNum);
     });
 
     $('.suggestion-entry').on('click', function () {
         const sid = $(this).find('.sgt-articleId').val();
         const form = $('#articleForm');
+        form.find('input[name="pageNum"]').val($(this).closest('.tab-info').find('input[class="page"]').val());
+        form.find('input[name="keyword"]').val($(this).closest('.tab-info').find('input[class="keyword"]').val());
+        form.find('input[name="type"]').val($(this).closest('.tab-info').find('input[class="type"]').val());
         form.attr('action', `${form.attr('action')}${sid}`);
         form.submit();
     });
@@ -151,15 +172,16 @@ $(function () {
         // return false;
     })
 
-    $('.comment-delete-btn').on('click', function () {
+    $('.be-comment-block').on('click', '.comment-delete-btn', function (e) {
+        e.preventDefault();
+        const btn = this;
         $.ajax({
-            data: $(this).closest('.be-comment').find('input[name="comment-id"]').val(),
             type: 'get',
             //async: false,
-            url: '/salmon/sns/deletecomment/' + $(this).closest('.be-comment').find('input[name="comment-id"]').val(),
+            url: '/salmon/sns/deletecomment/' + $(btn).closest('.be-comment').find('input[name="comment-id"]').val(),
             success: function (data) {
-                $(this).closest('.be-comment').remove();
-                $('#commentCnt').html(Number($('#commentCnt').html()) - 1);
+                $(btn).closest('.be-comment').remove();
+                $('.comment-count').html(Number($('.comment-count').html()) - 1);
             },
             error: function (xhr, status, er) {
                 alert('데이터 수신 에러');
@@ -171,26 +193,42 @@ $(function () {
     });
 
     $('.like-btn').on('click', function (e) {
+        const btn = this;
         e.preventDefault();
         $.ajax({
             url: `/salmon/sns/like/${$(this).attr('href')}`,
             method: 'get',
             success: function (data) {
-                $(this).addClass('hidden');
+                $('.like-count').html(data);
+                const percent = (Number(data) / 10) > 100 ? '100' : (Number(data) / 10);
+                $('.progress-bar').attr('aria-valuenow', `${percent}%`);
+                $('.progress-bar').css('width', `${percent}%`);
+                $('.progress-bar').html(`${percent}%`);
+                $(btn).addClass('hidden');
                 $('.like-cancel-btn').removeClass('hidden');
             }
         });
     });
 
     $('.like-cancel-btn').on('click', function (e) {
+        const btn = this;
         e.preventDefault();
         $.ajax({
             url: `/salmon/sns/unlike/${$(this).attr('href')}`,
             method: 'get',
             success: function (data) {
-                $(this).addClass('hidden');
+                $('.like-count').html(data);
+                const percent = (Number(data) / 10) > 100 ? '100' : (Number(data) / 10);
+                $('.progress-bar').attr('aria-valuenow', `${percent}%`);
+                $('.progress-bar').css('width', `${percent}%`);
+                $('.progress-bar').html(`${percent}%`);
+                $(btn).addClass('hidden');
                 $('.like-btn').removeClass('hidden');
             }
         });
+    });
+
+    $('.new-article').on('click', function () {
+        
     });
 });

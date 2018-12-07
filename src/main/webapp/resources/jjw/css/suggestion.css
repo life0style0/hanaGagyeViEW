@@ -17,6 +17,22 @@
   cursor: unset;
 }
 
+.be-large-post .be-post-title:hover {
+  cursor: unset;
+}
+
+.suggestion .be-text-tags {
+  font-size: 15px;
+}
+
+.suggestion .be-text-tags a {
+  font-size: 15px;
+}
+
+.suggestion .be-large-post-align {
+  font-size: 13px;
+}
+
 .progress {
   height: 50px;
 }
@@ -25,7 +41,7 @@
   line-height: 50px;
   font-size: 30px;
   line-height: 50px;
-  min-width: 2em;
+  min-width: 3em;
 }
 
 .row-progress {

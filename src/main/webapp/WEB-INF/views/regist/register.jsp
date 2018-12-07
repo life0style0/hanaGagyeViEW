@@ -153,24 +153,24 @@ font-family: 'Noto Sans KR', sans-serif;
 						<div class="input-group">
                         <div>관심 카테고리 설정 (최대 3개)</div>
 	                        <ul id="categories" class="categories">
-	                         <c:choose>
-						     	<c:when test="${not empty categories}">
-						     	<c:forEach var="category" items="${categories}" varStatus="status">
-							     	<c:choose>
-							     		<c:when test="${category.ctgry_id < 0 }">
-							     		</c:when>
-							     		<c:otherwise>
-								     		<li name="category" class="unselected" id="category-li-1"> 
-				                        		<div id="category-1" class="unselected" value="<c:out value="${category.ctgry_id}"/>">
-				                        		<c:out value="${category.ctgry_name}"/>
-				                        		</div>
-			                        		</li>
-							     		</c:otherwise>
-							     	</c:choose>
-						     	</c:forEach>
-						     	</c:when>
-						     	<c:otherwise></c:otherwise>
-						     </c:choose>
+                                <c:choose>
+                                    <c:when test="${not empty categories}">
+                                        <c:forEach var="category" items="${categories}" varStatus="status">
+                                            <c:choose>
+                                                <c:when test="${category.ctgry_id < 0 }">
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <li name="category" class="unselected square" id='category-li-<c:out value="${category.ctgry_id}" />'>
+                                                        <div id="category-1" class="unselected" value='<c:out value="${category.ctgry_id}" />'>
+                                                            <c:out value="${category.ctgry_name}" />
+                                                        </div>
+                                                    </li>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise></c:otherwise>
+                                </c:choose>
 	                        </ul>
                         
 	                        <input type="hidden" id="CTGRY_1" name="ctgry_1">

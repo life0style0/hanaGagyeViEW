@@ -13,6 +13,7 @@
                 <result property="articleContent" column="article_content"/>
                 <result property="articleProposalStatus" column="article_proposal_status"/>
                 <result property="userId" column="user_id"/>
+                <result property="userNickname" column="user_nickname"/>
                 <result property="likeCnt" column="likes_num"/>
                 <result property="commentCnt" column="comments_num"/>
                 <result property="scrapCnt" column="scraps_num"/>
@@ -87,7 +88,8 @@ SELECT article_id,
        article_title, 
        article_content, 
        article_proposal_status, 
-       user_id, 
+       "ar".user_id,
+       user_nickname, 
        "likes_num", 
        "comments_num"
 FROM   (SELECT /*+INDEX(articles idx_article_ctgry)*/ ROWNUM rn, 
@@ -106,7 +108,7 @@ FROM   (SELECT /*+INDEX(articles idx_article_ctgry)*/ ROWNUM rn,
                    To_char(SYSDATE - 30, 'yyyy-mm-dd') 
                AND                <include refid="criteria" />
                 article_deleted = 'N' 
-               AND ROWNUM                 <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar" 
+               AND ROWNUM                 <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar" join users "us" on "us".user_id = "ar".user_id
 WHERE  rn                 <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
         </select>
 
@@ -328,7 +330,7 @@ WHERE user_id = #{userId}
         <select id="getLikeNum" resultType="string">
 SELECT article_like_num
 FROM articles
-WHERE article_id = #{article_id}
+WHERE article_id = #{articleId}
         </select>
 
         <select id="checkFollow" resultType="int">

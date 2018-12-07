@@ -51,16 +51,17 @@
 		</div>
 		<div class="container be-detail-container">
 			<h1 class="article-title">${article.articleTitle}</h1>
-			<h2 class="content-title">참여인원 : ${article.likeCnt}명, ${article.articleProposalStatus == 'R' ? '진행중' :
+			<h2 class="content-title">참여인원 : <span class="like-count">${article.likeCnt}</span>명,
+				${article.articleProposalStatus == 'R' ? '진행중' :
 				''}${article.articleProposalStatus == 'J' ? '심사 중' : ''}${article.articleProposalStatus == 'C' ? '개발 중' :
 				''}${article.articleProposalStatus == 'F' ? '개발 완료' : ''}</h2>
 			<div class="row row-progress">
 				<div class="col-xs-3 col-md-2">0명</div>
 				<div class="col-xs-6 col-md-8">
 					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="${article.likeCnt gt 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : ''}${article.likeCnt ge 1000 ? '100' : ''}"
-						 aria-valuemin="0" aria-valuemax="100" style="width:${article.likeCnt gt 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : ''}${article.likeCnt ge 1000 ? '100' : ''}%;">
-							${article.likeCnt gt 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : '' }${article.likeCnt ge 1000 ? '100' :
+						<div class="progress-bar" role="progressbar" aria-valuenow="${article.likeCnt ge 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : ''}${article.likeCnt ge 1000 ? '100' : ''}"
+						 aria-valuemin="0" aria-valuemax="100" style="width:${article.likeCnt ge 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : ''}${article.likeCnt ge 1000 ? '100' : ''}%;">
+							${article.likeCnt ge 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : '' }${article.likeCnt ge 1000 ? '100' :
 							''}%
 						</div>
 					</div>
@@ -69,22 +70,23 @@
 			</div>
 			<div class="row">
 				<div class="col-md-9">
-					<div class="blog-wrapper blog-list">
-
+					<div class="blog-wrapper blog-list suggestion">
 						<div class="blog-post be-large-post">
 							<div class="info-block clearfix">
 								<div class="be-large-post-align">
-									<span><i class="fas fa-thumbs-up"></i> ${article.likeCnt}</span>
-									<span><i class="fas fa-comment"></i> ${article.commentCnt}</span>
-									<span class="be-text-tags">
-										<c:forEach items="${article.ctgryNames}" var="ctgryName" varStatus="status">
-											<a class="be-post-tag">${ctgryName}<c:if test="${!status.last}">, </c:if></a>
-										</c:forEach>
-									</span>
+									<span><i class="fas fa-thumbs-up"></i> <span class="like-count">${article.likeCnt}</span></span>
+									<span><i class="fas fa-comment"></i> <span class="comment-count">${article.commentCnt}</span></span>
 								</div>
 							</div>
 							<div class="be-large-post-align">
-								<h3 class="be-post-title">${article.articleTitle}</h3>
+								<h3 class="be-post-title">
+									<span class="be-text-tags">
+										<c:forEach items="${article.ctgryNames}" var="ctgryName" varStatus="status">
+											<c:if test="${status.first}">카테고리 : </c:if><a class="be-post-tag">${ctgryName}<c:if test="${!status.last}">,
+												</c:if></a>
+										</c:forEach>
+									</span>
+								</h3>
 								<div class="be-text-tags clearfix">
 									<div class="post-date">
 										<i class="fa fa-clock-o"></i> ${article.articleRegdate} ~ ${article.articleEnddate}
@@ -96,7 +98,6 @@
 								</div>
 								<div class="clear"></div>
 							</div>
-
 							<div class="blog-content be-large-post-align">
 								<div class="post-text ">
 									<p>${article.articleContent}</p>
@@ -121,7 +122,7 @@
 						</div>
 
 						<div class="be-comment-block">
-							<h1 class="comments-title">댓글 (<span id="commentCnt">${article.commentCnt}</span>)</h1>
+							<h1 class="comments-title">댓글 (<span id="commentCnt" class="comment-count">${article.commentCnt}</span>)</h1>
 							<c:forEach items="${article.comments}" var="comment" varStatus="status">
 								<div class="be-comment">
 									<input type="hidden" name="comment-id" value="${comment.comment_id}">
@@ -221,14 +222,10 @@
 							''}${article.userPsns.ctgryName3 != "none" ? article.userPsns.ctgryName3 : ''}
 						</p>
 					</div>
-					<c:choose>
-						<c:when test="${checkLike}">
-							<a href="${article.articleId}" class="be-button-vidget like-cancel-btn blue-style"><i class="fas fa-thumbs-up"></i></i>추천 취소하기</a>
-						</c:when>
-						<c:otherwise>
-							<a href="${article.articleId}" class="be-button-vidget like-btn blue-style"><i class="far fa-thumbs-up"></i></i>이 제안 추천하기!</a>
-						</c:otherwise>
-					</c:choose>
+					<a href="${article.articleId}" class="be-button-vidget like-cancel-btn blue-style ${checkLike ? '' : 'hidden'}"><i
+						 class="fas fa-thumbs-up"></i></i>추천 취소하기</a>
+					<a href="${article.articleId}" class="be-button-vidget like-btn blue-style ${checkLike ? 'hidden' : ''}"><i class="far fa-thumbs-up"></i></i>이
+						제안 추천하기!</a>
 				</div>
 			</div>
 		</div>

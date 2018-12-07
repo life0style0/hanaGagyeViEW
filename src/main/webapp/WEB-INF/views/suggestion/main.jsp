@@ -95,26 +95,7 @@
 							<div class="stat-row clearfix"><i class="stat-icon icon-following-b"></i>Following<span class="stat-counter">0</span></div>
 						</div>
 					</div>
-					<div class="be-desc-block">
-						<div class="be-desc-author">
-							<div class="be-desc-label">About Me</div>
-							<div class="clearfix"></div>
-							<div class="be-desc-text">
-								Nam sit amet massa commodo, tristique metus at, consequat turpis. In vulputate justo at auctor mollis. Aliquam
-								non sagittis tortor. Duis tristique suscipit risus, quis facilisis nisl congue vitae. Nunc varius pellentesque
-								scelerisque. Etiam quis massa vitae lectus placerat ullamcorper pellentesque vel nisl.
-							</div>
-						</div>
-						<div class="be-desc-author">
-							<div class="be-desc-label">My Values</div>
-							<div class="clearfix"></div>
-							<div class="be-desc-text">
-								Sed dignissim scelerisque pretium. Vestibulum vel lacus laoreet nunc fermentum maximus. Proin id sodales sem,
-								at consectetur urna. Proin vestibulum, erat a hendrerit sodales, nulla libero ornare dolor.
-							</div>
-						</div>
-					</div>
-					<a class="btn full color-1 size-1 hover-1"><i class="fa fa-plus"></i>add sections</a>
+					<a href="/salmon/suggestion/news" class="btn full color-1 size-1 hover-1 new-article"><i class="fa fa-plus"></i>새로운 제안하기</a>
 				</div>
 
 				<div class="col-xs-12 col-md-8">
@@ -140,9 +121,9 @@
 								<c:forEach items="${newList}" var="suggestion" varStatus="status">
 									<div class="collection" id="sgt-new-${status.count}">
 										<div class="collection-entry suggestion-entry">
-											<h3 class="menu-article sgt-title-${status.count}">${suggestion.articleTitle}</h3>
+											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
 											<div class="collection-header">
-												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userId}</a></span>
+												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userNickname">${suggestion.userNickname}</a></span>
 												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding no-margin  sgt-like">${suggestion.likeCnt}</span></span>
 												<span><i class="fa fa-comment"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
@@ -165,6 +146,7 @@
 										</c:if>
 									</ul>
 									<div id="pagination-new-data">
+										<input type="hidden" class="page" value="${pageBuilder.pageNum}">
 										<input type="hidden" class="keyword" value="${cri.keyword}">
 										<input type="hidden" class="type" value="${cri.type}">
 									</div>
@@ -174,9 +156,9 @@
 								<c:forEach items="${likeList}" var="suggestion" varStatus="status">
 									<div class="collection" id="sgt-like-${status.count}">
 										<div class="collection-entry suggestion-entry">
-											<h3 class="menu-article sgt-title-${status.count}">${suggestion.articleTitle}</h3>
+											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
 											<div class="collection-header">
-												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userId}</a></span>
+												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userNickname}</a></span>
 												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
@@ -199,6 +181,7 @@
 										</c:if>
 									</ul>
 									<div id="pagination-like-data">
+										<input type="hidden" class="page" value="${pageBuilder.pageNum}">
 										<input type="hidden" class="keyword" value="${cri.keyword}">
 										<input type="hidden" class="type" value="${cri.type}">
 									</div>
@@ -208,9 +191,9 @@
 								<c:forEach items="${recommendList}" var="suggestion" varStatus="status">
 									<div class="collection" id="sgt-recommend-${status.count}">
 										<div class="collection-entry suggestion-entry">
-											<h3 class="menu-article sgt-title-${status.count}">${suggestion.articleTitle}</h3>
+											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
 											<div class="collection-header">
-												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userId}</a></span>
+												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userNickname}</a></span>
 												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
@@ -233,6 +216,7 @@
 										</c:if>
 									</ul>
 									<div id="pagination-recommend-data">
+										<input type="hidden" class="page" value="${recommendPageBuilder.pageNum}">
 										<input type="hidden" class="keyword" value="${cri.keyword}">
 										<input type="hidden" class="type" value="${cri.type}">
 									</div>
@@ -321,6 +305,9 @@
 
 	<div class="hidden">
 		<form action="/salmon/suggestion/article/" method="post" id="articleForm">
+			<input type="hidden" name="pageNum" value="">
+			<input type="hidden" name="keyword" value="">
+			<input type="hidden" name="type" value="">
 			<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}">
 		</form>
 	</div>

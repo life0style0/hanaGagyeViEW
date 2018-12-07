@@ -43,10 +43,14 @@ function eventRegist() {
 		});
 	});
 
-	$('[name="comment-delete-btn"]').each(function (i, btn) {
-		$(btn).on('click', function (e) {
-			deleteReply(e);
-		});
+	// $('[name="comment-delete-btn"]').each(function (i, btn) {
+	// 	$(btn).on('click', function (e) {
+	// 		deleteReply(e);
+	// 	});
+	// });
+
+	$('.be-comment-block').on('click', '[name="comment-delete-btn"]', function (e) {
+		deleteReply(e);
 	});
 }
 
@@ -258,5 +262,5 @@ function appendComments(form, comments) {
 	})
 
 	$(form).siblings('div[name="comment-area"]').append(commentHTML);
-	eventRegist();
+	// eventRegist();
 }

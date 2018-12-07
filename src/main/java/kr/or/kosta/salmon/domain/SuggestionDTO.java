@@ -19,6 +19,7 @@ public class SuggestionDTO {
 	private String articleContent;
 	private String articleProposalStatus;
 	private String userId;
+	private String userNickname;
     private int likeCnt;
     private int commentCnt;
 	private int scrapCnt;
