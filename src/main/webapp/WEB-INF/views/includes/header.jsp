@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="sec"  uri="http://www.springframework.org/security/tags" %>
+<link rel="stylesheet" href="/salmon/resources/sjh/css/main-sjh.css">
 <header class="bgcolor-sjh">
   <div class="container-fluid custom-container">
     <div class="row no_row row-header">
@@ -21,6 +22,7 @@
           </li>
           <li><a href="/salmon/main/mypage">MYPAGE</a></li>
           <li><a href="/salmon/accountbook/calendar">AccountBook</a></li>
+          <li><a href="/salmon/suggestion">Suggestion</a></li>
         </ul>
       </div>
       <div class="login-header-block">

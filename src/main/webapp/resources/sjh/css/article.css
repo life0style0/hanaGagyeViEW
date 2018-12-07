@@ -22,6 +22,7 @@ div.article-size>img {
     border-radius: 2px;
     width: 100%;
     margin-bottom: 30px !important;
+    cursor:pointer
 }
 
 .be-post-sjh > span {

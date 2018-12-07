@@ -16,6 +16,7 @@ import lombok.ToString;
 public class SNSArticleDTO_sjh {
 	private int article_id;
 	private int article_ctgry_id;
+	private String article_ctgry_description;
 	private String article_scope;
 	private String article_regdate;
 	private String article_editdate;
@@ -25,8 +26,12 @@ public class SNSArticleDTO_sjh {
 	private String article_content;
 	private String article_proposal_status;
 	private int group_id;
+	private String group_title;
 	private String user_id;
+	private String user_nickname;
 	private String article_deleted;
+	private int ctrgy_id;
+	private String ctgry_name;
     private List<String> imagePaths;
     private List<String> hashtags;
 

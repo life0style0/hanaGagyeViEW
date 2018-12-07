@@ -16,9 +16,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.kosta.salmon.domain.FollowerDTO;
-import kr.or.kosta.salmon.domain.MainArticleDTO;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
-import kr.or.kosta.salmon.mapper.MainMapper;
+import kr.or.kosta.salmon.domain.SNSUserPageDTO;
 import kr.or.kosta.salmon.mapper.SNSMapper;
 import lombok.extern.log4j.Log4j;
 
@@ -26,9 +25,6 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml","file:src/main/webapp/WEB-INF/spring/security-context.xml"})
 public class ArticleTest {
-	
-	@Inject
-	private DataSource datasource;
 	
 	@Inject
 	private SNSMapper mapper;
@@ -52,4 +48,19 @@ public class ArticleTest {
 		follower.setFollower_user_id("heyrim19");
 		log.info(mapper.checkFollowing(follower) >0);
 	}
+	
+	@Test
+	public void testSNSPage() {
+		SNSUserPageDTO page = new SNSUserPageDTO();
+		page= mapper.getSNSUserPageInfo("heyrim16");
+		log.info(page.getUser_id());
+		log.info(page.getUser());
+		log.info(page.getMyfollowings().toString());
+		log.info(page.getMyArticles());
+		log.info(page.getMyPsnsInfo());
+		log.info(page.getMyfollowings());
+		log.info(page.getMyGroups());
+	}
+	
+	
 }

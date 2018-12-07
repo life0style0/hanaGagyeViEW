@@ -1,0 +1,73 @@
+.suggestion-entry {
+  padding: 20px;
+  background-color: aliceblue;
+}
+
+.suggestion-entry:hover {
+  background-color: antiquewhite;
+  cursor: pointer;
+}
+
+.no-padding {
+  padding: unset!important;
+}
+
+.be-large-post .be-post-title {
+  padding-top: 20px;
+  cursor: unset;
+}
+
+.progress {
+  height: 50px;
+}
+
+.progress-bar {
+  line-height: 50px;
+  font-size: 30px;
+  line-height: 50px;
+  min-width: 2em;
+}
+
+.row-progress {
+  margin-bottom: 100px;
+}
+
+.article-title {
+  font-size: 50px;
+  margin-top: 70px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: 'Conv_helveticaneuecyr-bold';
+}
+
+.row-progress .col-md-2 {
+  width: 16.66666667%;
+  line-height: 50px;
+  font-size: 30px;
+  font-family: 'Conv_helveticaneuecyr-bold';
+}
+
+.row-progress .col-md-2:first-child {
+  text-align: right;
+}
+
+.row-progress .col-md-2:last-child {
+  text-align: left;
+}
+
+.content-title {
+  font-size: 26px;
+}
+
+.be-button-vidget .fa-thumbs-up {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.collection-header {
+  margin-bottom: unset;
+}
+
+.no-margin {
+  margin: unset!important;
+}

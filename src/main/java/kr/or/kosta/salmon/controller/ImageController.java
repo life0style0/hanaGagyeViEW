@@ -94,7 +94,8 @@ public class ImageController {
         log.info("file upload action.....");
 
         String uploadFolder = "c:\\upload";
-        String imagePath = "images\\" + getYMDFolder();
+        // String imagePath = "images\\" + getYMDFolder();
+        String imagePath = "images";
         String userImageName = principal.getName();
 
         // make Folder
@@ -120,9 +121,8 @@ public class ImageController {
         try {
             saveFile = new File(uploadPath, userImageName);
             uploadFile.transferTo(saveFile);
-            imagePath += "\\" + userImageName;
+            imagePath += "/" + userImageName;
             IS.registProfileImage(imagePath, principal.getName());
-            log.info(saveFile);
             if (checkImageType(saveFile)) {
                 thumbnail = new FileOutputStream(new File(uploadPath, "s_" + userImageName));
                 Thumbnailator.createThumbnail(uploadFile.getInputStream(), thumbnail, 100, 100);
