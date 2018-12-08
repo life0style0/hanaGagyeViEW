@@ -118,8 +118,10 @@
 											</div>
 										</div>
 										<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}">
-										<button type="button" id="submitT">글 작성하기</button>
-										<button type="button" id="cancelT">작성 취소</button>
+										<div class="buttons">
+											<button type="button" class="btn color-1 size-1 hover-1" id="submitT">글 작성하기</button>
+											<button type="button" class="btn color-3 size-1 hover-5" id="cancelT">작성 취소</button>
+										</div>
 									</form>
 								</div>
 							</div>

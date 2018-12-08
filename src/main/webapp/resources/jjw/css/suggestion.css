@@ -103,7 +103,7 @@
   line-height: 130px;
 }
 
-.form-group textarea.form-input {
+#formT textarea.form-input {
   height: 300px;
 }
 
@@ -114,4 +114,29 @@ textarea::placeholder {
 
 .form-group .form-input {
   color: black;
+}
+
+div.buttons {
+  margin-top: 30px;
+  float: right;
+}
+
+div.buttons button {
+  margin-bottom: unset;
+}
+
+.pagination>li {
+  margin: 0px 8px;
+  color: darkgray;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.pagination>li:hover {
+  color: blue;
+}
+
+.pagination>li.active {
+  color: black;
+  font-weight: 900;
 }

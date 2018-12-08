@@ -133,13 +133,13 @@
 										</div>
 									</div>
 								</c:forEach>
-								<div class="pull-right">
+								<div class="text-center">
 									<ul class="pagination sgt-new-paging">
 										<c:if test="${pageBuilder.isPrevPrev}">
 											<li class="paginate-new previous" data-page="${pageBuilder.startPageNum-1}">Prev</li>
 										</c:if>
 										<c:forEach var="num" begin="${pageBuilder.startPageNum}" end="${pageBuilder.lastPageNum}">
-											<li class="paginate-new" data-page="${num}">${num}</li>
+											<li class="paginate-new ${pageBuilder.pageNum == num ? 'active' : ''}" data-page="${num}">${num}</li>
 										</c:forEach>
 										<c:if test="${pageBuilder.isNextNext}">
 											<li class="paginate-new next" data-page="${pageBuilder.lastPageNum+1}">Next</li>
@@ -168,13 +168,13 @@
 										</div>
 									</div>
 								</c:forEach>
-								<div class="pull-right">
+								<div class="text-center">
 									<ul class="pagination sgt-like-paging">
 										<c:if test="${pageBuilder.isPrevPrev}">
 											<li class="paginate-like previous" data-page="${pageBuilder.startPageNum-1}">Prev</li>
 										</c:if>
 										<c:forEach var="num" begin="${pageBuilder.startPageNum}" end="${pageBuilder.lastPageNum}">
-											<li class="paginate-like" data-page="${num}">${num}</li>
+											<li class="paginate-like ${pageBuilder.pageNum == num ? 'active' : ''}" data-page="${num}">${num}</li>
 										</c:forEach>
 										<c:if test="${pageBuilder.isNextNext}">
 											<li class="paginate-like next" data-page="${pageBuilder.lastPageNum+1}">Next</li>
@@ -203,13 +203,13 @@
 										</div>
 									</div>
 								</c:forEach>
-								<div class="pull-right">
+								<div class="text-center">
 									<ul class="pagination sgt-recommend-paging">
 										<c:if test="${recommendPageBuilder.isPrevPrev}">
 											<li class="paginate-recommend previous" data-page="${recommendPageBuilder.startPageNum-1}">Prev</li>
 										</c:if>
 										<c:forEach var="num" begin="${recommendPageBuilder.startPageNum}" end="${recommendPageBuilder.lastPageNum}">
-											<li class="paginate-recommend" data-page="${num}">${num}</li>
+											<li class="paginate-recommend ${pageBuilder.pageNum == num ? 'active' : ''}" data-page="${num}">${num}</li>
 										</c:forEach>
 										<c:if test="${recommendPageBuilder.isNextNext}">
 											<li class="paginate-recommend next" data-page="${recommendPageBuilder.lastPageNum+1}">Next</li>

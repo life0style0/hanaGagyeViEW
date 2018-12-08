@@ -99,128 +99,129 @@ function writeReplyJjw(form) {
     });
 }
 
-function initCategoriesJjw(){
-	if( $('[name="category"]')!= null ){
-		var cats= $('[name="category"]');
-		cats.each(function(i,cat){
-			
-			$(cat).on('click',function(e){
-				//alert('category'+i);
-				var selectedVal=$(cat).find('div').attr('value');
-				if($(cat).hasClass('unselected')){
-					//선택
-					
-					if(categoryNum ==0){
-						clickCategory(cat);
-						$('#CTGRY_1').attr('value',selectedVal);
-					}else if(categoryNum==1){
-						clickCategory(cat);
-						$('#CTGRY_2').attr('value',selectedVal);
-					}else if(categoryNum==2){
-						clickCategory(cat);
-						$('#CTGRY_3').attr('value',selectedVal);
-					}else{
-						//4개 이상 선택 불가
-						//categoryNum이 3일때부터 가만히있기
-					}
-					
-				} else if($(cat).hasClass('selected')){
-					//선택해제
-					
-					if(categoryNum ==1){
-						unclickCategory(cat);
-						$('#CTGRY_1').removeAttr('value');
-						$('#CTGRY_1').attr('value',-1);
-						//다 뺴면 categoryNum = 0 됨
-					}else if(categoryNum==2){
-						unclickCategory(cat);
-						$('#CTGRY_2').removeAttr('value');
-						$('#CTGRY_2').attr('value',-1);
-					}else if(categoryNum==3){
-						unclickCategory(cat);
-						$('#CTGRY_3').removeAttr('value');
-						$('#CTGRY_3').attr('value',-1);
-					}else{
-						
-					}
-				}
-				
-				//console.log(categoryNum);
-				
-			});
-		});
-	}
+function initCategoriesJjw() {
+    if ($('[name="category"]') != null) {
+        var cats = $('[name="category"]');
+        cats.each(function (i, cat) {
+
+            $(cat).on('click', function (e) {
+                //alert('category'+i);
+                var selectedVal = $(cat).find('div').attr('value');
+                if ($(cat).hasClass('unselected')) {
+                    //선택
+
+                    if (categoryNum == 0) {
+                        clickCategory(cat);
+                        $('#CTGRY_1').attr('value', selectedVal);
+                    } else if (categoryNum == 1) {
+                        clickCategory(cat);
+                        $('#CTGRY_2').attr('value', selectedVal);
+                    } else if (categoryNum == 2) {
+                        clickCategory(cat);
+                        $('#CTGRY_3').attr('value', selectedVal);
+                    } else {
+                        //4개 이상 선택 불가
+                        //categoryNum이 3일때부터 가만히있기
+                    }
+
+                } else if ($(cat).hasClass('selected')) {
+                    //선택해제
+
+                    if (categoryNum == 1) {
+                        unclickCategory(cat);
+                        $('#CTGRY_1').removeAttr('value');
+                        $('#CTGRY_1').attr('value', -1);
+                        //다 뺴면 categoryNum = 0 됨
+                    } else if (categoryNum == 2) {
+                        unclickCategory(cat);
+                        $('#CTGRY_2').removeAttr('value');
+                        $('#CTGRY_2').attr('value', -1);
+                    } else if (categoryNum == 3) {
+                        unclickCategory(cat);
+                        $('#CTGRY_3').removeAttr('value');
+                        $('#CTGRY_3').attr('value', -1);
+                    } else {
+
+                    }
+                }
+
+                //console.log(categoryNum);
+
+            });
+        });
+    }
 }
 
-function clickCategory(cat){
-	$(cat).removeClass('unselected');
-	$(cat).addClass('selected');
-	//$(cat).css('color','red');
-	categoryNum++;
+function clickCategory(cat) {
+    $(cat).removeClass('unselected');
+    $(cat).addClass('selected');
+    //$(cat).css('color','red');
+    categoryNum++;
 }
 
-function unclickCategory(cat){
-	$(cat).removeClass('selected');
-	$(cat).addClass('unselected');
-	//$(cat).css('color','black');
-	categoryNum--;
+function unclickCategory(cat) {
+    $(cat).removeClass('selected');
+    $(cat).addClass('unselected');
+    //$(cat).css('color','black');
+    categoryNum--;
+}
+
+function setPaginateButtons(pageBuilder, pageType, pageButton) {
+    if ($(pageButton).hasClass('previous')) {
+        let liH = '';
+        if (pageBuilder.isPrevPrev) {
+            liH += `<li class="paginate-${pageType} previous" data-page="${pageBuilder.startPageNum - 1}">Prev</li>`;
+        }
+        for (let i = pageBuilder.startPageNum; i <= pageBuilder.lastPageNum; i += 1) {
+            if (i === pageBuilder.lastPageNum) {
+                liH += `<li class="paginate-${pageType} active" data-page="${i}">${i}</li>`;
+            } else {
+                liH += `<li class="paginate-${pageType}" data-page="${i}">${i}</li>`;
+            }
+        }
+        if (pageBuilder.isNextNext) {
+            liH += `<li class="paginate-${pageType} next" data-page="${pageBuilder.lastPageNum + 1}">Next</li>`;
+        }
+        $(`.sgt-${pageType}-paging`).html(liH);
+    } else if ($(pageButton).hasClass('next')) {
+        let liH = '';
+        if (pageBuilder.isPrevPrev) {
+            liH += `<li class="paginate-${pageType} previous" data-page="${pageBuilder.startPageNum - 1}">Prev</li>`;
+        }
+        for (let i = pageBuilder.startPageNum; i <= pageBuilder.lastPageNum; i += 1) {
+            if (i === pageBuilder.startPageNum) {
+                liH += `<li class="paginate-${pageType} active" data-page="${i}">${i}</li>`;
+            } else {
+                liH += `<li class="paginate-${pageType}" data-page="${i}">${i}</li>`;
+            }
+        }
+        if (pageBuilder.isNextNext) {
+            liH += `<li class="paginate-${pageType} next" data-page="${pageBuilder.lastPageNum + 1}">Next</li>`;
+        }
+        $(`.sgt-${pageType}-paging`).html(liH);
+    } else {
+        $(`.paginate-${pageType}`).removeClass('active');
+        $(pageButton).addClass('active');
+    }
 }
 
 $(function () {
     $('.sgt-new-paging').on('click', '.paginate-new', function (event) {
         const pageBuilder = setSuggestions(this, 'new', event);
-        console.log('pageBuilder :', pageBuilder);
-        if ($(this).hasClass('previous') || $(this).hasClass('next')) {
-            let liH = '';
-            if (pageBuilder.isPrevPrev) {
-                liH += `<li class="paginate-new previous" data-page="${pageBuilder.startPageNum - 1}">Prev</li>`;
-            }
-            for (let i = pageBuilder.startPageNum; i <= pageBuilder.lastPageNum; i += 1) {
-                liH += `<li class="paginate-new" data-page="${i}">${i}</li>`;
-            }
-            if (pageBuilder.isNextNext) {
-                liH += `<li class="paginate-new next" data-page="${pageBuilder.lastPageNum + 1}">Next</li>`;
-            }
-            $('.sgt-new-paging').html(liH);
-        }
-        $(this).closest('.pull-right').find('input[class="page"]').val(pageBuilder.pageNum);
+        setPaginateButtons(pageBuilder, 'new', this);
+        $(this).closest('.text-center').find('input[class="page"]').val(pageBuilder.pageNum);
     });
 
     $('.sgt-like-paging').on('click', '.paginate-like', function (event) {
         const pageBuilder = setSuggestions(this, 'like', event);
-        if ($(this).hasClass('previous') || $(this).hasClass('next')) {
-            let liH = '';
-            if (pageBuilder.isPrevPrev) {
-                liH += `<li class="paginate-like previous" data-page="${pageBuilder.startPageNum - 1}">Prev</li>`;
-            }
-            for (let i = pageBuilder.startPageNum; i <= pageBuilder.lastPageNum; i += 1) {
-                liH += `<li class="paginate-like" data-page="${i}">${i}</li>`;
-            }
-            if (pageBuilder.isNextNext) {
-                liH += `<li class="paginate-like next" data-page="${pageBuilder.lastPageNum + 1}">Next</li>`;
-            }
-            $('.sgt-like-paging').html(liH);
-        }
-        $(this).closest('.pull-right').find('input[class="page"]').val(pageBuilder.pageNum);
+        setPaginateButtons(pageBuilder, 'like', this);
+        $(this).closest('.text-center').find('input[class="page"]').val(pageBuilder.pageNum);
     });
 
     $('.sgt-recommend-paging').on('click', '.paginate-recommend', function (event) {
         const pageBuilder = setSuggestions(this, 'recommend', event);
-        console.log('pageBuilder :', pageBuilder);
-        if ($(this).hasClass('previous') || $(this).hasClass('next')) {
-            let liH = '';
-            if (pageBuilder.isPrevPrev) {
-                liH += `<li class="paginate-recommend previous" data-page="${pageBuilder.startPageNum - 1}">Prev</li>`;
-            }
-            for (let i = pageBuilder.startPageNum; i <= pageBuilder.lastPageNum; i += 1) {
-                liH += `<li class="paginate-recommend" data-page="${i}">${i}</li>`;
-            }
-            if (pageBuilder.isNextNext) {
-                liH += `<li class="paginate-recommend next" data-page="${pageBuilder.lastPageNum + 1}">Next</li>`;
-            }
-            $('.sgt-recommend-paging').html(liH);
-        }
-        $(this).closest('.pull-right').find('input[class="page"]').val(pageBuilder.pageNum);
+        setPaginateButtons(pageBuilder, 'recommend', this);
+        $(this).closest('.text-center').find('input[class="page"]').val(pageBuilder.pageNum);
     });
 
     $('.suggestion-entry').on('click', function () {
@@ -308,10 +309,12 @@ $(function () {
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong>경고!</strong> 제목을 입력해주세요!</div>`);
             }
-            $('html, body').animate({ scrollTop: 0 }, 400);
+            $('html, body').animate({
+                scrollTop: 0
+            }, 400);
             return;
         }
-        
+
         const content = $('[name="articleContent"]');
         if (!content.val()) {
             if (!content.next().hasClass('jjw-alert')) {
@@ -319,7 +322,9 @@ $(function () {
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong>경고!</strong> 내용을 입력해주세요!</div>`);
             }
-            $('html, body').animate({ scrollTop: content.height() + content.offset().top - 200}, 400);
+            $('html, body').animate({
+                scrollTop: content.height() + content.offset().top - 200
+            }, 400);
             return;
         }
 

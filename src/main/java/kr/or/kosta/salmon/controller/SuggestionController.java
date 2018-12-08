@@ -154,7 +154,7 @@ public class SuggestionController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/suggestion/news";
+        return "redirect:/suggestion/new";
     }
 
     // /**

@@ -209,12 +209,16 @@ public class FeedsController {
 
 	@PostMapping(value = "/sns/comment", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<ArrayList<CommentDTO>> commentPOST(@RequestParam("articleId") int articleId,
-			@RequestParam("content") String content, @RequestParam("lastCommentId") int lastCommentId,
+			@RequestParam("content") String content, @RequestParam("lastCommentId") String lastCommentId,
 			Principal principal) {
 		log.info(" 댓글 입력 요청  from " + principal.getName() + " to " + articleId);
 		snsService.writeComment(principal.getName(), articleId, content);
-		// ArrayList<CommentDTO> comments = snsService.getCommentsByArticle(articleId);
-		ArrayList<CommentDTO> comments = snsService.getNewCommentsByArticle(articleId, lastCommentId);
+		ArrayList<CommentDTO> comments = null;
+		if (lastCommentId.equals("")) {
+			comments = snsService.getCommentsByArticle(articleId);
+		} else {
+			comments = snsService.getNewCommentsByArticle(articleId, Integer.parseInt(lastCommentId));
+		}
 		log.info(comments);
 		return new ResponseEntity<>(comments, HttpStatus.OK);
 	}
