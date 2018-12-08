@@ -17,6 +17,7 @@ public class Criteria {
     private String type;
     private String keyword;
     private String userId;
+    private String articleProposalStatus;
 
     public Criteria() {
         this(1, 5, 10);

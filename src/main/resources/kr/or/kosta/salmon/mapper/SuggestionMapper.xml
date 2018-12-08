@@ -40,6 +40,16 @@
                 <collection property="comments" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.CommentDTO" select="getComments"/>
         </resultMap>
 
+        <resultMap type="kr.or.kosta.salmon.domain.PsnsDTO" id="psns">
+                <result property="userId" column="userId"/>
+                <result property="userNickname" column="userNickname"/>
+                <result property="userImage" column="userImage"/>
+                <result property="ctgryName1" column="ctgryName1"/>
+                <result property="ctgryName2" column="ctgryName2"/>
+                <result property="ctgryName3" column="ctgryName3"/>
+                <collection property="suggestionStatusDTO" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.SuggestionStatusDTO" select="userSuggestionStatus"/>
+        </resultMap>
+
         <!-- <select id="getSuggestionListWithPaging" resultMap="suggestionLists">
 SELECT article_id, 
         to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
@@ -107,7 +117,8 @@ FROM   (SELECT /*+INDEX(articles idx_article_ctgry)*/ ROWNUM rn,
                AND To_char(article_regdate, 'YYYY-MM-DD')                 <![CDATA[ > ]]> 
                    To_char(SYSDATE - 30, 'yyyy-mm-dd') 
                AND                <include refid="criteria" />
-                article_deleted = 'N' 
+                article_deleted = 'N'
+                AND article_proposal_status = #{articleProposalStatus}
                AND ROWNUM                 <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar" join users "us" on "us".user_id = "ar".user_id
 WHERE  rn                 <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
         </select>
@@ -175,23 +186,24 @@ FROM   (SELECT ROWNUM rn,
                "likes_num", 
                "comments_num" 
         FROM   (SELECT /*+INDEX(articles idx_article_ctgry)*/ 
-                       article_id, 
-                                                              article_regdate, 
-                                                              article_title, 
-                                                              article_content, 
-                       article_proposal_status, 
-                       user_id, 
-                       article_like_num 
-                       "likes_num", 
-                       article_comment_num 
-                       "comments_num" 
+                        article_id, 
+                        article_regdate, 
+                        article_title, 
+                        article_content, 
+                        article_proposal_status, 
+                        user_id, 
+                        article_like_num 
+                        "likes_num", 
+                        article_comment_num 
+                        "comments_num" 
                 FROM   articles 
                 WHERE  article_ctgry_id = 3 
                        AND article_regdate                 <![CDATA[ > ]]> '1900-01-01' 
                        AND To_char(article_regdate, 'YYYY-MM-DD')                 <![CDATA[ > ]]>  
                            To_char(SYSDATE - 30, 'yyyy-mm-dd') 
                        AND                <include refid="criteria" />
-                                article_deleted = 'N' 
+                                article_deleted = 'N'
+                        AND article_proposal_status = #{articleProposalStatus}
                        AND article_id IN (SELECT article_id 
                                           FROM   ctgry_values 
                                           WHERE  ctgry_id IN (SELECT ctgry_1 
@@ -209,6 +221,34 @@ FROM   (SELECT ROWNUM rn,
                 ORDER  BY article_like_num DESC) 
         WHERE ROWNUM                 <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar"
 WHERE  rn                 <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}   
+        </select>
+
+        <select id="userSuggestionStatus" resultMap="kr.or.kosta.salmon.domain.SuggestionStatusDTO">
+SELECT /*+INDEX(articles idx_article_ctgry)*/ article_proposal_status "articleProposalStatus", 
+                                              Count(article_proposal_status) "articleProposalNum", 
+                                              SUM(article_like_num) "articleLikeNum"
+FROM   articles 
+WHERE  article_ctgry_id = 3
+       AND user_id = #{userId}
+GROUP  BY article_proposal_status
+        </select>
+
+        <select id="getPsnsWithSuggestion" resultMap="psns">
+SELECT psn_id "psnId", 
+       user_id "userId",
+       user_nickname "userNickname",
+       user_image "userImage",
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_1) "ctgryName1", 
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_2) "ctgryName2", 
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_3) "ctgryName3"
+FROM   psns join users using(user_id)
+WHERE user_id = #{userId}
         </select>
 
         <select id="getSuggestion" resultMap="suggestion">
@@ -273,7 +313,7 @@ WHERE  ( article_ctgry_id = 3
                 To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N' )
         AND  
         <include refid="criteria" />
-        article_proposal_status = 'R'
+        article_proposal_status = #{articleProposalStatus}
         </select>
 
         <select id="getTotalSuggestionByRecommend" resultType="int">
@@ -285,7 +325,7 @@ WHERE  ( article_ctgry_id = 3
                 To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N' )
         AND  
         <include refid="criteria" />
-        article_proposal_status = 'R'
+        article_proposal_status = #{articleProposalStatus}
         AND article_id IN (SELECT article_id 
                                         FROM   ctgry_values 
                                         WHERE  ctgry_id IN (SELECT ctgry_1 

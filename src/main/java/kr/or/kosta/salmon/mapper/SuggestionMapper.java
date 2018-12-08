@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.or.kosta.salmon.common.Criteria;
 import kr.or.kosta.salmon.domain.NewSuggestionDTO;
+import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.domain.SuggestionDTO;
 
 /**
@@ -18,6 +19,8 @@ public interface SuggestionMapper {
     public List<SuggestionDTO> getSuggestionListsByLikes(Criteria criteria) throws Exception;
 
     public List<SuggestionDTO> getSuggestionListsByRecommend(Criteria criteria) throws Exception;
+
+    public PsnsDTO getPsnsWithSuggestion(String userId) throws Exception;
 
     public int getTotalSuggestion(Criteria criteria) throws Exception;
 

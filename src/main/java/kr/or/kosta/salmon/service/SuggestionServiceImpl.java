@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.kosta.salmon.common.Criteria;
 import kr.or.kosta.salmon.domain.NewSuggestionDTO;
+import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.domain.SuggestionDTO;
 import kr.or.kosta.salmon.mapper.SuggestionMapper;
 
@@ -33,6 +34,11 @@ public class SuggestionServiceImpl implements SuggestionService {
     @Override
     public List<SuggestionDTO> getSuggestionListsByRecommend(Criteria criteria) throws Exception {
         return sm.getSuggestionListsByRecommend(criteria);
+    }
+
+    @Override
+    public PsnsDTO getPsnsWithSuggestion(String userId) throws Exception {
+        return sm.getPsnsWithSuggestion(userId);
     }
 
     @Override

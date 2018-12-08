@@ -54,7 +54,56 @@
 		<div class="container be-detail-container">
 			<div class="row">
 				<div class="col-xs-12 col-md-4 left-feild">
-					<div class="be-user-block style-3">
+					<div class="be-user-block">
+						<div class="be-user-detail">
+							<input type="hidden" class="imagePath" value="/salmon/image?fileName=${psns.userImage}">
+							<img class="img-responsive image-src" alt="">
+							<p class="be-use-name">
+								<c:out value="${psns.userNickname}" />
+							</p>
+							<span class="be-user-info">
+								<c:out value="${psns.userId}" />
+							</span>
+						</div>
+						<div class="be-user-activity-block">
+							<div class="row">
+								<div class="col-lg-12">
+									<a id="follow-ask-mypage" class="ask-follow" href="/salmon/sns/feeds?userid=${psns.userId}">
+										<i class="fa fa-leaf"></i>
+										MYPAGE
+									</a>
+									<a id="write-article" href="/salmon/article/register" class="ask-follow">
+										<i class="fas fa-pen"></i>
+										글쓰기
+									</a>
+								</div>
+							</div>
+						</div>
+						<h5 class="be-title">관심사</h5>
+						<p class="be-text-userblock">
+							${psns.ctgryName1}${psns.ctgryName2 != "none" ? ', ' : ''}${psns.ctgryName2
+							!= "none" ? psns.ctgryName2 : ''}${psns.ctgryName3 != "none" ? ', ' :
+							''}${psns.ctgryName3 != "none" ? psns.ctgryName3 : ''}
+						</p>
+						<div class="be-user-statistic">
+							<div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i> 제안한 전체 글 수<span class="stat-counter">${sNum}</span></div>
+							<c:forEach items="psns.suggestionStatusDTO" var="ssd" varstatus="status">
+								<c:choose>
+									<c:when test="${ssd.articleProposalStatus == 'R'}">
+										<div class="stat-row clearfix"><i class="stat-icon icon-followers-b"></i>제안 중인 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
+									</c:when>
+									<c:when test="${ssd.articleProposalStatus == 'J'}">
+										<div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i>답변 대기 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
+									</c:when>
+									<c:when test="${ssd.articleProposalStatus == 'C'}">
+										<div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i>답변된 전체 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+							<div class="stat-row clearfix"><i class="stat-icon icon-like-b"></i>공감 받은 수<span class="stat-counter">${likeNum}</span></div>
+						</div>
+					</div>
+					<!-- <div class="be-user-block style-3">
 						<div class="be-user-detail">
 							<a class="be-ava-user style-2" href="page1.html">
 								<img src="/salmon/resources/template/img/ava_10.jpg" alt="">
@@ -88,14 +137,10 @@
 							</div>
 							<a class="be-user-site" href="http://www.phoenix.cool"><i class="fa fa-link"></i> www.phoenix.cool</a>
 						</div>
-						<div class="be-user-statistic">
-							<div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i> Projects views<span class="stat-counter">218098</span></div>
-							<div class="stat-row clearfix"><i class="stat-icon icon-like-b"></i>Appreciations<span class="stat-counter">14335</span></div>
-							<div class="stat-row clearfix"><i class="stat-icon icon-followers-b"></i>Followers<span class="stat-counter">2208</span></div>
-							<div class="stat-row clearfix"><i class="stat-icon icon-following-b"></i>Following<span class="stat-counter">0</span></div>
-						</div>
-					</div>
-					<a href="/salmon/suggestion/news" class="btn full color-1 size-1 hover-1 new-article"><i class="fa fa-plus"></i>새로운 제안하기</a>
+
+					</div> -->
+					<a href="/salmon/suggestion/news" class="btn full color-1 size-1 hover-1 new-article"><i class="fa fa-plus"></i>새로운
+						제안하기</a>
 				</div>
 
 				<div class="col-xs-12 col-md-8">
@@ -112,7 +157,10 @@
 									<span>추천글</span>
 								</div>
 								<div class="nav-tab-item">
-									<span>카테고리별</span>
+									<span>답변 대기 중인 글</span>
+								</div>
+								<div class="nav-tab-item">
+									<span>답변 완료된 글</span>
 								</div>
 							</div>
 						</div>
@@ -223,70 +271,72 @@
 								</div>
 							</div>
 							<div class="tab-info">
-								<div class="collection">
-									<div class="collection-entry suggestion-entry">
-										<h3 class="menu-article">Creative Ideas</h3>
-										<div class="collection-header">
-											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
-											<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-											<span><i class="fa fa-eye"></i> 789</span>
-											<div class="edit-collection">
-												<i class="fa fa-pencil"></i>
-												<div class="c_edit">
-													<div class="btn-rename">
-														rename
-														<div class="message-popup">
-															<div class="message-popup-inner container">
-																<div class="row">
-																	<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																		<i class="fa fa-times close-button"></i>
-																		<h5 class="large-popup-title">Rename</h5>
-																		<div class="form-group">
-																			<input class="form-input" required="" placeholder="Your text">
-																		</div>
-																		<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<a href="page1.html">delete</a>
-												</div>
+								<c:forEach items="${judgeList}" var="suggestion" varStatus="status">
+									<div class="collection" id="sgt-judge-${status.count}">
+										<div class="collection-entry suggestion-entry">
+											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
+											<div class="collection-header">
+												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userNickname}</a></span>
+												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
+														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
 											</div>
+											<input type="hidden" class="sgt-articleId" value="${suggestion.articleId}">
 										</div>
 									</div>
+								</c:forEach>
+								<div class="text-center">
+									<ul class="pagination sgt-judge-paging">
+										<c:if test="${judgePageBuilder.isPrevPrev}">
+											<li class="paginate-judge previous" data-page="${judgePageBuilder.startPageNum-1}">Prev</li>
+										</c:if>
+										<c:forEach var="num" begin="${judgePageBuilder.startPageNum}" end="${judgePageBuilder.lastPageNum}">
+											<li class="paginate-judge ${pageBuilder.pageNum == num ? 'active' : ''}" data-page="${num}">${num}</li>
+										</c:forEach>
+										<c:if test="${judgePageBuilder.isNextNext}">
+											<li class="paginate-judge next" data-page="${judgePageBuilder.lastPageNum+1}">Next</li>
+										</c:if>
+									</ul>
+									<div id="pagination-judge-data">
+										<input type="hidden" class="page" value="${judgePageBuilder.pageNum}">
+										<input type="hidden" class="keyword" value="${cri.keyword}">
+										<input type="hidden" class="type" value="${cri.type}">
+									</div>
 								</div>
-								<div class="collection">
-									<div class="collection-entry suggestion-entry">
-										<h3 class="menu-article">Creative Ideas</h3>
-										<div class="collection-header">
-											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
-											<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-											<span><i class="fa fa-eye"></i> 789</span>
-											<div class="edit-collection">
-												<i class="fa fa-pencil"></i>
-												<div class="c_edit">
-													<div class="btn-rename">
-														rename
-														<div class="message-popup">
-															<div class="message-popup-inner container">
-																<div class="row">
-																	<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																		<i class="fa fa-times close-button"></i>
-																		<h5 class="large-popup-title">Rename</h5>
-																		<div class="form-group">
-																			<input class="form-input" required="" placeholder="Your text">
-																		</div>
-																		<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<a href="page1.html">delete</a>
-												</div>
+							</div>
+							<div class="tab-info">
+								<c:forEach items="${confirmList}" var="suggestion" varStatus="status">
+									<div class="collection" id="sgt-confirm-${status.count}">
+										<div class="collection-entry suggestion-entry">
+											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
+											<div class="collection-header">
+												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userNickname}</a></span>
+												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
+														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
 											</div>
+											<input type="hidden" class="sgt-articleId" value="${suggestion.articleId}">
 										</div>
+									</div>
+								</c:forEach>
+								<div class="text-center">
+									<ul class="pagination sgt-confirm-paging">
+										<c:if test="${confirmPageBuilder.isPrevPrev}">
+											<li class="paginate-confirm previous" data-page="${confirmPageBuilder.startPageNum-1}">Prev</li>
+										</c:if>
+										<c:forEach var="num" begin="${confirmPageBuilder.startPageNum}" end="${confirmPageBuilder.lastPageNum}">
+											<li class="paginate-confirm ${pageBuilder.pageNum == num ? 'active' : ''}" data-page="${num}">${num}</li>
+										</c:forEach>
+										<c:if test="${confirmPageBuilder.isNextNext}">
+											<li class="paginate-confirm next" data-page="${confirmPageBuilder.lastPageNum+1}">Next</li>
+										</c:if>
+									</ul>
+									<div id="pagination-confirm-data">
+										<input type="hidden" class="page" value="${confirmPageBuilder.pageNum}">
+										<input type="hidden" class="keyword" value="${cri.keyword}">
+										<input type="hidden" class="type" value="${cri.type}">
 									</div>
 								</div>
 							</div>

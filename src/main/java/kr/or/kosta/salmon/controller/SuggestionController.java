@@ -21,7 +21,9 @@ import kr.or.kosta.salmon.common.Criteria;
 import kr.or.kosta.salmon.common.MyPageBuilder;
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.NewSuggestionDTO;
+import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.domain.SuggestionDTO;
+import kr.or.kosta.salmon.domain.SuggestionStatusDTO;
 import kr.or.kosta.salmon.service.SNSService;
 import kr.or.kosta.salmon.service.SuggestionService;
 import kr.or.kosta.salmon.service.UserService;
@@ -48,15 +50,37 @@ public class SuggestionController {
     public String getMain(Criteria criteria, Model model, Principal principal) {
         log.info("suggestion main ....");
         criteria.setUserId(principal.getName());
+        criteria.setArticleProposalStatus("R");
         MyPageBuilder mpg = null;
         try {
+            PsnsDTO psns = SS.getPsnsWithSuggestion(principal.getName());
+            List<SuggestionStatusDTO> lists = psns.getSuggestionStatusDTO();
+            Long likeNum = 0L;
+            Long sNum = 0L;
+            for (SuggestionStatusDTO dto : lists) {
+                likeNum += dto.getArticleLikeNum();
+                sNum += dto.getArticleProposalNum();
+            }
+            model.addAttribute("likeNum", likeNum);
+            model.addAttribute("sNum", sNum);
+            model.addAttribute("psns", SS.getPsnsWithSuggestion(principal.getName()));
+
+            
             mpg = (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria);
             model.addAttribute("newList", SS.getSuggestionListByPaging(criteria));
             model.addAttribute("likeList", SS.getSuggestionListsByLikes(criteria));
             model.addAttribute("pageBuilder", mpg);
             model.addAttribute("recommendList", SS.getSuggestionListsByRecommend(criteria));
-            model.addAttribute("recommendPageBuilder",
-                    (new MyPageBuilder(SS.getTotalSuggestionByRecommend(criteria))).build(criteria));
+            mpg = (new MyPageBuilder(SS.getTotalSuggestionByRecommend(criteria))).build(criteria);
+            model.addAttribute("recommendPageBuilder", mpg);
+            criteria.setArticleProposalStatus("J");
+            model.addAttribute("judgeList", SS.getSuggestionListByPaging(criteria));
+            mpg = (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria);
+            model.addAttribute("judgePageBuilder", mpg);
+            criteria.setArticleProposalStatus("C");
+            model.addAttribute("confirmList", SS.getSuggestionListByPaging(criteria));
+            mpg = (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria);
+            model.addAttribute("confirmPageBuilder", mpg);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,6 +91,7 @@ public class SuggestionController {
     public @ResponseBody ResponseEntity<List<Object>> getNew(Criteria criteria) {
         log.info("getNew ..." + criteria);
         ResponseEntity<List<Object>> result = null;
+        criteria.setArticleProposalStatus("R");
         try {
             List<SuggestionDTO> sgts = SS.getSuggestionListByPaging(criteria);
             MyPageBuilder mpb = (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria);
@@ -102,6 +127,7 @@ public class SuggestionController {
     @GetMapping("/recommend")
     public @ResponseBody ResponseEntity<List<Object>> getRecommend(Criteria criteria) {
         log.info("getRecommend ..." + criteria);
+        criteria.setArticleProposalStatus("R");
         ResponseEntity<List<Object>> result = null;
         try {
             List<SuggestionDTO> sgts = SS.getSuggestionListsByRecommend(criteria);
