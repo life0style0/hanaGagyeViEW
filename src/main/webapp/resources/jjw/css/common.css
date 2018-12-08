@@ -2,9 +2,22 @@
   overflow: hidden;
 }
 
-.article-image {
+.owl-carousel.owl-drag .owl-item {
+  text-align: center;
+  line-height: 524px;
+  height: 524px;
+}
+
+.article-image-h {
   height: 524px !important;
   width: auto !important;
+  display: inline-block!important;
+}
+
+.article-image-w {
+  height: auto !important;
+  width: 500px !important;
+  display: inline-block!important;
 }
 
 .post-desc {

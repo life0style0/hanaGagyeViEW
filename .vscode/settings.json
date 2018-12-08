@@ -30,9 +30,9 @@
                 "dir": "C:/Users/dkgkr/AppData/Roaming/Code/User/workspaceStorage/7449bf435e694a3fc280b6052cb5b8b5/adashen.vscode-tomcat/tomcat/apache-tomcat-8.0.53/webapps/salmon",
                 "mappings": {
                     "src/main/resources/**": "/WEB-INF/classes",
-                    "src/main/webapp/**": "/"
+                    "src/main/**": "/"
                 },
-                "useFastGlob": false
+                "useFastGlob": true
             }
             // ,
             // {
