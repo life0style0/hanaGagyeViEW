@@ -47,7 +47,7 @@
                 <result property="ctgryName1" column="ctgryName1"/>
                 <result property="ctgryName2" column="ctgryName2"/>
                 <result property="ctgryName3" column="ctgryName3"/>
-                <collection property="suggestionStatusDTO" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.SuggestionStatusDTO" select="userSuggestionStatus"/>
+                <collection property="suggestionStatusDTO" column="userId" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.SuggestionStatusDTO" select="userSuggestionStatus"/>
         </resultMap>
 
         <!-- <select id="getSuggestionListWithPaging" resultMap="suggestionLists">
@@ -223,7 +223,7 @@ FROM   (SELECT ROWNUM rn,
 WHERE  rn                 <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}   
         </select>
 
-        <select id="userSuggestionStatus" resultMap="kr.or.kosta.salmon.domain.SuggestionStatusDTO">
+        <select id="userSuggestionStatus" resultType="kr.or.kosta.salmon.domain.SuggestionStatusDTO">
 SELECT /*+INDEX(articles idx_article_ctgry)*/ article_proposal_status "articleProposalStatus", 
                                               Count(article_proposal_status) "articleProposalNum", 
                                               SUM(article_like_num) "articleLikeNum"

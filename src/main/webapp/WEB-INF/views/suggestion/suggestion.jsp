@@ -171,13 +171,8 @@
 				<div class="col-md-3">
 					<div class="be-user-block">
 						<div class="be-user-detail">
-
 							<input type="hidden" class="imagePath" value="/salmon/image?fileName=${article.userPsns.userImage}">
 							<img class="img-responsive image-src" alt="">
-
-							<!-- <a class="be-ava-user" href="blog-detail-2.html"> 
-								<img src="/salmon/resources/template/img/ava.png" alt="">
-							</a> -->
 							<p class="be-use-name">
 								<c:out value="${article.userPsns.userNickname}" />
 							</p>

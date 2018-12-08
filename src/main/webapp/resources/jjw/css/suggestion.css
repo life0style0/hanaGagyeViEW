@@ -140,3 +140,15 @@ div.buttons button {
   color: black;
   font-weight: 900;
 }
+
+.sg-statistic {
+  position: relative;
+  margin-top: 30px;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-bottom: -30px!important;
+}
+
+.image-src {
+  margin: 0px auto;
+}

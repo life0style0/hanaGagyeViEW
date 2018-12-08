@@ -10,7 +10,9 @@
 	<link rel="shortcut icon" href="/salmon/resources/template/img/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/salmon/resources/template/style/bootstrap.min.css">
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+	 crossorigin="anonymous">
 	<link rel="stylesheet" href="/salmon/resources/template/style/icon.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/loader.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
@@ -20,6 +22,7 @@
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/owl.theme.default.min.css">
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/suggestion.css">
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/common.css">
+	<link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
 </head>
 
 <body class="page-login">
@@ -85,9 +88,9 @@
 							!= "none" ? psns.ctgryName2 : ''}${psns.ctgryName3 != "none" ? ', ' :
 							''}${psns.ctgryName3 != "none" ? psns.ctgryName3 : ''}
 						</p>
-						<div class="be-user-statistic">
+						<div class="be-user-statistic sg-statistic">
 							<div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i> 제안한 전체 글 수<span class="stat-counter">${sNum}</span></div>
-							<c:forEach items="psns.suggestionStatusDTO" var="ssd" varstatus="status">
+							<c:forEach items="${psns.suggestionStatusDTO}" var="ssd" varStatus="status">
 								<c:choose>
 									<c:when test="${ssd.articleProposalStatus == 'R'}">
 										<div class="stat-row clearfix"><i class="stat-icon icon-followers-b"></i>제안 중인 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
@@ -96,49 +99,13 @@
 										<div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i>답변 대기 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
 									</c:when>
 									<c:when test="${ssd.articleProposalStatus == 'C'}">
-										<div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i>답변된 전체 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
+										<div class="stat-row clearfix"><i class="far fa-award"></i>답변된 전체 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
 									</c:when>
 								</c:choose>
 							</c:forEach>
 							<div class="stat-row clearfix"><i class="stat-icon icon-like-b"></i>공감 받은 수<span class="stat-counter">${likeNum}</span></div>
 						</div>
 					</div>
-					<!-- <div class="be-user-block style-3">
-						<div class="be-user-detail">
-							<a class="be-ava-user style-2" href="page1.html">
-								<img src="/salmon/resources/template/img/ava_10.jpg" alt="">
-							</a>
-							<a class="be-ava-left btn color-1 size-2 hover-1" href="author-edit.html"><i class="fa fa-pencil"></i>Edit</a>
-							<div class="be-ava-right btn btn-share color-4 size-2 hover-7">
-								<i class="fa fa-share-alt"></i>share
-								<div class="share-buttons">
-									<a class="color-1" href="page1.html"><i class="fa fa-facebook"></i> 278</a>
-									<a class="color-2" href="page1.html"><i class="fa fa-twitter"></i> 180</a>
-									<a class="color-3" href="page1.html"><i class="fa fa-pinterest-p"></i> 78</a>
-									<a class="color-4" href="page1.html"><i class="fa fa-linkedin"></i> 53</a>
-								</div>
-							</div>
-							<p class="be-use-name">Leigh Taylor</p>
-							<div class="be-user-info">
-								Barnsley, United Kingdom
-							</div>
-							<div class="be-text-tags style-2">
-								<a href="page1.html">UI/UX</a>,
-								<a href="page1.html">Web Design</a>,
-								<a href="page1.html">Art Direction</a>
-							</div>
-							<div class="be-user-social">
-								<a class="social-btn color-1" href="page1.html"><i class="fa fa-facebook"></i></a>
-								<a class="social-btn color-2" href="page1.html"><i class="fa fa-twitter"></i></a>
-								<a class="social-btn color-3" href="page1.html"><i class="fa fa-google-plus"></i></a>
-								<a class="social-btn color-4" href="page1.html"><i class="fa fa-pinterest-p"></i></a>
-								<a class="social-btn color-5" href="page1.html"><i class="fa fa-instagram"></i></a>
-								<a class="social-btn color-6" href="page1.html"><i class="fa fa-linkedin"></i></a>
-							</div>
-							<a class="be-user-site" href="http://www.phoenix.cool"><i class="fa fa-link"></i> www.phoenix.cool</a>
-						</div>
-
-					</div> -->
 					<a href="/salmon/suggestion/news" class="btn full color-1 size-1 hover-1 new-article"><i class="fa fa-plus"></i>새로운
 						제안하기</a>
 				</div>
@@ -172,7 +139,7 @@
 											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
 											<div class="collection-header">
 												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userNickname">${suggestion.userNickname}</a></span>
-												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding no-margin  sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-thumbs-up"></i> <span class="no-padding no-margin  sgt-like">${suggestion.likeCnt}</span></span>
 												<span><i class="fa fa-comment"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
 														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
@@ -207,7 +174,7 @@
 											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
 											<div class="collection-header">
 												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userNickname}</a></span>
-												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-thumbs-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
 														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
@@ -242,7 +209,7 @@
 											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
 											<div class="collection-header">
 												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userNickname}</a></span>
-												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-thumbs-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
 														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
@@ -277,7 +244,7 @@
 											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
 											<div class="collection-header">
 												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userNickname}</a></span>
-												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-thumbs-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
 														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
@@ -312,7 +279,7 @@
 											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
 											<div class="collection-header">
 												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userNickname}</a></span>
-												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-thumbs-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
 														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>

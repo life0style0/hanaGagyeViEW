@@ -347,13 +347,17 @@
 
 .sorting-cal-money {
   display: inline-block;
-  background-color: #cacaca;
-  font-size: large;
+  position: relative;
+  font-size: 13px;
   font-weight: 100;
-  color: azure;
+  color: #000000;
   text-align: center;
-  /* top: 17px;s
-  position: relative; */
+  background-color: #FFF;
+  padding: 15px 30px 15px 30px;
+  border: 1px solid #edeff2;
+  border-radius: 3px;
+  margin-bottom: 50px;
+  margin-right: 30px;
 }
 
 .slider {
