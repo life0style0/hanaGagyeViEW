@@ -28,25 +28,25 @@ function monthBarSpendChart(yearSrc) {
     const sortedMonthSpendDatas = new Map([...monthSpendDatas.entries()].sort());
     const months = [];
     const ctgryToSpend = new Map(); // key=ctgry, value=spend
-
+    console.log('sortedMonthSpendDatas :', sortedMonthSpendDatas);
     sortedMonthSpendDatas.forEach(function (monthSpendChartData, date) {
         months.push(`${date.substr(3,4)}년 ${date.substr(0,2)}월`);
         let lenMax = ctgryToSpend.size === 0 ? 0 : ctgryToSpend.values().next().value.length;
-        monthSpendChartData.forEach(function (articlePaymentFee, ctgryNames) {
-            if (ctgryToSpend.has(ctgryNames)) {
-                ctgryToSpend.get(ctgryNames).push(articlePaymentFee);
+        monthSpendChartData.forEach(function (articlePaymentFee, ctgryName) {
+            if (ctgryToSpend.has(ctgryName)) {
+                ctgryToSpend.get(ctgryName).push(articlePaymentFee);
             } else {
                 const blankArray = [];
                 for (let i = 0; i < lenMax; i += 1) {
                     blankArray.push(0);
                 }
                 blankArray.push(articlePaymentFee);
-                ctgryToSpend.set(ctgryNames, blankArray);
+                ctgryToSpend.set(ctgryName, blankArray);
             }
         });
 
-        ctgryToSpend.forEach(function (spend, ctgryNames) {
-            if (!monthSpendChartData.has(ctgryNames[0])) {
+        ctgryToSpend.forEach(function (spend, ctgryName) {
+            if (!monthSpendChartData.has(ctgryName)) {
                 spend.push(0);
             }
         });
