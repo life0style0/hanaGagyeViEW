@@ -142,7 +142,6 @@ function setStackedSpendChart(data, yearSrc, monthSrc) {
         spendGoal.push([dayStartUTC + 86400000 * (i - 1) + 32400000, oneDayMax * i]);
     }
     spendGoal.push([dayStartUTC + 86400000 * (betweenDays - 1) + 32400000, Number(psnMonthlyPayment)]);
-    console.log('spendGoal :', spendGoal);
     const chartData = {
         chart: {
             type: 'area'
