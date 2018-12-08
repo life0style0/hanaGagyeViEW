@@ -89,7 +89,7 @@
 }
 
 .comment-delete-btn {
-  width: fit-content;
+  width: fit-content!important;
   margin-right: 10px;
 }
 
