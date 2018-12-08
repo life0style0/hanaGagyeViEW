@@ -745,10 +745,10 @@ $('.s-color').on('click', function() {
 		$(this).text('FOLLOWING').css({'padding' : 5, 'textAlign' : "center"});
 	});
 
-	$('.like-btn').on('click', function (e) {
-		e.preventDefault();
-		$(this).html('YOU LIKED PROJECT');
-	});
+	// $('.like-btn').on('click', function (e) {
+	// 	e.preventDefault();
+	// 	$(this).html('YOU LIKED PROJECT');
+	// });
 
 	$('.add-btn').on('click', function (e) {
 		e.preventDefault();

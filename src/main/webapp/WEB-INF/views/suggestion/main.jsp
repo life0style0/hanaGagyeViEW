@@ -10,7 +10,9 @@
 	<link rel="shortcut icon" href="/salmon/resources/template/img/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/salmon/resources/template/style/bootstrap.min.css">
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+	 crossorigin="anonymous">
 	<link rel="stylesheet" href="/salmon/resources/template/style/icon.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/loader.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
@@ -20,6 +22,7 @@
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/owl.theme.default.min.css">
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/suggestion.css">
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/common.css">
+	<link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
 </head>
 
 <body class="page-login">
@@ -54,67 +57,57 @@
 		<div class="container be-detail-container">
 			<div class="row">
 				<div class="col-xs-12 col-md-4 left-feild">
-					<div class="be-user-block style-3">
+					<div class="be-user-block">
 						<div class="be-user-detail">
-							<a class="be-ava-user style-2" href="page1.html">
-								<img src="/salmon/resources/template/img/ava_10.jpg" alt="">
-							</a>
-							<a class="be-ava-left btn color-1 size-2 hover-1" href="author-edit.html"><i class="fa fa-pencil"></i>Edit</a>
-							<div class="be-ava-right btn btn-share color-4 size-2 hover-7">
-								<i class="fa fa-share-alt"></i>share
-								<div class="share-buttons">
-									<a class="color-1" href="page1.html"><i class="fa fa-facebook"></i> 278</a>
-									<a class="color-2" href="page1.html"><i class="fa fa-twitter"></i> 180</a>
-									<a class="color-3" href="page1.html"><i class="fa fa-pinterest-p"></i> 78</a>
-									<a class="color-4" href="page1.html"><i class="fa fa-linkedin"></i> 53</a>
+							<input type="hidden" class="imagePath" value="/salmon/image?fileName=${psns.userImage}">
+							<img class="img-responsive image-src" alt="">
+							<p class="be-use-name">
+								<c:out value="${psns.userNickname}" />
+							</p>
+							<span class="be-user-info">
+								<c:out value="${psns.userId}" />
+							</span>
+						</div>
+						<div class="be-user-activity-block">
+							<div class="row">
+								<div class="col-lg-12">
+									<a id="follow-ask-mypage" class="ask-follow" href="/salmon/sns/feeds?userid=${psns.userId}">
+										<i class="fa fa-leaf"></i>
+										MYPAGE
+									</a>
+									<a id="write-article" href="/salmon/article/register" class="ask-follow">
+										<i class="fas fa-pen"></i>
+										글쓰기
+									</a>
 								</div>
 							</div>
-							<p class="be-use-name">Leigh Taylor</p>
-							<div class="be-user-info">
-								Barnsley, United Kingdom
-							</div>
-							<div class="be-text-tags style-2">
-								<a href="page1.html">UI/UX</a>,
-								<a href="page1.html">Web Design</a>,
-								<a href="page1.html">Art Direction</a>
-							</div>
-							<div class="be-user-social">
-								<a class="social-btn color-1" href="page1.html"><i class="fa fa-facebook"></i></a>
-								<a class="social-btn color-2" href="page1.html"><i class="fa fa-twitter"></i></a>
-								<a class="social-btn color-3" href="page1.html"><i class="fa fa-google-plus"></i></a>
-								<a class="social-btn color-4" href="page1.html"><i class="fa fa-pinterest-p"></i></a>
-								<a class="social-btn color-5" href="page1.html"><i class="fa fa-instagram"></i></a>
-								<a class="social-btn color-6" href="page1.html"><i class="fa fa-linkedin"></i></a>
-							</div>
-							<a class="be-user-site" href="http://www.phoenix.cool"><i class="fa fa-link"></i> www.phoenix.cool</a>
 						</div>
-						<div class="be-user-statistic">
-							<div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i> Projects views<span class="stat-counter">218098</span></div>
-							<div class="stat-row clearfix"><i class="stat-icon icon-like-b"></i>Appreciations<span class="stat-counter">14335</span></div>
-							<div class="stat-row clearfix"><i class="stat-icon icon-followers-b"></i>Followers<span class="stat-counter">2208</span></div>
-							<div class="stat-row clearfix"><i class="stat-icon icon-following-b"></i>Following<span class="stat-counter">0</span></div>
-						</div>
-					</div>
-					<div class="be-desc-block">
-						<div class="be-desc-author">
-							<div class="be-desc-label">About Me</div>
-							<div class="clearfix"></div>
-							<div class="be-desc-text">
-								Nam sit amet massa commodo, tristique metus at, consequat turpis. In vulputate justo at auctor mollis. Aliquam
-								non sagittis tortor. Duis tristique suscipit risus, quis facilisis nisl congue vitae. Nunc varius pellentesque
-								scelerisque. Etiam quis massa vitae lectus placerat ullamcorper pellentesque vel nisl.
-							</div>
-						</div>
-						<div class="be-desc-author">
-							<div class="be-desc-label">My Values</div>
-							<div class="clearfix"></div>
-							<div class="be-desc-text">
-								Sed dignissim scelerisque pretium. Vestibulum vel lacus laoreet nunc fermentum maximus. Proin id sodales sem,
-								at consectetur urna. Proin vestibulum, erat a hendrerit sodales, nulla libero ornare dolor.
-							</div>
+						<h5 class="be-title">관심사</h5>
+						<p class="be-text-userblock">
+							${psns.ctgryName1}${psns.ctgryName2 != "none" ? ', ' : ''}${psns.ctgryName2
+							!= "none" ? psns.ctgryName2 : ''}${psns.ctgryName3 != "none" ? ', ' :
+							''}${psns.ctgryName3 != "none" ? psns.ctgryName3 : ''}
+						</p>
+						<div class="be-user-statistic sg-statistic">
+							<div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i> 제안한 전체 글 수<span class="stat-counter">${sNum}</span></div>
+							<c:forEach items="${psns.suggestionStatusDTO}" var="ssd" varStatus="status">
+								<c:choose>
+									<c:when test="${ssd.articleProposalStatus == 'R'}">
+										<div class="stat-row clearfix"><i class="stat-icon icon-followers-b"></i>제안 중인 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
+									</c:when>
+									<c:when test="${ssd.articleProposalStatus == 'J'}">
+										<div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i>답변 대기 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
+									</c:when>
+									<c:when test="${ssd.articleProposalStatus == 'C'}">
+										<div class="stat-row clearfix"><i class="far fa-award"></i>답변된 전체 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+							<div class="stat-row clearfix"><i class="stat-icon icon-like-b"></i>공감 받은 수<span class="stat-counter">${likeNum}</span></div>
 						</div>
 					</div>
-					<a class="btn full color-1 size-1 hover-1"><i class="fa fa-plus"></i>add sections</a>
+					<a href="/salmon/suggestion/news" class="btn full color-1 size-1 hover-1 new-article"><i class="fa fa-plus"></i>새로운
+						제안하기</a>
 				</div>
 
 				<div class="col-xs-12 col-md-8">
@@ -131,7 +124,10 @@
 									<span>추천글</span>
 								</div>
 								<div class="nav-tab-item">
-									<span>카테고리별</span>
+									<span>답변 대기 중인 글</span>
+								</div>
+								<div class="nav-tab-item">
+									<span>답변 완료된 글</span>
 								</div>
 							</div>
 						</div>
@@ -140,10 +136,10 @@
 								<c:forEach items="${newList}" var="suggestion" varStatus="status">
 									<div class="collection" id="sgt-new-${status.count}">
 										<div class="collection-entry suggestion-entry">
-											<h3 class="menu-article sgt-title-${status.count}">${suggestion.articleTitle}</h3>
+											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
 											<div class="collection-header">
-												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userId}</a></span>
-												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding no-margin  sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userNickname">${suggestion.userNickname}</a></span>
+												<span><i class="fa fa-thumbs-up"></i> <span class="no-padding no-margin  sgt-like">${suggestion.likeCnt}</span></span>
 												<span><i class="fa fa-comment"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
 												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
 														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
@@ -152,19 +148,20 @@
 										</div>
 									</div>
 								</c:forEach>
-								<div class="pull-right">
+								<div class="text-center">
 									<ul class="pagination sgt-new-paging">
 										<c:if test="${pageBuilder.isPrevPrev}">
 											<li class="paginate-new previous" data-page="${pageBuilder.startPageNum-1}">Prev</li>
 										</c:if>
 										<c:forEach var="num" begin="${pageBuilder.startPageNum}" end="${pageBuilder.lastPageNum}">
-											<li class="paginate-new" data-page="${num}">${num}</li>
+											<li class="paginate-new ${pageBuilder.pageNum == num ? 'active' : ''}" data-page="${num}">${num}</li>
 										</c:forEach>
 										<c:if test="${pageBuilder.isNextNext}">
 											<li class="paginate-new next" data-page="${pageBuilder.lastPageNum+1}">Next</li>
 										</c:if>
 									</ul>
 									<div id="pagination-new-data">
+										<input type="hidden" class="page" value="${pageBuilder.pageNum}">
 										<input type="hidden" class="keyword" value="${cri.keyword}">
 										<input type="hidden" class="type" value="${cri.type}">
 									</div>
@@ -174,31 +171,32 @@
 								<c:forEach items="${likeList}" var="suggestion" varStatus="status">
 									<div class="collection" id="sgt-like-${status.count}">
 										<div class="collection-entry suggestion-entry">
-											<h3 class="menu-article sgt-title-${status.count}">${suggestion.articleTitle}</h3>
+											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
 											<div class="collection-header">
-												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userId}</a></span>
-												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding sgt-like">${suggestion.likeCnt}</span></span>
-												<span><i class="fa fa-eye"></i> <span class="no-padding sgt-comment">${suggestion.commentCnt}</span></span>
-												<span><i class="fa fa-eye"></i> <span class="no-padding sgt-date">기간 :
+												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userNickname}</a></span>
+												<span><i class="fa fa-thumbs-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
 														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
 											</div>
 											<input type="hidden" class="sgt-articleId" value="${suggestion.articleId}">
 										</div>
 									</div>
 								</c:forEach>
-								<div class="pull-right">
+								<div class="text-center">
 									<ul class="pagination sgt-like-paging">
 										<c:if test="${pageBuilder.isPrevPrev}">
 											<li class="paginate-like previous" data-page="${pageBuilder.startPageNum-1}">Prev</li>
 										</c:if>
 										<c:forEach var="num" begin="${pageBuilder.startPageNum}" end="${pageBuilder.lastPageNum}">
-											<li class="paginate-like" data-page="${num}">${num}</li>
+											<li class="paginate-like ${pageBuilder.pageNum == num ? 'active' : ''}" data-page="${num}">${num}</li>
 										</c:forEach>
 										<c:if test="${pageBuilder.isNextNext}">
 											<li class="paginate-like next" data-page="${pageBuilder.lastPageNum+1}">Next</li>
 										</c:if>
 									</ul>
 									<div id="pagination-like-data">
+										<input type="hidden" class="page" value="${pageBuilder.pageNum}">
 										<input type="hidden" class="keyword" value="${cri.keyword}">
 										<input type="hidden" class="type" value="${cri.type}">
 									</div>
@@ -208,101 +206,104 @@
 								<c:forEach items="${recommendList}" var="suggestion" varStatus="status">
 									<div class="collection" id="sgt-recommend-${status.count}">
 										<div class="collection-entry suggestion-entry">
-											<h3 class="menu-article sgt-title-${status.count}">${suggestion.articleTitle}</h3>
+											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
 											<div class="collection-header">
-												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userId}</a></span>
-												<span><i class="fa fa-thumbs-o-up"></i> <span class="no-padding sgt-like">${suggestion.likeCnt}</span></span>
-												<span><i class="fa fa-eye"></i> <span class="no-padding sgt-comment">${suggestion.commentCnt}</span></span>
-												<span><i class="fa fa-eye"></i> <span class="no-padding sgt-date">기간 :
+												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userNickname}</a></span>
+												<span><i class="fa fa-thumbs-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
 														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
 											</div>
 											<input type="hidden" class="sgt-articleId" value="${suggestion.articleId}">
 										</div>
 									</div>
 								</c:forEach>
-								<div class="pull-right">
+								<div class="text-center">
 									<ul class="pagination sgt-recommend-paging">
 										<c:if test="${recommendPageBuilder.isPrevPrev}">
 											<li class="paginate-recommend previous" data-page="${recommendPageBuilder.startPageNum-1}">Prev</li>
 										</c:if>
 										<c:forEach var="num" begin="${recommendPageBuilder.startPageNum}" end="${recommendPageBuilder.lastPageNum}">
-											<li class="paginate-recommend" data-page="${num}">${num}</li>
+											<li class="paginate-recommend ${pageBuilder.pageNum == num ? 'active' : ''}" data-page="${num}">${num}</li>
 										</c:forEach>
 										<c:if test="${recommendPageBuilder.isNextNext}">
 											<li class="paginate-recommend next" data-page="${recommendPageBuilder.lastPageNum+1}">Next</li>
 										</c:if>
 									</ul>
 									<div id="pagination-recommend-data">
+										<input type="hidden" class="page" value="${recommendPageBuilder.pageNum}">
 										<input type="hidden" class="keyword" value="${cri.keyword}">
 										<input type="hidden" class="type" value="${cri.type}">
 									</div>
 								</div>
 							</div>
 							<div class="tab-info">
-								<div class="collection">
-									<div class="collection-entry suggestion-entry">
-										<h3 class="menu-article">Creative Ideas</h3>
-										<div class="collection-header">
-											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
-											<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-											<span><i class="fa fa-eye"></i> 789</span>
-											<div class="edit-collection">
-												<i class="fa fa-pencil"></i>
-												<div class="c_edit">
-													<div class="btn-rename">
-														rename
-														<div class="message-popup">
-															<div class="message-popup-inner container">
-																<div class="row">
-																	<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																		<i class="fa fa-times close-button"></i>
-																		<h5 class="large-popup-title">Rename</h5>
-																		<div class="form-group">
-																			<input class="form-input" required="" placeholder="Your text">
-																		</div>
-																		<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<a href="page1.html">delete</a>
-												</div>
+								<c:forEach items="${judgeList}" var="suggestion" varStatus="status">
+									<div class="collection" id="sgt-judge-${status.count}">
+										<div class="collection-entry suggestion-entry">
+											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
+											<div class="collection-header">
+												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userNickname}</a></span>
+												<span><i class="fa fa-thumbs-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
+														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
 											</div>
+											<input type="hidden" class="sgt-articleId" value="${suggestion.articleId}">
 										</div>
 									</div>
+								</c:forEach>
+								<div class="text-center">
+									<ul class="pagination sgt-judge-paging">
+										<c:if test="${judgePageBuilder.isPrevPrev}">
+											<li class="paginate-judge previous" data-page="${judgePageBuilder.startPageNum-1}">Prev</li>
+										</c:if>
+										<c:forEach var="num" begin="${judgePageBuilder.startPageNum}" end="${judgePageBuilder.lastPageNum}">
+											<li class="paginate-judge ${pageBuilder.pageNum == num ? 'active' : ''}" data-page="${num}">${num}</li>
+										</c:forEach>
+										<c:if test="${judgePageBuilder.isNextNext}">
+											<li class="paginate-judge next" data-page="${judgePageBuilder.lastPageNum+1}">Next</li>
+										</c:if>
+									</ul>
+									<div id="pagination-judge-data">
+										<input type="hidden" class="page" value="${judgePageBuilder.pageNum}">
+										<input type="hidden" class="keyword" value="${cri.keyword}">
+										<input type="hidden" class="type" value="${cri.type}">
+									</div>
 								</div>
-								<div class="collection">
-									<div class="collection-entry suggestion-entry">
-										<h3 class="menu-article">Creative Ideas</h3>
-										<div class="collection-header">
-											<span><i class="fa fa-user"></i>by <a href="page1.html">Leigh Taylor</a> </span>
-											<span><i class="fa fa-thumbs-o-up"></i> 360</span>
-											<span><i class="fa fa-eye"></i> 789</span>
-											<div class="edit-collection">
-												<i class="fa fa-pencil"></i>
-												<div class="c_edit">
-													<div class="btn-rename">
-														rename
-														<div class="message-popup">
-															<div class="message-popup-inner container">
-																<div class="row">
-																	<div class="col-xs-12 col-sm-8 col-sm-offset-2">
-																		<i class="fa fa-times close-button"></i>
-																		<h5 class="large-popup-title">Rename</h5>
-																		<div class="form-group">
-																			<input class="form-input" required="" placeholder="Your text">
-																		</div>
-																		<button class="btn btn-right color-1 size-1 hover-1">OK</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<a href="page1.html">delete</a>
-												</div>
+							</div>
+							<div class="tab-info">
+								<c:forEach items="${confirmList}" var="suggestion" varStatus="status">
+									<div class="collection" id="sgt-confirm-${status.count}">
+										<div class="collection-entry suggestion-entry">
+											<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
+											<div class="collection-header">
+												<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userNickname}</a></span>
+												<span><i class="fa fa-thumbs-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
+												<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
+														${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
 											</div>
+											<input type="hidden" class="sgt-articleId" value="${suggestion.articleId}">
 										</div>
+									</div>
+								</c:forEach>
+								<div class="text-center">
+									<ul class="pagination sgt-confirm-paging">
+										<c:if test="${confirmPageBuilder.isPrevPrev}">
+											<li class="paginate-confirm previous" data-page="${confirmPageBuilder.startPageNum-1}">Prev</li>
+										</c:if>
+										<c:forEach var="num" begin="${confirmPageBuilder.startPageNum}" end="${confirmPageBuilder.lastPageNum}">
+											<li class="paginate-confirm ${pageBuilder.pageNum == num ? 'active' : ''}" data-page="${num}">${num}</li>
+										</c:forEach>
+										<c:if test="${confirmPageBuilder.isNextNext}">
+											<li class="paginate-confirm next" data-page="${confirmPageBuilder.lastPageNum+1}">Next</li>
+										</c:if>
+									</ul>
+									<div id="pagination-confirm-data">
+										<input type="hidden" class="page" value="${confirmPageBuilder.pageNum}">
+										<input type="hidden" class="keyword" value="${cri.keyword}">
+										<input type="hidden" class="type" value="${cri.type}">
 									</div>
 								</div>
 							</div>
@@ -321,7 +322,10 @@
 
 	<div class="hidden">
 		<form action="/salmon/suggestion/article/" method="post" id="articleForm">
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+			<input type="hidden" name="pageNum" value="">
+			<input type="hidden" name="keyword" value="">
+			<input type="hidden" name="type" value="">
+			<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}">
 		</form>
 	</div>
 

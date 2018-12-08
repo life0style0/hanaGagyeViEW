@@ -54,8 +54,7 @@ function eventRegistOnShare(article, info) {
                 if (result === 'success') {
                     $('#article-share-btn').addClass('hidden');
                     $('#article-share-cancel-btn').removeClass('hidden');
-                } else {
-                }
+                } else {}
             }
         });
     });
@@ -79,8 +78,7 @@ function eventRegistOnShare(article, info) {
                 if (result === 'success') {
                     $('#article-share-btn').removeClass('hidden');
                     $('#article-share-cancel-btn').addClass('hidden');
-                } else {
-                }
+                } else {}
             }
         });
     });
@@ -183,3 +181,41 @@ function setArticle(article, info) {
 
     $('#article-modal').modal('show');
 }
+
+function showImage(path) {
+    return encodeURI(path);
+}
+
+function imageLoad(imagePath, image) {
+    if (image.hasClass('image-src')) {
+        const imgPath = imagePath;
+        const img = image;
+        if (img.hasClass('thumbnail-comment')) {
+            let imgPathT = '';
+            if (imgPath.includes('\\')) {
+                imgPathT = imgPath.split('\\');
+                imgPathT.push(`s_${imgPathT.pop()}`);
+                img.attr('src', showImage(imgPathT.join('/')));
+            } else if (imgPath.includes('/')) {
+                imgPathT = imgPath.split('/');
+                imgPathT.push(`s_${imgPathT.pop()}`);
+                img.attr('src', showImage(imgPathT.join('/')));
+            } else {
+                img.attr('src', showImage(`s_${imgPath}`));
+            }
+        } else {
+            img.attr('src', showImage(imgPath));
+        }
+    }
+}
+
+$(function () {
+    const imagePathHiddens = $('.imagePath');
+    const images = imagePathHiddens.next();
+    // for (let i = 0; i < images.size(); i += 1) {
+    for (let i = 0; i < images.length; i += 1) {
+        const imagePath = imagePathHiddens.eq(i).val();
+        const image = images.eq(i);
+        imageLoad(imagePath, image);
+    }
+});

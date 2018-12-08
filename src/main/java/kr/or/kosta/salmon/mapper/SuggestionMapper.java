@@ -5,6 +5,8 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import kr.or.kosta.salmon.common.Criteria;
+import kr.or.kosta.salmon.domain.NewSuggestionDTO;
+import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.domain.SuggestionDTO;
 
 /**
@@ -18,6 +20,8 @@ public interface SuggestionMapper {
 
     public List<SuggestionDTO> getSuggestionListsByRecommend(Criteria criteria) throws Exception;
 
+    public PsnsDTO getPsnsWithSuggestion(String userId) throws Exception;
+
     public int getTotalSuggestion(Criteria criteria) throws Exception;
 
     public int getTotalSuggestionByRecommend(Criteria criteria) throws Exception;
@@ -29,4 +33,6 @@ public interface SuggestionMapper {
     public int checkFollow(@Param("userId") String userId, @Param("followerId") String followerId) throws Exception;
 
     public String getLikeNum(@Param("articleId") String articleId) throws Exception;
+
+    public int insertArticle(NewSuggestionDTO newSuggestionDTO) throws Exception;
 }
