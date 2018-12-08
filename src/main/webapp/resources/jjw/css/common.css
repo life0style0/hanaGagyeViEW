@@ -8,16 +8,26 @@
   height: 524px;
 }
 
+#article-modal .owl-item img {
+  display: inline-block !important;
+}
+
+.article-image {
+  height: auto !important;
+  width: auto !important;
+  display: inline-block !important;
+}
+
 .article-image-h {
   height: 524px !important;
   width: auto !important;
-  display: inline-block!important;
+  display: inline-block !important;
 }
 
 .article-image-w {
   height: auto !important;
   width: 500px !important;
-  display: inline-block!important;
+  display: inline-block !important;
 }
 
 .post-desc {
