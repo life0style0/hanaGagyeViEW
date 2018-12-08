@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Criteria {
-    private int pageNum; 
+    private int pageNum;
     private int maxPageNum; // 한 페이지 게시글 최대 개수(기본 5개)
     private int maxArticleNum; // 한 페이지 게시판 목록 최대 개수(기본 10개)
     private String type;

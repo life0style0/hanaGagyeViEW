@@ -333,6 +333,58 @@ FROM articles
 WHERE article_id = #{articleId}
         </select>
 
+        <insert id="insertArticle">
+DECLARE articleid NUMBER; 
+
+BEGIN 
+    SELECT article_id_seq.nextval 
+    INTO   articleid 
+    FROM   dual; 
+
+    INSERT INTO articles 
+                (article_id, 
+                 article_ctgry_id, 
+                 article_scope, 
+                 article_title, 
+                 article_content, 
+                 article_proposal_status, 
+                 user_id, 
+                 article_deleted) 
+    VALUES     (articleid, 
+                3, 
+                'u', 
+                #{articleTitle}, 
+                #{articleContent}, 
+                'R', 
+                #{userId}, 
+                'N'); 
+
+    INSERT INTO ctgry_values 
+                (ctgry_value_id, 
+                 ctgry_id, 
+                 article_id) 
+    VALUES     (ctgry_value_id_seq.nextval, 
+                #{ctgry1}, 
+                articleid); 
+
+    INSERT INTO ctgry_values 
+                (ctgry_value_id, 
+                 ctgry_id, 
+                 article_id) 
+    VALUES     (ctgry_value_id_seq.nextval, 
+                #{ctgry2}, 
+                articleid); 
+
+    INSERT INTO ctgry_values 
+                (ctgry_value_id, 
+                 ctgry_id, 
+                 article_id) 
+    VALUES     (ctgry_value_id_seq.nextval, 
+                #{ctgry3}, 
+                articleid); 
+END; 
+        </insert>
+
         <select id="checkFollow" resultType="int">
 		SELECT count(follower_id) 
 		FROM   followers 

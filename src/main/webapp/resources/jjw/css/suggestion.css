@@ -96,3 +96,22 @@
 .comment-delete-btn i {
   margin-right: 4px;
 }
+
+.categories .square {
+  width: 130px;
+  height: 130px;
+  line-height: 130px;
+}
+
+.form-group textarea.form-input {
+  height: 300px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #b4b7c1 !important;
+}
+
+.form-group .form-input {
+  color: black;
+}

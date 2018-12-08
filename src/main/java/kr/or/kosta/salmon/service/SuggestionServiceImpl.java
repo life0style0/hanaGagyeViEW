@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import kr.or.kosta.salmon.common.Criteria;
+import kr.or.kosta.salmon.domain.NewSuggestionDTO;
 import kr.or.kosta.salmon.domain.SuggestionDTO;
 import kr.or.kosta.salmon.mapper.SuggestionMapper;
 
@@ -64,4 +65,8 @@ public class SuggestionServiceImpl implements SuggestionService {
         return sm.getLikeNum(articleId);
     }
 
+    @Override
+    public boolean insertArticle(NewSuggestionDTO newSuggestionDTO) throws Exception {
+        return sm.insertArticle(newSuggestionDTO) > 0 ? true : false;
+    }
 }

@@ -1,3 +1,6 @@
+var registReady = true;
+var categoryNum = 0;
+
 function setSuggestions(page, pageType, event) {
     event.preventDefault();
     const paginationData = $(`#pagination-${pageType}-data`);
@@ -94,6 +97,73 @@ function writeReplyJjw(form) {
             console.log(er);
         }
     });
+}
+
+function initCategoriesJjw(){
+	if( $('[name="category"]')!= null ){
+		var cats= $('[name="category"]');
+		cats.each(function(i,cat){
+			
+			$(cat).on('click',function(e){
+				//alert('category'+i);
+				var selectedVal=$(cat).find('div').attr('value');
+				if($(cat).hasClass('unselected')){
+					//선택
+					
+					if(categoryNum ==0){
+						clickCategory(cat);
+						$('#CTGRY_1').attr('value',selectedVal);
+					}else if(categoryNum==1){
+						clickCategory(cat);
+						$('#CTGRY_2').attr('value',selectedVal);
+					}else if(categoryNum==2){
+						clickCategory(cat);
+						$('#CTGRY_3').attr('value',selectedVal);
+					}else{
+						//4개 이상 선택 불가
+						//categoryNum이 3일때부터 가만히있기
+					}
+					
+				} else if($(cat).hasClass('selected')){
+					//선택해제
+					
+					if(categoryNum ==1){
+						unclickCategory(cat);
+						$('#CTGRY_1').removeAttr('value');
+						$('#CTGRY_1').attr('value',-1);
+						//다 뺴면 categoryNum = 0 됨
+					}else if(categoryNum==2){
+						unclickCategory(cat);
+						$('#CTGRY_2').removeAttr('value');
+						$('#CTGRY_2').attr('value',-1);
+					}else if(categoryNum==3){
+						unclickCategory(cat);
+						$('#CTGRY_3').removeAttr('value');
+						$('#CTGRY_3').attr('value',-1);
+					}else{
+						
+					}
+				}
+				
+				//console.log(categoryNum);
+				
+			});
+		});
+	}
+}
+
+function clickCategory(cat){
+	$(cat).removeClass('unselected');
+	$(cat).addClass('selected');
+	//$(cat).css('color','red');
+	categoryNum++;
+}
+
+function unclickCategory(cat){
+	$(cat).removeClass('selected');
+	$(cat).addClass('unselected');
+	//$(cat).css('color','black');
+	categoryNum--;
 }
 
 $(function () {
@@ -228,7 +298,31 @@ $(function () {
         });
     });
 
-    $('.new-article').on('click', function () {
+    initCategoriesJjw();
+
+    $('#submitT').on('click', function () {
+        const title = $('input[name="articleTitle"]');
+        if (!title.val()) {
+            if (!title.next().hasClass('jjw-alert')) {
+                title.after(`<div class="jjw-alert alert-month-start alert-monthly-payment alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>경고!</strong> 제목을 입력해주세요!</div>`);
+            }
+            $('html, body').animate({ scrollTop: 0 }, 400);
+            return;
+        }
         
+        const content = $('[name="articleContent"]');
+        if (!content.val()) {
+            if (!content.next().hasClass('jjw-alert')) {
+                content.after(`<div class="jjw-alert alert-month-start alert-monthly-payment alert alert-warning alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>경고!</strong> 내용을 입력해주세요!</div>`);
+            }
+            $('html, body').animate({ scrollTop: content.height() + content.offset().top - 200}, 400);
+            return;
+        }
+
+        $('#formT').submit();
     });
 });

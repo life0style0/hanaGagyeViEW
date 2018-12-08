@@ -212,7 +212,8 @@ function imageLoad(imagePath, image) {
 $(function () {
     const imagePathHiddens = $('.imagePath');
     const images = imagePathHiddens.next();
-    for (let i = 0; i < images.size(); i += 1) {
+    // for (let i = 0; i < images.size(); i += 1) {
+    for (let i = 0; i < images.length; i += 1) {
         const imagePath = imagePathHiddens.eq(i).val();
         const image = images.eq(i);
         imageLoad(imagePath, image);

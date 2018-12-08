@@ -7,7 +7,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,9 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.kosta.salmon.common.Criteria;
 import kr.or.kosta.salmon.common.MyPageBuilder;
+import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.domain.NewSuggestionDTO;
 import kr.or.kosta.salmon.domain.SuggestionDTO;
 import kr.or.kosta.salmon.service.SNSService;
 import kr.or.kosta.salmon.service.SuggestionService;
+import kr.or.kosta.salmon.service.UserService;
 import lombok.extern.log4j.Log4j;
 
 /**
@@ -38,6 +40,9 @@ public class SuggestionController {
 
     @Inject
     private SNSService SNSS;
+
+    @Inject
+    private UserService US;
 
     @GetMapping
     public String getMain(Criteria criteria, Model model, Principal principal) {
@@ -113,10 +118,12 @@ public class SuggestionController {
     }
 
     @PostMapping("/article/{sno}")
-    public String getSuggestion(@PathVariable("sno") String sno,@ModelAttribute("cri") Criteria criteria, Model model, Principal principal) {
+    public String getSuggestion(@PathVariable("sno") String sno, @ModelAttribute("cri") Criteria criteria, Model model,
+            Principal principal) {
         log.info("suggestion...." + sno);
         try {
             model.addAttribute("checkLike", SS.checkLike(principal.getName(), sno));
+            log.info("");
             SuggestionDTO sgt = SS.getSuggestion(sno);
             model.addAttribute("article", SS.getSuggestion(sno));
             model.addAttribute("checkLike", SS.checkLike(principal.getName(), sno));
@@ -128,72 +135,99 @@ public class SuggestionController {
         return "suggestion/suggestion";
     }
 
-    // /**
-    //  * 사용자 팔로 요청
-    //  * 
-    //  * @param followId  팔로우 할 사용자 아이디
-    //  * @param principal 내 아이디
-    //  * @return
-    //  */
-    // @GetMapping(value = "/follow/{followId}", produces = { MediaType.TEXT_PLAIN_VALUE })
-    // public ResponseEntity<String> followGet(@PathVariable("followId") String followId, Principal principal) {
-    //     log.info(" 팔로 요청  from " + principal.getName() + " to " + followId);
-    //     // 팔로 처리
-    //     SNSS.askFollow(principal.getName(), followId);
-    //     return new ResponseEntity<>("success", HttpStatus.OK);
-    // }
-
-    // /**
-    //  * 사용자 팔로 취소 요청
-    //  * 
-    //  * @param followId  팔로우 취소할 사용자 아이디
-    //  * @param principal 내 아이디
-    //  * @return
-    //  */
-    // @GetMapping(value = "/unfollow/{followId}", produces = { MediaType.TEXT_PLAIN_VALUE })
-    // public ResponseEntity<String> unfollowGet(@PathVariable("followId") String followId, Principal principal) {
-    //     log.info(" 언팔로 요청  from " + principal.getName() + " to " + followId);
-    //     SNSS.askUnfollow(principal.getName(), followId);
-    //     log.info("언팔 끝");
-    //     return new ResponseEntity<>("success", HttpStatus.OK);
-    // }
-
-    // /**
-    //  * 게시글 좋아요 요청
-    //  * 
-    //  * @param articleId 게시글 아이디
-    //  * @param principal
-    //  * @return 갱신된 이 게시글 좋아요 수
-    //  */
-    // @GetMapping(value = "/sns/like/{articleId}", produces = { MediaType.TEXT_PLAIN_VALUE })
-    // public ResponseEntity<String> likeGet(@PathVariable("articleId") int articleId, Principal principal) {
-    //     log.info(" 좋아요 요청  from " + principal.getName() + " to " + articleId);
-    //     if (SNSS.likeArticle(principal.getName(), articleId)) {
-    //         return new ResponseEntity<>(SNSS.getArticleByArticleId(articleId).getLikes().size() + "", HttpStatus.OK);
-    //     } else {
-    //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    //     }
-    // }
-
-    // /**
-    //  * 게시글 좋아요 취소 요청
-    //  * 
-    //  * @param articleId 게시글 아이디
-    //  * @param principal
-    //  * @return 갱신된 이 게시글 좋아요 수
-    //  */
-    // @GetMapping(value = "/sns/unlike/{article-id}", produces = { MediaType.TEXT_PLAIN_VALUE })
-    // public ResponseEntity<String> unlikeGet(@PathVariable("article-id") int articleId, Principal principal) {
-    //     log.info(" 안좋아요 요청  from " + principal.getName() + " to " + articleId);
-    //     SNSS.unlikeArticle(principal.getName(), articleId);
-    //     return new ResponseEntity<>(SNSS.getArticleByArticleId(articleId).getLikes().size() + "", HttpStatus.OK);
-    // }
-
-    @GetMapping(value="/news")
+    @GetMapping(value = "/news")
     public String newArticle(Principal principal, Model model) {
         log.info("newArticle...");
-
+        List<CategoryDTO_sjh> categories = US.getAllCategories();
+        model.addAttribute("categories", categories);
         model.addAttribute("userId", principal.getName());
         return "suggestion/new";
     }
+
+    @PostMapping(value = "/news")
+    public String insertArticle(NewSuggestionDTO newSuggestionDTO, Principal principal) {
+        log.info("insertArticle...");
+        newSuggestionDTO.setUserId(principal.getName());
+        log.info(newSuggestionDTO);
+        try {
+            SS.insertArticle(newSuggestionDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/suggestion/news";
+    }
+
+    // /**
+    // * 사용자 팔로 요청
+    // *
+    // * @param followId 팔로우 할 사용자 아이디
+    // * @param principal 내 아이디
+    // * @return
+    // */
+    // @GetMapping(value = "/follow/{followId}", produces = {
+    // MediaType.TEXT_PLAIN_VALUE })
+    // public ResponseEntity<String> followGet(@PathVariable("followId") String
+    // followId, Principal principal) {
+    // log.info(" 팔로 요청 from " + principal.getName() + " to " + followId);
+    // // 팔로 처리
+    // SNSS.askFollow(principal.getName(), followId);
+    // return new ResponseEntity<>("success", HttpStatus.OK);
+    // }
+
+    // /**
+    // * 사용자 팔로 취소 요청
+    // *
+    // * @param followId 팔로우 취소할 사용자 아이디
+    // * @param principal 내 아이디
+    // * @return
+    // */
+    // @GetMapping(value = "/unfollow/{followId}", produces = {
+    // MediaType.TEXT_PLAIN_VALUE })
+    // public ResponseEntity<String> unfollowGet(@PathVariable("followId") String
+    // followId, Principal principal) {
+    // log.info(" 언팔로 요청 from " + principal.getName() + " to " + followId);
+    // SNSS.askUnfollow(principal.getName(), followId);
+    // log.info("언팔 끝");
+    // return new ResponseEntity<>("success", HttpStatus.OK);
+    // }
+
+    // /**
+    // * 게시글 좋아요 요청
+    // *
+    // * @param articleId 게시글 아이디
+    // * @param principal
+    // * @return 갱신된 이 게시글 좋아요 수
+    // */
+    // @GetMapping(value = "/sns/like/{articleId}", produces = {
+    // MediaType.TEXT_PLAIN_VALUE })
+    // public ResponseEntity<String> likeGet(@PathVariable("articleId") int
+    // articleId, Principal principal) {
+    // log.info(" 좋아요 요청 from " + principal.getName() + " to " + articleId);
+    // if (SNSS.likeArticle(principal.getName(), articleId)) {
+    // return new
+    // ResponseEntity<>(SNSS.getArticleByArticleId(articleId).getLikes().size() +
+    // "", HttpStatus.OK);
+    // } else {
+    // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // }
+    // }
+
+    // /**
+    // * 게시글 좋아요 취소 요청
+    // *
+    // * @param articleId 게시글 아이디
+    // * @param principal
+    // * @return 갱신된 이 게시글 좋아요 수
+    // */
+    // @GetMapping(value = "/sns/unlike/{article-id}", produces = {
+    // MediaType.TEXT_PLAIN_VALUE })
+    // public ResponseEntity<String> unlikeGet(@PathVariable("article-id") int
+    // articleId, Principal principal) {
+    // log.info(" 안좋아요 요청 from " + principal.getName() + " to " + articleId);
+    // SNSS.unlikeArticle(principal.getName(), articleId);
+    // return new
+    // ResponseEntity<>(SNSS.getArticleByArticleId(articleId).getLikes().size() +
+    // "", HttpStatus.OK);
+    // }
+
 }
