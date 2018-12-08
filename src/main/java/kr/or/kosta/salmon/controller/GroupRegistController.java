@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,10 +59,14 @@ public class GroupRegistController {
 		rttr.addFlashAttribute("group_id",group.getGroup_id());
 		return "redirect:/group/list";
 	}
-	@GetMapping({ "/get", "/modify" })
-	public void get(@RequestParam("group_id") String group_id, @ModelAttribute("cri") Criteria cri, Model model) {
-		log.info("/get or modify");
-		model.addAttribute("group", groupservice.get(group_id));
+	//조회 페이지 만들기 
+	
+	@GetMapping("/get")
+	public void get(@RequestParam("group_id") String group_id, Model model) {
+		log.info("/get");
+		log.info("그룹 아이디 들어와 ? : "+group_id);
+		model.addAttribute("groups", groupservice.get(group_id));
+		
 	}
 	
 	

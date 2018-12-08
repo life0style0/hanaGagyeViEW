@@ -1,693 +1,895 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" %>
-<!-- ========================= * 소모임 게시물 리스트 조회하기 * ================================= -->
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<!-- ========================= * 소모임 상세 리스트  * ================================= -->
 
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>HANA 가계ViEW</title>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<link rel="shortcut icon" href="img/favicon.png">
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="style/bootstrap.min.css">
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="style/icon.css">
-		<link rel="stylesheet" href="style/loader.css">
-		<link rel="stylesheet" href="style/idangerous.swiper.css">
-		<link rel="stylesheet" href="style/stylesheet.css">
-		<!--[if lt IE 10]>
-			<link rel="stylesheet" type="text/css" href="style/ie-9.css" />
-		<![endif]-->		
-		<!--[if lt IE 9]>
-		    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	    <![endif]-->
-	    
-	</head>
-	<body>
+<head>
+<title>HANA 가계ViEW</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="shortcut icon" href="/salmon/resources/template/img/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/salmon/resources/template/style/bootstrap.min.css">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/salmon/resources/template/style/icon.css">
+<link rel="stylesheet" href="/salmon/resources/template/style/loader.css">
+<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
+<link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
 
-	<!-- THE LOADER -->
+<!-- Font special for pages-->
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
 
-<div class="be-loader">
-    	<div class="spinner">
-			<img src="img/logo-loader.png"  alt="">
-			<p class="circle">
-			  <span class="ouro">
-			    <span class="left"><span class="anim"></span></span>
-			    <span class="right"><span class="anim"></span></span>
-			  </span>
-			</p>
-		</div>
+<!-- 페이지 내용 css -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+<!-- 주현 버튼 -->
+    <link rel="stylesheet" href="/salmon/resources/sjh/css/main-sjh.css">
+    <link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
+
+</head>
+<body style="font-family: 'Noto Sans KR', sans-serif;">
+
+  <!-- THE LOADER -->
+  <div class="be-loader">
+    <div class="spinner">
+      <img src="/salmon/resources/template/img/logo-loader.png" alt="">
+      <p class="circle">
+        <span class="ouro"> <span class="left"><span
+            class="anim"></span></span> <span class="right"><span
+            class="anim"></span></span></span>
+      </p>
     </div>
-  <!-- THE HEADER -->
+  </div>
+
   <!-- THE HEADER -->
   <%@ include file="/WEB-INF/views/includes/header.jsp"%>
 
   <!-- MAIN CONTENT -->
-  	<!-- MAIN CONTENT -->
-	<div id="content-block">
-		<div class="container be-detail-container">
-			<h2 class="content-title">Our Blog</h2>
-			<div class="blog-wrapper blog-list blog-fullwith">
 
-				<div class="row">
-					<div class="col-xs-12 col-md-10 col-md-offset-1">
-						<div class="blog-post be-large-post type-2">
-							<div class="info-block clearfix">
-								<div class="be-large-post-align">
-									<span><i class="fa fa-thumbs-o-up"></i> 253</span>
-									<span><i class="fa fa-eye"></i> 753</span>
-									<span><i class="fa fa-comment-o"></i> 50</span>
-									<span class="be-text-tags">
-										<a href="blog-detail-2.html" class="be-post-tag">Interactiob design</a>, 
-										<a href="blog-detail-2.html" class="be-post-tag">UI/UX</a>,  
-										<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>
-									</span>										
-								</div>
-							</div>
-							<div class="be-large-post-align blog-content">
-								<div class="be-text-tags clearfix custom-a-b">
-									<div class="post-date">
-										<i class="fa fa-clock-o"></i> April 23, 2015
-									</div>
-									<div class="author-post">
-										<img src="img/a1.png" alt="" class="ava-author">
-										<span>by <a href="blog-detail-2.html">Hoang Nguyen</a></span>
-									</div>
-								</div>				
-								<h3 class="be-post-title">
-									Monkey in da Space
-								</h3>
-								<div class="post-text">
-									<p>
-										Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec felis efficitur, lobortis erat et, placerat elit. Proin at ligula lorem. In viverra neque auctor metus consectetur varius. Cras sollicitudin arcu eu tincidunt tristique. Donec accumsan hendrerit nunc sit amet interdum. Donec rhoncus a lacus quis imperdiet.Nam tempus vitae sem pellentesque aliquam.
-									</p>
-								</div>
-							</div>
-							<div class="embed-responsive embed-responsive-16by9">
-								<iframe src="https://player.vimeo.com/video/63528500"></iframe>
-							</div>
-							<div class="blog-content be-large-post-align">
-								<div class="post-text ">						
-									<p>Phasellus feugiat pulvinar sagittis. Vivamus sit amet purus quis magna laoreet suscipit in sit amet nisl. Etiam tempus tortor in interdum consectetur. Etiam gravida tellus leo. Mauris pulvinar ut leo in varius. Mauris iaculis bibendum tempus. Proin eget dolor lobortis, facilisis nisi sit amet, varius quam. Nam eu facilisis lorem. In hac habitasse platea dictumst. Aenean enim massa, viverra in diam ac, gravida egestas risus.</p>
+  <div id="content-block">
+        <!-- 소모임 새로만들기 버튼 스타일  -->
+      <style>
+      .button {
+        display: inline-block;
+        border-radius: 4px;
+        background-color: #0d58c8;
+        border: none;
+        color: #FFFFFF;
+        text-align: center;
+        padding: 10px;
+        height: 45px;
+        width: 130px;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 5px;
+        transition: all 0.5s;
+      }
+      
+      .button span {
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        transition: 0.5s;
+      }
+      
+      .button span:after {
+        content: '\00bb';
+        position: absolute;
+        opacity: 0;
+        top: 0;
+        right: -20px;
+        transition: 0.5s;
+      }
+      
+      .button:hover span {
+        padding-right: 25px;
+      }
+      
+      .button:hover span:after {
+        opacity: 1;
+        right: 0;
+      }
+      </style>
 
-									<p>Morbi quis ante erat. Nulla sodales, diam at accumsan mattis, dolor eros accumsan nisi, non porttitor ipsum nunc sit amet dolor.Duis vehicula odio sed consectetur tincidunt. Vestibulum vitae elementum ipsum. Nam porttitor quam vitae ex sollicitudin, bibendum fermentum nulla aliquet. Proin gravida ac risus eu scelerisque. Cras placerat vehicula arcu sed luctus.</p>
-									<img class="img-leftblog" src="img/blog_img_3.jpg" alt="">
-									<p>Sed laoreet tincidunt purus, tempus viverra sapien fringilla sit amet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in sem lectus. Sed ut augue suscipit, vehicula ante sit amet</p>
+      <!-- 소모임 새로만들기 버튼  -->
+      <button type="button" id="regBtn" class="button"
+        style="vertical-align: middle; float: right; font-size: 12pt;"
+        onclick="location.href='http://localhost/salmon/group/register'">
+        <span>게시물 작성</span>
+      </button>
+      
+  
+    <div class="container be-detail-container">
+      <div class="row">
+        <div class="col-xs-12 col-md-4 left-feild">
+          <!-- 왼쪽 소모임 상세 리스트  -->
+          <div class="be-user-block style-3">
+          <!-- 소모임 기본 프로필 사진 설정을 위한 CSS -->
+            <style>
+            .be-ava-user.style-2>img {
+            	width: 200px;
+            	height: 200px;
+            }
+            </style>
+            <div class="be-user-detail">
+              <a class="be-ava-user style-2" href="page1.html"
+                style="width: 200px; height: 200px;"> <img
+                width="200px;" height="200px;"
+                src="https://images.unsplash.com/photo-1525336001612-b942036da7b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1784&q=80"
+                alt="">
+              </a>
 
-									<p>Sed laoreet tincidunt purus, tempus viverra sapien fringilla sit amet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in sem lectus. Sed ut augue suscipit, vehicula ante sit amet</p>
 
-									<p>Sed laoreet tincidunt purus, tempus viverra sapien fringilla sit amet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Donec in sem lectus. Sed ut augue suscipit, vehicula ante sit amet</p>
+              <!-- =========== C태그 활용한 소모임 제목 / 소모임 상세 정보 띄우기   -->
+              <p class="be-use-name"><c:out value="${groups.group_title}" />
+              </p>
+              <div class="be-user-info">
+              <c:out value="${groups.group_description}" />
+              </div>
+              
+              <!-- 소모임 (가입)팔로우 여부 확인을 위한 Modal-fade 띄우기  -->
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog"  style="font-family: 'Noto Sans KR', sans-serif;">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                      <h4 class="modal-title" id="myModalLabel">소모임 가입</h4>
+                    </div>
+                    <div class="modal-body">
+                      소모임에 가입하시겠습니까? 
+                      <br>
+                      <button type="button" class="btn btn-primary" style="margin: 10px;" onclick="haerimAddFunction()">가입 </button>
+                    <div id="snackbar"> 소모임 가입이 완료되었습니다. 소모임을 즐겨보세요 :-)  </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <!-- 소모임 가입 완료를 위한 JS 스낵바 -->
+            <script type="text/javascript">
+            function haerimAddFunction(){
+                 var x = document.getElementById("snackbar");
+                  x.className = "show";
+                  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+              
+            }
+            </script>
 
-									<p>Quisque eget cursus nulla, sit amet sodales odio. Phasellus faucibus efficitur est a posuere. Donec tristique nisl eu ornare fringilla. Vivamus lacinia accumsan odio, in semper nunc.  Donec tristique nisl eu ornare fringilla. Vivamus lacinia accumsan odio, in semper nunc</p>
+              
+              <!-- ============== a태그 누르면 가입 모달 띄우기 ================= -->
+              <div class="be-user-activity-block"  style="font-family: 'Noto Sans KR', sans-serif;">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <!-- FOLLOW -->
+                    <a data-toggle="modal" data-target="#myModal" class="be-user-activity-button be-follow-type" style="font-family: Noto Sans KR, sans-serif; font-size: 8.5pt; padding: 5px; text-align: center;">
+                    <i class="fa fa-plus"></i>소모임 참여</a>
+                  </div>
+                  <div class="col-lg-6">
+                    <!-- MESSAGE -->
+                    <a class="col-lg-6 be-user-activity-button send-btn be-message-type">
+                      <i class="fa fa-envelope-o"></i>MESSAGE
+                    </a>
+                    <!-- ============소모임 메시지 팝업 ====== -->
+                    <div class="large-popup send-m">
+                      <div class="large-popup-fixed"></div>
+                      <div class="container large-popup-container">
+                        <div class="row">
+                          <div class="col-md-10 col-md-push-1 col-lg-8 col-lg-push-2 large-popup-content">
+                            <div class="row">
+                              <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+                                <i class="fa fa-times close-m close-button"></i>
+                                <h5 class="large-popup-title"> ♥ 소모임에 메시지 보내기 ♥</h5>
+                                <div class="form-group">
+                                  <textarea class="form-input" required="" placeholder="Your text"></textarea>
+                                </div>
+                                <a class="btn btn-right color-1 size-1 hover-1" onclick="hyerimFunction()">send message</a>
+                                <div id="snackbar1"> 메시지가 등록되었습니다. :-) </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+<script type="text/javascript">
+function hyerimFunction(){
+	   var x = document.getElementById("snackbar1");
+	    x.className = "show";
+	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+</script>
 
-									<p>Aliquam et sem quis risus ornare ullamcorper eu non elit. In egestas porttitor hendrerit. Fusce lacinia iaculis nibh, quis consectetur neque volutpat nec.</p>
+<style>
+#snackbar,#snackbar1 {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
 
-									<img class="img-fullblog" src="img/blog_img_4.jpg" alt="">
+#snackbar.show, #snackbar1.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
 
-									<p>Duis vehicula odio sed consectetur tincidunt. Vestibulum vitae elementum ipsum. Nam porttitor quam vitae ex sollicitudin, bibendum fermentum nulla aliquet. Proin gravida ac risus eu scelerisque. Cras placerat vehicula arcu sed luctus. Vivamus ullamcorper convallis tortor in faucibus. tempus. Eget pharetra ex interdum.</p>	
-								</div>
-							</div>
-							<div class="be-large-post-align">
-								<div class="row">
-									<div class="col-xs-12 col-sm-6">
-										<div class="be-bottom">
-											<h4 class="be-bottom-title">Tags</h4>
-											<div class="tags_block clearfix">
-												<ul>
-													<li><a href="blog-detail-2.html">photoshop</a></li>
-													<li><a href="blog-detail-2.html">national geographic</a></li>
-													<li><a href="blog-detail-2.html">nature</a></li>
-													<li><a href="blog-detail-2.html">responsive web design</a></li>
-													<li><a href="blog-detail-2.html">animals</a></li>
-												</ul>
-											</div>									
-										</div>
-									</div>
-									<div class="col-xs-12 col-sm-6">
-										<div class="be-bottom right">
-											<h4 class="be-bottom-title">Share</h4>
-											<ul class="soc_buttons light">
-												<li><a href=""><i class="fa fa-facebook"></i></a></li>
-												<li><a href=""><i class="fa fa-twitter"></i></a></li>
-												<li><a href=""><i class="fa fa-google-plus"></i></a></li>
-												<li><a href=""><i class="fa fa-pinterest-p"></i></a></li>
-												<li><a href=""><i class="fa fa-instagram"></i></a></li>
-												<li><a href=""><i class="fa fa-linkedin"></i></a></li>
-											</ul>
-										</div>
-									</div>
-								</div>							
-							</div>
-						</div>
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
 
-						<h3 class="letf-menu-article">Related Posts</h3>
-						<div class="row">
-							<div class="col-xs-12 col-sm-6">
-								<div class="be-post style-2 nav-post">
-									<div class="be-post-date">
-										<a href="blog-detail-2.html">Previous post</a>
-									</div>
-									<a href="blog-detail-2.html" class="be-post-title">
-										Polygonal bear. Its all about poly.</a>     	
-									<a href="blog-detail-2.html" class="be-img-block">
-										<img src="img/be_post_3.jpg" alt="omg">
-									</a>
-								</div>							
-							</div>
-							<div class="col-xs-12 col-sm-6">
-								<div class="be-post style-2 nav-post nav-next">
-									<div class="be-post-date">
-										<a href="blog-detail-2.html">Next post</a>
-									</div>
-									<a href="blog-detail-2.html" class="be-post-title">
-										Wonderfiull house. The fairy tail in pictures
-									</a>     	
-									<a href="blog-detail-2.html" class="be-img-block">
-										<img src="img/be_post_5.jpg" alt="omg">
-									</a>
-								</div>							
-							</div>														
-						</div>
-						<div class="be-comment-block">
-							<h1 class="comments-title">Comments (3)</h1>
-							<div class="be-comment">
-								<div class="be-img-comment">	
-									<a href="blog-detail-2.html">
-										<img src="img/c1.png" alt="" class="be-ava-comment">
-									</a>
-								</div>
-								<div class="be-comment-content">
-									
-										<span class="be-comment-name">
-											<a href="blog-detail-2.html">Ravi Sah</a>
-											</span>
-										<span class="be-comment-time">
-											<i class="fa fa-clock-o"></i>
-											May 27, 2015 at 3:14am
-										</span>
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
 
-									<p class="be-comment-text">
-										Pellentesque gravida tristique ultrices. 
-										Sed blandit varius mauris, vel volutpat urna hendrerit id. 
-										Curabitur rutrum dolor gravida turpis tristique efficitur.
-									</p>
-								</div>
-							</div>
-							<div class="be-comment">
-								<div class="be-img-comment">	
-									<a href="blog-detail-2.html">
-										<img src="img/c4.png" alt="" class="be-ava-comment">
-									</a>
-								</div>
-								<div class="be-comment-content">
-									<span class="be-comment-name">
-										<a href="blog-detail-2.html">Phoenix, the Creative Studio</a>
-									</span>
-									<span class="be-comment-time">
-										<i class="fa fa-clock-o"></i>
-										May 27, 2015 at 3:14am
-									</span>
-									<p class="be-comment-text">
-										Nunc ornare sed dolor sed mattis. In scelerisque dui a arcu mattis, at maximus eros commodo. Cras magna nunc, cursus lobortis luctus at, sollicitudin vel neque. Duis eleifend lorem non ant. Proin ut ornare lectus, vel eleifend est. Fusce hendrerit dui in turpis tristique blandit.
-									</p>
-								</div>
-							</div>
-							<div class="be-comment">
-								<div class="be-img-comment">	
-									<a href="blog-detail-2.html">
-										<img src="img/c5.png" alt="" class="be-ava-comment">
-									</a>
-								</div>
-								<div class="be-comment-content">
-									<span class="be-comment-name">
-										<a href="blog-detail-2.html">Cüneyt ŞEN</a>
-									</span>
-									<span class="be-comment-time">
-										<i class="fa fa-clock-o"></i>
-										May 27, 2015 at 3:14am
-									</span>
-									<p class="be-comment-text">
-										Cras magna nunc, cursus lobortis luctus at, sollicitudin vel neque. Duis eleifend lorem non ant
-									</p>
-								</div>
-							</div>
-							<form class="form-block">
-								<div class="row">
-									<div class="col-xs-12 col-sm-6">
-										<div class="form-group fl_icon">
-											<div class="icon"><i class="fa fa-user"></i></div>
-											<input class="form-input" type="text" placeholder="Your name">
-										</div>
-									</div>
-									<div class="col-xs-12 col-sm-6 fl_icon">
-										<div class="form-group fl_icon">
-											<div class="icon"><i class="fa fa-envelope-o"></i></div>
-											<input class="form-input" type="text" placeholder="Your email">
-										</div>
-									</div>
-									<div class="col-xs-12">									
-										<div class="form-group">
-											<textarea class="form-input" required="" placeholder="Your text"></textarea>
-										</div>
-									</div>
-									<a class="btn color-1 size-2 hover-1 pull-right">submit</a>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- THE FOOTER -->
-	<footer>
-		<div class="footer_slider">
-			<div class="swiper-container" data-autoplay="0" data-loop="1" data-speed="500" data-center="0" data-slides-per-view="responsive" data-xs-slides="4" data-sm-slides="8" data-md-slides="14" data-lg-slides="19" data-add-slides="19">
-	            <div class="swiper-wrapper">
-	            	<div class="swiper-slide active" data-val="0">
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
 
-						<a href="gallery.html">				<img class="img-responsive img-full" src="img/f1.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="1">
-						<a href="gallery.html">
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+</style>
 
-	            		 	 <img class="img-responsive img-full" src="img/f2.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="2">
-						<a href="gallery.html">
 
-	            		 	 <img class="img-responsive img-full" src="img/f3.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="3">
-						<a href="gallery.html">
+              <div class="be-text-tags style-2" style="color: #383b43;">
+                <a href="#" style="color: #383b43;">소모임</a>, 
+                <a href="#" style="color: #383b43;">관심사 취미</a>, 
+                <a href="#" style="color: #383b43;">소비패턴</a>
+              </div>
 
-	            		 	 <img class="img-responsive img-full" src="img/f4.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="4">
-						<a href="gallery.html">
 
-	            		 	 <img class="img-responsive img-full" src="img/f5.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="5">
-						<a href="gallery.html">
+              <!-- =========소셜 정보 div -->
+              <div class="be-user-social">
+                <a class="social-btn color-1" href="#"><i class="fa fa-facebook"></i></a> 
+                <a class="social-btn color-2" href="#"><i class="fa fa-twitter"></i></a> 
+                <a class="social-btn color-3" href="#"><i class="fa fa-google-plus"></i></a> 
+                <a class="social-btn color-4" href="#"><i class="fa fa-pinterest-p"></i></a> 
+                <a class="social-btn color-5" href="#"><i class="fa fa-instagram"></i></a> 
+                <a class="social-btn color-6" href="#"><i class="fa fa-linkedin"></i></a>
+              </div>
+              <a class="be-user-site" href="http://www.phoenix.cool"><i
+                class="fa fa-link"></i> www.GAGYEViEW.com</a>
+            </div>
+            <!-- =========검은색 리스트 내용 리스트 -->
+            <div class="be-user-statistic">
+              <div class="stat-row clearfix">
+                <i class="stat-icon icon-views-b"></i> 방문자<span
+                  class="stat-counter">218098</span>
+              </div>
+              <div class="stat-row clearfix">
+                <i class="stat-icon icon-like-b"></i> 공감 <span
+                  class="stat-counter">14335</span>
+              </div>
+              <div class="stat-row clearfix">
+                <i class="stat-icon icon-followers-b"></i>Followers<span
+                  class="stat-counter">2208</span>
+              </div>
+              <div class="stat-row clearfix">
+                <i class="stat-icon icon-following-b"></i>Following<span
+                  class="stat-counter">0</span>
+              </div>
+            </div>
+          </div>
 
-	            		 	 <img class="img-responsive img-full" src="img/f6.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="6">
-						<a href="gallery.html">
 
-	            		 	 <img class="img-responsive img-full" src="img/f7.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="7">
-						<a href="gallery.html">
+          <!-- ======================= 주요 상세 리스트 끝 =================== -->
 
-	            		 	 <img class="img-responsive img-full" src="img/f8.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="8">
-						<a href="gallery.html">
 
-	            		 	 <img class="img-responsive img-full" src="img/f9.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="9">
-						<a href="gallery.html">
+          <!-- ======================= 소모임 소개  =================== -->
+          <div class="be-desc-block">
+            <div class="be-desc-author">
+              <div class="be-desc-label">About Me</div>
+              <div class="clearfix"></div>
+              <div class="be-desc-text" style="color: #383b43;">너와 나의 연결 고리!<br>
+                취미 생활 소비 생활 크루 찾기! <br>
+                같은 취향과 소비 패턴을 가진 사람들과 소비 생활을 즐겨요!<br>
+                
+                
+                </div>
+            </div>
+            <div class="be-desc-author">
+              <div class="be-desc-label">My Values</div>
+              <div class="clearfix"></div>
+              <div class="be-desc-text" style="color: #383b43;">소모임 크루와 워라밸, 효율적인 소비패턴을 배우며 소확행을 시작해요 :) <br>
+                오프라인, 온라인 정모를 중심으로, 활발하게 활동을 하고 있습니다!<br>
+                
+                문화 활동 및 레저스포츠 소모임을 통해 더 여유롭고 행복한 삶을 만들어 보세요.<br>
+                
+                </div>
+            </div>
+            <div class="be-desc-author">
+              <div class="be-desc-label">My Skills</div>
+              <div class="clearfix"></div>
+              <div class="be-desc-text" style="color: #383b43;">누구나 쉽게 가입하고 직접 개설할 수 있어요. :)<br>
+              다양한 소비 정보가 모여있는 소모임에서 배우고 즐겨요.<br>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-8">
+          <!--  =========================== 주요 컨텐츠 내용 스타트 ========================= -->
+          <div class="tab-wrapper style-1">
+            <div class="tab-nav-wrapper">
+              <div class="nav-tab  clearfix">
+                <div class="nav-tab-item active">
+                  <span>정보</span>
+                </div>
+                <div class="nav-tab-item ">
+                  <span>게시판</span>
+                </div>
+                <div class="nav-tab-item ">
+                  <span>사진첩</span>
+                </div>
+                <div class="nav-tab-item ">
+                  <span>방명록</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="tabs-content clearfix" style="font-family: 'Noto Sans KR', sans-serif;">
+              <!-- =============== 첫번째 정보 =============== -->
+              <div class="tab-info active">
+                <div class="row">
+                      <h2>  <c:out value="${groups.group_title}" /> </h2>     
+                          <h3> 소모임 간단 소개 : <c:out value="${groups.group_description}" /> </h3>        
+              <h4> 소모임 방장 : <c:out value="${groups.user_id}" /> </h4>
+               
+              <h4> 소모임 현재인원 / 정원 : 현재인원 / <c:out value="${groups.group_people_max}" /></h4>
+             <h4> 소모임 카테고리 1 : <c:out value="${groups.ctgry_1}" /></h4>         
+                
+                <!-- 썸네일 프리뷰 : 사진 리스트 시작 -->
+                <div class="be-large-post-slider type-wide" style="margin: 0px;">
+                  <div class="swiper-container thumbnails-preview" data-autoplay="0" data-loop="1" data-speed="500" data-center="0" data-slides-per-view="1">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide active" data-val="0">
+                                   <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1517840933437-c41356892b35?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
+                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>
+                                </div>
+                                <div class="swiper-slide" data-val="1">
+                                   <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1495837174058-628aafc7d610?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
+                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>                               
+                                </div>
+                                <div class="swiper-slide" data-val="2">
+                                   <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80" alt="">
+                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>                               
+                                </div>
+                                <div class="swiper-slide" data-val="3">
+                                   <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
+                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>                               
+                                </div>
+                                <div class="swiper-slide" data-val="4">
+                                   <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1536010447069-d2c8af80c584?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
+                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>                               
+                                </div>
+                              </div>
+                            <div class="pagination hidden"></div>
+                            <div class="swiper-arrow-left type-2"></div>
+                            <div class="swiper-arrow-right type-2"></div>
+                        </div>
+                        <div class="swiper-container thumbnails" data-autoplay="0" 
+                        data-loop="0" data-speed="500" data-center="0" 
+                        data-slides-per-view="responsive" data-xs-slides="3" 
+                        data-sm-slides="5" data-md-slides="5" data-lg-slides="5" 
+                        data-add-slides="5">
+                            <div class="swiper-wrapper">
+                      <div class="swiper-slide current active" data-val="0">
+                        <img src="https://images.unsplash.com/photo-1517840933437-c41356892b35?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
+                      </div>
+                      <div class="swiper-slide" data-val="1">
+                        <img src="https://images.unsplash.com/photo-1495837174058-628aafc7d610?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
+                      </div>
+                      <div class="swiper-slide" data-val="2">
+                        <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80" alt="">
+                      </div>
+                      <div class="swiper-slide" data-val="3">
+                        <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
+                      </div>
+                      <div class="swiper-slide" data-val="4">
+                        <img src="https://images.unsplash.com/photo-1536010447069-d2c8af80c584?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
+                      </div>
+                    </div>
+                    <div class="pagination hidden"></div>
+                  </div>
+                </div>
+                
+                
+        
 
-	            		 	 <img class="img-responsive img-full" src="img/f10.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="10">
-						<a href="gallery.html">
+                </div>
+              </div>
+              <div class="tab-info">
+                <!-- ==================== 게시판 ====================-->
+                <div class="row">
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p8.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Racing
+                        Queensland</a> <span> <a href="page1.html"
+                        class="be-post-tag">Interaction Design</a>, <a
+                        href="page1.html" class="be-post-tag">UI/UX</a>,
+                        <a href="page1.html" class="be-post-tag">Web
+                          Design</a>
+                      </span>
+                      <div class="author-post">
+                        <img src="img/a7.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span>
+                      </div>
+                      <div class="info-block">
+                        <span><i class="fa fa-thumbs-o-up"></i>
+                          360</span> <span><i class="fa fa-eye"></i> 789</span>
+                        <span><i class="fa fa-comment-o"></i> 20</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p12.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Face</a>
+                      <span> <a href="page1.html"
+                        class="be-post-tag">Interaction Design</a>, <a
+                        href="page1.html" class="be-post-tag">UI/UX</a>,
+                        <a href="page1.html" class="be-post-tag">Web
+                          Design</a>
+                      </span>
+                      <div class="author-post">
+                        <img src="img/a6.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span>
+                      </div>
+                      <div class="info-block">
+                        <span><i class="fa fa-thumbs-o-up"></i>
+                          360</span> <span><i class="fa fa-eye"></i> 789</span>
+                        <span><i class="fa fa-comment-o"></i> 20</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p2.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Treebeard</a>
+                      <span> <a href="page1.html"
+                        class="be-post-tag">Interaction Design</a>, <a
+                        href="page1.html" class="be-post-tag">UI/UX</a>,
+                        <a href="page1.html" class="be-post-tag">Web
+                          Design</a>
+                      </span>
+                      <div class="author-post">
+                        <img src="img/a1.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span>
+                      </div>
+                      <div class="info-block">
+                        <span><i class="fa fa-thumbs-o-up"></i>
+                          360</span> <span><i class="fa fa-eye"></i> 789</span>
+                        <span><i class="fa fa-comment-o"></i> 20</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p3.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Colors
+                        of Ramadan</a> <span> <a href="page1.html"
+                        class="be-post-tag">Interaction Design</a>, <a
+                        href="page1.html" class="be-post-tag">UI/UX</a>,
+                        <a href="page1.html" class="be-post-tag">Web
+                          Design</a>
+                      </span>
+                      <div class="author-post">
+                        <img src="img/a2.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span>
+                      </div>
+                      <div class="info-block">
+                        <span><i class="fa fa-thumbs-o-up"></i>
+                          360</span> <span><i class="fa fa-eye"></i> 789</span>
+                        <span><i class="fa fa-comment-o"></i> 20</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p4.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Leaving
+                        Home - L'Officiel Ukraine</a> <span> <a
+                        href="page1.html" class="be-post-tag">Interaction
+                          Design</a>, <a href="page1.html"
+                        class="be-post-tag">UI/UX</a>, <a
+                        href="page1.html" class="be-post-tag">Web
+                          Design</a>
+                      </span>
+                      <div class="author-post">
+                        <img src="img/a3.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span>
+                      </div>
+                      <div class="info-block">
+                        <span><i class="fa fa-thumbs-o-up"></i>
+                          360</span> <span><i class="fa fa-eye"></i> 789</span>
+                        <span><i class="fa fa-comment-o"></i> 20</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p7.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">raindrops
+                        monochrome</a> <span> <a href="page1.html"
+                        class="be-post-tag">Interaction Design</a>, <a
+                        href="page1.html" class="be-post-tag">UI/UX</a>,
+                        <a href="page1.html" class="be-post-tag">Web
+                          Design</a>
+                      </span>
+                      <div class="author-post">
+                        <img src="img/a6.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span>
+                      </div>
+                      <div class="info-block">
+                        <span><i class="fa fa-thumbs-o-up"></i>
+                          360</span> <span><i class="fa fa-eye"></i> 789</span>
+                        <span><i class="fa fa-comment-o"></i> 20</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p9.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">NAHA
+                        Finalist Hairstylist of the Year Allen Ruiz</a> <span>
+                        <a href="page1.html" class="be-post-tag">Interaction
+                          Design</a>, <a href="page1.html"
+                        class="be-post-tag">UI/UX</a>, <a
+                        href="page1.html" class="be-post-tag">Web
+                          Design</a>
+                      </span>
+                      <div class="author-post">
+                        <img src="img/a7.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span>
+                      </div>
+                      <div class="info-block">
+                        <span><i class="fa fa-thumbs-o-up"></i>
+                          360</span> <span><i class="fa fa-eye"></i> 789</span>
+                        <span><i class="fa fa-comment-o"></i> 20</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p13.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Stay
+                        Ahead Series</a> <span> <a href="page1.html"
+                        class="be-post-tag">Interaction Design</a>, <a
+                        href="page1.html" class="be-post-tag">UI/UX</a>,
+                        <a href="page1.html" class="be-post-tag">Web
+                          Design</a>
+                      </span>
+                      <div class="author-post">
+                        <img src="img/a5.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span>
+                      </div>
+                      <div class="info-block">
+                        <span><i class="fa fa-thumbs-o-up"></i>
+                          360</span> <span><i class="fa fa-eye"></i> 789</span>
+                        <span><i class="fa fa-comment-o"></i> 20</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p14.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Faber-Castell
+                        / Psychological Problems</a> <span> <a
+                        href="page1.html" class="be-post-tag">Interaction
+                          Design</a>, <a href="page1.html"
+                        class="be-post-tag">UI/UX</a>, <a
+                        href="page1.html" class="be-post-tag">Web
+                          Design</a>
+                      </span>
+                      <div class="author-post">
+                        <img src="img/a1.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span>
+                      </div>
+                      <div class="info-block">
+                        <span><i class="fa fa-thumbs-o-up"></i>
+                          360</span> <span><i class="fa fa-eye"></i> 789</span>
+                        <span><i class="fa fa-comment-o"></i> 20</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-info">
+                <div class="row">
+                  <!-- ============== 사진첩  ============== -->
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post style-4">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p16.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Wisdom
+                        For My Children, Life Lessons Through</a>
 
-	            		 	 <img class="img-responsive img-full" src="img/f11.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="11">
-						<a href="gallery.html">
+                      <div class="author-post clearfix">
+                        <img src="img/a1.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span> <span class="like-counter"><i
+                          class="fa fa-thumbs-o-up"></i> 405</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post style-4">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p17.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Créations
+                        Namale</a>
+                      <div class="author-post clearfix">
+                        <img src="img/a2.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span> <span class="like-counter"><i
+                          class="fa fa-thumbs-o-up"></i> 405</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post style-4">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p18.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Crossfit
+                        : 15.4 Open Workout</a>
+                      <div class="author-post clearfix">
+                        <img src="img/a3.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span> <span class="like-counter"><i
+                          class="fa fa-thumbs-o-up"></i> 405</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post style-4">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p15.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Garry
+                        Simpson - Bridges - Intelligent Life Magazine</a>
+                      <div class="author-post clearfix">
+                        <img src="img/a6.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span> <span class="like-counter"><i
+                          class="fa fa-thumbs-o-up"></i> 405</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post style-4">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p14.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Faber-Castell
+                        / Psychological Problems</a>
+                      <div class="author-post clearfix">
+                        <img src="img/a7.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span> <span class="like-counter"><i
+                          class="fa fa-thumbs-o-up"></i> 405</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post style-4">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p13.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Stay
+                        Ahead Series</a>
+                      <div class="author-post clearfix">
+                        <img src="img/a7.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span> <span class="like-counter"><i
+                          class="fa fa-thumbs-o-up"></i> 405</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post style-4">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p12.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Face</a>
+                      <div class="author-post clearfix">
+                        <img src="img/a6.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span> <span class="like-counter"><i
+                          class="fa fa-thumbs-o-up"></i> 405</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post style-4">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p19.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Promoção
+                        Facas Extra</a>
+                      <div class="author-post clearfix">
+                        <img src="img/a5.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span> <span class="like-counter"><i
+                          class="fa fa-thumbs-o-up"></i> 405</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post style-4">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p11.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Tropicalia</a>
+                      <div class="author-post clearfix">
+                        <img src="img/a1.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span> <span class="like-counter"><i
+                          class="fa fa-thumbs-o-up"></i> 405</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post style-4">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p10.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">tomorrow</a>
+                      <div class="author-post clearfix">
+                        <img src="img/a1.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span> <span class="like-counter"><i
+                          class="fa fa-thumbs-o-up"></i> 405</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post style-4">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p9.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">NAHA
+                        Finalist Hairstylist of the Year Allen Ruiz</a>
+                      <div class="author-post clearfix">
+                        <img src="img/a1.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span> <span class="like-counter"><i
+                          class="fa fa-thumbs-o-up"></i> 405</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-ml-12 col-xs-6 col-sm-4">
+                    <div class="be-post style-4">
+                      <a href="page1.html" class="be-img-block"> <img
+                        src="img/p8.jpg" alt="omg">
+                      </a> <a href="page1.html" class="be-post-title">Racing
+                        Queensland</a>
+                      <div class="author-post clearfix">
+                        <img src="img/a1.png" alt="" class="ava-author">
+                        <span>by <a href="page1.html">Hoang
+                            Nguyen</a></span> <span class="like-counter"><i
+                          class="fa fa-thumbs-o-up"></i> 405</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-info">
+                <!-- ============== 방명록  ============== -->
+                
+                    <div class="be-comment-block">
+            <h1 class="comments-title">Comments (<span name="comment-num" id="comment-num-<c:out value="${myArticle.article_id}"/>"><c:out value="${myArticle.comments.size()}"/></span>)</h1>
+            <p class="about-comment-block">
+              <!-- You must <a href="blog-detail-2.html" class="be-signup-link">SIGN UP</a>
+               to join the conversation. -->
+            </p>
+            
+            <div name="comment-area">
+            <c:choose>
+            <c:when test="${myArticle.comments.size() ne 0}">
+              <c:forEach var="comment" items="${myArticle.comments}">
+              <div class="be-comment">
+              <input type="hidden" name="comment-id" value="${comment.comment_id}">
+              <input type="hidden" name="article-id" value="${comment.article_id}">
+                  <div class="be-img-comment">  
+                    <a href="/salmon/sns/feeds?userid=${comment.user_id}">
+                    <input type="hidden" name="user-comment-profile-photo" value="${comment.user_image}">
+                    <img src="" alt="" class="be-ava-comment">
+                    </a>
+                  </div>
+                  <div class="be-comment-content">
+                    <span class="be-comment-name">
+                      <a href="/salmon/sns/feeds?userid=${comment.user_id}">
+                      ${comment.user_nickname}
+                      </a>
+                    </span>
+                    <span class="be-comment-time">
+                    <c:if test="${me.user_id eq comment.user_id}">
+                      <span name="comment-delete-btn" class="comment-delete-btn">
+                      <input type="hidden" name="comment-id" value="${comment.comment_id}">
+                        <i class="fas fa-times"></i>삭제 
+                      </span>
+                    </c:if>
+                    <i class="fa fa-clock-o"></i>
+                    ${comment.comment_regdate}
+                    </span>
+                    <p class="be-comment-text">
+                    ${comment.comment_content}
+                    </p>
+                  </div>
+                </div>
+              </c:forEach>
+              </c:when>
+              <c:otherwise>
+              </c:otherwise>
+              </c:choose>
+              </div>
 
-	            		 	 <img class="img-responsive img-full" src="img/f12.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="12">
-						<a href="gallery.html">
+            <form id="reply-form-${myArticle.article_id}" method="get">
+              <div class="form-group">
+                <input type="hidden" name="article_id" value="${myArticle.article_id}">
+                <c:out value="${me.user_nickname}"/>
+                <input type="text" name="comment_content" required="required" class="form-input">
+                <input type="button" id="reply-write-btn-${myArticle.article_id}" class="btn-sjh pull-right" value="등록" style="margin:10px;">
+              </div>
+            </form>
 
-	            		 	 <img class="img-responsive img-full" src="img/f13.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="13">
-						<a href="gallery.html">
+          </div>
+                
+     
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-	            		 	 <img class="img-responsive img-full" src="img/f14.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="14">
-						<a href="gallery.html">
 
-	            		 	 <img class="img-responsive img-full" src="img/f15.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="15">
-						<a href="gallery.html">
 
-	            		 	 <img class="img-responsive img-full" src="img/f16.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="16">
-						<a href="gallery.html">
 
-	            		 	 <img class="img-responsive img-full" src="img/f17.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="17">
-						<a href="gallery.html">
+  <!-- THE FOOTER -->
+  <%@ include file="../includes/footer.jsp"%>
 
-	            		 	 <img class="img-responsive img-full" src="img/f18.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="18">
-						<a href="gallery.html">
-
-	            		 	 <img class="img-responsive img-full" src="img/f19.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="19">
-						<a href="gallery.html">
-
-	            		 	 <img class="img-responsive img-full" src="img/f1.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="20">
-						<a href="gallery.html">
-
-	            		 	 <img class="img-responsive img-full" src="img/f2.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="21">
-						<a href="gallery.html">
-
-	            		 	 <img class="img-responsive img-full" src="img/f3.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="22">
-						<a href="gallery.html">
-
-	            		 	 <img class="img-responsive img-full" src="img/f4.jpg" alt="">
-	            	 </a></div>
-	            	<div class="swiper-slide" data-val="23">
-						<a href="gallery.html">
-
-	            		 	 <img class="img-responsive img-full" src="img/f5.jpg" alt="">
-	            	 </a></div>
-	            </div>
-	            <div class="pagination hidden"></div>
-	        </div>
-        </div>	
-		<div class="footer-main">
-			<div class="container-fluid custom-container">
-				<div class="row">	
-					<div class="col-md-3 col-xl-4">
-						<div class="footer-block">
-							<h1 class="footer-title">About Us</h1>
-							<p>Vestibulum tincidunt, augue fermentum accumsan viverra, eros dui rutrum libero, nec imperdiet felis sem in augue luctus <a href="blog-detail-2.html">diam a porta</a> iaculis. Vivamus sit amet fermentum nisl. Duis id <a href="blog-detail-2.html">massa id purus</a> tristique varius a sit amet est. Fusce dolor libero, efficitur et lobortis at, faucibus nec nunc.</p>
-							<ul class="soc_buttons">
-								<li><a href=""><i class="fa fa-facebook"></i></a></li>
-								<li><a href=""><i class="fa fa-twitter"></i></a></li>
-								<li><a href=""><i class="fa fa-google-plus"></i></a></li>
-								<li><a href=""><i class="fa fa-pinterest-p"></i></a></li>
-								<li><a href=""><i class="fa fa-instagram"></i></a></li>
-								<li><a href=""><i class="fa fa-linkedin"></i></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-3 col-xl-2">
-						<div class="footer-block">
-							<h1 class="footer-title">Some Links</h1>
-							<div class="row footer-list-footer">
-								<div class="col-md-6">
-								<ul class="link-list">
-									<li><a href="about-us.html">About Us</a></li>
-									<li><a href="contact-us.html">Help</a></li>
-									<li><a href="contact-us.html">Contacts</a></li>
-									<li><a href="activity.html">Job</a></li>
-									<li><a href="activity.html">Projets</a></li>
-								</ul></div>
-								<div class="col-md-6">
-								<ul class="link-list">
-									<li><a href="activity.html">New Works</a></li>
-									<li><a href="author.html">Popular Authors</a></li>
-									<li><a href="author.html">New Authors</a></li>
-									<li><a href="people.html">Career</a></li>
-									<li><a href="faq">FAQ</a></li>
-								</ul>
-								</div>
-							</div>
-						</div>
-					</div>				
-					<div class="col-md-3 galerry">
-						<div class="footer-block">					
-							<h1 class="footer-title">Recent Works</h1>
-							<a href="blog-detail-2.html"><img src="img/g1.jpg" alt=""></a>
-							<a href="blog-detail-2.html"><img src="img/g2.jpg" alt=""></a>
-							<a href="blog-detail-2.html"><img src="img/g3.jpg" alt=""></a>
-							<a href="blog-detail-2.html"><img src="img/g4.jpg" alt=""></a>
-							<a href="blog-detail-2.html"><img src="img/g5.jpg" alt=""></a>
-							<a href="blog-detail-2.html"><img src="img/g6.jpg" alt=""></a>
-							<a href="blog-detail-2.html"><img src="img/g7.jpg" alt=""></a>
-							<a href="blog-detail-2.html"><img src="img/g8.jpg" alt=""></a>
-							<a href="blog-detail-2.html"><img src="img/g9.jpg" alt=""></a>
-							<a href="blog-detail-2.html"><img src="img/g10.jpg" alt=""></a>
-							<a href="blog-detail-2.html"><img src="img/g11.jpg" alt=""></a>
-							<a href="blog-detail-2.html"><img src="img/g12.jpg" alt=""></a>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="footer-block">
-							<h1 class="footer-title">Subscribe On Our News</h1>
-							<form action="./" class="subscribe-form">
-								<input type="text" placeholder="Yout Name" required>
-								<div class="submit-block">
-									<i class="fa fa-envelope-o"></i>
-									<input type="submit" value="">
-								</div>
-							</form>
-							<div class="soc-activity">
-								<div class="soc_ico_triangle">
-									<i class="fa fa-twitter"></i>
-								</div>
-								<div class="message-soc">
-									<div class="date">16h ago</div>
-									<a href="blog-detail-2.html" class="account">@faq</a> vestibulum accumsan est <a href="blog-detail-2.html" class="heshtag">blog-detail-2.htmlmalesuada</a> sem auctor, eu aliquet nisi ornare leo sit amet varius egestas.
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="footer-bottom">
-			<div class="container-fluid custom-container">
-				<div class="col-md-12 footer-end clearfix">
-					<div class="left">
-						<span class="copy">© 2015. All rights reserved. <span class="white"><a href="blog-detail-2.html"> NRGNetwork</a></span></span>
-						<span class="created">Created with LOVE by <span class="white"><a href="blog-detail-2.html"> NRGThemes</a></span></span>
-					</div>
-					<div class="right">
-						<a class="btn color-7 size-2 hover-9">About Us</a>
-						<a class="btn color-7 size-2 hover-9">Help</a>
-						<a class="btn color-7 size-2 hover-9">Privacy Policy</a>
-					</div>
-				</div>			
-			</div>
-		</div>		
-	</footer>
-
-	<div class="be-fixed-filter"></div>
-	
-	<div class="large-popup login">
-		<div class="large-popup-fixed"></div>
-		<div class="container large-popup-container">
-			<div class="row">
-				<div class="col-md-8 col-md-push-2 col-lg-6 col-lg-push-3  large-popup-content">
-					<div class="row">
-						<div class="col-md-12">
-							<i class="fa fa-times close-button"></i>
-							<h5 class="large-popup-title">Log in</h5>
-						</div>
-						<form action="./" class="popup-input-search">
-						<div class="col-md-6">
-							<input class="input-signtype" type="email" required="" placeholder="Your email">
-						</div>
-						<div class="col-md-6">
-							<input class="input-signtype" type="password" required="" placeholder="Password">
-						</div>
-						<div class="col-xs-6">
-							<div class="be-checkbox">
-							<label class="check-box">
-								    <input class="checkbox-input" type="checkbox" value="" /> <span class="check-box-sign"></span>
-								</label>
-								<span class="large-popup-text">
-									Stay signed in
-								</span>
-							</div>
-							
-							<a href="blog-detail-2.html" class="link-large-popup">Forgot password?</a>
-						</div>
-						<div class="col-xs-6 for-signin">
-							<input type="submit" class="be-popup-sign-button" value="SIGN IN">
-						</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="large-popup register">
-		<div class="large-popup-fixed"></div>
-		<div class="container large-popup-container">
-			<div class="row">
-				<div class="col-md-10 col-md-push-1 col-lg-8 col-lg-push-2 large-popup-content">
-					<div class="row">
-						<div class="col-md-12">
-							<i class="fa fa-times close-button"></i>
-							<h5 class="large-popup-title">Register</h5>
-						</div>
-						<form action="./" class="popup-input-search">
-						<div class="col-md-6">
-							<input class="input-signtype" type="text" required="" placeholder="First Name">
-						</div>
-						<div class="col-md-6">
-							<input class="input-signtype" type="text" required="" placeholder="Last Name">
-						</div>
-						<div class="col-md-6">
-							<div class="be-custom-select-block">
-							<select class="be-custom-select">
-								<option value="" disabled selected>
-									Country
-								</option>
-								<option value="">USA</option>
-								<option value="">Canada</option>
-								<option value="">England</option>
-							</select>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<input class="input-signtype" type="text" required="" placeholder="Email">
-						</div>
-						<div class="col-md-6">
-							<input class="input-signtype" type="text" required="" placeholder="Password">
-						</div>
-						<div class="col-md-6">
-							<input class="input-signtype" type="text" required="" placeholder="Repeat Password">
-						</div>
-						<div class="col-md-12 be-date-block">
-							<span class="large-popup-text">
-								Date of birth
-							</span>
-							<div class="be-custom-select-block mounth">
-								<select class="be-custom-select">
-									<option value="" disabled selected>
-										Mounth
-									</option>
-									<option value="">January</option>	
-									<option value="">February</option>	
-									<option value="">March</option>	
-									<option value="">April</option>	
-									<option value="">May</option>	
-									<option value="">June</option>	
-									<option value="">July</option>	
-									<option value="">August</option>	
-									<option value="">September</option>	
-									<option value="">October</option>	
-									<option value="">November</option>	
-									<option value="">December</option>
-								</select>
-							</div>
-							<div class="be-custom-select-block">
-								<select class="be-custom-select">
-									<option value="" disabled selected>
-										Day
-									</option>
-									<option value="">1</option>
-									<option value="">2</option>
-									<option value="">3</option>
-									<option value="">4</option>
-									<option value="">5</option>
-									<option value="">6</option>
-									<option value="">7</option>
-									<option value="">8</option>
-									<option value="">9</option>
-									<option value="">10</option>
-									<option value="">11</option>
-									<option value="">12</option>
-									<option value="">13</option>
-									<option value="">14</option>
-									<option value="">15</option>
-									<option value="">16</option>
-									<option value="">17</option>
-									<option value="">18</option>
-									<option value="">19</option>
-									<option value="">20</option>
-									<option value="">21</option>
-									<option value="">22</option>
-									<option value="">23</option>
-									<option value="">24</option>
-									<option value="">25</option>
-									<option value="">26</option>
-									<option value="">27</option>
-									<option value="">28</option>
-									<option value="">29</option>
-									<option value="">30</option>
-								</select>
-							</div>
-							<div class="be-custom-select-block">
-								<select class="be-custom-select">
-									<option value="" disabled selected>
-										Year
-									</option>
-									<option value="">1996</option>
-									<option value="">1997</option>
-									<option value="">1998</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="be-checkbox">
-								<label class="check-box">
-								    <input class="checkbox-input" type="checkbox" required="" value=""/> <span class="check-box-sign"></span>
-								</label>
-								<span class="large-popup-text">
-									I have read and agree to the <a class="be-popup-terms" href="blog-detail-2.html">Terms of Use</a> and <a class="be-popup-terms" href="blog-detail-2.html">Privacy Policy</a>.
-								</span>
-							</div>
-							<div class="be-checkbox">
-								<label class="check-box">
-								    <input class="checkbox-input" type="checkbox" value=""/> <span class="check-box-sign"></span>
-								</label>
-								<span class="large-popup-text">
-									Send me notifications
-								</span>
-							</div>
-						</div>
-						<div class="col-md-6 for-signin">
-							<input type="submit" class="be-popup-sign-button" value="SIGN IN">
-						</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="theme-config">
-	    <div class="main-color">
-	        <div class="title">Main Color:</div>
-	        <div class="colours-wrapper">
-	            <div class="entry color1 m-color active" data-colour="style/stylesheet.css"></div>   
-	            <div class="entry color3 m-color"  data-colour="style/style-green.css"></div>
-	            <div class="entry color6 m-color"  data-colour="style/style-orange.css"></div>
-	            <div class="entry color8 m-color"  data-colour="style/style-red.css"></div>  
-	            <div class="title">Second Color:</div>  
-	            <div class="entry s-color  active color10"  data-colour="style/stylesheet.css"></div>
-	            <div class="entry s-color color11"  data-colour="style/style-oranges.css"></div> 
-	            <div class="entry s-color color12"  data-colour="style/style-greens.css"></div>
-	            <div class="entry s-color color13"  data-colour="style/style-reds.css"></div>
-	                       
-	        </div>
-	    </div>
-	   <div class="open"><img src="img/icon-134.png" alt=""></div>
-	</div>
-
-	<!-- SCRIPTS	 -->
-	<script src="script/jquery-2.1.4.min.js"></script>
-	<script src="script/bootstrap.min.js"></script>
-	<script src="script/idangerous.swiper.min.js"></script>
-	<script src="script/isotope.pkgd.min.js"></script>
-	<script src="script/jquery.viewportchecker.min.js"></script>		
-	<script src="script/global.js"></script>	
-	</body>
+  <!-- SCRIPTS	 -->
+  <script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>
+  <script src="/salmon/resources/template/script/bootstrap.min.js"></script>
+  <script
+    src="/salmon/resources/template/script/idangerous.swiper.min.js"></script>
+  <script src="/salmon/resources/template/script/isotope.pkgd.min.js"></script>
+  <script
+    src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
+  <script src="/salmon/resources/template/script/global.js"></script>
+</body>
 </html>
