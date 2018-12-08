@@ -38,4 +38,7 @@ public class SNSArticleDTO_sjh {
 	private List<LikeDTO> likes; //받은 좋아요  
 	private List<ScrapDTO> scraps; //스크랩  
 	private List<CommentDTO> comments; //댓글  
+	
+	private int article_like_num;
+	private int article_comment_num;
 }

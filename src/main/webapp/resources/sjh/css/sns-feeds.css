@@ -1,6 +1,6 @@
 a.ask-follow {
 	color: #FFF !important;
-	background: #0d58c8;
+	background: #298478;
 	border-radius: 2px;
 	line-height: 30px;
 	font-size: 10px;
@@ -81,8 +81,8 @@ a.ask-follow i {
     line-height: 10px;
     padding: 12px 19px 10px 19px;
     
-    background: #0d58c8;
-    border: 1px solid #0d58c8;
+    background: #298478;
+    border: 1px solid #298478;
 }
 
 .comment-delete-btn{

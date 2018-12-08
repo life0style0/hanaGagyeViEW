@@ -9,6 +9,8 @@ import kr.or.kosta.salmon.domain.FollowerDTO;
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
 import kr.or.kosta.salmon.domain.LikeDTO;
+import kr.or.kosta.salmon.domain.MainFeedArticlesDTO;
+import kr.or.kosta.salmon.domain.ReportDTO;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.SNSUserPageDTO;
 import kr.or.kosta.salmon.domain.ScrapDTO;
@@ -19,9 +21,20 @@ public interface SNSMapper {
 
 	//이 사용자의 팔로워/그룹/본인 게시글 목록 찾기
 	public ArrayList<SNSArticleDTO_sjh> getSNSArticles(String user_id);
-	
+	//이 사용자 기준 해시태그 목록
 	public ArrayList<HashTagGroupDTO> getHashTagGroup(String user_id);
+	//전체 글 해시태그 목록
+	public ArrayList<HashTagGroupDTO> getAllHashTagGroup();
 //	public ArrayList<MainGroupCtFeeDTO> getChartCategoryFee(String user_id);
+	
+	//전체 게시글중 인기글
+	public ArrayList<SNSArticleDTO_sjh> getSNSPopularArticles();
+	//전체 게시글중 최신글
+	public ArrayList<SNSArticleDTO_sjh> getSNSNewArticles();
+	//전체 게시글중 오늘의 인기글과 최신글
+	public MainFeedArticlesDTO getNewAndPopArticles();
+	//내 메인 피드 게시글
+	public MainFeedArticlesDTO getMyFeedArticles();
 	
 	//작성자로 글목록 찾기
 	public ArrayList<SNSArticleDTO_sjh> getSNSArticleByWriter(String user_id);
@@ -60,5 +73,9 @@ public interface SNSMapper {
 	public void deleteComment(int comment_id);
 	
 	public UserDTO getSimpleUser(String user_id);
+	
+	//게시글 신고
+	public boolean reportArticle(ReportDTO report);
+	
 	
 }

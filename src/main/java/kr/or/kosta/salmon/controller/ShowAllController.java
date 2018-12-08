@@ -38,7 +38,7 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 @Controller
-public class MainController {
+public class ShowAllController {
 	
 	@Inject
 	MainService mainService;
@@ -49,16 +49,21 @@ public class MainController {
 	@Inject
 	UserService userService;
 	
-	@GetMapping("/main/home")
-	public void mainHome(Principal principal, Model model) {
-		log.info("main컨트롤러 진입");
+	@GetMapping("/sns/showall")
+	public void showAllGET(Principal principal, Model model) {
+		log.info("전체 게시글 조회 페이지 요청 ");
 		String user_id = principal.getName();
-		ArrayList<HashTagGroupDTO> hashTagList = (ArrayList)mainService.getHashTagGroup(user_id);
-		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)snsService.getSNSArticles(user_id);
-
-		MainChartDTO mainchartIncomeInfo = mainService.getChartTotalIncomeFee(user_id);
-		MainChartDTO mainchartSpendInfo = mainService.getChartTotalSpendFee(user_id);
 		
+		
+	//	ArrayList<HashTagGroupDTO> hashTagList = (ArrayList)mainService.getHashTagGroup(user_id);
+		ArrayList<HashTagGroupDTO> hashTagList = snsService.getAllHashTagGroup();
+//		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)snsService.getSNSArticles(user_id);
+		ArrayList<SNSArticleDTO_sjh> newArticleList = snsService.getSNSNewArticles();
+		log.info(newArticleList);
+
+	//	MainChartDTO mainchartIncomeInfo = mainService.getChartTotalIncomeFee(user_id);
+	//	MainChartDTO mainchartSpendInfo = mainService.getChartTotalSpendFee(user_id);
+		/*
 		log.info("null test " +user_id);
 		if(mainchartIncomeInfo != null) {
 			mainchartIncomeInfo.setCtGroupFee(mainService.getChartCategoryIncomeFee(user_id));
@@ -68,16 +73,17 @@ public class MainController {
 			mainchartSpendInfo.setCtGroupFee(mainService.getChartCategorySpendFee(user_id));
 			log.info(mainchartSpendInfo.toString());
 		} 
-		model.addAttribute("mainchartIncomeInfo", mainchartIncomeInfo);
-		model.addAttribute("mainchartSpendInfo", mainchartSpendInfo);
-		model.addAttribute("articleList", articleList);
+		*/
+	//	model.addAttribute("mainchartIncomeInfo", mainchartIncomeInfo);
+	//	model.addAttribute("mainchartSpendInfo", mainchartSpendInfo);
+		model.addAttribute("newArticleList", newArticleList);
 		model.addAttribute("hashTagList", hashTagList);
 		
 		//ArrayList<SNSArticleDTO_sjh> articleListJSON = (ArrayList)snsService.getSNSArticles(user_id);
 		ObjectMapper objmapper= new ObjectMapper();
 		try {
-			String articleListJSON= objmapper.writeValueAsString(articleList);
-			model.addAttribute("articleListJSON", articleListJSON);
+			String newArticleListJSON= objmapper.writeValueAsString(newArticleList);
+			model.addAttribute("newArticleListJSON", newArticleListJSON);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -87,8 +93,8 @@ public class MainController {
 		ArrayList<SNSArticleDTO_sjh> newArticles= newAndPop.getNewArticles();
 		ArrayList<SNSArticleDTO_sjh> popularArticles= newAndPop.getPopArticles();
 		model.addAttribute("newArticles", newArticles);
-		model.addAttribute("popularArticles", popularArticles);
-		
+		model.addAttribute("popularArticles", popularArticles);*/
+		/*
 		try {
 			String newArticlesJSON = objmapper.writeValueAsString(newArticles);
 			String popularArticlesJSON = objmapper.writeValueAsString(popularArticles);
@@ -110,7 +116,7 @@ public class MainController {
 		
 	}
 	
-	@GetMapping("/main/image")
+/*	@GetMapping("/main/image")
     @ResponseBody
     public ResponseEntity<byte[]> getImage(String fileName) {
         log.info("getImage : " + fileName);
@@ -148,25 +154,5 @@ public class MainController {
 		return new ResponseEntity<>(userlist,HttpStatus.OK);
 	}
 	
-	/**
-	 * 게시글 신고
-	 * @param articleId
-	 * @param principal
-	 * @return
-	 */
-	@PostMapping(value="/main/article/report",
-			produces= {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> reportArticlePost(@RequestParam("user_id") String user_id,@RequestParam("article_id") int articleId, @RequestParam("report_reason") String report_reason, Principal principal) {
-		log.info(" 게시글 신고 요청  from "+user_id+" to "+articleId+" by "+report_reason);
-		ReportDTO report= new ReportDTO();
-		report.setUser_id(user_id);
-		report.setReport_reason(report_reason);
-		report.setArticle_id(articleId);
-		if (snsService.reportArticle(report)) {
-			return new ResponseEntity<>("success",HttpStatus.OK);
-		}else {
-			return new ResponseEntity<>("fail",HttpStatus.OK);
-		}
-		
-	}
+	*/
 }

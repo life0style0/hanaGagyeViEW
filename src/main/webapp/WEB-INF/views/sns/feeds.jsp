@@ -149,7 +149,7 @@
 
 				<div id="following-user-list" class="be-user-block">
 					<h3 class="letf-menu-article text-center">팔로잉하는 사용자</h3>
-					<div style="background-color:beige;">
+					<div>
 					<c:choose>
 					<c:when test="${followingList.size() != 0}">
 						<c:forEach var="followingUser" items="${followingList}">
@@ -169,7 +169,7 @@
 				</div>
 				<div id="joinging-group-list"  class="be-user-block">
 					<h3 class="letf-menu-article text-center">가입한 모임</h3>
-					<div style="background-color:beige;">
+					<div>
 					<c:choose>
 					<c:when test="${groupList.size() != 0}">
 						<c:forEach var="group" items="${groupList}">
@@ -226,10 +226,10 @@
 			<c:choose>
 			<c:when test="${myArticles.size() != 0}">
 			<c:forEach var="myArticle" items="${myArticles}">
-				<div style="background-color: beige;">
+				<div>
 				<!-- <div class="col-md-9 col-md-push-3" style="background-color: crimson;"> -->
 					
-					<div class="be-large-post">
+					<div class="be-large-post" style="margin-bottom: unset;">
 						<div class="info-block">
 							<div class="be-large-post-align">
 								<span><i class="fa fa-thumbs-o-up"></i>
@@ -244,12 +244,17 @@
 									<%--댓글수 --%>
 	                				<c:out value="${myArticle.comments.size()}"/>
 								</span>
+								<span style="float:right">
+								작성일 
+								<c:out value="${myArticle.article_regdate}"/>
+								</span>
 							</div>
 						</div>
 						<!-- <div class="blog-content popup-gallery be-large-post-align"> -->
 						<div class="blog-content be-large-post-align">
 							<h5 class="feed-article-title">
-								<c:out value="${myArticle.article_title}"></c:out>
+								<c:out value="${myArticle.article_payment_fee}"/>원, 
+								<c:out value="${myArticle.article_title}"/>
 							</h5>
 							<%-- 
 							<span class="be-text-tags">
@@ -274,7 +279,17 @@
 									<img src="/salmon/resources/sjh/img/l2.jpg" alt="" style="height:100px">
 									</a> -->
 								
-								<img alt="" style="height:100px">								
+								<c:if test="${article.imagePaths.size()>0 }">
+				              <%--   <c:set var="imgCt" value="1"/> --%>
+					          	<c:forEach var="images" items="${article.imagePaths}">
+					                <div class="image-block">
+					                <%--   <c:if test="${imgCt < 2 }"> --%>
+					                  <img src="/salmon/main/image?fileName=${images}" alt="img">
+					                 <%--  </c:if> --%>
+					                </div>
+				              <%--   <c:set var="imgCt" value="${imgCt+1 }"/> --%>
+					            </c:forEach>
+				              </c:if>
 
 							</div>
 						</div>
@@ -362,14 +377,26 @@
 				</c:when>
 				<c:otherwise>
 					<div class="be-large-post info-block">
-						<h3>아직 게시글이 없습니다</h3>
+						<h3>아직 작성한 게시글이 없습니다</h3>
 					</div>
 				</c:otherwise>
 				</c:choose>
 			</div>
 			
 			<div class="row col-md-9" id="likeArticles">
-			좋아요 한 게시글
+			<c:choose>
+				<c:when test="${likeArticles.size() != 0}">
+				<c:forEach var="likeArticle" items="${likeArticles}">
+					<c:out value="${likeArticle.article_id}"/>
+					<c:out value="${likeArticle.article_title}"/>
+				</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<div class="be-large-post info-block">
+						<h3>아직 좋아요한 게시글이 없습니다</h3>
+					</div>
+				</c:otherwise>
+			</c:choose>
 			</div>
 		</div>
 	</div>
@@ -380,74 +407,10 @@
 
 	<div class="be-fixed-filter"></div>
 	
-  <!--  로그아웃 팝업 -->
-  <div class="large-popup login">
-    <div class="large-popup-fixed"></div>
-    <div class="container large-popup-container">
-      <div class="row">
-        <div class="col-md-8 col-md-push-2 col-lg-6 col-lg-push-3  large-popup-content">
-          <div class="row">
-            <div class="col-md-12">
-              <i class="fa fa-times close-button"></i>
-              <h5 class="large-popup-title">로그아웃</h5>
-            </div>
-
-            <form method="post" action="/salmon/customLogout" class="popup-input-search">
-              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-              <button class="be-popup-sign-button">로그아웃</button>
-            </form>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+   <!--  로그아웃 팝업 -->
+  <%@ include file="/WEB-INF/views/includes/logout.jsp"%>
   <!--  로그아웃 팝업 끝-->
-<!-- 	
-	<div class="large-popup send-m">
-		<div class="large-popup-fixed"></div>
-		<div class="container large-popup-container">
-			<div class="row">
-				<div class="col-md-10 col-md-push-1 col-lg-8 col-lg-push-2 large-popup-content">
-					<div class="row">
-						<div class="col-md-12">
-							<i class="fa fa-times close-m close-button"></i>
-							<h5 class="large-popup-title">Send message</h5>
-						</div>
-						<form action="./" class="popup-input-search">
-							<div class="col-md-6">
-								<input class="input-signtype" type="text" required="" placeholder="First Name">
-							</div>
-							<div class="col-md-6">
-								<input class="input-signtype" type="text" required="" placeholder="Last Name">
-							</div>
-							<div class="col-md-6">
-								<div class="be-custom-select-block">
-									<select class="be-custom-select">
-										<option value="" disabled selected>
-											Country
-										</option>
-										<option value="">USA</option>
-										<option value="">Canada</option>
-										<option value="">England</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<input class="input-signtype" type="email" required="" placeholder="Email">
-							</div>
-							<div class="col-md-12">
-								<textarea class="message-area" placeholder="Message"></textarea>
-							</div>
-							<div class="col-md-12 for-signin">
-								<input type="submit" class="be-popup-sign-button" value="SEND">
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
+  
 	<div class="theme-config">
 	    <div class="main-color">
 	        <div class="title">Main Color:</div>
@@ -491,9 +454,5 @@
 		});
 	</script>
 	
-  <!-- jjw 프로필사진 -->
-<!--   <script type="text/javascript" src="/salmon/resources/jjw/js/croppie.min.js"></script> -->
-  <!-- <script type="text/javascript" src="/salmon/resources/sjh/js/image.js"></script> -->
-
 	</body>
 </html>

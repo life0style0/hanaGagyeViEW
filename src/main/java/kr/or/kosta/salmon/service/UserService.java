@@ -1,6 +1,8 @@
 package kr.or.kosta.salmon.service;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.LocationDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
@@ -19,6 +21,9 @@ public interface UserService {
 	
 	//아이디로 User찾기
 	public UserDTO searchUserById(String user_id);
+	
+	//sns 페이지에서 사용자 검색
+	public List<UserDTO> searchUserInSNS(@Param("values") String value);
 	
 	//가입할때 아이디 중복 검사
 	public boolean isExistId(String user_id);

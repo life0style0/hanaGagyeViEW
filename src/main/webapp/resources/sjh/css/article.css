@@ -64,3 +64,23 @@ div.article-size>img {
   margin-right: -40px;
   overflow-y: auto;
 }
+
+.float-right{
+	   float: right;
+}
+
+.modal #article-comments{
+	overflow-y: auto;
+}
+
+.modal .article-content{
+	    position: fixed;
+    background-color: white;
+    width: 480px;
+    
+}
+
+.modal .article-comments{
+	margin-top:100px;
+	
+}

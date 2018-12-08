@@ -104,7 +104,7 @@ header .row-header .header-menu-block { position: absolute;
 
 @media screen and (min-width: 1200px) {
     header .row-header .header-menu-block {
-        max-width: 640px;
+        max-width: 1000px;
         width: 100%;
     }
 }
@@ -115,7 +115,7 @@ img.be_logo { text-align: left; }
 
 .header-menu > li > a { color: #fff; }
 
-.header-menu > li:hover > a, .header-menu > li.active-header > a { color: #0d58c8; }
+.header-menu > li:hover > a, .header-menu > li.active-header > a { color: #ffa500; }
 
 .header-menu { text-align: center; }
 
@@ -269,7 +269,7 @@ header .header-menu > #ad-work-li {position: static; float: right;margin-top: 20
   .header-menu > li > ul a { display: block; line-height: 18px; font-size: 14px; }
   .header-menu > li { padding-top: 31px; padding-bottom: 34px; }
   .header-menu > li li a { cursor: pointer; padding: 10px 20px; padding-right: 30px; }
-  .header-menu > .active-header, .header-menu > li:hover { color: #0d58c8; border-top: 5px solid #0d58c8; }
+  .header-menu > .active-header, .header-menu > li:hover { color: #ffa500; border-top: 5px solid #ffa500; }
   .header-menu { color: #fff; }
   .header-menu > li:hover > ul {
    -webkit-transition: all ease-out 0.5s; 
@@ -279,8 +279,8 @@ header .header-menu > #ad-work-li {position: static; float: right;margin-top: 20
      transform: translateY(0);
      visibility:visible;
       opacity: 1; }
-  .header-menu > li > ul li:hover { background: #0d58c8; }
-  .header-menu > li > ul li:hover > a { color: #FFF; }
+  .header-menu > li > ul li:hover { background: #ffa500; }
+  .header-menu > li > ul li:hover > a { color: #ffa500; }
   .header-menu > li > ul { position: absolute; top: 100%; left: 0; 
     color: #262626; text-align: left; background: #FFF; width: 100%;
     min-width: 150px; padding-top: 0px; font-size: 16px;

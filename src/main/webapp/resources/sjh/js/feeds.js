@@ -253,5 +253,12 @@ function appendComments(form,comments){
 	})
 	
 	$(form).siblings('div[name="comment-area"]').append(commentHTML);
-	eventRegist();
+//	eventRegist();
+	
+	$('[name="comment-delete-btn"]').each(function(i,btn){
+		$(btn).off('click','**');
+		$(btn).on('click',function(e){
+			deleteReply(e);
+		});
+	});
 }

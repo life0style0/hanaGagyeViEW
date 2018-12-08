@@ -179,4 +179,9 @@ public class UserServiceImpl implements UserService {
 		return usermapper.getAllLocations();
 	}
 
+	@Override
+	public List<UserDTO> searchUserInSNS(String value) {
+		return usermapper.searchUserInSNS(value);
+	}
+
 }

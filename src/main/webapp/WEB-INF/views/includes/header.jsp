@@ -20,15 +20,24 @@
           	<span id="loginUserId"><sec:authentication property="principal.username" /></span>님
           </a>
           </li>
+          <li><a href="/salmon/sns/showall">둘러보기</a></li>
           <li><a href="/salmon/main/mypage">MYPAGE</a></li>
           <li><a href="/salmon/accountbook/calendar">AccountBook</a></li>
           <li><a href="/salmon/suggestion">Suggestion</a></li>
+          <li style="padding: unset;">
+	          <form action="./" class="input-search" method="get" style="margin-bottom:unset">
+		        <input type="text" required="required" placeholder="Enter keyword">
+		        <i class="fa fa-search"></i>
+	          	<input type="submit" value="">
+	          </form>
+          </li>
         </ul>
+        
       </div>
       <div class="login-header-block">
 
         <div class="login_block">
-          <a class="btn-login btn color-1 size-2 hover-2" href=""><i class="fa fa-user"></i>
+          <a class="btn-login btn color-white-sjh size-2 hover-2" href=""><i class="fa fa-user"></i>
             LOGOUT</a>
         </div>
       </div>
