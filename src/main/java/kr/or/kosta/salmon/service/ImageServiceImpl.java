@@ -11,14 +11,13 @@ import kr.or.kosta.salmon.mapper.ImageMapper;
  */
 @Service
 public class ImageServiceImpl implements ImageService {
-    
+
     @Inject
     private ImageMapper im;
 
     @Override
-    public String registProfileImage(String path, String userId) throws Exception {
-        return im.registProfileImage(path, userId);
+    public boolean registProfileImage(String path, String userId) throws Exception {
+        return im.registProfileImage(path, userId) > 0 ? true : false;
     }
 
-    
 }

@@ -10,7 +10,6 @@ import lombok.Data;
 @Data
 public class AccountBookDTO {
     private int articleId;
-    private String ctgryName;
     private String articleScope;
     private String articleRegdate;
     private String articlePaymentType;
@@ -18,6 +17,7 @@ public class AccountBookDTO {
     private String articleTitle;
     private String articleContent;
     private String articleCtgryType;
+    private List<String> ctgryNames;
     private List<String> imagePaths;
     private List<String> hashtags;
 }

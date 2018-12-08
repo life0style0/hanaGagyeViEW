@@ -101,19 +101,6 @@ function makeCalendar(yearSrc, monthSrc, daySrc) {
 }
 
 /**
- * 서버로부터 받은 가계부의 공개 범위를 판단해 값을 리턴하는 함수
- * @param {*} scope 가계부의 공개 범위
- */
-function checkScope(scope) {
-    if (scope === 'u') {
-        return '공개';
-    } else if (scope === 'r') {
-        return '나만';
-    }
-    return 'error';
-}
-
-/**
  * 카테고리에 들어 있는 특정 문자를 변경해주는 함수
  * @param {*} ctgryName 카테고리
  * @param {*} delemeter 구분자
@@ -122,12 +109,13 @@ function checkScope(scope) {
 function sortCtgryMapping(ctgryName, delemeterSrc, replacerSrc) {
     const delemeter = delemeterSrc || '/';
     const replacer = replacerSrc || '-';
+    const regex = new RegExp(delemeter, "gm");
     if (!ctgryName) {
         alert('ctgryName is empty');
     } else if (!ctgryName.includes(delemeter)) {
         return ctgryName;
     } else {
-        return ctgryName.replace(delemeter, replacer);
+        return ctgryName.replace(regex, replacer);
     }
 }
 
@@ -136,7 +124,14 @@ function sortCtgryMapping(ctgryName, delemeterSrc, replacerSrc) {
  * @param {*} data 가계부 정보
  */
 function showGgvToCalendar(data) {
-    let html = `<div class="ggv sort-ggv-ctgry-${sortCtgryMapping(data.ctgryName)} sort-ggv-money sort-ggv-scope" data-money="${data.articlePaymentFee}" data-scope="${data.articleScope}"><input type="hidden" name="articleId" value="${data.articleId}"><div class="ggv-title"><span>${data.ctgryName}</span>`;
+    let ctgryClass = '';
+    let ctgryNamesT = '';
+    data.ctgryNames.forEach((ctgryName) => {
+        ctgryClass += ` sort-ggv-ctgry-${sortCtgryMapping(ctgryName)}`;
+        ctgryNamesT += `${ctgryName} `;
+    });
+    let html = `<div class="ggv${ctgryClass} sort-ggv-money sort-ggv-scope" data-money="${data.articlePaymentFee}" data-scope="${data.articleScope}">
+     <input type="hidden" name="articleId" value="${data.articleId}"><div class="ggv-title"><span>${ctgryNamesT}</span>`;
     html += `<span class="ggv-scope">${checkScope(data.articleScope)}</span></div>`;
     html += `<div class="ggv-content">${data.articlePaymentFee}`;
     html += `</div></div>`;
@@ -200,7 +195,12 @@ function setDatasToCalendar(datas) {
             } else if (maxMoney < data.articlePaymentFee) {
                 maxMoney = data.articlePaymentFee;
             }
-            ggvCategory.add(data.ctgryName);
+            if (data.ctgryNames) {
+                for (let i = 0; i < data.ctgryNames.length; i += 1) {
+                    const ctgryName = data.ctgryNames[i];
+                    ggvCategory.add(ctgryName);
+                }
+            }
             addDataToCalendar(data);
         }
         setSortingMoney(minMoney, maxMoney);
@@ -298,7 +298,6 @@ function setCalendarMY(moveDirection) {
     }
 
     resetCalendar();
-    console.log('monthChanged :', monthChanged);
     makeCalendar(yearChanged, monthChanged, psnMonthStart);
 
     if (monthChanged < 10) {
@@ -311,141 +310,17 @@ function setCalendarMY(moveDirection) {
     $('.calendar.year').html(yearChanged);
 }
 
-function checkCtgryType(type) {
-    if (!type) {
-        alert('빈 type 입력');
-    } else if (type === 'income') {
-        return '수입';
-    } else if (type === 'spend') {
-        return '지출';
-    }
-}
-
-function eventRegistOnShare(data, info) {
-    $('#article-share-btn a').off('click');
-    $('#article-share-btn a').on('click', function (e) {
-        data.articleScope = 'u';
-        const scopeT = checkScope(data.articleScope);
-        $(info).find('.ggv-scope').html(scopeT);
-        $('#article-scope').html(`, ${scopeT}`);
-        e.preventDefault();
-        const articleId = data.articleId;
-        $.ajax({
-            url: '/salmon/accountbook/share',
-            data: {
-                articleId: articleId
-            },
-            method: 'get',
-            success: function (result) {
-                if (result === 'success') {
-                    console.log('result :', result);
-                    $('#article-share-btn').addClass('hidden');
-                    $('#article-share-cancel-btn').removeClass('hidden');
-                } else {
-                    console.log('result :', result);
-                }
-            }
-        });
-    });
-    $('#article-share-cancel-btn a').off('click');
-    $('#article-share-cancel-btn a').on('click', function (e) {
-        data.articleScope = 'r';
-        const scopeT = checkScope(data.articleScope);
-        $(info).find('.ggv-scope').html(scopeT);
-        $('#article-scope').html(`, ${scopeT}`);
-        e.preventDefault();
-        const articleId = data.articleId;
-        $.ajax({
-            url: '/salmon/accountbook/sharecancel',
-            data: {
-                articleId: articleId
-            },
-            method: 'get',
-            success: function (result) {
-                if (result === 'success') {
-                    console.log('result :', result);
-                    $('#article-share-btn').removeClass('hidden');
-                    $('#article-share-cancel-btn').addClass('hidden');
-                } else {
-                    console.log('result :', result);
-                }
-            }
-        });
-    });
-}
-
-/**
- * 특정 가계부 정보를 클릭시 보여줄 값들을 세팅하는 함수
- * @param {*} data 가계부 정보
- */
-function setGgv(data, info) {
-    if (!data) {
-        alert('data가 없습니다.');
-    }
-    if (data.imagePaths.length === 0) {
-        $('#article-modal .modal-dialog').addClass('ggv-no-image');
-    } else {
-        $('#article-modal .modal-dialog').removeClass('ggv-no-image');
-    }
-
-    for (let i = 0; i < data.imagePaths.length; i += 1) {
-        const imagePath = data.imagePaths[i];
-        $('.article-carousel').append(`<img class="article-image center-block owl-lazy" data-src="/salmon/image?fileName=${imagePath}" alt="">`);
-    }
-    const scope = checkScope(data.articleScope);
-    $('#article-ctgry-name').html(data.ctgryName);
-    if (!data.articleTitle) {
-        $('#article-money').html(`${data.articlePaymentFee}원`);
-        $('#article-title').html('');
-    } else {
-        $('#article-money').html(`${data.articlePaymentFee}원, `);
-        $('#article-title').html(`메모 : ${data.articleTitle}`);
-    }
-
-    let articleContentHTML = data.articleContent;
-    for (let i = 0; i < data.hashtags.length; i += 1) {
-        const hashtag = data.hashtags[i];
-        articleContentHTML += ` <a class="hashtag">${hashtag}</a>`;
-    }
-    $('#article-content').html(`${articleContentHTML}`);
-    $('#article-writer-nickname').html($('#loginUserId').text());
-    $('#article-regdate').html(data.articleRegdate);
-    $('#article-pay-type').html(`, ${data.articlePaymentType}`);
-    $('#article-ctgry').html(`(${checkCtgryType(data.articleCtgryType)})`);
-    $('#article-scope').html(`, ${scope}`);
-    $('#article-share-btn a').attr('data-articleId', data.articleId);
-
-    // 내가 쓴 글일 때 수정하는 버튼 보여주기
-    if (true) {
-        if (scope === '나만') {
-            $('#article-share-btn').removeClass('hidden');
-            $('#article-share-cancel-btn').addClass('hidden');
-            eventRegistOnShare(data, info);
-        } else if (scope === '공개') {
-            $('#article-share-btn').addClass('hidden');
-            $('#article-share-cancel-btn').removeClass('hidden');
-            eventRegistOnShare(data, info);
-        }
-
-        // 내가 쓴 글이면 수정이 보여야 함.
-        $('#article-edit-btn').removeClass('hidden');
-        $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=${data.articleId}`);
-    } else {
-        $('#article-edit-btn').addClass('hidden');
-    }
-}
-
 /**
  * 특정 가계부 정보를 초기화하는 메소드
  */
-function resetGgvModal() {
+function resetArticleModal() {
     $('.article-carousel').trigger('destroy.owl.carousel');
     $('.article-carousel').html('');
 }
 
 /**
- * 서버로부터 달력에 보여줄 가계부 정보들을 ajax 통신을 통해
- * json 형태로 받아오는 함수
+ * 가계부 정보들을 ajax 통신을 통해 받아 모달창에 적어주는 함수
+ * json 형태의 정보를 이용함
  * @param {*} info 
  */
 function setGgvInfos(info) {
@@ -459,22 +334,7 @@ function setGgvInfos(info) {
     if (month && year && calendarData.has(`${month}-${year}`)) {
         calendarData.get(`${month}-${year}`).some(function (value) {
             if (value.articleId === Number(articleId)) {
-                setGgv(value, info);
-
-                $('.article-carousel').owlCarousel({
-                    items: 1,
-                    loop: true,
-                    margin: 10,
-                    nav: true,
-                    navText: [
-                        "<i class='fa fa-angle-left'></i>",
-                        "<i class='fa fa-angle-right'></i>"
-                    ],
-                    dots: false,
-                    lazyLoad: true
-                });
-
-                $('#article-modal').modal('show');
+                setArticle(value, info);
                 return true;
             }
             return false;
@@ -485,22 +345,7 @@ function setGgvInfos(info) {
             method: 'get',
             dataType: 'json',
             success: function (data) {
-                setGgv(data);
-
-                $('.article-carousel').owlCarousel({
-                    items: 1,
-                    loop: true,
-                    margin: 10,
-                    nav: true,
-                    navText: [
-                        "<i class='fa fa-angle-left'></i>",
-                        "<i class='fa fa-angle-right'></i>"
-                    ],
-                    dots: false,
-                    lazyLoad: true
-                });
-
-                $('#article-modal').modal('show');
+                setArticle(data, info);
             }
         });
     }
@@ -665,7 +510,7 @@ $(function () {
     });
 
     $('#article-modal').on('hidden.bs.modal', function () {
-        resetGgvModal();
+        resetArticleModal();
     });
 
     $('.calendar-left').on('click', function () {

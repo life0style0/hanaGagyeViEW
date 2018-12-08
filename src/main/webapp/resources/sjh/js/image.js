@@ -20,21 +20,6 @@ function uploadFiles(fileObject) {
     }
 }
 
-
-function abc(e) {
-    console.log('drop');
-    e.preventDefault();
-    $(this).toggleClass('drag-on');
-
-    var files = e.originalEvent.dataTransfer.files;
-    if (files.length < 1) {
-        return;
-    }
-    uploadFiles(files);
-    // F_FileMultiUpload(files, obj);
-    return false;
-}
-
 function inputFileEvent() {
     $("#inputFile").trigger("click");
 }
@@ -87,17 +72,22 @@ $(function () {
 });
 
 function setCroppie(file) {
-    if (file) {
+    if (checkUploadFile(file[0].name, file[0].size)) {
         const reader = new FileReader();
         reader.onload = function (e) {
             // const img = `<img id="userImage" src="${e.target.result}" />`;
             // $('.modal-image').append(img);
             const myCroppie = $('.modal-image');
             myCroppie.croppie('destroy');
+
             myCroppie.croppie({
                 viewport: {
                     width: 300,
                     height: 300
+                },
+                boundary: {
+                    width: 500,
+                    height: 500
                 }
             });
             $('.user-image').on('shown.bs.modal', function () {
@@ -106,10 +96,10 @@ function setCroppie(file) {
                     zoom: true
                 });
             });
-            
+
             $('#uploadImage').on('click', function () {
                 $('.user-image').modal('hide');
-                
+
                 myCroppie.croppie('result', {
                     type: 'base64',
                     size: 'viewport'
@@ -153,6 +143,22 @@ function b64toBlob(b64Data, contentType, sliceSize) {
         byteArrays.push(byteArray);
     }
 
-  var blob = new Blob(byteArrays, {type: contentType});
-  return blob;
+    var blob = new Blob(byteArrays, {
+        type: contentType
+    });
+    return blob;
+}
+
+function checkUploadFile(fileName, fileSize, fileRegexSrc, maxUploadSizeSrc) {
+    const fileRegex = fileRegexSrc || new RegExp('(.*?)\.(jpg|jpeg|png|gif)$');
+    const maxUploadSize = maxUploadSizeSrc || 524280; // 5MB
+    if (!fileRegex.test(fileName)) {
+        alert('해당 종류의 파일은 업로드 할 수 없습니다.');
+        return false;
+    }
+    if (fileSize > maxUploadSize) {
+        alert("용량 초과\n업로드 가능 용량 : " + maxUploadSize + " MB");
+        return false;
+    }
+    return true;
 }

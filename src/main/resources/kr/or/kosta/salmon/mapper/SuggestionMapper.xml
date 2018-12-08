@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.kosta.salmon.mapper.SuggestionMapper">
+
+        <resultMap type="kr.or.kosta.salmon.domain.SuggestionDTO" id="suggestionLists">
+                <result property="articleId" column="article_id"/>
+                <result property="articleScope" column="article_scope"/>
+                <result property="articleRegdate" column="article_regdate"/>
+                <result property="articleEnddate" column="article_enddate"/>
+                <result property="articleTitle" column="article_title"/>
+                <result property="articleContent" column="article_content"/>
+                <result property="articleProposalStatus" column="article_proposal_status"/>
+                <result property="userId" column="user_id"/>
+                <result property="userNickname" column="user_nickname"/>
+                <result property="likeCnt" column="likes_num"/>
+                <result property="commentCnt" column="comments_num"/>
+                <result property="scrapCnt" column="scraps_num"/>
+                <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
+                <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
+        </resultMap>
+
+        <resultMap type="kr.or.kosta.salmon.domain.SuggestionDTO" id="suggestion">
+                <result property="articleId" column="article_id"/>
+                <result property="articleRegdate" column="article_regdate"/>
+                <result property="articleEnddate" column="article_enddate"/>
+                <result property="articlePaymentType" column="article_payment_type"/>
+                <result property="articlePaymentFee" column="article_payment_fee"/>
+                <result property="articleTitle" column="article_title"/>
+                <result property="articleContent" column="article_content"/>
+                <result property="articleProposalStatus" column="article_proposal_status"/>
+                <result property="likeCnt" column="likes_num"/>
+                <result property="commentCnt" column="comments_num"/>
+                <result property="scrapCnt" column="scraps_num"/>
+                <association property="userPsns" column="user_id" javaType="kr.or.kosta.salmon.domain.PsnsDTO" select="getPsns"/>
+                <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
+                <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
+                <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
+                <collection property="comments" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.CommentDTO" select="getComments"/>
+        </resultMap>
+
+        <resultMap type="kr.or.kosta.salmon.domain.PsnsDTO" id="psns">
+                <result property="userId" column="userId"/>
+                <result property="userNickname" column="userNickname"/>
+                <result property="userImage" column="userImage"/>
+                <result property="ctgryName1" column="ctgryName1"/>
+                <result property="ctgryName2" column="ctgryName2"/>
+                <result property="ctgryName3" column="ctgryName3"/>
+                <collection property="suggestionStatusDTO" column="userId" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.SuggestionStatusDTO" select="userSuggestionStatus"/>
+        </resultMap>
+
+        <!-- <select id="getSuggestionListWithPaging" resultMap="suggestionLists">
+SELECT article_id, 
+        to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
+        to_char(article_regdate + 30,'YYYY-MM-DD') "article_enddate",
+       article_title, 
+       article_content, 
+       article_proposal_status, 
+       user_id,
+       (SELECT Count(li.like_id) 
+        FROM   likes li 
+        WHERE  li.article_id = "ar".article_id)    "likes_num", 
+       (SELECT Count(comment_id) 
+        FROM   comments 
+        WHERE  article_id = "ar".article_id)       "comments_num", 
+       (SELECT Count(scrap_id) 
+        FROM   scraps 
+        WHERE  article_id = "ar".article_id)       "scraps_num" 
+FROM   (SELECT ROWNUM rn, 
+               article_id, 
+                article_regdate,
+                article_title, 
+                article_content, 
+                article_proposal_status, 
+                user_id
+        FROM   (SELECT article_id, 
+                        article_regdate,
+                        article_title, 
+                        article_content, 
+                        article_proposal_status, 
+                        user_id
+                FROM   articles 
+                WHERE  ( article_ctgry_id = 2 
+                         AND To_char(article_regdate, 'YYYY-MM-DD') <![CDATA[ > ]]> 
+                             To_char(SYSDATE - 30, 'yyyy-mm-dd') 
+                        AND  <include refid="criteria" />
+                         article_deleted = 'N' ) 
+                ORDER  BY article_regdate desc) 
+        WHERE  ROWNUM <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum} ) "ar" 
+WHERE  rn <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
+        </select> -->
+
+        <select id="getSuggestionListByPaging" resultMap="suggestionLists">
+SELECT article_id, 
+       To_char(article_regdate, 'YYYY-MM-DD')      "article_regdate", 
+       To_char(article_regdate + 30, 'YYYY-MM-DD') "article_enddate", 
+       article_title, 
+       article_content, 
+       article_proposal_status, 
+       "ar".user_id,
+       user_nickname, 
+       "likes_num", 
+       "comments_num"
+FROM   (SELECT /*+INDEX(articles idx_article_ctgry)*/ ROWNUM rn, 
+                                                      article_id, 
+                                                      article_regdate, 
+                                                      article_title, 
+                                                      article_content, 
+                                                      article_proposal_status, 
+                                                      user_id,
+                                                      article_like_num "likes_num",
+                                                      article_comment_num "comments_num"
+        FROM   articles 
+        WHERE  article_ctgry_id = 3 
+               AND article_regdate                 <![CDATA[ > ]]> '1900-01-01' 
+               AND To_char(article_regdate, 'YYYY-MM-DD')                 <![CDATA[ > ]]> 
+                   To_char(SYSDATE - 30, 'yyyy-mm-dd') 
+               AND                <include refid="criteria" />
+                article_deleted = 'N'
+                AND article_proposal_status = #{articleProposalStatus}
+               AND ROWNUM                 <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar" join users "us" on "us".user_id = "ar".user_id
+WHERE  rn                 <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
+        </select>
+
+        <select id="getSuggestionListsByLikes" resultMap="suggestionLists">
+SELECT article_id, 
+       To_char(article_regdate, 'YYYY-MM-DD')      "article_regdate", 
+       To_char(article_regdate + 30, 'YYYY-MM-DD') "article_enddate", 
+       article_title, 
+       article_content, 
+       article_proposal_status, 
+       user_id, 
+       "likes_num", 
+       "comments_num"
+FROM   (SELECT ROWNUM rn, 
+               article_id, 
+               article_regdate, 
+               article_title, 
+               article_content, 
+               article_proposal_status, 
+               user_id, 
+               "likes_num", 
+               "comments_num" 
+        FROM   (SELECT /*+INDEX(articles idx_article_ctgry)*/ 
+                       article_id, 
+                       article_regdate, 
+                       article_title, 
+                       article_content, 
+                       article_proposal_status, 
+                       user_id, 
+                       article_like_num  "likes_num", 
+                       article_comment_num  "comments_num" 
+                FROM   articles
+                WHERE  article_ctgry_id = 3 
+                       AND article_regdate                 <![CDATA[ > ]]> '1900-01-01' 
+                       AND To_char(article_regdate, 'YYYY-MM-DD')                 <![CDATA[ > ]]>  
+                           To_char(SYSDATE - 30, 'yyyy-mm-dd') 
+                       AND                <include refid="criteria" />
+                                article_deleted = 'N' 
+                ORDER  BY article_like_num DESC) 
+        WHERE ROWNUM                 <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar"
+WHERE  rn                 <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}
+        </select>
+
+        <select id="getSuggestionListsByRecommend" resultMap="suggestionLists">
+SELECT article_id, 
+       To_char(article_regdate, 'YYYY-MM-DD')      "article_regdate", 
+       To_char(article_regdate + 30, 'YYYY-MM-DD') "article_enddate", 
+       article_title, 
+       article_content, 
+       article_proposal_status, 
+       user_id, 
+       "likes_num", 
+       "comments_num", 
+       (SELECT Count(scrap_id) 
+        FROM   scraps sc 
+        WHERE  sc.article_id = "ar".article_id)    "scraps_num" 
+FROM   (SELECT ROWNUM rn, 
+               article_id, 
+               article_regdate, 
+               article_title, 
+               article_content, 
+               article_proposal_status, 
+               user_id, 
+               "likes_num", 
+               "comments_num" 
+        FROM   (SELECT /*+INDEX(articles idx_article_ctgry)*/ 
+                        article_id, 
+                        article_regdate, 
+                        article_title, 
+                        article_content, 
+                        article_proposal_status, 
+                        user_id, 
+                        article_like_num 
+                        "likes_num", 
+                        article_comment_num 
+                        "comments_num" 
+                FROM   articles 
+                WHERE  article_ctgry_id = 3 
+                       AND article_regdate                 <![CDATA[ > ]]> '1900-01-01' 
+                       AND To_char(article_regdate, 'YYYY-MM-DD')                 <![CDATA[ > ]]>  
+                           To_char(SYSDATE - 30, 'yyyy-mm-dd') 
+                       AND                <include refid="criteria" />
+                                article_deleted = 'N'
+                        AND article_proposal_status = #{articleProposalStatus}
+                       AND article_id IN (SELECT article_id 
+                                          FROM   ctgry_values 
+                                          WHERE  ctgry_id IN (SELECT ctgry_1 
+                                                              FROM   psns 
+                                                              WHERE 
+                                                 user_id = #{userId}) 
+                                                  OR ctgry_id IN (SELECT ctgry_2 
+                                                                  FROM   psns 
+                                                                  WHERE 
+                                                     user_id = #{userId}) 
+                                                  OR ctgry_id IN (SELECT ctgry_3 
+                                                                  FROM   psns 
+                                                                  WHERE 
+                                                     user_id = #{userId})) 
+                ORDER  BY article_like_num DESC) 
+        WHERE ROWNUM                 <![CDATA[ <= ]]> #{pageNum} * #{maxArticleNum}) "ar"
+WHERE  rn                 <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}   
+        </select>
+
+        <select id="userSuggestionStatus" resultType="kr.or.kosta.salmon.domain.SuggestionStatusDTO">
+SELECT /*+INDEX(articles idx_article_ctgry)*/ article_proposal_status "articleProposalStatus", 
+                                              Count(article_proposal_status) "articleProposalNum", 
+                                              SUM(article_like_num) "articleLikeNum"
+FROM   articles 
+WHERE  article_ctgry_id = 3
+       AND user_id = #{userId}
+GROUP  BY article_proposal_status
+        </select>
+
+        <select id="getPsnsWithSuggestion" resultMap="psns">
+SELECT psn_id "psnId", 
+       user_id "userId",
+       user_nickname "userNickname",
+       user_image "userImage",
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_1) "ctgryName1", 
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_2) "ctgryName2", 
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_3) "ctgryName3"
+FROM   psns join users using(user_id)
+WHERE user_id = #{userId}
+        </select>
+
+        <select id="getSuggestion" resultMap="suggestion">
+SELECT article_id, 
+        to_char(article_regdate,'YYYY"년" MM"월" DD"일"') "article_regdate",
+        to_char(article_regdate + 30,'YYYY"년" MM"월" DD"일"') "article_enddate", 
+       article_editdate, 
+       article_payment_type, 
+       article_payment_fee, 
+       article_title, 
+       article_content, 
+       article_proposal_status, 
+       user_id, 
+       user_nickname,
+       article_like_num "likes_num", 
+       article_comment_num "comments_num", 
+       (SELECT Count(scrap_id) 
+        FROM   scraps 
+        WHERE  article_id = #{article_id})    "scraps_num" 
+FROM    articles join users using(user_id)
+WHERE   article_id = #{article_id}
+        </select>
+
+        <select id="getImages" resultType="string">
+SELECT image_path
+FROM images where article_id = #{article_id}
+        </select>
+
+        <select id="getHashtagByArticleId" resultType="string">
+SELECT hashtag_value 
+FROM   hashtag_refs 
+       join hashtags USING(hashtag_id) 
+WHERE  article_id = #{articleId}
+        </select>
+
+        <select id="getCtgryName" resultType="string">
+SELECT ctgry_name 
+FROM   ctgry_values "cv" 
+       join ctgries "ct" 
+         ON "cv".ctgry_id = "ct".ctgry_id 
+WHERE  article_id = #{articleId}
+        </select>
+
+        <select id="getComments" resultType="kr.or.kosta.salmon.domain.CommentDTO">
+SELECT comment_id, 
+       comment_content, 
+       to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
+       user_id, 
+       user_image,
+       user_nickname 
+FROM   comments left outer join users using(user_id)
+WHERE  article_id = #{articleId}
+order by comment_regdate asc
+        </select>
+
+        <select id="getTotalSuggestion" resultType="int">
+SELECT count(article_id)
+FROM   articles 
+WHERE  ( article_ctgry_id = 3 
+                AND article_regdate                 <![CDATA[ > ]]> '1900-01-01'
+                AND To_char(article_regdate, 'YYYY-MM-DD')                                    <![CDATA[ > ]]>
+                To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N' )
+        AND  
+        <include refid="criteria" />
+        article_proposal_status = #{articleProposalStatus}
+        </select>
+
+        <select id="getTotalSuggestionByRecommend" resultType="int">
+SELECT count(article_id)
+FROM   articles 
+WHERE  ( article_ctgry_id = 3 
+                AND article_regdate                 <![CDATA[ > ]]> '1900-01-01'
+                AND To_char(article_regdate, 'YYYY-MM-DD')                                    <![CDATA[ > ]]>
+                To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N' )
+        AND  
+        <include refid="criteria" />
+        article_proposal_status = #{articleProposalStatus}
+        AND article_id IN (SELECT article_id 
+                                        FROM   ctgry_values 
+                                        WHERE  ctgry_id IN (SELECT ctgry_1 
+                                                        FROM   psns 
+                                                        WHERE 
+                                                user_id = #{userId}) 
+                                                OR ctgry_id IN (SELECT ctgry_2 
+                                                                FROM   psns 
+                                                                WHERE 
+                                                user_id = #{userId}) 
+                                                OR ctgry_id IN (SELECT ctgry_3 
+                                                                FROM   psns 
+                                                                WHERE 
+                                                user_id = #{userId}))
+        </select>
+
+        <select id="getPsns" resultType="kr.or.kosta.salmon.domain.PsnsDTO">
+SELECT psn_id "psnId", 
+       user_id "userId",
+       user_nickname "userNickname",
+       user_image "userImage",
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_1) "ctgryName1", 
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_2) "ctgryName2", 
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_3) "ctgryName3"
+FROM   psns join users using(user_id)
+WHERE user_id = #{userId}
+        </select>
+
+        <select id="checkLike" resultType="int">
+SELECT count(like_id)
+FROM likes
+WHERE user_id = #{userId}
+        and article_id = #{articleId}
+        </select>
+
+        <select id="getLikeNum" resultType="string">
+SELECT article_like_num
+FROM articles
+WHERE article_id = #{articleId}
+        </select>
+
+        <insert id="insertArticle">
+DECLARE articleid NUMBER; 
+
+BEGIN 
+    SELECT article_id_seq.nextval 
+    INTO   articleid 
+    FROM   dual; 
+
+    INSERT INTO articles 
+                (article_id, 
+                 article_ctgry_id, 
+                 article_scope, 
+                 article_title, 
+                 article_content, 
+                 article_proposal_status, 
+                 user_id, 
+                 article_deleted) 
+    VALUES     (articleid, 
+                3, 
+                'u', 
+                #{articleTitle}, 
+                #{articleContent}, 
+                'R', 
+                #{userId}, 
+                'N'); 
+
+    INSERT INTO ctgry_values 
+                (ctgry_value_id, 
+                 ctgry_id, 
+                 article_id) 
+    VALUES     (ctgry_value_id_seq.nextval, 
+                #{ctgry1}, 
+                articleid); 
+
+    INSERT INTO ctgry_values 
+                (ctgry_value_id, 
+                 ctgry_id, 
+                 article_id) 
+    VALUES     (ctgry_value_id_seq.nextval, 
+                #{ctgry2}, 
+                articleid); 
+
+    INSERT INTO ctgry_values 
+                (ctgry_value_id, 
+                 ctgry_id, 
+                 article_id) 
+    VALUES     (ctgry_value_id_seq.nextval, 
+                #{ctgry3}, 
+                articleid); 
+END; 
+        </insert>
+
+        <select id="checkFollow" resultType="int">
+		SELECT count(follower_id) 
+		FROM   followers 
+		WHERE  follower_user_id = #{followerId} 
+		       AND user_id = #{userId}
+	</select>
+
+        <sql id="criteria">
+                <trim prefix="(" suffix=") and " prefixOverrides="or">
+                        <foreach item="type" collection="typeArr">
+                                <trim prefix="or">
+                                        <choose>
+                                                <when test="type == 'T'.toString()">
+						 aritcle_title like '%'||#{keyword}||'%'
+                                                </when>
+                                                <when test="type == 'C'.toString()">
+						 article_content like '%'||#{keyword}||'%'
+                                                </when>
+                                                <when test="type == 'W'.toString()">
+						 user_id like '%'||#{keyword}||'%'
+                                                </when>
+                                        </choose>
+                                </trim>
+                        </foreach>
+                </trim>
+        </sql>
+</mapper>

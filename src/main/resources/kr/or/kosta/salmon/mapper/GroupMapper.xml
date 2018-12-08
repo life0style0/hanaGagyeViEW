@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.kosta.salmon.mapper.GroupMapper">
+
+	<!-- 1:N ResultMap 설정 -->
+	<resultMap type="kr.or.kosta.salmon.domain.GroupDTO_lhr" id="groupMap">
+		<id property="group_id" column="group_id"/>
+		<result property="group_id" column="group_id"/>
+		<result property="group_title" column="group_title"/>
+		<result property="group_regdate" column="group_regdate"/>
+		<result property="group_description" column="group_description"/>
+		<result property="group_people_max" column="group_people_max"/>
+		<result property="ctgry_1" column="ctgry_1"/>
+		<result property="ctgry_2" column="ctgry_2"/>
+		<result property="ctgry_3" column="ctgry_3"/>
+	</resultMap>
+
+
+	<!-- 소모임 번호로 그룹 Read -->
+	<select id="read" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
+		SELECT * FROM groups WHERE  group_id = #{group_id}
+	</select>
+
+
+	<!-- 소모임 그룹 만들기 -->
+	<insert id="createGroup">
+		INSERT INTO groups
+		            (group_id,
+		             group_title,
+		             group_regdate,
+		             group_description,
+		             group_people_max,
+		             user_id,
+		             ctgry_1,
+		             ctgry_2,
+		             ctgry_3)
+		VALUES     (group_id_seq.NEXTVAL,
+		            #{group_title},
+		            sysdate,
+		            #{group_description},
+		            #{group_people_max},
+		            #{user_id},
+		            #{ctgry_1},
+		            #{ctgry_2},
+		            #{ctgry_3} )
+	</insert>
+	
+	<!-- 소모임 그룹 만들기 (SelectKey 활용) -->
+	<insert id="createSelectGroup">
+	<selectKey keyProperty="group_id" order="BEFORE" resultType="String">
+		select group_id_seq.NEXTVAL from dual
+	</selectKey>
+	INSERT INTO groups
+	            (group_id,
+	             group_title,
+	            group_description,
+	             group_people_max,
+	             user_id,
+	             ctgry_1,
+	             ctgry_2,
+	             ctgry_3)
+	VALUES     (#{group_id},
+	            #{group_title},
+	            #{group_description},
+	            #{group_people_max},
+	            #{user_id},
+	            #{ctgry_1},
+	            #{ctgry_2},
+	            #{ctgry_3} )
+	</insert>
+	
+	
+	
+	
+	
+	<!-- UserCategory 가져오기  -->
+	<!-- psns : 개인화 정보 -->
+	<select id="getUserCategories" resultType="kr.or.kosta.salmon.domain.UserLocAndCatsDTO">
+		SELECT user_id,
+			   ctgry_1,
+		       ctgry_2,
+		       ctgry_3
+		FROM   psns
+		WHERE  user_id = #{user_id}
+	</select>
+
+	<!-- 카테고리 가져오기 -->
+	<select id="getAllCategories" resultType="kr.or.kosta.salmon.domain.CategoryDTO_sjh">
+		SELECT ctgry_id,
+		       ctgry_name
+		FROM   ctgries
+		
+	</select>
+	
+	<select id="getCategory" resultType="string">
+		SELECT ctgry_name
+		FROM   ctgries
+	</select>
+	
+	<select id="getList" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
+		<![CDATA[
+		select * from groups where group_id > 0 
+		]]>
+	</select>
+
+</mapper>

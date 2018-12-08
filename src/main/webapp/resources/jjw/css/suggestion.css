@@ -1,0 +1,154 @@
+.suggestion-entry {
+  padding: 20px;
+  background-color: aliceblue;
+}
+
+.suggestion-entry:hover {
+  background-color: antiquewhite;
+  cursor: pointer;
+}
+
+.no-padding {
+  padding: unset !important;
+}
+
+.be-large-post .be-post-title {
+  padding-top: 20px;
+  cursor: unset;
+}
+
+.be-large-post .be-post-title:hover {
+  cursor: unset;
+}
+
+.suggestion .be-text-tags {
+  font-size: 15px;
+}
+
+.suggestion .be-text-tags a {
+  font-size: 15px;
+}
+
+.suggestion .be-large-post-align {
+  font-size: 13px;
+}
+
+.progress {
+  height: 50px;
+}
+
+.progress-bar {
+  line-height: 50px;
+  font-size: 30px;
+  line-height: 50px;
+  min-width: 3em;
+}
+
+.row-progress {
+  margin-bottom: 100px;
+}
+
+.article-title {
+  font-size: 50px;
+  margin-top: 70px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: 'Conv_helveticaneuecyr-bold';
+}
+
+.row-progress .col-md-2 {
+  width: 16.66666667%;
+  line-height: 50px;
+  font-size: 30px;
+  font-family: 'Conv_helveticaneuecyr-bold';
+}
+
+.row-progress .col-md-2:first-child {
+  text-align: right;
+}
+
+.row-progress .col-md-2:last-child {
+  text-align: left;
+}
+
+.content-title {
+  font-size: 26px;
+}
+
+.be-button-vidget .fa-thumbs-up {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.collection-header {
+  margin-bottom: unset;
+}
+
+.no-margin {
+  margin: unset !important;
+}
+
+.comment-delete-btn {
+  width: fit-content!important;
+  margin-right: 10px;
+}
+
+.comment-delete-btn i {
+  margin-right: 4px;
+}
+
+.categories .square {
+  width: 130px;
+  height: 130px;
+  line-height: 130px;
+}
+
+#formT textarea.form-input {
+  height: 300px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #b4b7c1 !important;
+}
+
+.form-group .form-input {
+  color: black;
+}
+
+div.buttons {
+  margin-top: 30px;
+  float: right;
+}
+
+div.buttons button {
+  margin-bottom: unset;
+}
+
+.pagination>li {
+  margin: 0px 8px;
+  color: darkgray;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.pagination>li:hover {
+  color: blue;
+}
+
+.pagination>li.active {
+  color: black;
+  font-weight: 900;
+}
+
+.sg-statistic {
+  position: relative;
+  margin-top: 30px;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-bottom: -30px!important;
+}
+
+.image-src {
+  margin: 0px auto;
+}

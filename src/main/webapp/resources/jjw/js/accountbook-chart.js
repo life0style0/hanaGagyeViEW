@@ -8,18 +8,20 @@ function monthBarSpendChart(yearSrc) {
 
     const monthSpendDatas = new Map(); // key = 월 value = 월 차트 데이터 
     calendarData.forEach(function (monthDatas, date) {
-        if (date.substr(3, 4) === year) {
-            const monthSpendChartData = new Map();
-            monthDatas.forEach(function (monthData) {
-                if (!monthData.articleCtgryType === 'spend') {
-                    console.log('not spend');
-                } else if (monthSpendChartData.has(monthData.ctgryName)) {
-                    monthSpendChartData.set(monthData.ctgryName, monthSpendChartData.get(monthData.ctgryName) + Number(monthData.articlePaymentFee));
-                } else {
-                    monthSpendChartData.set(monthData.ctgryName, Number(monthData.articlePaymentFee));
-                }
-            });
-            monthSpendDatas.set(date, monthSpendChartData);
+        if (monthDatas.length > 0) {
+            if (date.substr(3, 4) === year) {
+                const monthSpendChartData = new Map();
+                monthDatas.forEach(function (monthData) {
+                    if (!monthData.articleCtgryType === 'spend') {
+                        console.log('not spend');
+                    } else if (monthSpendChartData.has(monthData.ctgryNames[0])) {
+                        monthSpendChartData.set(monthData.ctgryNames[0], monthSpendChartData.get(monthData.ctgryNames[0]) + Number(monthData.articlePaymentFee));
+                    } else {
+                        monthSpendChartData.set(monthData.ctgryNames[0], Number(monthData.articlePaymentFee));
+                    }
+                });
+                monthSpendDatas.set(date, monthSpendChartData);
+            }
         }
     });
 
@@ -30,21 +32,21 @@ function monthBarSpendChart(yearSrc) {
     sortedMonthSpendDatas.forEach(function (monthSpendChartData, date) {
         months.push(`${date.substr(3,4)}년 ${date.substr(0,2)}월`);
         let lenMax = ctgryToSpend.size === 0 ? 0 : ctgryToSpend.values().next().value.length;
-        monthSpendChartData.forEach(function (articlePaymentFee, ctgryName) {
-            if (ctgryToSpend.has(ctgryName)) {
-                ctgryToSpend.get(ctgryName).push(articlePaymentFee);
+        monthSpendChartData.forEach(function (articlePaymentFee, ctgryNames) {
+            if (ctgryToSpend.has(ctgryNames)) {
+                ctgryToSpend.get(ctgryNames).push(articlePaymentFee);
             } else {
                 const blankArray = [];
                 for (let i = 0; i < lenMax; i += 1) {
                     blankArray.push(0);
                 }
                 blankArray.push(articlePaymentFee);
-                ctgryToSpend.set(ctgryName, blankArray);
+                ctgryToSpend.set(ctgryNames, blankArray);
             }
         });
 
-        ctgryToSpend.forEach(function (spend, ctgryName) {
-            if (!monthSpendChartData.has(ctgryName)) {
+        ctgryToSpend.forEach(function (spend, ctgryNames) {
+            if (!monthSpendChartData.has(ctgryNames[0])) {
                 spend.push(0);
             }
         });

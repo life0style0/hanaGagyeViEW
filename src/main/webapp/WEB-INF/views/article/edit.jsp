@@ -89,7 +89,8 @@
 						<a class="btn full color-1 size-1 hover-1" href="author.html"><i class="fa fa-chevron-left"></i>나의 가계ViEW로 돌아가기</a>
 					</div>
 				</div>
-				<form name="articleForm" id="articleForm" method="post" action="/salmon/article/submit">
+				<form name="articleForm" id="articleForm" method="post" action="/salmon/article/update">
+				<input type="hidden" name="article_id" value="${editArticle.article_id}">
 				<div class="col-xs-12 col-md-9 _editor-content_">
 					<div class="sec"  data-sec="gagyeInfo">
 						<div class="be-large-post">
@@ -107,11 +108,17 @@
 									<div class="input-col col-xs-12 col-sm-4" >
 										<div class="form-label">카테고리</div>
 										<div class="be-drop-down icon-none">
-											<span class="be-dropdown-content" id="selCategory">선택해주세요 </span>
+											<span class="be-dropdown-content" id="selCategory">${ctgryName } </span>
 											<input type="hidden" name="categoryName" id="inputCategory">
 											<ul class="drop-down-list" style="overflow:scroll; height:200px">
 											<c:forEach var="catList" items="${categoryList}">
-												<li><a>${catList}</a></li>
+												<c:choose>
+													<c:when test="${catList=='none' }">
+													</c:when>
+													<c:otherwise>
+													<li><a>${catList}</a></li>
+													</c:otherwise>
+												</c:choose>
 											</c:forEach>
 											</ul>
 										</div>							
@@ -163,7 +170,7 @@
 										<div class="col-md-4">
 											<div class="form-label">날짜 선택</div>
 											<div class='input-group date' id='datetimepicker1'>
-												<input type='text' class="form-control " name="article_regdate" value="${searchStartDay}" /> <span class="input-group-addon">
+												<input type='text' class="form-control " name="article_regdate" value="${editArticle.article_regdate}" /> <span class="input-group-addon">
 													<span class="fa fa-calendar"></span>
 												</span>
 											</div>
@@ -241,7 +248,8 @@
 	<link rel="stylesheet" href="/salmon/resources/hjh/css/bootstrap-datetimepicker.css">
 	<script type='text/javascript' src="/salmon/resources/hjh/js/moment-with-locales.min.js"></script>
 	<script type='text/javascript' src="/salmon/resources/hjh/js/bootstrap-datetimepicker.js"></script>
-	<script type='text/javascript' src="/salmon/resources/hjh/js/articleRegist.js"></script>
+	<script type='text/javascript' src="/salmon/resources/hjh/js/articleEdit.js"></script>
+
 	
 	<script type="text/javascript">
 	
@@ -290,7 +298,7 @@
 			   var article_id;
 			   $.ajax({
 				   	  cache : false,
-			          url: '/salmon/article/submit?_csrf=${_csrf.token}',
+			          url: '/salmon/article/update?_csrf=${_csrf.token}',
 			          data: articleForm,
 			          type: 'post',
 			          success: function (articleId) {
@@ -315,10 +323,8 @@
 		  } else {
 		    for (var i = 0; i < fileList.length; i += 1) {
 		      var file = fileList[i];
-		      console.log(formData.values().next())
 		      formData.append("uploadFile",fileList[i]);
 		    }
-		    console.log(formData.values().next())
 		    $.ajax({
 		      url: '/salmon/article/imageUpload?_csrf=${_csrf.token}&articleId='+articleId,
 		      processData: false,
@@ -328,7 +334,6 @@
 		      data:  formData,
 		      type: 'post',
 		      success: function (result) {
-		        console.log("success");
 		        $("#resultModal").modal({
 		        	keyboard:false,
 		        	show:true,
@@ -348,13 +353,7 @@
           			<h4 class="modal-title" id="gridSystemModalLabel">게시글 작성 결과</h4>
         		</div>
         		<div class="modal-body">
-        		 	<h5>게시글 작성이 완료되었습니다.</h5>
-        		 	<div>
-        		 	계속 작성
-        		 		 <button type="button" class="btn btn-default" aria-label="Left Align" onclick="location.href='/salmon/article/register'" value="계속 작성">
-  							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-						</button>
-        		 	</div>
+        		 	<h5>게시글 수정이 완료되었습니다.</h5>
         		 	<div>
         		 		메인으로
         		 		 <button type="button" class="btn btn-default" aria-label="Left Align" onclick="location.href='/salmon'" value="홈으로">
@@ -365,7 +364,40 @@
     		</div>
   		</div>
 	</div>
-	
+	<script>
+		 <c:if test="${articlePathList.size()>0}">
+		 <c:forEach var="path" items="${articlePathList}">
+		 function blobToFile(blob,filename){
+		     return new File([blob], filename, {type: blob.type, lastModified: Date.now()});
+		}
+		  $(function () {
+		      $.ajax({
+		        url: '/salmon/main/image?fileName=${path}',
+		        method: 'get',
+		        cache: false,
+		        xhr: function () { // Seems like the only way to get access to the xhr object
+		            var xhr = new XMLHttpRequest();
+		            xhr.responseType = 'image/png'
+		            return xhr;
+		          },
+		          success: function (data) {
+		        	var blob = new Blob([data], {type: 'image/png'});
+		        	var curFilePath = '${path}'.split("_")[1];
+		        	var file = blobToFile(blob, '${path}');
+		        	var tempFile = {};
+		        	tempFile[0]= file;
+		        	tempFile['length']=1; 
+		        	uploadFilesBefore(tempFile,curFilePath);
+		          },
+
+		        error: function () {
+
+		        }
+		      });
+		});  
+		</c:forEach>
+		</c:if>
+	</script>
 	
 	</body>
 </html>

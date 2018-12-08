@@ -24,8 +24,10 @@
 	<security:intercept-url pattern="/auth/admin" access="hasRole('ROLE_ADMIN')"/>
 	
 	<security:intercept-url pattern="/main/**" access="hasRole('ROLE_USER')"/>
+	<security:intercept-url pattern="/sns/**" access="hasRole('ROLE_USER')"/>
 
 	<security:intercept-url pattern="/accountbook/**" access="hasRole('ROLE_USER')"/>
+	<security:intercept-url pattern="/suggestion/**" access="hasRole('ROLE_USER')"/>
 	<security:form-login login-page="/login" authentication-success-handler-ref="customLoginSuccess"/>
 	
 	<!-- 로그아웃 처리 -->

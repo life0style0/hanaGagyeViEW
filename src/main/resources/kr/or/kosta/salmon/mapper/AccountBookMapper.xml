@@ -6,7 +6,6 @@
 
         <resultMap type="kr.or.kosta.salmon.domain.AccountBookDTO" id="AccountBooks">
                 <result property="articleId" column="article_id"/>
-                <result property="ctgryName" column="ctgry_name"/>
                 <result property="articleScope" column="article_scope"/>
                 <result property="articleRegdate" column="article_regdate"/>
                 <result property="articlePaymentType" column="article_payment_type"/>
@@ -14,13 +13,13 @@
                 <result property="articleTitle" column="article_title"/>
                 <result property="articleContent" column="article_content"/>
                 <result property="articleCtgryType" column="article_ctgry_type"/>
+                <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
                 <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
                 <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
         </resultMap>
 
         <resultMap type="kr.or.kosta.salmon.domain.AccountBookDTO" id="AccountBookToGgv">
                 <result property="articleId" column="article_id"/>
-                <result property="ctgryName" column="ctgry_name"/>
                 <result property="articleScope" column="article_scope"/>
                 <result property="articleRegdate" column="article_regdate"/>
                 <result property="articlePaymentType" column="article_payment_type"/>
@@ -28,6 +27,7 @@
                 <result property="articleTitle" column="article_title"/>
                 <result property="articleContent" column="article_content"/>
                 <result property="articleCtgryType" column="article_ctgry_type"/>
+                <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
                 <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
                 <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
         </resultMap>
@@ -96,6 +96,14 @@ SELECT hashtag_value
 FROM   hashtag_refs 
        join hashtags USING(hashtag_id) 
 WHERE  article_id = #{articleId}        
+        </select>
+
+        <select id="getCtgryName" resultType="string">
+SELECT ctgry_name 
+FROM   ctgry_values "cv" 
+       join ctgries "ct" 
+         ON "cv".ctgry_id = "ct".ctgry_id 
+WHERE  article_id = #{articleId}
         </select>
 
         <select id="getAccountBooksByYear" resultMap="AccountBooks">

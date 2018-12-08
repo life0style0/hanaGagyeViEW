@@ -9,6 +9,4 @@
    <!-- 스프링 어노테이션 사용을 위한 설정 -->
    <context:component-scan base-package="kr.or.kosta"/>
 
-
-
 </beans>

@@ -27,6 +27,7 @@
 	<link href="/salmon/resources/sjh/css/card-sjh.css" rel="stylesheet" media="all">
 
 	<link href="/salmon/resources/sjh/css/uploadImg-sjh.css" rel="stylesheet" media="all">
+	<link rel="stylesheet" href="/salmon/resources/sjh/css/main-sjh.css">
 
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/croppie.css">
 
@@ -47,14 +48,14 @@
 		</div>
 	</div>
 	<!-- THE HEADER -->
-	<!-- THE HEADER -->
 	<%@ include file="/WEB-INF/views/includes/header.jsp"%>
+	<!-- THE HEADER -->
 
 	<!-- MAIN CONTENT -->
 	<div id="content-block">
-		<div class="head-bg">
+		<div class="head-bg-sjh" id="chartInfoBlock">
 			<div class="head-bg-img"></div>
-			<div class="head-bg-content">
+			<div class="head-bg-content font-sjh">
 				<h1>당신의 소중한 자산관리 하나에게 맡기세요</h1>
 				<p>이제부터 눈으로 가계부를 쓰세요</p>
 			</div>
@@ -109,10 +110,12 @@
 
 					<div>
 						<%-- <p>user : <sec:authentication property="principal.user"/></p> --%>
+						<div class="col-md-12">
 						<div class="col-md-3 padding-1-sjh text-right "><strong>프로필사진</strong></div>
 						<div class="col-md-9 padding-1-sjh">
 							<input type="hidden" id="profilePath" value="/salmon/image?fileName=${user.user_image}">
-							<img class="img-responsive" id="profileImage" alt="">
+							<img class="img-responsive img-thumbnail" id="profileImage" alt="">
+						</div>
 						</div>
 						<div class="col-md-3 padding-1-sjh text-right "><strong>닉네임</strong></div>
 						<div class="col-md-9 padding-1-sjh">
@@ -166,9 +169,11 @@
 						<h2> 프로필 수정 </h2>
 					</div>
 
-					<form role="form" id="editProfileForm" method="post" class="col-md-8" action="/salmon/main/mypage/editprofile">
-						<div class="col-md-12" style="margin-bottom:20px;">닉네임, 프로필 사진 수정<input type="button" id="editProfileSubmitBtn"
-							 class="btn btn-info ggv-btn" value="수정하기"></div>
+					<form role="form" id="editNicknameForm" method="post" class="col-md-8" action="/salmon/main/mypage/editprofile">
+						<div class="col-md-12" style="margin-bottom:20px;">닉네임, 프로필 사진 수정
+						<input type="button" id="editNicknameSubmitBtn"
+							 class="btn btn-info ggv-btn" value="수정하기">
+						</div>
 						<div>현재 닉네임 :
 							<c:out value="${user.user_nickname}" />
 						</div>
@@ -177,6 +182,12 @@
 							<input id="user_nickname" name="user_nickname" required="required" type="text" class="form-control" placeholder="닉네임">
 						</div>
 						<div id="valid_user_nickname">닉넴 체크</div>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+					</form>
+					
+					<form role="form" id="editPhotoForm" method="post" class="col-md-8" action="/salmon/main/mypage/editprofile">
+						<input type="button" id="editPhotoSubmitBtn"
+							 class="btn btn-info ggv-btn" value="수정하기">
 						<div class="form-group">
 							<label for="user_image"> 프로필사진 </label>
 							<div id="filesUpload" class="dropzone" style="height: 200px;line-height: 200px;font-size: 30px;"><a href="javascript:inputFileEvent()"><ins>Drag
@@ -287,7 +298,8 @@
 
 				<div id="editCats">
 					<form role="form" id="editCategoriesForm" method="post" action="/salmon/main/mypage/editCategories">
-						<h2 style="margin-bottom:20px;">관심카테고리 수정<input type="button" id="editCategoriesSubmitBtn" class="btn btn-info ggv-btn" value="수정하기"></h2>
+						<h2 style="margin-bottom:20px;">관심카테고리 수정<input type="button" id="editCategoriesSubmitBtn" class="btn btn-info ggv-btn"
+							 value="수정하기"></h2>
 						<div class="form-group">
 							<ul id="categories" class="categories">
 								<c:choose>
@@ -375,143 +387,6 @@
 	</div>
 	<!--  로그인 팝업 끝-->
 
-	<div class="large-popup register">
-		<div class="large-popup-fixed"></div>
-		<div class="container large-popup-container">
-			<div class="row">
-				<div class="col-md-10 col-md-push-1 col-lg-8 col-lg-push-2 large-popup-content">
-					<div class="row">
-						<div class="col-md-12">
-							<i class="fa fa-times close-button"></i>
-							<h5 class="large-popup-title">Register</h5>
-						</div>
-						<form action="./" class="popup-input-search">
-							<div class="col-md-6">
-								<input class="input-signtype" type="text" required="" placeholder="First Name">
-							</div>
-							<div class="col-md-6">
-								<input class="input-signtype" type="text" required="" placeholder="Last Name">
-							</div>
-							<div class="col-md-6">
-								<div class="be-custom-select-block">
-									<select class="be-custom-select">
-										<option value="" disabled selected>
-											Country
-										</option>
-										<option value="">USA</option>
-										<option value="">Canada</option>
-										<option value="">England</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<input class="input-signtype" type="text" required="" placeholder="Email">
-							</div>
-							<div class="col-md-6">
-								<input class="input-signtype" type="text" required="" placeholder="Password">
-							</div>
-							<div class="col-md-6">
-								<input class="input-signtype" type="text" required="" placeholder="Repeat Password">
-							</div>
-							<div class="col-md-12 be-date-block">
-								<span class="large-popup-text">
-									Date of birth
-								</span>
-								<div class="be-custom-select-block mounth">
-									<select class="be-custom-select">
-										<option value="" disabled selected>
-											Mounth
-										</option>
-										<option value="">January</option>
-										<option value="">February</option>
-										<option value="">March</option>
-										<option value="">April</option>
-										<option value="">May</option>
-										<option value="">June</option>
-										<option value="">July</option>
-										<option value="">August</option>
-										<option value="">September</option>
-										<option value="">October</option>
-										<option value="">November</option>
-										<option value="">December</option>
-									</select>
-								</div>
-								<div class="be-custom-select-block">
-									<select class="be-custom-select">
-										<option value="" disabled selected>
-											Day
-										</option>
-										<option value="">1</option>
-										<option value="">2</option>
-										<option value="">3</option>
-										<option value="">4</option>
-										<option value="">5</option>
-										<option value="">6</option>
-										<option value="">7</option>
-										<option value="">8</option>
-										<option value="">9</option>
-										<option value="">10</option>
-										<option value="">11</option>
-										<option value="">12</option>
-										<option value="">13</option>
-										<option value="">14</option>
-										<option value="">15</option>
-										<option value="">16</option>
-										<option value="">17</option>
-										<option value="">18</option>
-										<option value="">19</option>
-										<option value="">20</option>
-										<option value="">21</option>
-										<option value="">22</option>
-										<option value="">23</option>
-										<option value="">24</option>
-										<option value="">25</option>
-										<option value="">26</option>
-										<option value="">27</option>
-										<option value="">28</option>
-										<option value="">29</option>
-										<option value="">30</option>
-									</select>
-								</div>
-								<div class="be-custom-select-block">
-									<select class="be-custom-select">
-										<option value="" disabled selected>
-											Year
-										</option>
-										<option value="">1996</option>
-										<option value="">1997</option>
-										<option value="">1998</option>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="be-checkbox">
-									<label class="check-box">
-										<input class="checkbox-input" type="checkbox" required="" value=""> <span class="check-box-sign"></span>
-									</label>
-									<span class="large-popup-text">
-										I have read and agree to the <a class="be-popup-terms" href="blog-detail-2.html">Terms of Use</a> and <a
-										 class="be-popup-terms" href="blog-detail-2.html">Privacy Policy</a>.
-									</span>
-								</div>
-								<div class="be-checkbox">
-									<label class="check-box">
-										<input class="checkbox-input" type="checkbox" value=""> <span class="check-box-sign"></span>
-									</label>
-									<span class="large-popup-text">
-										Send me notifications
-									</span>
-								</div>
-							</div>
-							<div class="col-md-6 for-signin">
-								<input type="submit" class="be-popup-sign-button" value="SIGN IN">
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="theme-config">
 		<div class="main-color">
 			<div class="title">Main Color:</div>

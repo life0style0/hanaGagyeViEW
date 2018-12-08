@@ -6,6 +6,7 @@ import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
 import kr.or.kosta.salmon.domain.HashTagDTO;
 import kr.or.kosta.salmon.domain.ImageDTO;
+import kr.or.kosta.salmon.domain.ImageEditDTO;
 import kr.or.kosta.salmon.domain.MainArticleDTO;
 
 public interface GaArticleService {
@@ -28,4 +29,23 @@ public interface GaArticleService {
 	
 	//수정 게시글 정보 가져오기
 	public MainArticleDTO getEditArticle(int article_id);
+	
+	//카테고리 번호로 이름 가져오기
+	public String getCtgryName(int ctgry_id);
+	
+	//게시글 수정하기
+	public void updateArticle(ArticleDTO article);
+	
+	//게시글 수정을 위한 사전작업
+	public void deleteImages(ImageEditDTO imageEditDTO);
+	public void deleteHash(int article_id);
+	public void deleteCtgry(int article_id);
+	public void deleteHashRefs(int article_id);
+	
+	//게시글 수정 사진 경로 가져오기
+	public ArrayList<String> getArticleFilePath(int article_id);
+	
+	//글 수정시 이미지 체크
+	public int imageCheck(ImageEditDTO imageEditDTO);
+	
 }

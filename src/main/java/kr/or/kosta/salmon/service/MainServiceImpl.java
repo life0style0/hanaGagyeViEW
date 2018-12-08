@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
 import kr.or.kosta.salmon.domain.MainArticleDTO;
 import kr.or.kosta.salmon.domain.MainChartDTO;
+import kr.or.kosta.salmon.domain.MainGroupCtFeeDTO;
 import kr.or.kosta.salmon.mapper.MainMapper;
 import lombok.extern.log4j.Log4j;
 
@@ -29,11 +30,24 @@ public class MainServiceImpl implements MainService{
 	}
 
 	@Override
-	public MainChartDTO getChartTotalFee(String user_id) {
-		return mainMapper.getChartTotalFee(user_id);
+	public MainChartDTO getChartTotalIncomeFee(String user_id) {
+		return mainMapper.getChartTotalIncomeFee(user_id);
 	}
 
-	
+	@Override
+	public MainChartDTO getChartTotalSpendFee(String user_id) {
+		return mainMapper.getChartTotalSpendFee(user_id);
+	}
+
+	@Override
+	public ArrayList<MainGroupCtFeeDTO> getChartCategoryIncomeFee(String user_id) {
+		return mainMapper.getChartCategoryIncomeFee(user_id);
+	}
+
+	@Override
+	public ArrayList<MainGroupCtFeeDTO> getChartCategorySpendFee(String user_id) {
+		return mainMapper.getChartCategorySpendFee(user_id);
+	}
 
 	
 
