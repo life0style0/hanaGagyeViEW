@@ -17,8 +17,8 @@
 <link rel="stylesheet" href="/salmon/resources/template/style/icon.css">
 <link rel="stylesheet" href="/salmon/resources/template/style/loader.css">
 <link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
-<link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
-
+    <!-- 혜림 수정 CSS -->
+		<link rel="stylesheet" href="/salmon/resources/lhr/css/stylesheet-hyerim.css">
 <!-- Font special for pages-->
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
 
@@ -110,9 +110,10 @@
           <div class="be-user-block style-3">
           <!-- 소모임 기본 프로필 사진 설정을 위한 CSS -->
             <style>
+            
             .be-ava-user.style-2>img {
-            	width: 200px;
-            	height: 200px;
+            	width: 190px;
+            	height: 190px;
             }
             </style>
             <div class="be-user-detail">
@@ -132,6 +133,7 @@
               </div>
               
               <!-- 소모임 (가입)팔로우 여부 확인을 위한 Modal-fade 띄우기  -->
+              <form role="form" action="/salmon/group/get" method="post">
               <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog"  style="font-family: 'Noto Sans KR', sans-serif;">
                   <div class="modal-content">
@@ -142,7 +144,7 @@
                     <div class="modal-body">
                       소모임에 가입하시겠습니까? 
                       <br>
-                      <button type="button" class="btn btn-primary" style="margin: 10px;" onclick="haerimAddFunction()">가입 </button>
+                      <button type="submit" class="btn btn-primary" style="margin: 10px;" onclick="haerimAddFunction()">가입 </button>
                     <div id="snackbar"> 소모임 가입이 완료되었습니다. 소모임을 즐겨보세요 :-)  </div>
                     </div>
                     <div class="modal-footer">
@@ -151,6 +153,7 @@
                   </div>
                 </div>
               </div>
+              </form>
             <!-- 소모임 가입 완료를 위한 JS 스낵바 -->
             <script type="text/javascript">
             function haerimAddFunction(){

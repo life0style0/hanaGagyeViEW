@@ -47,7 +47,7 @@
 	</insert>
 	
 	<!-- 소모임 그룹 만들기 (SelectKey 활용) -->
-	<insert id="createSelectGroup">
+<!-- 	<insert id="createSelectGroup">
 	<selectKey keyProperty="group_id" order="BEFORE" resultType="String">
 		select group_id_seq.NEXTVAL from dual
 	</selectKey>
@@ -68,11 +68,53 @@
 	            #{ctgry_1},
 	            #{ctgry_2},
 	            #{ctgry_3} )
+	</insert> -->
+	
+	<!-- 소모임 그룹 만들기 -->
+	<insert id="createSelectGroup">
+DECLARE
+  groupId NUMBER;
+BEGIN
+select group_id_seq.nextval into groupId from dual;
+
+INSERT INTO groups
+            (group_id,
+             group_title,
+             group_regdate,
+             group_description,
+             group_people_max,
+             user_id,
+             ctgry_1,
+             ctgry_2,
+             ctgry_3)
+VALUES     (groupId,
+            #{group_title},
+            sysdate,
+            #{group_description},
+            #{group_people_max},
+            #{user_id},
+            #{ctgry_1},
+            #{ctgry_2},
+            #{ctgry_3} );
+
+insert into group_users(group_users_id, group_id, user_id)
+values(group_users_id_seq.nextval, groupId, #{user_id});
+
+END;
 	</insert>
 	
+	<insert id="joinGroup">
+	INSERT into group_users(GROUP_USERS_ID, group_id, user_id)
+	values(GROUP_USERS_ID_SEQ.nextval, #{group_id}, #{user_id})
+	</insert>
 	
-	
-	
+	<select id="getCount" resultType="kr.or.kosta.salmon.domain.GroupCountDTO">
+	SELECT group_people_max "max",
+			count(group_users_id) "now"
+	FROM groups left outer join group_users using(group_id)
+	WHERE group_id = #{group_id}
+	GROUP by group_people_max
+	</select>
 	
 	<!-- UserCategory 가져오기  -->
 	<!-- psns : 개인화 정보 -->

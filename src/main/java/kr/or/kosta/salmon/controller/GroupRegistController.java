@@ -1,4 +1,5 @@
 package kr.or.kosta.salmon.controller;
+import java.security.Principal;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.Criteria;
+import kr.or.kosta.salmon.domain.GroupCountDTO;
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.service.GroupService;
 import lombok.extern.log4j.Log4j;
@@ -66,10 +68,38 @@ public class GroupRegistController {
 		log.info("/get");
 		log.info("그룹 아이디 들어와 ? : "+group_id);
 		model.addAttribute("groups", groupservice.get(group_id));
+	}
+	
+	//소모임 회원으로 가입 처리 
+	@PostMapping("/get")
+	public String get1(@RequestParam("group_id") String group_id, Model model, Principal principal) {
+		log.info("/get");
+		log.info("그룹 아이디 [getMethod] =====: "+group_id);
+		log.info("Model 결과 : [getMethod] =====: "+model);
+		log.info("Principa 결과 : [getMethod] =====: "+principal);
+
+		
+		model.addAttribute("group_id", group_id);
+		GroupCountDTO gcdto =  groupservice.getCount(group_id);
+		if(gcdto.getMax() <= gcdto.getNow()) {
+			model.addAttribute("check", "fail");
+			return "redirect:/group/join-confirm}";
+		} else {
+			if(groupservice.joinGroup(group_id, principal.getName()) > 0 ) {
+				model.addAttribute("check", "success");
+				return "redirect:/group/join-confirm";
+			} else {
+				model.addAttribute("check", "fail");
+				return "redirect:/group/join-confirm";
+			}
+		}
 		
 	}
 	
-	
+	@GetMapping("/join-confirm")
+	public void joinConfirm() {
+		log.info("소모임 회원으로 가입 결과 페이지 요청");
+	}
 	
 
 }
