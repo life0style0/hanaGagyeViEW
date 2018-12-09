@@ -1,8 +1,11 @@
 package kr.or.kosta.salmon.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.domain.CommentDTO;
+import kr.or.kosta.salmon.domain.GroupCountDTO;
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.domain.RegistGroupDTO_lhr;
 import kr.or.kosta.salmon.domain.UserDTO;
@@ -31,4 +34,19 @@ public interface GroupService {
 	
 	//전체 그룹 리스트 가져오기
 	public List<GroupDTO_lhr> getList();
+	
+	// 소모임 현재 인원, 가입 가능 인원 확인하기 
+	public GroupCountDTO getCount(String group_id);
+	
+	//소모임 들어가기 
+	public int joinGroup(String group_id, String user_id);
+	
+	//소모임 댓글 관련 
+	//댓글
+	public void writeComment(CommentDTO comment);
+	public void writeComment(String user_id, int article_id, String comment_content);
+	public ArrayList<CommentDTO> getCommentsByArticle(int article_id);
+	public ArrayList<CommentDTO> getNewCommentsByArticle(int articleId,int lastCommentId);
+	public UserDTO getSimpleUser(String user_id);
+	public void deleteComment(int comment_id);
 }
