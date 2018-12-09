@@ -88,3 +88,25 @@ a.ask-follow i {
 .comment-delete-btn{
 	cursor: pointer;
 }
+
+.search-user-follow-btn{
+		color: #FFF !important;
+	background: #298478;
+	border-radius: 2px;
+	line-height: 30px;
+	font-size: 10px;
+	position: relative;
+	width: 100%;
+	display: block;
+	padding: 5px 5px 5px 5px;
+	cursor: pointer;
+	color: #8ba1dd;
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	font-size: 16px;
+	
+    line-height: 1.3333;
+    margin: unset;
+/*    margin-left: 10px;*/
+}

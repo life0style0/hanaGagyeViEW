@@ -1,8 +1,11 @@
 package kr.or.kosta.salmon.service;
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.or.kosta.salmon.domain.CommentDTO;
 import kr.or.kosta.salmon.domain.FollowerDTO;
+import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
 import kr.or.kosta.salmon.domain.LikeDTO;
 import kr.or.kosta.salmon.domain.MainFeedArticlesDTO;
@@ -77,5 +80,12 @@ public interface SNSService {
 	//게시글 신고
 	public boolean reportArticle(ReportDTO report);
 	public boolean reportArticle(String user_id, int article_id);
+	
+	//일반게시글 검색
+	public ArrayList<SNSArticleDTO_sjh> searchArticles(String value);
+	//역제안게시글 검색
+	public ArrayList<SNSArticleDTO_sjh> searchSuggestions(String value);
+	//그룹검색
+	public ArrayList<GroupDTO_lhr> searchGroups(@Param("value") String value);
 	
 }

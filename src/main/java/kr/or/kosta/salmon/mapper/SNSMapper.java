@@ -27,6 +27,13 @@ public interface SNSMapper {
 	public ArrayList<HashTagGroupDTO> getAllHashTagGroup();
 //	public ArrayList<MainGroupCtFeeDTO> getChartCategoryFee(String user_id);
 	
+	//일반 게시글 검색
+	public ArrayList<SNSArticleDTO_sjh> searchArticles(@Param("value") String value);
+	//제안글 검색
+	public ArrayList<SNSArticleDTO_sjh> searchSuggestions(@Param("value") String value);
+	//그룹검색
+	public ArrayList<GroupDTO_lhr> searchGroups(@Param("value") String value);
+		
 	//전체 게시글중 인기글
 	public ArrayList<SNSArticleDTO_sjh> getSNSPopularArticles();
 	//전체 게시글중 최신글
@@ -59,7 +66,6 @@ public interface SNSMapper {
 	//좋아요
 	public int likeArticle(LikeDTO like);
 	public int unlikeArticle(LikeDTO like);
-	
 	public SNSArticleDTO_sjh getArticleByArticleId(int article_id);
 	
 	

@@ -23,7 +23,7 @@ public interface UserService {
 	public UserDTO searchUserById(String user_id);
 	
 	//sns 페이지에서 사용자 검색
-	public List<UserDTO> searchUserInSNS(@Param("values") String value);
+	public List<UserDTO> searchUserInSNS(String value);
 	
 	//가입할때 아이디 중복 검사
 	public boolean isExistId(String user_id);

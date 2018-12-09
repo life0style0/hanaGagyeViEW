@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.or.kosta.salmon.domain.CommentDTO;
 import kr.or.kosta.salmon.domain.FollowerDTO;
+import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
 import kr.or.kosta.salmon.domain.LikeDTO;
 import kr.or.kosta.salmon.domain.MainFeedArticlesDTO;
@@ -231,5 +232,20 @@ public class SNSServiceImpl implements SNSService {
 	@Override
 	public ArrayList<HashTagGroupDTO> getAllHashTagGroup() {
 		return snsMapper.getAllHashTagGroup();
+	}
+
+	@Override
+	public ArrayList<SNSArticleDTO_sjh> searchArticles(String value) {
+		return snsMapper.searchArticles(value);
+	}
+
+	@Override
+	public ArrayList<SNSArticleDTO_sjh> searchSuggestions(String value) {
+		return snsMapper.searchSuggestions(value);
+	}
+
+	@Override
+	public ArrayList<GroupDTO_lhr> searchGroups(String value) {
+		return snsMapper.searchGroups(value);
 	}
 }

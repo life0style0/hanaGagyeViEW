@@ -81,23 +81,7 @@ public class MainController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
-		//전체 게시글중 인기글과 최신글
-	/*	MainFeedArticlesDTO newAndPop= snsService.getNewAndPopArticles();
-		ArrayList<SNSArticleDTO_sjh> newArticles= newAndPop.getNewArticles();
-		ArrayList<SNSArticleDTO_sjh> popularArticles= newAndPop.getPopArticles();
-		model.addAttribute("newArticles", newArticles);
-		model.addAttribute("popularArticles", popularArticles);
-		
-		try {
-			String newArticlesJSON = objmapper.writeValueAsString(newArticles);
-			String popularArticlesJSON = objmapper.writeValueAsString(popularArticles);
-			model.addAttribute("newArticlesJSON", newArticlesJSON);
-			model.addAttribute("popularArticlesJSON", popularArticlesJSON);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		*/
+
 		//유저 정보
 		UserDTO meDTO= snsService.getSimpleUser(principal.getName());
 		model.addAttribute("me",meDTO);
@@ -139,15 +123,7 @@ public class MainController {
 		//model.addAttribute("article", article);
 	}
 	
-	@GetMapping(value="/main/search/user/{value}",
-			produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<UserDTO>> searchUserGET(@PathVariable("value") String value,Principal principal) {
-		log.info(" 사용자 검색 요청  from "+principal.getName()+" to "+value);
-		List<UserDTO> userlist= userService.searchUserInSNS(value);
-		log.info(userlist);
-		return new ResponseEntity<>(userlist,HttpStatus.OK);
-	}
-	
+
 	/**
 	 * 게시글 신고
 	 * @param articleId

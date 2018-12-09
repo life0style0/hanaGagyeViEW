@@ -506,5 +506,89 @@
      	SELECT To_char(SYSDATE, 'YYYY-MM-DD') "today" 
 		FROM   dual
      </select>
+     
+     <select id="searchArticles" resultMap="articleMap">
+		SELECT article_id, 
+		       article_ctgry_id, 
+		       article_scope, 
+		       To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
+		       article_editdate, 
+		       article_payment_type, 
+		       article_payment_fee, 
+		       article_title, 
+		       article_content, 
+		       article_proposal_status, 
+		       group_id, 
+		       user_id, 
+		       user_nickname, 
+		       article_deleted, 
+		       article_like_num, 
+		       article_comment_num 
+		FROM   articles 
+		       join users USING (user_id) 
+		       join ctgry_values USING(article_id) 
+		       join ctgries USING (ctgry_id) 
+		WHERE  article_scope IN ( 'u', 'g' ) 
+		       AND article_ctgry_id IN( 1, 2 ,3) 
+		       AND ( ctgry_name LIKE #{value} 
+		              OR article_title LIKE #{value} 
+		              OR article_content LIKE #{value} ) 
+		ORDER  BY article_regdate DESC 
+     </select>
+       
+     <select id="searchSuggestions" resultMap="articleMap">
+		SELECT article_id, 
+		       article_ctgry_id, 
+		       article_scope, 
+		       To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
+		       article_editdate, 
+		       article_payment_type, 
+		       article_payment_fee, 
+		       article_title, 
+		       article_content, 
+		       article_proposal_status, 
+		       group_id, 
+		       user_id, 
+		       user_nickname, 
+		       article_deleted, 
+		       article_like_num, 
+		       article_comment_num 
+		FROM   articles 
+		       join users USING (user_id) 
+		       join ctgry_values USING(article_id) 
+		       join ctgries USING (ctgry_id) 
+		WHERE  article_scope IN ( 'u', 'g' ) 
+		       AND article_ctgry_id = 3 
+		       AND ( ctgry_name LIKE #{value} 
+		              OR article_title LIKE #{value} 
+		              OR article_content LIKE #{value} ) 
+		ORDER  BY article_regdate DESC 
+     </select>
+     
+     <select id="searchGroups" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
+		SELECT group_id, 
+		       group_title, 
+		       group_regdate, 
+		       group_description, 
+		       group_people_max, 
+		       user_id, 
+		       ctgry_1, 
+		       ctgry_2, 
+		       ctgry_3 
+		FROM   GROUPS 
+		WHERE  ctgry_1 IN (SELECT ctgry_id 
+		                   FROM   ctgries 
+		                   WHERE  ctgry_name LIKE #{value}) 
+		        OR ctgry_2 IN (SELECT ctgry_id 
+		                       FROM   ctgries 
+		                       WHERE  ctgry_name LIKE #{value}) 
+		        OR ctgry_3 IN (SELECT ctgry_id 
+		                       FROM   ctgries 
+		                       WHERE  ctgry_name LIKE #{value}) 
+		        OR group_title LIKE #{value} 
+		        OR group_description LIKE #{value}     
+     </select>
+     
+
     
 </mapper>

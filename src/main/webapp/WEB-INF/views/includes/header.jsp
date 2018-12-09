@@ -25,8 +25,8 @@
           <li><a href="/salmon/accountbook/calendar">AccountBook</a></li>
           <li><a href="/salmon/suggestion">Suggestion</a></li>
           <li style="padding: unset;">
-	          <form action="./" class="input-search" method="get" style="margin-bottom:unset">
-		        <input type="text" required="required" placeholder="Enter keyword">
+	          <form action="/salmon/sns/search" class="input-search" method="get" style="margin-bottom:unset">
+		        <input type="text" required="required" name="search-value" placeholder="Enter keyword">
 		        <i class="fa fa-search"></i>
 	          	<input type="submit" value="">
 	          </form>

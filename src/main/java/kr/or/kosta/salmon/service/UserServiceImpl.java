@@ -181,6 +181,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<UserDTO> searchUserInSNS(String value) {
+		log.info("사용자검색");
 		return usermapper.searchUserInSNS(value);
 	}
 

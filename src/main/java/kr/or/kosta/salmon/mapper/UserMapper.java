@@ -80,6 +80,6 @@ public interface UserMapper {
 	public List<LocationDTO_sjh> getAllLocations();
 	
 	//sns 페이지에서 사용자 검색
-	public List<UserDTO> searchUserInSNS(@Param("values") String value);
+	public List<UserDTO> searchUserInSNS(@Param("value") String value);
 	
 }

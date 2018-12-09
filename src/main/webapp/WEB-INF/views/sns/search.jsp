@@ -27,6 +27,8 @@
   <link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
   <link rel="stylesheet" href="/salmon/resources/jjw/css/owl.carousel.min.css">
   <link rel="stylesheet" href="/salmon/resources/jjw/css/owl.theme.default.min.css">
+  
+  <link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
 
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -34,13 +36,7 @@
 
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <!--[if lt IE 10]>
-			<link rel="stylesheet" type="text/css" href="style/ie-9.css" />
-		<![endif]-->
-  <!--[if lt IE 9]>
-		    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	    <![endif]-->
+
 </head>
 
 <body>
@@ -65,51 +61,85 @@
   <!-- MAIN CONTENT -->
   <div id="content-block">
       <div class="head-bg-content font-sjh" style="height:fit-content">
-        <h1> 둘러보기 </h1>
+        <h1> <c:out value="${searchVal}"/> 검색 결과</h1>
         <p> 다른 분들은 어떤 소비를 하고 있을까요? </p>
       </div>
   </div>
 
-  <div class="container-fluid cd-main-content custom-container">
-    <div class="row">
-      <div class="col-md-2 left-feild">
-        
-      </div>
-      <div class="col-md-10 ">
-        <div class="for-be-dropdowns">
-          
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div class="container-fluid custom-container">
-    <div class="row">
+	<div class="col-md-12 article-menu-bar">
+		<div id="search-res-article-btn" class="col-md-3 article-menu">게시글 검색결과</div>
+		<div id="search-res-user-btn" class="col-md-3 article-menu">사용자 검색결과</div>
+	</div>
 
+	<!-- <div id="search-res-user" class="container-fluid custom-container"> -->
+	<div id="search-res-user">
+    <div class="row">
+     <!--  <div class="col-md-2 left-feild">
+      </div> -->
+       <div class="col-md-10">
+		<c:choose>
+		<c:when test="${empty userList}">
+			<div class="be-large-post info-block">
+			 <h2> 검색된 사용자가 없습니다 !  </h2>
+			</div>
+		</c:when>
+		<c:otherwise>
+		<c:forEach var="user" items="${userList}">
+			<div class="custom-column-5" style="display: inline-block;">
+			<div class="be-user-block style-2">
+			<a class="be-ava-user style-2" href="/salmon/sns/feeds?userid=<c:out value="${user.user_id}"/>"> 
+			<img src="" alt="">
+			<input type="hidden" name="user-photo-path" value="${user.user_image}">
+			</a>
+			<a href="/salmon/sns/feeds?userid=<c:out value="${user.user_id}"/>" class="be-use-name">
+			<c:out value="${user.user_nickname}"/></a>
+			<p class="be-user-info"><c:out value="${user.user_id}"/> </p>
+				<div class="be-text-tags">
+				<c:out value="${user.userLocAndCat.categories}"/>
+				</div>
+				<c:choose>
+					<c:when test="${user.isFollow eq 'followable'}">
+						<a id="follow-ask-do-<c:out value="${user.user_id}"/>" class="ask-follow">
+						<i class="far fa-heart"></i> FOLLOW
+						</a>
+					</c:when>
+					<c:when test="${user.isFollow eq 'unfollowable'}">
+						<a id="follow-ask-undo-<c:out value="${user.user_id}"/>" class="ask-follow">
+						<i class="fa fa-heart"></i> UNFOLLOW
+						</a>
+					</c:when>
+					<c:otherwise>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			</div>
+		</c:forEach>
+		</c:otherwise>
+		</c:choose>
+		
+		</div>
+    </div>
+    </div>
+        
+	<div id="search-res-article" class="container-fluid custom-container">
+    <div class="row">
       <div class="col-md-2 left-feild">
         <div class="controls">
          	<button type="button" class="control" data-sort="published-date:asc likes-num:desc comments-num:asc">좋아요순</button>
             <button type="button" class="control" data-sort="published-date:asc likes-num:asc comments-num:desc">댓글순</button>
             <button type="button" class="control" data-sort="published-date:desc likes-num:asc comments-num:asc">최신순</button>
         </div>
-        
         <div class="be-vidget">
-          <h3 class="letf-menu-article">
-            인기 소모임
-          </h3>
+          <h3 class="letf-menu-article"> </h3>
           <div class="creative_filds_block">
             <div class="ul">
-              <a data-filter=".category-1" class="filter">동적생성 1 </a>
-              <a data-filter=".category-2" class="filter">동적생성2 </a>
-          
+              <a data-filter=".category-p" class="filter"> 포스트 </a>
+              <a data-filter=".category-s" class="filter"> 역제안 </a>
             </div>
           </div>
         </div>
         <div class="be-vidget">
-          <h3 class="letf-menu-article">
-            인기 해시태그
-          </h3>
+          <h3 class="letf-menu-article">인기 해시태그</h3>
           <div class="tags_block clearfix">
             <ul>
             <li><a data-filter=".category-1" class="filter">전체 (${hashTagList.size()})</a></li>
@@ -129,26 +159,39 @@
           </div>
         </div>
       </div>
+     
 
       <div class="col-md-10">
         <div id="container-mix" class="row _post-container_">
-        <c:if test="${newArticleList.size() == 0 }">
-        	<!-- <div class="category-my mix custom-column-3"> -->
-        	<div name="myfeed-article" class="mix custom-column-3">
-            <div class="be-post">
-             	등록된 게시글이 없습니다.
-            </div>
-            </div>
-        </c:if>
-        <c:if test="${newArticleList.size() > 0 }">
-        <c:forEach var="article" items="${newArticleList }">
+        <c:choose>
+        
+        <c:when test="${articleList.size() == 0 and suggestionList.size() == 0 }">
+        	<div class="be-large-post info-block">
+			 <h2> 검색된 게시글이 없습니다 !  </h2>
+			</div>
+        </c:when>
+        
+        <c:otherwise>
+        
+        <%--일반 게시글 검색결과 --%>
+		<c:if test="${articleList.size() > 0 }">
+        <c:forEach var="article" items="${articleList }">
         <c:forEach var="hashLoop" items="${article.hashtags }">
        		<c:set var="tag" scope="page" value="${tag } category-hashTag-${hashLoop }"/>
        	</c:forEach>
-        <div class="category-1 mix custom-column-3 ${tag }"  
-        data-published-date="${article.article_regdate}" data-likes-num="${article.likes.size()}" data-comments-num="${article.comments.size()}">
-            <div id="article-post-<c:out value="${article.article_id}"/>" class="be-post-sjh" 
-            style="background-color:#cecece1f">
+       <c:choose>
+       <c:when test="${article.article_ctgry_id eq 3}">
+	        <div class="category-s mix custom-column-3 ${tag }"  data-published-date="${article.article_regdate}" 
+	        data-likes-num="${article.likes.size()}" data-comments-num="${article.comments.size()}">
+       </c:when>
+       <c:otherwise>
+       		<div class="category-p mix custom-column-3 ${tag }"  data-published-date="${article.article_regdate}" 
+	        data-likes-num="${article.likes.size()}" data-comments-num="${article.comments.size()}">
+       </c:otherwise>
+       </c:choose>
+       
+            <div id="article-post-<c:out value="${article.article_id}"/>" 
+            class="be-post-sjh" style="background-color:#81BEF7">
               <a class="be-img-block">
               <c:if test="${article.imagePaths.size()==0 }">
               	<div class="article-size">
@@ -172,18 +215,6 @@
               </a>              
               <a id="article-title-<c:out value="${article.article_id}"/>" class="be-post-title">
                 ${article.article_title}
-               <!--
-             	<c:if test="${article.imagePaths.size()>0 }">
-             		<c:set var="imgCt" value="1"/>
-              	<c:forEach var="images" items="${article.imagePaths}">
-              	<c:if test="${imgCt < 2 }">
-                  <img src="/salmon/main/image?fileName=${images }" alt="img">
-                </c:if>
-                	<c:set var="imgCt" value="${imgCt+1 }"/>
-                </c:forEach>
-              </c:if>
-              --> 
-
               </a>
               <span>
               	<c:forEach var="tag" items="${article.hashtags }">
@@ -212,13 +243,78 @@
               </div>
             </div>
           </div>
+        </c:forEach>
+        </c:if>
+          
+          <%-- 제안글 검색결과 --%>
+   <%--      <c:if test="${suggestionList.size() > 0 }">
+        <c:forEach var="article" items="${suggestionList }">
+        <c:forEach var="hashLoop" items="${article.hashtags }">
+       		<c:set var="tag" scope="page" value="${tag } category-hashTag-${hashLoop }"/>
+       	</c:forEach>
+        <div class="category-s mix custom-column-3 ${tag }" data-published-date="${article.article_regdate}" 
+        data-likes-num="${article.likes.size()}" data-comments-num="${article.comments.size()}">
+            <div id="article-post-<c:out value="${article.article_id}"/>" 
+            class="be-post-sjh" style="background-color:#F6CED8">
+              <a class="be-img-block">
+              <c:if test="${article.imagePaths.size()==0 }">
+              	<div class="article-size">
+              		<div class="padding-1-sjh">
+              			<c:out value="${article.article_content}"/>
+              		</div>
+              	</div>
+              </c:if>
+              <c:if test="${article.imagePaths.size()>0 }">
+                <c:set var="imgCt" value="1"/>
+	          	<c:forEach var="images" items="${article.imagePaths}">
+                <div class="article-size" style="text-align:center;">
+                  <c:if test="${imgCt < 2 }">
+                  <img src="/salmon/main/image?fileName=${images }" alt="img">
+                  </c:if>
+                </div>
+                <c:set var="imgCt" value="${imgCt+1 }"/>
+	            </c:forEach>
+              </c:if>
+              </a>              
+              <a id="article-title-<c:out value="${article.article_id}"/>" class="be-post-title">
+                ${article.article_title}
+              </a>
+              <span>
+              	<c:forEach var="tag" items="${article.hashtags }">
+                	<a href="blog-detail-2.html" class="be-post-tag">${tag } </a>
+                </c:forEach>
+              </span>
+              <div class="author-post">
+                <img src="/salmon/resources/template/img/a1.png" alt="" class="ava-author">
+                <span>by 
+                <a href="/salmon/sns/feeds?userid=${article.user_nickname}">${article.user_nickname}</a>
+                </span>
+              </div>
+              <div class="info-block">
+                <span><i class="fa fa-thumbs-o-up"></i>
+                	좋아요
+                	<c:out value="${article.likes.size()}"/>
+                </span>
+                <span><i class="fa fa-eye"></i>
+                	스크랩수
+                	<c:out value="${article.scraps.size()}"/>
+                </span>
+                <span><i class="fa fa-comment-o"></i>
+                	댓글수
+                	<c:out value="${article.comments.size()}"/>
+                </span>
+              </div>
+            </div>
+          </div>
           </c:forEach>
-          </c:if>
-        
-        </div>
-      </div>
+          </c:if> --%>
+        </c:otherwise>
+        </c:choose>
+      
+        </div> <!-- container 끝 -->
+      </div> <!-- col-md-10 끝 -->
+    </div> <!--  row 끝 -->
     </div>
-  </div>
   
   
  
@@ -271,31 +367,34 @@
   <script src="/salmon/resources/template/script/global.js"></script>
   <script src="/salmon/resources/sjh/js/main-article.js"></script>
   <script src="/salmon/resources/jjw/js/owl.carousel.min.js"></script>
+  <script src="/salmon/resources/sjh/js/search.js"></script>
   
   
 	<script type="text/javascript">
 	var articlelist;
+	var suggestionlist;
 	var me;
 	$(function(){ 
-		  //article 불러오기
-		  var article= new Object();
-		  articlelist= ${newArticleListJSON};
-		  var i=0;
-		 
-		  $(articlelist).each(function(i,e){
-			  console.log(e);
-		  });
-		  
-		//  $('#myfeed-btn').trigger('click'); //필터 적용
+		articlelist= ${articleListJSON};
+		//suggestionlist= ${suggestionListJSON};
+		var i=0;
+		$(articlelist).each(function(i,e){
+			console.log(e);
+		});
+		
+		i=0;
+//		$(suggestionlist).each(function(i,e){
+	//		console.log(e);
+		//});
 		  
 		  //내정보 불러오기
-		  me= ${meJSON};
-		  console.log(me);
-		})
+		me= ${meJSON};
+		console.log(me);
+	})
 	</script>
 	
 	<!--  게시글 정렬  -->
-	<script src="/salmon/resources/sjh/js/mixitup.min.js"></script>
+ 	<script src="/salmon/resources/sjh/js/mixitup.min.js"></script>
         <script>
             var containerEl = document.querySelector('#container-mix');
 
@@ -305,9 +404,5 @@
                 }
             });
         </script>
-	
-  
- 
 </body>
-
 </html>

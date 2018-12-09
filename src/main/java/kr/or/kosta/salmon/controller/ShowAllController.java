@@ -1,34 +1,18 @@
 package kr.or.kosta.salmon.controller;
 
-import java.io.File;
-import java.nio.file.Files;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import kr.or.kosta.salmon.domain.CommentDTO;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
-import kr.or.kosta.salmon.domain.MainChartDTO;
-import kr.or.kosta.salmon.domain.MainFeedArticlesDTO;
-import kr.or.kosta.salmon.domain.ReportDTO;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.service.MainService;
@@ -116,23 +100,7 @@ public class ShowAllController {
 		
 	}
 	
-/*	@GetMapping("/main/image")
-    @ResponseBody
-    public ResponseEntity<byte[]> getImage(String fileName) {
-        log.info("getImage : " + fileName);
-        File file = new File("C:\\upload\\images\\" + fileName);
-
-        ResponseEntity<byte[]> result = null;
-
-        try {
-            HttpHeaders header = new HttpHeaders();
-            header.add("Content-Type", Files.probeContentType(file.toPath()));
-            result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), HttpStatus.OK);
-        } catch (Exception e) {
-            result = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return result;
-    }
+/*	
     
 	@GetMapping(value="/main/article/{articleId}",
 			produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -143,15 +111,6 @@ public class ShowAllController {
 		log.info(article);
 		return new ResponseEntity<SNSArticleDTO_sjh>(article,HttpStatus.OK);
 		//model.addAttribute("article", article);
-	}
-	
-	@GetMapping(value="/main/search/user/{value}",
-			produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<UserDTO>> searchUserGET(@PathVariable("value") String value,Principal principal) {
-		log.info(" 사용자 검색 요청  from "+principal.getName()+" to "+value);
-		List<UserDTO> userlist= userService.searchUserInSNS(value);
-		log.info(userlist);
-		return new ResponseEntity<>(userlist,HttpStatus.OK);
 	}
 	
 	*/
