@@ -1,0 +1,200 @@
+package kr.or.kosta.salmon.controller;
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.kosta.salmon.domain.AdminFollowerTopDTO;
+import kr.or.kosta.salmon.domain.AdminGetUserCtgryDTO;
+import kr.or.kosta.salmon.domain.AdminPayInfoAvgDTO;
+import kr.or.kosta.salmon.domain.AdminPayInfoAvgGroupBYAgeDTO;
+import kr.or.kosta.salmon.domain.AdminPayInfoTotalDTO;
+import kr.or.kosta.salmon.domain.AdminPaymentTypeDTO;
+import kr.or.kosta.salmon.domain.AdminUserInfoDTO;
+import kr.or.kosta.salmon.service.AdminService;
+import kr.or.kosta.salmon.service.GaArticleService;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
+@RequestMapping("/admin/*")
+@Controller
+public class AdminController {
+	
+	@Inject
+	AdminService adminService;
+	
+	@Inject
+	GaArticleService gaArticleService;
+	
+	@GetMapping("/index")
+	public void userInfo(Model model) {
+		HashMap<String, Integer> ageGroupHash = new HashMap<>();
+		AdminUserInfoDTO adminUserInfoDTO = new AdminUserInfoDTO();
+		int ageGroup = 0;
+		
+		//카테고리 사전작업
+		ArrayList<AdminGetUserCtgryDTO> userCtgryList = new ArrayList<>();
+		HashMap<String, Integer> ctgryHash = new HashMap<>();
+		userCtgryList = adminService.getUserCategory1();
+		int ctgryTotal = 0; 
+		
+		for(AdminGetUserCtgryDTO dto : userCtgryList){
+			if(ctgryHash.get(dto.getCtgry_name())==null){
+				ctgryHash.put(dto.getCtgry_name(), dto.getCtgry_ct());
+			}else{
+				ctgryHash.put(dto.getCtgry_name(), ctgryHash.get(dto.getCtgry_name())+dto.getCtgry_ct());
+			}
+			ctgryTotal+= dto.getCtgry_ct();
+		}
+		userCtgryList = adminService.getUserCategory2();
+		for(AdminGetUserCtgryDTO dto : userCtgryList){
+			if(ctgryHash.get(dto.getCtgry_name())==null){
+				ctgryHash.put(dto.getCtgry_name(), dto.getCtgry_ct());
+			}else{
+				ctgryHash.put(dto.getCtgry_name(), ctgryHash.get(dto.getCtgry_name())+dto.getCtgry_ct());
+			}	
+			ctgryTotal+= dto.getCtgry_ct();
+		}
+		userCtgryList = adminService.getUserCategory3();
+		for(AdminGetUserCtgryDTO dto : userCtgryList){
+			if(ctgryHash.get(dto.getCtgry_name())==null){
+				ctgryHash.put(dto.getCtgry_name(), dto.getCtgry_ct());
+			}else{
+				ctgryHash.put(dto.getCtgry_name(), ctgryHash.get(dto.getCtgry_name())+dto.getCtgry_ct());
+			}	
+			ctgryTotal+= dto.getCtgry_ct();
+		}
+
+		ArrayList<String> sortList = (ArrayList)sortByValue(ctgryHash);
+		userCtgryList = new ArrayList<>();
+		int tempCt = 0;
+		for(String ctgry : sortList){
+			tempCt++;
+			AdminGetUserCtgryDTO tempDto = new AdminGetUserCtgryDTO();
+			tempDto.setCtgry_name(ctgry);
+			tempDto.setCtgry_ct(ctgryHash.get(ctgry));
+			userCtgryList.add(tempDto);
+			if(tempCt>=5){
+				break;
+			}
+		}
+		
+		//follower 정보 가져오기
+		ArrayList<AdminFollowerTopDTO> followerTopList= null;
+		ArrayList<AdminFollowerTopDTO> temp = adminService.getFollowerTop();
+		if(temp.size() <5){
+			followerTopList = new ArrayList<>(temp.subList(0, temp.size()));
+		}else if(temp.size() >=5){
+			followerTopList = new ArrayList<>(temp.subList(0, 5));
+		}
+		//수입 지출 성별에 따른 데이터 set 만들기
+		ArrayList<AdminPaymentTypeDTO> paymentDTO = adminService.getPaymentType();
+		HashMap<String, HashMap<String, Integer>> paymentHashSetMale = new HashMap<>();
+		HashMap<String, HashMap<String, Integer>> paymentHashSetFemale = new HashMap<>();
+		
+		for(AdminPaymentTypeDTO tempPay : paymentDTO){
+			if(paymentHashSetMale.containsKey(tempPay.getUser_id())){
+				HashMap<String, Integer> tempType = paymentHashSetMale.get(tempPay.getUser_id());
+				tempType.put(Integer.toString(tempPay.getArticle_ctgry_id()), tempPay.getPayment_sum());
+				paymentHashSetMale.put(tempPay.getUser_id(), tempType);
+			}else if(paymentHashSetFemale.containsKey(tempPay.getUser_id())){
+				HashMap<String, Integer> tempType = paymentHashSetFemale.get(tempPay.getUser_id());
+				tempType.put(Integer.toString(tempPay.getArticle_ctgry_id()), tempPay.getPayment_sum());
+				paymentHashSetFemale.put(tempPay.getUser_id(), tempType);
+			}else{
+				if(tempPay.getUser_gender().equals("M")){
+					HashMap<String, Integer> tempType = new HashMap<>();
+					tempType.put(Integer.toString(tempPay.getArticle_ctgry_id()), tempPay.getPayment_sum());
+					paymentHashSetMale.put(tempPay.getUser_id(), tempType);
+				}else if(tempPay.getUser_gender().equals("F")){
+					HashMap<String, Integer> tempType = new HashMap<>();
+					tempType.put(Integer.toString(tempPay.getArticle_ctgry_id()), tempPay.getPayment_sum());
+					paymentHashSetFemale.put(tempPay.getUser_id(), tempType);
+				}
+			}
+		}
+		
+		ArrayList<HashMap<String, Integer>> paymentListMale = new ArrayList<HashMap<String, Integer>>();
+		ArrayList<HashMap<String, Integer>> paymentListFemale = new ArrayList<HashMap<String, Integer>>();
+		
+		for(HashMap.Entry<String,HashMap<String,Integer>> entry : paymentHashSetMale.entrySet()){
+			paymentListMale.add(entry.getValue());
+		}
+		for(HashMap.Entry<String,HashMap<String,Integer>> entry : paymentHashSetFemale.entrySet()){
+			paymentListFemale.add(entry.getValue());
+		}
+		
+		ageGroup=20;
+		ageGroupHash.put("20대", adminService.getAgeGroupCount(ageGroup));
+		ageGroup=30;
+		ageGroupHash.put("30대", adminService.getAgeGroupCount(ageGroup));
+		ageGroup=40;
+		ageGroupHash.put("40대", adminService.getAgeGroupCount(ageGroup));
+		adminUserInfoDTO.setAgeGroupHash(ageGroupHash);
+		adminUserInfoDTO.setGenderGroup(adminService.getGroupByGender());
+		adminUserInfoDTO.setTotalUser(adminService.getTotalUser());
+		adminUserInfoDTO.setRegistGroupByMonth(adminService.getRegistGroupMonth());
+		adminUserInfoDTO.setGetUserCtgry(userCtgryList);
+		adminUserInfoDTO.setCtgryTotal(ctgryTotal);
+		adminUserInfoDTO.setFollowerTopList(followerTopList);
+		adminUserInfoDTO.setPaymentListFemale(paymentListFemale);
+		adminUserInfoDTO.setPaymentListMale(paymentListMale);
+		log.info("한번봅시다 : "+adminUserInfoDTO.toString());
+		model.addAttribute("adminUserInfoDTO", adminUserInfoDTO);
+	
+		log.info(" admin테스트중 ");
+	}
+	
+	
+	@GetMapping("/paymentInfo")
+	public void payInfo(Model model) {
+		AdminPayInfoTotalDTO adminPayInfoTotal =  adminService.getTotalInfo();
+		AdminPayInfoAvgDTO adminPayInfoAvgMax = adminService.getMaxAvgCtgry();
+		AdminPayInfoAvgDTO adminPayInfoAvgMin = adminService.getMinAvgCtgry();
+		//메인차트 데이타 셋
+		ArrayList<String> ctgryList = gaArticleService.getCategory();
+		HashMap<String, ArrayList<AdminPayInfoAvgGroupBYAgeDTO>> groupByAgeHashMap = new HashMap<>();
+		ArrayList<AdminPayInfoAvgGroupBYAgeDTO> adminPayInfoAvgGroupBYAgeList = adminService.getAvgCtgryByAge(10);
+		groupByAgeHashMap.put("10대", adminPayInfoAvgGroupBYAgeList);
+		adminPayInfoAvgGroupBYAgeList = adminService.getAvgCtgryByAge(20);
+		groupByAgeHashMap.put("20대", adminPayInfoAvgGroupBYAgeList);
+		adminPayInfoAvgGroupBYAgeList = adminService.getAvgCtgryByAge(30);
+		groupByAgeHashMap.put("30대", adminPayInfoAvgGroupBYAgeList);
+		log.info("해쉬맵 : " + groupByAgeHashMap);
+		
+		
+		model.addAttribute("adminPayInfoTotal", adminPayInfoTotal);
+		model.addAttribute("adminPayInfoAvgMax", adminPayInfoAvgMax);
+		model.addAttribute("adminPayInfoAvgMin", adminPayInfoAvgMin);
+		model.addAttribute("ctgryList", ctgryList);
+		model.addAttribute("groupByAgeHashMap", groupByAgeHashMap);
+	}
+	
+
+	private List sortByValue(HashMap hashMap){
+		List list = new ArrayList();
+		list.addAll(hashMap.keySet());
+		
+		Collections.sort(list, new Comparator(){
+			public int compare(Object o1, Object o2){
+				Object v1 = hashMap.get(o1);
+				Object v2 = hashMap.get(o2);
+				
+				return ((Comparable)v2).compareTo(v1);
+			}
+		});
+		log.info("리스트 : " + list.toString());
+		return list;
+	}
+	
+}
