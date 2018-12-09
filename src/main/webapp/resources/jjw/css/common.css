@@ -13,8 +13,8 @@
 }
 
 .article-image {
-  height: auto !important;
-  width: auto !important;
+  height: 500px !important;
+  width: 500px !important;
   display: inline-block !important;
 }
 
@@ -28,6 +28,10 @@
   height: auto !important;
   width: 500px !important;
   display: inline-block !important;
+}
+
+.block {
+  display: block;
 }
 
 .post-desc {
@@ -97,4 +101,35 @@
   right: unset;
   width: inherit;
   background: inherit;
+}
+
+.article-modal .no-image-modal {
+  width: 35%;
+}
+
+.article-left {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: -15px;
+  float: left;
+  width: 50%;
+}
+
+.article-right {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  float: left;
+  width: 50%;
+}
+
+.article-modal .no-image-modal .article-left {
+  display: none;
+}
+
+.article-modal .no-image-modal .article-right {
+  width: 100%;
+  padding-left: 30px;
 }

@@ -224,6 +224,18 @@ $(function () {
         $(this).closest('.text-center').find('input[class="page"]').val(pageBuilder.pageNum);
     });
 
+    $('.sgt-judge-paging').on('click', '.paginate-judge', function (event) {
+        const pageBuilder = setSuggestions(this, 'judge', event);
+        setPaginateButtons(pageBuilder, 'judge', this);
+        $(this).closest('.text-center').find('input[class="page"]').val(pageBuilder.pageNum);
+    });
+
+    $('.sgt-confirm-paging').on('click', '.paginate-confirm', function (event) {
+        const pageBuilder = setSuggestions(this, 'confirm', event);
+        setPaginateButtons(pageBuilder, 'confirm', this);
+        $(this).closest('.text-center').find('input[class="page"]').val(pageBuilder.pageNum);
+    });
+
     $('.suggestion-entry').on('click', function () {
         const sid = $(this).find('.sgt-articleId').val();
         const form = $('#articleForm');
@@ -329,5 +341,19 @@ $(function () {
         }
 
         $('#formT').submit();
+    });
+
+    $('.new-article').on('click', function () {
+        $(this).addClass('hidden');
+        $('.show-article').removeClass('hidden');
+        $('.new-article-main').removeClass('hidden');
+        $('.show-article-main').addClass('hidden');
+    });
+
+    $('.show-article').on('click', function () {
+        $(this).addClass('hidden');
+        $('.new-article').removeClass('hidden');
+        $('.new-article-main').addClass('hidden');
+        $('.show-article-main').removeClass('hidden');
     });
 });

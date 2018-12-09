@@ -170,9 +170,9 @@ function setGgvCategories() {
 }
 
 function setSortingMoney(minMoney, maxMoney) {
-    $('.sorting-cal-money').html(`수입/지출액 필터 : 최소 <b class="min-money">${minMoney}</b>원
+    $('.sorting-cal-money').html(`<div style="float:left;">수입/지출액 필터 : 최소 <b class="min-money">${minMoney}</b>원</div>
     <input id="money-slider" type="text" class="" value="" data-slider-min="${minMoney}" data-slider-max="${maxMoney}" data-slider-step="1000"
-     data-slider-value="[${minMoney},${maxMoney}]" /> 최대 <b class="max-money">${maxMoney}</b>원`);
+     data-slider-value="[${minMoney},${maxMoney}]" /><div style="float:right;">최대 <b class="max-money">${maxMoney}</b>원</div>`);
     moneySlider = new Slider('#money-slider', {});
 }
 
@@ -310,13 +310,13 @@ function setCalendarMY(moveDirection) {
     $('.calendar.year').html(yearChanged);
 }
 
-/**
- * 특정 가계부 정보를 초기화하는 메소드
- */
-function resetArticleModal() {
-    $('.article-carousel').trigger('destroy.owl.carousel');
-    $('.article-carousel').html('');
-}
+// /**
+//  * 특정 가계부 정보를 초기화하는 메소드
+//  */
+// function resetArticleModal() {
+//     $('.article-carousel').trigger('destroy.owl.carousel');
+//     $('.article-carousel').html('');
+// }
 
 /**
  * 가계부 정보들을 ajax 통신을 통해 받아 모달창에 적어주는 함수
@@ -509,9 +509,9 @@ $(function () {
         setGgvInfos(this);
     });
 
-    $('#article-modal').on('hidden.bs.modal', function () {
-        resetArticleModal();
-    });
+    // $('#article-modal').on('hidden.bs.modal', function () {
+    //     resetArticleModal();
+    // });
 
     $('.calendar-left').on('click', function () {
         setCalendarMY('left');

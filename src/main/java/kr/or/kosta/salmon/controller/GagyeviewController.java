@@ -171,7 +171,7 @@ public class GagyeviewController {
 	@PostMapping("/imageUpload")
 	public ResponseEntity<String> registImage(@RequestParam("uploadFile") MultipartFile[] uploadFile, @RequestParam("articleId") String articleId){
 		String uploadFolder = "C:\\upload";
-		File uploadPath = new File(uploadFolder, "\\images");
+		File uploadPath = new File(uploadFolder, "images");
 		if(uploadPath.exists()==false){
 			uploadPath.mkdirs();
 		}

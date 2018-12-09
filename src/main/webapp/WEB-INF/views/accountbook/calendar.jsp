@@ -11,7 +11,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/salmon/resources/template/style/bootstrap.min.css">
 	<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+	 crossorigin="anonymous">
 	<link rel="stylesheet" href="/salmon/resources/template/style/icon.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/loader.css">
 	<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
@@ -48,14 +49,7 @@
 	<div id="content-block">
 		<div class="container-fluid cd-main-content custom-container top-margin-100">
 			<div class="row">
-				<div class="col-md-2 left-field">
-					<form action="./" class="input-search">
-						<input type="text" required="" placeholder="Enter keyword">
-						<i class="fa fa-search"></i>
-						<input type="submit" value="">
-					</form>
-				</div>
-				<div class="col-md-10 accountbook-calendar">
+				<div class="col-md-12 accountbook-calendar text-center">
 					<div class="for-be-dropdowns">
 						<div class="be-drop-down">
 							<i class="icon-projects"></i>
@@ -79,7 +73,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-10 accountbook-chart hidden">
+				<div class="col-md-12 accountbook-chart text-center hidden">
 					<div class="for-be-dropdowns">
 						<div class="be-drop-down chart-year">
 							<i class="icon-projects"></i>
@@ -147,9 +141,9 @@
 
 					<div class="col-md-10 accountbook-calendar" id="accountbook-calendar">
 						<div>
-							<div class="edit-psn"><button type="button" class="btn btn-warning my-btn btn-edit-psn">가계부 설정</button></div>
-							<div class="new-ggv"><a href="/salmon/article/register" class="btn btn-primary my-btn">새 가계부글 올리기</a><button
-								 type="button" class="btn btn-info my-btn">월 공유</button></div>
+							<div class="edit-psn"><button type="button" class="btn color-white-sjh size-1 hover-5 btn-edit-psn">가계부 설정</button></div>
+							<div class="new-ggv"><a href="/salmon/article/register" class="btn color-white-sjh size-1 hover-5" style="margin-right: unset;">새
+									가계부글 올리기</a></div>
 						</div>
 						<div class="calendar-head text-center"><span><i class="fa fa-chevron-left calendar-left"></i></span><span class="calendar month"></span><input
 							 type="text" id="datePic" class="invisible datepic"><span class="calendar year"></span><span><i class="fa fa-chevron-right calendar-right"></i></span></div>
@@ -273,30 +267,13 @@
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary psn-btn" id="psn-edit">수정하기</button>
-						<button type="button" class="btn btn-warning psn-btn" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn color-6 size-2 hover-1" id="psn-edit" style="margin-bottom:unset;">수정하기</button>
+						<button type="button" class="btn color-2 size-2 hover-5" data-dismiss="modal">닫기</button>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="theme-config">
-			<div class="main-color">
-				<div class="title">Main Color:</div>
-				<div class="colours-wrapper">
-					<div class="entry color1 m-color active" data-colour="style/stylesheet.css"></div>
-					<div class="entry color3 m-color" data-colour="style/style-green.css"></div>
-					<div class="entry color6 m-color" data-colour="style/style-orange.css"></div>
-					<div class="entry color8 m-color" data-colour="style/style-red.css"></div>
-					<div class="title">Second Color:</div>
-					<div class="entry s-color  active color10" data-colour="style/stylesheet.css"></div>
-					<div class="entry s-color color11" data-colour="style/style-oranges.css"></div>
-					<div class="entry s-color color12" data-colour="style/style-greens.css"></div>
-					<div class="entry s-color color13" data-colour="style/style-reds.css"></div>
-				</div>
-			</div>
-			<div class="open"><img src="/salmon/resources/template/img/icon-134.png" alt=""></div>
-		</div>
 		<!-- SCRIPTS	 -->
 		<!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
 		<script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>

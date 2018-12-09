@@ -208,12 +208,15 @@ function requestStackedSpendChart(year, month) {
     }
 }
 
-function checkChartTypes() {
+function checkChartTypes(year, month) {
     if ($('.chart-month-spend').hasClass('active')) {
+        requestMonthSpendChart(year);
         $('.chart-month-dropdown').parent().addClass('hidden');
     } else if ($('.chart-day-bar').hasClass('active')) {
+        requestMLSIChart(year, month);
         $('.chart-month-dropdown').parent().removeClass('hidden');
     } else if ($('.chart-month-goal').hasClass('active')) {
+        requestStackedSpendChart(year, month);
         $('.chart-month-dropdown').parent().removeClass('hidden');
     }
 }
@@ -250,10 +253,10 @@ $(function () {
 
     $('.view-chart').on('click', function () {
         const year = $('.chart-year-dropdown').text().substr(0, 4);
+        const month = $('.chart-month-dropdown').text().substr(0, 2);
         $('.accountbook-calendar').addClass('hidden');
         $('.accountbook-chart').removeClass('hidden');
-        checkChartTypes();
-        requestMonthSpendChart(year);
+        checkChartTypes(year, month);
         settingMonths(year);
     });
 
