@@ -46,8 +46,7 @@
       <img src="/salmon/resources/template/img/logo-loader.png" alt="">
       <p class="circle">
         <span class="ouro"> <span class="left"><span
-            class="anim"></span></span> <span class="right"><span
-            class="anim"></span></span></span>
+            class="anim"></span></span> <span class="right"><span class="anim"></span></span></span>
       </p>
     </div>
   </div>
@@ -60,83 +59,80 @@
   <div id="content-block">
   
    <div class="head-bg">
-      <div class="head-bg-img"
-        style="padding-top: 225px; background-image: url(https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=555e87ecbee5d64ab3ae0e0eb6cb1e29&amp;auto=format&amp;fit=crop&amp;w=1789&amp;q=80); background-position: 50% 50%; background-repeat: no-repeat; opacity: 0.8;"></div>
+      <div class="head-bg-img" style="padding-top: 225px; background-image: url(https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-0.3.5&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;s=555e87ecbee5d64ab3ae0e0eb6cb1e29&amp;auto=format&amp;fit=crop&amp;w=1789&amp;q=80); background-position: 50% 50%; background-repeat: no-repeat; opacity: 0.8;"></div>
       <div class="head-bg-content"></div>
     </div>
     
-    <h2 class="content-title">소모임 가입 성공을 축하드립니다. :D</h2>
-    <h5 style="padding: 5px;"><sec:authentication property="principal.username" />님 환영합니다. </h5>
-    <c:choose>
-      <c:when test="${check == 'success'}">
-         
-      <h2 class="content-title">소모임 가입 성공을 축하드립니다. :D</h2>
-      </c:when>
-      <c:when test="${check == 'fail'}">
-        <div>실패화면 ~~~!!!</div>
-      </c:when>
-    </c:choose> 
+      <h2 class="content-title">소모임 가입에 실패하셨습니다. :-( </h2>
+      
+      <h4>가입 가능 인원이 초과되었습니다. </h4>
     
-<!--       <h2 class="content-title">소모임 가입 성공을 축하드립니다. :D</h2>
- -->      
-
+                  
+      
       <script type="text/javascript"> 
       function historyBack() {
     	  history.back(); 
-    	  } 
+      } 
       </script> 
       <style>
       html,body{
-  height:100%;
-}
-body{
-  text-align:center;
-  font-family: 'Noto Sans KR', sans-serif;
-}
-
-button{
-  background:#1AAB8A;
-  color:#fff;
-  border:none;
-  position:relative;
-  height:60px;
-  font-size:1.6em;
-  padding:0 2em;
-  cursor:pointer;
-  transition:800ms ease all;
-  outline:none;
-}
-button:hover{
-  background:#fff;
-  color:#1AAB8A;
-}
-button:before,button:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background: #1AAB8A;
-  transition:400ms ease all;
-}
-button:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
-}
-button:hover:before,button:hover:after{
-  width:100%;
-  transition:800ms ease all;
-}
+      height:100%;
+      }
+      body{
+        text-align:center;
+        font-family: 'Noto Sans KR', sans-serif;
+      }
+      
+      button{
+        background:#1AAB8A;
+        color:#fff;
+        border:none;
+        position:relative;
+        height:60px;
+        font-size:1.6em;
+        padding:0 2em;
+        cursor:pointer;
+        transition:800ms ease all;
+        outline:none;
+      }
+      button:hover{
+        background:#fff;
+        color:#1AAB8A;
+      }
+      button:before,button:after{
+        content:'';
+        position:absolute;
+        top:0;
+        right:0;
+        height:2px;
+        width:0;
+        background: #1AAB8A;
+        transition:400ms ease all;
+      }
+      button:after{
+        right:inherit;
+        top:inherit;
+        left:0;
+        bottom:0;
+      }
+      button:hover:before,button:hover:after{
+        width:100%;
+        transition:800ms ease all;
+      }
       
       
       </style>
       <button onclick="historyBack()" >소모임으로 이동</button>
 
       
-
+<%--     <c:choose>
+      <c:when test="${check == 'success'}">
+          <div>성공</div>
+      </c:when>
+      <c:when test="${check == 'fail'}">
+        <div>실패화면 ~~~!!!</div>
+      </c:when>
+    </c:choose> --%>
     
   </div>
 

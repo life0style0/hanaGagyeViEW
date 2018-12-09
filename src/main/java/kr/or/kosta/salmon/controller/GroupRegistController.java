@@ -90,6 +90,7 @@ public class GroupRegistController {
 				model.addAttribute("check", "success");
 				log.info(group_id);
 				return "redirect:/group/join-confirm";
+
 			} else {
 				model.addAttribute("check", "fail");
 				return "redirect:/group/join-confirm";

@@ -345,9 +345,6 @@ function hyerimFunction(){
                   <span>게시판</span>
                 </div>
                 <div class="nav-tab-item ">
-                  <span>사진첩</span>
-                </div>
-                <div class="nav-tab-item ">
                   <span>방명록</span>
                 </div>
               </div>
@@ -418,10 +415,6 @@ function hyerimFunction(){
                     <div class="pagination hidden"></div>
                   </div>
                 </div>
-                
-                
-        
-
                 </div>
               </div>
               <div class="tab-info">
@@ -634,177 +627,6 @@ function hyerimFunction(){
                         <span><i class="fa fa-thumbs-o-up"></i>
                           360</span> <span><i class="fa fa-eye"></i> 789</span>
                         <span><i class="fa fa-comment-o"></i> 20</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-info">
-                <div class="row">
-                  <!-- ============== 사진첩  ============== -->
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p16.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Wisdom
-                        For My Children, Life Lessons Through</a>
-
-                      <div class="author-post clearfix">
-                        <img src="img/a1.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p17.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Créations
-                        Namale</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a2.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p18.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Crossfit
-                        : 15.4 Open Workout</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a3.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p15.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Garry
-                        Simpson - Bridges - Intelligent Life Magazine</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a6.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p14.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Faber-Castell
-                        / Psychological Problems</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a7.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p13.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Stay
-                        Ahead Series</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a7.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p12.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Face</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a6.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p19.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Promoção
-                        Facas Extra</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a5.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p11.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Tropicalia</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a1.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p10.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">tomorrow</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a1.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p9.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">NAHA
-                        Finalist Hairstylist of the Year Allen Ruiz</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a1.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p8.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Racing
-                        Queensland</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a1.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
                       </div>
                     </div>
                   </div>
