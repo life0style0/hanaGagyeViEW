@@ -76,7 +76,7 @@ public class GroupRegistController {
 		log.info("/get");
 		log.info("그룹 아이디 [getMethod] =====: "+group_id);
 		log.info("Model 결과 : [getMethod] =====: "+model);
-		log.info("Principa 결과 : [getMethod] =====: "+principal);
+		log.info("Principal 결과 : [getMethod] =====: "+principal);
 
 		
 		model.addAttribute("group_id", group_id);
@@ -87,6 +87,7 @@ public class GroupRegistController {
 		} else {
 			if(groupservice.joinGroup(group_id, principal.getName()) > 0 ) {
 				model.addAttribute("check", "success");
+				groupservice.joinGroup(group_id, user_id);
 				return "redirect:/group/join-confirm";
 			} else {
 				model.addAttribute("check", "fail");

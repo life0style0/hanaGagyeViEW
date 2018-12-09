@@ -55,24 +55,27 @@ public class GroupServiceImpl implements GroupService {
 		return groupMapper.getAllCategories();
 	}
 
+	//리스트 가져오기
 	@Override
 	public List<GroupDTO_lhr> getList() {
 		return groupMapper.getList();
 	}
 	
+	//소모임 현재인원, 가입 가능 인원 확인 
 	@Override
 	public GroupCountDTO getCount(String group_id) {
 		return groupMapper.getCount(group_id);
 	}
 	
+	//소모임 회원으로 들어가기 
 	@Override
 	public int joinGroup(String group_id, String user_id) {
 		return groupMapper.joinGroup(group_id, user_id);
 	}
-
+	
+	
 	@Override
 	public void writeComment(CommentDTO comment) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -84,7 +87,6 @@ public class GroupServiceImpl implements GroupService {
 
 	@Override
 	public ArrayList<CommentDTO> getCommentsByArticle(int article_id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

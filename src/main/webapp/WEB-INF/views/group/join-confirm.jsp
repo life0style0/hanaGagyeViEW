@@ -54,12 +54,12 @@
 <c:choose>
   <c:when test="${check == 'success'}">
   <div>
-  성공 화면 ~~~
+  성공 화면 ~~~!!!
   </div>
   </c:when>
   <c:when test="${check == 'fail'}">
   <div>
-  실패화면 ~~~
+  실패화면 ~~~!!!
   </div>
   </c:when>
 </c:choose>

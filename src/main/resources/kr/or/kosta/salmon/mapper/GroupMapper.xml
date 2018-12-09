@@ -72,48 +72,62 @@
 	
 	<!-- 소모임 그룹 만들기 -->
 	<insert id="createSelectGroup">
-DECLARE
-  groupId NUMBER;
-BEGIN
-select group_id_seq.nextval into groupId from dual;
-
-INSERT INTO groups
-            (group_id,
-             group_title,
-             group_regdate,
-             group_description,
-             group_people_max,
-             user_id,
-             ctgry_1,
-             ctgry_2,
-             ctgry_3)
-VALUES     (groupId,
-            #{group_title},
-            sysdate,
-            #{group_description},
-            #{group_people_max},
-            #{user_id},
-            #{ctgry_1},
-            #{ctgry_2},
-            #{ctgry_3} );
-
-insert into group_users(group_users_id, group_id, user_id)
-values(group_users_id_seq.nextval, groupId, #{user_id});
-
-END;
+	DECLARE
+	  groupId NUMBER;
+	BEGIN
+	select group_id_seq.nextval into groupId from dual;
+	
+	INSERT INTO groups
+	            (group_id,
+	             group_title,
+	             group_regdate,
+	             group_description,
+	             group_people_max,
+	             user_id,
+	             ctgry_1,
+	             ctgry_2,
+	             ctgry_3)
+	VALUES     (groupId,
+	            #{group_title},
+	            sysdate,
+	            #{group_description},
+	            #{group_people_max},
+	            #{user_id},
+	            #{ctgry_1},
+	            #{ctgry_2},
+	            #{ctgry_3} );
+	            
+	INSERT INTO group_users 
+	            (group_users_id, 
+	             group_id, 
+	             user_id) 
+	VALUES     (group_users_id_seq.nextval, 
+	            groupId, 
+	            # {user_id}); 
+	
+	END;
 	</insert>
 	
+	<!-- 소모임 등록회원으로 들어가기 -->
+	<!-- Insert문 : ResultType설정 해주지 않아도 됨 -->
 	<insert id="joinGroup">
-	INSERT into group_users(GROUP_USERS_ID, group_id, user_id)
-	values(GROUP_USERS_ID_SEQ.nextval, #{group_id}, #{user_id})
+	INSERT INTO group_users
+	            (GROUP_USERS_ID,
+	             group_id, 
+	             user_id) 
+	VALUES     (group_users_id_seq.nextval, 
+	            # {group_id}, 
+	            # {user_id}) 
 	</insert>
 	
+	<!-- 소모임 현재인원, 최대인원 Count -->
 	<select id="getCount" resultType="kr.or.kosta.salmon.domain.GroupCountDTO">
-	SELECT group_people_max "max",
-			count(group_users_id) "now"
-	FROM groups left outer join group_users using(group_id)
-	WHERE group_id = #{group_id}
-	GROUP by group_people_max
+	SELECT group_people_max      "max",
+	       Count(group_users_id) "now"
+	FROM   groups
+	       LEFT OUTER JOIN group_users using(group_id)
+	WHERE  group_id = # {group_id}
+	GROUP  BY group_people_max
 	</select>
 	
 	<!-- UserCategory 가져오기  -->

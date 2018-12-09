@@ -35,8 +35,10 @@ public interface GroupService {
 	//전체 그룹 리스트 가져오기
 	public List<GroupDTO_lhr> getList();
 	
+	// 소모임 현재 인원, 가입 가능 인원 확인하기 
 	public GroupCountDTO getCount(String group_id);
 	
+	//소모임 들어가기 
 	public int joinGroup(String group_id, String user_id);
 	
 	//소모임 댓글 관련 
