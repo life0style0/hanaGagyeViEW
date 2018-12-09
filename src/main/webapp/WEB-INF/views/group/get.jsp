@@ -144,6 +144,8 @@
                     <div class="modal-body">
                       소모임에 가입하시겠습니까? 
                       <br>
+                         <input type="hidden" name="group_id" value="${groups.group_id}">
+                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                       <button type="submit" class="btn btn-primary" style="margin: 10px;" onclick="haerimAddFunction()">가입 </button>
                     <div id="snackbar"> 소모임 가입이 완료되었습니다. 소모임을 즐겨보세요 :-)  </div>
                     </div>
@@ -368,23 +370,23 @@ function hyerimFunction(){
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide active" data-val="0">
                                    <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1517840933437-c41356892b35?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
-                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>
+                                   <div class="slider-text">너와 나의 연결 고리! 소비와 취미 생활 크루 찾기</div>
                                 </div>
                                 <div class="swiper-slide" data-val="1">
                                    <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1495837174058-628aafc7d610?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
-                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>                               
+                                   <div class="slider-text">같은 취향과 소비 패턴을 가진 사람들과 소비 생활을 즐겨요!</div>                               
                                 </div>
                                 <div class="swiper-slide" data-val="2">
                                    <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80" alt="">
-                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>                               
+                                   <div class="slider-text">소모임 크루와 워라밸, 효율적인 소비패턴을 배우며 소확행을 시작해요 :D</div>                               
                                 </div>
                                 <div class="swiper-slide" data-val="3">
                                    <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
-                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>                               
+                                   <div class="slider-text">문화 활동 레저스포츠 소비생활 개선 소모임을 통해 더 여유롭고 생복한 삶을 만들어 보세요 :)</div>                               
                                 </div>
                                 <div class="swiper-slide" data-val="4">
                                    <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1536010447069-d2c8af80c584?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
-                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>                               
+                                   <div class="slider-text">누구나 쉽게 가입하고 직접 개설할 수 있어요. 다양한 소비정보가 모여있는 소모임에서 배우고 즐겨요. </div>                               
                                 </div>
                               </div>
                             <div class="pagination hidden"></div>
