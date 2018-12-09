@@ -308,12 +308,15 @@ order by comment_regdate asc
 SELECT count(article_id)
 FROM   articles 
 WHERE  ( article_ctgry_id = 3 
-                AND article_regdate                 <![CDATA[ > ]]> '1900-01-01'
-                AND To_char(article_regdate, 'YYYY-MM-DD')                                    <![CDATA[ > ]]>
-                To_char(SYSDATE - 30, 'yyyy-mm-dd') and article_deleted = 'N' )
+                AND article_regdate  <![CDATA[ > ]]> '1900-01-01'
+                AND To_char(article_regdate, 'YYYY-MM-DD')  <![CDATA[ > ]]>
+                To_char(SYSDATE - 30, 'yyyy-mm-dd'))
+        <if test="articleProposalStatus != null">
+        AND article_proposal_status = #{articleProposalStatus}
+        </if>
         AND  
         <include refid="criteria" />
-        article_proposal_status = #{articleProposalStatus}
+        article_deleted = 'N'
         </select>
 
         <select id="getTotalSuggestionByRecommend" resultType="int">

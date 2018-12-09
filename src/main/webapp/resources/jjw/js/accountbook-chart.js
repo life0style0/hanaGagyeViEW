@@ -28,7 +28,6 @@ function monthBarSpendChart(yearSrc) {
     const sortedMonthSpendDatas = new Map([...monthSpendDatas.entries()].sort());
     const months = [];
     const ctgryToSpend = new Map(); // key=ctgry, value=spend
-    console.log('sortedMonthSpendDatas :', sortedMonthSpendDatas);
     sortedMonthSpendDatas.forEach(function (monthSpendChartData, date) {
         months.push(`${date.substr(3,4)}년 ${date.substr(0,2)}월`);
         let lenMax = ctgryToSpend.size === 0 ? 0 : ctgryToSpend.values().next().value.length;

@@ -89,21 +89,21 @@
 							''}${psns.ctgryName3 != "none" ? psns.ctgryName3 : ''}
 						</p>
 						<div class="be-user-statistic sg-statistic">
-							<div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i> 제안한 전체 글 수<span class="stat-counter">${sNum}</span></div>
+							<div class="stat-row clearfix"><i class="fas fa-lightbulb"></i>제안한 전체 글 수<span class="stat-counter">${sNum}</span></div>
 							<c:forEach items="${psns.suggestionStatusDTO}" var="ssd" varStatus="status">
 								<c:choose>
 									<c:when test="${ssd.articleProposalStatus == 'R'}">
-										<div class="stat-row clearfix"><i class="stat-icon icon-followers-b"></i>제안 중인 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
+										<div class="stat-row clearfix"><i class="fas fa-share-square"></i>제안 중인 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
 									</c:when>
 									<c:when test="${ssd.articleProposalStatus == 'J'}">
-										<div class="stat-row clearfix"><i class="stat-icon icon-views-b"></i>답변 대기 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
+										<div class="stat-row clearfix"><i class="fas fa-sign-out-alt"></i>답변 대기 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
 									</c:when>
 									<c:when test="${ssd.articleProposalStatus == 'C'}">
-										<div class="stat-row clearfix"><i class="far fa-award"></i>답변된 전체 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
+										<div class="stat-row clearfix"><i class="fas fa-eye"></i>답변된 전체 글 수<span class="stat-counter">${ssd.articleProposalNum}</span></div>
 									</c:when>
 								</c:choose>
 							</c:forEach>
-							<div class="stat-row clearfix"><i class="stat-icon icon-like-b"></i>공감 받은 수<span class="stat-counter">${likeNum}</span></div>
+							<div class="stat-row clearfix"><i class="fas fa-thumbs-up"></i>공감 받은 수<span class="stat-counter">${likeNum}</span></div>
 						</div>
 					</div>
 					<a href="/salmon/suggestion/news" class="btn full color-1 size-1 hover-1 new-article"><i class="fa fa-plus"></i>새로운

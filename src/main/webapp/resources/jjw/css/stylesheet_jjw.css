@@ -117,7 +117,7 @@
   background: #B64926;
   /* padding: 3px 4px;
   color: white; */
-  padding: 5px 0px 5px 0px;
+  /* padding: 5px 0px 5px 0px; */
   color: white;
   border-radius: 0px 0px 40px 40px;
   text-align: center;
@@ -135,7 +135,7 @@
   background: #468966;
   /* padding: 3px 4px;
   color: white; */
-  padding: 5px 0px 5px 0px;
+  /* padding: 5px 0px 5px 0px; */
   color: white;
   border-radius: 0px 0px 40px 40px;
   text-align: center;
@@ -422,6 +422,12 @@
   }
 }
 
-/* #ggv-modal .modal-body, #ggv-modal .blog-post, #ggv-modal .row, #ggv-modal .post-preview, #ggv-modal .ggv-carousel{
-  height: 100%;
-} */
+.be-drop-down:after {
+  font-weight: 900;
+  font-family: "Font Awesome\ 5 Free";
+}
+
+.creative_filds_block a:hover:after {
+  font-weight: 900;
+  font-family: "Font Awesome\ 5 Free";
+}
