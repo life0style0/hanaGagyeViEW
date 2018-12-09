@@ -27,7 +27,7 @@
 	<select id="getRegistGroupMonth" resultType="kr.or.kosta.salmon.domain.AdminRByMonthDTO">
 	SELECT 		to_char(user_regdate,'yy-mm') groupMonth, count(to_char(user_regdate,'yy-mm')) groupMonthCt 
 	FROM		users
-	WHERE		to_char(user_regdate,'yy-mm') between to_char(add_months(sysdate,-4),'yy-mm') and to_char(sysdate,'yy-mm') group by to_char(user_regdate,'yy-mm')
+	WHERE		to_char(user_regdate,'yy-mm') between to_char(add_months(sysdate,-4),'yy-mm') and to_char(sysdate,'yy-mm') group by to_char(user_regdate,'yy-mm') order by to_char(user_regdate,'yy-mm') 
 	</select>
 	
 	<select id="getUserCategory1" resultType="kr.or.kosta.salmon.domain.AdminGetUserCtgryDTO">
@@ -76,25 +76,154 @@
 	<select id="getTotalInfo" resultType="kr.or.kosta.salmon.domain.AdminPayInfoTotalDTO">
 	SELECT		 count(article_id) article_ct, sum(article_payment_fee) article_sum, ceil(avg(article_payment_fee)) article_avg, ceil(STDDEV_POP(article_payment_fee)) article_stddev 
 	FROM		 articles
+	WHERE		 article_ctgry_id = 2 
 	</select>
 
 	<select id="getMinAvgCtgry" resultType="kr.or.kosta.salmon.domain.AdminPayInfoAvgDTO">
-	select ctgry_name,ceil(avg(article_payment_fee)) ctgry_avg from ctgry_values join ctgries using(ctgry_id) join articles using(article_id) group by ctgry_name having ceil(avg(article_payment_fee)) = (select ceil(min(averg)) from (select ceil(avg(article_payment_fee)) averg from ctgry_values join ctgries using(ctgry_id) join articles using(article_id) group by ctgry_name))
+	SELECT 		ctgry_name,ceil(avg(article_payment_fee)) ctgry_avg 
+	FROM 		ctgry_values join ctgries using(ctgry_id) join articles using(article_id)
+	WHERE		article_ctgry_id = 2 
+	GROUP BY 	ctgry_name 
+	HAVING		ceil(avg(article_payment_fee)) = (select ceil(min(averg)) from (select ceil(avg(article_payment_fee)) averg from ctgry_values join ctgries using(ctgry_id) join articles using(article_id) group by ctgry_name))
 	</select>
 
 	<select id="getMaxAvgCtgry" resultType="kr.or.kosta.salmon.domain.AdminPayInfoAvgDTO">
-	select ctgry_name,ceil(avg(article_payment_fee)) ctgry_avg from ctgry_values join ctgries using(ctgry_id) join articles using(article_id) group by ctgry_name having ceil(avg(article_payment_fee)) = (select ceil(max(averg)) from (select ceil(avg(article_payment_fee)) averg from ctgry_values join ctgries using(ctgry_id) join articles using(article_id) group by ctgry_name))
+	SELECT 		ctgry_name,ceil(avg(article_payment_fee)) ctgry_avg 
+	FROM		ctgry_values join ctgries using(ctgry_id) join articles using(article_id)
+	WHERE		article_ctgry_id = 2  
+	GROUP BY	ctgry_name 
+	HAVING	 	ceil(avg(article_payment_fee)) = (select ceil(max(averg)) from (select ceil(avg(article_payment_fee)) averg from ctgry_values join ctgries using(ctgry_id) join articles using(article_id) group by ctgry_name))
 	</select>
 	
 	<select id="getAvgCtgryByAge" resultType="kr.or.kosta.salmon.domain.AdminPayInfoAvgGroupBYAgeDTO">
 	<![CDATA[
 	SELECT 		ctgry_name, ceil(avg(article_payment_fee)) ctgry_avg 
 	FROM	 	articles join users using(user_id) join ctgry_values using(article_id) join ctgries using(ctgry_id)
-	WHERE		(to_char(sysdate,'yyyy')-(case when substr(user_birthday,0,2) < 19 then 2000 + substr(user_birthday,0,2) else 1900 + substr(user_birthday,0,2) end)) between #{ageGroup} and #{ageGroup}+10 
+	WHERE		(to_char(sysdate,'yyyy')-(case when substr(user_birthday,0,2) < 19 then 2000 + substr(user_birthday,0,2) else 1900 + substr(user_birthday,0,2) end)) between #{ageGroup} and #{ageGroup}+10 and article_ctgry_id = 2
 	GROUP BY 	ctgry_name
 	]]>
 	</select>
+	
+	<select id="getIncomeCtgryPersentage" resultType="kr.or.kosta.salmon.domain.AdminPayInfoPstageDTO">
+	<![CDATA[
+	SELECT 		ctgry_name, sum(article_payment_fee) ctgry_sum 
+	FROM	 	articles join users using(user_id) join ctgry_values using(article_id) join ctgries using(ctgry_id) 
+	WHERE		(to_char(sysdate,'yyyy')-(case when substr(user_birthday,0,2) < 19 then 2000 + substr(user_birthday,0,2) else 1900 + substr(user_birthday,0,2) end)) between #{ageGroup} and #{ageGroup}+10 and article_ctgry_id = 1
+	GROUP BY	ctgry_name 
+	ORDER BY 	sum(article_payment_fee) DESC
+	]]>
+	</select>
+	
+	<select id="getSpendCtgryPersentage" resultType="kr.or.kosta.salmon.domain.AdminPayInfoPstageDTO">
+	<![CDATA[
+	SELECT 		ctgry_name, sum(article_payment_fee) ctgry_sum 
+	FROM		articles join users using(user_id) join ctgry_values using(article_id) join ctgries using(ctgry_id) 
+	WHERE		(to_char(sysdate,'yyyy')-(case when substr(user_birthday,0,2) < 19 then 2000 + substr(user_birthday,0,2) else 1900 + substr(user_birthday,0,2) end)) between #{ageGroup} and #{ageGroup}+10 and article_ctgry_id = 2
+	GROUP BY	ctgry_name
+	ORDER BY 	sum(article_payment_fee) DESC
+	]]>
+	</select>
+	
+	<select id="getIncomeTotalGroupByAge" resultType="int">
+	<![CDATA[
+	select case when sum(article_payment_fee)is null then -1 else sum(article_payment_fee) end total_sum from articles join users using(user_id) join ctgry_values using(article_id) join ctgries using(ctgry_id) 
+	WHERE  (to_char(sysdate,'yyyy')-(case when substr(user_birthday,0,2) < 19 then 2000 + substr(user_birthday,0,2) else 1900 + substr(user_birthday,0,2) end)) between #{ageGroup} and #{ageGroup}+10 and article_ctgry_id = 1
+	]]>
+	</select>
+	
+	<select id="getSpendTotalGroupByAge" resultType="int">
+	<![CDATA[
+	select case when sum(article_payment_fee)is null then -1 else sum(article_payment_fee) end total_sum from articles join users using(user_id) join ctgry_values using(article_id) join ctgries using(ctgry_id) 
+	WHERE  (to_char(sysdate,'yyyy')-(case when substr(user_birthday,0,2) < 19 then 2000 + substr(user_birthday,0,2) else 1900 + substr(user_birthday,0,2) end)) between #{ageGroup} and #{ageGroup}+10 and article_ctgry_id = 2
+	]]>
+	</select>
+	
+	<select id="getRankByLocationAndCtgry" resultType="kr.or.kosta.salmon.domain.AdminPaymentInfoRankDTO">
+	<![CDATA[
+	SELECT 		location_name, ctgry_name, ranking, avg_fee
+	FROM 		( 
+				SELECT 		location_name, ctgry_name, rank() over(partition by location_name order by ceil((avg(article_payment_fee))) desc) ranking, ceil((avg(article_payment_fee))) avg_fee 
+				FROM 		articles join psns using(user_id) join locations using(location_id) join ctgry_values using(article_id) join ctgries using(ctgry_id) 
+        WHERE   article_ctgry_id = 2
+				GROUP BY	location_name, ctgry_name
+				)
+	WHERE 		ranking < 4
+	]]>
+	</select>
+	
+	<select id="getRankByLocationAndCtgryIncome" resultType="kr.or.kosta.salmon.domain.AdminPaymentInfoRankDTO">
+	<![CDATA[
+	SELECT 		location_name, ctgry_name, ranking, avg_fee
+	FROM 		( 
+				SELECT 		location_name, ctgry_name, rank() over(partition by location_name order by ceil((avg(article_payment_fee))) desc) ranking, ceil((avg(article_payment_fee))) avg_fee 
+				FROM 		articles join psns using(user_id) join locations using(location_id) join ctgry_values using(article_id) join ctgries using(ctgry_id) 
+        WHERE   article_ctgry_id = 1
+				GROUP BY	location_name, ctgry_name
+				)
+	WHERE 		ranking < 4
+	]]>
+	</select>
+	
+	
+	
+	<select id="getLoactionInfo" resultType="String">
+	SELECT 	location_name
+	FROM 	locations
+	</select>
 
 <!-- 소비정보 끝 -->
+
+<!-- 게시글 정보 시작 -->
+	<select id="getArticleCountByCtgry" resultType="kr.or.kosta.salmon.domain.AdminArticleInfoCtgryCtDTO">
+	  SELECT 		article_ctgry_id, case when (
+	  											SELECT 		count(article_ctgry_id) 
+	  											FROM		article_ctgries join articles using(article_ctgry_id) 
+	  											WHERE 		article_ctgry_id=arti.article_ctgry_id  
+	  											GROUP BY 	article_ctgry_id) is null then 0 else (
+	  																							   SELECT		 count(article_ctgry_id) 
+	  																							   FROM			 article_ctgries join articles using(article_ctgry_id) 
+	  																							   WHERE		 article_ctgry_id=arti.article_ctgry_id  
+	  																							   GROUP BY		 article_ctgry_id) end article_ctgry_ct  
+	  FROM 			article_ctgries arti
+	</select>
+
+	<select id="getHashTagWordCloud" resultType="kr.or.kosta.salmon.domain.AdminArticleInfoWordDTO">
+		SELECT 		hashtag_value, count(hashtag_value) hashtag_ct
+		FROM   		hashtag_refs ref inner join hashtags hash on ref.hashtag_id=hash.hashtag_id 
+    	GROUP BY 	hashtag_value
+	</select>
+	
+	<select id="getHashTagTotalCt" resultType="int">
+	SELECT 		count(*) 
+	FROM 		hashtags
+	</select>
+	
+	<select id="getHashTagTopList" resultType="kr.or.kosta.salmon.domain.AdminArticleInfoHashTagTopDTO">
+	<![CDATA[
+	SELECT			 hashtag_value, hashtag_count, hashtag_rank
+ 	FROM			 (
+ 					 SELECT 		hashtag_value, count(hashtag_value) hashtag_count, rank() over(order by count(hashtag_value) desc) hashtag_rank  
+ 					 FROM 			hashtags 
+ 					 GROUP BY		hashtag_value
+ 					 )
+ 	WHERE			 rownum < 8
+ 	]]>
+	</select>
+	
+	<select id="getArticleCategoryList" resultType="kr.or.kosta.salmon.domain.AdminArticleInfoArtiCtgryDTO">
+	<![CDATA[
+	SELECT		 ctgry_name, count(ctgry_name) ctgry_ct, rank() over(order by count(ctgry_name) desc) ranking
+	FROM		 ctgry_values join ctgries using(ctgry_id) 
+	GROUP BY	 ctgry_name
+	]]>
+	</select>
+	
+	<select id="getArticleCategoryTotal" resultType="int">
+	SELECT		 count(ctgry_value_id) arti_ctgry_total
+	FROM		 ctgry_values
+	</select>
+	
+
+<!-- 게시글 정보 끝 -->
 
 </mapper>

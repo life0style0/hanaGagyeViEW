@@ -6,12 +6,18 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import kr.or.kosta.salmon.domain.AdminArticleInfoArtiCtgryDTO;
+import kr.or.kosta.salmon.domain.AdminArticleInfoCtgryCtDTO;
+import kr.or.kosta.salmon.domain.AdminArticleInfoHashTagTopDTO;
+import kr.or.kosta.salmon.domain.AdminArticleInfoWordDTO;
 import kr.or.kosta.salmon.domain.AdminFollowerTopDTO;
 import kr.or.kosta.salmon.domain.AdminGbyGenderDTO;
 import kr.or.kosta.salmon.domain.AdminGetUserCtgryDTO;
 import kr.or.kosta.salmon.domain.AdminPayInfoAvgDTO;
 import kr.or.kosta.salmon.domain.AdminPayInfoAvgGroupBYAgeDTO;
+import kr.or.kosta.salmon.domain.AdminPayInfoPstageDTO;
 import kr.or.kosta.salmon.domain.AdminPayInfoTotalDTO;
+import kr.or.kosta.salmon.domain.AdminPaymentInfoRankDTO;
 import kr.or.kosta.salmon.domain.AdminPaymentTypeDTO;
 import kr.or.kosta.salmon.domain.AdminRByMonthDTO;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
@@ -91,6 +97,71 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public ArrayList<AdminPayInfoAvgGroupBYAgeDTO> getAvgCtgryByAge(int ageGroup) {
 		return adminMapper.getAvgCtgryByAge(ageGroup);
+	}
+
+	@Override
+	public ArrayList<AdminPayInfoPstageDTO> getIncomeCtgryPersentage(int ageGroup) {
+		return adminMapper.getIncomeCtgryPersentage(ageGroup);
+	}
+
+	@Override
+	public ArrayList<AdminPayInfoPstageDTO> getSpendCtgryPersentage(int ageGroup) {
+		return adminMapper.getSpendCtgryPersentage(ageGroup);
+	}
+
+	@Override
+	public int getIncomeTotalGroupByAge(int ageGroup) {
+		return adminMapper.getIncomeTotalGroupByAge(ageGroup);
+	}
+
+	@Override
+	public int getSpendTotalGroupByAge(int ageGroup) {
+		return adminMapper.getSpendTotalGroupByAge(ageGroup);
+	}
+
+	@Override
+	public ArrayList<AdminArticleInfoWordDTO> getHashTagWordCloud() {
+		return adminMapper.getHashTagWordCloud();
+	}
+
+	@Override
+	public ArrayList<AdminPaymentInfoRankDTO> getRankByLocationAndCtgry() {
+		return adminMapper.getRankByLocationAndCtgry();
+	}
+
+	@Override
+	public ArrayList<String> getLoactionInfo() {
+		return adminMapper.getLoactionInfo();
+	}
+
+	@Override
+	public ArrayList<AdminArticleInfoCtgryCtDTO> getArticleCountByCtgry() {
+		return adminMapper.getArticleCountByCtgry();
+	}
+
+	@Override
+	public int getHashTagTotalCt() {
+		return adminMapper.getHashTagTotalCt();
+	}
+
+	@Override
+	public ArrayList<AdminArticleInfoHashTagTopDTO> getHashTagTopList() {
+		return adminMapper.getHashTagTopList();
+	}
+
+	@Override
+	public ArrayList<AdminArticleInfoArtiCtgryDTO> getArticleCategoryList() {
+		return adminMapper.getArticleCategoryList();
+	}
+
+	@Override
+	public int getArticleCategoryTotal() {
+		return adminMapper.getArticleCategoryTotal();
+	}
+
+	@Override
+	public ArrayList<AdminPaymentInfoRankDTO> getRankByLocationAndCtgryIncome() {
+		return adminMapper.getRankByLocationAndCtgryIncome();
 	}
 
 	

@@ -61,7 +61,7 @@ public class MemberTests {
 		log.info(" users DUMMY 삽입 ");
 		
 		String createUserSql="insert into users(user_id, user_nickname,user_email,user_passwd, user_gender,user_birthday,user_image, user_regdate) "+
-				"values(?, ?,?, ?, ?, ?,?,add_months(sysdate, -1))";
+				"values(?, ?,?, ?, ?, ?,?,add_months(sysdate, -3))";
 		
 		String adminAuthSql="insert into users_auth(user_auth_id, user_id, user_auth) values(users_auth_id_seq.nextval,?,'ROLE_ADMIN')";
 		String managerAuthSql="insert into users_auth(user_auth_id, user_id, user_auth) values(users_auth_id_seq.nextval,?,'ROLE_MEMBER')";
@@ -123,15 +123,15 @@ public class MemberTests {
 					//일반 사용자
 					userAuthPstmt.setString(1, "heyrim"+i); //아이디
 					
-					pstmt.setString(1, "hongis"+i); //아이디
-					pstmt.setString(2, "hongis"+i); //닉네임
-					pstmt.setString(3, "hongis"+i+"@mail.com"); //이메일
+					pstmt.setString(1, "hongisa"+i); //아이디
+					pstmt.setString(2, "hongisa"+i); //닉네임
+					pstmt.setString(3, "hongisa"+i+"@mail.com"); //이메일
 					pstmt.setString(4, pwEncoder.encode("1234")); //비밀번호 암호화
-					pstmt.setString(5, "F"); //성별
+					pstmt.setString(5, "M"); //성별
 					pstmt.setString(6, "901225"); //생년월일
 					pstmt.setString(7, "https://notefolio.net/data/covers/39320_t2.jpg"); //이미지
 				
-					userPsnsPstmt.setString(1,  "heyrim"+i);
+					userPsnsPstmt.setString(1,  "hongisa"+i);
 					userPsnsPstmt.setString(2,  "3"); //location
 					userPsnsPstmt.setString(3,  "9"); //category1
 					userPsnsPstmt.setString(4,  "7"); //category2
