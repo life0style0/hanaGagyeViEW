@@ -87,7 +87,7 @@ public class GroupRegistController {
 		} else {
 			if(groupservice.joinGroup(group_id, principal.getName()) > 0 ) {
 				model.addAttribute("check", "success");
-				groupservice.joinGroup(group_id, user_id);
+			//	groupservice.joinGroup(group_id, user_id);
 				return "redirect:/group/join-confirm";
 			} else {
 				model.addAttribute("check", "fail");
