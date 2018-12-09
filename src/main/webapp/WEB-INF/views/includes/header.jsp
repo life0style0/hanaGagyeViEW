@@ -23,6 +23,7 @@
           <li><a href="/salmon/sns/showall">둘러보기</a></li>
           <li><a href="/salmon/main/mypage">MYPAGE</a></li>
           <li><a href="/salmon/accountbook/calendar">AccountBook</a></li>
+          <li><a href="/salmon/group/list">소모임</a></li>
           <li><a href="/salmon/suggestion">Suggestion</a></li>
           <li style="padding: unset;">
 	          <form action="/salmon/sns/search" class="input-search" method="get" style="margin-bottom:unset">

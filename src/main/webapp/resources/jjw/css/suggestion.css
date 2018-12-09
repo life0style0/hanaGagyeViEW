@@ -9,12 +9,28 @@
 }
 
 .no-padding {
-  padding: unset!important;
+  padding: unset !important;
 }
 
 .be-large-post .be-post-title {
   padding-top: 20px;
   cursor: unset;
+}
+
+.be-large-post .be-post-title:hover {
+  cursor: unset;
+}
+
+.suggestion .be-text-tags {
+  font-size: 15px;
+}
+
+.suggestion .be-text-tags a {
+  font-size: 15px;
+}
+
+.suggestion .be-large-post-align {
+  font-size: 13px;
 }
 
 .progress {
@@ -25,7 +41,7 @@
   line-height: 50px;
   font-size: 30px;
   line-height: 50px;
-  min-width: 2em;
+  min-width: 3em;
 }
 
 .row-progress {
@@ -69,5 +85,70 @@
 }
 
 .no-margin {
-  margin: unset!important;
+  margin: unset !important;
+}
+
+.comment-delete-btn {
+  width: fit-content!important;
+  margin-right: 10px;
+}
+
+.comment-delete-btn i {
+  margin-right: 4px;
+}
+
+.categories .square {
+  width: 130px;
+  height: 130px;
+  line-height: 130px;
+}
+
+#formT textarea.form-input {
+  height: 300px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #b4b7c1 !important;
+}
+
+.form-group .form-input {
+  color: black;
+}
+
+div.buttons {
+  margin-top: 30px;
+  float: right;
+}
+
+div.buttons button {
+  margin-bottom: unset;
+}
+
+.pagination>li {
+  margin: 0px 8px;
+  color: darkgray;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.pagination>li:hover {
+  color: blue;
+}
+
+.pagination>li.active {
+  color: black;
+  font-weight: 900;
+}
+
+.sg-statistic {
+  position: relative;
+  margin-top: 30px;
+  margin-left: -20px;
+  margin-right: -20px;
+  margin-bottom: -30px!important;
+}
+
+.image-src {
+  margin: 0px auto;
 }

@@ -7,7 +7,7 @@
 	<title>NGRNetwork</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="shortcut icon" href="img/favicon.png">
+	<link rel="shortcut icon" href="/salmon/resources/template/img/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="/salmon/resources/template/style/bootstrap.min.css">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -28,7 +28,7 @@
 
 	<div class="be-loader" style="display: none;">
 		<div class="spinner">
-			<img src="img/logo-loader.png" alt="">
+			<img src="/salmon/resources/template/img/logo-loader.png" alt="">
 			<p class="circle">
 				<span class="ouro">
 					<span class="left"><span class="anim"></span></span>
@@ -51,14 +51,17 @@
 		</div>
 		<div class="container be-detail-container">
 			<h1 class="article-title">${article.articleTitle}</h1>
-			<h2 class="content-title">참여인원 : ${article.likeCnt}명, ${article.articleProposalStatus == 'R' ? '진행중' : ''}${article.articleProposalStatus == 'J' ? '심사 중' : ''}${article.articleProposalStatus == 'C' ? '개발 중' : ''}${article.articleProposalStatus == 'F' ? '개발 완료' : ''}</h2>
+			<h2 class="content-title">참여인원 : <span class="like-count">${article.likeCnt}</span>명,
+				${article.articleProposalStatus == 'R' ? '진행중' :
+				''}${article.articleProposalStatus == 'J' ? '심사 중' : ''}${article.articleProposalStatus == 'C' ? '개발 중' :
+				''}${article.articleProposalStatus == 'F' ? '개발 완료' : ''}</h2>
 			<div class="row row-progress">
 				<div class="col-xs-3 col-md-2">0명</div>
 				<div class="col-xs-6 col-md-8">
 					<div class="progress">
-						<div class="progress-bar" role="progressbar" aria-valuenow="${article.likeCnt gt 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : ''}${article.likeCnt ge 1000 ? '100' : ''}"
-						 aria-valuemin="0" aria-valuemax="100" style="width:${article.likeCnt gt 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : ''}${article.likeCnt ge 1000 ? '100' : ''}%;">
-							${article.likeCnt gt 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : '' }${article.likeCnt ge 1000 ? '100' :
+						<div class="progress-bar" role="progressbar" aria-valuenow="${article.likeCnt ge 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : ''}${article.likeCnt ge 1000 ? '100' : ''}"
+						 aria-valuemin="0" aria-valuemax="100" style="width:${article.likeCnt ge 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : ''}${article.likeCnt ge 1000 ? '100' : ''}%;">
+							${article.likeCnt ge 0 && article.likeCnt lt 1000 ? article.likeCnt/10 : '' }${article.likeCnt ge 1000 ? '100' :
 							''}%
 						</div>
 					</div>
@@ -67,35 +70,34 @@
 			</div>
 			<div class="row">
 				<div class="col-md-9">
-					<div class="blog-wrapper blog-list">
-
+					<div class="blog-wrapper blog-list suggestion">
 						<div class="blog-post be-large-post">
 							<div class="info-block clearfix">
 								<div class="be-large-post-align">
-									<span><i class="fa fa-thumbs-o-up"></i> ${article.likeCnt}</span>
-									<span><i class="fa fa-eye"></i> 753</span>
-									<span><i class="fa fa-comment-o"></i> ${article.commentCnt}</span>
-									<span class="be-text-tags">
-										<c:forEach items="${article.ctgryNames}" var="ctgryName" varStatus="status">
-											<a class="be-post-tag">${ctgryName}<c:if test="${!status.last}">, </c:if></a>
-										</c:forEach>
-									</span>
+									<span><i class="fas fa-thumbs-up"></i> <span class="like-count">${article.likeCnt}</span></span>
+									<span><i class="fas fa-comment"></i> <span class="comment-count">${article.commentCnt}</span></span>
 								</div>
 							</div>
 							<div class="be-large-post-align">
-								<h3 class="be-post-title">${article.articleTitle}</h3>
+								<h3 class="be-post-title">
+									<span class="be-text-tags">
+										<c:forEach items="${article.ctgryNames}" var="ctgryName" varStatus="status">
+											<c:if test="${status.first}">카테고리 : </c:if><a class="be-post-tag">${ctgryName}<c:if test="${!status.last}">,
+												</c:if></a>
+										</c:forEach>
+									</span>
+								</h3>
 								<div class="be-text-tags clearfix">
 									<div class="post-date">
 										<i class="fa fa-clock-o"></i> ${article.articleRegdate} ~ ${article.articleEnddate}
 									</div>
 									<div class="author-post">
-										<img src="img/a1.png" alt="" class="ava-author">
-										<span>by <a href="blog-detail-2.html">${article.userPsns.userId}</a></span>
+										<img src="/salmon/resources/template/img/a1.png" alt="" class="ava-author">
+										<span>by <a href="blog-detail-2.html">${article.userPsns.userNickname}</a></span>
 									</div>
 								</div>
 								<div class="clear"></div>
 							</div>
-
 							<div class="blog-content be-large-post-align">
 								<div class="post-text ">
 									<p>${article.articleContent}</p>
@@ -120,19 +122,27 @@
 						</div>
 
 						<div class="be-comment-block">
-							<h1 class="comments-title">댓글 (${article.commentCnt})</h1>
+							<h1 class="comments-title">댓글 (<span id="commentCnt" class="comment-count">${article.commentCnt}</span>)</h1>
 							<c:forEach items="${article.comments}" var="comment" varStatus="status">
 								<div class="be-comment">
+									<input type="hidden" name="comment-id" value="${comment.comment_id}">
+									<input type="hidden" name="article-id" value="${article.articleId}">
 									<div class="be-img-comment">
 										<a href="">
-											<img src="/salmon/image?fileName=${comment.user_image}" alt="" class="be-ava-comment">
+											<input type="hidden" class="imagePath" value="/salmon/image?fileName=${comment.user_image}">
+											<img src="" alt="" class="be-ava-comment image-src thumbnail-comment">
 										</a>
 									</div>
 									<div class="be-comment-content">
 										<span class="be-comment-name">
-											<a href="">${comment.user_id}</a>
+											<a href="">${comment.user_nickname}</a>
 										</span>
 										<span class="be-comment-time">
+											<c:if test="${comment.user_id == userId}">
+												<span name="comment-delete-btn" class="comment-delete-btn">
+													<i class="fas fa-times"></i>삭제
+												</span>
+											</c:if>
 											<i class="fa fa-clock-o"></i>
 											${comment.comment_regdate}
 										</span>
@@ -142,14 +152,17 @@
 									</div>
 								</div>
 							</c:forEach>
-							<form class="form-block">
+							<form class="form-block comment-form" method="post">
 								<div class="row">
 									<div class="col-xs-12">
 										<div class="form-group">
-											<textarea class="form-input" required="" placeholder="Your text"></textarea>
+											<textarea class="form-input" required placeholder="댓글 내용을 입력하세요" name="content"></textarea>
 										</div>
 									</div>
-									<a class="btn color-1 size-2 hover-1 pull-right">submit</a>
+									<input type="hidden" name="lastCommentId" value="">
+									<input type="hidden" name="articleId" value="${article.articleId}">
+									<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}">
+									<button type="submit" class="btn color-1 size-2 hover-1 pull-right" id="comment">댓글 달기</button>
 								</div>
 							</form>
 						</div>
@@ -158,44 +171,39 @@
 				<div class="col-md-3">
 					<div class="be-user-block">
 						<div class="be-user-detail">
-
-							<input type="hidden" id="profilePath" value="/salmon/image?fileName=${user.user_image}">
-							<img class="img-responsive" id="profileImage" alt="">
-
-							<!-- <a class="be-ava-user" href="blog-detail-2.html"> 
-								<img src="img/ava.png" alt="">
-							</a> -->
+							<input type="hidden" class="imagePath" value="/salmon/image?fileName=${article.userPsns.userImage}">
+							<img class="img-responsive image-src" alt="">
 							<p class="be-use-name">
-								<c:out value="${user.user_nickname}" />
+								<c:out value="${article.userPsns.userNickname}" />
 							</p>
 							<span class="be-user-info">
-								<c:out value="${user.user_id}" />
+								<c:out value="${article.userPsns.userId}" />
 							</span>
 						</div>
 						<div class="be-user-activity-block">
 							<div class="row">
 								<div class="col-lg-12">
 									<c:choose>
-										<c:when test="${follow eq 'followable'}">
-											<a id='follow-ask-do-<c:out value="${user.user_id}" />' class="ask-follow">
-												<i class="far fa-heart"></i>
-												FOLLOW
-											</a>
-										</c:when>
-										<c:when test="${follow eq 'unfollowable'}">
-											<a id='follow-ask-undo-<c:out value="${user.user_id}" />' class="ask-follow">
+										<c:when test="${checkFollow}">
+											<a id='follow-ask-undo-<c:out value="${article.userPsns.userId}" />' class="ask-follow">
 												<i class="fa fa-heart"></i>
 												UNFOLLOW
 											</a>
 										</c:when>
-										<c:otherwise>
-											<a id="follow-ask-mypage" class="ask-follow">
+										<c:when test="${userId eq article.userPsns.userId}">
+											<a id="follow-ask-mypage" class="ask-follow" href="/salmon/sns/feeds?userid=${userId}">
 												<i class="fa fa-leaf"></i>
 												MYPAGE
 											</a>
 											<a id="write-article" href="/salmon/article/register" class="ask-follow">
 												<i class="fas fa-pen"></i>
 												글쓰기
+											</a>
+										</c:when>
+										<c:otherwise>
+											<a id='follow-ask-do-<c:out value="${article.userPsns.userId}" />' class="ask-follow">
+												<i class="far fa-heart"></i>
+												FOLLOW
 											</a>
 										</c:otherwise>
 									</c:choose>
@@ -209,15 +217,10 @@
 							''}${article.userPsns.ctgryName3 != "none" ? article.userPsns.ctgryName3 : ''}
 						</p>
 					</div>
-					<c:choose>
-						<c:when test="${checkLike}">
-							<a href="" class="be-button-vidget like-cancel-btn blue-style"><i class="fas fa-thumbs-up"></i></i>추천 취소하기</a>
-						</c:when>
-						<c:otherwise>
-							<a href="" class="be-button-vidget like-btn blue-style"><i class="far fa-thumbs-up"></i></i>이 제안 추천하기!</a>
-						</c:otherwise>
-					</c:choose>
-
+					<a href="${article.articleId}" class="be-button-vidget like-cancel-btn blue-style ${checkLike ? '' : 'hidden'}"><i
+						 class="fas fa-thumbs-up"></i></i>추천 취소하기</a>
+					<a href="${article.articleId}" class="be-button-vidget like-btn blue-style ${checkLike ? 'hidden' : ''}"><i class="far fa-thumbs-up"></i></i>이
+						제안 추천하기!</a>
 				</div>
 			</div>
 		</div>
@@ -233,7 +236,9 @@
 	<script src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
 	<script src="/salmon/resources/template/script/isotope.pkgd.min.js"></script>
 	<script src="/salmon/resources/template/script/global.js"></script>
-
+	<script src="/salmon/resources/jjw/js/suggestion.js"></script>
+	<script src="/salmon/resources/jjw/js/global.js"></script>
+	<script src="/salmon/resources/sjh/js/feeds.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,61 @@
+{
+    "deploy.reloaded": {
+        "packages": [{
+            "name": "Version 2.3.4",
+            "description": "Package version 2.3.4",
+            "files": [
+                "**/*.class",
+                "**/*.jsp",
+                "**/*.css",
+                "**/*.js",
+                "**/*.xml",
+                "**/*.properties"
+            ],
+            "exclude": [
+                "/target/**/*",
+                "/src/main/java/**/*",
+                ".*"
+            ],
+            "deployOnChange": true,
+            "fastCheckOnChange": true,
+            "fastFileCheck": true,
+            "deployOnSave": false,
+            "removeOnChange": true,
+            "targets": ["tomcat"]
+        }],
+        "targets": [{
+                "type": "local",
+                "name": "tomcat",
+                "description": "tomcat deploy",
+                "dir": "C:/Users/dkgkr/AppData/Roaming/Code/User/workspaceStorage/7449bf435e694a3fc280b6052cb5b8b5/adashen.vscode-tomcat/tomcat/apache-tomcat-8.0.53/webapps/salmon",
+                "mappings": {
+                    "src/main/resources/**": "/WEB-INF/classes",
+                    "src/main/**": "/"
+                },
+                "useFastGlob": true
+            }
+            // ,
+            // {
+            //     "type": "local",
+            //     "name": "tomcat1",
+            //     "description": "tomcat deploy",
+            //     "dir": "C:/Users/dkgkr/AppData/Roaming/Code/User/workspaceStorage/7449bf435e694a3fc280b6052cb5b8b5/adashen.vscode-tomcat/tomcat/apache-tomcat-8.0.53/webapps/salmon",
+            //     "mappings": {
+            //         "src/main/webapp/**": "/"
+            //     },
+            //     "useFastGlob": false
+            // }
+            // ,
+            // {
+            //     "type": "local",
+            //     "name": "tomcat2",
+            //     "description": "tomcat deploy",
+            //     "dir": "C:/Users/dkgkr/AppData/Roaming/Code/User/workspaceStorage/7449bf435e694a3fc280b6052cb5b8b5/adashen.vscode-tomcat/tomcat/apache-tomcat-8.0.53/webapps/salmon",
+            //     "mappings": {
+            //         "src/main/webapp/**": "."
+            //     },
+            //     "useFastGlob": true
+            // }
+        ]
+    }
+}

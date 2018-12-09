@@ -3,6 +3,8 @@ package kr.or.kosta.salmon.service;
 import java.util.List;
 
 import kr.or.kosta.salmon.common.Criteria;
+import kr.or.kosta.salmon.domain.NewSuggestionDTO;
+import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.domain.SuggestionDTO;
 
 /**
@@ -16,6 +18,8 @@ public interface SuggestionService {
 
     public List<SuggestionDTO> getSuggestionListsByRecommend(Criteria criteria) throws Exception;
 
+    public PsnsDTO getPsnsWithSuggestion(String userId) throws Exception;
+
     public int getTotalSuggestion(Criteria criteria) throws Exception;
 
     public int getTotalSuggestionByRecommend(Criteria criteria) throws Exception;
@@ -27,4 +31,6 @@ public interface SuggestionService {
     public boolean checkFollow(String userId, String followerId) throws Exception;
 
     public String getLikeNum(String articleId) throws Exception;
+
+    public boolean insertArticle(NewSuggestionDTO newSuggestionDTO) throws Exception;
 }
