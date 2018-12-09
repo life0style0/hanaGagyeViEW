@@ -155,8 +155,6 @@ public class GagyeviewController {
 		return new ResponseEntity<>(Integer.toString(article_id),HttpStatus.OK);
 	}
 	
-	
-	
 	public ArrayList<String> getHashTag(String content){
 	      ArrayList<String> hashList = new ArrayList<>();
 	      String[] divContent = content.trim().split("#");

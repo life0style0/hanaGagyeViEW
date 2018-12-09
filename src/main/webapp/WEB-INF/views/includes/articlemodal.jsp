@@ -20,8 +20,9 @@
                 	<span id="article-money">285400원, </span>
                 	<span id="article-title">메모 or 제목</span>
                 </div>
-                <div class="post-text" id="article-content">
-                  Lorem voluptatibus cum quia et quisquam doloremque?
+                <div class="post-text" id="article-content-and-comments">
+	                <div id="article-content" class="article-content"></div>
+	                <div id="article-comments" class="article-comments"></div>
                 </div>
                 <div class="author-post">
                   <img src="" alt="" class="ava-author" id="article-writer-photo">
@@ -32,10 +33,10 @@
                   <span id="article-scope">, 공개 범위</span>
                 </div>
                 <div class="info-block">
-                  <span id="article-like-btn" class="hidden" style="background-color:blue;">
+                  <span id="article-like-btn" class="hidden">
                   	<i class="fa fa-thumbs-o-up"></i> +1
                   </span>
-                  <span id="article-unlike-btn" class="hidden" style="background-color:orange;">
+                  <span id="article-unlike-btn" class="hidden">
                   	<i class="fa fa-thumbs-o-up"></i> -1
                   </span>
                   <span id="article-comments-btn">
@@ -46,6 +47,9 @@
                   </span>
                   <span id="article-share-cancel-btn" class="hidden">
                   	<a><i class="fa fa-ban"></i> 공유 취소</a>
+                  </span>
+                  <span id="article-report-btn">
+                  	<a><i class="far fa-flag"></i> 신고</a>
                   </span>
                   <div class="article-right-btns">
                     <span id="article-edit-btn">

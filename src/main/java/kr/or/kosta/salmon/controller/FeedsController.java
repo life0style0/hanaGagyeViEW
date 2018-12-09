@@ -38,10 +38,10 @@ public class FeedsController {
 
 	@Inject
 	SNSService snsService;
-
+	
 	@Inject
-	private SuggestionService suggestionService;
-
+	SuggestionService sugService;
+	
 	@GetMapping("/sns/feeds")
 	public void FeedsPageGet(@RequestParam("userid") String user_id, Principal principal, Model model) {
 		log.info(" sns 유저 페이지 " + user_id);
@@ -74,11 +74,19 @@ public class FeedsController {
 		for (SNSArticleDTO_sjh art : myArticles) {
 			log.info(art.getComments());
 		}
-
-		// 이 페이지 유저가 팔로잉하는 유저
-		// ArrayList<UserDTO> followingList= snsService.getFollowingList(user_id);
-		ArrayList<UserDTO> followingList = userPageInfo.getMyfollowings();
-		model.addAttribute("followingList", followingList);
+		
+		// 이 페이지 유저가 좋아요한 게시글
+		ArrayList<SNSArticleDTO_sjh> likeArticles = userPageInfo.getLikeArticles();
+		model.addAttribute("likeArticles", likeArticles);
+		log.info(likeArticles);
+		for (SNSArticleDTO_sjh art : likeArticles) {
+			log.info(art.getComments());
+		}
+		
+		//이 페이지 유저가 팔로잉하는 유저
+		//ArrayList<UserDTO> followingList= snsService.getFollowingList(user_id);
+		ArrayList<UserDTO> followingList= userPageInfo.getMyfollowings();
+		model.addAttribute("followingList",followingList);
 		log.info(followingList);
 
 		// 이 페이지 유저가 가입한 그룹
@@ -91,13 +99,26 @@ public class FeedsController {
 			// 자기 자신 페이지
 			model.addAttribute("follow", "me");
 		} else {
-			if (followingList.contains(user_id)) {
-				// 팔로우 하는 사용자 -> 언팔 가능
-				model.addAttribute("follow", "unfollowable");
-			} else {
-				// 아직 팔로우 하지 않은 사용자 -> 팔로 가능
-				model.addAttribute("follow", "followable");
+			try {
+				if(sugService.checkFollow(user_id, principal.getName())) {
+					//팔로우 하는 사용자 -> 언팔 가능
+					model.addAttribute("follow","unfollowable");
+				}else {
+					//아직 팔로우 하지 않은 사용자 -> 팔로 가능
+					model.addAttribute("follow","followable");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+			/*
+			if(followingList.contains(user_id)) {
+				//팔로우 하는 사용자 -> 언팔 가능
+				model.addAttribute("follow","unfollowable");
+			}else {
+				//아직 팔로우 하지 않은 사용자 -> 팔로 가능
+				model.addAttribute("follow","followable");
+			}
+			*/
 		}
 
 		UserDTO meDTO = snsService.getSimpleUser(principal.getName());
@@ -154,7 +175,7 @@ public class FeedsController {
 		log.info(" 좋아요 요청  from " + principal.getName() + " to " + articleId);
 		snsService.likeArticle(principal.getName(), articleId);
 		try {
-			return new ResponseEntity<>(suggestionService.getLikeNum(articleId + ""), HttpStatus.OK);
+			return new ResponseEntity<>(sugService.getLikeNum(articleId + ""), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -173,7 +194,7 @@ public class FeedsController {
 		log.info(" 안좋아요 요청  from " + principal.getName() + " to " + articleId);
 		snsService.unlikeArticle(principal.getName(), articleId);
 		try {
-			return new ResponseEntity<>(suggestionService.getLikeNum(articleId + ""), HttpStatus.OK);
+			return new ResponseEntity<>(sugService.getLikeNum(articleId + ""), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

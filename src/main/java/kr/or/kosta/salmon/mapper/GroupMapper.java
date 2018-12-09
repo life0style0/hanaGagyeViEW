@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Select;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.domain.GroupCountDTO;
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 
 public interface GroupMapper {
@@ -26,4 +27,9 @@ public interface GroupMapper {
 	//@Select("select * from groups where group_id > 0")
 	public List<GroupDTO_lhr> getList();
 	
+	//소모임 입장 제한 확인하기
+	public GroupCountDTO getCount(String group_id);
+	
+	//소모임에 들어가기 :) 
+	public int joinGroup(String group_id, String user_id);
 }

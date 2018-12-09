@@ -1,19 +1,15 @@
 package kr.or.kosta.salmon.service;
 import java.util.ArrayList;
-/**
- * SNS 관련 기능
- * @author 송주현
- */
-import java.util.List;
 
-import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import org.apache.ibatis.annotations.Param;
+
 import kr.or.kosta.salmon.domain.CommentDTO;
 import kr.or.kosta.salmon.domain.FollowerDTO;
+import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
 import kr.or.kosta.salmon.domain.LikeDTO;
-import kr.or.kosta.salmon.domain.LocationDTO_sjh;
-import kr.or.kosta.salmon.domain.MainGroupCtFeeDTO;
-import kr.or.kosta.salmon.domain.RegistUserDTO;
+import kr.or.kosta.salmon.domain.MainFeedArticlesDTO;
+import kr.or.kosta.salmon.domain.ReportDTO;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.SNSUserPageDTO;
 import kr.or.kosta.salmon.domain.ScrapDTO;
@@ -22,12 +18,19 @@ import kr.or.kosta.salmon.domain.ScrapDTO;
  * @author 송주현
  */
 import kr.or.kosta.salmon.domain.UserDTO;
-import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
 
 public interface SNSService {
 	
 	//전체 게시글 리턴
 	public ArrayList<SNSArticleDTO_sjh> getSNSArticles(String user_id);
+	// 전체 게시글중 인기글
+	public ArrayList<SNSArticleDTO_sjh> getSNSPopularArticles();
+	// 전체 게시글중 최신글
+	public ArrayList<SNSArticleDTO_sjh> getSNSNewArticles();
+	//전체 게시글중 인기글과 최신글
+	public MainFeedArticlesDTO getNewAndPopArticles();
+	//내 메인 피드 게시글
+	public MainFeedArticlesDTO getMyFeedArticles();
 	
 	//작성자로 글목록 찾기
 	public ArrayList<SNSArticleDTO_sjh> getSNSArticleByWriter(String user_id);
@@ -35,6 +38,7 @@ public interface SNSService {
 	public SNSArticleDTO_sjh getArticleByArticleId(int article_id);
 	
 	public ArrayList<HashTagGroupDTO> getHashTagGroup(String user_id);
+	public ArrayList<HashTagGroupDTO> getAllHashTagGroup();
 //	public ArrayList<MainGroupCtFeeDTO> getChartCategoryFee(String user_id);
 
 	//팔로우
@@ -72,5 +76,16 @@ public interface SNSService {
 	public ArrayList<CommentDTO> getNewCommentsByArticle(int articleId,int lastCommentId);
 	public UserDTO getSimpleUser(String user_id);
 	public void deleteComment(int comment_id);
+	
+	//게시글 신고
+	public boolean reportArticle(ReportDTO report);
+	public boolean reportArticle(String user_id, int article_id);
+	
+	//일반게시글 검색
+	public ArrayList<SNSArticleDTO_sjh> searchArticles(String value);
+	//역제안게시글 검색
+	public ArrayList<SNSArticleDTO_sjh> searchSuggestions(String value);
+	//그룹검색
+	public ArrayList<GroupDTO_lhr> searchGroups(@Param("value") String value);
 	
 }

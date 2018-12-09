@@ -22,6 +22,24 @@ function eventRegist(){
 		unlikesArticle($('#article-id-modal').attr('value'));
 		//setLikableArticle();
 	});
+	
+	$('#article-report-btn').on('click',function(){
+		$('#report-article-modal').modal('show');
+		//reportArticle($('#article-id-modal').attr('value'));
+	});
+	
+	$('#article-report-modal-btn').on('click',function(){
+		if($('#report_reason').val().length !=0){
+			var articleId= $('#article-id-modal').attr('value');
+			$('#reoport-article-id-modal').attr('value',articleId);
+			reportArticle(articleId);
+			//$('#report-article-modal').modal('hide');
+		}
+	})
+	
+	$('#report-confirm-exit-btn').on('click',function(){
+		$('#report-article-modal').modal('hide');
+	})
 }
 
 function getArticleInfo(articleId){
@@ -61,6 +79,55 @@ function setArticleModal(article){
 	$('#article-pay-type').html(article.article_payment_type);
 	$('#article-scope').html(article.article_scope);
 	$('#article-writer-nickname').html('<a href="/salmon/sns/feeds?userid='+article.user_nickname+'">'+article.user_nickname+'</a>');
+	
+	
+	var commentsHTML= `<div>
+						<div name="comment-area">`;
+						
+	if(article.comments.length > 0){
+		$(article.comments).each(function(i,comment){
+			console.log(comment);
+			commentsHTML +=
+			`<div class="be-comment">
+			<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
+			<input type="hidden" name="article-id" value="`+comment.article_id+`">
+					<div>
+						<span class="be-comment-name">
+							<a href="/salmon/sns/feeds?userid=`+comment.user_id+`">
+							`+comment.user_nickname+`
+							</a>
+						</span>
+						<span class="be-comment-time float-right">`;
+			if(myId == comment.user_id){
+				commentsHTML +=
+				`<span name="comment-delete-btn" class="comment-delete-btn">
+				<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
+					<i class="fas fa-times"></i>삭제 
+				</span>`;
+			}
+			commentsHTML +=		
+						`<i class="fa fa-clock-o"></i>`
+						+comment.comment_regdate+
+						`</span>
+						<p class="be-comment-text">`
+						+comment.comment_content+
+						`</p>
+					</div>
+				</div>`;
+		})
+	}
+	commentsHTML +=		`</div>
+						<form id="reply-form-`+article.article_id+`" method="get">
+							<div class="form-group">
+								<input type="hidden" name="article_id" value="`+article.article_id+`">
+								<c:out value="${me.user_nickname}"/>
+								<input type="text" name="comment_content" required="required" class="form-input">
+								<input type="button" id="reply-write-btn-`+article.article_id+`" class="btn-sjh pull-right" value="등록">
+							</div>
+						</form>
+					</div>`;
+	//console.log(commentsHTML);
+	$('#article-modal #article-comments').html(commentsHTML);
 	
 	console.log(article.likes);
 	if(article.likes != null){ //좋아요 있는 글
@@ -200,6 +267,50 @@ function scrapArticle(articleId){
 	});
 }
 
+/**
+ * 게시글 신고 요청
+ * @param articleId
+ * @returns
+ */
+function reportArticle(articleId){
+	console.log(articleId);
+	var reportReason= $('#report_reason').val();
+	var article_id= $('#reoport-article-id-modal').attr('value');
+	
+	$.ajax({
+		data: {
+			user_id: myId,
+			article_id: articleId,
+			report_reason: $('#report_reason').val(),
+		    _csrf: $('input[name="_csrf"]').val()
+		},
+		type: 'post',
+		//async: false,
+		url: '/salmon/main/article/report/',
+
+		success: function (data) {
+			data = data.trim();
+			//alert('게시글 신고 완료');
+			$('#report-article-modal').modal('hide');
+			
+			if(data=='success'){
+				$('#report-article-confirm-modal #report-result').html('신고가 완료되었습니다');
+			}else if(data=='already'){
+				$('#report-article-confirm-modal #report-result').html('이미 신고한 게시글입니다');
+			}else{
+				$('#report-article-confirm-modal #report-result').html('신고 실패했습니다');
+			}
+			$('#report-article-confirm-modal').modal('show');
+
+		},
+		error: function (xhr,status,er) {
+			alert('데이터 수신 에러');
+			console.log(xhr);
+			console.log(status);
+			console.log(er);
+		}
+	});
+}
 
 /**
  * 공개 범위를 판단해 값을 리턴하는 함수

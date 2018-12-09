@@ -2,6 +2,8 @@ package kr.or.kosta.salmon.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.LocationDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
@@ -76,5 +78,8 @@ public interface UserMapper {
 	
 	//지역정보 전체 가져오기
 	public List<LocationDTO_sjh> getAllLocations();
+	
+	//sns 페이지에서 사용자 검색
+	public List<UserDTO> searchUserInSNS(@Param("value") String value);
 	
 }

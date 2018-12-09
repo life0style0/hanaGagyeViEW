@@ -17,16 +17,23 @@
   <link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
   <link rel="stylesheet" href="/salmon/resources/template/style/jquery-ui.css">
   <link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
-  <link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
   <link rel="stylesheet" href="/salmon/resources/sjh/css/main-sjh.css">
   <link rel="stylesheet" href="/salmon/resources/sjh/css/article.css">
   <link rel="stylesheet" href="/salmon/resources/sjh/css/card-sjh.css">
+  
+  <link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
+  <link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
+  <link rel="stylesheet" href="/salmon/resources/jjw/css/common.css">
+  <link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
+  <link rel="stylesheet" href="/salmon/resources/jjw/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/salmon/resources/jjw/css/owl.theme.default.min.css">
 
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
   <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
   <!--[if lt IE 10]>
 			<link rel="stylesheet" type="text/css" href="style/ie-9.css" />
 		<![endif]-->
@@ -114,7 +121,7 @@
   </div>
 
   <div class="container-fluid cd-main-content custom-container">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col-md-2 left-feild">
         <form action="./" class="input-search">
           <input type="text" required="" placeholder="Enter keyword">
@@ -148,8 +155,8 @@
           	<input type="button" id="infoChangeBtn" class="btn btn-danger" value="통계정보 숨기기">
           </div>
 
-          <!-- 불필요 드랍 박스 주석 -->
-          <!-- <div class="be-drop-down">
+          불필요 드랍 박스 주석
+          <div class="be-drop-down">
 							<i class="icon-features"></i>
 							<span class="be-dropdown-content">Features
 							</span>
@@ -171,13 +178,14 @@
 								<li class="filter" data-filter=".category-4"><a>Germany</a></li>
 								<li class="filter" data-filter=".category-5"><a>United Kingdom</a></li>
 							</ul>
-						</div> -->
+						</div>
 
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
-  <div class="container-fluid custom-container">
+  
+    <div class="container-fluid custom-container">
     <div class="row">
 
       <div class="col-md-2 left-feild">
@@ -218,15 +226,20 @@
           </div>
         </div>
       </div>
-
-      <div class="col-md-10">
+      
+        <div class="col-md-10">
         <div id="container-mix" class="row _post-container_">
         <c:if test="${articleList.size() == 0 }">
-        	<div class="category-1 mix custom-column-3">
-            <div class="be-post">
-             	등록된 게시글이 없습니다.
-            </div>
-          </div>
+        
+        <div class="be-large-post info-block">
+		 <h2>내 주변 활동이 없습니다. 지금 주변을 둘러보고 팔로우를 시작하세요! </h2>
+         <h3><a href="/salmon/sns/showall">둘러보기</a></h3>
+		</div>
+					
+        	<!-- <div class="category-1 mix custom-column-3">
+             	내 주변 활동이 없습니다. 지금 주변을 둘러보고 팔로우를 시작하세요! 
+             	 <a href="/salmon/main/showall">둘러보기</a>
+          </div> -->
         </c:if>
         <c:if test="${articleList.size() > 0 }">
         <c:forEach var="article" items="${articleList }">
@@ -234,8 +247,7 @@
        		<c:set var="tag" scope="page" value="${tag } category-hashTag-${hashLoop }"/>
        	</c:forEach>
           <div class="category-1 mix custom-column-3 ${tag }">
-            <div id="article-post-<c:out value="${article.article_id}"/>" class="be-post-sjh" 
-            style="background-color:cadetblue">
+            <div id="article-post-<c:out value="${article.article_id}"/>" class="be-post-sjh">
               <a class="be-img-block">
               <c:if test="${article.imagePaths.size()==0 }">
               	<div class="article-size">
@@ -306,6 +318,9 @@
       </div>
     </div>
   </div>
+  
+
+  	
   <!-- </div> -->
   <!-- THE FOOTER -->
   <%@ include file="/WEB-INF/views/includes/footer.jsp"%>
@@ -313,32 +328,17 @@
   <div class="be-fixed-filter"></div>
 
   <!--  로그아웃 팝업 -->
-  <div class="large-popup login">
-    <div class="large-popup-fixed"></div>
-    <div class="container large-popup-container">
-      <div class="row">
-        <div class="col-md-8 col-md-push-2 col-lg-6 col-lg-push-3  large-popup-content">
-          <div class="row">
-            <div class="col-md-12">
-              <i class="fa fa-times close-button"></i>
-              <h5 class="large-popup-title">로그아웃</h5>
-            </div>
-
-            <form method="post" action="/salmon/customLogout" class="popup-input-search">
-              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-              <button class="be-popup-sign-button">로그아웃</button>
-            </form>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <%@ include file="/WEB-INF/views/includes/logout.jsp"%>
   <!--  로그아웃 팝업 끝-->
   
   <!-- 게시글 모달 -->
 <%@ include file="/WEB-INF/views/includes/articlemodal.jsp"%>
   <!--  게시글 모달끝 -->
+  
+  <!-- 게시글 신고 모달 -->
+<%@ include file="/WEB-INF/views/includes/reportModal.jsp"%>
+<%@ include file="/WEB-INF/views/includes/reportConfirmModal.jsp"%>
+  <!--  게시글 신고 모달끝 -->
 
   <div class="theme-config">
     <div class="main-color">
@@ -373,6 +373,7 @@
   
 	<script type="text/javascript">
 	var articlelist;
+	var me;
 	$(function(){ 
 		  //article 불러오기
 		  var article= new Object();
@@ -382,6 +383,11 @@
 		  $(articlelist).each(function(i,e){
 			  console.log(e);
 		  });
+		  
+		//  $('#myfeed-btn').trigger('click'); //필터 적용
+		  
+		  //내정보 불러오기
+		  me= ${meJSON};
 		})
 	</script>
 	

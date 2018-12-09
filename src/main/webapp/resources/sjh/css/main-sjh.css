@@ -1,4 +1,4 @@
-/*
+
 .head-bg-sjh{
 	background: #ffffff;
     position: relative;
@@ -20,4 +20,11 @@ font-sjh{
 .bgcolor-salmon-sjh{
 	background: #ff7f7f;
 	color:#ffffff;
+}
+
+.btn.color-white-sjh {
+    background: #ffffff;
+    border: 1px solid #298478;
+    color: #298478;
+    
 }

@@ -15,6 +15,7 @@
 		<result property="user_birthday" column="user_birthday"/>
 		<result property="user_image" column="user_image"/>
 		<result property="user_regdate" column="user_regdate"/>
+		<association property="userLocAndCat" column="user_id" select="getUserSimplePsns"/>
 		<collection property="authList" resultMap="authMap"/>
 	</resultMap>
 
@@ -269,5 +270,21 @@
 		DELETE FROM users_auth 
 		WHERE  user_id = #{user_id}; 
 	</delete>
+	
+	 
+     <select id="searchUserInSNS"  resultMap="userMap">
+      <![CDATA[
+     	SELECT users.user_id, 
+		       users.user_nickname, 
+		       users.user_email, 
+		       users.user_gender, 
+		       users.user_birthday, 
+		       users.user_image
+		FROM   users 
+		WHERE  user_nickname LIKE #{value} 
+		OR     user_id LIKE #{value} 
+	]]>
+     </select>
+        
 	
 </mapper>

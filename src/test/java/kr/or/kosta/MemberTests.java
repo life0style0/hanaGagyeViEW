@@ -41,7 +41,7 @@ public class MemberTests {
 	@Inject
 	private UserMapper usermapper;
 	
-//	@Test
+	@Test
 	public void testSelectMember() {
 		String sql="select * from users";
 		Connection con=null;
@@ -98,7 +98,7 @@ public class MemberTests {
 					pstmt.setString(5, "F"); //성별
 					pstmt.setString(6, "111111"); //생년월일
 					pstmt.setString(7, "https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28"); //이미지
-				} else if(i>0 && i<5) {
+				} else if(i>0 && i<3) {
 					//관리권한 있는 사용자
 					managerAuthPstmt= con.prepareStatement(managerAuthSql);
 					
@@ -123,9 +123,9 @@ public class MemberTests {
 					//일반 사용자
 					userAuthPstmt.setString(1, "heyrim"+i); //아이디
 					
-					pstmt.setString(1, "hongis"+i); //아이디
-					pstmt.setString(2, "hongis"+i); //닉네임
-					pstmt.setString(3, "hongis"+i+"@mail.com"); //이메일
+					pstmt.setString(1, "heyrim"+i); //아이디
+					pstmt.setString(2, "heyrim"+i); //닉네임
+					pstmt.setString(3, "heyrim"+i+"@mail.com"); //이메일
 					pstmt.setString(4, pwEncoder.encode("1234")); //비밀번호 암호화
 					pstmt.setString(5, "F"); //성별
 					pstmt.setString(6, "901225"); //생년월일

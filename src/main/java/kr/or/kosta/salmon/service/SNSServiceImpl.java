@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 
 import kr.or.kosta.salmon.domain.CommentDTO;
 import kr.or.kosta.salmon.domain.FollowerDTO;
+import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
 import kr.or.kosta.salmon.domain.LikeDTO;
+import kr.or.kosta.salmon.domain.MainFeedArticlesDTO;
+import kr.or.kosta.salmon.domain.ReportDTO;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.SNSUserPageDTO;
 import kr.or.kosta.salmon.domain.ScrapDTO;
@@ -188,5 +191,61 @@ public class SNSServiceImpl implements SNSService {
 	public void deleteComment(int comment_id) {
 		log.info("댓글 삭제");
 		snsMapper.deleteComment(comment_id);
+	}
+
+	@Override
+	public ArrayList<SNSArticleDTO_sjh> getSNSPopularArticles() {
+		return snsMapper.getSNSPopularArticles();
+	}
+
+	@Override
+	public ArrayList<SNSArticleDTO_sjh> getSNSNewArticles() {
+		return snsMapper.getSNSNewArticles();
+	}
+
+	@Override
+	public MainFeedArticlesDTO getNewAndPopArticles() {
+		return snsMapper.getNewAndPopArticles();
+	}
+
+	@Override
+	public MainFeedArticlesDTO getMyFeedArticles() {
+		return snsMapper.getMyFeedArticles();
+	}
+
+	@Override
+	public boolean reportArticle(ReportDTO report) {
+		if(report.getReport_reason() == null) {
+			report.setReport_reason("test reason");
+		}
+		return snsMapper.reportArticle(report);
+	}
+
+	@Override
+	public boolean reportArticle(String user_id, int article_id) {
+		ReportDTO report= new ReportDTO();
+		report.setUser_id(user_id);
+		report.setArticle_id(article_id);
+		return reportArticle(report);
+	}
+
+	@Override
+	public ArrayList<HashTagGroupDTO> getAllHashTagGroup() {
+		return snsMapper.getAllHashTagGroup();
+	}
+
+	@Override
+	public ArrayList<SNSArticleDTO_sjh> searchArticles(String value) {
+		return snsMapper.searchArticles(value);
+	}
+
+	@Override
+	public ArrayList<SNSArticleDTO_sjh> searchSuggestions(String value) {
+		return snsMapper.searchSuggestions(value);
+	}
+
+	@Override
+	public ArrayList<GroupDTO_lhr> searchGroups(String value) {
+		return snsMapper.searchGroups(value);
 	}
 }

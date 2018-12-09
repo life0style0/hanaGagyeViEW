@@ -146,14 +146,9 @@
           
           <div class="form-group">
           <!-- 방장 이름 -->
-            <label>방장 </label> <input class="form-control" name="user_id" id="user_id" value="1234">
+            <label>방장 </label> <input class="form-control" name="user_id" id="user_id" value="<sec:authentication property="principal.username" />" readonly="readonly">
           </div>
 
-          <div class="form-group">
-          <!-- 현재 날짜 -->
-            <label>현재 날짜 </label> <input class="form-control" name="group_regdate" id="group_regdate" value="2018/12/06">
-          </div>
-          
           <div class="form-group">
           <!-- 소모임 정원 -->
             <label>소모임 정원</label> <input class="form-control" name="group_people_max" id="group_people_max" value="200">

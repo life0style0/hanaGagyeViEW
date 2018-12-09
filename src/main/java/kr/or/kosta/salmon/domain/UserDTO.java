@@ -18,5 +18,7 @@ public class UserDTO {
 	private boolean enabled; //sequrity에 필요
 	
 	private List<Auth> authList; //이 User가 가진 권한 목록
+	UserLocAndCatsDTO userLocAndCat; //이 user의 추가정보
 	
+	private String isFollow;
 }

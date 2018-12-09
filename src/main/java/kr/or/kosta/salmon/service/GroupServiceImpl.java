@@ -1,4 +1,5 @@
 package kr.or.kosta.salmon.service;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -8,6 +9,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.domain.CommentDTO;
+import kr.or.kosta.salmon.domain.GroupCountDTO;
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.mapper.GroupMapper;
@@ -52,9 +55,57 @@ public class GroupServiceImpl implements GroupService {
 		return groupMapper.getAllCategories();
 	}
 
+	//리스트 가져오기
 	@Override
 	public List<GroupDTO_lhr> getList() {
 		return groupMapper.getList();
+	}
+	
+	//소모임 현재인원, 가입 가능 인원 확인 
+	@Override
+	public GroupCountDTO getCount(String group_id) {
+		return groupMapper.getCount(group_id);
+	}
+	
+	//소모임 회원으로 들어가기 
+	@Override
+	public int joinGroup(String group_id, String user_id) {
+		return groupMapper.joinGroup(group_id, user_id);
+	}
+	
+	
+	@Override
+	public void writeComment(CommentDTO comment) {
+		
+	}
+
+	@Override
+	public void writeComment(String user_id, int article_id, String comment_content) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList<CommentDTO> getCommentsByArticle(int article_id) {
+		return null;
+	}
+
+	@Override
+	public ArrayList<CommentDTO> getNewCommentsByArticle(int articleId, int lastCommentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserDTO getSimpleUser(String user_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteComment(int comment_id) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

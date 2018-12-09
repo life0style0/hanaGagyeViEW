@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -16,17 +17,23 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kr.or.kosta.salmon.domain.CommentDTO;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
-import kr.or.kosta.salmon.domain.MainArticleDTO;
 import kr.or.kosta.salmon.domain.MainChartDTO;
+import kr.or.kosta.salmon.domain.MainFeedArticlesDTO;
+import kr.or.kosta.salmon.domain.ReportDTO;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
+import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.service.MainService;
 import kr.or.kosta.salmon.service.SNSService;
+import kr.or.kosta.salmon.service.UserService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -39,13 +46,14 @@ public class MainController {
 	@Inject
 	SNSService snsService;
 	
+	@Inject
+	UserService userService;
+	
 	@GetMapping("/main/home")
 	public void mainHome(Principal principal, Model model) {
 		log.info("main컨트롤러 진입");
 		String user_id = principal.getName();
 		ArrayList<HashTagGroupDTO> hashTagList = (ArrayList)mainService.getHashTagGroup(user_id);
-
-
 		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)snsService.getSNSArticles(user_id);
 
 		MainChartDTO mainchartIncomeInfo = mainService.getChartTotalIncomeFee(user_id);
@@ -73,6 +81,17 @@ public class MainController {
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
+
+		//유저 정보
+		UserDTO meDTO= snsService.getSimpleUser(principal.getName());
+		model.addAttribute("me",meDTO);
+		try {
+			String meJSON= objmapper.writeValueAsString(meDTO);
+			model.addAttribute("meJSON", meJSON);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	@GetMapping("/main/image")
@@ -102,5 +121,28 @@ public class MainController {
 		log.info(article);
 		return new ResponseEntity<SNSArticleDTO_sjh>(article,HttpStatus.OK);
 		//model.addAttribute("article", article);
+	}
+	
+
+	/**
+	 * 게시글 신고
+	 * @param articleId
+	 * @param principal
+	 * @return
+	 */
+	@PostMapping(value="/main/article/report",
+			produces= {MediaType.TEXT_PLAIN_VALUE})
+	public ResponseEntity<String> reportArticlePost(@RequestParam("user_id") String user_id,@RequestParam("article_id") int articleId, @RequestParam("report_reason") String report_reason, Principal principal) {
+		log.info(" 게시글 신고 요청  from "+user_id+" to "+articleId+" by "+report_reason);
+		ReportDTO report= new ReportDTO();
+		report.setUser_id(user_id);
+		report.setReport_reason(report_reason);
+		report.setArticle_id(articleId);
+		if (snsService.reportArticle(report)) {
+			return new ResponseEntity<>("success",HttpStatus.OK);
+		}else {
+			return new ResponseEntity<>("fail",HttpStatus.OK);
+		}
+		
 	}
 }
