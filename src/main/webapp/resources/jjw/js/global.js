@@ -99,77 +99,47 @@ function setArticle(article, info) {
         $('#article-modal .modal-dialog').removeClass('ggv-no-image');
         for (let i = 0; i < article.imagePaths.length; i += 1) {
             const imagePath = article.imagePaths[i];
-            $('.article-carousel').append(`<img class="center-block owl-lazy" data-src="/salmon/image?fileName=${imagePath}" alt="">`);
+            $('.article-carousel').append(`<img class="center-block owl-lazy invisible" data-src="/salmon/image?fileName=${imagePath}" alt="">`);
         }
 
-        $('.article-carousel').owlCarousel({
-            items: 1,
-            loop: true,
-            margin: 10,
-            nav: true,
-            navText: [
-                "<i class='fa fa-angle-left'></i>",
-                "<i class='fa fa-angle-right'></i>"
-            ],
-            dots: false,
-            lazyLoad: true
+        $('#article-modal').on('shown.bs.modal', function () {
+            $('.article-carousel').owlCarousel({
+                items: 1,
+                loop: true,
+                margin: 10,
+                nav: true,
+                navText: [
+                    "<i class='fa fa-angle-left'></i>",
+                    "<i class='fa fa-angle-right'></i>"
+                ],
+                dots: false,
+                lazyLoad: true
+            });
         });
     }
 
-    // $('.article-carousel').on('drag.owl.carousel', function () {
-    //     const images = $('.article-carousel .owl-lazy').each(function (key, value) {
-    //         if ($(value).height() > $(value).width()) {
-    //             $(value).addClass('article-image-h');
-    //             $(value).removeClass('article-image-w');
-    //         } else if($(value).height() < $(value).width()) {
-    //             $(value).addClass('article-image-w');
-    //             $(value).removeClass('article-image-h');
-    //         }
-    //     });
-    // });
-
-    // $('.article-carousel').on('dragged.owl.carousel', function () {
-    //     const images = $('.article-carousel .owl-lazy').each(function (key, value) {
-    //         if ($(value).height() > $(value).width()) {
-    //             $(value).addClass('article-image-h');
-    //             $(value).removeClass('article-image-w');
-    //         } else if($(value).height() < $(value).width()) {
-    //             $(value).addClass('article-image-w');
-    //             $(value).removeClass('article-image-h');
-    //         }
-    //     });
-    // });
-
     $('.article-carousel').on('translated.owl.carousel', function () {
-        const images = $('.article-carousel .owl-lazy').each(function (key, value) {
+        $('.article-carousel .owl-lazy').each(function (key, value) {
             if ($(value).height() > $(value).width()) {
                 $(value).addClass('article-image-h');
                 $(value).removeClass('article-image-w');
             } else if ($(value).height() < $(value).width()) {
                 $(value).addClass('article-image-w');
                 $(value).removeClass('article-image-h');
+            } else {
+                $(value).removeClass('article-image-w');
+                $(value).removeClass('article-image-h');
+                $(value).addClass('article-image');
             }
         });
     });
 
-    $('#article-modal').on('shown.bs.modal', function () {
-        // const images = $('.article-carousel .owl-lazy').each(function (key, value) {
-        //     if ($(value).height() > $(value).width()) {
-        //         $(value).addClass('article-image-h');
-        //         $(value).removeClass('article-image-w');
-        //     } else if ($(value).height() < $(value).width()) {
-        //         $(value).addClass('article-image-w');
-        //         $(value).removeClass('article-image-h');
-        //     }
-        // });
-        const imageL = $(this).find('.owl-lazy').length * 2;
-        console.log($(this).find('.owl-lazy'));
+    $('.article-carousel').on('loaded.owl.lazy', function () {
+        const imageL = $(this).find('.owl-lazy').length;
         for (let i = 0; i < imageL; i += 1) {
-            console.log('i :', i);
             $('.article-carousel').trigger('prev.owl.carousel');
         }
-        // $('.article-carousel').on('initialized.owl.carousel', function () {
-        // });
+        $('.article-carousel .owl-lazy').removeClass('invisible');
     });
 
     if (article.articleCtgryType !== undefined) {

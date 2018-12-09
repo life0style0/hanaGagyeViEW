@@ -64,7 +64,6 @@ public class SuggestionController {
             model.addAttribute("likeNum", likeNum);
             model.addAttribute("sNum", sNum);
             model.addAttribute("psns", SS.getPsnsWithSuggestion(principal.getName()));
-
             
             mpg = (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria);
             model.addAttribute("newList", SS.getSuggestionListByPaging(criteria));

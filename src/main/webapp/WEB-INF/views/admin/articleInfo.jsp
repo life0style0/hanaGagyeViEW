@@ -34,8 +34,11 @@
     
     <!-- 안녕 차트  -->
     <script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/export-data.js"></script>
+	<script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+	
   </head>
 
   <body class="nav-md">
@@ -180,37 +183,37 @@
         <div class="right_col" role="main">
           <!-- top tiles -->
           <div class="row tile_count">
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> 총 회원수</span>
-              <div class="count">${adminUserInfoDTO.totalUser}</div>
-              <span class="count_bottom"><i class="fa fa-user">4% </i> 앗</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> 20대 회원수</span>
-              <div class="count">${adminUserInfoDTO.ageGroupHash.get('20대')}</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> 30대 회원수</span>
-              <div class="count green">${adminUserInfoDTO.ageGroupHash.get('30대')}</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> 40대 회원수</span>
-              <div class="count">${adminUserInfoDTO.ageGroupHash.get('40대')}</div>
-              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
-            </div>
-            <c:forEach var="gender" items="${adminUserInfoDTO.genderGroup}">
-            <c:set var="temp" value="1"/>
-            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i><c:if test="${gender.user_gender=='M' }">남성 </c:if><c:if test="${gender.user_gender=='F' }">여성 </c:if>회원수</span>
-              <div class="count">${gender.count_gender }</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
-            <c:set var="temp" value="${temp + 1}"/>
-            </c:forEach>
-            
-            
+          	<c:forEach var="summaryInfo" items="${ctgrySummaryList}">
+          		<c:choose>
+          			<c:when test="${summaryInfo.article_ctgry_id==1 }">
+          				 <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
+			              <span class="count_top"><i class="fa fa-user"></i> 수입 게시글</span>
+			              <div class="count">${summaryInfo.article_ctgry_ct }</div>
+			              <span class="count_bottom"><i class="fa fa-user">4% </i></span>
+			            </div>
+          			</c:when>
+          			<c:when test="${summaryInfo.article_ctgry_id==2 }">
+          				 <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
+			              <span class="count_top"><i class="fa fa-user"></i> 지출 게시글</span>
+			              <div class="count">${summaryInfo.article_ctgry_ct }</div>
+			              <span class="count_bottom"><i class="fa fa-user">4% </i></span>
+			            </div>
+          			</c:when>
+          			<c:when test="${summaryInfo.article_ctgry_id==3 }">
+          				 <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
+			              <span class="count_top"><i class="fa fa-user"></i> 역제안 게시글</span>
+			              <div class="count">${summaryInfo.article_ctgry_ct }</div>
+			              <span class="count_bottom"><i class="fa fa-user">4% </i></span>
+			            </div>
+          			</c:when>
+          		</c:choose>
+          	</c:forEach>
+          	
+          	 <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
+	             <span class="count_top"><i class="fa fa-user"></i>총 태그 수</span>
+	             	<div class="count">${hashTagTotalCt }</div>
+	             <span class="count_bottom"><i class="fa fa-user">4% </i></span>
+             </div>
           </div>
           <!-- /top tiles -->
 
@@ -230,7 +233,7 @@
                   </div>
                 </div>
 
-                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <div id="container"></div>
                 <div class="clearfix"></div>
               </div>
             </div>
@@ -239,12 +242,10 @@
           <br />
 
           <div class="row">
-
-
             <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="x_panel tile fixed_height_320">
+              <div class="x_panel tile fixed_height_340">
                 <div class="x_title">
-                  <h2>유저 등록 카테고리</h2>
+                  <h2>해시태그 상위 7개 태그</h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -262,45 +263,39 @@
                   </ul>
                   <div class="clearfix"></div>
                 </div>
-                <div class="x_content">
-                  <h4>카테고리 상위 5</h4>
-                  <c:forEach var="ctgryDto" items="${adminUserInfoDTO.getUserCtgry }">
+                 <div class="x_content">
+                  <c:forEach var="hashTopInfo" items="${hashTopList}">
                   <div class="widget_summary">
                     <div class="w_left w_25">
-                      <span>${ctgryDto.ctgry_name }</span>
+                      <span>${hashTopInfo.hashtag_value }</span>
                     </div>
                     <div class="w_center w_55">
                       <div class="progress">
-                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: ${Math.ceil(ctgryDto.ctgry_ct/ adminUserInfoDTO.ctgryTotal * 100)}%;">
-                          <span class="sr-only">${Math.ceil(ctgryDto.ctgry_ct/ adminUserInfoDTO.ctgryTotal * 100)}% Complete</span>
+                        <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: ${Math.ceil(hashTopInfo.hashtag_count/ hashTagTotalCt * 100*10)/10}%;">
+                          <span class="sr-only">${Math.ceil(hashTopInfo.hashtag_count/ hashTagTotalCt * 100*10)/10}% Complete</span>
                         </div>
                       </div>
                     </div>
                     <div class="w_right w_20">
-                      <span>${ctgryDto.ctgry_ct}</span>
+                      <span>${hashTopInfo.hashtag_count }(${Math.round(hashTopInfo.hashtag_count/ hashTagTotalCt * 100*10)/10}%)</span>
                     </div>
                     <div class="clearfix"></div>
-                  </div>
-				</c:forEach>
-                </div>
-              </div>
+                   </div>
+					</c:forEach>
+                </div> 
+            </div>
             </div>
 
-            <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="x_panel tile fixed_height_320 overflow_hidden">
+        
+			<div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="x_panel tile fixed_height_340">
                 <div class="x_title">
-                  <h2>팔로워 보유 현황</h2>
+                  <h2>게시글 카테고리 등록 현황</h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
                     <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
                     </li>
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
                     </li>
@@ -308,42 +303,12 @@
                   <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                  <table class="" style="width:100%">
-                    <tr>
-                      <th style="width:37%;">
-                        <p>Top 5</p>
-                      </th>
-                      <th>
-                        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-7">
-                          <p class="">사용자 아이디</p>
-                        </div>
-                        <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">
-                          <p class="">팔로워수</p>
-                        </div>
-                      </th>
-                    </tr>
-                    <tr>
-                      <td>
-                        <canvas class="canvasDoughnut" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
-                      </td>
-                      <td>
-                        <table class="tile_info">
-                        <c:forEach var="follower" items="${adminUserInfoDTO.followerTopList }">
-                          <tr>
-                            <td>
-                              <p><i class="fa fa-square blue"></i>${follower.user_id } </p>
-                            </td>
-                            <td>${follower.follower_ct }명</td>
-                          </tr>
-                        </c:forEach>
-                        </table>
-                      </td>
-                    </tr>
-                  </table>
+                 	<div id="categoryChart"  style="min-width: 300px; height: 280px; max-width: 310px; margin: 0 auto"></div>
                 </div>
               </div>
             </div>
-
+			
+			
 
             <div class="col-md-4 col-sm-6 col-xs-12 widget_tally_box">
                 <div class="x_panel">
@@ -390,7 +355,7 @@
         </footer>
         <!-- /footer content -->
       </div>
-    </div>
+
 
     <!-- jQuery -->
     <script src="/salmon/resources/adminTemplate/vendors/jquery/dist/jquery.min.js"></script>
@@ -434,145 +399,89 @@
 	
 	<!-- 데이터 받기 -->
 	<script>
-	/*바차트  */
-	var categories = [];
-	var count = [];
-	<c:forEach var="monthInfo" items="${adminUserInfoDTO.registGroupByMonth}">
-		categories.push('${monthInfo.groupMonth}'+'월');
-		count.push(${monthInfo.groupMonthCt});
+	/*워드크라우드 */
+	var wordData = [];
+	<c:forEach var="word" items="${wordList}">
+		var wordTemp = [];
+		wordTemp.push('${word.hashtag_value}');
+		wordTemp.push(${word.hashtag_ct});
+		wordData.push(wordTemp);
 	</c:forEach>
 	
-	/*산포도*/
+	/*파이차트*/
 	
-	var maleDataSet = [];
-	var femaleDataSet = [];//수입 지출
-	<c:forEach var="maleInfo" items="${adminUserInfoDTO.paymentListMale}">
-		var maletemp = [];
-		maletemp.push(${maleInfo.get('1')});
-		maletemp.push(${maleInfo.get('2')});
-		console.log(maletemp);
-		maleDataSet.push(maletemp);
-	</c:forEach>
-	<c:forEach var="femaleInfo" items="${adminUserInfoDTO.paymentListFemale}">
-		var femaletemp = [];
-		femaletemp.push(${femaleInfo.get('1')});
-		femaletemp.push(${femaleInfo.get('2')});
-		femaleDataSet.push(maletemp);
-	</c:forEach>
+	 
 	
-		console.log(maleDataSet);
+	
 	</script>
 	
 	<!-- 안녕차트  -->
 	<script>
-	/*바차트  */
+	console.log(wordData);
 	Highcharts.chart('container', {
+    series: [{
+        type: 'wordcloud',
+        data: wordData,
+        name: 'Occurrences'
+    }],
+    title: {
+        text: 'Wordcloud of Lorem Ipsum'
+    }
+});	
+	
+	Highcharts.chart('categoryChart', {
 	    chart: {
-	        type: 'column'
+	        plotBackgroundColor: null,
+	        plotBorderWidth: 0,
+	        plotShadow: false
 	    },
 	    title: {
-	        text: '신규 유저 가입 현황'
-	    },
-	    xAxis: {
-	        categories: categories,
-	        crosshair: true
-	    },
-	    yAxis: {
-	        min: 0,
-	        title: {
-	            text: '(명)'
-	        }
+	        text: 'Browser<br>shares<br>2017',
+	        align: 'center',
+	        verticalAlign: 'middle',
+	        y: 40
 	    },
 	    tooltip: {
-	        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-	        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-	            '<td style="padding:0"><b>{point.y:.1f} 명</b></td></tr>',
-	        footerFormat: '</table>',
-	        shared: true,
-	        useHTML: true
+	        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
 	    },
 	    plotOptions: {
-	        column: {
-	            pointPadding: 0.2,
-	            borderWidth: 0
+	        pie: {
+	            dataLabels: {
+	                enabled: true,
+	                distance: -50,
+	                style: {
+	                    fontWeight: 'bold',
+	                    color: 'white'
+	                }
+	            },
+	            startAngle: -90,
+	            endAngle: 90,
+	            center: ['50%', '75%'],
+	            size: '110%'
 	        }
 	    },
 	    series: [{
-	        name: '가입자수',
-	        data: count
-
+	        type: 'pie',
+	        name: 'Browser share',
+	        innerSize: '50%',
+	        data: [
+	            ['Chrome', 58.9],
+	            ['Firefox', 13.29],
+	            ['Internet Explorer', 13],
+	            ['Edge', 3.78],
+	            ['Safari', 3.42],
+	            {
+	                name: 'Other',
+	                y: 7.61,
+	                dataLabels: {
+	                    enabled: false
+	                }
+	            }
+	        ]
 	    }]
 	});
-	
-	/* 산포도  */
-	Highcharts.chart('container2', {
-    chart: {
-        type: 'scatter',
-        zoomType: 'xy'
-    },
-    title: {
-        text: '성별에 따른 수입 지출 현황'
-    },
-    xAxis: {
-        title: {
-            enabled: true,
-            text: '수입(원)'
-        },
-        startOnTick: true,
-        endOnTick: true,
-        showLastLabel: true
-    },
-    yAxis: {
-        title: {
-            text: '지출(원)'
-        }
-    },
-    legend: {
-        layout: 'vertical',
-        align: 'left',
-        verticalAlign: 'top',
-        x: 100,
-        y: 70,
-        floating: true,
-        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-        borderWidth: 1
-    },
-    plotOptions: {
-        scatter: {
-            marker: {
-                radius: 5,
-                states: {
-                    hover: {
-                        enabled: true,
-                        lineColor: 'rgb(100,100,100)'
-                    }
-                }
-            },
-            states: {
-                hover: {
-                    marker: {
-                        enabled: false
-                    }
-                }
-            },
-            tooltip: {
-                headerFormat: '<b>{series.name}</b><br>',
-                pointFormat: '{point.x} cm, {point.y} kg'
-            }
-        }
-    },
-    series: [{
-        name: 'Female',
-        color: 'rgba(223, 83, 83, .5)',
-        data: femaleDataSet
 
-    }, {
-        name: 'Male',
-        color: 'rgba(119, 152, 191, .5)',
-        data: maleDataSet
-    }]
-});
-	
+
 	</script>
 	
   </body>

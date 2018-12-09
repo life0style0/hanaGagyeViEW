@@ -7,11 +7,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 @ToString
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminGbyGenderDTO {
-	private String user_gender;
-	private int count_gender;
+public class AdminPaymentInfoRankDTO {
+	private String location_name;
+	private String ctgry_name;
+	private int ranking;
+	private int avg_fee;
 }

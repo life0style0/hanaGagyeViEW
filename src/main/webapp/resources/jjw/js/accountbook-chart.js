@@ -14,10 +14,10 @@ function monthBarSpendChart(yearSrc) {
                 monthDatas.forEach(function (monthData) {
                     if (!monthData.articleCtgryType === 'spend') {
                         console.log('not spend');
-                    } else if (monthSpendChartData.has(monthData.ctgryName)) {
-                        monthSpendChartData.set(monthData.ctgryName, monthSpendChartData.get(monthData.ctgryName) + Number(monthData.articlePaymentFee));
+                    } else if (monthSpendChartData.has(monthData.ctgryNames[0])) {
+                        monthSpendChartData.set(monthData.ctgryNames[0], monthSpendChartData.get(monthData.ctgryNames[0]) + Number(monthData.articlePaymentFee));
                     } else {
-                        monthSpendChartData.set(monthData.ctgryName, Number(monthData.articlePaymentFee));
+                        monthSpendChartData.set(monthData.ctgryNames[0], Number(monthData.articlePaymentFee));
                     }
                 });
                 monthSpendDatas.set(date, monthSpendChartData);
@@ -28,7 +28,6 @@ function monthBarSpendChart(yearSrc) {
     const sortedMonthSpendDatas = new Map([...monthSpendDatas.entries()].sort());
     const months = [];
     const ctgryToSpend = new Map(); // key=ctgry, value=spend
-
     sortedMonthSpendDatas.forEach(function (monthSpendChartData, date) {
         months.push(`${date.substr(3,4)}년 ${date.substr(0,2)}월`);
         let lenMax = ctgryToSpend.size === 0 ? 0 : ctgryToSpend.values().next().value.length;

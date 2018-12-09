@@ -33,27 +33,21 @@
                   <span id="article-scope">, 공개 범위</span>
                 </div>
                 <div class="info-block">
-                  <span id="article-like-btn">
+                  <span id="article-like-btn" class="hidden">
                   	<i class="fa fa-thumbs-o-up"></i> +1
                   </span>
-                  <span id="article-unlike-btn">
+                  <span id="article-unlike-btn" class="hidden">
                   	<i class="fa fa-thumbs-o-up"></i> -1
-                  </span>
-                  <span id="article-scrap-btn">
-                  	<i class="far fa-bookmark"></i> 789
-                  </span>
-                  <span id="article-unscrap-btn">
-                  	<i class="fas fa-bookmark"></i> 789
                   </span>
                   <span id="article-comments-btn">
                   	<i class="fa fa-comment-o"></i> 20
                   </span>
-                 <!--  <span id="article-share-btn">
+                  <span id="article-share-btn" class="hidden">
                   	<a><i class="fa fa-share-alt"></i> 공유</a>
                   </span>
-                  <span id="article-share-cancel-btn">
+                  <span id="article-share-cancel-btn" class="hidden">
                   	<a><i class="fa fa-ban"></i> 공유 취소</a>
-                  </span> -->
+                  </span>
                   <span id="article-report-btn">
                   	<a><i class="far fa-flag"></i> 신고</a>
                   </span>

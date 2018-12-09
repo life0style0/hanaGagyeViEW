@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminGbyGenderDTO {
-	private String user_gender;
-	private int count_gender;
+public class AdminPayInfoPstageDTO {
+	private String ctgry_name;
+	private int ctgry_sum;
 }
