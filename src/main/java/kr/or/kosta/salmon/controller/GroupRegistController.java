@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.Criteria;
-import kr.or.kosta.salmon.domain.GroupCountDTO;
+
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.service.GroupService;
 import lombok.extern.log4j.Log4j;

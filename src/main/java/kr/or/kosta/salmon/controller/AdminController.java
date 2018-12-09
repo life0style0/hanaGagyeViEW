@@ -14,11 +14,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import kr.or.kosta.salmon.domain.AdminArticleInfoArtiCtgryDTO;
+import kr.or.kosta.salmon.domain.AdminArticleInfoCtgryCtDTO;
+import kr.or.kosta.salmon.domain.AdminArticleInfoHashTagTopDTO;
+import kr.or.kosta.salmon.domain.AdminArticleInfoWordDTO;
 import kr.or.kosta.salmon.domain.AdminFollowerTopDTO;
 import kr.or.kosta.salmon.domain.AdminGetUserCtgryDTO;
 import kr.or.kosta.salmon.domain.AdminPayInfoAvgDTO;
 import kr.or.kosta.salmon.domain.AdminPayInfoAvgGroupBYAgeDTO;
+import kr.or.kosta.salmon.domain.AdminPayInfoPstageDTO;
 import kr.or.kosta.salmon.domain.AdminPayInfoTotalDTO;
+import kr.or.kosta.salmon.domain.AdminPaymentInfoRankDTO;
 import kr.or.kosta.salmon.domain.AdminPaymentTypeDTO;
 import kr.or.kosta.salmon.domain.AdminUserInfoDTO;
 import kr.or.kosta.salmon.service.AdminService;
@@ -171,6 +177,72 @@ public class AdminController {
 		adminPayInfoAvgGroupBYAgeList = adminService.getAvgCtgryByAge(30);
 		groupByAgeHashMap.put("30대", adminPayInfoAvgGroupBYAgeList);
 		log.info("해쉬맵 : " + groupByAgeHashMap);
+		int ageGroup = 10;
+		ArrayList<AdminPayInfoPstageDTO> adminPayInfoPstageList;
+		HashMap<String, ArrayList<AdminPayInfoPstageDTO>> adminPayInfoPstageIncomeHash = new HashMap<>();
+		HashMap<String, ArrayList<AdminPayInfoPstageDTO>> adminPayInfoPstageSpendHash = new HashMap<>();
+		ArrayList<Integer> incomeTotalList = new ArrayList<>();
+		ArrayList<Integer> spendTotalList = new ArrayList<>();
+		for(int i= 1; i< 4; i++){
+			ageGroup = ageGroup*i;
+			if(adminService.getIncomeCtgryPersentage(ageGroup)!=null){
+				adminPayInfoPstageList = adminService.getIncomeCtgryPersentage(ageGroup);
+				adminPayInfoPstageIncomeHash.put(Integer.toString(ageGroup), adminPayInfoPstageList);
+			}
+			if(adminService.getSpendCtgryPersentage(ageGroup)!=null){
+				adminPayInfoPstageList = adminService.getSpendCtgryPersentage(ageGroup);
+				adminPayInfoPstageSpendHash.put(Integer.toString(ageGroup), adminPayInfoPstageList);
+			}
+			if(adminService.getIncomeTotalGroupByAge(ageGroup)!= -1){
+				incomeTotalList.add(adminService.getIncomeTotalGroupByAge(ageGroup));
+			}
+			if(adminService.getSpendTotalGroupByAge(ageGroup)!=-1){
+				spendTotalList.add(adminService.getSpendTotalGroupByAge(ageGroup));
+			}
+		}
+		
+		//랭킹정보
+		HashMap<String, ArrayList<HashMap<String,Integer>>> rankInfoHash = new HashMap<>();
+		ArrayList<AdminPaymentInfoRankDTO> rankList = adminService.getRankByLocationAndCtgry();
+		
+	
+		for(AdminPaymentInfoRankDTO tempRankDto : rankList){
+			if(rankInfoHash.containsKey(tempRankDto.getLocation_name())){
+				HashMap<String, Integer> tempHash = new HashMap<>();
+				tempHash.put(tempRankDto.getCtgry_name(), tempRankDto.getAvg_fee());
+				rankInfoHash.get(tempRankDto.getLocation_name()).add(tempHash);
+			}else{
+				ArrayList<HashMap<String, Integer>> tempRankList = new ArrayList<>();
+				HashMap<String, Integer> tempHash = new HashMap<>();
+				tempHash.put(tempRankDto.getCtgry_name(), tempRankDto.getAvg_fee());
+				tempRankList.add(tempHash);
+				rankInfoHash.put(tempRankDto.getLocation_name(), tempRankList);
+			}
+		}
+		
+		HashMap<String, ArrayList<HashMap<String,Integer>>> rankInfoHashIncome = new HashMap<>();
+		ArrayList<AdminPaymentInfoRankDTO> rankListIncome = adminService.getRankByLocationAndCtgryIncome();
+		
+	
+		for(AdminPaymentInfoRankDTO tempRankDto : rankListIncome){
+			if(rankInfoHashIncome.containsKey(tempRankDto.getLocation_name())){
+				HashMap<String, Integer> tempHash = new HashMap<>();
+				tempHash.put(tempRankDto.getCtgry_name(), tempRankDto.getAvg_fee());
+				rankInfoHashIncome.get(tempRankDto.getLocation_name()).add(tempHash);
+			}else{
+				ArrayList<HashMap<String, Integer>> tempRankList = new ArrayList<>();
+				HashMap<String, Integer> tempHash = new HashMap<>();
+				tempHash.put(tempRankDto.getCtgry_name(), tempRankDto.getAvg_fee());
+				tempRankList.add(tempHash);
+				rankInfoHashIncome.put(tempRankDto.getLocation_name(), tempRankList);
+			}
+		}
+		
+		
+		
+		
+		ArrayList<String> locationList = adminService.getLoactionInfo();
+		log.info("지역 길이 : " + locationList.size());
 		
 		
 		model.addAttribute("adminPayInfoTotal", adminPayInfoTotal);
@@ -178,7 +250,35 @@ public class AdminController {
 		model.addAttribute("adminPayInfoAvgMin", adminPayInfoAvgMin);
 		model.addAttribute("ctgryList", ctgryList);
 		model.addAttribute("groupByAgeHashMap", groupByAgeHashMap);
+		model.addAttribute("spendTotalList", spendTotalList);
+		model.addAttribute("incomeTotalList", incomeTotalList);
+		model.addAttribute("adminPayInfoPstageSpendHash", adminPayInfoPstageSpendHash);
+		model.addAttribute("adminPayInfoPstageIncomeHash", adminPayInfoPstageIncomeHash);
+		model.addAttribute("rankInfoHash", rankInfoHash);
+		model.addAttribute("rankInfoHashIncome", rankInfoHashIncome);
+		model.addAttribute("locationList", locationList);
+		System.out.println(rankInfoHash);
+		System.out.println(rankInfoHashIncome);
 	}
+	
+	@GetMapping("/articleInfo")
+	public void articleInfo(Model model) {
+		ArrayList<AdminArticleInfoWordDTO> wordList = adminService.getHashTagWordCloud();
+		ArrayList<AdminArticleInfoCtgryCtDTO> ctgrySummaryList = adminService.getArticleCountByCtgry();
+		int hashTagTotalCt = adminService.getHashTagTotalCt();
+		ArrayList<AdminArticleInfoHashTagTopDTO> hashTopList = adminService.getHashTagTopList();
+		ArrayList<AdminArticleInfoArtiCtgryDTO> artiCtgryList = adminService.getArticleCategoryList();
+		int articleCtgryTotal = adminService.getArticleCategoryTotal();
+		
+		
+		model.addAttribute("wordList", wordList);
+		model.addAttribute("ctgrySummaryList", ctgrySummaryList);
+		model.addAttribute("hashTagTotalCt", hashTagTotalCt);
+		model.addAttribute("hashTopList", hashTopList);
+		model.addAttribute("artiCtgryList", artiCtgryList);
+		model.addAttribute("articleCtgryTotal", articleCtgryTotal);
+	}
+	
 	
 
 	private List sortByValue(HashMap hashMap){
