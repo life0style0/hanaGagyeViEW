@@ -43,6 +43,9 @@ public class ImageController {
     public ResponseEntity<byte[]> getImage(String fileName) {
         log.info("getImage : " + fileName);
         // File file = new File("C:\\WebData\\upload\\temp\\" + fileName);
+        if (!fileName.startsWith("images")) {
+            fileName = "images/" + fileName;
+        }
         File file = new File("C:\\upload\\" + fileName);
 
         ResponseEntity<byte[]> result = null;

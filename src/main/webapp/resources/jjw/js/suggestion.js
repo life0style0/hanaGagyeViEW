@@ -205,6 +205,30 @@ function setPaginateButtons(pageBuilder, pageType, pageButton) {
     }
 }
 
+function makeHashtag(input) {
+    let hashtagInput = $(input).val();
+    hashtagInput = hashtagInput.trim();
+    $(input).val('');
+    if (!hashtagInput.startsWith('#')) {
+        hashtagInput = `#${hashtagInput}`;
+    }
+    let checkDuple = false;
+    $('.input-hashtag-hidden').children().each(function (key, value) {
+        if ($(value).val() === hashtagInput) {
+            checkDuple = true;
+            return false;
+        }
+    });
+    if (checkDuple) {
+        return;
+    } else {
+        const html = `<input type="hidden" name="hashtags" value="${hashtagInput}">`;
+        const tagSpan = `<span class="hashtag" data-hashtag="${hashtagInput}">${hashtagInput}<span class="hashtag-close" aria-hidden="true">×</span></span>`;
+        $(input).before(tagSpan);
+        $('.input-hashtag-hidden').append(html);
+    }
+}
+
 $(function () {
     $('.sgt-new-paging').on('click', '.paginate-new', function (event) {
         const pageBuilder = setSuggestions(this, 'new', event);
@@ -221,6 +245,18 @@ $(function () {
     $('.sgt-recommend-paging').on('click', '.paginate-recommend', function (event) {
         const pageBuilder = setSuggestions(this, 'recommend', event);
         setPaginateButtons(pageBuilder, 'recommend', this);
+        $(this).closest('.text-center').find('input[class="page"]').val(pageBuilder.pageNum);
+    });
+
+    $('.sgt-judge-paging').on('click', '.paginate-judge', function (event) {
+        const pageBuilder = setSuggestions(this, 'judge', event);
+        setPaginateButtons(pageBuilder, 'judge', this);
+        $(this).closest('.text-center').find('input[class="page"]').val(pageBuilder.pageNum);
+    });
+
+    $('.sgt-confirm-paging').on('click', '.paginate-confirm', function (event) {
+        const pageBuilder = setSuggestions(this, 'confirm', event);
+        setPaginateButtons(pageBuilder, 'confirm', this);
         $(this).closest('.text-center').find('input[class="page"]').val(pageBuilder.pageNum);
     });
 
@@ -310,7 +346,7 @@ $(function () {
                 <strong>경고!</strong> 제목을 입력해주세요!</div>`);
             }
             $('html, body').animate({
-                scrollTop: 0
+                scrollTop: title.height() + title.offset().top - 200
             }, 400);
             return;
         }
@@ -323,11 +359,55 @@ $(function () {
                 <strong>경고!</strong> 내용을 입력해주세요!</div>`);
             }
             $('html, body').animate({
-                scrollTop: content.height() + content.offset().top - 200
+                scrollTop: content.height() + content.offset().top - 400
             }, 400);
             return;
         }
 
         $('#formT').submit();
+    });
+
+    $('.new-article').on('click', function () {
+        $(this).addClass('hidden');
+        $('.show-article').removeClass('hidden');
+        $('.new-article-main').removeClass('hidden');
+        $('.show-article-main').addClass('hidden');
+    });
+
+    $('.show-article').on('click', function () {
+        $(this).addClass('hidden');
+        $('.new-article').removeClass('hidden');
+        $('.new-article-main').addClass('hidden');
+        $('.show-article-main').removeClass('hidden');
+    });
+
+    $('.tag-input').on('keypress', function (e) {
+        const value = $(this).val();
+        if (value.length > 0) {
+            if (value.charAt(value.length-1) === ',') {
+                makeHashtag(this);
+                $(this).val('');
+                e.preventDefault();
+                return false;
+            }
+            if (e.keyCode == 32 || e.keyCode == 13 || e.keyCode == 9) {
+                makeHashtag(this);
+                $(this).val('');
+                e.preventDefault();
+                return false;
+            }
+        }
+    });
+
+    $('.form-hashtag').on('click', '.hashtag-close', function () {
+        const hashtagTag = $(this).closest('.hashtag');
+        const hashtag = hashtagTag.data('hashtag');
+        $('.input-hashtag-hidden').children().each(function (key, value) {
+            if ($(value).val() === hashtag) {
+                hashtagTag.remove();
+                $(value).remove();
+                return false;
+            }
+        });
     });
 });

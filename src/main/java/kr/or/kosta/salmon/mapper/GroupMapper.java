@@ -3,6 +3,7 @@ package kr.or.kosta.salmon.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
@@ -28,8 +29,9 @@ public interface GroupMapper {
 	public List<GroupDTO_lhr> getList();
 	
 	//소모임 입장 제한 확인하기
-	public GroupCountDTO getCount(String group_id);
+	public GroupCountDTO getCount(@Param("group_id") String group_id);
 	
 	//소모임에 들어가기 :) 
-	public int joinGroup(String group_id, String user_id);
+	public int joinGroup(@Param("group_id") String group_id, @Param("user_id") String user_id);
+	
 }

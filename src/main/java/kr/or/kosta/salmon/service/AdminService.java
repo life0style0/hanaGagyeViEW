@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import kr.or.kosta.salmon.domain.AdminArticleInfoArtiCtgryDTO;
 import kr.or.kosta.salmon.domain.AdminArticleInfoCtgryCtDTO;
 import kr.or.kosta.salmon.domain.AdminArticleInfoHashTagTopDTO;
+import kr.or.kosta.salmon.domain.AdminArticleInfoRegistDTO;
 import kr.or.kosta.salmon.domain.AdminArticleInfoWordDTO;
 import kr.or.kosta.salmon.domain.AdminFollowerTopDTO;
 import kr.or.kosta.salmon.domain.AdminGbyGenderDTO;
@@ -49,4 +50,6 @@ public interface AdminService {
 	public ArrayList<AdminArticleInfoHashTagTopDTO> getHashTagTopList();
 	public ArrayList<AdminArticleInfoArtiCtgryDTO> getArticleCategoryList();
 	public int getArticleCategoryTotal();
+	public ArrayList<AdminArticleInfoRegistDTO> getArticleRegistIncome();
+	public ArrayList<AdminArticleInfoRegistDTO> getArticleRegistSpend();
 }

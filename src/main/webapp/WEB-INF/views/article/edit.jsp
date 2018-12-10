@@ -108,7 +108,7 @@
 									<div class="input-col col-xs-12 col-sm-4" >
 										<div class="form-label">카테고리</div>
 										<div class="be-drop-down icon-none">
-											<span class="be-dropdown-content" id="selCategory">${ctgryName } </span>
+											<span class="be-dropdown-content" id="selCategory">${ctgryName }</span>
 											<input type="hidden" name="categoryName" id="inputCategory">
 											<ul class="drop-down-list" style="overflow:scroll; height:200px">
 											<c:forEach var="catList" items="${categoryList}">
@@ -126,7 +126,7 @@
 									<div class="input-col col-xs-12 col-sm-4">
 										<div class="form-label">결제수단</div>
 										<div class="be-drop-down icon-none">
-											<span class="be-dropdown-content" id="selPayType">${editArticle.article_payment_type } </span>
+											<span class="be-dropdown-content" id="selPayType">${editArticle.article_payment_type }</span>
 											<input type="hidden" name="article_payment_type" id="inputPayType">
 											<ul class="drop-down-list">
 												<li><a>카드</a></li>
@@ -157,8 +157,8 @@
 											<div class="form-label">공개범위</div>
 											<div class="be-drop-down icon-none">
 												<span class="be-dropdown-content" id="selScope">
-													<c:if test="${editArticle.article_scope=='u'}">public </c:if>
-													<c:if test="${editArticle.article_scope=='r'}">private </c:if>
+													<c:if test="${editArticle.article_scope=='u'}">public</c:if>
+													<c:if test="${editArticle.article_scope=='r'}">private</c:if>
 												</span>
 												<input type="hidden" name="article_scope" id="inputScope">
 												<ul class="drop-down-list" >
@@ -260,53 +260,56 @@
 			   uploadFiles(inputTypeFile);
 		   });
 		   $("#submitBtn").on("click", function(){
-			   if($("#article_payment_fee").val == ""){
+			   if($("#article_payment_fee").val() == ""){
 				   $("#article_payment_fee").focus();
 				   $("#infoSpot").text("금액을 입력해주세요");
-				   return;
+				   return false;
 			   }
 			   if($("#selCategory").text()!="선택해주세요"){
 				   $("#inputCategory").val($("#selCategory").text()); 
 			   }else{
 				   $("#selCategory").focus();
 				   $("#infoSpot").text("카테고리를 선택해주세요");
-				   return;
+				   return false;
 			   }
 			   if($("#selScope").text() != "선택해주세요"){
 				   $("#inputScope").val($("#selScope").text());
 			   }else{
 				   $("#selScope").focus();
 				   $("#infoSpot").text("공개범위를 선택해주세요");
-				   return;
+				   return false;
 			   }		   
 			   if($("#selPayType").text() != "선택해주세요"){
 				   $("#inputPayType").val($("#selPayType").text());
 			   }else{
 				   $("#selPayType").focus(); 
 				   $("#infoSpot").text("결제수단을 선택해주세요");
-				   return;
+				   return false;
 			   }
 			   if($("#selArtiCategory").text() != "선택해주세요"){
 				   $("#inputArtiCategory").val($("#selArtiCategory").text());
 			   }else{
 				   $("#selArtiCategory").focus();
 				   $("#infoSpot").text("구분을 선택해주세요");
-				   return;
+				   return false;
 			   }
 			   
 			   var articleForm = $("#articleForm").serialize();
-			   var article_id;
 			   $.ajax({
 				   	  cache : false,
 			          url: '/salmon/article/update?_csrf=${_csrf.token}',
 			          data: articleForm,
 			          type: 'post',
 			          success: function (articleId) {
-			            if(parseInt(articleId) > 0){
-			            	imgUpload(articleId);
-			            }else{
-			            	alert("shit");
-			            }
+			        	  if(parseInt(articleId) > 0){
+				            	if(!imgUpload(articleId)){
+				            		$("#resultModal").modal({
+				    		        	keyboard:false,
+				    		        	show:true,
+				    		        	backdrop:true
+				    		        });
+				            	}
+				            }
 			          },
 			          error: function (xhr,status,er) {
 			  			alert('게시글 등록 실패');
@@ -319,7 +322,7 @@
 	function imgUpload(articleId) {
 		  var formData = new FormData();
 		  if (fileList.length <= 0) {
-		    return;
+		    return false;
 		  } else {
 		    for (var i = 0; i < fileList.length; i += 1) {
 		      var file = fileList[i];

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
@@ -59,16 +60,41 @@ public class GagyeviewController {
 		model.addAttribute("ctgryName", ctgryName);
 	}
 	
+	@GetMapping("/editGroup")
+	public void editGroup(Model model, int article_id) {
+		MainArticleDTO editArticle = gaArticleService.getEditArticle(article_id);
+		editArticle.setArticle_id(article_id);
+		String ctgryName = gaArticleService.getCtgryName(editArticle.getArticle_ctgry_id());
+		ArrayList<String> categoryList = gaArticleService.getCategory();
+		ArrayList<String> articlePathList = gaArticleService.getArticleFilePath(article_id);
+		model.addAttribute("articlePathList", articlePathList);
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("editArticle", editArticle);
+		model.addAttribute("ctgryName", ctgryName);
+	}
 	
+	@GetMapping("/delete")
+	public String delete(int article_id, Principal principal, RedirectAttributes rttr) {
+		log.info("delete call...");
+		if (gaArticleService.deleteArticle(article_id, principal.getName())) {
+			rttr.addFlashAttribute("checkDelete", false);
+			return "redirect:/accountbook/calendar";
+		} else {
+			rttr.addFlashAttribute("checkDelete", true);
+			return "redirect:/accountbook/calendar";
+		}
+	}
 	
 	@PostMapping("/submit")
 	public ResponseEntity<String> registArticle(ArticleDTO article, String article_ctgry_name, String categoryName ,Principal principal, Model model){
+		log.info("진입 서브밑");
+		
 		//create 준비과정
 		article.setArticle_ctgry_id(Integer.parseInt(gaArticleService.getArticleCategoryByName(article_ctgry_name.trim())));
 		article.setUser_id(principal.getName());
 		//카테고리 생성 준비
 		int categoryNum = Integer.parseInt(gaArticleService.getCategoryByName(categoryName.trim()));
-		ArrayList<String> hashTagList = getHashTag(article.getArticle_content());
+		
 		
 		switch(article.getArticle_scope().trim()){
 		case "public":
@@ -81,7 +107,24 @@ public class GagyeviewController {
 			article.setArticle_scope("g");
 			break;
 		}
-		int lastId = gaArticleService.createGaArticle(article)-1;
+		int lastId =0;
+		if(article.getArticle_content()==null){
+			lastId=gaArticleService.createGaArticleSimple(article)-1;
+		}else{
+			lastId=gaArticleService.createGaArticle(article)-1;
+			ArrayList<String> hashTagList = getHashTag(article.getArticle_content());
+			if(hashTagList.size() > 0){
+				HashTagDTO hashTagDTO;
+				for(int j = 0; j < hashTagList.size(); j++){
+					hashTagDTO = new HashTagDTO();
+					hashTagDTO.setHashtag_value((String)hashTagList.get(j));
+					hashTagDTO.setArticle_id(lastId);
+					gaArticleService.createHashTag(hashTagDTO);
+				}
+			}
+		}
+		
+		 
 		
 		CategoryDTO categoryDto = new CategoryDTO();
 		categoryDto.setCtgry_id(categoryNum);
@@ -89,15 +132,7 @@ public class GagyeviewController {
 		gaArticleService.createCategory(categoryDto);
 		
 		//해시태그 처리
-		if(hashTagList.size() > 0){
-			HashTagDTO hashTagDTO;
-			for(int j = 0; j < hashTagList.size(); j++){
-				hashTagDTO = new HashTagDTO();
-				hashTagDTO.setHashtag_value((String)hashTagList.get(j));
-				hashTagDTO.setArticle_id(lastId);
-				gaArticleService.createHashTag(hashTagDTO);
-			}
-		}
+		
 
 		return new ResponseEntity<>(Integer.toString(lastId),HttpStatus.OK);
 	}
@@ -120,7 +155,6 @@ public class GagyeviewController {
 		article.setUser_id(principal.getName());
 		//카테고리 생성 준비
 		int categoryNum = Integer.parseInt(gaArticleService.getCategoryByName(categoryName.trim()));
-		ArrayList<String> hashTagList = getHashTag(article.getArticle_content());
 		
 		switch(article.getArticle_scope().trim()){
 		case "public":
@@ -134,26 +168,75 @@ public class GagyeviewController {
 			break;
 		}
 		
-		gaArticleService.updateArticle(article);
+		if(article.getArticle_content()==null){
+			gaArticleService.updateArticle(article);
+		}else{
+			gaArticleService.updateArticle(article);
+			ArrayList<String> hashTagList = getHashTag(article.getArticle_content());
+			if(hashTagList.size() > 0){
+				HashTagDTO hashTagDTO;
+				for(int j = 0; j < hashTagList.size(); j++){
+					hashTagDTO = new HashTagDTO();
+					hashTagDTO.setHashtag_value((String)hashTagList.get(j));
+					hashTagDTO.setArticle_id(article_id);
+					gaArticleService.createHashTag(hashTagDTO);
+				}
+			}
+		}
 		
 		CategoryDTO categoryDto = new CategoryDTO();
 		categoryDto.setCtgry_id(categoryNum);
 		categoryDto.setArticle_id(article_id);
 		gaArticleService.createCategory(categoryDto);
-		
-		//해시태그 처리
-		if(hashTagList.size() > 0){
-			HashTagDTO hashTagDTO;
-			for(int j = 0; j < hashTagList.size(); j++){
-				hashTagDTO = new HashTagDTO();
-				hashTagDTO.setHashtag_value((String)hashTagList.get(j));
-				hashTagDTO.setArticle_id(article_id);
-				gaArticleService.createHashTag(hashTagDTO);
-			}
-		}
 
 		return new ResponseEntity<>(Integer.toString(article_id),HttpStatus.OK);
 	}
+	
+	@PostMapping("/updateGroup")
+	public ResponseEntity<String> updateArticleGroup(ArticleDTO article, String article_ctgry_name, String categoryName ,Principal principal, Model model){
+		log.info(article.toString());
+		log.info(article_ctgry_name);
+		log.info(categoryName);
+		
+		//update 사전작업
+		int article_id = article.getArticle_id();
+		gaArticleService.deleteCtgry(article_id);
+		gaArticleService.deleteHashRefs(article_id);
+		gaArticleService.deleteHash(article_id);
+
+		
+		//update준비과정
+		article.setArticle_ctgry_id(Integer.parseInt(gaArticleService.getArticleCategoryByName(article_ctgry_name.trim())));
+		article.setUser_id(principal.getName());
+		//카테고리 생성 준비
+		int categoryNum = Integer.parseInt(gaArticleService.getCategoryByName(categoryName.trim()));
+
+		article.setArticle_scope("g");
+		
+		if(article.getArticle_content()==null){
+			gaArticleService.updateArticle(article);
+		}else{
+			gaArticleService.updateArticle(article);
+			ArrayList<String> hashTagList = getHashTag(article.getArticle_content());
+			if(hashTagList.size() > 0){
+				HashTagDTO hashTagDTO;
+				for(int j = 0; j < hashTagList.size(); j++){
+					hashTagDTO = new HashTagDTO();
+					hashTagDTO.setHashtag_value((String)hashTagList.get(j));
+					hashTagDTO.setArticle_id(article_id);
+					gaArticleService.createHashTag(hashTagDTO);
+				}
+			}
+		}
+		
+		CategoryDTO categoryDto = new CategoryDTO();
+		categoryDto.setCtgry_id(categoryNum);
+		categoryDto.setArticle_id(article_id);
+		gaArticleService.createCategory(categoryDto);
+
+		return new ResponseEntity<>(Integer.toString(article_id),HttpStatus.OK);
+	}
+	
 	
 	public ArrayList<String> getHashTag(String content){
 	      ArrayList<String> hashList = new ArrayList<>();
@@ -171,7 +254,7 @@ public class GagyeviewController {
 	@PostMapping("/imageUpload")
 	public ResponseEntity<String> registImage(@RequestParam("uploadFile") MultipartFile[] uploadFile, @RequestParam("articleId") String articleId){
 		String uploadFolder = "C:\\upload";
-		File uploadPath = new File(uploadFolder, "\\images");
+		File uploadPath = new File(uploadFolder, "images");
 		if(uploadPath.exists()==false){
 			uploadPath.mkdirs();
 		}
@@ -238,5 +321,50 @@ public class GagyeviewController {
 		}
 	}
 	
+	@GetMapping("/registerGroup")
+	public void registerGroup(Model model, Principal principal, int group_id) {
+		ArrayList<String> categoryList = gaArticleService.getCategory();
+		
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("group_id", group_id);
+	}
+	
+	
+	@PostMapping("/submitGroupArticle")
+	public ResponseEntity<String> submitGroupArticle(ArticleDTO article, String article_ctgry_name, String categoryName ,Principal principal, Model model){
+		log.info("진입 서브밑");
+		//create 준비과정
+		article.setArticle_ctgry_id(Integer.parseInt(gaArticleService.getArticleCategoryByName(article_ctgry_name.trim())));
+		article.setUser_id(principal.getName());
+		//카테고리 생성 준비
+		int categoryNum = Integer.parseInt(gaArticleService.getCategoryByName(categoryName.trim()));
+		//그룹 설정
+		article.setArticle_scope("g");
+
+
+		int lastId =0;
+		if(article.getArticle_content()==null){
+			lastId=gaArticleService.createGaArticleGroupSimple(article)-1;
+		}else{
+			lastId=gaArticleService.createGaArticleGroup(article)-1;
+			ArrayList<String> hashTagList = getHashTag(article.getArticle_content());
+			if(hashTagList.size() > 0){
+				HashTagDTO hashTagDTO;
+				for(int j = 0; j < hashTagList.size(); j++){
+					hashTagDTO = new HashTagDTO();
+					hashTagDTO.setHashtag_value((String)hashTagList.get(j));
+					hashTagDTO.setArticle_id(lastId);
+					gaArticleService.createHashTag(hashTagDTO);
+				}
+			}
+		}
+
+		CategoryDTO categoryDto = new CategoryDTO();
+		categoryDto.setCtgry_id(categoryNum);
+		categoryDto.setArticle_id(lastId);
+		gaArticleService.createCategory(categoryDto);
+
+		return new ResponseEntity<>(Integer.toString(lastId),HttpStatus.OK);
+	}
 	
 }

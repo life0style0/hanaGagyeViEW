@@ -12,6 +12,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AdminFollowerTopDTO {
-	private int user_id;
+	private String user_id;
 	private int follower_ct;
 }

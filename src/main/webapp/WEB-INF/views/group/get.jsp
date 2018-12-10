@@ -144,6 +144,8 @@
                     <div class="modal-body">
                       소모임에 가입하시겠습니까? 
                       <br>
+                         <input type="hidden" name="group_id" value="${groups.group_id}">
+                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                       <button type="submit" class="btn btn-primary" style="margin: 10px;" onclick="haerimAddFunction()">가입 </button>
                     <div id="snackbar"> 소모임 가입이 완료되었습니다. 소모임을 즐겨보세요 :-)  </div>
                     </div>
@@ -343,9 +345,6 @@ function hyerimFunction(){
                   <span>게시판</span>
                 </div>
                 <div class="nav-tab-item ">
-                  <span>사진첩</span>
-                </div>
-                <div class="nav-tab-item ">
                   <span>방명록</span>
                 </div>
               </div>
@@ -368,23 +367,23 @@ function hyerimFunction(){
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide active" data-val="0">
                                    <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1517840933437-c41356892b35?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
-                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>
+                                   <div class="slider-text">너와 나의 연결 고리! 소비와 취미 생활 크루 찾기</div>
                                 </div>
                                 <div class="swiper-slide" data-val="1">
                                    <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1495837174058-628aafc7d610?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
-                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>                               
+                                   <div class="slider-text">같은 취향과 소비 패턴을 가진 사람들과 소비 생활을 즐겨요!</div>                               
                                 </div>
                                 <div class="swiper-slide" data-val="2">
                                    <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1951&q=80" alt="">
-                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>                               
+                                   <div class="slider-text">소모임 크루와 워라밸, 효율적인 소비패턴을 배우며 소확행을 시작해요 :D</div>                               
                                 </div>
                                 <div class="swiper-slide" data-val="3">
                                    <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
-                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>                               
+                                   <div class="slider-text">문화 활동 레저스포츠 소비생활 개선 소모임을 통해 더 여유롭고 생복한 삶을 만들어 보세요 :)</div>                               
                                 </div>
                                 <div class="swiper-slide" data-val="4">
                                    <img class="img-responsive img-full" src="https://images.unsplash.com/photo-1536010447069-d2c8af80c584?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="">
-                                   <div class="slider-text">Ut pulvinar tellus sed elit luctus aliquet. Suspendisse hendrerit sapien a aliquet porttitor. In hendrerit consequat neque eget egestas. In a consectetur felis. In euismod lectus eros, quis sollicitudi.</div>                               
+                                   <div class="slider-text">누구나 쉽게 가입하고 직접 개설할 수 있어요. 다양한 소비정보가 모여있는 소모임에서 배우고 즐겨요. </div>                               
                                 </div>
                               </div>
                             <div class="pagination hidden"></div>
@@ -416,10 +415,6 @@ function hyerimFunction(){
                     <div class="pagination hidden"></div>
                   </div>
                 </div>
-                
-                
-        
-
                 </div>
               </div>
               <div class="tab-info">
@@ -638,237 +633,53 @@ function hyerimFunction(){
                 </div>
               </div>
               <div class="tab-info">
-                <div class="row">
-                  <!-- ============== 사진첩  ============== -->
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p16.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Wisdom
-                        For My Children, Life Lessons Through</a>
-
-                      <div class="author-post clearfix">
-                        <img src="img/a1.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p17.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Créations
-                        Namale</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a2.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p18.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Crossfit
-                        : 15.4 Open Workout</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a3.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p15.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Garry
-                        Simpson - Bridges - Intelligent Life Magazine</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a6.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p14.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Faber-Castell
-                        / Psychological Problems</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a7.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p13.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Stay
-                        Ahead Series</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a7.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p12.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Face</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a6.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p19.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Promoção
-                        Facas Extra</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a5.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p11.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Tropicalia</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a1.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p10.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">tomorrow</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a1.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p9.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">NAHA
-                        Finalist Hairstylist of the Year Allen Ruiz</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a1.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post style-4">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p8.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Racing
-                        Queensland</a>
-                      <div class="author-post clearfix">
-                        <img src="img/a1.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span> <span class="like-counter"><i
-                          class="fa fa-thumbs-o-up"></i> 405</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="tab-info">
                 <!-- ============== 방명록  ============== -->
                 
-                    <div class="be-comment-block">
-            <h1 class="comments-title">Comments (<span name="comment-num" id="comment-num-<c:out value="${myArticle.article_id}"/>"><c:out value="${myArticle.comments.size()}"/></span>)</h1>
-            <p class="about-comment-block">
-              <!-- You must <a href="blog-detail-2.html" class="be-signup-link">SIGN UP</a>
-               to join the conversation. -->
-            </p>
-            
-            <div name="comment-area">
-            <c:choose>
-            <c:when test="${myArticle.comments.size() ne 0}">
-              <c:forEach var="comment" items="${myArticle.comments}">
-              <div class="be-comment">
-              <input type="hidden" name="comment-id" value="${comment.comment_id}">
-              <input type="hidden" name="article-id" value="${comment.article_id}">
-                  <div class="be-img-comment">  
-                    <a href="/salmon/sns/feeds?userid=${comment.user_id}">
-                    <input type="hidden" name="user-comment-profile-photo" value="${comment.user_image}">
-                    <img src="" alt="" class="be-ava-comment">
-                    </a>
-                  </div>
-                  <div class="be-comment-content">
-                    <span class="be-comment-name">
-                      <a href="/salmon/sns/feeds?userid=${comment.user_id}">
-                      ${comment.user_nickname}
-                      </a>
-                    </span>
-                    <span class="be-comment-time">
-                    <c:if test="${me.user_id eq comment.user_id}">
-                      <span name="comment-delete-btn" class="comment-delete-btn">
-                      <input type="hidden" name="comment-id" value="${comment.comment_id}">
-                        <i class="fas fa-times"></i>삭제 
-                      </span>
-                    </c:if>
-                    <i class="fa fa-clock-o"></i>
-                    ${comment.comment_regdate}
-                    </span>
-                    <p class="be-comment-text">
-                    ${comment.comment_content}
-                    </p>
-                  </div>
-                </div>
-              </c:forEach>
-              </c:when>
-              <c:otherwise>
-              </c:otherwise>
-              </c:choose>
-              </div>
-
-            <form id="reply-form-${myArticle.article_id}" method="get">
-              <div class="form-group">
-                <input type="hidden" name="article_id" value="${myArticle.article_id}">
-                <c:out value="${me.user_nickname}"/>
-                <input type="text" name="comment_content" required="required" class="form-input">
-                <input type="button" id="reply-write-btn-${myArticle.article_id}" class="btn-sjh pull-right" value="등록" style="margin:10px;">
-              </div>
-            </form>
-
-          </div>
+        		<div class="be-comment-block">
+							<h1 class="comments-title">댓글 (<span id="commentCnt" class="comment-count">${article.commentCnt}</span>)</h1>
+							<c:forEach items="${article.comments}" var="comment" varStatus="status">
+								<div class="be-comment">
+									<input type="hidden" name="comment-id" value="${comment.comment_id}">
+									<input type="hidden" name="article-id" value="${article.articleId}">
+									<div class="be-img-comment">
+										<a href="">
+											<input type="hidden" class="imagePath" value="/salmon/image?fileName=${comment.user_image}">
+											<img src="" alt="" class="be-ava-comment image-src thumbnail-comment">
+										</a>
+									</div>
+									<div class="be-comment-content">
+										<span class="be-comment-name">
+											<a href="">${comment.user_nickname}</a>
+										</span>
+										<span class="be-comment-time">
+											<c:if test="${comment.user_id == userId}">
+												<span name="comment-delete-btn" class="comment-delete-btn">
+													<i class="fas fa-times"></i>삭제
+												</span>
+											</c:if>
+											<i class="fa fa-clock-o"></i>
+											${comment.comment_regdate}
+										</span>
+										<p class="be-comment-text">
+											${comment.comment_content}
+										</p>
+									</div>
+								</div>
+							</c:forEach>
+							<form class="form-block comment-form" method="post">
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="form-group">
+											<textarea class="form-input" required placeholder="댓글 내용을 입력하세요" name="content"></textarea>
+										</div>
+									</div>
+									<input type="hidden" name="lastCommentId" value="">
+									<input type="hidden" name="articleId" value="${article.articleId}">
+									<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}">
+									<button type="submit" class="btn color-1 size-2 hover-1 pull-right" id="comment">댓글 달기</button>
+								</div>
+							</form>
+						</div>
                 
      
               </div>

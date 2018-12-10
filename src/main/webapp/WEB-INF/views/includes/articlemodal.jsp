@@ -8,13 +8,13 @@
       <div class="modal-body">
         <div class="blog-post">
           <div class="row">
-            <div class="col-xs-12 col-sm-6 h-404">
+            <div class="h-404 article-left">
               <div class="post-preview">
                 <div class="article-carousel owl-carousel owl-theme">
                 </div>
               </div>
             </div>
-            <div class="col-xs-12 col-sm-6 h-404">
+            <div class="h-404 article-right">
               <div class="post-desc">
               	<input type="hidden" name="article-id" id="article-id-modal">
                 <div class="post-category" id="article-ctgry-name">카테고리이름 ex) 음식, 영화</div>
@@ -64,8 +64,11 @@
                   	<a><i class="far fa-flag"></i> 신고</a>
                   </span>
                   <div class="article-right-btns">
-                    <span id="article-edit-btn">
+                    <span id="article-edit-btn" class="hidden">
                    		<a><i class="fa fa-edit"></i> 수정</a>
+                    </span>
+                    <span id="article-delete-btn" class="hidden">
+                      <a><i class="fas fa-trash"></i> 삭제</a>
                     </span>
                     <span id="article-exit-btn">
                     <button data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i> 종료</button></span>

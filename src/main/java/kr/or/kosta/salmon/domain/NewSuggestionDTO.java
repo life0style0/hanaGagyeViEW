@@ -1,5 +1,7 @@
 package kr.or.kosta.salmon.domain;
 
+import java.util.List;
+
 import lombok.Data;
 
 /**
@@ -13,4 +15,5 @@ public class NewSuggestionDTO {
     private int ctgry1;
     private int ctgry2;
     private int ctgry3;
+    private List<String> hashtags;
 }

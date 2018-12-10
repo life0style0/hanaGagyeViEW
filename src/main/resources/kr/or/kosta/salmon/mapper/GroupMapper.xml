@@ -14,6 +14,8 @@
 		<result property="ctgry_1" column="ctgry_1"/>
 		<result property="ctgry_2" column="ctgry_2"/>
 		<result property="ctgry_3" column="ctgry_3"/>
+		<collection property="comments" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.CommentDTO" select="getComments"/>
+		
 	</resultMap>
 
 
@@ -97,13 +99,13 @@
 	            #{ctgry_2},
 	            #{ctgry_3} );
 	            
-	INSERT INTO group_users 
-	            (group_users_id, 
-	             group_id, 
-	             user_id) 
-	VALUES     (group_users_id_seq.nextval, 
-	            groupId, 
-	            # {user_id}); 
+	INSERT INTO group_users
+	            (group_users_id,
+	             group_id,
+	             user_id)
+	VALUES     (group_users_id_seq.nextval,
+	            groupId,
+	            #{user_id});
 	
 	END;
 	</insert>
@@ -113,11 +115,11 @@
 	<insert id="joinGroup">
 	INSERT INTO group_users
 	            (GROUP_USERS_ID,
-	             group_id, 
-	             user_id) 
-	VALUES     (group_users_id_seq.nextval, 
-	            # {group_id}, 
-	            # {user_id}) 
+	             group_id,
+	             user_id)
+	VALUES     (group_users_id_seq.nextval,
+	            #{group_id},
+	            #{user_id})
 	</insert>
 	
 	<!-- 소모임 현재인원, 최대인원 Count -->
@@ -126,7 +128,7 @@
 	       Count(group_users_id) "now"
 	FROM   groups
 	       LEFT OUTER JOIN group_users using(group_id)
-	WHERE  group_id = # {group_id}
+	WHERE  group_id = #{group_id}
 	GROUP  BY group_people_max
 	</select>
 	
@@ -159,5 +161,28 @@
 		select * from groups where group_id > 0 
 		]]>
 	</select>
+	
+	<!-- 이미지 가져오기  -->
+	 <select id="getImages" resultType="string">
+SELECT image_path
+FROM images where article_id = #{article_id}
+     </select>
+        
+      <!-- 댓글 가져오기 -->
+       <select id="getComments" resultType="kr.or.kosta.salmon.domain.CommentDTO">
+SELECT comment_id, 
+       comment_content, 
+       to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
+       user_id, 
+       user_image,
+       user_nickname 
+FROM   comments left outer join users using(user_id)
+WHERE  article_id = #{articleId}
+order by comment_regdate asc
+        </select>
+        
+        
+	
+	
 
 </mapper>

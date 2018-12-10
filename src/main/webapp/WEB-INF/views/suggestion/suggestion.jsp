@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 
@@ -43,7 +44,7 @@
 	<!-- MAIN CONTENT -->
 	<div id="content-block">
 		<div class="head-bg-sjh" id="chartInfoBlock">
-			<div class="head-bg-img"></div>
+			<div class="head-bg-img" style="background-position:center center; background-size:cover;  ;background: url(https://images.unsplash.com/photo-1537515104752-3ea9f3d6cff0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80); opacity: 0.8;"></div>
 			<div class="head-bg-content font-sjh">
 				<h1>여러분들이 가진 의견을 보여주세요</h1>
 				<p>원하시는 상품을 기획해 제안해 사람들과 공유하고 추천을 받아보세요</p>
@@ -81,10 +82,33 @@
 							<div class="be-large-post-align">
 								<h3 class="be-post-title">
 									<span class="be-text-tags">
-										<c:forEach items="${article.ctgryNames}" var="ctgryName" varStatus="status">
-											<c:if test="${status.first}">카테고리 : </c:if><a class="be-post-tag">${ctgryName}<c:if test="${!status.last}">,
-												</c:if></a>
-										</c:forEach>
+										<c:set var="doneLoop" value="false" />
+										<c:choose>
+											<c:when test="${fn:length(article.ctgryNames) > 0}">
+												<c:forEach items="${article.ctgryNames}" var="ctgryNameT" varStatus="status">
+													<c:if test="${not doneLoop}">
+														<c:if test="${ctgryNameT != 'none'}">
+															<c:forEach items="${article.ctgryNames}" var="ctgryName" varStatus="status">
+																<c:if test="${ctgryName != 'none'}">
+																	<c:if test="${status.first}">카테고리 : </c:if>
+																	<a class="be-post-tag">
+																		${ctgryName}
+																		<c:if test="${!status.last}">, </c:if>
+																	</a>
+																</c:if>
+															</c:forEach>
+															<c:set var="doneLoop" value="true" />
+														</c:if>
+													</c:if>
+												</c:forEach>
+												<c:if test="${not doneLoop}">
+													카테고리 : 없음
+												</c:if>
+											</c:when>
+											<c:otherwise>
+												카테고리 : 없음
+											</c:otherwise>
+										</c:choose>
 									</span>
 								</h3>
 								<div class="be-text-tags clearfix">
@@ -92,7 +116,6 @@
 										<i class="fa fa-clock-o"></i> ${article.articleRegdate} ~ ${article.articleEnddate}
 									</div>
 									<div class="author-post">
-										<img src="/salmon/resources/template/img/a1.png" alt="" class="ava-author">
 										<span>by <a href="blog-detail-2.html">${article.userPsns.userNickname}</a></span>
 									</div>
 								</div>
@@ -162,7 +185,7 @@
 									<input type="hidden" name="lastCommentId" value="">
 									<input type="hidden" name="articleId" value="${article.articleId}">
 									<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}">
-									<button type="submit" class="btn color-1 size-2 hover-1 pull-right" id="comment">댓글 달기</button>
+									<button type="submit" class="btn color-white-sjh size-2 hover-5 pull-right" id="comment">댓글 달기</button>
 								</div>
 							</form>
 						</div>
@@ -212,14 +235,18 @@
 						</div>
 						<h5 class="be-title">관심사</h5>
 						<p class="be-text-userblock">
-							${article.userPsns.ctgryName1}${article.userPsns.ctgryName2 != "none" ? ', ' : ''}${article.userPsns.ctgryName2
-							!= "none" ? article.userPsns.ctgryName2 : ''}${article.userPsns.ctgryName3 != "none" ? ', ' :
-							''}${article.userPsns.ctgryName3 != "none" ? article.userPsns.ctgryName3 : ''}
+							${article.userPsns.ctgryName1}
+						</p>
+						<p class="be-text-userblock">
+							${article.userPsns.ctgryName2 != "none" ? article.userPsns.ctgryName2 : ''}
+						</p>
+						<p class="be-text-userblock">
+							${article.userPsns.ctgryName3 != "none" ? article.userPsns.ctgryName3 : ''}
 						</p>
 					</div>
-					<a href="${article.articleId}" class="be-button-vidget like-cancel-btn blue-style ${checkLike ? '' : 'hidden'}"><i
+					<a href="${article.articleId}" class="btn full color-white-sjh size-1 hover-5 like-cancel-btn ${checkLike ? '' : 'hidden'}"><i
 						 class="fas fa-thumbs-up"></i></i>추천 취소하기</a>
-					<a href="${article.articleId}" class="be-button-vidget like-btn blue-style ${checkLike ? 'hidden' : ''}"><i class="far fa-thumbs-up"></i></i>이
+					<a href="${article.articleId}" class="btn full color-white-sjh size-1 hover-5 like-btn ${checkLike ? 'hidden' : ''}"><i class="far fa-thumbs-up"></i></i>이
 						제안 추천하기!</a>
 				</div>
 			</div>

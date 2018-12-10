@@ -54,7 +54,8 @@ FROM   articles
        (SELECT trim(to_char(psn_month_start,'00')) "pms1" ,trim(to_char(psn_month_start-1,'00')) "pms2"
         FROM   psns 
         WHERE  user_id = #{userId}) 
-WHERE  user_id = #{userId} 
+WHERE  user_id = #{userId}
+        AND article_deleted = 'N'
        AND To_char(article_regdate, 'YYYY-MM-DD') BETWEEN #{year}
                                                           ||'-' 
                                                           ||#{month}
@@ -88,7 +89,8 @@ FROM   articles
         join ctgries USING(ctgry_id)
         join article_ctgries using(article_ctgry_id)
 WHERE  article_id = #{articleId} 
-        AND user_id = #{userId} 
+        AND user_id = #{userId}
+        AND article_deleted = 'N'
         </select>
 
         <select id="getHashtagByArticleId" resultType="string">
@@ -123,7 +125,8 @@ FROM   articles
         (SELECT trim(to_char(psn_month_start,'00')) "pms1" ,trim(to_char(psn_month_start-1,'00')) "pms2"
         FROM   psns 
         WHERE  user_id = #{userId}) 
-WHERE  user_id = #{userId} 
+WHERE  user_id = #{userId}
+        AND article_deleted = 'N'
        AND To_char(article_regdate, 'YYYY-MM-DD') BETWEEN #{year}
                                                           ||'-' 
                                                           ||#{month}

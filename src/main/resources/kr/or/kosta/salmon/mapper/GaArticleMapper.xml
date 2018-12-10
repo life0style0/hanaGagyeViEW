@@ -59,6 +59,112 @@
 		            'N') 
 
 	</insert>
+	
+	<insert id="createGaArticleSimple">
+		<selectKey keyProperty="article_id" resultType="int" order="AFTER">
+				select article_id_seq.NEXTVAL as "article_id" from dual
+		</selectKey>
+		INSERT INTO articles 
+		            (article_id, 
+		             article_ctgry_id, 
+		             article_scope, 
+		             article_regdate, 
+		             article_editdate, 
+		             article_payment_type, 
+		             article_payment_fee,
+		             article_title,
+		             article_content,
+		             article_proposal_status,
+		             group_id,
+		             user_id,
+		             article_deleted
+		             ) 
+		VALUES     (article_id_seq.NEXTVAL, 
+		            #{article_ctgry_id}, 
+		            #{article_scope}, 
+		            #{article_regdate}, 
+		            sysdate, 
+		            #{article_payment_type}, 
+		            #{article_payment_fee},
+		            #{article_title},
+		            null,
+		            null,
+		            null,
+		            #{user_id},
+		            'N') 
+
+	</insert>
+	
+	<insert id="createGaArticleGroup">
+	<selectKey keyProperty="article_id" resultType="int" order="AFTER">
+			select article_id_seq.NEXTVAL as "article_id" from dual
+	</selectKey>
+	INSERT INTO articles 
+	            (article_id, 
+	             article_ctgry_id, 
+	             article_scope, 
+	             article_regdate, 
+	             article_editdate, 
+	             article_payment_type, 
+	             article_payment_fee,
+	             article_title,
+	             article_content,
+	             article_proposal_status,
+	             group_id,
+	             user_id,
+	             article_deleted
+	             ) 
+	VALUES     (article_id_seq.NEXTVAL, 
+	            #{article_ctgry_id}, 
+	            #{article_scope}, 
+	            #{article_regdate}, 
+	            sysdate, 
+	            #{article_payment_type}, 
+	            #{article_payment_fee},
+	            #{article_title},
+	            #{article_content},
+	            null,
+	            #{group_id},
+	            #{user_id},
+	            'N') 
+
+	</insert>
+	
+	<insert id="createGaArticleGroupSimple">
+		<selectKey keyProperty="article_id" resultType="int" order="AFTER">
+				select article_id_seq.NEXTVAL as "article_id" from dual
+		</selectKey>
+		INSERT INTO articles 
+		            (article_id, 
+		             article_ctgry_id, 
+		             article_scope, 
+		             article_regdate, 
+		             article_editdate, 
+		             article_payment_type, 
+		             article_payment_fee,
+		             article_title,
+		             article_content,
+		             article_proposal_status,
+		             group_id,
+		             user_id,
+		             article_deleted
+		             ) 
+		VALUES     (article_id_seq.NEXTVAL, 
+		            #{article_ctgry_id}, 
+		            #{article_scope}, 
+		            #{article_regdate}, 
+		            sysdate, 
+		            #{article_payment_type}, 
+		            #{article_payment_fee},
+		            #{article_title},
+		            null,
+		            null,
+		            #{group_id},
+		            #{user_id},
+		            'N') 
+
+	</insert>
+	
 		
 	<insert id="createCategory">
 		INSERT INTO ctgry_values(
@@ -178,6 +284,7 @@
 		       article_title = #{article_title},
 		       article_content = #{article_content},
 		       user_id =#{user_id}
+		       group_id=#{group_id}
 		WHERE  article_id = #{article_id}
     </update>
 
@@ -208,6 +315,18 @@
 		SELECT 		count(image_id) image_id 
 		FROM		images 
 		WHERE		article_id=#{article_id} and image_path = #{image_path}
+	</select>
+
+	<update id="deleteArticle">
+	UPDATE articles
+	SET article_deleted = 'Y'
+	WHERE article_id = #{article_id} and user_id = #{user_id}
+	</update>
+	
+	<select id="getUserGroupTitle" resultType="String">
+		SELECT		 group_title 
+		FROM		 group_users gu join groups g using(group_id) 
+		WHERE		 gu.user_id=#{user_id}
 	</select>
 	
 </mapper>
