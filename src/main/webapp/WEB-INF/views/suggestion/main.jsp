@@ -49,7 +49,7 @@
 	<!-- MAIN CONTENT -->
 	<div id="content-block">
 		<div class="head-bg-sjh" id="chartInfoBlock">
-			<div class="head-bg-img"></div>
+			<div class="head-bg-img" style="background: url(https://images.unsplash.com/photo-1496902526517-c0f2cb8fdb6a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80)"></div>
 			<div class="head-bg-content font-sjh">
 				<h1>여러분들이 가진 의견을 보여주세요</h1>
 				<p>원하시는 상품을 기획해 제안해 사람들과 공유하고 추천을 받아보세요</p>
@@ -344,7 +344,14 @@
 											</div>
 										</div>
 										<div class="input-col col-xs-12">
+												<div class="form-group focus-2">
+													<div class="form-label">해시 태그</div>
+													<input type="text" class="form-input" placeholder="해시 태그를 사용해보세요!" name="articleHashtag">
+												</div>
+											</div>
+										<div class="input-col col-xs-12">
 											<div class="form-group">
+												<div class="form-label">카테고리 선택(최대 3개)</div>
 												<ul id="categories" class="categories">
 													<c:choose>
 														<c:when test="${not empty categories}">

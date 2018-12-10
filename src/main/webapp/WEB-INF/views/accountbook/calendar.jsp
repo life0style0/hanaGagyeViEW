@@ -140,6 +140,13 @@
 					</div>
 
 					<div class="col-md-10 accountbook-calendar" id="accountbook-calendar">
+						<c:if test="${checkDelete}">
+							<div class="jjw-alert alert alert-warning alert-dismissible" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<strong>경고!</strong>
+								값을 입력하지 않고는 수정할 수 없습니다!
+							</div>
+						</c:if>
 						<div>
 							<div class="edit-psn"><button type="button" class="btn color-white-sjh size-1 hover-5 btn-edit-psn">가계부 설정</button></div>
 							<div class="new-ggv"><a href="/salmon/article/register" class="btn color-white-sjh size-1 hover-5" style="margin-right: unset;">새

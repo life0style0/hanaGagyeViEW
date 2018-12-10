@@ -47,5 +47,8 @@ public interface GaArticleService {
 	
 	//글 수정시 이미지 체크
 	public int imageCheck(ImageEditDTO imageEditDTO);
+
+	//게시글 삭제하기
+	public boolean deleteArticle(int article_id, String user_id);
 	
 }

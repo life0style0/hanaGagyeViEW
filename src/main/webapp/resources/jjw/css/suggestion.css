@@ -8,6 +8,10 @@
   cursor: pointer;
 }
 
+.nav-tab-item.active {
+  cursor: unset!important;
+}
+
 .nav-tab-item.active:hover {
   background-color: #fff!important;
   cursor: unset!important;

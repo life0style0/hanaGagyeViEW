@@ -322,7 +322,7 @@ $(function () {
                 <strong>경고!</strong> 제목을 입력해주세요!</div>`);
             }
             $('html, body').animate({
-                scrollTop: 0
+                scrollTop: title.height() + title.offset().top - 200
             }, 400);
             return;
         }
@@ -335,7 +335,7 @@ $(function () {
                 <strong>경고!</strong> 내용을 입력해주세요!</div>`);
             }
             $('html, body').animate({
-                scrollTop: content.height() + content.offset().top - 200
+                scrollTop: content.height() + content.offset().top - 400
             }, 400);
             return;
         }

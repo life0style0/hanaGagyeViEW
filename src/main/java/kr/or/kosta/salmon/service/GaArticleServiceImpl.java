@@ -119,6 +119,10 @@ public class GaArticleServiceImpl implements GaArticleService{
 	public int imageCheck(ImageEditDTO imageEditDTO) {
 		return gaArticleMapper.imageCheck(imageEditDTO);
 	}
-	
+
+	@Override
+	public boolean deleteArticle(int article_id, String user_id) {
+		return gaArticleMapper.deleteArticle(article_id, user_id) > 0 ? true : false;
+	}
 	
 }

@@ -52,8 +52,11 @@
                   	<a><i class="far fa-flag"></i> 신고</a>
                   </span>
                   <div class="article-right-btns">
-                    <span id="article-edit-btn">
+                    <span id="article-edit-btn" class="hidden">
                    		<a><i class="fa fa-edit"></i> 수정</a>
+                    </span>
+                    <span id="article-delete-btn" class="hidden">
+                      <a><i class="fas fa-trash"></i> 삭제</a>
                     </span>
                     <span id="article-exit-btn">
                     <button data-dismiss="modal" aria-label="Close"><i class="fa fa-times"></i> 종료</button></span>

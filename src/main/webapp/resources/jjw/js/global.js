@@ -88,6 +88,7 @@ function eventRegistOnShare(article, info) {
  * 특정 가계부 정보를 초기화하는 메소드
  */
 function resetArticleModal() {
+    $('.article-carousel').trigger('destroy.owl.carousel');
     $('.article-carousel').removeClass('owl-hidden');
     $('.article-carousel').html('');
     // $('#article-modal').off('shown.bs.modal');
@@ -146,26 +147,9 @@ function setArticle(article, info) {
         });
 
         $('#article-modal').one('hide.bs.modal', function () {
-            $('.article-carousel').trigger('destroy.owl.carousel');
+            resetArticleModal();
         });
     }
-
-    // $('.article-carousel').on('translated.owl.carousel', function () {
-    //     $('.article-carousel .owl-lazy').each(function (key, value) {
-    //         if ($(value).height() > $(value).width()) {
-    //             $(value).addClass('article-image-h');
-    //             $(value).removeClass('article-image-w');
-    //         } else if ($(value).height() < $(value).width()) {
-    //             $(value).addClass('article-image-w');
-    //             $(value).removeClass('article-image-h');
-    //         } else {
-    //             $(value).removeClass('article-image-w');
-    //             $(value).removeClass('article-image-h');
-    //             $(value).addClass('article-image');
-    //         }
-    //     });
-    // });
-
 
     if (article.articleCtgryType !== undefined) {
         $('#article-ctgry').html(`(${checkArticleCtgryType(article.articleCtgryType)})`);
@@ -226,6 +210,8 @@ function setArticle(article, info) {
         // 내가 쓴 글이면 수정이 보여야 함.
         $('#article-edit-btn').removeClass('hidden');
         $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=${article.articleId}`);
+        $('#article-delete-btn').removeClass('hidden');
+        $('#article-delete-btn a').attr('href', `/salmon/article/delete?article_id=${article.articleId}`);
     } else {
         $('#article-edit-btn').addClass('hidden');
     }

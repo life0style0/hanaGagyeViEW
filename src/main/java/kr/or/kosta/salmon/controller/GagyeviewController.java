@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
@@ -59,7 +60,17 @@ public class GagyeviewController {
 		model.addAttribute("ctgryName", ctgryName);
 	}
 	
-	
+	@GetMapping("/delete")
+	public String delete(int article_id, Principal principal, RedirectAttributes rttr) {
+		log.info("delete call...");
+		if (gaArticleService.deleteArticle(article_id, principal.getName())) {
+			rttr.addFlashAttribute("checkDelete", false);
+			return "redirect:/accountbook/calendar";
+		} else {
+			rttr.addFlashAttribute("checkDelete", true);
+			return "redirect:/accountbook/calendar";
+		}
+	}
 	
 	@PostMapping("/submit")
 	public ResponseEntity<String> registArticle(ArticleDTO article, String article_ctgry_name, String categoryName ,Principal principal, Model model){
