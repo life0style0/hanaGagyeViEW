@@ -71,7 +71,7 @@ public class GroupRegistController {
 	}
 	
 	//소모임 회원으로 가입 처리 
-	@PostMapping("/get")
+/*	@PostMapping("/get")
 	public String get1(@RequestParam("group_id") String group_id, Model model, Principal principal) {
 		log.info("/get");
 		log.info("그룹 아이디 [getMethod] =====: "+group_id);
@@ -80,7 +80,7 @@ public class GroupRegistController {
 
 		
 		model.addAttribute("group_id", group_id);
-		GroupCountDTO gcdto =  groupservice.getCount(group_id);
+//		GroupCountDTO gcdto =  groupservice.getCount(group_id);
 		if(gcdto.getMax() <= gcdto.getNow()) {
 			model.addAttribute("check", "fail");
 			return "redirect:/group/join-confirm}";
@@ -95,7 +95,7 @@ public class GroupRegistController {
 			}
 		}
 		
-	}
+	}*/
 	
 	@GetMapping("/join-confirm")
 	public void joinConfirm() {

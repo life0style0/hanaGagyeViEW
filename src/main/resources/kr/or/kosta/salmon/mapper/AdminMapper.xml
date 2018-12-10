@@ -223,6 +223,20 @@
 	FROM		 ctgry_values
 	</select>
 	
+	<select id="getArticleRegistIncome" resultType="kr.or.kosta.salmon.domain.AdminArticleInfoRegistDTO">
+	SELECT		 to_char(article_editdate, 'yyyy-mm-dd') regist_date, count(*) regist_ct 
+	FROM		 articles 
+	WHERE		 article_editdate between sysdate-5 and sysdate and article_ctgry_id=1 
+	GROUP BY	 to_char(article_editdate, 'yyyy-mm-dd')
+	</select>
+	
+	<select id="getArticleRegistSpend" resultType="kr.or.kosta.salmon.domain.AdminArticleInfoRegistDTO">
+	SELECT		 to_char(article_editdate, 'yyyy-mm-dd') regist_date, count(*) regist_ct 
+	FROM		 articles 
+	WHERE		 article_editdate between sysdate-5 and sysdate and article_ctgry_id=2 
+	GROUP BY	 to_char(article_editdate, 'yyyy-mm-dd')
+	</select>
+	
 
 <!-- 게시글 정보 끝 -->
 

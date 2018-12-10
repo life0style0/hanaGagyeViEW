@@ -27,6 +27,25 @@ public class GaArticleServiceImpl implements GaArticleService{
 		gaArticleMapper.createGaArticle(article);
 		return article.getArticle_id();
 	}
+	
+	@Override
+	public int createGaArticleSimple(ArticleDTO article) {
+		gaArticleMapper.createGaArticleSimple(article);
+		return article.getArticle_id();
+	}
+
+
+	@Override
+	public int createGaArticleGroup(ArticleDTO article) {
+		gaArticleMapper.createGaArticleGroup(article);
+		return article.getArticle_id();
+	}
+
+	@Override
+	public int createGaArticleGroupSimple(ArticleDTO article) {
+		gaArticleMapper.createGaArticleGroupSimple(article);
+		return article.getArticle_id();
+	}
 
 	@Override
 	public ArrayList<String> getCategory() {
@@ -119,6 +138,9 @@ public class GaArticleServiceImpl implements GaArticleService{
 	public int imageCheck(ImageEditDTO imageEditDTO) {
 		return gaArticleMapper.imageCheck(imageEditDTO);
 	}
-	
-	
+
+	@Override
+	public ArrayList<String> getUserGroupTitle(String user_id) {
+		return gaArticleMapper.getUserGroupTitle(user_id);
+	}
 }

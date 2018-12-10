@@ -13,6 +13,13 @@ public interface GaArticleService {
 	
 	//가계부 게시글 등록
 	public int createGaArticle(ArticleDTO article);
+	//심플 가계부 콘텐츠 없는것
+	public int createGaArticleSimple(ArticleDTO article);
+	//그룹게시글
+	public int createGaArticleGroup(ArticleDTO article);
+	public int createGaArticleGroupSimple(ArticleDTO article);
+	
+	
 	//카테고리 항목 가져오기
 	public ArrayList<String> getCategory();
 	//카테고리 아이디 가져오기
@@ -47,5 +54,7 @@ public interface GaArticleService {
 	
 	//글 수정시 이미지 체크
 	public int imageCheck(ImageEditDTO imageEditDTO);
-	
+
+	//모임 글 생성을 위한 그룹타이틀가져오기
+	public ArrayList<String> getUserGroupTitle(String user_id);
 }
