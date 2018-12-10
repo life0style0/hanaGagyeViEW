@@ -89,26 +89,27 @@
 						<a class="btn full color-1 size-1 hover-1" href="author.html"><i class="fa fa-chevron-left"></i>나의 가계ViEW로 돌아가기</a>
 					</div>
 				</div>
-				<form name="articleForm" id="articleForm" method="post" action="/salmon/article/update">
-				<input type="hidden" name="article_id" value="${editArticle.article_id}">
+				<form name="articleForm" id="articleForm" method="post" action="/salmon/article/submitGroupArticle">
+				<input type="hidden" name="group_id" value="${group_id }">
 				<div class="col-xs-12 col-md-9 _editor-content_">
 					<div class="sec"  data-sec="gagyeInfo">
 						<div class="be-large-post">
 							<div class="info-block style-2">
-								<div class="be-large-post-align"><h3 class="info-block-label">가계부 정보</h3><span style="float:right;color:red;" id="infoSpot"></span></div>
+								<div class="be-large-post-align"><h3 class="info-block-label">소모임 글 작성</h3>	
+								</div>
 							</div>
 							<div class="be-large-post-align">
 								<div class="row">
 									<div class="input-col col-xs-12 col-sm-4">
 										<div class="form-group focus-2">
 											<div class="form-label">금액</div>									
-											<input class="form-input" name="article_payment_fee" id="article_payment_fee"  type="text" placeholder="" value="${editArticle.article_payment_fee }">
+											<input class="form-input" name="article_payment_fee" id="article_payment_fee"  type="text" placeholder="">
 										</div>								
 									</div>
 									<div class="input-col col-xs-12 col-sm-4" >
 										<div class="form-label">카테고리</div>
 										<div class="be-drop-down icon-none">
-											<span class="be-dropdown-content" id="selCategory">${ctgryName }</span>
+											<span class="be-dropdown-content" id="selCategory">선택해주세요</span>
 											<input type="hidden" name="categoryName" id="inputCategory">
 											<ul class="drop-down-list" style="overflow:scroll; height:200px">
 											<c:forEach var="catList" items="${categoryList}">
@@ -126,7 +127,7 @@
 									<div class="input-col col-xs-12 col-sm-4">
 										<div class="form-label">결제수단</div>
 										<div class="be-drop-down icon-none">
-											<span class="be-dropdown-content" id="selPayType">${editArticle.article_payment_type }</span>
+											<span class="be-dropdown-content" id="selPayType">선택해주세요</span>
 											<input type="hidden" name="article_payment_type" id="inputPayType">
 											<ul class="drop-down-list">
 												<li><a>카드</a></li>
@@ -139,13 +140,10 @@
 							<div class="be-large-post-align">
 								<div class="row">
 									<div class="col-md-12">
-										<div class="col-md-4">
+										<div class="col-md-6">
 											<div class="form-label">구분</div>
 											<div class="be-drop-down icon-none">
-												<span class="be-dropdown-content" id="selArtiCategory">
-												<c:if test="${editArticle.article_ctgry_id=='1'}">수입 </c:if>
-												<c:if test="${editArticle.article_ctgry_id=='2'}">지출 </c:if>
-												</span>
+												<span class="be-dropdown-content" id="selArtiCategory">선택해주세요</span>
 												<input type="hidden" name="article_ctgry_name" id="inputArtiCategory">
 												<ul class="drop-down-list" >
 													<li><a>지출</a></li>
@@ -153,24 +151,11 @@
 												</ul>
 											</div>	
 										</div>
-										<div class="col-md-4">
-											<div class="form-label">공개범위</div>
-											<div class="be-drop-down icon-none">
-												<span class="be-dropdown-content" id="selScope">
-													<c:if test="${editArticle.article_scope=='u'}">public</c:if>
-													<c:if test="${editArticle.article_scope=='r'}">private</c:if>
-												</span>
-												<input type="hidden" name="article_scope" id="inputScope">
-												<ul class="drop-down-list" >
-													<li><a>private</a></li>
-													<li><a>public</a></li>
-												</ul>
-											</div>	
-										</div>
-										<div class="col-md-4">
+										
+										<div class="col-md-6">
 											<div class="form-label">날짜 선택</div>
 											<div class='input-group date' id='datetimepicker1'>
-												<input type='text' class="form-control " name="article_regdate" value="${editArticle.article_regdate}" /> <span class="input-group-addon">
+												<input type='text' class="form-control " name="article_regdate" value="${searchStartDay}" /> <span class="input-group-addon">
 													<span class="fa fa-calendar"></span>
 												</span>
 											</div>
@@ -183,7 +168,7 @@
 									<div class="input-col col-xs-12">
 										<div class="form-group focus-2">
 											<div class="form-label">간단 메모</div>									
-											<input class="form-input" name="article_title" type="text" value="${editArticle.article_title }">
+											<input class="form-input" name="article_title" type="text">
 										</div>								
 									</div>	
 								</div>
@@ -216,7 +201,7 @@
 							<div class="be-large-post-align">
 								<div class="form-group focus-2">
 									<div class="form-label">내용</div>
-									<textarea name="article_content" class="form-input" placeholder="여러분의 합리적인 소비생활을 소개해주세요">${editArticle.article_content}</textarea>
+									<textarea name="article_content" class="form-input" placeholder="여러분의 합리적인 소비생활을 소개해주세요"></textarea>
 								</div>						
 							</div>
 						</div>																
@@ -248,8 +233,7 @@
 	<link rel="stylesheet" href="/salmon/resources/hjh/css/bootstrap-datetimepicker.css">
 	<script type='text/javascript' src="/salmon/resources/hjh/js/moment-with-locales.min.js"></script>
 	<script type='text/javascript' src="/salmon/resources/hjh/js/bootstrap-datetimepicker.js"></script>
-	<script type='text/javascript' src="/salmon/resources/hjh/js/articleEdit.js"></script>
-
+	<script type='text/javascript' src="/salmon/resources/hjh/js/articleRegist.js"></script>
 	
 	<script type="text/javascript">
 	
@@ -265,7 +249,7 @@
 				   $("#infoSpot").text("금액을 입력해주세요");
 				   return false;
 			   }
-			   if($("#selCategory").text()!="선택해주세요"){
+			   if($("#selCategory").text()!="선택해주세요".trim()){
 				   $("#inputCategory").val($("#selCategory").text()); 
 			   }else{
 				   $("#selCategory").focus();
@@ -293,23 +277,22 @@
 				   $("#infoSpot").text("구분을 선택해주세요");
 				   return false;
 			   }
-			   
 			   var articleForm = $("#articleForm").serialize();
 			   $.ajax({
 				   	  cache : false,
-			          url: '/salmon/article/update?_csrf=${_csrf.token}',
+			          url: '/salmon/article/submitGroupArticle?_csrf=${_csrf.token}',
 			          data: articleForm,
 			          type: 'post',
 			          success: function (articleId) {
-			        	  if(parseInt(articleId) > 0){
-				            	if(!imgUpload(articleId)){
-				            		$("#resultModal").modal({
-				    		        	keyboard:false,
-				    		        	show:true,
-				    		        	backdrop:true
-				    		        });
-				            	}
-				            }
+			            if(parseInt(articleId) > 0){
+			            	if(!imgUpload(articleId)){
+			            		$("#resultModal").modal({
+			    		        	keyboard:false,
+			    		        	show:true,
+			    		        	backdrop:true
+			    		        });
+			            	}
+			            }
 			          },
 			          error: function (xhr,status,er) {
 			  			alert('게시글 등록 실패');
@@ -326,8 +309,10 @@
 		  } else {
 		    for (var i = 0; i < fileList.length; i += 1) {
 		      var file = fileList[i];
+		      console.log(formData.values().next())
 		      formData.append("uploadFile",fileList[i]);
 		    }
+		    console.log(formData.values().next())
 		    $.ajax({
 		      url: '/salmon/article/imageUpload?_csrf=${_csrf.token}&articleId='+articleId,
 		      processData: false,
@@ -337,6 +322,7 @@
 		      data:  formData,
 		      type: 'post',
 		      success: function (result) {
+		        console.log("success");
 		        $("#resultModal").modal({
 		        	keyboard:false,
 		        	show:true,
@@ -356,7 +342,13 @@
           			<h4 class="modal-title" id="gridSystemModalLabel">게시글 작성 결과</h4>
         		</div>
         		<div class="modal-body">
-        		 	<h5>게시글 수정이 완료되었습니다.</h5>
+        		 	<h5>게시글 작성이 완료되었습니다.</h5>
+        		 	<div>
+        		 	계속 작성
+        		 		 <button type="button" class="btn btn-default" aria-label="Left Align" onclick="location.href='/salmon/article/registerGroup?group_id=${group_id}'" value="계속 작성">
+  							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						</button>
+        		 	</div>
         		 	<div>
         		 		메인으로
         		 		 <button type="button" class="btn btn-default" aria-label="Left Align" onclick="location.href='/salmon'" value="홈으로">
@@ -367,40 +359,7 @@
     		</div>
   		</div>
 	</div>
-	<script>
-		 <c:if test="${articlePathList.size()>0}">
-		 <c:forEach var="path" items="${articlePathList}">
-		 function blobToFile(blob,filename){
-		     return new File([blob], filename, {type: blob.type, lastModified: Date.now()});
-		}
-		  $(function () {
-		      $.ajax({
-		        url: '/salmon/main/image?fileName=${path}',
-		        method: 'get',
-		        cache: false,
-		        xhr: function () { // Seems like the only way to get access to the xhr object
-		            var xhr = new XMLHttpRequest();
-		            xhr.responseType = 'image/png'
-		            return xhr;
-		          },
-		          success: function (data) {
-		        	var blob = new Blob([data], {type: 'image/png'});
-		        	var curFilePath = '${path}'.split("_")[1];
-		        	var file = blobToFile(blob, '${path}');
-		        	var tempFile = {};
-		        	tempFile[0]= file;
-		        	tempFile['length']=1; 
-		        	uploadFilesBefore(tempFile,curFilePath);
-		          },
-
-		        error: function () {
-
-		        }
-		      });
-		});  
-		</c:forEach>
-		</c:if>
-	</script>
+	
 	
 	</body>
 </html>

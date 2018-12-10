@@ -79,9 +79,9 @@
                   </li>
                   <li><a><i class="fa fa-desktop"></i> 게시글 및 유저 관리 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">게시글 관리</a></li>
-                      <li><a href="form_advanced.html">유저 관리</a></li>
-                      <li><a href="form_validation.html">역제안 관리</a></li>
+                      <li><a href="articleManage">게시글 관리</a></li>
+                      <li><a href="userManage">유저 관리</a></li>
+                      <li><a href="suggestionManage">역제안 관리</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -344,9 +344,7 @@
     <!-- FastClick -->
     <script src="/salmon/resources/adminTemplate/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
-    <script src="/salmon/resources/adminTemplate/vendors/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="/salmon/resources/adminTemplate/vendors/Chart.js/dist/Chart.min.js"></script>
+    <script src="/salmon/resources/adminTemplate/vendors/nprogress/nprogress.js"></script>s
     <!-- gauge.js -->
     <script src="/salmon/resources/adminTemplate/vendors/gauge.js/dist/gauge.min.js"></script>
     <!-- bootstrap-progressbar -->

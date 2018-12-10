@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.or.kosta.salmon.domain.AdminArticleInfoArtiCtgryDTO;
 import kr.or.kosta.salmon.domain.AdminArticleInfoCtgryCtDTO;
 import kr.or.kosta.salmon.domain.AdminArticleInfoHashTagTopDTO;
+import kr.or.kosta.salmon.domain.AdminArticleInfoRegistDTO;
 import kr.or.kosta.salmon.domain.AdminArticleInfoWordDTO;
 import kr.or.kosta.salmon.domain.AdminFollowerTopDTO;
 import kr.or.kosta.salmon.domain.AdminGbyGenderDTO;
@@ -162,6 +163,16 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public ArrayList<AdminPaymentInfoRankDTO> getRankByLocationAndCtgryIncome() {
 		return adminMapper.getRankByLocationAndCtgryIncome();
+	}
+
+	@Override
+	public ArrayList<AdminArticleInfoRegistDTO> getArticleRegistIncome() {
+		return adminMapper.getArticleRegistIncome();
+	}
+
+	@Override
+	public ArrayList<AdminArticleInfoRegistDTO> getArticleRegistSpend() {
+		return adminMapper.getArticleRegistSpend();
 	}
 
 	

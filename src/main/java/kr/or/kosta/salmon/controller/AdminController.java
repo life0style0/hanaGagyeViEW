@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import kr.or.kosta.salmon.domain.AdminArticleInfoArtiCtgryDTO;
 import kr.or.kosta.salmon.domain.AdminArticleInfoCtgryCtDTO;
 import kr.or.kosta.salmon.domain.AdminArticleInfoHashTagTopDTO;
+import kr.or.kosta.salmon.domain.AdminArticleInfoRegistDTO;
 import kr.or.kosta.salmon.domain.AdminArticleInfoWordDTO;
 import kr.or.kosta.salmon.domain.AdminFollowerTopDTO;
 import kr.or.kosta.salmon.domain.AdminGetUserCtgryDTO;
@@ -94,7 +95,7 @@ public class AdminController {
 				break;
 			}
 		}
-		
+
 		//follower 정보 가져오기
 		ArrayList<AdminFollowerTopDTO> followerTopList= null;
 		ArrayList<AdminFollowerTopDTO> temp = adminService.getFollowerTop();
@@ -107,7 +108,7 @@ public class AdminController {
 		ArrayList<AdminPaymentTypeDTO> paymentDTO = adminService.getPaymentType();
 		HashMap<String, HashMap<String, Integer>> paymentHashSetMale = new HashMap<>();
 		HashMap<String, HashMap<String, Integer>> paymentHashSetFemale = new HashMap<>();
-		
+
 		for(AdminPaymentTypeDTO tempPay : paymentDTO){
 			if(paymentHashSetMale.containsKey(tempPay.getUser_id())){
 				HashMap<String, Integer> tempType = paymentHashSetMale.get(tempPay.getUser_id());
@@ -269,6 +270,8 @@ public class AdminController {
 		ArrayList<AdminArticleInfoHashTagTopDTO> hashTopList = adminService.getHashTagTopList();
 		ArrayList<AdminArticleInfoArtiCtgryDTO> artiCtgryList = adminService.getArticleCategoryList();
 		int articleCtgryTotal = adminService.getArticleCategoryTotal();
+		ArrayList<AdminArticleInfoRegistDTO> registCtSpendList = adminService.getArticleRegistSpend();
+		ArrayList<AdminArticleInfoRegistDTO> registCtIncomeList = adminService.getArticleRegistIncome();
 		
 		
 		model.addAttribute("wordList", wordList);
@@ -277,9 +280,27 @@ public class AdminController {
 		model.addAttribute("hashTopList", hashTopList);
 		model.addAttribute("artiCtgryList", artiCtgryList);
 		model.addAttribute("articleCtgryTotal", articleCtgryTotal);
+		model.addAttribute("registCtSpendList", registCtSpendList);
+		model.addAttribute("registCtIncomeList", registCtIncomeList);
 	}
 	
+	@GetMapping("/articleManage")
+	public void articleManage(Model model) {
+		
+		
+	}
 	
+	@GetMapping("/userManage")
+	public void userManage(Model model) {
+		
+		
+	}
+	
+	@GetMapping("/suggestionManage")
+	public void suggestionManage(Model model) {
+		
+		
+	}
 
 	private List sortByValue(HashMap hashMap){
 		List list = new ArrayList();

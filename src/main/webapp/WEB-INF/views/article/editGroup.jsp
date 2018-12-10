@@ -89,13 +89,14 @@
 						<a class="btn full color-1 size-1 hover-1" href="author.html"><i class="fa fa-chevron-left"></i>나의 가계ViEW로 돌아가기</a>
 					</div>
 				</div>
-				<form name="articleForm" id="articleForm" method="post" action="/salmon/article/update">
+				<form name="articleForm" id="articleForm" method="post" action="/salmon/article/updateGroup">
 				<input type="hidden" name="article_id" value="${editArticle.article_id}">
+				<input type="hidden" name="article_id" value="${editArticle.group_id}">
 				<div class="col-xs-12 col-md-9 _editor-content_">
 					<div class="sec"  data-sec="gagyeInfo">
 						<div class="be-large-post">
 							<div class="info-block style-2">
-								<div class="be-large-post-align"><h3 class="info-block-label">가계부 정보</h3><span style="float:right;color:red;" id="infoSpot"></span></div>
+								<div class="be-large-post-align"><h3 class="info-block-label">소모임 글 수정</h3><span style="float:right;color:red;" id="infoSpot"></span></div>
 							</div>
 							<div class="be-large-post-align">
 								<div class="row">
@@ -139,7 +140,7 @@
 							<div class="be-large-post-align">
 								<div class="row">
 									<div class="col-md-12">
-										<div class="col-md-4">
+										<div class="col-md-6">
 											<div class="form-label">구분</div>
 											<div class="be-drop-down icon-none">
 												<span class="be-dropdown-content" id="selArtiCategory">
@@ -153,21 +154,7 @@
 												</ul>
 											</div>	
 										</div>
-										<div class="col-md-4">
-											<div class="form-label">공개범위</div>
-											<div class="be-drop-down icon-none">
-												<span class="be-dropdown-content" id="selScope">
-													<c:if test="${editArticle.article_scope=='u'}">public</c:if>
-													<c:if test="${editArticle.article_scope=='r'}">private</c:if>
-												</span>
-												<input type="hidden" name="article_scope" id="inputScope">
-												<ul class="drop-down-list" >
-													<li><a>private</a></li>
-													<li><a>public</a></li>
-												</ul>
-											</div>	
-										</div>
-										<div class="col-md-4">
+										<div class="col-md-6">
 											<div class="form-label">날짜 선택</div>
 											<div class='input-group date' id='datetimepicker1'>
 												<input type='text' class="form-control " name="article_regdate" value="${editArticle.article_regdate}" /> <span class="input-group-addon">
@@ -297,7 +284,7 @@
 			   var articleForm = $("#articleForm").serialize();
 			   $.ajax({
 				   	  cache : false,
-			          url: '/salmon/article/update?_csrf=${_csrf.token}',
+			          url: '/salmon/article/updateGroup?_csrf=${_csrf.token}',
 			          data: articleForm,
 			          type: 'post',
 			          success: function (articleId) {
