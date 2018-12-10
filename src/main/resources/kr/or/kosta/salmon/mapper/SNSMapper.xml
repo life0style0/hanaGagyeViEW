@@ -75,28 +75,30 @@
 		       article_content, 
 		       article_proposal_status, 
 		       group_id, 
-		       user_id,
+		       group_title, 
+		       ar.user_id, 
 		       user_nickname, 
-		       article_comment_num,
-		       article_like_num,
+		       article_comment_num, 
+		       article_like_num, 
 		       article_deleted 
-		FROM   articles 
-		JOIN   users USING (user_id)
+		FROM   articles ar 
+		       join users us 
+		         ON us.user_id = ar.user_id 
+		       left outer join GROUPS USING (group_id) 
 		WHERE  article_scope IN ( 'u', 'g' ) 
-		       AND user_id IN ( #{user_id} ) 
-		        OR user_id IN (SELECT fol.user_id user_id 
-		                       FROM   users us 
-		                              inner join followers fol 
-		                                      ON us.user_id = fol.follower_user_id 
-		                       WHERE  us.user_id = #{user_id}) 
-		        OR user_id IN ((SELECT user_id 
-		                        FROM   group_users 
-		                        WHERE  group_id IN (SELECT group_id 
-		                                            FROM   users us 
-		                                                   inner join group_users gus 
-		                                                           ON us.user_id = 
-		                                                              gus.user_id 
-		                                            WHERE  us.user_id = #{user_id}))) 
+		       AND ( ar.user_id = #{user_id} 
+		              OR ar.user_id IN (SELECT fol.user_id user_id 
+		                                FROM   users us 
+		                                       inner join followers fol 
+		                                               ON us.user_id = 
+		                                                  fol.follower_user_id 
+		                                WHERE  us.user_id =  #{user_id} ) 
+		              OR ar.article_id IN (SELECT article_id 
+		                                   FROM   articles 
+		                                   WHERE  group_id IN(SELECT group_id 
+		                                                      FROM   group_users 
+		                                                      WHERE  user_id =  #{user_id} ) 
+		                                  ) ) 
         </select>
         
 	 	<select id="getImages" resultType="string">
@@ -500,6 +502,19 @@
 		       join users USING (user_id) 
 		WHERE  article_scope IN ( 'u', 'g' ) 
 		AND    SYSDATE-article_regdate <8
+		ORDER  BY article_regdate
+		]]>
+     </select>
+     
+      <select id="getGroupsBySNSNewArticles" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
+		 <![CDATA[
+		SELECT ar.group_id, 
+		       group_title 
+		FROM   articles ar 
+		       join GROUPS gu 
+		       ON ar.group_id = gu.group_id 
+		WHERE  article_scope IN ( 'u', 'g' ) 
+		       AND SYSDATE - article_regdate < 8 
 		ORDER  BY article_regdate
 		]]>
      </select>

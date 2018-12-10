@@ -41,6 +41,8 @@ public interface SNSMapper {
 	public ArrayList<SNSArticleDTO_sjh> getSNSPopularArticles();
 	//전체 게시글중 최신글
 	public ArrayList<SNSArticleDTO_sjh> getSNSNewArticles();
+	//전체 게시글중 최신글의 그룹정보
+	public ArrayList<GroupDTO_lhr> getGroupsBySNSNewArticles();
 	//전체 게시글중 오늘의 인기글과 최신글
 	public MainFeedArticlesDTO getNewAndPopArticles();
 	//내 메인 피드 게시글

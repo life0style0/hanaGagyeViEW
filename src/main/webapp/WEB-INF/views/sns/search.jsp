@@ -72,10 +72,8 @@
 		<div id="search-res-group-btn" class="col-md-2 article-menu">소모임 검색결과</div>
 	</div>
 
-	<!-- <div id="search-res-user" class="container-fluid custom-container"> -->
 	<div id="search-res-user">
     <div class="row">
-     <!--  <div class="col-md-2 left-feild">
       </div> -->
        <div class="col-md-12">
 		<c:choose>
@@ -145,31 +143,7 @@
             </div>
           </div>
         </div>
-        <!-- 
-        <div class="be-vidget">
-	        <ul>
-		        <li><a type="button" class="filter" data-filter=".category-p">post</a></li>
-		        <li><a type="button" class="filter" data-filter=".category-s">sug</a></li>
-	        </ul>
-        
-          <h3 class="letf-menu-article"> </h3>
-          <div class="creative_filds_block">
-            <div class="ul">
-              <a data-filter=".category-p" class="filter"> 포스트 </a>
-              <a data-filter=".category-s" class="filter"> 역제안 </a>
-            </div> 
-          </div>
-         
-        </div>
-           -->
-           <!-- 
-          <div class="creative_filds_block">
-            <div class="controls">
-              <button type="button" class="control" data-toggle=".category-p">post</button>
-              <button type="button" class="control" data-toggle=".category-s">sug</button>
-          </div>
-          </div>
-         -->
+     
         <div class="be-vidget">
           <h3 class="letf-menu-article">인기 해시태그</h3>
           <div class="tags_block clearfix">

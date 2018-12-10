@@ -25,6 +25,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.or.kosta.salmon.domain.CommentDTO;
+import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
 import kr.or.kosta.salmon.domain.MainChartDTO;
 import kr.or.kosta.salmon.domain.MainFeedArticlesDTO;
@@ -85,13 +86,16 @@ public class MainController {
 		//유저 정보
 		UserDTO meDTO= snsService.getSimpleUser(principal.getName());
 		model.addAttribute("me",meDTO);
+		ArrayList<GroupDTO_lhr> groupList =snsService.getJoingingGroupList(meDTO.getUser_id());
+		model.addAttribute("groupList", groupList);
 		try {
 			String meJSON= objmapper.writeValueAsString(meDTO);
 			model.addAttribute("meJSON", meJSON);
+			String groupListJSON= objmapper.writeValueAsString(groupList);
+			model.addAttribute("groupListJSON", groupListJSON);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
-		
 	}
 	
 	@GetMapping("/main/image")

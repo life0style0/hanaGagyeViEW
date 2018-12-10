@@ -28,6 +28,8 @@ public interface SNSService {
 	public ArrayList<SNSArticleDTO_sjh> getSNSPopularArticles();
 	// 전체 게시글중 최신글
 	public ArrayList<SNSArticleDTO_sjh> getSNSNewArticles();
+	//전체 게시글중 최신글의 그룹정보
+	public ArrayList<GroupDTO_lhr> getGroupsBySNSNewArticles();
 	//전체 게시글중 인기글과 최신글
 	public MainFeedArticlesDTO getNewAndPopArticles();
 	//내 메인 피드 게시글
@@ -92,6 +94,8 @@ public interface SNSService {
 	public ArrayList<SNSArticleDTO_sjh> searchSuggestions(String value);
 	//그룹검색
 	public ArrayList<GroupDTO_lhr> searchGroups(@Param("value") String value);
+	//이 사용자의 그룹 목록
+	public ArrayList<GroupDTO_lhr> getJoingingGroupList(String user_id);
 
 	
 }

@@ -259,4 +259,14 @@ public class SNSServiceImpl implements SNSService {
 	public SNSUserPageWithoutAtriclesDTO getSNSUserPageInfoWithoutArticles(String user_id) {
 		return snsMapper.getSNSUserPageInfoWithoutArticles(user_id);
 	}
+
+	@Override
+	public ArrayList<GroupDTO_lhr> getJoingingGroupList(String user_id) {
+		return snsMapper.getJoingingGroupList(user_id);
+	}
+
+	@Override
+	public ArrayList<GroupDTO_lhr> getGroupsBySNSNewArticles() {
+		return snsMapper.getGroupsBySNSNewArticles();
+	}
 }

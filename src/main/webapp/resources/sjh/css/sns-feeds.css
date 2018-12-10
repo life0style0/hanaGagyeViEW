@@ -162,3 +162,9 @@ a.ask-follow i {
   color:#298478;
  /*  margin-left: 10px; */
 }
+
+a.filter:hover{
+	background-color:#ffa500;
+	color:#298478;
+	font-weight: bold;
+}

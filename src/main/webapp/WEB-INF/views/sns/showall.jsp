@@ -27,6 +27,8 @@
   <link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
   <link rel="stylesheet" href="/salmon/resources/jjw/css/owl.carousel.min.css">
   <link rel="stylesheet" href="/salmon/resources/jjw/css/owl.theme.default.min.css">
+  
+  <link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
 
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -34,13 +36,7 @@
 
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-  <!--[if lt IE 10]>
-			<link rel="stylesheet" type="text/css" href="style/ie-9.css" />
-		<![endif]-->
-  <!--[if lt IE 9]>
-		    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	    <![endif]-->
+  
 </head>
 
 <body>
@@ -88,31 +84,42 @@
     <div class="row">
 
       <div class="col-md-2 left-feild">
-        <div class="controls">
-         	<button type="button" class="control" data-sort="published-date:asc likes-num:desc comments-num:asc">좋아요순</button>
-            <button type="button" class="control" data-sort="published-date:asc likes-num:asc comments-num:desc">댓글순</button>
-            <button type="button" class="control" data-sort="published-date:desc likes-num:asc comments-num:asc">최신순</button>
-        </div>
+        <div class="be-vidget">
+	        <div class="creative_filds_block">
+		        <div class="controls">
+		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:desc comments-num:asc">좋아요순</button>
+		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:asc comments-num:desc">댓글순</button>
+		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:desc likes-num:asc comments-num:asc">최신순</button>
+		        </div>
+	        </div>
+       	</div>
         
         <div class="be-vidget">
-          <h3 class="letf-menu-article">
-            인기 소모임
-          </h3>
+          <h3 class="letf-menu-article">소모임 선택</h3>
           <div class="creative_filds_block">
             <div class="ul">
-              <a data-filter=".category-1" class="filter">동적생성 1 </a>
-              <a data-filter=".category-2" class="filter">동적생성2 </a>
-          
+              <a data-filter="all" class="filter">전체글 </a>
+              <c:choose>
+              <c:when test="${groupsBynewArticleList.size() ==0 }">
+               가입한 그룹이 없습니다
+              </c:when>
+              <c:otherwise>
+              <c:forEach var="group" items="${groupsBynewArticleList}">
+              	<a data-filter=".group-<c:out value="${group.group_id}"/>" class="filter">${group.group_title}</a>
+              </c:forEach>
+              </c:otherwise>
+              </c:choose>
             </div>
           </div>
         </div>
+        
         <div class="be-vidget">
           <h3 class="letf-menu-article">
             인기 해시태그
           </h3>
           <div class="tags_block clearfix">
             <ul>
-            <li><a data-filter=".category-1" class="filter">전체 (${hashTagList.size()})</a></li>
+            <li><a data-filter="all" class="filter">전체 (${hashTagList.size()})</a></li>
             <c:if test="${hashTagList.size() > 0 }">
             <c:set var="ctHash" value="1" />
             <c:forEach var="hashTag" items="${hashTagList }">
@@ -145,8 +152,19 @@
         <c:forEach var="hashLoop" items="${article.hashtags }">
        		<c:set var="tag" scope="page" value="${tag } category-hashTag-${hashLoop }"/>
        	</c:forEach>
-        <div class="category-1 mix custom-column-3 ${tag }"  
-        data-published-date="${article.article_regdate}" data-likes-num="${article.likes.size()}" data-comments-num="${article.comments.size()}">
+       	
+       <c:choose>
+       <c:when test="${article.group_id >0}">
+       		<div class="mix custom-column-3 ${tag} group-<c:out value="${group.group_id}"/>"  
+       		data-published-date="${article.article_regdate}" 
+	        data-likes-num="${article.likes.size()}" data-comments-num="${article.comments.size()}">
+       </c:when>
+       <c:otherwise>
+        	<div class="mix custom-column-3 ${tag} "  data-published-date="${article.article_regdate}" 
+	        data-likes-num="${article.likes.size()}" data-comments-num="${article.comments.size()}">
+       </c:otherwise>
+       </c:choose>
+	    
             <div id="article-post-<c:out value="${article.article_id}"/>" class="be-post-sjh" 
             style="background-color:#cecece1f">
               <a class="be-img-block">
@@ -172,18 +190,6 @@
               </a>              
               <a id="article-title-<c:out value="${article.article_id}"/>" class="be-post-title">
                 ${article.article_title}
-               <!--
-             	<c:if test="${article.imagePaths.size()>0 }">
-             		<c:set var="imgCt" value="1"/>
-              	<c:forEach var="images" items="${article.imagePaths}">
-              	<c:if test="${imgCt < 2 }">
-                  <img src="/salmon/main/image?fileName=${images }" alt="img">
-                </c:if>
-                	<c:set var="imgCt" value="${imgCt+1 }"/>
-                </c:forEach>
-              </c:if>
-              --> 
-
               </a>
               <span>
               	<c:forEach var="tag" items="${article.hashtags }">
