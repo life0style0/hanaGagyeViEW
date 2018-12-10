@@ -143,7 +143,7 @@
        	
        	
         <div class="be-vidget">
-          <h3 class="letf-menu-article">소모임 선택</h3>
+          <h3 class="letf-menu-article text-center feeds-smaller-title">소모임 선택</h3>
           <div class="creative_filds_block">
             <div class="ul">
               <a data-filter="all" class="filter">전체글 </a>
@@ -162,9 +162,7 @@
         </div>
         
         <div class="be-vidget">
-          <h3 class="letf-menu-article">
-            인기 해시태그
-          </h3>
+          <h3 class="letf-menu-article text-center feeds-smaller-title">인기 해시태그</h3>
           <div class="tags_block clearfix">
           
             <ul>

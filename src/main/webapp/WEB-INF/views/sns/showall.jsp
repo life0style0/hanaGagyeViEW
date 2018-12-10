@@ -60,29 +60,20 @@
 
   <!-- MAIN CONTENT -->
   <div id="content-block">
-      <div class="head-bg-content font-sjh" style="height:fit-content">
+  	<div class="head-bg">
+      <div class="head-bg-img" style="padding-top: 225px; 
+      background-image: url(/salmon/resources/sjh/img/telescope.jpg); 
+      background-position: 50% 50%; background-repeat: no-repeat; opacity: 0.8;"></div>
+     <!--  <div class="head-bg-content"></div> -->
+      <div class="head-bg-content font-sjh">
         <h1> 둘러보기 </h1>
         <p> 다른 분들은 어떤 소비를 하고 있을까요? </p>
       </div>
-  </div>
-
-  <div class="container-fluid cd-main-content custom-container">
-    <div class="row">
-      <div class="col-md-2 left-feild">
-        
-      </div>
-      <div class="col-md-10 ">
-        <div class="for-be-dropdowns">
-          
-        </div>
-      </div>
     </div>
   </div>
-  
-  
+
   <div class="container-fluid custom-container">
     <div class="row">
-
       <div class="col-md-2 left-feild">
         <div class="be-vidget">
 	        <div class="creative_filds_block">
