@@ -623,7 +623,7 @@ to {
   <%@ include file="../includes/footer.jsp"%>
 
   <!-- 게시글 모달 -->
-  <%@ include file="/WEB-INF/views/includes/articlemodal.jsp"%>
+  <%@ include file="/WEB-INF/views/includes/articlemodal_group.jsp"%>
   <!--  게시글 모달끝 -->
 
   <!-- 게시글 신고 모달 -->
