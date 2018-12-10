@@ -174,7 +174,7 @@ function setArticleModal(article){
 	}
 	
 	
-	$('#article-comments-btn').html('<i class="fa fa-comment-o"></i>'+article.comments.length);
+	$('#article-comments-btn').html('<i class="fas fa-comment"></i>'+article.comments.length);
 }
 
 function setLikedArticle(likesnum){
@@ -182,7 +182,7 @@ function setLikedArticle(likesnum){
 	$('#article-unlike-btn').removeClass('hidden');
 //	$('#article-like-btn').css('display','none');
 //	$('#article-unlike-btn').css('display','inline');
-	$('#article-unlike-btn').html('<i class="fa fa-thumbs-o-up"></i>'+likesnum);
+	$('#article-unlike-btn').html('<i class="fas fa-thumbs-up"></i>'+likesnum);
 }
 
 function setLikableArticle(likesnum){
@@ -190,7 +190,7 @@ function setLikableArticle(likesnum){
 	$('#article-unlike-btn').addClass('hidden');
 //	$('#article-unlike-btn').css('display','none');
 //	$('#article-like-btn').css('display','inline');
-	$('#article-like-btn').html('<i class="fa fa-thumbs-o-up"></i>'+likesnum);
+	$('#article-like-btn').html('<i class="far fa-thumbs-up"></i>'+likesnum);
 }
 
 function setScrapedArticle(scrapsnum){
@@ -559,9 +559,9 @@ function setModalCommentNum(num) {
 	var currentNum = $('#article-comments-btn').text();
 	console.log(currentNum);
 	if (Number(num) < 0) {
-		$('#article-comments-btn').html(`<i class="fa fa-comment-o"></i>`+Number(currentNum) - 1);
+		$('#article-comments-btn').html(`<i class="fas fa-comment"></i>`+Number(currentNum) - 1);
 	} else {
-		$('#article-comments-btn').html(`<i class="fa fa-comment-o"></i>`+(Number(currentNum) + Number(num)));
+		$('#article-comments-btn').html(`<i class="fas fa-comment"></i>`+(Number(currentNum) + Number(num)));
 	}
 }
 

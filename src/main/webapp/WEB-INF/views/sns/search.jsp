@@ -122,28 +122,60 @@
     </div>
     </div>
         
+       
 	<div id="search-res-article" class="container-fluid custom-container">
     <div class="row">
       <div class="col-md-2 left-feild">
-        <div class="controls">
-         	<button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:desc comments-num:asc">좋아요순</button>
-            <button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:asc comments-num:desc">댓글순</button>
-            <button type="button" class="control btn btn-default my-btn" data-sort="published-date:desc likes-num:asc comments-num:asc">최신순</button>
-        </div>
+      
+      	<div class="be-vidget">
+	        <div class="creative_filds_block">
+		        <div class="controls">
+		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:desc comments-num:asc">좋아요순</button>
+		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:asc comments-num:desc">댓글순</button>
+		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:desc likes-num:asc comments-num:asc">최신순</button>
+		        </div>
+	        </div>
+       	</div>
+        
         <div class="be-vidget">
+          <div class="creative_filds_block">
+            <div class="ul">
+            	<a class="filter" data-filter=".category-p">포스트</a>
+		        <a class="filter" data-filter=".category-s">역제안</a>
+            </div>
+          </div>
+        </div>
+        <!-- 
+        <div class="be-vidget">
+	        <ul>
+		        <li><a type="button" class="filter" data-filter=".category-p">post</a></li>
+		        <li><a type="button" class="filter" data-filter=".category-s">sug</a></li>
+	        </ul>
+        
           <h3 class="letf-menu-article"> </h3>
           <div class="creative_filds_block">
             <div class="ul">
               <a data-filter=".category-p" class="filter"> 포스트 </a>
               <a data-filter=".category-s" class="filter"> 역제안 </a>
-            </div>
+            </div> 
           </div>
+         
         </div>
+           -->
+           <!-- 
+          <div class="creative_filds_block">
+            <div class="controls">
+              <button type="button" class="control" data-toggle=".category-p">post</button>
+              <button type="button" class="control" data-toggle=".category-s">sug</button>
+          </div>
+          </div>
+         -->
         <div class="be-vidget">
           <h3 class="letf-menu-article">인기 해시태그</h3>
           <div class="tags_block clearfix">
+           
             <ul>
-            <li><a data-filter=".category-1" class="filter">전체 (${hashTagList.size()})</a></li>
+            <li><a data-filter="all" class="filter">전체 (${hashTagList.size()})</a></li>
             <c:if test="${hashTagList.size() > 0 }">
             <c:set var="ctHash" value="1" />
             <c:forEach var="hashTag" items="${hashTagList }">
@@ -157,8 +189,9 @@
               <li>등록된 태그가 없습니다.</li>
             </c:if>
             </ul>
-          </div>
+          
         </div>
+      </div>
       </div>
      
 
@@ -177,15 +210,15 @@
 		<c:if test="${articleList.size() > 0 }">
         <c:forEach var="article" items="${articleList }">
         <c:forEach var="hashLoop" items="${article.hashtags }">
-       		<c:set var="tag" scope="page" value="${tag } category-hashTag-${hashLoop }"/>
+       		<c:set var="tag" scope="page" value="${tag} category-hashTag-${hashLoop}"/>
        	</c:forEach>
        <c:choose>
        <c:when test="${article.article_ctgry_id eq 3}">
-	        <div class="category-s mix custom-column-3 ${tag }"  data-published-date="${article.article_regdate}" 
+	        <div class="mix custom-column-3 ${tag} category-s"  data-published-date="${article.article_regdate}" 
 	        data-likes-num="${article.likes.size()}" data-comments-num="${article.comments.size()}">
        </c:when>
        <c:otherwise>
-       		<div class="category-p mix custom-column-3 ${tag }"  data-published-date="${article.article_regdate}" 
+       		<div class="mix custom-column-3 ${tag} category-p"  data-published-date="${article.article_regdate}" 
 	        data-likes-num="${article.likes.size()}" data-comments-num="${article.comments.size()}">
        </c:otherwise>
        </c:choose>
@@ -310,7 +343,7 @@
 <%@ include file="/WEB-INF/views/includes/reportModal.jsp"%>
 <%@ include file="/WEB-INF/views/includes/reportConfirmModal.jsp"%>
   <!--  게시글 신고 모달끝 -->
-
+<!-- 
   <div class="theme-config">
     <div class="main-color">
       <div class="title">Main Color:</div>
@@ -328,13 +361,13 @@
     </div>
     <div class="open"><img src="/salmon/resources/template/img/icon-134.png" alt=""></div>
   </div>
-  
+   -->
   <!-- SCRIPTS	 -->
   <script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>
   <script src="/salmon/resources/template/script/jquery-ui.min.js"></script>
   <script src="/salmon/resources/template/script/bootstrap.min.js"></script>
   <script src="/salmon/resources/template/script/idangerous.swiper.min.js"></script>
-  <script src="/salmon/resources/template/script/jquery.mixitup.js"></script>
+<!--   <script src="/salmon/resources/template/script/jquery.mixitup.js"></script> -->
   <script src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
   <script src="/salmon/resources/template/script/filters.js"></script>
   <script src="/salmon/resources/template/script/global.js"></script>
@@ -368,14 +401,21 @@
 	
 	<!--  게시글 정렬  -->
  	<script src="/salmon/resources/sjh/js/mixitup.min.js"></script>
-        <script>
-            var containerEl = document.querySelector('#container-mix');
+    <script>
+    var containerEl = document.querySelector('#container-mix');
 
-            var mixer = mixitup(containerEl, {
+    var mixer = mixitup(containerEl, {
                 load: {
                     sort: 'published-date:desc likes-num:asc comments-num:asc'
                 }
+    			
+    			/* 	,
+                animation: {
+                	duration: 200
+               } */
             });
-        </script>
+
+    </script>
+        
 </body>
 </html>

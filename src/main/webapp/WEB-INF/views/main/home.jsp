@@ -296,15 +296,11 @@
                 </span>
               </div>
               <div class="info-block">
-                <span><i class="fa fa-thumbs-o-up"></i>
+                <span><i class="far fa-thumbs-up"></i>
                 	<%--좋아요 --%>
                 	<c:out value="${article.likes.size()}"/>
                 </span>
-                <span><i class="fa fa-eye"></i>
-                	<%--스크랩수 --%>
-                	<c:out value="${article.scraps.size()}"/>
-                </span>
-                <span><i class="fa fa-comment-o"></i>
+                <span><i class="fas fa-comment"></i>
                 	<%--댓글수 --%>
                 	<c:out value="${article.comments.size()}"/>
                 </span>

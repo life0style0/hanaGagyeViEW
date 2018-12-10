@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<!-- font awsome -->
 <div class="modal fade article-modal blog-list" id="article-modal" tabindex="-1" role="dialog" aria-labelledby="article-modal-label"
   aria-hidden="true">
   <div class="modal-dialog">
@@ -45,13 +46,13 @@
                 </div>
                 <div class="info-block">
                   <span id="article-like-btn" class="hidden">
-                  	<i class="fa fa-thumbs-o-up"></i> +1
+                  	<i class="far fa-thumbs-up"></i> +1
                   </span>
-                  <span id="article-unlike-btn" class="hidden">
-                  	<i class="fa fa-thumbs-o-up"></i> -1
+                  <span id="article-unlike-btn" class="hidden orange-font">
+                  	<i class="fas fa-thumbs-up"></i> -1
                   </span>
                   <span id="article-comments-btn">
-                  	<i class="fa fa-comment-o"></i> 20
+                  	<i class="fas fa-comment"></i> 20
                   </span>
                   <span id="article-share-btn" class="hidden">
                   	<a><i class="fa fa-share-alt"></i> 공유</a>
