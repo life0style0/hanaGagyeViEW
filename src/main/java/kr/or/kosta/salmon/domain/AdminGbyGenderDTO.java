@@ -1,7 +1,5 @@
 package kr.or.kosta.salmon.domain;
 
-import java.util.ArrayList;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

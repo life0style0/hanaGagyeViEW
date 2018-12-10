@@ -72,9 +72,9 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-table"></i> 통계분석 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="index.html">유저 분석</a></li>
-                      <li><a href="index2.html">소비 분석</a></li>
-                      <li><a href="index3.html">게시글 분석</a></li>
+                      <li><a href="index">유저 분석</a></li>
+                      <li><a href="paymentInfo">소비 분석</a></li>
+                      <li><a href="articleInfo">게시글 분석</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> 게시글 및 유저 관리 <span class="fa fa-chevron-down"></span></a>
@@ -480,13 +480,13 @@
 	    yAxis: {
 	        min: 0,
 	        title: {
-	            text: 'Rainfall (mm)'
+	            text: '(명)'
 	        }
 	    },
 	    tooltip: {
 	        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
 	        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-	            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+	            '<td style="padding:0"><b>{point.y:.1f} 명</b></td></tr>',
 	        footerFormat: '</table>',
 	        shared: true,
 	        useHTML: true

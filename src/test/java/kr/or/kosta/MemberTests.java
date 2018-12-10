@@ -200,7 +200,7 @@ public class MemberTests {
 	
 	//user dummy
 	//Users 더미데이터 (i값 변경해서 쓰기) 비밀번호 1234
-//	@Test
+	@Test
 	public void testInsertMemberUser() {
 		log.info(" users DUMMY 삽입 ");
 		

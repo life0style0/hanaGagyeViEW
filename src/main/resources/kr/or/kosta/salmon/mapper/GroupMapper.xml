@@ -97,13 +97,13 @@
 	            #{ctgry_2},
 	            #{ctgry_3} );
 	            
-	INSERT INTO group_users 
-	            (group_users_id, 
-	             group_id, 
-	             user_id) 
-	VALUES     (group_users_id_seq.nextval, 
-	            groupId, 
-	            # {user_id}); 
+	INSERT INTO group_users
+	            (group_users_id,
+	             group_id,
+	             user_id)
+	VALUES     (group_users_id_seq.nextval,
+	            groupId,
+	            #{user_id});
 	
 	END;
 	</insert>
@@ -113,11 +113,11 @@
 	<insert id="joinGroup">
 	INSERT INTO group_users
 	            (GROUP_USERS_ID,
-	             group_id, 
-	             user_id) 
-	VALUES     (group_users_id_seq.nextval, 
-	            # {group_id}, 
-	            # {user_id}) 
+	             group_id,
+	             user_id)
+	VALUES     (group_users_id_seq.nextval,
+	            #{group_id},
+	            #{user_id})
 	</insert>
 	
 	<!-- 소모임 현재인원, 최대인원 Count -->
@@ -126,7 +126,7 @@
 	       Count(group_users_id) "now"
 	FROM   groups
 	       LEFT OUTER JOIN group_users using(group_id)
-	WHERE  group_id = # {group_id}
+	WHERE  group_id = #{group_id}
 	GROUP  BY group_people_max
 	</select>
 	
