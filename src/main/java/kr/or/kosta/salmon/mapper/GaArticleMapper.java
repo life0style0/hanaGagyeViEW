@@ -2,6 +2,8 @@ package kr.or.kosta.salmon.mapper;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
 import kr.or.kosta.salmon.domain.HashTagDTO;
@@ -38,4 +40,7 @@ public interface GaArticleMapper {
 	public int imageCheck(ImageEditDTO imageEditDTO);
 	
 	public ArrayList<String> getUserGroupTitle(String user_id);
+
+	//게시글 삭제
+	public int deleteArticle(@Param("article_id") int article_id,@Param("user_id") String user_id);
 }

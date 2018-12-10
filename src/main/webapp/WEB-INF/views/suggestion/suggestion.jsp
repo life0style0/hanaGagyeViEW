@@ -116,7 +116,6 @@
 										<i class="fa fa-clock-o"></i> ${article.articleRegdate} ~ ${article.articleEnddate}
 									</div>
 									<div class="author-post">
-										<img src="/salmon/resources/template/img/a1.png" alt="" class="ava-author">
 										<span>by <a href="blog-detail-2.html">${article.userPsns.userNickname}</a></span>
 									</div>
 								</div>
@@ -186,7 +185,7 @@
 									<input type="hidden" name="lastCommentId" value="">
 									<input type="hidden" name="articleId" value="${article.articleId}">
 									<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}">
-									<button type="submit" class="btn color-1 size-2 hover-1 pull-right" id="comment">댓글 달기</button>
+									<button type="submit" class="btn color-white-sjh size-2 hover-5 pull-right" id="comment">댓글 달기</button>
 								</div>
 							</form>
 						</div>
@@ -245,9 +244,9 @@
 							${article.userPsns.ctgryName3 != "none" ? article.userPsns.ctgryName3 : ''}
 						</p>
 					</div>
-					<a href="${article.articleId}" class="be-button-vidget like-cancel-btn blue-style ${checkLike ? '' : 'hidden'}"><i
+					<a href="${article.articleId}" class="btn full color-white-sjh size-1 hover-5 like-cancel-btn ${checkLike ? '' : 'hidden'}"><i
 						 class="fas fa-thumbs-up"></i></i>추천 취소하기</a>
-					<a href="${article.articleId}" class="be-button-vidget like-btn blue-style ${checkLike ? 'hidden' : ''}"><i class="far fa-thumbs-up"></i></i>이
+					<a href="${article.articleId}" class="btn full color-white-sjh size-1 hover-5 like-btn ${checkLike ? 'hidden' : ''}"><i class="far fa-thumbs-up"></i></i>이
 						제안 추천하기!</a>
 				</div>
 			</div>

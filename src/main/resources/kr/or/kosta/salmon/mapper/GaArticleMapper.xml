@@ -316,6 +316,12 @@
 		FROM		images 
 		WHERE		article_id=#{article_id} and image_path = #{image_path}
 	</select>
+
+	<update id="deleteArticle">
+	UPDATE articles
+	SET article_deleted = 'Y'
+	WHERE article_id = #{article_id} and user_id = #{user_id}
+	</update>
 	
 	<select id="getUserGroupTitle" resultType="String">
 		SELECT		 group_title 

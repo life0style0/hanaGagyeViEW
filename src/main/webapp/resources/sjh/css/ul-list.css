@@ -1,5 +1,4 @@
-
- /* ul.categories li{
+/* ul.categories li{
  	line-height: 40px;
     display: inline-block;
     padding: 0 25px;
@@ -17,13 +16,24 @@
     border-radius: 3px;
     margin: 2px;
  } */
- 
- ul.categories li.selected{
- 	color: #FFF;
- 	background-color: #FE2E9A;
- }
 
- .square {
+.focus-1 {
+   border: 1px solid #edeff2;
+   margin: -1px;
+}
+
+ul.categories {
+   overflow: hidden;
+   border: 1px solid #edeff2;
+   margin: -1px;
+}
+
+ul.categories li.selected {
+   color: #FFF;
+   background-color: #FE2E9A;
+}
+
+.square {
    line-height: 160px;
    font-family: "Roboto", "Arial", "Helvetica Neue", sans-serif;
    transition: all 0.4s ease;
@@ -41,8 +51,8 @@
    color: black;
    margin: 12px;
    padding: unset;
- }
+}
 
- .square:hover {
-    cursor: pointer;
- }
+.square:hover {
+   cursor: pointer;
+}

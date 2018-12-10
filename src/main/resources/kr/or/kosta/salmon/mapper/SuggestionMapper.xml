@@ -377,8 +377,9 @@ WHERE article_id = #{articleId}
         </select>
 
         <insert id="insertArticle">
-DECLARE articleid NUMBER; 
-
+DECLARE
+  articleid NUMBER; 
+  hashid NUMBER;
 BEGIN 
     SELECT article_id_seq.nextval 
     INTO   articleid 
@@ -424,8 +425,62 @@ BEGIN
                  article_id) 
     VALUES     (ctgry_value_id_seq.nextval, 
                 #{ctgry3}, 
-                articleid); 
-END; 
+                articleid);
+<foreach collection="hashtags" item="hashtag" separator="  ">
+
+   SELECT (SELECT hashtag_id 
+    FROM   hashtags 
+    WHERE  hashtag_value = #{hashtag})
+    INTO   hashid 
+    FROM   dual; 
+
+    IF hashid is null THEN 
+      SELECT hashtag_id_seq.NEXTVAL 
+      INTO   hashid 
+      FROM   dual; 
+
+      INSERT INTO hashtags 
+                  (hashtag_id, 
+                   hashtag_value) 
+      VALUES     (hashid, 
+                  #{hashtag}); 
+
+      INSERT INTO hashtag_refs 
+                  (hashtag_ref_id, 
+                   hashtag_id, 
+                   article_id) 
+      VALUES     (hashtag_ref_id_seq.NEXTVAL, 
+                  hashid, 
+                  articleid);
+    ELSIF hashid = 0 THEN
+      SELECT hashtag_id_seq.NEXTVAL 
+      INTO   hashid 
+      FROM   dual; 
+
+      INSERT INTO hashtags 
+                  (hashtag_id, 
+                   hashtag_value) 
+      VALUES     (hashid, 
+                  #{hashtag}); 
+
+      INSERT INTO hashtag_refs 
+                  (hashtag_ref_id, 
+                   hashtag_id, 
+                   article_id) 
+      VALUES     (hashtag_ref_id_seq.NEXTVAL, 
+                  hashid, 
+                  articleid);
+    ELSE 
+      INSERT INTO hashtag_refs 
+                  (hashtag_ref_id, 
+                   hashtag_id, 
+                   article_id) 
+      VALUES     (hashtag_ref_id_seq.NEXTVAL, 
+                  hashid, 
+                  articleid); 
+    END IF;
+    </foreach>
+END;
         </insert>
 
         <select id="checkFollow" resultType="int">

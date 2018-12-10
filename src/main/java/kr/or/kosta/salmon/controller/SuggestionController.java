@@ -192,7 +192,7 @@ public class SuggestionController {
             model.addAttribute("checkLike", SS.checkLike(principal.getName(), sno));
             log.info("");
             SuggestionDTO sgt = SS.getSuggestion(sno);
-            model.addAttribute("article", SS.getSuggestion(sno));
+            model.addAttribute("article", sgt);
             model.addAttribute("checkLike", SS.checkLike(principal.getName(), sno));
             model.addAttribute("checkFollow", SS.checkFollow(principal.getName(), sgt.getUserPsns().getUserId()));
             model.addAttribute("userId", principal.getName());
@@ -204,16 +204,17 @@ public class SuggestionController {
 
     // @GetMapping(value = "/news")
     // public String newArticle(Principal principal, Model model) {
-    //     log.info("newArticle...");
-    //     List<CategoryDTO_sjh> categories = ;
+    // log.info("newArticle...");
+    // List<CategoryDTO_sjh> categories = ;
 
-    //     model.addAttribute("userId", principal.getName());
-    //     return "suggestion/new";
+    // model.addAttribute("userId", principal.getName());
+    // return "suggestion/new";
     // }
 
     @PostMapping(value = "/news")
     public String insertArticle(NewSuggestionDTO newSuggestionDTO, Principal principal) {
         log.info("insertArticle...");
+        log.info(newSuggestionDTO);
         newSuggestionDTO.setUserId(principal.getName());
         log.info(newSuggestionDTO);
         try {

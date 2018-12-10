@@ -170,9 +170,9 @@ function setGgvCategories() {
 }
 
 function setSortingMoney(minMoney, maxMoney) {
-    $('.sorting-cal-money').html(`수입/지출액 필터 : 최소 <b class="min-money">${minMoney}</b>원
+    $('.sorting-cal-money').html(`<div style="float:left;">수입/지출액 필터 : 최소 <b class="min-money">${minMoney}</b>원</div>
     <input id="money-slider" type="text" class="" value="" data-slider-min="${minMoney}" data-slider-max="${maxMoney}" data-slider-step="1000"
-     data-slider-value="[${minMoney},${maxMoney}]" /> 최대 <b class="max-money">${maxMoney}</b>원`);
+     data-slider-value="[${minMoney},${maxMoney}]" /><div style="float:right;">최대 <b class="max-money">${maxMoney}</b>원</div>`);
     moneySlider = new Slider('#money-slider', {});
 }
 
