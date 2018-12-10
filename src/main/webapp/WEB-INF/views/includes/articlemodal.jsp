@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="modal fade article-modal blog-list" id="article-modal" tabindex="-1" role="dialog" aria-labelledby="article-modal-label"
   aria-hidden="true">
   <div class="modal-dialog">
@@ -22,7 +23,17 @@
                 </div>
                 <div class="post-text" id="article-content-and-comments">
 	                <div id="article-content" class="article-content"></div>
-	                <div id="article-comments" class="article-comments"></div>
+	                <div id="article-comments" class="article-comments">
+						<div id="comment-area" name="comment-area"></div>
+						<form id="reply-form-" method="get">
+							<div class="form-group">
+								<input type="hidden" name="article_id" value="">
+								<c:out value="${me.user_nickname}"/>
+								<input type="text" name="comment_content" required="required" class="form-input">
+								<input type="button" id="reply-write-btn-" class="btn-sjh pull-right" value="등록">
+							</div>
+						</form>
+	                </div>
                 </div>
                 <div class="author-post">
                   <img src="" alt="" class="ava-author" id="article-writer-photo">

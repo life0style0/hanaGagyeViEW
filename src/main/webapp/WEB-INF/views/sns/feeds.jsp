@@ -155,6 +155,8 @@
 						<c:forEach var="followingUser" items="${followingList}">
 						<!-- <div class="following-user-info"> -->
 							<a class="following-user-info" href="/salmon/sns/feeds?userid=${followingUser.user_id}">
+								<input type="hidden" name="user-comment-profile-photo" value="${followingUser.user_image}">
+								<img src="" alt="" class="following-photo">
 								<c:out value="${followingUser.user_nickname}"/>
 								(<c:out value="${followingUser.user_id}"/>)
 							</a>
@@ -226,71 +228,81 @@
 			<c:choose>
 			<c:when test="${myArticles.size() != 0}">
 			<c:forEach var="myArticle" items="${myArticles}">
-				<div>
+				<div name="post">
 				<!-- <div class="col-md-9 col-md-push-3" style="background-color: crimson;"> -->
 					
 					<div class="be-large-post" style="margin-bottom: unset;">
 						<div class="info-block">
-							<div class="be-large-post-align">
-								<span><i class="fa fa-thumbs-o-up"></i>
-									<%--좋아요 --%>
-                					<c:out value="${myArticle.likes.size()}"/>
-								</span>
-								<span><i class="fa fa-eye"></i>
-									<%--스크랩수 --%>
-	                				<c:out value="${myArticle.scraps.size()}"/>
-								</span>
-								<span><i class="fa fa-comment-o"></i>
+							<div class="be-large-post-align font-larger">
+								<input type="hidden" name="article_id" value="<c:out value="${myArticle.article_id}"/>">
+								<c:choose>
+								<c:when test="${myArticle.isLikedByMe > 0}">
+									<%-- 이미 로그인한 유저가 좋아요한 게시글 --%>
+									<span name="article-like-btn" class="hidden">
+										<i class="far fa-thumbs-up"></i><%--좋아요 --%>
+	                					<c:out value="${myArticle.likes.size()}"/>
+									</span>
+									<span name="article-unlike-btn" class="orange-font">
+										<i class="fas fa-thumbs-up"></i><%--안좋아요 --%>
+	                					<c:out value="${myArticle.likes.size()}"/>
+									</span>
+								</c:when>
+								<c:otherwise>
+									<%-- 아직 로그인한 유저가 좋아요 하지않은 게시글 --%>
+									<span name="article-like-btn">
+										<i class="far fa-thumbs-up"></i><%--좋아요 --%>
+	                					<c:out value="${myArticle.likes.size()}"/>
+									</span>
+									<span name="article-unlike-btn" class="orange-font hidden">
+										<i class="fas fa-thumbs-up"></i><%--안좋아요 --%>
+	                					<c:out value="${myArticle.likes.size()}"/>
+									</span>
+								</c:otherwise>
+								</c:choose>
+								<span><i class="fas fa-comment"></i>
 									<%--댓글수 --%>
 	                				<c:out value="${myArticle.comments.size()}"/>
 								</span>
+								<c:choose>
+									<c:when test="${myArticle.isReportedByMe > 0}">
+									<span name="article-report-btn" class="hidden">
+				                  		<i class="far fa-flag"></i> 신고
+				                  	</span>
+				                  	<span name="article-report-complete-btn" class="orange-font">
+				                  		<i class="fas fa-flag"></i> 신고됨
+				                  	</span>
+									</c:when>
+									<c:otherwise>
+									<span name="article-report-btn">
+				                  		<i class="far fa-flag"></i> 신고
+				                  	</span>
+				                  	<span name="article-report-complete-btn" class="orange-font hidden">
+				                  		<i class="fas fa-flag"></i> 신고됨
+				                  	</span>
+									</c:otherwise>
+								</c:choose>
 								<span style="float:right">
 								작성일 
 								<c:out value="${myArticle.article_regdate}"/>
 								</span>
 							</div>
 						</div>
-						<!-- <div class="blog-content popup-gallery be-large-post-align"> -->
 						<div class="blog-content be-large-post-align">
 							<h5 class="feed-article-title">
 								<c:out value="${myArticle.article_payment_fee}"/>원, 
 								<c:out value="${myArticle.article_title}"/>
 							</h5>
-							<%-- 
-							<span class="be-text-tags">
-							<c:forEach var="tag" items="${myArticle.hashtags}">
-								<a href="blog-detail-2.html" class="be-post-tag">${tag}</a>, 
-			                </c:forEach>
-							</span>
-							 --%>
+						
 							<div class="clear"></div>
 							<div class="post-text">
-								<p> 
-								${myArticle.article_content}
-								</p>
-
-								<!-- <div class="image-block">
-								    <a class="popup-a" href="img/l1.jpg">
-									<img src="/salmon/resources/sjh/img/l1.jpg" alt="">
-									</a>
-									<div class="image-text">Ut pulvinar tellus sed elilectus eros, quis sollicitudin lacinia.</div>
-								</div> -->
-								  <!--   <a class="popup-a" href="img/l2.jpg">
-									<img src="/salmon/resources/sjh/img/l2.jpg" alt="" style="height:100px">
-									</a> -->
-								
-								<c:if test="${article.imagePaths.size()>0 }">
-				              <%--   <c:set var="imgCt" value="1"/> --%>
-					          	<c:forEach var="images" items="${article.imagePaths}">
+								<p> ${myArticle.article_content}</p>
+								<c:if test="${myArticle.imagePaths.size()>0 }">
+					          	<c:forEach var="images" items="${myArticle.imagePaths}">
 					                <div class="image-block">
-					                <%--   <c:if test="${imgCt < 2 }"> --%>
 					                  <img src="/salmon/main/image?fileName=${images}" alt="img">
-					                 <%--  </c:if> --%>
 					                </div>
-				              <%--   <c:set var="imgCt" value="${imgCt+1 }"/> --%>
 					            </c:forEach>
 				              </c:if>
-
 							</div>
 						</div>
 						<div class="be-large-post-align">
@@ -302,7 +314,7 @@
 								<c:choose>
 								<c:when test="${myArticle.hashtags.size() ne 0}">
 									<c:forEach var="tag" items="${myArticle.hashtags}">
-										<li><a href="">${tag}</a></li>
+										<li><a href="/salmon/sns/search?search-value=${tag}">${tag}</a></li>
 				                	</c:forEach>
 								</c:when>
 								<c:otherwise>
@@ -313,14 +325,15 @@
 							</div>
 						</div>						
 					</div>
-				
-					<div class="be-comment-block">
-						<h1 class="comments-title">Comments (<span name="comment-num" id="comment-num-<c:out value="${myArticle.article_id}"/>"><c:out value="${myArticle.comments.size()}"/></span>)</h1>
-						<p class="about-comment-block">
-							<!-- You must <a href="blog-detail-2.html" class="be-signup-link">SIGN UP</a>
-							 to join the conversation. -->
-						</p>
-						
+					
+					<div class=" folded-comments" name="fold-comments-btn" value="folded">
+						<h1 class="comments-title">댓글 (<span name="comment-num" id="comment-num-<c:out value="${myArticle.article_id}"/>"><c:out value="${myArticle.comments.size()}"/></span>)</h1>
+					</div> 
+					<div class="be-comment-block" name="comments-block">
+					<%-- 
+						<h1 class="comments-title">댓글 (<span name="comment-num" id="comment-num-<c:out value="${myArticle.article_id}"/>"><c:out value="${myArticle.comments.size()}"/></span>)</h1> 
+						 --%>
+						<!-- <p class="about-comment-block"></p> -->
 						<div name="comment-area">
 						<c:choose>
 						<c:when test="${myArticle.comments.size() ne 0}">
@@ -385,10 +398,166 @@
 			
 			<div class="row col-md-9" id="likeArticles">
 			<c:choose>
-				<c:when test="${likeArticles.size() != 0}">
-				<c:forEach var="likeArticle" items="${likeArticles}">
-					<c:out value="${likeArticle.article_id}"/>
-					<c:out value="${likeArticle.article_title}"/>
+			<c:when test="${likeArticles.size() != 0}">
+			<c:forEach var="likeArticle" items="${likeArticles}">
+				<div name="post">
+				<!-- <div class="col-md-9 col-md-push-3" style="background-color: crimson;"> -->
+					
+					<div class="be-large-post" style="margin-bottom: unset;">
+						<div class="info-block">
+							<div class="be-large-post-align font-larger">
+								<input type="hidden" name="article_id" value="<c:out value="${likeArticle.article_id}"/>">
+								<c:choose>
+								<c:when test="${likeArticle.isLikedByMe > 0}">
+									<%-- 이미 로그인한 유저가 좋아요한 게시글 --%>
+									<span name="article-like-btn" class="hidden">
+										<i class="far fa-thumbs-up"></i><%--좋아요 --%>
+	                					<c:out value="${likeArticle.likes.size()}"/>
+									</span>
+									<span name="article-unlike-btn" class="orange-font">
+										<i class="fas fa-thumbs-up"></i><%--안좋아요 --%>
+	                					<c:out value="${likeArticle.likes.size()}"/>
+									</span>
+								</c:when>
+								<c:otherwise>
+									<%-- 아직 로그인한 유저가 좋아요 하지않은 게시글 --%>
+									<span name="article-like-btn">
+										<i class="far fa-thumbs-up"></i><%--좋아요 --%>
+	                					<c:out value="${likeArticle.likes.size()}"/>
+									</span>
+									<span name="article-unlike-btn" class="orange-font hidden">
+										<i class="fas fa-thumbs-up"></i><%--안좋아요 --%>
+	                					<c:out value="${likeArticle.likes.size()}"/>
+									</span>
+								</c:otherwise>
+								</c:choose>
+								<span><i class="fas fa-comment"></i>
+									<%--댓글수 --%>
+	                				<c:out value="${likeArticle.comments.size()}"/>
+								</span>
+								<c:choose>
+									<c:when test="${likeArticle.isReportedByMe > 0}">
+									<span name="article-report-btn" class="hidden">
+				                  		<i class="far fa-flag"></i> 신고
+				                  	</span>
+				                  	<span name="article-report-complete-btn" class="orange-font">
+				                  		<i class="fas fa-flag"></i> 신고됨
+				                  	</span>
+									</c:when>
+									<c:otherwise>
+									<span name="article-report-btn">
+				                  		<i class="far fa-flag"></i> 신고
+				                  	</span>
+				                  	<span name="article-report-complete-btn" class="orange-font hidden">
+				                  		<i class="fas fa-flag"></i> 신고됨
+				                  	</span>
+									</c:otherwise>
+								</c:choose>
+								<span style="float:right">
+								작성일 
+								<c:out value="${likeArticle.article_regdate}"/>
+								</span>
+							</div>
+						</div>
+						<div class="blog-content be-large-post-align">
+							<h5 class="feed-article-title">
+								<c:out value="${likeArticle.article_payment_fee}"/>원, 
+								<c:out value="${likeArticle.article_title}"/>
+							</h5>
+						
+							<div class="clear"></div>
+							<div class="post-text">
+								<p> ${likeArticle.article_content}</p>
+								<c:if test="${likeArticle.imagePaths.size()>0 }">
+					          	<c:forEach var="images" items="${likeArticle.imagePaths}">
+					                <div class="image-block">
+					                  <img src="/salmon/main/image?fileName=${images}" alt="img">
+					                </div>
+					            </c:forEach>
+				              </c:if>
+							</div>
+						</div>
+						<div class="be-large-post-align">
+							<h3 class="letf-menu-article">
+								Tags
+							</h3>
+							<div class="tags_block clearfix">
+								<ul>
+								<c:choose>
+								<c:when test="${likeArticle.hashtags.size() ne 0}">
+									<c:forEach var="tag" items="${likeArticle.hashtags}">
+										<li><a href="/salmon/sns/search?search-value=${tag}">${tag}</a></li>
+				                	</c:forEach>
+								</c:when>
+								<c:otherwise>
+									<li>태그가 없습니다</li>
+								</c:otherwise>
+								</c:choose>
+								</ul>
+							</div>
+						</div>						
+					</div>
+					
+					<div class=" folded-comments" name="fold-comments-btn" value="folded">
+						<h1 class="comments-title">댓글 (<span name="comment-num" id="comment-num-<c:out value="${likeArticle.article_id}"/>"><c:out value="${likeArticle.comments.size()}"/></span>)</h1>
+					</div> 
+					<div class="be-comment-block" name="comments-block">
+					<%-- 
+						<h1 class="comments-title">댓글 (<span name="comment-num" id="comment-num-<c:out value="${myArticle.article_id}"/>"><c:out value="${myArticle.comments.size()}"/></span>)</h1> 
+						 --%>
+						<!-- <p class="about-comment-block"></p> -->
+						<div name="comment-area">
+						<c:choose>
+						<c:when test="${likeArticle.comments.size() ne 0}">
+							<c:forEach var="comment" items="${likeArticle.comments}">
+							<div class="be-comment">
+							<input type="hidden" name="comment-id" value="${comment.comment_id}">
+							<input type="hidden" name="article-id" value="${comment.article_id}">
+									<div class="be-img-comment">	
+										<a href="/salmon/sns/feeds?userid=${comment.user_id}">
+										<input type="hidden" name="user-comment-profile-photo" value="${comment.user_image}">
+										<img src="" alt="" class="be-ava-comment">
+										</a>
+									</div>
+									<div class="be-comment-content">
+										<span class="be-comment-name">
+											<a href="/salmon/sns/feeds?userid=${comment.user_id}">
+											${comment.user_nickname}
+											</a>
+										</span>
+										<span class="be-comment-time">
+										<c:if test="${me.user_id eq comment.user_id}">
+											<span name="comment-delete-btn" class="comment-delete-btn">
+											<input type="hidden" name="comment-id" value="${comment.comment_id}">
+												<i class="fas fa-times"></i>삭제 
+											</span>
+										</c:if>
+										<i class="fa fa-clock-o"></i>
+										${comment.comment_regdate}
+										</span>
+										<p class="be-comment-text">
+										${comment.comment_content}
+										</p>
+									</div>
+								</div>
+							</c:forEach>
+							</c:when>
+							<c:otherwise>
+							</c:otherwise>
+							</c:choose>
+							</div>
+
+						<form id="reply-form-${likeArticle.article_id}" method="get">
+							<div class="form-group">
+								<input type="hidden" name="article_id" value="${likeArticle.article_id}">
+								<c:out value="${me.user_nickname}"/>
+								<input type="text" name="comment_content" required="required" class="form-input">
+								<input type="button" id="reply-write-btn-${likeArticle.article_id}" class="btn-sjh pull-right" value="등록">
+							</div>
+						</form>
+
+					</div>
+				</div>
 				</c:forEach>
 				</c:when>
 				<c:otherwise>
@@ -396,7 +565,7 @@
 						<h3>아직 좋아요한 게시글이 없습니다</h3>
 					</div>
 				</c:otherwise>
-			</c:choose>
+				</c:choose>
 			</div>
 		</div>
 	</div>
@@ -410,6 +579,11 @@
    <!--  로그아웃 팝업 -->
   <%@ include file="/WEB-INF/views/includes/logout.jsp"%>
   <!--  로그아웃 팝업 끝-->
+  
+    <!-- 게시글 신고 모달 -->
+<%@ include file="/WEB-INF/views/includes/reportModal.jsp"%>
+<%@ include file="/WEB-INF/views/includes/reportConfirmModal.jsp"%>
+  <!--  게시글 신고 모달끝 -->
   
 	<div class="theme-config">
 	    <div class="main-color">

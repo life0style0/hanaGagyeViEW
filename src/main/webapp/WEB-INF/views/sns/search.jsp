@@ -67,8 +67,9 @@
   </div>
 
 	<div class="col-md-12 article-menu-bar">
-		<div id="search-res-article-btn" class="col-md-3 article-menu">게시글 검색결과</div>
-		<div id="search-res-user-btn" class="col-md-3 article-menu">사용자 검색결과</div>
+		<div id="search-res-article-btn" class="col-md-2 article-menu">게시글 검색결과</div>
+		<div id="search-res-user-btn" class="col-md-2 article-menu">사용자 검색결과</div>
+		<div id="search-res-group-btn" class="col-md-2 article-menu">소모임 검색결과</div>
 	</div>
 
 	<!-- <div id="search-res-user" class="container-fluid custom-container"> -->
@@ -76,7 +77,7 @@
     <div class="row">
      <!--  <div class="col-md-2 left-feild">
       </div> -->
-       <div class="col-md-10">
+       <div class="col-md-12">
 		<c:choose>
 		<c:when test="${empty userList}">
 			<div class="be-large-post info-block">
@@ -125,9 +126,9 @@
     <div class="row">
       <div class="col-md-2 left-feild">
         <div class="controls">
-         	<button type="button" class="control" data-sort="published-date:asc likes-num:desc comments-num:asc">좋아요순</button>
-            <button type="button" class="control" data-sort="published-date:asc likes-num:asc comments-num:desc">댓글순</button>
-            <button type="button" class="control" data-sort="published-date:desc likes-num:asc comments-num:asc">최신순</button>
+         	<button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:desc comments-num:asc">좋아요순</button>
+            <button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:asc comments-num:desc">댓글순</button>
+            <button type="button" class="control btn btn-default my-btn" data-sort="published-date:desc likes-num:asc comments-num:asc">최신순</button>
         </div>
         <div class="be-vidget">
           <h3 class="letf-menu-article"> </h3>
@@ -162,17 +163,16 @@
      
 
       <div class="col-md-10">
-        <div id="container-mix" class="row _post-container_">
         <c:choose>
         
-        <c:when test="${articleList.size() == 0 and suggestionList.size() == 0 }">
+        <c:when test="${articleList.size() == 0 }">
         	<div class="be-large-post info-block">
 			 <h2> 검색된 게시글이 없습니다 !  </h2>
 			</div>
         </c:when>
         
         <c:otherwise>
-        
+          <div id="container-mix" class="row _post-container_">
         <%--일반 게시글 검색결과 --%>
 		<c:if test="${articleList.size() > 0 }">
         <c:forEach var="article" items="${articleList }">
@@ -190,8 +190,7 @@
        </c:otherwise>
        </c:choose>
        
-            <div id="article-post-<c:out value="${article.article_id}"/>" 
-            class="be-post-sjh" style="background-color:#81BEF7">
+            <div id="article-post-<c:out value="${article.article_id}"/>" class="be-post-sjh">
               <a class="be-img-block">
               <c:if test="${article.imagePaths.size()==0 }">
               	<div class="article-size">
@@ -245,69 +244,7 @@
           </div>
         </c:forEach>
         </c:if>
-          
-          <%-- 제안글 검색결과 --%>
-   <%--      <c:if test="${suggestionList.size() > 0 }">
-        <c:forEach var="article" items="${suggestionList }">
-        <c:forEach var="hashLoop" items="${article.hashtags }">
-       		<c:set var="tag" scope="page" value="${tag } category-hashTag-${hashLoop }"/>
-       	</c:forEach>
-        <div class="category-s mix custom-column-3 ${tag }" data-published-date="${article.article_regdate}" 
-        data-likes-num="${article.likes.size()}" data-comments-num="${article.comments.size()}">
-            <div id="article-post-<c:out value="${article.article_id}"/>" 
-            class="be-post-sjh" style="background-color:#F6CED8">
-              <a class="be-img-block">
-              <c:if test="${article.imagePaths.size()==0 }">
-              	<div class="article-size">
-              		<div class="padding-1-sjh">
-              			<c:out value="${article.article_content}"/>
-              		</div>
-              	</div>
-              </c:if>
-              <c:if test="${article.imagePaths.size()>0 }">
-                <c:set var="imgCt" value="1"/>
-	          	<c:forEach var="images" items="${article.imagePaths}">
-                <div class="article-size" style="text-align:center;">
-                  <c:if test="${imgCt < 2 }">
-                  <img src="/salmon/main/image?fileName=${images }" alt="img">
-                  </c:if>
-                </div>
-                <c:set var="imgCt" value="${imgCt+1 }"/>
-	            </c:forEach>
-              </c:if>
-              </a>              
-              <a id="article-title-<c:out value="${article.article_id}"/>" class="be-post-title">
-                ${article.article_title}
-              </a>
-              <span>
-              	<c:forEach var="tag" items="${article.hashtags }">
-                	<a href="blog-detail-2.html" class="be-post-tag">${tag } </a>
-                </c:forEach>
-              </span>
-              <div class="author-post">
-                <img src="/salmon/resources/template/img/a1.png" alt="" class="ava-author">
-                <span>by 
-                <a href="/salmon/sns/feeds?userid=${article.user_nickname}">${article.user_nickname}</a>
-                </span>
-              </div>
-              <div class="info-block">
-                <span><i class="fa fa-thumbs-o-up"></i>
-                	좋아요
-                	<c:out value="${article.likes.size()}"/>
-                </span>
-                <span><i class="fa fa-eye"></i>
-                	스크랩수
-                	<c:out value="${article.scraps.size()}"/>
-                </span>
-                <span><i class="fa fa-comment-o"></i>
-                	댓글수
-                	<c:out value="${article.comments.size()}"/>
-                </span>
-              </div>
-            </div>
-          </div>
-          </c:forEach>
-          </c:if> --%>
+    
         </c:otherwise>
         </c:choose>
       
@@ -317,6 +254,42 @@
     </div>
   
   
+  <div id="search-res-group">
+    <div class="row">
+       <div class="col-md-12">
+		<c:choose>
+		<c:when test="${empty groupList}">
+			<div class="be-large-post info-block">
+			 <h2> 검색된 모임이 없습니다 !  </h2>
+			</div>
+		</c:when>
+		<c:otherwise>
+		<c:forEach var="group" items="${groupList}">
+			<div class="custom-column-5" style="display: inline-block;">
+			<div class="be-user-block style-2">
+			<a class="be-ava-user style-2" href="/salmon/group/get?group_id=<c:out value="${group.group_id}"/>"> 
+			<img src="" alt="">
+			<%-- <input type="hidden" name="user-photo-path" value="${user.user_image}"> --%>
+			</a>
+			<a href="/salmon/group/get?group_id=<c:out value="${group.group_id}"/>" class="be-use-name">
+			<c:out value="${group.group_title}"/></a>
+			<p class="be-user-info"><c:out value="${group.group_description}"/> </p>
+				<div class="be-text-tags">
+				<c:out value="${group.ctgry_1}"/>
+				</div>
+				<a id="follow-ask-do-<c:out value="${user.user_id}"/>" class="ask-follow"
+				  href="/salmon/group/get?group_id=<c:out value="${group.group_id}"/>">
+				<i class="far fa-heart"></i> 둘러보기
+				</a>
+			</div>
+			</div>
+		</c:forEach>
+		</c:otherwise>
+		</c:choose>
+		
+		</div>
+    </div>
+    </div>
  
   	
   <!-- </div> -->

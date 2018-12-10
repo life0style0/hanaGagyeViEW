@@ -41,4 +41,7 @@ public class SNSArticleDTO_sjh {
 	
 	private int article_like_num;
 	private int article_comment_num;
+	
+	private int isLikedByMe; //로그인한 유저가 이 게시글을 좋아요 눌렀는지 여부 
+	private int isReportedByMe; //로그인한 유저가 이 게시글을 신고 했는지 여부 
 }

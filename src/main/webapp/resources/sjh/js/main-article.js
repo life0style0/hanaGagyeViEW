@@ -40,6 +40,18 @@ function eventRegist(){
 	$('#report-confirm-exit-btn').on('click',function(){
 		$('#report-article-modal').modal('hide');
 	})
+	
+	
+	$('[id^=reply-form-] input[type=button]').each(function (i, btn) {
+		$(btn).on('click', function (e) {
+			writeReply(e);
+		});
+	});
+
+	$('#article-modal').on('click', '[name="comment-delete-btn"]', function (e) {
+		deleteReply(e);
+	});
+	
 }
 
 function getArticleInfo(articleId){
@@ -78,12 +90,24 @@ function setArticleModal(article){
 	$('#article-regdate').html(article.article_regdate);
 	$('#article-pay-type').html(article.article_payment_type);
 	$('#article-scope').html(article.article_scope);
+
+	$(article.likes).each(function(i,like){
+		if(like.user_id == myId){
+			$('#article-like-btn').addClass('hidden');
+			$('#article-unlike-btn').removeClass('hidden');
+		}else{
+			$('#article-like-btn').removeClass('hidden');
+			$('#article-unlike-btn').addClass('hidden');
+		}
+	})
+	
 	$('#article-writer-nickname').html('<a href="/salmon/sns/feeds?userid='+article.user_nickname+'">'+article.user_nickname+'</a>');
+	$('#article-modal form').attr('id','reply-form-'+article.article_id);
+	$('#article-modal form input[name="article_id"]').attr('value',article.article_id);
+	$('#article-modal form input[type="button"]').attr('id','reply-write-btn-'+article.article_id);
 	
+	var commentsHTML='';
 	
-	var commentsHTML= `<div>
-						<div name="comment-area">`;
-						
 	if(article.comments.length > 0){
 		$(article.comments).each(function(i,comment){
 			console.log(comment);
@@ -116,18 +140,8 @@ function setArticleModal(article){
 				</div>`;
 		})
 	}
-	commentsHTML +=		`</div>
-						<form id="reply-form-`+article.article_id+`" method="get">
-							<div class="form-group">
-								<input type="hidden" name="article_id" value="`+article.article_id+`">
-								<c:out value="${me.user_nickname}"/>
-								<input type="text" name="comment_content" required="required" class="form-input">
-								<input type="button" id="reply-write-btn-`+article.article_id+`" class="btn-sjh pull-right" value="등록">
-							</div>
-						</form>
-					</div>`;
-	//console.log(commentsHTML);
-	$('#article-modal #article-comments').html(commentsHTML);
+	
+	$('#article-modal #comment-area').html(commentsHTML);
 	
 	console.log(article.likes);
 	if(article.likes != null){ //좋아요 있는 글
@@ -164,14 +178,18 @@ function setArticleModal(article){
 }
 
 function setLikedArticle(likesnum){
-	$('#article-like-btn').css('display','none');
-	$('#article-unlike-btn').css('display','inline');
+	$('#article-like-btn').addClass('hidden');
+	$('#article-unlike-btn').removeClass('hidden');
+//	$('#article-like-btn').css('display','none');
+//	$('#article-unlike-btn').css('display','inline');
 	$('#article-unlike-btn').html('<i class="fa fa-thumbs-o-up"></i>'+likesnum);
 }
 
 function setLikableArticle(likesnum){
-	$('#article-unlike-btn').css('display','none');
-	$('#article-like-btn').css('display','inline');
+	$('#article-like-btn').removeClass('hidden');
+	$('#article-unlike-btn').addClass('hidden');
+//	$('#article-unlike-btn').css('display','none');
+//	$('#article-like-btn').css('display','inline');
 	$('#article-like-btn').html('<i class="fa fa-thumbs-o-up"></i>'+likesnum);
 }
 
@@ -450,6 +468,148 @@ function setArticle(article, info) {
 
 
 function showImage(path) {
-//	alert('프로필사진'+encodeURI(path));
 	return encodeURI(path);
+}
+
+/**
+ * 댓글쓰기 
+ * @param e
+ * @returns
+ */
+function writeReply(e) {
+
+	var content = $(e.target.closest('form')).find('[name="comment_content"]').val();
+	var articleId = $(e.target.closest('form')).find('[name="article_id"]').val();
+	console.log(articleId);
+	console.log($(e.target));
+	var lastCommentId = $('#article-modal').find('div[name="comment-area"]').find('input[name="comment-id"]').last().attr('value');
+	if (lastCommentId == null) {
+		lastCommentId = 0;
+	}
+	console.log('마지막 댓글 번호 : ' + lastCommentId);;
+	const sendData = {
+		content: content,
+		articleId: articleId,
+		lastCommentId: lastCommentId,
+		_csrf: $('input[name="_csrf"]').val()
+	};
+
+	$.ajax({
+		data: sendData,
+		type: 'post',
+		async: false,
+		url: '/salmon/sns/comment',
+		success: function (data) {
+			console.log(data);
+			appendComments(e.target.closest('form'), data);
+			console.log('게시글: ' + articleId);
+			setModalCommentNum($(data).length);
+			initCommentForm(e.target.closest('form'));
+		},
+		error: function (xhr, status, er) {
+			alert('데이터 수신 에러');
+			console.log(xhr);
+			console.log(status);
+			console.log(er);
+		}
+	});
+}
+
+/**
+ * 댓글지우기
+ * @param e
+ * @returns
+ */
+function deleteReply(e) {
+
+	console.log(e);
+
+	var commentId = $(e.target.closest('div.be-comment')).find('[name="comment-id"]').val();
+	var articleId = $(e.target.closest('div.be-comment')).find('[name="article-id"]').val();
+	console.log(commentId);
+	console.log('게시글 번호 : ' + articleId);
+
+	$.ajax({
+		data: commentId,
+		type: 'get',
+		//async: false,
+		url: '/salmon/sns/deletecomment/' + commentId,
+
+		success: function (data) {
+			console.log(data);
+			setDeleteComment(e);
+			console.log($(e.target).closest('.be-comment-block'));
+			//	console.log($(e.target).closest('.be-comment-block').find('span[name="comment-num"]'));
+			console.log($('span#comment-num-' + articleId));
+			setModalCommentNum(-1);
+		},
+		error: function (xhr, status, er) {
+			alert('데이터 수신 에러');
+			console.log(xhr);
+			console.log(status);
+			console.log(er);
+		}
+	});
+}
+
+
+function setModalCommentNum(num) {
+	console.log(num);
+	
+	var currentNum = $('#article-comments-btn').text();
+	console.log(currentNum);
+	if (Number(num) < 0) {
+		$('#article-comments-btn').html(`<i class="fa fa-comment-o"></i>`+Number(currentNum) - 1);
+	} else {
+		$('#article-comments-btn').html(`<i class="fa fa-comment-o"></i>`+(Number(currentNum) + Number(num)));
+	}
+}
+
+
+function appendComments(form, comments) {
+
+	var commentHTML = '';
+	$(comments).each(function (i, comment) {
+		console.log(comment);
+		var commentUserImg = showImage(comment.user_image);
+
+			commentHTML +=
+				`<div class="be-comment">
+				<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
+				<input type="hidden" name="article-id" value="`+comment.article_id+`">
+						<div>
+							<span class="be-comment-name">
+							<a href="/salmon/sns/feeds?userid=`+comment.user_id+`">
+							`+comment.user_nickname+`
+							</a>
+							</span>
+							<span class="be-comment-time float-right">`;
+
+		if (me.user_id == comment.user_id) { //내가쓴 댓글인 경우 삭제 표시 
+			commentHTML +=
+				`<span name="comment-delete-btn" class="comment-delete-btn">
+					<input type="hidden" name="comment-id" value="` + comment.comment_id + `">
+					<i class="fas fa-times"></i>삭제 
+				</span>`;
+		}
+
+		commentHTML += `<i class="fa fa-clock-o"></i>
+						` + comment.comment_regdate + `
+						</span>
+						<p class="be-comment-text">` + comment.comment_content + `</p>
+						</div>
+						</div>`;
+
+	})
+
+	$('#article-modal div[name="comment-area"]').append(commentHTML);
+
+}
+
+function initCommentForm(form) {
+	$('#article-modal input[type="text"]').val('');
+}
+
+function setDeleteComment(e) {
+	$(e.target).parents('.be-comment').remove();
 }

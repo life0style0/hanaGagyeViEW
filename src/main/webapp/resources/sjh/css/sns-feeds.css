@@ -26,10 +26,17 @@ a.ask-follow i {
 	position: relative;
 	padding: 10px 30px;
 	border: 1px solid #edeff2;
-	border-radius: 2px;
+    border-radius: 20px;
 	margin-bottom: 5px;
 	display: block;
-	background-color: orange;
+	background-color: #E6E6E6;
+	color:#298478;
+	font-weight: bold;
+	text-align: center;
+}
+
+.following-user-info:hover{
+	background-color: #F5DA81;
 }
 
 .feed-article-title {
@@ -64,6 +71,19 @@ a.ask-follow i {
 	background-color: #298478;
 	margin-left: 5px;
 	color: #fff;
+	cursor: pointer;
+	font-weight: bold;
+	text-align:center;
+}
+
+.article-menu:hover {
+	background-color: #F5DA81;
+	color:#298478;
+}
+
+.article-menu.active {
+	background-color: orange;
+	color:#298478;
 }
 
 .btn-sjh {
@@ -109,4 +129,36 @@ a.ask-follow i {
     line-height: 1.3333;
     margin: unset;
 /*    margin-left: 10px;*/
+}
+
+.font-larger span, .font-larger .fa{
+	font-size:13pt;
+}
+
+.folded-comments{
+	background-color:#F2F2F2;
+	padding: 15px 70px;
+	margin-bottom:0px;
+	margin-bottom: 0px;
+    border: 1px solid #edeff2;
+    border-radius: 2px;
+    
+}
+
+.orange-font{
+	color:orange
+}
+
+.following-photo{
+	width:20px;
+	height:20px;
+	border-radius: 50%;
+}
+
+ .my-btn {
+  font-size: 13px;
+  line-height: 1.3333;
+  margin: unset;
+  color:#298478;
+ /*  margin-left: 10px; */
 }
