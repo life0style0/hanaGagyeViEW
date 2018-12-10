@@ -31,6 +31,7 @@
         <collection property="scraps" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.ScrapDTO" select="getScrapsByArticleId"/>
         <collection property="comments" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.CommentDTO" select="getCommentsByArticleId"/>
 	</resultMap>
+
 	<resultMap type="kr.or.kosta.salmon.domain.MainChartDTO" id="ChartMap">
 		<result property="totalFee" column="totalFee"/>
 	</resultMap>
@@ -348,9 +349,9 @@
 		       ctgry_name 
 		FROM   articles 
 		       join users USING (user_id) 
-		       join ctgry_values USING (article_id) 
-		       join ctgries USING (ctgry_id) 
-		       join article_ctgries USING (article_ctgry_id) 
+		       left outer join ctgry_values USING (article_id) 
+		       left outer join ctgries USING (ctgry_id) 
+		       left outer join article_ctgries USING (article_ctgry_id) 
 		       left outer join GROUPS USING (group_id) 
 		WHERE  article_id = #{article_id}
 	</select>

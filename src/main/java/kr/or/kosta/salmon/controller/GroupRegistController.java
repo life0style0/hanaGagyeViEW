@@ -94,24 +94,28 @@ public class GroupRegistController {
 		log.info("********** 소모임 그룹 상세 페이지 **********");
 		log.info("GetMapping에서 그룹 아이디 (혜림체크) : "+group_id);
 		model.addAttribute("groups", groupservice.get(group_id));
+		
+		
 		String user_id = principal.getName();
 //		ArrayList<HashTagGroupDTO> hashTagList = (ArrayList)groupservice.getHashTagGroup(user_id);
-		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)snsService.getSNSArticles(user_id);
+		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)groupservice.getSNSGroups(group_id);
 		
 		model.addAttribute("articleList", articleList);
 		log.info("유저아이디-------"+user_id);
 		log.info("아티클리스트-------"+articleList);
 //		model.addAttribute("hashTagList", hashTagList);
 		
+		
 		//ArrayList SNS Article
-		ObjectMapper objmapper = new ObjectMapper();
+/*		ObjectMapper objmapper = new ObjectMapper();
 		try {
 			String articleListJSON= objmapper.writeValueAsString(articleList);
 			model.addAttribute("articleListJSON", articleListJSON);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
+		// 이 페이지 GroupId의 모든 게시물 
 	
 	}
 	// 화면 이미지 얻어오기 

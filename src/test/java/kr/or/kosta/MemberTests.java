@@ -22,8 +22,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
+import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
+import kr.or.kosta.salmon.mapper.SNSMapper;
 import kr.or.kosta.salmon.mapper.UserMapper;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -40,6 +42,9 @@ public class MemberTests {
 	
 	@Inject
 	private UserMapper usermapper;
+	
+	@Inject
+	private SNSMapper snsmapper;
 	
 	@Test
 	public void testSelectMember() {
@@ -331,6 +336,13 @@ public class MemberTests {
 	public void test() {
 		usermapper.getUserSimplePsns("inin11");
 		
+	}
+	
+	@Test
+	public void test123() {
+		log.info("hi");
+	     SNSArticleDTO_sjh s =   snsmapper.getArticleByArticleId(22);
+	     log.info(s);
 	}
 	
 	

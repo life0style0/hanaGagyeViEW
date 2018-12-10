@@ -2,14 +2,14 @@ var myId;
 $(function() {
 	myId= $('#loginUserId').text();
 	eventRegist();
-})
+});
 
 function eventRegist(){
 	$('[id^="article-post-"]').each(function(i,post){
 		$(post).on('click',function(){
-			console.log($(this).attr('id').split('-')[2]);
-			var article= getArticleInfo($(this).attr('id').split('-')[2]);
-			console.log(article);
+			const articleId = $(this).attr('id').split('-')[2];
+			console.log(articleId);
+			var article = getArticleInfo(articleId);
 		});
 	});
 
@@ -43,12 +43,11 @@ function eventRegist(){
 }
 
 function getArticleInfo(articleId){
+	console.log(articleId);
 	$.ajax({
-		data: articleId,
 		type: 'get',
 		dataType: "json",
 		url: '/salmon/main/article/'+articleId,
-
 		success: function (data) {
 			console.log(data);
 			setArticleModal(data);

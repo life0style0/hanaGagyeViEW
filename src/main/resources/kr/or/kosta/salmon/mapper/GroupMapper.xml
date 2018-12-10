@@ -17,7 +17,75 @@
 		<collection property="comments" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.CommentDTO" select="getComments"/>
 		
 	</resultMap>
+	
+	<!-- 1:N ResultMap 설정 -->
+	<resultMap type="kr.or.kosta.salmon.domain.SNSArticleDTO_sjh" id="articleMap">
+		<id property="article_id" column="article_id"/>
+		<result property="article_id" column="article_id"/>
+		<result property="article_ctgry_id" column="article_ctgry_id"/>
+		<result property="article_ctgry_description" column="article_ctgry_description"/>
+		<result property="article_scope" column="article_scope"/>
+		<result property="article_regdate" column="article_regdate"/>
+		<result property="article_editdate" column="article_editdate"/>
+		<result property="article_payment_type" column="article_payment_type"/>
+		<result property="article_payment_fee" column="article_payment_fee"/>
+		<result property="article_title" column="article_title"/>
+		<result property="article_content" column="article_content"/>
+		<result property="article_proposal_status" column="article_proposal_status"/>
+		<result property="group_id" column="group_id"/>
+		<result property="group_title" column="group_title"/>
+		<result property="article_deleted" column="article_deleted"/>
+		<result property="ctrgy_id" column="ctrgy_id"/>
+		<result property="ctgry_name" column="ctgry_name"/>
+		<result property="article_like_num" column="article_like_num"/>
+		<result property="article_comment_num" column="article_comment_num"/>
+		<collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
+        <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
+        <collection property="likes" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.LikeDTO" select="getLikesByArticleId"/>
+        <collection property="scraps" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.ScrapDTO" select="getScrapsByArticleId"/>
+        <collection property="comments" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.CommentDTO" select="getCommentsByArticleId"/>
+	</resultMap>
 
+
+        <select id="getScrapsByArticleId" resultType="kr.or.kosta.salmon.domain.ScrapDTO">
+        	SELECT scrap_id,
+        		   user_id,
+        		   article_id,
+        		   to_char(scrap_regdate,'YYYY-MM-DD') "scrap_regdate" 
+			FROM   scraps 
+			WHERE  article_id = #{article_id}
+        </select>
+
+         <select id="getCommentsByArticleId" resultType="kr.or.kosta.salmon.domain.CommentDTO">
+        	SELECT comment_id,
+        		   comment_content,
+        		   to_char(comment_regdate,'YYYY-MM-DD') "comment_regdate", 
+        		   to_char(comment_editdate,'YYYY-MM-DD') "comment_editdate",
+        		   article_id,
+                   us.user_nickname,
+                   us.user_id,
+                   us.user_image
+			FROM   comments co
+	        join   users us on us.user_id=co.user_id
+		    WHERE  article_id =  #{article_id}
+		    order by comment_regdate
+        </select>
+
+        <select id="getLikesByArticleId" resultType="kr.or.kosta.salmon.domain.LikeDTO">
+        	SELECT like_id,
+        		   user_id,
+        		   article_id,
+        		   to_char(like_regdate,'YYYY-MM-DD') "like_regdate" 
+			FROM   likes 
+			WHERE  article_id = #{article_id}
+        </select>
+
+		<select id="getHashtagByArticleId" resultType="string">
+		SELECT hashtag_value 
+		FROM   hashtag_refs ref
+		       inner join hashtags hash on ref.hashtag_id=hash.hashtag_id 
+		WHERE  article_id = #{articleId}        
+        </select>
 
 	<!-- 소모임 번호로 그룹 Read -->
 	<select id="read" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
@@ -181,8 +249,27 @@
 		order by comment_regdate asc
         </select>
         
-        
-	
+        <!-- sns 그룹 -->
+	 <select id="getSNSGroups" resultMap="articleMap">
+		 SELECT article_id, 
+             article_ctgry_id, 
+             article_scope, 
+             To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
+             article_editdate, 
+             article_payment_type, 
+             article_payment_fee, 
+             article_title, 
+             article_content, 
+             article_proposal_status, 
+             group_id, 
+             user_id,
+             user_nickname, 
+             article_comment_num,
+             article_like_num,
+             article_deleted 
+      FROM   articles join users using(user_id)
+      where group_id = #{group_id}    
+        </select>
 	
 
 </mapper>

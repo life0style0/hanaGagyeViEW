@@ -12,6 +12,7 @@ import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.CommentDTO;
 import kr.or.kosta.salmon.domain.GroupCountDTO;
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
+import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.mapper.GroupMapper;
 import lombok.AllArgsConstructor;
@@ -109,6 +110,11 @@ public class GroupServiceImpl implements GroupService {
 	public void deleteComment(int comment_id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public ArrayList<SNSArticleDTO_sjh> getSNSGroups(String group_id) {
+		return groupMapper.getSNSGroups(group_id);
 	}
 
 }

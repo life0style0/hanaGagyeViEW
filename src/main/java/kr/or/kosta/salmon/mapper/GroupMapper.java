@@ -1,6 +1,7 @@
 package kr.or.kosta.salmon.mapper;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Select;
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.GroupCountDTO;
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
+import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 
 public interface GroupMapper {
 	
@@ -33,5 +35,8 @@ public interface GroupMapper {
 	
 	//소모임에 들어가기 :) 
 	public int joinGroup(@Param("group_id") String group_id, @Param("user_id") String user_id);
+	
+	//소모임 해당 그룹에 sns 아티클 띄우기
+	public ArrayList<SNSArticleDTO_sjh> getSNSGroups(@Param("group_id") String group_id);
 	
 }
