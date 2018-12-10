@@ -57,4 +57,7 @@ public interface GaArticleService {
 
 	//모임 글 생성을 위한 그룹타이틀가져오기
 	public ArrayList<String> getUserGroupTitle(String user_id);
+	//게시글 삭제하기
+	public boolean deleteArticle(int article_id, String user_id);
+	
 }

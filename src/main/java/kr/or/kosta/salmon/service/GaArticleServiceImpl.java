@@ -143,4 +143,10 @@ public class GaArticleServiceImpl implements GaArticleService{
 	public ArrayList<String> getUserGroupTitle(String user_id) {
 		return gaArticleMapper.getUserGroupTitle(user_id);
 	}
+
+	@Override
+	public boolean deleteArticle(int article_id, String user_id) {
+		return gaArticleMapper.deleteArticle(article_id, user_id) > 0 ? true : false;
+	}
+	
 }

@@ -20,6 +20,7 @@
 	<link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/owl.carousel.min.css">
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/owl.theme.default.min.css">
+	<link href="/salmon/resources/sjh/css/ul-list.css" rel="stylesheet" media="all">
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/suggestion.css">
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/common.css">
 	<link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
@@ -84,9 +85,13 @@
 						</div>
 						<h5 class="be-title">관심사</h5>
 						<p class="be-text-userblock">
-							${psns.ctgryName1}${psns.ctgryName2 != "none" ? ', ' : ''}${psns.ctgryName2
-							!= "none" ? psns.ctgryName2 : ''}${psns.ctgryName3 != "none" ? ', ' :
-							''}${psns.ctgryName3 != "none" ? psns.ctgryName3 : ''}
+							${psns.ctgryName1}
+						</p>
+						<p class="be-text-userblock">
+							${psns.ctgryName2 != 'none' ? psns.ctgryName2 : ''}
+						</p>
+						<p class="be-text-userblock">
+							${psns.ctgryName3 != 'none' ? psns.ctgryName3 : ''}
 						</p>
 						<div class="be-user-statistic sg-statistic">
 							<div class="stat-row clearfix"><i class="fas fa-lightbulb"></i>제안한 전체 글 수<span class="stat-counter">${sNum}</span></div>
@@ -106,11 +111,16 @@
 							<div class="stat-row clearfix"><i class="fas fa-thumbs-up"></i>공감 받은 수<span class="stat-counter">${likeNum}</span></div>
 						</div>
 					</div>
-					<a href="/salmon/suggestion/news" class="btn full color-1 size-1 hover-1 new-article"><i class="fa fa-plus"></i>새로운
-						제안하기</a>
+					<button class="btn full color-white-sjh size-1 hover-5 new-article">
+						<i class="fa fa-plus"></i>
+						새로운 제안하기
+					</button>
+					<button class="btn full color-white-sjh size-1 hover-5 show-article hidden">
+						<i class="fa fa-plus"></i>
+						제안글 목록 보기
+					</button>
 				</div>
-
-				<div class="col-xs-12 col-md-8">
+				<div class="col-xs-12 col-md-8 show-article-main">
 					<div class="tab-wrapper style-1">
 						<div class="tab-nav-wrapper">
 							<div class="nav-tab  clearfix">
@@ -310,6 +320,77 @@
 						</div>
 					</div>
 				</div>
+				<div class="col-xs-12 col-md-8 _editor-content_ new-article-main hidden">
+					<div class="sec" data-sec="about-me">
+						<div class="be-large-post">
+							<div class="info-block style-2">
+								<div class="be-large-post-align">
+									<h3 class="info-block-label">제안글 작성</h3>
+								</div>
+							</div>
+							<div class="be-large-post-align">
+								<div class="row">
+									<form method="POST" action="/salmon/suggestion/news" id="formT">
+										<div class="input-col col-xs-12">
+											<div class="form-group focus-2">
+												<div class="form-label">제안글 제목</div>
+												<input class="form-input" required type="text" placeholder="제안글 제목을 입력해주세요" name="articleTitle">
+											</div>
+										</div>
+										<div class="input-col col-xs-12">
+											<div class="form-group focus-2">
+												<div class="form-label">제안글 내용</div>
+												<textarea class="form-input" required="" placeholder="제안글의 내용을 자세하게 적어주세요!" name="articleContent"></textarea>
+											</div>
+										</div>
+										<div class="input-col col-xs-12">
+												<div class="form-group focus-2">
+													<div class="form-label">해시 태그</div>
+													<div class="form-hashtag">
+														<input type="text" class="form-input tag-input" placeholder="해시 태그를 사용해보세요!">
+													</div>
+													<div class="input-hashtag-hidden hidden"></div>
+												</div>
+											</div>
+										<div class="input-col col-xs-12">
+											<div class="form-group">
+												<div class="form-label">카테고리 선택(최대 3개)</div>
+												<ul id="categories" class="categories">
+													<c:choose>
+														<c:when test="${not empty categories}">
+															<c:forEach var="category" items="${categories}" varStatus="status">
+																<c:choose>
+																	<c:when test="${category.ctgry_id lt 0 }">
+																	</c:when>
+																	<c:otherwise>
+																		<li name="category" class="unselected square" id='category-li-<c:out value="${category.ctgry_id}" />'>
+																			<div id="category-1" class="unselected" value='<c:out value="${category.ctgry_id}" />'>
+																				<c:out value="${category.ctgry_name}" />
+																			</div>
+																		</li>
+																	</c:otherwise>
+																</c:choose>
+															</c:forEach>
+														</c:when>
+														<c:otherwise></c:otherwise>
+													</c:choose>
+												</ul>
+												<input type="hidden" id="CTGRY_1" name="ctgry1" value="-1">
+												<input type="hidden" id="CTGRY_2" name="ctgry2" value="-1">
+												<input type="hidden" id="CTGRY_3" name="ctgry3" value="-1">
+											</div>
+										</div>
+										<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}">
+										<div class="buttons">
+											<button type="button" class="btn color-1 size-1 hover-1" id="submitT">글 작성하기</button>
+											<button type="button" class="btn color-3 size-1 hover-5" id="cancelT">작성 취소</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -341,6 +422,7 @@
 	<script src="/salmon/resources/jjw/js/owl.carousel.min.js"></script>
 	<script src="/salmon/resources/jjw/js/global.js"></script>
 	<script src="/salmon/resources/jjw/js/suggestion.js"></script>
+	<script src="/salmon/resources/sjh/js/feeds.js"></script>
 </body>
 
 </html>

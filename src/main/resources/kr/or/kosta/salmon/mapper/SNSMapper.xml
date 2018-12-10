@@ -25,6 +25,8 @@
 		<result property="ctgry_name" column="ctgry_name"/>
 		<result property="article_like_num" column="article_like_num"/>
 		<result property="article_comment_num" column="article_comment_num"/>
+		<result property="isLikedByMe" column="isLikedByMe"/>
+		<result property="isReportedByMe" column="isReportedByMe"/>
 		<collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
         <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
         <collection property="likes" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.LikeDTO" select="getLikesByArticleId"/>
@@ -42,6 +44,14 @@
 		<association property="myPsnsInfo" column="user_id" javaType="kr.or.kosta.salmon.domain.UserLocAndCatsDTO" select="getUserSimplePsns"/>
         <collection property="myArticles" column="user_id"  javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.SNSArticleDTO_sjh" select="getSNSArticleByWriter"/>
         <collection property="likeArticles" column="user_id"  javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.SNSArticleDTO_sjh" select="getArticleByLikeUser"/>
+        <collection property="myfollowings" column="user_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.UserDTO" select="getFollowingList"/>
+        <collection property="myGroups" column="user_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.GroupDTO_lhr" select="getJoingingGroupList"/>
+	</resultMap>
+	
+	<resultMap type="kr.or.kosta.salmon.domain.SNSUserPageWithoutAtriclesDTO" id="snsUserPageWithoutAtriclesMap">
+		<result property="user_id" column="user_id"/>
+		<association property="user" column="user_id" javaType="kr.or.kosta.salmon.domain.UserDTO" select="searchUserById"/>
+		<association property="myPsnsInfo" column="user_id" javaType="kr.or.kosta.salmon.domain.UserLocAndCatsDTO" select="getUserSimplePsns"/>
         <collection property="myfollowings" column="user_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.UserDTO" select="getFollowingList"/>
         <collection property="myGroups" column="user_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.GroupDTO_lhr" select="getJoingingGroupList"/>
 	</resultMap>
@@ -66,28 +76,30 @@
 		       article_content, 
 		       article_proposal_status, 
 		       group_id, 
-		       user_id,
+		       group_title, 
+		       ar.user_id, 
 		       user_nickname, 
-		       article_comment_num,
-		       article_like_num,
+		       article_comment_num, 
+		       article_like_num, 
 		       article_deleted 
-		FROM   articles 
-		JOIN   users USING (user_id)
+		FROM   articles ar 
+		       join users us 
+		         ON us.user_id = ar.user_id 
+		       left outer join GROUPS USING (group_id) 
 		WHERE  article_scope IN ( 'u', 'g' ) 
-		       AND user_id IN ( #{user_id} ) 
-		        OR user_id IN (SELECT fol.user_id user_id 
-		                       FROM   users us 
-		                              inner join followers fol 
-		                                      ON us.user_id = fol.follower_user_id 
-		                       WHERE  us.user_id = #{user_id}) 
-		        OR user_id IN ((SELECT user_id 
-		                        FROM   group_users 
-		                        WHERE  group_id IN (SELECT group_id 
-		                                            FROM   users us 
-		                                                   inner join group_users gus 
-		                                                           ON us.user_id = 
-		                                                              gus.user_id 
-		                                            WHERE  us.user_id = #{user_id}))) 
+		       AND ( ar.user_id = #{user_id} 
+		              OR ar.user_id IN (SELECT fol.user_id user_id 
+		                                FROM   users us 
+		                                       inner join followers fol 
+		                                               ON us.user_id = 
+		                                                  fol.follower_user_id 
+		                                WHERE  us.user_id =  #{user_id} ) 
+		              OR ar.article_id IN (SELECT article_id 
+		                                   FROM   articles 
+		                                   WHERE  group_id IN(SELECT group_id 
+		                                                      FROM   group_users 
+		                                                      WHERE  user_id =  #{user_id} ) 
+		                                  ) ) 
         </select>
         
 	 	<select id="getImages" resultType="string">
@@ -186,7 +198,7 @@
         </select>
         
         <select id="getSNSArticleByWriter" resultMap="articleMap">
-	        SELECT article_id,
+			SELECT article_id,
 			       article_ctgry_id,
 			       article_scope,
 			       to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
@@ -199,11 +211,19 @@
 			       group_id,
 			       user_id,
 			       user_nickname,
-			       article_deleted
-			FROM   articles
+			       article_deleted,
+	               (select count(li.user_id) 
+	               from likes li 
+	               where li.article_id = ar.article_id 
+	               and li.user_id=#{login_id}) "isLikedByMe",
+	               (select count(rp.user_id) 
+	               from reports rp 
+	               where rp.article_id = ar.article_id 
+	               and rp.user_id=#{login_id}) "isReportedByMe"
+			FROM  articles ar
 			JOIN  users USING (user_id)
-	    	where user_id=#{user_id}
-	    	ORDER  BY article_regdate DESC 
+			where user_id=#{user_id}
+			ORDER BY article_regdate DESC
         </select>
 	
 	<insert id="askFollow">
@@ -269,8 +289,14 @@
 	</select>
 	
 	<select id="getSNSUserPageInfo" resultMap="snsUserPageMap">
-		SELECT user_id
-		FROM   users 
+		SELECT user_id 
+	    FROM   users 
+		WHERE  user_id = #{user_id}
+	</select>
+	
+	<select id="getSNSUserPageInfoWithoutArticles" resultMap="snsUserPageWithoutAtriclesMap">
+		SELECT user_id 
+	    FROM   users 
 		WHERE  user_id = #{user_id}
 	</select>
 	
@@ -382,7 +408,15 @@
 	       group_id, 
 	       ar.user_id, 
 	       us.user_nickname, 
-	       article_deleted 
+	       article_deleted,
+ 		 (select count(li.user_id) 
+	     from likes li 
+	     where li.article_id = ar.article_id 
+	     and li.user_id=#{login_id}) "isLikedByMe",
+	     (select count(rp.user_id) 
+	     from reports rp 
+	     where rp.article_id = ar.article_id 
+	     and rp.user_id=#{login_id}) "isReportedByMe"	        
 	FROM   articles ar 
 	       join likes li 
 	         ON li.article_id = ar.article_id 
@@ -469,6 +503,19 @@
 		       join users USING (user_id) 
 		WHERE  article_scope IN ( 'u', 'g' ) 
 		AND    SYSDATE-article_regdate <8
+		ORDER  BY article_regdate
+		]]>
+     </select>
+     
+      <select id="getGroupsBySNSNewArticles" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
+		 <![CDATA[
+		SELECT ar.group_id, 
+		       group_title 
+		FROM   articles ar 
+		       join GROUPS gu 
+		       ON ar.group_id = gu.group_id 
+		WHERE  article_scope IN ( 'u', 'g' ) 
+		       AND SYSDATE - article_regdate < 8 
 		ORDER  BY article_regdate
 		]]>
      </select>
@@ -590,6 +637,25 @@
 		        OR group_description LIKE #{value}     
      </select>
      
+      <select id="getSearchHashTagGroup" resultType="kr.or.kosta.salmon.domain.HashTagGroupDTO">
+        <![CDATA[
+        SELECT Count(hashtag_id) count_hashtag_value, 
+		       hashtag_value 
+		FROM   hashtags 
+		       join hashtag_refs USING(hashtag_id) 
+		WHERE  article_id IN(SELECT article_id 
+		                     FROM   articles 
+		                            join users USING (user_id) 
+		                            join ctgry_values USING(article_id) 
+		                            join ctgries USING (ctgry_id) 
+		                     WHERE  article_scope IN ( 'u', 'g' ) 
+		                            AND article_ctgry_id IN( 1, 2, 3 ) 
+		                            AND ( ctgry_name LIKE #{value} 
+		                                   OR article_title LIKE #{value} 
+		                                   OR article_content LIKE #{value} )) 
+		GROUP  BY hashtag_value 
+		ORDER  BY count_hashtag_value DESC  ]]>
+	</select>
 
     
 </mapper>

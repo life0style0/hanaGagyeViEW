@@ -87,20 +87,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="be-vidget">
-					<h3 class="letf-menu-article">
-						인기 해시태그
-					</h3>
-					<div class="tags_block clearfix">
-						<ul>
-							<li><a data-filter=".category-6" class="filter">hashtag1</a></li>
-							<li><a data-filter=".category-1" class="filter">hashtag2</a></li>
-							<li><a data-filter=".category-2" class="filter">hashtag3</a></li>
-							<li><a data-filter=".category-3" class="filter">hashtag4</a></li>
-
-						</ul>
-					</div>
-				</div>
+				
 			</div>
 
 			<div class="col-md-10">

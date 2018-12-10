@@ -11,6 +11,7 @@ function init(){
 	
 	$('#search-res-user').css('display','none');
 	$('#search-res-article').css('display','block');
+	$('#search-res-group').css('display','none');
 }
 
 function searchEventRegist(){
@@ -19,11 +20,19 @@ function searchEventRegist(){
 	$('#search-res-user-btn').on('click',function(){
 		$('#search-res-user').css('display','block');
 		$('#search-res-article').css('display','none');
+		$('#search-res-group').css('display','none');
 	});
 	
 	$('#search-res-article-btn').on('click',function(){
 		$('#search-res-user').css('display','none');
 		$('#search-res-article').css('display','block');
+		$('#search-res-group').css('display','none');
+	});
+	
+	$('#search-res-group-btn').on('click',function(){
+		$('#search-res-user').css('display','none');
+		$('#search-res-article').css('display','none');
+		$('#search-res-group').css('display','block');
 	});
 	
 	console.log($('[id^="follow-ask-"]'));
@@ -41,6 +50,17 @@ function searchEventRegist(){
 				setUnfollowToFollow(e,followId);
 			}
 	});
+	
+	$('.article-menu').on('click',function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+		}else{
+			$('.article-menu').each(function(i,menu){
+				$(menu).removeClass('active');
+			});
+			$(this).addClass('active');
+		}
+	})
 }
 
 function checkFollowParam(e){
