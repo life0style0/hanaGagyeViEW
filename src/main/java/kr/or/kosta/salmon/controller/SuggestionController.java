@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,7 +65,7 @@ public class SuggestionController {
             model.addAttribute("likeNum", likeNum);
             model.addAttribute("sNum", sNum);
             model.addAttribute("psns", SS.getPsnsWithSuggestion(principal.getName()));
-            
+
             mpg = (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria);
             model.addAttribute("newList", SS.getSuggestionListByPaging(criteria));
             model.addAttribute("likeList", SS.getSuggestionListsByLikes(criteria));
@@ -80,13 +81,14 @@ public class SuggestionController {
             model.addAttribute("confirmList", SS.getSuggestionListByPaging(criteria));
             mpg = (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria);
             model.addAttribute("confirmPageBuilder", mpg);
+            model.addAttribute("categories", US.getAllCategories());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "suggestion/main";
     }
 
-    @GetMapping("/new")
+    @GetMapping(value = "/new", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
     public @ResponseBody ResponseEntity<List<Object>> getNew(Criteria criteria) {
         log.info("getNew ..." + criteria);
         ResponseEntity<List<Object>> result = null;
@@ -105,7 +107,7 @@ public class SuggestionController {
         return result;
     }
 
-    @GetMapping("/like")
+    @GetMapping(value = "/like", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
     public @ResponseBody ResponseEntity<List<Object>> getLike(Criteria criteria) {
         log.info("getLike ..." + criteria);
         ResponseEntity<List<Object>> result = null;
@@ -123,7 +125,7 @@ public class SuggestionController {
         return result;
     }
 
-    @GetMapping("/recommend")
+    @GetMapping(value = "/recommend", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
     public @ResponseBody ResponseEntity<List<Object>> getRecommend(Criteria criteria) {
         log.info("getRecommend ..." + criteria);
         criteria.setArticleProposalStatus("R");
@@ -131,6 +133,46 @@ public class SuggestionController {
         try {
             List<SuggestionDTO> sgts = SS.getSuggestionListsByRecommend(criteria);
             MyPageBuilder mpb = (new MyPageBuilder(SS.getTotalSuggestionByRecommend(criteria))).build(criteria);
+            List<Object> results = new ArrayList<>();
+            results.add(sgts);
+            results.add(mpb);
+            result = new ResponseEntity<>(results, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return result;
+    }
+
+    @GetMapping(value = "/judge", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+    public @ResponseBody ResponseEntity<List<Object>> getJudge(Criteria criteria) {
+        log.info("getJudge ..." + criteria);
+
+        criteria.setArticleProposalStatus("J");
+        ResponseEntity<List<Object>> result = null;
+        try {
+            List<SuggestionDTO> sgts = SS.getSuggestionListByPaging(criteria);
+            MyPageBuilder mpb = (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria);
+            List<Object> results = new ArrayList<>();
+            results.add(sgts);
+            results.add(mpb);
+            result = new ResponseEntity<>(results, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return result;
+    }
+
+    @GetMapping(value = "/confirm", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+    public @ResponseBody ResponseEntity<List<Object>> getConfirm(Criteria criteria) {
+        log.info("getJudge ..." + criteria);
+
+        criteria.setArticleProposalStatus("C");
+        ResponseEntity<List<Object>> result = null;
+        try {
+            List<SuggestionDTO> sgts = SS.getSuggestionListByPaging(criteria);
+            MyPageBuilder mpb = (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria);
             List<Object> results = new ArrayList<>();
             results.add(sgts);
             results.add(mpb);
@@ -160,14 +202,14 @@ public class SuggestionController {
         return "suggestion/suggestion";
     }
 
-    @GetMapping(value = "/news")
-    public String newArticle(Principal principal, Model model) {
-        log.info("newArticle...");
-        List<CategoryDTO_sjh> categories = US.getAllCategories();
-        model.addAttribute("categories", categories);
-        model.addAttribute("userId", principal.getName());
-        return "suggestion/new";
-    }
+    // @GetMapping(value = "/news")
+    // public String newArticle(Principal principal, Model model) {
+    //     log.info("newArticle...");
+    //     List<CategoryDTO_sjh> categories = ;
+
+    //     model.addAttribute("userId", principal.getName());
+    //     return "suggestion/new";
+    // }
 
     @PostMapping(value = "/news")
     public String insertArticle(NewSuggestionDTO newSuggestionDTO, Principal principal) {
@@ -179,7 +221,7 @@ public class SuggestionController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/suggestion/new";
+        return "redirect:/suggestion";
     }
 
     // /**

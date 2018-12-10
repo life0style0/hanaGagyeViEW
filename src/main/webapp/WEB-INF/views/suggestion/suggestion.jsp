@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 
@@ -81,10 +82,33 @@
 							<div class="be-large-post-align">
 								<h3 class="be-post-title">
 									<span class="be-text-tags">
-										<c:forEach items="${article.ctgryNames}" var="ctgryName" varStatus="status">
-											<c:if test="${status.first}">카테고리 : </c:if><a class="be-post-tag">${ctgryName}<c:if test="${!status.last}">,
-												</c:if></a>
-										</c:forEach>
+										<c:set var="doneLoop" value="false" />
+										<c:choose>
+											<c:when test="${fn:length(article.ctgryNames) > 0}">
+												<c:forEach items="${article.ctgryNames}" var="ctgryNameT" varStatus="status">
+													<c:if test="${not doneLoop}">
+														<c:if test="${ctgryNameT != 'none'}">
+															<c:forEach items="${article.ctgryNames}" var="ctgryName" varStatus="status">
+																<c:if test="${ctgryName != 'none'}">
+																	<c:if test="${status.first}">카테고리 : </c:if>
+																	<a class="be-post-tag">
+																		${ctgryName}
+																		<c:if test="${!status.last}">, </c:if>
+																	</a>
+																</c:if>
+															</c:forEach>
+															<c:set var="doneLoop" value="true" />
+														</c:if>
+													</c:if>
+												</c:forEach>
+												<c:if test="${not doneLoop}">
+													카테고리 : 없음
+												</c:if>
+											</c:when>
+											<c:otherwise>
+												카테고리 : 없음
+											</c:otherwise>
+										</c:choose>
 									</span>
 								</h3>
 								<div class="be-text-tags clearfix">
@@ -212,9 +236,13 @@
 						</div>
 						<h5 class="be-title">관심사</h5>
 						<p class="be-text-userblock">
-							${article.userPsns.ctgryName1}${article.userPsns.ctgryName2 != "none" ? ', ' : ''}${article.userPsns.ctgryName2
-							!= "none" ? article.userPsns.ctgryName2 : ''}${article.userPsns.ctgryName3 != "none" ? ', ' :
-							''}${article.userPsns.ctgryName3 != "none" ? article.userPsns.ctgryName3 : ''}
+							${article.userPsns.ctgryName1}
+						</p>
+						<p class="be-text-userblock">
+							${article.userPsns.ctgryName2 != "none" ? article.userPsns.ctgryName2 : ''}
+						</p>
+						<p class="be-text-userblock">
+							${article.userPsns.ctgryName3 != "none" ? article.userPsns.ctgryName3 : ''}
 						</p>
 					</div>
 					<a href="${article.articleId}" class="be-button-vidget like-cancel-btn blue-style ${checkLike ? '' : 'hidden'}"><i

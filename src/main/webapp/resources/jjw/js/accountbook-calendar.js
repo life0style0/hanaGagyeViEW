@@ -310,13 +310,13 @@ function setCalendarMY(moveDirection) {
     $('.calendar.year').html(yearChanged);
 }
 
-/**
- * 특정 가계부 정보를 초기화하는 메소드
- */
-function resetArticleModal() {
-    $('.article-carousel').trigger('destroy.owl.carousel');
-    $('.article-carousel').html('');
-}
+// /**
+//  * 특정 가계부 정보를 초기화하는 메소드
+//  */
+// function resetArticleModal() {
+//     $('.article-carousel').trigger('destroy.owl.carousel');
+//     $('.article-carousel').html('');
+// }
 
 /**
  * 가계부 정보들을 ajax 통신을 통해 받아 모달창에 적어주는 함수
@@ -509,9 +509,9 @@ $(function () {
         setGgvInfos(this);
     });
 
-    $('#article-modal').on('hidden.bs.modal', function () {
-        resetArticleModal();
-    });
+    // $('#article-modal').on('hidden.bs.modal', function () {
+    //     resetArticleModal();
+    // });
 
     $('.calendar-left').on('click', function () {
         setCalendarMY('left');

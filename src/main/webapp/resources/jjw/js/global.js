@@ -85,6 +85,14 @@ function eventRegistOnShare(article, info) {
 }
 
 /**
+ * 특정 가계부 정보를 초기화하는 메소드
+ */
+function resetArticleModal() {
+    $('.article-carousel').trigger('destroy.owl.carousel');
+    $('.article-carousel').html('');
+}
+
+/**
  * 특정 가계부 정보를 클릭시 보여줄 값들을 세팅하는 함수
  * @param {*} article 가계부 정보
  * @param {*} info 가계부 정보
@@ -244,4 +252,8 @@ $(function () {
         const image = images.eq(i);
         imageLoad(imagePath, image);
     }
+
+    $('#article-modal').on('hidden.bs.modal', function () {
+        resetArticleModal();
+    });
 });

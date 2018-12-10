@@ -1,11 +1,21 @@
 .suggestion-entry {
   padding: 20px;
-  background-color: aliceblue;
+  background-color: #f6f6f7;
 }
 
 .suggestion-entry:hover {
-  background-color: antiquewhite;
+  background-color: #e7fcec5c;
   cursor: pointer;
+}
+
+.nav-tab-item.active:hover {
+  background-color: #fff!important;
+  cursor: unset!important;
+}
+
+.nav-tab-item:hover {
+  background-color: #e7fcec5c!important;
+  cursor: pointer!important;
 }
 
 .no-padding {
