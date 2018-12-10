@@ -356,4 +356,10 @@ $(function () {
         $('.new-article-main').addClass('hidden');
         $('.show-article-main').removeClass('hidden');
     });
+
+    $('input[name="articleHashtag"]').on('keyup', function () {
+        if ($(this).val()) {
+            $(this).val()
+        }
+    });
 });
