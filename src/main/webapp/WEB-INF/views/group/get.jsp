@@ -635,64 +635,51 @@ function hyerimFunction(){
               <div class="tab-info">
                 <!-- ============== 방명록  ============== -->
                 
-                    <div class="be-comment-block">
-            <h1 class="comments-title">Comments (<span name="comment-num" id="comment-num-<c:out value="${myArticle.article_id}"/>"><c:out value="${myArticle.comments.size()}"/></span>)</h1>
-            <p class="about-comment-block">
-              <!-- You must <a href="blog-detail-2.html" class="be-signup-link">SIGN UP</a>
-               to join the conversation. -->
-            </p>
-            
-            <div name="comment-area">
-            <c:choose>
-            <c:when test="${myArticle.comments.size() ne 0}">
-              <c:forEach var="comment" items="${myArticle.comments}">
-              <div class="be-comment">
-              <input type="hidden" name="comment-id" value="${comment.comment_id}">
-              <input type="hidden" name="article-id" value="${comment.article_id}">
-                  <div class="be-img-comment">  
-                    <a href="/salmon/sns/feeds?userid=${comment.user_id}">
-                    <input type="hidden" name="user-comment-profile-photo" value="${comment.user_image}">
-                    <img src="" alt="" class="be-ava-comment">
-                    </a>
-                  </div>
-                  <div class="be-comment-content">
-                    <span class="be-comment-name">
-                      <a href="/salmon/sns/feeds?userid=${comment.user_id}">
-                      ${comment.user_nickname}
-                      </a>
-                    </span>
-                    <span class="be-comment-time">
-                    <c:if test="${me.user_id eq comment.user_id}">
-                      <span name="comment-delete-btn" class="comment-delete-btn">
-                      <input type="hidden" name="comment-id" value="${comment.comment_id}">
-                        <i class="fas fa-times"></i>삭제 
-                      </span>
-                    </c:if>
-                    <i class="fa fa-clock-o"></i>
-                    ${comment.comment_regdate}
-                    </span>
-                    <p class="be-comment-text">
-                    ${comment.comment_content}
-                    </p>
-                  </div>
-                </div>
-              </c:forEach>
-              </c:when>
-              <c:otherwise>
-              </c:otherwise>
-              </c:choose>
-              </div>
-
-            <form id="reply-form-${myArticle.article_id}" method="get">
-              <div class="form-group">
-                <input type="hidden" name="article_id" value="${myArticle.article_id}">
-                <c:out value="${me.user_nickname}"/>
-                <input type="text" name="comment_content" required="required" class="form-input">
-                <input type="button" id="reply-write-btn-${myArticle.article_id}" class="btn-sjh pull-right" value="등록" style="margin:10px;">
-              </div>
-            </form>
-
-          </div>
+        		<div class="be-comment-block">
+							<h1 class="comments-title">댓글 (<span id="commentCnt" class="comment-count">${article.commentCnt}</span>)</h1>
+							<c:forEach items="${article.comments}" var="comment" varStatus="status">
+								<div class="be-comment">
+									<input type="hidden" name="comment-id" value="${comment.comment_id}">
+									<input type="hidden" name="article-id" value="${article.articleId}">
+									<div class="be-img-comment">
+										<a href="">
+											<input type="hidden" class="imagePath" value="/salmon/image?fileName=${comment.user_image}">
+											<img src="" alt="" class="be-ava-comment image-src thumbnail-comment">
+										</a>
+									</div>
+									<div class="be-comment-content">
+										<span class="be-comment-name">
+											<a href="">${comment.user_nickname}</a>
+										</span>
+										<span class="be-comment-time">
+											<c:if test="${comment.user_id == userId}">
+												<span name="comment-delete-btn" class="comment-delete-btn">
+													<i class="fas fa-times"></i>삭제
+												</span>
+											</c:if>
+											<i class="fa fa-clock-o"></i>
+											${comment.comment_regdate}
+										</span>
+										<p class="be-comment-text">
+											${comment.comment_content}
+										</p>
+									</div>
+								</div>
+							</c:forEach>
+							<form class="form-block comment-form" method="post">
+								<div class="row">
+									<div class="col-xs-12">
+										<div class="form-group">
+											<textarea class="form-input" required placeholder="댓글 내용을 입력하세요" name="content"></textarea>
+										</div>
+									</div>
+									<input type="hidden" name="lastCommentId" value="">
+									<input type="hidden" name="articleId" value="${article.articleId}">
+									<input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}">
+									<button type="submit" class="btn color-1 size-2 hover-1 pull-right" id="comment">댓글 달기</button>
+								</div>
+							</form>
+						</div>
                 
      
               </div>

@@ -155,7 +155,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block" style="height: 150px;">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1534322869500-14fc9f5f5767?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
@@ -177,7 +177,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block">
                             <img
                             src="https://images.unsplash.com/photo-1533094700036-70ecccc6f047?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
@@ -200,7 +200,8 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                                                  <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                        
                             <img
                             src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
@@ -223,7 +224,8 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                                                   <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
+
                             <img
                             src="https://images.unsplash.com/photo-1519377345644-937ef9754740?ixlib=rb-1.2.1&auto=format&fit=crop&w=1429&q=80"
                             alt="omg" height="200px;">
@@ -247,7 +249,8 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                                                   <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
+
                             <img
                             src="https://images.unsplash.com/photo-1518515097038-ca19a3777cd7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
                             alt="omg" height="200px;">
@@ -270,7 +273,8 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                                                  <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
+
                             <img
                             src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80"
                             alt="omg" height="200px;">
@@ -294,7 +298,8 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                                                   <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
+
                             <img
                             src="https://images.unsplash.com/photo-1488423680352-79e37c24c59f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
@@ -340,8 +345,8 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block"
-                            style="height: 200px;"> <img
+                                                   <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
+ <img
                             src="https://images.unsplash.com/photo-1535982330050-f1c2fb79ff78?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80"
                             alt="omg" height="200px;">
                           </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">외국/언어</a>
@@ -363,7 +368,8 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                                                    <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
+
                             <img
                             src="https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
@@ -387,7 +393,8 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
+
                             <img
                             src="https://images.unsplash.com/photo-1483032469466-b937c425697b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
@@ -432,7 +439,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
@@ -478,7 +485,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1520390138845-fd2d229dd553?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
                             alt="omg" height="200px;">
@@ -501,7 +508,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
@@ -524,7 +531,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1514986888952-8cd320577b68?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1355&q=80"
                             alt="omg" height="200px;">
@@ -1267,7 +1274,7 @@
                     </div>
                   </div>
 
-                  <!-- ====================탭 5 전체 소모임 리스트 ====================== -->
+                  <!-- ====================탭 5 전체 소모임 리스트 (소모임 전체보기) ====================== -->
 
 
 
@@ -1304,36 +1311,45 @@
                     
                     </table>
                   </div>
-                  
-                      <!-- Modal  추가 -->
-      <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-        aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal"
-                aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-            </div>
-            <div class="modal-body">처리가 완료되었습니다.</div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default"
-                data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save
-                changes</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal -->
-      
-      
-                  
-                  
-                  
-                  
+                  <!-- ====카테고리 이름으로 보기 수정중......실패  ===== -->
+                  <div class="col-md-9 padding-1-sjh">
+                    <c:choose>
+                      <c:when
+                        test="${not empty userPsnsInfo.ctgryNames}">
+                        <c:forEach var="ctgryName" items="${userPsnsInfo.ctgryNames}" varStatus="status">
+                          <div class="padding-1-sjh ctgry-badge">
+                            <c:out value="${ctgryName}" />
+                          </div>
+                        </c:forEach>
+                      </c:when>
+                      <c:otherwise></c:otherwise>
+                    </c:choose>
+
+                  </div>
+                  <!-- Modal  추가 -->
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">처리가 완료되었습니다.</div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+
+
+
+
+
+
                 </div>
               </div>
             </div>
@@ -1371,6 +1387,10 @@ $(document).ready(function(){
 	
 });
 </script>
+
+  <!-- 카테고리별 소모임 리스트 모달 -->
+  <%@ include file="/WEB-INF/views/includes/groupcatemodal.jsp"%>
+  <!-- 카테고리별 소모임 리스트  모달끝 -->
 
   <!-- THE FOOTER -->
     <%@ include file="../includes/footer.jsp"%>
