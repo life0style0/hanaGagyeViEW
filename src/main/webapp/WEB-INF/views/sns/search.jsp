@@ -74,7 +74,6 @@
 
 	<div id="search-res-user">
     <div class="row">
-      </div> -->
        <div class="col-md-12">
 		<c:choose>
 		<c:when test="${empty userList}">
@@ -160,7 +159,7 @@
             </c:forEach>
             </c:if>
             <c:if test="${hashTagList.size() == 0 }">
-              <li>등록된 태그가 없습니다.</li>
+              <li><div class="empty-alert">등록된 태그가 없습니다.</div></li>
             </c:if>
             </ul>
           

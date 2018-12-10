@@ -168,3 +168,16 @@ a.filter:hover{
 	color:#298478;
 	font-weight: bold;
 }
+
+.empty-alert{
+	color:#298478;
+	text-align:center;
+	padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.feeds-smaller-title{
+	background: #298478;
+    color: white;
+    line-height: 27px;
+}

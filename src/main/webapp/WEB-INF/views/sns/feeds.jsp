@@ -30,13 +30,6 @@
 	  <script src="https://code.highcharts.com/modules/export-data.js"></script>
 
 
-		<!--[if lt IE 10]>
-			<link rel="stylesheet" type="text/css" href="style/ie-9.css" />
-		<![endif]-->		
-		<!--[if lt IE 9]>
-		    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	    <![endif]-->
 	</head>
 	<body>
 
@@ -109,22 +102,8 @@
 							</c:otherwise>
 							</c:choose>
 								
-								<%-- <a id="follow-ask-do-<c:out value="${user.user_id}"/>"
-									class="ask-follow">
-									<i class="fa fa-plus"></i>
-									FOLLOW
-								</a> --%>
-								<%-- <a id="follow-ask-undo-<c:out value="${user.user_id}"/>"
-									class="ask-follow">
-									<i class="fa fa-plus"></i>
-									UNFOLLOW
-								</a> --%>
 							</div>
-							<!-- <div class="col-lg-6">
-								<a href="blog-detail-2.html"
-									class="col-lg-6 be-user-activity-button send-btn be-message-type"><i
-									class="fa fa-envelope-o"></i>MESSAGE</a>
-							</div> -->
+						
 						</div>
 					</div>
 					<h5 class="be-title">관심사</h5>
@@ -138,17 +117,10 @@
 					</c:when>
 					</c:choose>
 				</div>
-				<!-- 
-				<a href="blog-detail-2.html"
-					class="be-button-vidget like-btn blue-style"><i
-					class="fa fa-thumbs-o-up"></i>LIKE PROJECT</a> 
-				<a
-					href="blog-detail-2.html"
-					class="be-button-vidget add-btn grey-style"><i
-					class="fa fa-file-o"></i>ADD TO COLLECTION</a> -->
+				
 
 				<div id="following-user-list" class="be-user-block">
-					<h3 class="letf-menu-article text-center">팔로잉하는 사용자</h3>
+					<h3 class="letf-menu-article text-center feeds-smaller-title">팔로잉하는 사용자</h3>
 					<div>
 					<c:choose>
 					<c:when test="${followingList.size() != 0}">
@@ -164,13 +136,13 @@
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<div>팔로잉을 시작하세요!</div>
+						<div class="empty-alert">팔로잉을 시작하세요!</div>
 					</c:otherwise>
 					</c:choose>
 					</div>
 				</div>
 				<div id="joinging-group-list"  class="be-user-block">
-					<h3 class="letf-menu-article text-center">가입한 모임</h3>
+					<h3 class="letf-menu-article text-center feeds-smaller-title">가입한 모임</h3>
 					<div>
 					<c:choose>
 					<c:when test="${groupList.size() != 0}">
@@ -183,40 +155,12 @@
 						</c:forEach>
 					</c:when>
 					<c:otherwise>
-						<div>모임에 참여하세요!</div>
+						<div class="empty-alert">모임에 참여하세요!</div>
 					</c:otherwise>
 					</c:choose>
 					</div>
 				</div>
-				<!-- <div class="swiper-container" data-loop="1" data-speed="500"
-					data-center="0" data-slides-per-view="1">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide">
-							<div class="be-post">
-								<a href="blog-detail-2.html" class="be-img-block"> <img
-									src="img/p9.jpg" height="202" width="269" alt="omg">
-								</a> <a href="blog-detail-2.html" class="be-post-title">NAHA
-									Finalist Hairstylist of the Year Allen Ruiz</a> <span> <a
-									href="blog-detail-2.html" class="be-post-tag">Art direction</a>,
-									<a href="blog-detail-2.html" class="be-post-tag">Web Design</a>,
-									<a href="blog-detail-2.html" class="be-post-tag">Interactiob
-										design</a>
-								</span>
-								<div class="author-post">
-									<img src="img/ava.png" alt="" class="ava-author"> <span>by
-										<a href="blog-detail-2.html">Daniel Ng</a>
-									</span>
-								</div>
-								<div class="info-block">
-									<span><i class="fa fa-thumbs-o-up"></i> 253</span> <span><i
-										class="fa fa-eye"></i> 753</span> <span><i
-										class="fa fa-comment-o"></i> 50</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="pagination"></div>
-				</div> -->
+				
 			</div>
 
 			<div class="col-md-9 article-menu-bar">

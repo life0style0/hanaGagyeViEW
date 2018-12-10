@@ -149,7 +149,7 @@
               <a data-filter="all" class="filter">전체글 </a>
               <c:choose>
               <c:when test="${groupList.size() ==0 }">
-               가입한 그룹이 없습니다
+              <div class="empty-alert">가입한 그룹이 없습니다</div> 
               </c:when>
               <c:otherwise>
               <c:forEach var="group" items="${groupList}">
@@ -179,7 +179,7 @@
             </c:forEach>
             </c:if>
             <c:if test="${hashTagList.size() == 0 }">
-              <li>등록된 태그가 없습니다.</li>
+              <li><div class="empty-alert">등록된 태그가 없습니다.</div></li>
             </c:if>
             </ul>
             

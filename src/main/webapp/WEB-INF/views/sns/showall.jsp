@@ -101,7 +101,7 @@
               <a data-filter="all" class="filter">전체글 </a>
               <c:choose>
               <c:when test="${groupsBynewArticleList.size() ==0 }">
-               가입한 그룹이 없습니다
+               <div class="empty-alert">조회된 그룹이 없습니다</div> 
               </c:when>
               <c:otherwise>
               <c:forEach var="group" items="${groupsBynewArticleList}">
@@ -114,9 +114,7 @@
         </div>
         
         <div class="be-vidget">
-          <h3 class="letf-menu-article">
-            인기 해시태그
-          </h3>
+          <h3 class="letf-menu-article">인기 해시태그</h3>
           <div class="tags_block clearfix">
             <ul>
             <li><a data-filter="all" class="filter">전체 (${hashTagList.size()})</a></li>
@@ -130,7 +128,7 @@
             </c:forEach>
             </c:if>
             <c:if test="${hashTagList.size() == 0 }">
-              <li>등록된 태그가 없습니다.</li>
+              <li><div class="empty-alert">등록된 태그가 없습니다.</div></li>
             </c:if>
             </ul>
           </div>
