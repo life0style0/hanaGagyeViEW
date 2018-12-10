@@ -64,12 +64,15 @@ public class GroupServiceImpl implements GroupService {
 	//소모임 현재인원, 가입 가능 인원 확인 
 	@Override
 	public GroupCountDTO getCount(String group_id) {
+		log.info(group_id);
 		return groupMapper.getCount(group_id);
 	}
 	
 	//소모임 회원으로 들어가기 
 	@Override
 	public int joinGroup(String group_id, String user_id) {
+		log.info(group_id);
+		log.info(user_id);
 		return groupMapper.joinGroup(group_id, user_id);
 	}
 	

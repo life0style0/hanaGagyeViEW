@@ -66,35 +66,36 @@ public class GroupRegistController {
 	@GetMapping("/get")
 	public void get(@RequestParam("group_id") String group_id, Model model) {
 		log.info("/get");
-		log.info("그룹 아이디 들어와 ? : "+group_id);
+		log.info("GetMapping에서 그룹 아이디 (혜림체크) : "+group_id);
 		model.addAttribute("groups", groupservice.get(group_id));
 	}
 	
 	//소모임 회원으로 가입 처리 
 	@PostMapping("/get")
 	public String get1(@RequestParam("group_id") String group_id, Model model, Principal principal) {
-		log.info("/get");
-		log.info("그룹 아이디 [getMethod] =====: "+group_id);
-		log.info("Model 결과 : [getMethod] =====: "+model);
-		log.info("Principal 결과 : [getMethod] =====: "+principal);
+		log.info("/get1");
+		log.info("그룹 아이디 [getMethod] =====: "+ group_id );
+		log.info("Model 결과 : [getMethod] =====: "+ model);
+		log.info("Principal 결과 : [getMethod] =====: "+ principal);
 
 		
-		model.addAttribute("group_id", group_id);
+		//model.addAttribute("group_id", group_id);
 		GroupCountDTO gcdto =  groupservice.getCount(group_id);
 		if(gcdto.getMax() <= gcdto.getNow()) {
 			model.addAttribute("check", "fail");
-			return "redirect:/group/join-confirm}";
+			return "redirect:/group/join-confirm";
 		} else {
-			if(groupservice.joinGroup(group_id, principal.getName()) > 0 ) {
+			int temp = groupservice.joinGroup(group_id, principal.getName());
+			if( temp > 0 ) {
 				model.addAttribute("check", "success");
-				groupservice.joinGroup(group_id, principal.getName());
+				log.info(group_id);
 				return "redirect:/group/join-confirm";
+
 			} else {
 				model.addAttribute("check", "fail");
 				return "redirect:/group/join-confirm";
 			}
 		}
-		
 	}
 	
 	@GetMapping("/join-confirm")

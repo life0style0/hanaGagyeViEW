@@ -273,5 +273,4 @@ $(function () {
     $('#article-modal').on('hidden.bs.modal', function () {
         resetArticleModal();
     });
-
 });
