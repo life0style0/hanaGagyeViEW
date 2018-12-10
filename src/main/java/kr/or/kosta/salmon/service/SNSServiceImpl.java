@@ -15,6 +15,7 @@ import kr.or.kosta.salmon.domain.MainFeedArticlesDTO;
 import kr.or.kosta.salmon.domain.ReportDTO;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.SNSUserPageDTO;
+import kr.or.kosta.salmon.domain.SNSUserPageWithoutAtriclesDTO;
 import kr.or.kosta.salmon.domain.ScrapDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.mapper.SNSMapper;
@@ -34,8 +35,8 @@ public class SNSServiceImpl implements SNSService {
 
 	// 작성자로 글목록 찾기
 	@Override
-	public ArrayList<SNSArticleDTO_sjh> getSNSArticleByWriter(String user_id) {
-		return snsMapper.getSNSArticleByWriter(user_id);
+	public ArrayList<SNSArticleDTO_sjh> getSNSArticleByWriter(String login_id, String user_id) {
+		return snsMapper.getSNSArticleByWriter(login_id, user_id);
 	}
 
 	@Override
@@ -153,8 +154,8 @@ public class SNSServiceImpl implements SNSService {
 
 	// 좋아요 한 게시글 목록
 	@Override
-	public ArrayList<SNSArticleDTO_sjh> getArticleByLikeUser(String user_id) {
-		return snsMapper.getArticleByLikeUser(user_id);
+	public ArrayList<SNSArticleDTO_sjh> getArticleByLikeUser(String login_id, String user_id) {
+		return snsMapper.getArticleByLikeUser(login_id,user_id);
 	}
 
 	// 댓글쓰기
@@ -247,5 +248,25 @@ public class SNSServiceImpl implements SNSService {
 	@Override
 	public ArrayList<GroupDTO_lhr> searchGroups(String value) {
 		return snsMapper.searchGroups(value);
+	}
+
+	@Override
+	public ArrayList<HashTagGroupDTO> getSearchHashTagGroup(String value) {
+		return snsMapper.getSearchHashTagGroup(value);
+	}
+
+	@Override
+	public SNSUserPageWithoutAtriclesDTO getSNSUserPageInfoWithoutArticles(String user_id) {
+		return snsMapper.getSNSUserPageInfoWithoutArticles(user_id);
+	}
+
+	@Override
+	public ArrayList<GroupDTO_lhr> getJoingingGroupList(String user_id) {
+		return snsMapper.getJoingingGroupList(user_id);
+	}
+
+	@Override
+	public ArrayList<GroupDTO_lhr> getGroupsBySNSNewArticles() {
+		return snsMapper.getGroupsBySNSNewArticles();
 	}
 }

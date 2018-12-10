@@ -5,9 +5,6 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +15,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import kr.or.kosta.salmon.domain.CommentDTO;
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
-import kr.or.kosta.salmon.domain.SNSUserPageDTO;
+import kr.or.kosta.salmon.domain.SNSUserPageWithoutAtriclesDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
 import kr.or.kosta.salmon.service.SNSService;
@@ -45,7 +45,7 @@ public class FeedsController {
 	@GetMapping("/sns/feeds")
 	public void FeedsPageGet(@RequestParam("userid") String user_id, Principal principal, Model model) {
 		log.info(" sns 유저 페이지 " + user_id);
-		SNSUserPageDTO userPageInfo = snsService.getSNSUserPageInfo(user_id);
+		SNSUserPageWithoutAtriclesDTO userPageInfo = snsService.getSNSUserPageInfoWithoutArticles(user_id);
 		// user 정보
 		// UserDTO user= userService.searchUserById(user_id);
 		UserDTO user = userPageInfo.getUser();
@@ -68,19 +68,36 @@ public class FeedsController {
 		// 이 페이지 유저가 쓴 게시글
 		// ArrayList<SNSArticleDTO_sjh> myArticles=
 		// snsService.getSNSArticleByWriter(user_id);
-		ArrayList<SNSArticleDTO_sjh> myArticles = userPageInfo.getMyArticles();
+	//	ArrayList<SNSArticleDTO_sjh> myArticles = userPageInfo.getMyArticles();
+		ArrayList<SNSArticleDTO_sjh> myArticles = snsService.getSNSArticleByWriter(principal.getName(), user_id);
 		model.addAttribute("myArticles", myArticles);
 		log.info(myArticles);
 		for (SNSArticleDTO_sjh art : myArticles) {
-			log.info(art.getComments());
+			//log.info(art.getComments());
+			log.info("이미지: "+art.getImagePaths());
+			log.info("좋아요  from "+principal.getName()+" to "+userPageInfo.getUser_id()+" : "+art.getIsLikedByMe());
+			log.info("신고  from "+principal.getName()+" to "+userPageInfo.getUser_id()+" : "+art.getIsReportedByMe());
 		}
 		
 		// 이 페이지 유저가 좋아요한 게시글
-		ArrayList<SNSArticleDTO_sjh> likeArticles = userPageInfo.getLikeArticles();
+	//	ArrayList<SNSArticleDTO_sjh> likeArticles = userPageInfo.getLikeArticles();
+		ArrayList<SNSArticleDTO_sjh> likeArticles = snsService.getArticleByLikeUser(principal.getName(), user_id);
 		model.addAttribute("likeArticles", likeArticles);
 		log.info(likeArticles);
 		for (SNSArticleDTO_sjh art : likeArticles) {
-			log.info(art.getComments());
+			//log.info(art.getComments());
+			log.info("이미지: "+art.getImagePaths());
+		}
+		
+		//article 정보 json으로 전송
+		ObjectMapper objmapper= new ObjectMapper();
+		try {
+			String myArticlesJSON= objmapper.writeValueAsString(myArticles);
+			String likeArticlesJSON= objmapper.writeValueAsString(likeArticles);
+			model.addAttribute("myArticlesJSON", myArticlesJSON);
+			model.addAttribute("likeArticlesJSON", likeArticlesJSON);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
 		}
 		
 		//이 페이지 유저가 팔로잉하는 유저
@@ -110,20 +127,13 @@ public class FeedsController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			/*
-			if(followingList.contains(user_id)) {
-				//팔로우 하는 사용자 -> 언팔 가능
-				model.addAttribute("follow","unfollowable");
-			}else {
-				//아직 팔로우 하지 않은 사용자 -> 팔로 가능
-				model.addAttribute("follow","followable");
-			}
-			*/
+		
 		}
 
+		//로그인한 유저 정보
 		UserDTO meDTO = snsService.getSimpleUser(principal.getName());
 		model.addAttribute("me", meDTO);
-		ObjectMapper objmapper = new ObjectMapper();
+	//	ObjectMapper objmapper = new ObjectMapper();
 		try {
 			String meJSON = objmapper.writeValueAsString(meDTO);
 			model.addAttribute("meJSON", meJSON);

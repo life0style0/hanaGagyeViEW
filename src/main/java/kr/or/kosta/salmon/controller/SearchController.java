@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
+import kr.or.kosta.salmon.domain.HashTagGroupDTO;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.service.MainService;
@@ -77,6 +78,7 @@ public class SearchController {
 		}
 	
 		ArrayList<SNSArticleDTO_sjh> articleList = snsService.searchArticles(value);
+		ArrayList<HashTagGroupDTO> hashTagList = snsService.getSearchHashTagGroup(value);
 	//	ArrayList<SNSArticleDTO_sjh> suggestionList = snsService.searchSuggestions(value);
 		ArrayList<GroupDTO_lhr> groupList = snsService.searchGroups(value);
 		
@@ -84,13 +86,18 @@ public class SearchController {
 		model.addAttribute("userList",userList);
 		model.addAttribute("articleList",articleList);
 	//	model.addAttribute("suggestionList",suggestionList);
+		model.addAttribute("hashTagList",hashTagList);
 		model.addAttribute("groupList",groupList);
 		
 		ObjectMapper objmapper= new ObjectMapper();
 		try {
 			String articleListJSON= objmapper.writeValueAsString(articleList);
+			String hashTagListJSON= objmapper.writeValueAsString(hashTagList);
+			String groupListJSON= objmapper.writeValueAsString(groupList);
 	//		String suggestionListJSON= objmapper.writeValueAsString(suggestionList);
 			model.addAttribute("articleListJSON", articleListJSON);
+			model.addAttribute("hashTagListJSON", hashTagListJSON);
+			model.addAttribute("groupListJSON", groupListJSON);
 	//		model.addAttribute("suggestionListJSON", suggestionListJSON);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();

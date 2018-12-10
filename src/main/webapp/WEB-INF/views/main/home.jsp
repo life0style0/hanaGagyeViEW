@@ -34,6 +34,8 @@
 
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
+ 
   <!--[if lt IE 10]>
 			<link rel="stylesheet" type="text/css" href="style/ie-9.css" />
 		<![endif]-->
@@ -121,95 +123,50 @@
   </div>
 
   <div class="container-fluid cd-main-content custom-container">
-    <!-- <div class="row">
-      <div class="col-md-2 left-feild">
-        <form action="./" class="input-search">
-          <input type="text" required="" placeholder="Enter keyword">
-          <i class="fa fa-search"></i>
-          <input type="submit" value="">
-        </form>
-      </div>
-      <div class="col-md-10 ">
-        <div class="for-be-dropdowns">
-          <div class="be-drop-down">
-            <i class="icon-projects"></i>
-            <span class="be-dropdown-content"> 닉네임검색 </span>
-            <ul class="drop-down-list">
-              <li class="filter" data-filter=".category-1"><a data-type="category-1">닉네임검색</a></li>
-              <li class="filter" data-filter=".category-2"><a data-type="category-2">해시태그 검색</a></li>
-              <li class="filter" data-filter=".category-3"><a data-type="category-3">카테고리 검색</a></li>
-            </ul>
-          </div>
-          <div class="be-drop-down">
-            <i class="icon-creative"></i>
-            <span class="be-dropdown-content">All Creative Filds
-            </span>
-            <ul class="drop-down-list">
-              <li class="filter" data-filter=".category-4"><a>Item - 1</a></li>
-              <li class="filter" data-filter=".category-5"><a>Item - 2</a></li>
-              <li class="filter" data-filter=".category-1"><a>Item - 3</a></li>
-            </ul>
-          </div>
-          
-          <div>
-          	<input type="button" id="infoChangeBtn" class="btn btn-danger" value="통계정보 숨기기">
-          </div>
-
-          불필요 드랍 박스 주석
-          <div class="be-drop-down">
-							<i class="icon-features"></i>
-							<span class="be-dropdown-content">Features
-							</span>
-							<ul class="drop-down-list">
-								<li class="filter" data-filter=".category-2"><a>Featured</a></li>
-								<li class="filter" data-filter=".category-3"><a>Most Appreciated</a></li>
-								<li class="filter" data-filter=".category-4"><a>Most Viewed</a></li>
-								<li class="filter" data-filter=".category-5"><a>Most Discussed</a></li>
-								<li class="filter" data-filter=".category-1"><a>Most Recent</a></li>
-							</ul>
-						</div>
-						<div class="be-drop-down">
-							<i class="icon-worldwide"></i>
-							<span class="be-dropdown-content">Worldwide
-							</span>
-							<ul class="drop-down-list">
-								<li class="filter" data-filter=".category-2"><a>WorldWide</a></li>
-								<li class="filter" data-filter=".category-3"><a>United States</a></li>
-								<li class="filter" data-filter=".category-4"><a>Germany</a></li>
-								<li class="filter" data-filter=".category-5"><a>United Kingdom</a></li>
-							</ul>
-						</div>
-
-        </div>
-      </div>
-    </div> -->
+  
   </div>
   
     <div class="container-fluid custom-container">
     <div class="row">
 
       <div class="col-md-2 left-feild">
+      
+      	<div class="be-vidget">
+	        <div class="creative_filds_block">
+		        <div class="controls">
+		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:desc comments-num:asc">좋아요순</button>
+		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:asc comments-num:desc">댓글순</button>
+		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:desc likes-num:asc comments-num:asc">최신순</button>
+		        </div>
+	        </div>
+       	</div>
+       	
+       	
         <div class="be-vidget">
-          <h3 class="letf-menu-article">
-            소모임 선택
-          </h3>
+          <h3 class="letf-menu-article text-center feeds-smaller-title">소모임 선택</h3>
           <div class="creative_filds_block">
             <div class="ul">
-              <a data-filter=".category-1" class="filter">동적생성 1 </a>
-              <a data-filter=".category-2" class="filter">동적생성2 </a>
-              <!-- <a data-filter=".category-3" class="filter">Interaction Design	</a>
-								<a data-filter=".category-4" class="filter">Art Direction		</a>
-								<a data-filter=".category-5" class="filter">Illustration		</a> -->
+              <a data-filter="all" class="filter">전체글 </a>
+              <c:choose>
+              <c:when test="${groupList.size() ==0 }">
+              <div class="empty-alert">가입한 그룹이 없습니다</div> 
+              </c:when>
+              <c:otherwise>
+              <c:forEach var="group" items="${groupList}">
+              	<a data-filter=".group-<c:out value="${group.group_id}"/>" class="filter">${group.group_title}</a>
+              </c:forEach>
+              </c:otherwise>
+              </c:choose>
             </div>
           </div>
         </div>
+        
         <div class="be-vidget">
-          <h3 class="letf-menu-article">
-            인기 해시태그
-          </h3>
+          <h3 class="letf-menu-article text-center feeds-smaller-title">인기 해시태그</h3>
           <div class="tags_block clearfix">
+          
             <ul>
-            <li><a data-filter=".category-1" class="filter">전체 (${hashTagList.size()})</a></li>
+            <li><a data-filter="all" class="filter">전체 (${hashTagList.size()})</a></li>
             <c:if test="${hashTagList.size() > 0 }">
             <c:set var="ctHash" value="1" />
             <c:forEach var="hashTag" items="${hashTagList }">
@@ -220,9 +177,10 @@
             </c:forEach>
             </c:if>
             <c:if test="${hashTagList.size() == 0 }">
-              <li>등록된 태그가 없습니다.</li>
+              <li><div class="empty-alert">등록된 태그가 없습니다.</div></li>
             </c:if>
             </ul>
+            
           </div>
         </div>
       </div>
@@ -235,18 +193,30 @@
 		 <h2>내 주변 활동이 없습니다. 지금 주변을 둘러보고 팔로우를 시작하세요! </h2>
          <h3><a href="/salmon/sns/showall">둘러보기</a></h3>
 		</div>
-					
-        	<!-- <div class="category-1 mix custom-column-3">
-             	내 주변 활동이 없습니다. 지금 주변을 둘러보고 팔로우를 시작하세요! 
-             	 <a href="/salmon/main/showall">둘러보기</a>
-          </div> -->
+
         </c:if>
         <c:if test="${articleList.size() > 0 }">
         <c:forEach var="article" items="${articleList }">
         <c:forEach var="hashLoop" items="${article.hashtags }">
        		<c:set var="tag" scope="page" value="${tag } category-hashTag-${hashLoop }"/>
        	</c:forEach>
+       
+       <c:choose>
+       <c:when test="${article.group_id >0}">
+       		<div class="mix custom-column-3 ${tag} group-<c:out value="${group.group_id}"/>"  
+       		data-published-date="${article.article_regdate}" 
+	        data-likes-num="${article.likes.size()}" data-comments-num="${article.comments.size()}">
+       </c:when>
+       <c:otherwise>
+        	<div class="mix custom-column-3 ${tag} "  data-published-date="${article.article_regdate}" 
+	        data-likes-num="${article.likes.size()}" data-comments-num="${article.comments.size()}">
+       </c:otherwise>
+       </c:choose>
+	  
+       <%-- 
           <div class="category-1 mix custom-column-3 ${tag }">
+             --%>
+            
             <div id="article-post-<c:out value="${article.article_id}"/>" class="be-post-sjh">
               <a class="be-img-block">
               <c:if test="${article.imagePaths.size()==0 }">
@@ -296,15 +266,11 @@
                 </span>
               </div>
               <div class="info-block">
-                <span><i class="fa fa-thumbs-o-up"></i>
+                <span><i class="far fa-thumbs-up"></i>
                 	<%--좋아요 --%>
                 	<c:out value="${article.likes.size()}"/>
                 </span>
-                <span><i class="fa fa-eye"></i>
-                	<%--스크랩수 --%>
-                	<c:out value="${article.scraps.size()}"/>
-                </span>
-                <span><i class="fa fa-comment-o"></i>
+                <span><i class="fas fa-comment"></i>
                 	<%--댓글수 --%>
                 	<c:out value="${article.comments.size()}"/>
                 </span>
@@ -363,7 +329,7 @@
   <script src="/salmon/resources/template/script/jquery-ui.min.js"></script>
   <script src="/salmon/resources/template/script/bootstrap.min.js"></script>
   <script src="/salmon/resources/template/script/idangerous.swiper.min.js"></script>
-  <script src="/salmon/resources/template/script/jquery.mixitup.js"></script>
+<!--   <script src="/salmon/resources/template/script/jquery.mixitup.js"></script> -->
   <script src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
   <script src="/salmon/resources/template/script/filters.js"></script>
   <script src="/salmon/resources/template/script/global.js"></script>
@@ -390,6 +356,23 @@
 		  me= ${meJSON};
 		})
 	</script>
+	
+	<!--  게시글 정렬  -->
+ 	<script src="/salmon/resources/sjh/js/mixitup.min.js"></script>
+    <script>
+    var containerEl = document.querySelector('#container-mix');
+    var mixer = mixitup(containerEl, {
+                load: {
+                    sort: 'published-date:desc likes-num:asc comments-num:asc'
+                }
+    			
+    			/* 	,
+                animation: {
+                	duration: 200
+               } */
+            });
+
+    </script>
 	
   
   <script type="text/javascript">

@@ -369,6 +369,12 @@ function isValidCategory(){
 			alert('category null');
 			return;
 		} else{
+			if ($('#CTGRY_3').attr('value')== null){
+				$('#CTGRY_3').attr('value',-1);
+				if ($('#CTGRY_2').attr('value')== null){
+					$('#CTGRY_2').attr('value',-1);
+				}
+			}
 			registReady = true && registReady;
 		}
 	

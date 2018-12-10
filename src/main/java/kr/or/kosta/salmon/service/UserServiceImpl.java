@@ -29,22 +29,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void userRegist(RegistUserDTO user) {
 		log.info("회원가입 시작");
+		
+		if(user.getUser_image() == null || user.getUser_image().trim().length() ==0) {
+			user.setUser_image("default img");
+		}
+		
 		UserDTO simpleUser= user.makeUserDTO();
+		log.info(simpleUser);
 		usermapper.createUser(simpleUser); //user 생성
 		log.info("createUser 끝");
 		usermapper.insertUserAuth(simpleUser); //spring security 권한 부여
 		log.info("insertUserAuth 끝");
-		if(user.getCtgry_3() != -1) {
-			usermapper.insertBasicPsns3(user); //기본정보 저장
-		}else {
-			if(user.getCtgry_2() != -1) {
-				usermapper.insertBasicPsns2(user);
-			}else {
-				if(user.getCtgry_1()!= -1) {
-					usermapper.insertBasicPsns1(user);
-				}
-			}
-		}
+		
+		usermapper.insertBasicPsns3(user);
 		
 		log.info("insertBasicPsns 끝");
 		log.info("회원가입 끝");

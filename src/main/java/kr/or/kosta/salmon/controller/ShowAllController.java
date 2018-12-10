@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.UserDTO;
@@ -44,6 +45,7 @@ public class ShowAllController {
 //		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)snsService.getSNSArticles(user_id);
 		ArrayList<SNSArticleDTO_sjh> newArticleList = snsService.getSNSNewArticles();
 		log.info(newArticleList);
+		ArrayList<GroupDTO_lhr> groupsBynewArticleList= snsService.getGroupsBySNSNewArticles();
 
 	//	MainChartDTO mainchartIncomeInfo = mainService.getChartTotalIncomeFee(user_id);
 	//	MainChartDTO mainchartSpendInfo = mainService.getChartTotalSpendFee(user_id);
@@ -62,12 +64,15 @@ public class ShowAllController {
 	//	model.addAttribute("mainchartSpendInfo", mainchartSpendInfo);
 		model.addAttribute("newArticleList", newArticleList);
 		model.addAttribute("hashTagList", hashTagList);
+		model.addAttribute("groupsBynewArticleList", groupsBynewArticleList);
 		
 		//ArrayList<SNSArticleDTO_sjh> articleListJSON = (ArrayList)snsService.getSNSArticles(user_id);
 		ObjectMapper objmapper= new ObjectMapper();
 		try {
 			String newArticleListJSON= objmapper.writeValueAsString(newArticleList);
 			model.addAttribute("newArticleListJSON", newArticleListJSON);
+			String groupsBynewArticleListJSON= objmapper.writeValueAsString(groupsBynewArticleList);
+			model.addAttribute("groupsBynewArticleListJSON", groupsBynewArticleListJSON);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}

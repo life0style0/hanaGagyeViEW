@@ -680,16 +680,16 @@ $('.s-color').on('click', function() {
 	});
 
 	//MIX UP
-	if($('#container-mix').length) {
-		$('#container-mix').mixItUp(
-			{
-				animation: {
-					duration: 400,
-					effects: 'fade translateZ(-360px) stagger(34ms)',
-					easing: 'ease'
-				}
-			}
-		);};
+//	if($('#container-mix').length) {
+//		$('#container-mix').mixItUp(
+//			{
+//				animation: {
+//					duration: 400,
+//					effects: 'fade translateZ(-360px) stagger(34ms)',
+//					easing: 'ease'
+//				}
+//			}
+//		);};
 
 
 	if($('#slider-range-max').length) {
