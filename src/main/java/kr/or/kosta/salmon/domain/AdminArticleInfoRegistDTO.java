@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminFollowerTopDTO {
-	private String user_id;
-	private int follower_ct;
+public class AdminArticleInfoRegistDTO {
+	private String regist_date;
+	private int regist_ct;
 }

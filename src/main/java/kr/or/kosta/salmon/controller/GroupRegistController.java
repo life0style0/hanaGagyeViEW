@@ -36,6 +36,10 @@ public class GroupRegistController {
 		log.info("리스트 화면 : 소모임 페이지 메인 화면 !!!!!!");
 		log.info("list:" + cri);
 		groupservice.getList();
+		
+		//카테고리 정보 가져오기
+		List<CategoryDTO_sjh> categories = groupservice.getAllCategories();
+		model.addAttribute("categories", categories);
 		model.addAttribute("list", groupservice.getList());
 	}
 

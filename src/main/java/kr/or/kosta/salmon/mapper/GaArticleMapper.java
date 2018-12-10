@@ -12,6 +12,9 @@ import kr.or.kosta.salmon.domain.MainArticleDTO;
 public interface GaArticleMapper {
 
 	public int createGaArticle(ArticleDTO article);
+	public int createGaArticleSimple(ArticleDTO article);
+	public int createGaArticleGroup(ArticleDTO article);
+	public int createGaArticleGroupSimple(ArticleDTO article);
 	public ArrayList<String> getCategory();
 	public String getCategoryByName(String categoryName);
 	public String getArticleCategoryByName(String article_ctgry_name);
@@ -33,4 +36,6 @@ public interface GaArticleMapper {
 	public ArrayList<String> getArticleFilePath(int article_id); 
 
 	public int imageCheck(ImageEditDTO imageEditDTO);
+	
+	public ArrayList<String> getUserGroupTitle(String user_id);
 }

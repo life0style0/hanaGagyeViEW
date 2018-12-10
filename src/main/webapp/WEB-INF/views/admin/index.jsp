@@ -79,9 +79,9 @@
                   </li>
                   <li><a><i class="fa fa-desktop"></i> 게시글 및 유저 관리 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">게시글 관리</a></li>
-                      <li><a href="form_advanced.html">유저 관리</a></li>
-                      <li><a href="form_validation.html">역제안 관리</a></li>
+                      <li><a href="articleManage">게시글 관리</a></li>
+                      <li><a href="userManage">유저 관리</a></li>
+                      <li><a href="suggestionManage">역제안 관리</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -242,7 +242,7 @@
 
 
             <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="x_panel tile fixed_height_320">
+              <div class="x_panel tile fixed_height_360">
                 <div class="x_title">
                   <h2>유저 등록 카테고리</h2>
                   <ul class="nav navbar-right panel_toolbox">
@@ -287,7 +287,7 @@
             </div>
 
             <div class="col-md-4 col-sm-4 col-xs-12">
-              <div class="x_panel tile fixed_height_320 overflow_hidden">
+              <div class="x_panel tile fixed_height_360 overflow_hidden">
                 <div class="x_title">
                   <h2>팔로워 보유 현황</h2>
                   <ul class="nav navbar-right panel_toolbox">
@@ -323,10 +323,15 @@
                       </th>
                     </tr>
                     <tr>
-                      <td>
-                        <canvas class="canvasDoughnut" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>
-                      </td>
-                      <td>
+                     <td>
+                     <c:set var="countRank" value="1"/>
+                     <c:forEach var="tempblank" items="${adminUserInfoDTO.followerTopList }">
+                     		<div>${countRank } 위</div>
+
+                     <c:set var="countRank" value="${countRank+1 }"/>
+                     </c:forEach>
+                     </td>
+                     <td>
                         <table class="tile_info">
                         <c:forEach var="follower" items="${adminUserInfoDTO.followerTopList }">
                           <tr>
@@ -334,7 +339,7 @@
                               <p><i class="fa fa-square blue"></i>${follower.user_id } </p>
                             </td>
                             <td>${follower.follower_ct }명</td>
-                          </tr>
+                          </tr>      
                         </c:forEach>
                         </table>
                       </td>
@@ -346,7 +351,7 @@
 
 
             <div class="col-md-4 col-sm-6 col-xs-12 widget_tally_box">
-                <div class="x_panel">
+                <div class="x_panel tile fixed_height_360 overflow_hidden">
                   <div class="x_title">
                     <h2>성별에 따른 소비 분포도</h2>
                     <ul class="nav navbar-right panel_toolbox">

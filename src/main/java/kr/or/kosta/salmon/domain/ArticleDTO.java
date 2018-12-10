@@ -25,4 +25,7 @@ public class ArticleDTO {
 	private int group_id;
 	private String user_id;
 	private String article_deleted;
+	private int article_like_num;
+	private int article_report_num;
+	private int article_comment_num;
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="utf-8">
@@ -82,9 +83,9 @@
                   </li>
                   <li><a><i class="fa fa-desktop"></i> 게시글 및 유저 관리 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">게시글 관리</a></li>
-                      <li><a href="form_advanced.html">유저 관리</a></li>
-                      <li><a href="form_validation.html">역제안 관리</a></li>
+                      <li><a href="articleManage">게시글 관리</a></li>
+                      <li><a href="userManage">유저 관리</a></li>
+                      <li><a href="suggestionManage">역제안 관리</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -223,7 +224,7 @@
 
                 <div class="row x_title">
                   <div class="col-md-6">
-                    <h3>유저 통계 <small>월별 신규 가입 인원</small></h3>
+                    <h3>게시글 통계 <small>등록 해시태그</small></h3>
                   </div>
                   <div class="col-md-6">
                     <!-- <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
@@ -310,38 +311,27 @@
 			
 			
 
-            <div class="col-md-4 col-sm-6 col-xs-12 widget_tally_box">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>성별에 따른 소비 분포도</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                  	<div id="container2" style="width: 100%; height: 240px; margin: 0 auto"></div> 
-                  </div>
+            <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="x_panel tile fixed_height_340">
+                <div class="x_title">
+                  <h2>게시글 등록현황(최근5일)</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                 	<div id="registCtChart"  style="min-width: 300px; height: 280px; max-width: 310px; margin: 0 auto"></div>
                 </div>
               </div>
-
+            </div>
           </div>
-
-
-          
-
           </div>
         </div>
         <!-- /page content -->
@@ -365,8 +355,6 @@
     <script src="/salmon/resources/adminTemplate/vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
     <script src="/salmon/resources/adminTemplate/vendors/nprogress/nprogress.js"></script>
-    <!-- Chart.js -->
-    <script src="/salmon/resources/adminTemplate/vendors/Chart.js/dist/Chart.min.js"></script>
     <!-- gauge.js -->
     <script src="/salmon/resources/adminTemplate/vendors/gauge.js/dist/gauge.min.js"></script>
     <!-- bootstrap-progressbar -->
@@ -409,10 +397,88 @@
 	</c:forEach>
 	
 	/*파이차트*/
+	var pieDataSet = [];
+	<c:forEach var="articleCtgry" items="${artiCtgryList}">
+    	var tempPieData = [];
+    	tempPieData.push("${articleCtgry.ctgry_name }");
+    	tempPieData.push(${Math.round(articleCtgry.ctgry_ct/ articleCtgryTotal * 100*10)/10});
+        pieDataSet.push(tempPieData);
+    </c:forEach>
+	 console.log(pieDataSet);
+	
+	//라인차트
+	var nowDate = new Date();
+	nowDate.getDate();
+	var getNow = nowDate.getFullYear() +'-' + (nowDate.getMonth()+1) +'-'+ nowDate.getDate();
+	
+	function setYesterday(date){
+		var dateRegistSet = [];
+		
+		for(var i = 4; i>= 0; i--){
+		    var selectDate = date.split("-");
+		    var changeDate = new Date();
+		    changeDate.setFullYear(selectDate[0], selectDate[1]-1, selectDate[2]-i);
+		    
+		    var y = changeDate.getFullYear();
+		    var m = changeDate.getMonth() + 1;
+		    var d = changeDate.getDate();
+		    if(m < 10)    { m = "0" + m; }
+		    if(d < 10)    { d = "0" + d; }
+		    var resultDate = y + "-" + m + "-" + d;
+		    dateRegistSet.push(resultDate);
+		}
+		
+	    return dateRegistSet;
+	}
+	
+	var registDateSet = setYesterday(getNow);
+
+	var registIncomeDataSet= {};
+	var tempIncomeDataSet = [];
+	for(var t=0; t<registDateSet.length; t++){
+		var check = true;
+		<c:forEach var="incomeTemp" items="${registCtIncomeList}">
+			if(registDateSet[t]=='${incomeTemp.regist_date}'){
+				tempIncomeDataSet.push(${incomeTemp.regist_ct});
+				check = false;
+			}
+		</c:forEach>
+		if(check){
+			tempIncomeDataSet.push(0);
+		}
+	}
+
+	registIncomeDataSet["name"]="수입";
+	registIncomeDataSet["data"]=tempIncomeDataSet;
+	
+	var registSpendDataSet= {};
+	var tempSpendDataSet = [];
+	for(var t=0; t<registDateSet.length; t++){
+		var check = true;
+		<c:forEach var="spendTemp" items="${registCtSpendList}">
+			if(registDateSet[t]=='${spendTemp.regist_date}'){
+				tempSpendDataSet.push(${spendTemp.regist_ct});
+				check = false;
+			}
+		</c:forEach>
+		if(check){
+			tempSpendDataSet.push(0);
+		}
+	}
+
+	registSpendDataSet["name"]="지출";
+	registSpendDataSet["data"]=tempSpendDataSet;
+	
+	console.log(registSpendDataSet);
+	console.log(registIncomeDataSet);
+	
+	var registTotalDataSet = [];
+	registTotalDataSet.push(registSpendDataSet);
+	registTotalDataSet.push(registIncomeDataSet);
+	
+	console.log(registTotalDataSet);
 	
 	 
-	
-	
 	</script>
 	
 	<!-- 안녕차트  -->
@@ -425,7 +491,7 @@
         name: 'Occurrences'
     }],
     title: {
-        text: 'Wordcloud of Lorem Ipsum'
+        text: '해시태그 워드클라우드'
     }
 });	
 	
@@ -436,7 +502,7 @@
 	        plotShadow: false
 	    },
 	    title: {
-	        text: 'Browser<br>shares<br>2017',
+	        text: '게시글<br>등록 카테고리',
 	        align: 'center',
 	        verticalAlign: 'middle',
 	        y: 40
@@ -464,23 +530,53 @@
 	        type: 'pie',
 	        name: 'Browser share',
 	        innerSize: '50%',
-	        data: [
-	            ['Chrome', 58.9],
-	            ['Firefox', 13.29],
-	            ['Internet Explorer', 13],
-	            ['Edge', 3.78],
-	            ['Safari', 3.42],
-	            {
-	                name: 'Other',
-	                y: 7.61,
-	                dataLabels: {
-	                    enabled: false
-	                }
-	            }
-	        ]
+	        data: pieDataSet
 	    }]
 	});
-
+	
+	//카테고리 종류에 따른 게시글 등록 현황
+		Highcharts.chart('registCtChart', {
+		    chart: {
+		        type: 'area'
+		    },
+		    title: {
+		        text: '게시글 등록현황(수입/지출)'
+		    },
+		    xAxis: {
+		    	categories: registDateSet,
+		        tickmarkPlacement: 'on',
+		        title: {
+		            enabled: false
+		        }
+		    },
+		    yAxis: {
+		        title: {
+		            text: '(건)'
+		        },
+		        labels: {
+		            formatter: function () {
+		                return this.value;
+		            }
+		        }
+		    },
+		    tooltip: {
+		        pointFormat: '{series.name} had stockpiled <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+		    },
+		    plotOptions: {
+		        area: {
+		            marker: {
+		                symbol: 'circle',
+		                radius: 2,
+		                states: {
+		                    hover: {
+		                        enabled: true
+		                    }
+		                }
+		            }
+		        }
+		    },
+		    series: registTotalDataSet
+		});
 
 	</script>
 	
