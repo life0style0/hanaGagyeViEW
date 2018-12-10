@@ -80,11 +80,6 @@
 <!--       <h2 class="content-title">소모임 가입 성공을 축하드립니다. :D</h2>
  -->      
 
-      <script type="text/javascript"> 
-      function historyBack() {
-    	  history.back(); 
-    	  } 
-      </script> 
       <style>
       html,body{
   height:100%;
@@ -136,6 +131,11 @@ button:hover:before,button:hover:after{
       <button onclick="historyBack()" >소모임으로 이동</button>
 
       
+      <script type="text/javascript"> 
+      function historyBack() {
+        history.back(); 
+        } 
+      </script> 
 
     
   </div>

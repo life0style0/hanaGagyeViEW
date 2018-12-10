@@ -162,23 +162,23 @@
 		]]>
 	</select>
 	
-	<!-- 이미지 가져오기  -->
-	 <select id="getImages" resultType="string">
-SELECT image_path
-FROM images where article_id = #{article_id}
-     </select>
+		<!-- 이미지 가져오기  -->
+		 <select id="getImages" resultType="string">
+		SELECT image_path
+		FROM images where article_id = #{article_id}
+	     </select>
         
-      <!-- 댓글 가져오기 -->
+       <!-- 댓글 가져오기 -->
        <select id="getComments" resultType="kr.or.kosta.salmon.domain.CommentDTO">
-SELECT comment_id, 
-       comment_content, 
-       to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
-       user_id, 
-       user_image,
-       user_nickname 
-FROM   comments left outer join users using(user_id)
-WHERE  article_id = #{articleId}
-order by comment_regdate asc
+		SELECT comment_id, 
+		       comment_content, 
+		       to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
+		       user_id, 
+		       user_image,
+		       user_nickname 
+		FROM   comments left outer join users using(user_id)
+		WHERE  article_id = #{articleId}
+		order by comment_regdate asc
         </select>
         
         

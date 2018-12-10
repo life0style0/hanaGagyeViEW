@@ -23,7 +23,10 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-		<!--[if lt IE 10]>
+		<!-- Font관련  -->
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
+        
+    <!--[if lt IE 10]>
 			<link rel="stylesheet" type="text/css" href="style/ie-9.css" />
 		<![endif]-->		
 		<!--[if lt IE 9]>
@@ -61,7 +64,7 @@
 	  <!-- 이미지업로드 CSS -->   
 	
 	</head>
-	<body data-spy="scroll" data-target=".be-dropdown-content">
+	<body data-spy="scroll" data-target=".be-dropdown-content" style="font-family: 'Noto Sans KR', sans-serif;">
 
 	<!-- THE LOADER -->
 
@@ -86,7 +89,12 @@
 			<div class="row">
 				<div class="col-xs-12 col-md-3 left-feild">
 					<div class="be-vidget back-block">
-						<a class="btn full color-1 size-1 hover-1" href="author.html"><i class="fa fa-chevron-left"></i>나의 가계ViEW로 돌아가기</a>
+             <script type="text/javascript"> 
+                function historyBack() {
+                  history.back(); 
+                  } 
+                </script> 
+						<a class="btn full color-1 size-1 hover-1" href="#" onclick="historyBack()"><i class="fa fa-chevron-left"></i>소모임으로 돌아가기</a>
 					</div>
 				</div>
 				<form name="articleForm" id="articleForm" method="post" action="/salmon/article/submitGroupArticle">

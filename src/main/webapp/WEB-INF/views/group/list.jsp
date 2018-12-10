@@ -177,7 +177,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1533094700036-70ecccc6f047?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
@@ -196,22 +196,19 @@
                           </div>
                         </div>
                       </div>
-
+<!-- 용돈 수정 필요  -->
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                                                  <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
-                        
-                            <img
-                            src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                            <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">용돈</a>
-                          <span> <a href="page1.html"
-                            class="be-post-tag">#저축방법</a>,
-                            <a href="page1.html" class="be-post-tag">#용돈기입장 활용</a>,
-                            <a href="page1.html" class="be-post-tag">#소확행</a>
+                          </a> <a href="page1.html" class="be-post-title" style="font-size: 13pt; text-align: left;">용돈</a>
+                          <span> <a href="page1.html" class="be-post-tag">#저축방법</a>, <a href="page1.html" class="be-post-tag">#용돈기입장
+                              활용</a>, <a href="page1.html"
+                            class="be-post-tag">#소확행</a>
                           </span>
-                  
+
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -224,8 +221,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                                                   <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
-
+                           <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1519377345644-937ef9754740?ixlib=rb-1.2.1&auto=format&fit=crop&w=1429&q=80"
                             alt="omg" height="200px;">
@@ -249,10 +245,8 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                                                   <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
-
-                            <img
-                            src="https://images.unsplash.com/photo-1518515097038-ca19a3777cd7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
+                    <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                            <img src="https://images.unsplash.com/photo-1518515097038-ca19a3777cd7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
                             alt="omg" height="200px;">
                           </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">금융소득</a>
                           <span> <a href="page1.html"
@@ -273,8 +267,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                                                  <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
-
+                           <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80"
                             alt="omg" height="200px;">
@@ -298,8 +291,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                                                   <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
-
+                           <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1488423680352-79e37c24c59f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
@@ -322,7 +314,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                          <a href="page1.html" href="#CategoryModal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1374&q=80"
                             alt="omg" height="200px;">
@@ -345,9 +337,8 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                                                   <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
- <img
-                            src="https://images.unsplash.com/photo-1535982330050-f1c2fb79ff78?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80"
+                            <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                  <img src="https://images.unsplash.com/photo-1535982330050-f1c2fb79ff78?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80"
                             alt="omg" height="200px;">
                           </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">외국/언어</a>
                           <span> <a href="page1.html"
@@ -368,10 +359,8 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                                                    <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
-
-                            <img
-                            src="https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                             <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                            <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
                           </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">문화/공연/축제</a>
                           <span> <a href="page1.html"
@@ -394,9 +383,7 @@
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
-
-                            <img
-                            src="https://images.unsplash.com/photo-1483032469466-b937c425697b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                            <img src="https://images.unsplash.com/photo-1483032469466-b937c425697b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
                           </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">음악/악기</a>
                           <span> <a href="page1.html"
@@ -417,7 +404,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img src="https://images.unsplash.com/photo-1528578577235-b963df6db908?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
                           </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">공예/만들기</a>
@@ -462,7 +449,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1542228262-891dc133eb77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
                             alt="omg" height="200px;">
@@ -554,7 +541,7 @@
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="page1.html" class="be-img-block">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">

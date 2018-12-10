@@ -17,18 +17,27 @@
 <link rel="stylesheet" href="/salmon/resources/template/style/icon.css">
 <link rel="stylesheet" href="/salmon/resources/template/style/loader.css">
 <link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
-    <!-- 혜림 수정 CSS -->
-		<link rel="stylesheet" href="/salmon/resources/lhr/css/stylesheet-hyerim.css">
+<!-- 혜림 수정 CSS -->
+<link rel="stylesheet" href="/salmon/resources/lhr/css/stylesheet-hyerim.css">
 <!-- Font special for pages-->
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet">
-
 <!-- 페이지 내용 css -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-
 <!-- 주현 버튼 -->
-    <link rel="stylesheet" href="/salmon/resources/sjh/css/main-sjh.css">
-    <link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
+<link rel="stylesheet" href="/salmon/resources/sjh/css/main-sjh.css">
+<link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
+<!-- 게시물 보기 위한 링크 stylesheet -->
+  <link rel="stylesheet" href="/salmon/resources/template/style/jquery-ui.css">
+  <link rel="stylesheet" href="/salmon/resources/sjh/css/card-sjh.css">
+ <link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
+  <link rel="stylesheet" href="/salmon/resources/jjw/css/common.css">
+  <link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
+  <link rel="stylesheet" href="/salmon/resources/jjw/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="/salmon/resources/jjw/css/owl.theme.default.min.css">
+  <!-- 새로 추가한 링크 리스트 -->
+  
+
+
 
 </head>
 <body style="font-family: 'Noto Sans KR', sans-serif;">
@@ -95,10 +104,10 @@
       }
       </style>
 
-      <!-- 소모임 새로만들기 버튼  -->
+      <!-- 소모임 게시물 작성하기 버튼  -->
       <button type="button" id="regBtn" class="button"
         style="vertical-align: middle; float: right; font-size: 12pt;"
-        onclick="location.href='http://localhost/salmon/group/register'">
+        onclick="location.href='/salmon/article/registerGroup?group_id=${groups.group_id}'">
         <span>게시물 작성</span>
       </button>
       
@@ -204,58 +213,58 @@
                   </div>
                 </div>
               </div>
-              
-<script type="text/javascript">
-function hyerimFunction(){
-	   var x = document.getElementById("snackbar1");
-	    x.className = "show";
-	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-}
-</script>
+                <!-- 소모임 메시지가 등록되었습니다. 스낵바 보여주기 위한 JS -->
+                <script type="text/javascript">
+                function hyerimFunction(){
+                	   var x = document.getElementById("snackbar1");
+                	    x.className = "show";
+                	    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                }
+                </script>
 
-<style>
-#snackbar,#snackbar1 {
-    visibility: hidden;
-    min-width: 250px;
-    margin-left: -125px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 2px;
-    padding: 16px;
-    position: fixed;
-    z-index: 1;
-    left: 50%;
-    bottom: 30px;
-    font-size: 17px;
-}
-
-#snackbar.show, #snackbar1.show {
-    visibility: visible;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-@-webkit-keyframes fadein {
-    from {bottom: 0; opacity: 0;} 
-    to {bottom: 30px; opacity: 1;}
-}
-
-@keyframes fadein {
-    from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
-}
-
-@-webkit-keyframes fadeout {
-    from {bottom: 30px; opacity: 1;} 
-    to {bottom: 0; opacity: 0;}
-}
-
-@keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
-    to {bottom: 0; opacity: 0;}
-}
-</style>
+                <style>
+                #snackbar,#snackbar1 {
+                    visibility: hidden;
+                    min-width: 250px;
+                    margin-left: -125px;
+                    background-color: #333;
+                    color: #fff;
+                    text-align: center;
+                    border-radius: 2px;
+                    padding: 16px;
+                    position: fixed;
+                    z-index: 1;
+                    left: 50%;
+                    bottom: 30px;
+                    font-size: 17px;
+                }
+                
+                #snackbar.show, #snackbar1.show {
+                    visibility: visible;
+                    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+                    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+                }
+                
+                @-webkit-keyframes fadein {
+                    from {bottom: 0; opacity: 0;} 
+                    to {bottom: 30px; opacity: 1;}
+                }
+                
+                @keyframes fadein {
+                    from {bottom: 0; opacity: 0;}
+                    to {bottom: 30px; opacity: 1;}
+                }
+                
+                @-webkit-keyframes fadeout {
+                    from {bottom: 30px; opacity: 1;} 
+                    to {bottom: 0; opacity: 0;}
+                }
+                
+                @keyframes fadeout {
+                    from {bottom: 30px; opacity: 1;}
+                    to {bottom: 0; opacity: 0;}
+                }
+                </style>
 
 
               <div class="be-text-tags style-2" style="color: #383b43;">
@@ -263,7 +272,6 @@ function hyerimFunction(){
                 <a href="#" style="color: #383b43;">관심사 취미</a>, 
                 <a href="#" style="color: #383b43;">소비패턴</a>
               </div>
-
 
               <!-- =========소셜 정보 div -->
               <div class="be-user-social">
@@ -274,7 +282,7 @@ function hyerimFunction(){
                 <a class="social-btn color-5" href="#"><i class="fa fa-instagram"></i></a> 
                 <a class="social-btn color-6" href="#"><i class="fa fa-linkedin"></i></a>
               </div>
-              <a class="be-user-site" href="http://www.phoenix.cool"><i
+              <a class="be-user-site" href="#"><i
                 class="fa fa-link"></i> www.GAGYEViEW.com</a>
             </div>
             <!-- =========검은색 리스트 내용 리스트 -->
@@ -298,7 +306,6 @@ function hyerimFunction(){
             </div>
           </div>
 
-
           <!-- ======================= 주요 상세 리스트 끝 =================== -->
 
 
@@ -319,9 +326,7 @@ function hyerimFunction(){
               <div class="clearfix"></div>
               <div class="be-desc-text" style="color: #383b43;">소모임 크루와 워라밸, 효율적인 소비패턴을 배우며 소확행을 시작해요 :) <br>
                 오프라인, 온라인 정모를 중심으로, 활발하게 활동을 하고 있습니다!<br>
-                
                 문화 활동 및 레저스포츠 소모임을 통해 더 여유롭고 행복한 삶을 만들어 보세요.<br>
-                
                 </div>
             </div>
             <div class="be-desc-author">
@@ -352,13 +357,12 @@ function hyerimFunction(){
             
             <div class="tabs-content clearfix" style="font-family: 'Noto Sans KR', sans-serif;">
               <!-- =============== 첫번째 정보 =============== -->
-              <div class="tab-info active">
-                <div class="row">
-                      <h2>  <c:out value="${groups.group_title}" /> </h2>     
-                          <h3> 소모임 간단 소개 : <c:out value="${groups.group_description}" /> </h3>        
-              <h4> 소모임 방장 : <c:out value="${groups.user_id}" /> </h4>
-               
-              <h4> 소모임 현재인원 / 정원 : 현재인원 / <c:out value="${groups.group_people_max}" /></h4>
+              <div class="tab-info active" style="font-family: 'Noto Sans KR', sans-serif;">
+                <div class="row" style="font-family: 'Noto Sans KR', sans-serif;">
+             <h2>  <c:out value="${groups.group_title}" /> </h2>     
+             <h3> 소모임 간단 소개 : <c:out value="${groups.group_description}" /> </h3>        
+             <h4> 소모임 방장 : <c:out value="${groups.user_id}" /> </h4>
+             <h4> 소모임 현재인원 / 정원 : 현재인원 / <c:out value="${groups.group_people_max}" /></h4>
              <h4> 소모임 카테고리 1 : <c:out value="${groups.ctgry_1}" /></h4>         
                 
                 <!-- 썸네일 프리뷰 : 사진 리스트 시작 -->
@@ -417,32 +421,106 @@ function hyerimFunction(){
                 </div>
                 </div>
               </div>
+              
+              
               <div class="tab-info">
                 <!-- ==================== 게시판 ====================-->
                 <div class="row">
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p8.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Racing
-                        Queensland</a> <span> <a href="page1.html"
-                        class="be-post-tag">Interaction Design</a>, <a
-                        href="page1.html" class="be-post-tag">UI/UX</a>,
-                        <a href="page1.html" class="be-post-tag">Web
-                          Design</a>
-                      </span>
-                      <div class="author-post">
-                        <img src="img/a7.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span>
-                      </div>
-                      <div class="info-block">
-                        <span><i class="fa fa-thumbs-o-up"></i>
-                          360</span> <span><i class="fa fa-eye"></i> 789</span>
-                        <span><i class="fa fa-comment-o"></i> 20</span>
-                      </div>
-                    </div>
+              
+              <!-- main/home에서 복붙한 것 : 적용 되는지 확인 필요  -->
+                     <div class="col-md-10">
+        <div id="container-mix" class="row _post-container_">
+        <c:if test="${articleList.size() == 0 }">
+        
+        <div class="be-large-post info-block">
+     <h2>내 주변 활동이 없습니다. 지금 주변을 둘러보고 팔로우를 시작하세요! </h2>
+         <h3><a href="/salmon/sns/showall">둘러보기</a></h3>
+    </div>
+          
+          <!-- <div class="category-1 mix custom-column-3">
+              내 주변 활동이 없습니다. 지금 주변을 둘러보고 팔로우를 시작하세요! 
+               <a href="/salmon/main/showall">둘러보기</a>
+          </div> -->
+        </c:if>
+        <c:if test="${articleList.size() > 0 }">
+        <c:forEach var="article" items="${articleList }">
+        <c:forEach var="hashLoop" items="${article.hashtags }">
+          <c:set var="tag" scope="page" value="${tag } category-hashTag-${hashLoop }"/>
+        </c:forEach>
+          <div class="category-1 mix custom-column-3 ${tag }">
+            <div id="article-post-<c:out value="${article.article_id}"/>" class="be-post-sjh">
+              <a class="be-img-block">
+              <c:if test="${article.imagePaths.size()==0 }">
+                <div class="article-size">
+                  <div class="padding-1-sjh">
+                    <c:out value="${article.article_content}"/>
                   </div>
+                </div>
+                <!-- <img src="/salmon/resources/hjh/images/noimage.gif" alt="img"> -->
+              </c:if>
+              <c:if test="${article.imagePaths.size()>0 }">
+                <c:set var="imgCt" value="1"/>
+              <c:forEach var="images" items="${article.imagePaths}">
+                <div class="article-size" style="text-align:center;">
+                  <c:if test="${imgCt < 2 }">
+                  <img src="/salmon/main/image?fileName=${images }" alt="img">
+                  </c:if>
+                </div>
+                <c:set var="imgCt" value="${imgCt+1 }"/>
+              </c:forEach>
+              </c:if>
+              </a>              
+              <a id="article-title-<c:out value="${article.article_id}"/>" class="be-post-title">
+                ${article.article_title}
+               <!--
+              <c:if test="${article.imagePaths.size()>0 }">
+                <c:set var="imgCt" value="1"/>
+                <c:forEach var="images" items="${article.imagePaths}">
+                <c:if test="${imgCt < 2 }">
+                  <img src="/salmon/main/image?fileName=${images }" alt="img">
+                </c:if>
+                  <c:set var="imgCt" value="${imgCt+1 }"/>
+                </c:forEach>
+              </c:if>
+              --> 
+
+              </a>
+              <span>
+                <c:forEach var="tag" items="${article.hashtags }">
+                  <a href="blog-detail-2.html" class="be-post-tag">${tag } </a>
+                </c:forEach>
+              </span>
+              <div class="author-post">
+                <img src="/salmon/resources/template/img/a1.png" alt="" class="ava-author">
+                <span>by 
+                <a href="/salmon/sns/feeds?userid=${article.user_nickname}">${article.user_nickname}</a>
+                </span>
+              </div>
+              <div class="info-block">
+                <span><i class="fa fa-thumbs-o-up"></i>
+                  <%--좋아요 --%>
+                  <c:out value="${article.likes.size()}"/>
+                </span>
+                <span><i class="fa fa-eye"></i>
+                  <%--스크랩수 --%>
+                  <c:out value="${article.scraps.size()}"/>
+                </span>
+                <span><i class="fa fa-comment-o"></i>
+                  <%--댓글수 --%>
+                  <c:out value="${article.comments.size()}"/>
+                </span>
+              </div>
+            </div>
+          </div>
+          </c:forEach>
+          </c:if>
+          
+        </div>
+      </div>
+      
+    
+
+                <!-- Style 확인 -->              
                   <div class="col-ml-12 col-xs-6 col-sm-4">
                     <div class="be-post">
                       <a href="page1.html" class="be-img-block"> <img
@@ -466,170 +544,66 @@ function hyerimFunction(){
                       </div>
                     </div>
                   </div>
+                  
+                  
+                  
+                  
+                  
+                  <!-- 등록된 게시글이 없을 경우 -->
+                  <c:if test="${newArticleList.size() == 0 }">
+                    <div name="myfeed-article" class="mix custom-column-3">
+                      <div class="be-post">등록된 게시글이 없습니다.</div>
+                    </div>
+                  </c:if>
+          <%--아티클 리스트가 있을 경우  --%>
+        <c:if test="${newArticleList.size() > 0 }">
+          <c:forEach var="article" items="${newArticleList }">
+            <c:forEach var="hashLoop" items="${article.hashtags }">
+              <c:set var="tag" scope="page" value="${tag } category-hashTag-${hashLoop }"/>
+            </c:forEach>
+        
                   <div class="col-ml-12 col-xs-6 col-sm-4">
                     <div class="be-post">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p2.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Treebeard</a>
-                      <span> <a href="page1.html"
-                        class="be-post-tag">Interaction Design</a>, <a
-                        href="page1.html" class="be-post-tag">UI/UX</a>,
-                        <a href="page1.html" class="be-post-tag">Web
-                          Design</a>
+                      <!-- 1. 이미지 Click -->
+                      <a href="page1.html" class="be-img-block"> 
+                      <img src="img/p2.jpg" alt="omg">
+                      </a> 
+                      <!-- 2. 제목 Click -->
+                      <a href="page1.html" class="be-post-title" id="article-title-<c:out value="${article.article_id}"/>">${article.article_title}</a>
+                      
+                      <!-- 3. 해시 태그 Click  -->
+                      <span> 
+                        <c:forEach var="tag" items="${article.hashtags }">
+                            <a href="blog-detail-2.html" class="be-post-tag">${tag } </a>
+                        </c:forEach>
                       </span>
+                      <!-- 4. 작성자 정보 List -->
                       <div class="author-post">
                         <img src="img/a1.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span>
+                        <span>by <a href="page1.html">${article.user_nickname}</a></span>
                       </div>
+                      
+                      <!-- 5. 좋아요, 댓글 갯수 확인  -->
                       <div class="info-block">
                         <span><i class="fa fa-thumbs-o-up"></i>
-                          360</span> <span><i class="fa fa-eye"></i> 789</span>
-                        <span><i class="fa fa-comment-o"></i> 20</span>
+                            <%--좋아요 --%>
+                            <c:out value="${article.likes.size()}"/>
+                        </span> 
+                          
+                        <span><i class="fa fa-eye"></i> 
+                            <%--스크랩수 --%>
+                        	<c:out value="${article.scraps.size()}"/>
+                        </span>
+                        
+                        <span><i class="fa fa-comment-o"></i>
+                    	    <%--댓글수 --%>
+                    	    <c:out value="${article.comments.size()}"/>
+                        </span>
                       </div>
                     </div>
                   </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p3.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Colors
-                        of Ramadan</a> <span> <a href="page1.html"
-                        class="be-post-tag">Interaction Design</a>, <a
-                        href="page1.html" class="be-post-tag">UI/UX</a>,
-                        <a href="page1.html" class="be-post-tag">Web
-                          Design</a>
-                      </span>
-                      <div class="author-post">
-                        <img src="img/a2.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span>
-                      </div>
-                      <div class="info-block">
-                        <span><i class="fa fa-thumbs-o-up"></i>
-                          360</span> <span><i class="fa fa-eye"></i> 789</span>
-                        <span><i class="fa fa-comment-o"></i> 20</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p4.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Leaving
-                        Home - L'Officiel Ukraine</a> <span> <a
-                        href="page1.html" class="be-post-tag">Interaction
-                          Design</a>, <a href="page1.html"
-                        class="be-post-tag">UI/UX</a>, <a
-                        href="page1.html" class="be-post-tag">Web
-                          Design</a>
-                      </span>
-                      <div class="author-post">
-                        <img src="img/a3.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span>
-                      </div>
-                      <div class="info-block">
-                        <span><i class="fa fa-thumbs-o-up"></i>
-                          360</span> <span><i class="fa fa-eye"></i> 789</span>
-                        <span><i class="fa fa-comment-o"></i> 20</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p7.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">raindrops
-                        monochrome</a> <span> <a href="page1.html"
-                        class="be-post-tag">Interaction Design</a>, <a
-                        href="page1.html" class="be-post-tag">UI/UX</a>,
-                        <a href="page1.html" class="be-post-tag">Web
-                          Design</a>
-                      </span>
-                      <div class="author-post">
-                        <img src="img/a6.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span>
-                      </div>
-                      <div class="info-block">
-                        <span><i class="fa fa-thumbs-o-up"></i>
-                          360</span> <span><i class="fa fa-eye"></i> 789</span>
-                        <span><i class="fa fa-comment-o"></i> 20</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p9.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">NAHA
-                        Finalist Hairstylist of the Year Allen Ruiz</a> <span>
-                        <a href="page1.html" class="be-post-tag">Interaction
-                          Design</a>, <a href="page1.html"
-                        class="be-post-tag">UI/UX</a>, <a
-                        href="page1.html" class="be-post-tag">Web
-                          Design</a>
-                      </span>
-                      <div class="author-post">
-                        <img src="img/a7.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span>
-                      </div>
-                      <div class="info-block">
-                        <span><i class="fa fa-thumbs-o-up"></i>
-                          360</span> <span><i class="fa fa-eye"></i> 789</span>
-                        <span><i class="fa fa-comment-o"></i> 20</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p13.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Stay
-                        Ahead Series</a> <span> <a href="page1.html"
-                        class="be-post-tag">Interaction Design</a>, <a
-                        href="page1.html" class="be-post-tag">UI/UX</a>,
-                        <a href="page1.html" class="be-post-tag">Web
-                          Design</a>
-                      </span>
-                      <div class="author-post">
-                        <img src="img/a5.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span>
-                      </div>
-                      <div class="info-block">
-                        <span><i class="fa fa-thumbs-o-up"></i>
-                          360</span> <span><i class="fa fa-eye"></i> 789</span>
-                        <span><i class="fa fa-comment-o"></i> 20</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-ml-12 col-xs-6 col-sm-4">
-                    <div class="be-post">
-                      <a href="page1.html" class="be-img-block"> <img
-                        src="img/p14.jpg" alt="omg">
-                      </a> <a href="page1.html" class="be-post-title">Faber-Castell
-                        / Psychological Problems</a> <span> <a
-                        href="page1.html" class="be-post-tag">Interaction
-                          Design</a>, <a href="page1.html"
-                        class="be-post-tag">UI/UX</a>, <a
-                        href="page1.html" class="be-post-tag">Web
-                          Design</a>
-                      </span>
-                      <div class="author-post">
-                        <img src="img/a1.png" alt="" class="ava-author">
-                        <span>by <a href="page1.html">Hoang
-                            Nguyen</a></span>
-                      </div>
-                      <div class="info-block">
-                        <span><i class="fa fa-thumbs-o-up"></i>
-                          360</span> <span><i class="fa fa-eye"></i> 789</span>
-                        <span><i class="fa fa-comment-o"></i> 20</span>
-                      </div>
-                    </div>
-                  </div>
+                  </c:forEach>
+                  </c:if>
                 </div>
               </div>
               <div class="tab-info">
@@ -695,15 +669,46 @@ function hyerimFunction(){
 
   <!-- THE FOOTER -->
   <%@ include file="../includes/footer.jsp"%>
+  
+  <!-- 게시글 모달 -->
+  <%@ include file="/WEB-INF/views/includes/articlemodal.jsp"%>
+  <!--  게시글 모달끝 -->
+  
+  <!-- 게시글 신고 모달 -->
+  <%@ include file="/WEB-INF/views/includes/reportModal.jsp"%>
+  <%@ include file="/WEB-INF/views/includes/reportConfirmModal.jsp"%>
+  <!--  게시글 신고 모달끝 -->
 
   <!-- SCRIPTS	 -->
   <script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>
   <script src="/salmon/resources/template/script/bootstrap.min.js"></script>
-  <script
-    src="/salmon/resources/template/script/idangerous.swiper.min.js"></script>
+  <script src="/salmon/resources/template/script/idangerous.swiper.min.js"></script>
   <script src="/salmon/resources/template/script/isotope.pkgd.min.js"></script>
-  <script
-    src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
+  <script src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
   <script src="/salmon/resources/template/script/global.js"></script>
+  <!-- 추가한 SCRIPTS 파일 -->
+  <script src="/salmon/resources/sjh/js/main-article.js"></script>
+  <script src="/salmon/resources/jjw/js/owl.carousel.min.js"></script>
+  
+  <script type="text/javascript">
+  var articlelist;
+  var me;
+  $(function(){ 
+      //article 불러오기
+      var article= new Object();
+      articlelist= ${articleListJSON};
+      var i=0;
+     
+      $(articlelist).each(function(i,e){
+        console.log(e);
+      });
+      
+    //  $('#myfeed-btn').trigger('click'); //필터 적용
+      
+      //내정보 불러오기
+      me= ${meJSON};
+    })
+  </script>
+
 </body>
 </html>

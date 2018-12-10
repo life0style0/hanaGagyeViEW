@@ -132,6 +132,8 @@
 
       <div class="col-md-10">
         <div id="container-mix" class="row _post-container_">
+        
+        
         <c:if test="${newArticleList.size() == 0 }">
         	<!-- <div class="category-my mix custom-column-3"> -->
         	<div name="myfeed-article" class="mix custom-column-3">
@@ -140,6 +142,8 @@
             </div>
             </div>
         </c:if>
+        
+        
         <c:if test="${newArticleList.size() > 0 }">
         <c:forEach var="article" items="${newArticleList }">
         <c:forEach var="hashLoop" items="${article.hashtags }">

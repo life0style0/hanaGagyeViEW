@@ -265,13 +265,13 @@
 		       inner join hashtags hash on ref.hashtag_id=hash.hashtag_id 
 		WHERE  article_id = #{articleId}        
     </select>
-    
+    <!-- 카테고리 이름으로 가져오기  -->
     <select id="getCtgryName" resultType="String">
     	SELECT	 ctgry_name 
     	FROM	 ctgries 
     	WHERE	 ctgry_id = #{ctgry_id}
     </select>
-    
+    <!-- 게시물 업데이트 -->
     <update id="updateArticle">
     	UPDATE articles
     	SET
@@ -283,7 +283,7 @@
 		       article_payment_fee = #{article_payment_fee},
 		       article_title = #{article_title},
 		       article_content = #{article_content},
-		       user_id =#{user_id}
+		       user_id =#{user_id},
 		       group_id=#{group_id}
 		WHERE  article_id = #{article_id}
     </update>
