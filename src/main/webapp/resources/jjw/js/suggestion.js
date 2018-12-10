@@ -205,6 +205,30 @@ function setPaginateButtons(pageBuilder, pageType, pageButton) {
     }
 }
 
+function makeHashtag(input) {
+    let hashtagInput = $(input).val();
+    hashtagInput = hashtagInput.trim();
+    $(input).val('');
+    if (!hashtagInput.startsWith('#')) {
+        hashtagInput = `#${hashtagInput}`;
+    }
+    let checkDuple = false;
+    $('.input-hashtag-hidden').children().each(function (key, value) {
+        if ($(value).val() === hashtagInput) {
+            checkDuple = true;
+            return false;
+        }
+    });
+    if (checkDuple) {
+        return;
+    } else {
+        const html = `<input type="hidden" name="hashtags" value="${hashtagInput}">`;
+        const tagSpan = `<span class="hashtag" data-hashtag="${hashtagInput}">${hashtagInput}<span class="hashtag-close" aria-hidden="true">×</span></span>`;
+        $(input).before(tagSpan);
+        $('.input-hashtag-hidden').append(html);
+    }
+}
+
 $(function () {
     $('.sgt-new-paging').on('click', '.paginate-new', function (event) {
         const pageBuilder = setSuggestions(this, 'new', event);
@@ -357,9 +381,33 @@ $(function () {
         $('.show-article-main').removeClass('hidden');
     });
 
-    $('input[name="articleHashtag"]').on('keyup', function () {
-        if ($(this).val()) {
-            $(this).val()
+    $('.tag-input').on('keypress', function (e) {
+        const value = $(this).val();
+        if (value.length > 0) {
+            if (value.charAt(value.length-1) === ',') {
+                makeHashtag(this);
+                $(this).val('');
+                e.preventDefault();
+                return false;
+            }
+            if (e.keyCode == 32 || e.keyCode == 13 || e.keyCode == 9) {
+                makeHashtag(this);
+                $(this).val('');
+                e.preventDefault();
+                return false;
+            }
         }
+    });
+
+    $('.form-hashtag').on('click', '.hashtag-close', function () {
+        const hashtagTag = $(this).closest('.hashtag');
+        const hashtag = hashtagTag.data('hashtag');
+        $('.input-hashtag-hidden').children().each(function (key, value) {
+            if ($(value).val() === hashtag) {
+                hashtagTag.remove();
+                $(value).remove();
+                return false;
+            }
+        });
     });
 });

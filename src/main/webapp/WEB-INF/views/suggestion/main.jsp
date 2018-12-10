@@ -346,7 +346,10 @@
 										<div class="input-col col-xs-12">
 												<div class="form-group focus-2">
 													<div class="form-label">해시 태그</div>
-													<input type="text" class="form-input" placeholder="해시 태그를 사용해보세요!" name="articleHashtag">
+													<div class="form-hashtag">
+														<input type="text" class="form-input tag-input" placeholder="해시 태그를 사용해보세요!">
+													</div>
+													<div class="input-hashtag-hidden hidden"></div>
 												</div>
 											</div>
 										<div class="input-col col-xs-12">

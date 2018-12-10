@@ -9,17 +9,17 @@
 }
 
 .nav-tab-item.active {
-  cursor: unset!important;
+  cursor: unset !important;
 }
 
 .nav-tab-item.active:hover {
-  background-color: #fff!important;
-  cursor: unset!important;
+  background-color: #fff !important;
+  cursor: unset !important;
 }
 
 .nav-tab-item:hover {
-  background-color: #e7fcec5c!important;
-  cursor: pointer!important;
+  background-color: #e7fcec5c !important;
+  cursor: pointer !important;
 }
 
 .no-padding {
@@ -174,4 +174,51 @@ div.buttons button {
   height: 15px;
   margin-right: 11px;
   color: #00abff;
+}
+
+.form-hashtag {
+  font-size: 13px;
+  line-height: 50px;
+  font-weight: 400;
+  color: #b4b7c1;
+  width: 100%;
+  height: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid #edeff2;
+  border-radius: 3px;
+}
+
+.form-hashtag .tag-input {
+  display: inline-block;
+  width: auto;
+  border: none;
+  background: transparent;
+  padding: 0px 20px;
+}
+
+.form-hashtag .hashtag {
+  color: white;
+  background-color: #298478;
+  padding: 0px 8px;
+  border-radius: 7px;
+  margin: 0px 3px;
+  display: inline-block;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: middle;
+}
+
+.form-hashtag .form-input:focus {
+  background: #f6f6f7;
+}
+
+.hashtag .hashtag-close {
+  margin-left: 8px;
+  font-size: 1.1em;
+  font-weight: 900;
+}
+
+.hashtag .hashtag-close:hover {
+  cursor: pointer;
 }

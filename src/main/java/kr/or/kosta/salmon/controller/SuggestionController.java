@@ -214,6 +214,7 @@ public class SuggestionController {
     @PostMapping(value = "/news")
     public String insertArticle(NewSuggestionDTO newSuggestionDTO, Principal principal) {
         log.info("insertArticle...");
+        log.info(newSuggestionDTO);
         newSuggestionDTO.setUserId(principal.getName());
         log.info(newSuggestionDTO);
         try {
