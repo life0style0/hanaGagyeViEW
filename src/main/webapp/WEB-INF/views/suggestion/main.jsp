@@ -137,7 +137,10 @@
 									<span>답변 대기 중인 글</span>
 								</div>
 								<div class="nav-tab-item">
-									<span>답변 완료된 글</span>
+									<span>개발 대기 중인 글</span>
+								</div>
+								<div class="nav-tab-item">
+									<span>개발 완료된 글</span>
 								</div>
 							</div>
 						</div>
@@ -317,6 +320,41 @@
 									</div>
 								</div>
 							</div>
+							<div class="tab-info">
+									<c:forEach items="${finishList}" var="suggestion" varStatus="status">
+										<div class="collection" id="sgt-finish-${status.count}">
+											<div class="collection-entry suggestion-entry">
+												<h3 class="menu-article sgt-title">${suggestion.articleTitle}</h3>
+												<div class="collection-header">
+													<span><i class="fa fa-user"></i>by <a href="page1.html" class="sgt-userId">${suggestion.userNickname}</a></span>
+													<span><i class="fa fa-thumbs-up"></i> <span class="no-padding no-margin sgt-like">${suggestion.likeCnt}</span></span>
+													<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-comment">${suggestion.commentCnt}</span></span>
+													<span><i class="fa fa-eye"></i> <span class="no-padding no-margin sgt-date">기간 :
+															${suggestion.articleRegdate} ~ ${suggestion.articleEnddate}</span></span>
+												</div>
+												<input type="hidden" class="sgt-articleId" value="${suggestion.articleId}">
+											</div>
+										</div>
+									</c:forEach>
+									<div class="text-center">
+										<ul class="pagination sgt-finish-paging">
+											<c:if test="${finishPageBuilder.isPrevPrev}">
+												<li class="paginate-finish previous" data-page="${finishPageBuilder.startPageNum-1}">Prev</li>
+											</c:if>
+											<c:forEach var="num" begin="${finishPageBuilder.startPageNum}" end="${finishPageBuilder.lastPageNum}">
+												<li class="paginate-finish ${pageBuilder.pageNum == num ? 'active' : ''}" data-page="${num}">${num}</li>
+											</c:forEach>
+											<c:if test="${finishPageBuilder.isNextNext}">
+												<li class="paginate-finish next" data-page="${finishPageBuilder.lastPageNum+1}">Next</li>
+											</c:if>
+										</ul>
+										<div id="pagination-finish-data">
+											<input type="hidden" class="page" value="${finishPageBuilder.pageNum}">
+											<input type="hidden" class="keyword" value="${cri.keyword}">
+											<input type="hidden" class="type" value="${cri.type}">
+										</div>
+									</div>
+								</div>
 						</div>
 					</div>
 				</div>
