@@ -18,6 +18,8 @@ public interface SuggestionService {
 
     public List<SuggestionDTO> getSuggestionListsByRecommend(Criteria criteria) throws Exception;
 
+    public List<SuggestionDTO> getSuggestionListsByRecommend2(Criteria criteria) throws Exception;
+
     public PsnsDTO getPsnsWithSuggestion(String userId) throws Exception;
 
     public int getTotalSuggestion(Criteria criteria) throws Exception;

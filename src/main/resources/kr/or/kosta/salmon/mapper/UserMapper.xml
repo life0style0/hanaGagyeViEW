@@ -330,4 +330,14 @@
         }
 	 </update> 
 
+	 <update id="updatePsnScoreByCommentId" statementType="CALLABLE" parameterType="kr.or.kosta.salmon.domain.PsnScoreDTO">
+		{
+		    CALL ps_score_by_comment_id(
+				#{userId, mode=IN, jdbcType=VARCHAR},
+				#{commentId, mode=IN, jdbcType=VARCHAR},
+				#{amount, mode=IN, jdbcType=VARCHAR},
+				#{result, mode=OUT, jdbcType=INTEGER, javaType=int})
+        }
+	 </update>
+
 </mapper>

@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.kosta.salmon.common.Criteria;
 import kr.or.kosta.salmon.domain.NewSuggestionDTO;
+import kr.or.kosta.salmon.domain.SuggestionProcDTO;
 import kr.or.kosta.salmon.mapper.SuggestionMapper;
 import lombok.extern.log4j.Log4j;
 
@@ -44,5 +45,20 @@ public class SuggestionTest {
         newSuggestionDTO.setAmount("1");
         sm.insertArticle(newSuggestionDTO);
         log.info(newSuggestionDTO);
+    }
+
+    @Test
+    public void test3() throws Exception {
+        Criteria criteria = new Criteria();
+        criteria.setArticleProposalStatus("R");
+        criteria.setMaxArticleNum(10);
+        criteria.setMaxPageNum(5);
+        criteria.setPageNum(1);
+        criteria.setUserId("heyrim6");
+
+        SuggestionProcDTO a = (new SuggestionProcDTO()).build(criteria);
+        sm.getSuggestionListsByRecommend2(a);
+        sm.getTotalSuggestionByRecommend2(a);
+        log.info(a.getResultNum());
     }
 }

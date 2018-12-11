@@ -159,10 +159,12 @@ public class FeedsController {
 		log.info(" 팔로 요청  from " + principal.getName() + " to " + followId);
 		// 팔로 처리
 		snsService.askFollow(principal.getName(), followId);
+
 		PsnScoreDTO psDTO = new PsnScoreDTO(PsnScore.FOLLOW_USER);
 		psDTO.setUserId(principal.getName());
 		psDTO.setFollowId(followId);
 		userService.updatePsnScoreByFollowing(psDTO);
+		
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
 
@@ -176,11 +178,13 @@ public class FeedsController {
 	@GetMapping(value = "/sns/unfollow/{follow-id}", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> unfollowGet(@PathVariable("follow-id") String followId, Principal principal) {
 		log.info(" 언팔로 요청  from " + principal.getName() + " to " + followId);
-		snsService.askUnfollow(principal.getName(), followId);
+		
 		PsnScoreDTO psDTO = new PsnScoreDTO(PsnScore.UNFOLLOW_USER);
 		psDTO.setUserId(principal.getName());
 		psDTO.setFollowId(followId);
 		userService.updatePsnScoreByFollowing(psDTO);
+
+		snsService.askUnfollow(principal.getName(), followId);
 		log.info("언팔 끝");
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}
@@ -199,7 +203,7 @@ public class FeedsController {
 		PsnScoreDTO psDTO = new PsnScoreDTO(PsnScore.LIKE);
 		psDTO.setUserId(principal.getName());
 		psDTO.setArticleId(articleId + "");
-		userService.updatePsnScoreByFollowing(psDTO);
+		userService.updatePsnScoreByArticleId(psDTO);
 		try {
 			return new ResponseEntity<>(sugService.getLikeNum(articleId + ""), HttpStatus.OK);
 		} catch (Exception e) {
@@ -222,7 +226,7 @@ public class FeedsController {
 		PsnScoreDTO psDTO = new PsnScoreDTO(PsnScore.UNLIKE);
 		psDTO.setUserId(principal.getName());
 		psDTO.setArticleId(articleId + "");
-		userService.updatePsnScoreByFollowing(psDTO);
+		userService.updatePsnScoreByArticleId(psDTO);
 		try {
 			return new ResponseEntity<>(sugService.getLikeNum(articleId + ""), HttpStatus.OK);
 		} catch (Exception e) {
@@ -245,18 +249,18 @@ public class FeedsController {
 		return new ResponseEntity<>(snsService.getArticleByArticleId(articleId).getScraps().size() + "", HttpStatus.OK);
 	}
 
-	@GetMapping(value = "/sns/comment/{articleId}/{content}/{lastCommentId}", produces = {
-			MediaType.APPLICATION_JSON_UTF8_VALUE })
-	public ResponseEntity<ArrayList<CommentDTO>> commentGET(@PathVariable("articleId") int articleId,
-			@PathVariable("content") String content, @PathVariable("lastCommentId") int lastCommentId,
-			Principal principal) {
-		log.info(" 댓글 입력 요청  from " + principal.getName() + " to " + articleId);
-		snsService.writeComment(principal.getName(), articleId, content);
-		// ArrayList<CommentDTO> comments = snsService.getCommentsByArticle(articleId);
-		ArrayList<CommentDTO> comments = snsService.getNewCommentsByArticle(articleId, lastCommentId);
-		log.info(comments);
-		return new ResponseEntity<>(comments, HttpStatus.OK);
-	}
+	// @GetMapping(value = "/sns/comment/{articleId}/{content}/{lastCommentId}", produces = {
+	// 		MediaType.APPLICATION_JSON_UTF8_VALUE })
+	// public ResponseEntity<ArrayList<CommentDTO>> commentGET(@PathVariable("articleId") int articleId,
+	// 		@PathVariable("content") String content, @PathVariable("lastCommentId") int lastCommentId,
+	// 		Principal principal) {
+	// 	log.info(" 댓글 입력 요청  from " + principal.getName() + " to " + articleId);
+	// 	snsService.writeComment(principal.getName(), articleId, content);
+	// 	// ArrayList<CommentDTO> comments = snsService.getCommentsByArticle(articleId);
+	// 	ArrayList<CommentDTO> comments = snsService.getNewCommentsByArticle(articleId, lastCommentId);
+	// 	log.info(comments);
+	// 	return new ResponseEntity<>(comments, HttpStatus.OK);
+	// }
 
 	@PostMapping(value = "/sns/comment", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
 	public ResponseEntity<ArrayList<CommentDTO>> commentPOST(@RequestParam("articleId") int articleId,
@@ -268,7 +272,7 @@ public class FeedsController {
 		PsnScoreDTO psDTO = new PsnScoreDTO(PsnScore.COMMENT);
 		psDTO.setUserId(principal.getName());
 		psDTO.setArticleId(articleId + "");
-		userService.updatePsnScoreByFollowing(psDTO);
+		userService.updatePsnScoreByArticleId(psDTO);
 
 		ArrayList<CommentDTO> comments = null;
 		if (lastCommentId.equals("")) {
@@ -283,13 +287,13 @@ public class FeedsController {
 	@GetMapping(value = "/sns/deletecomment/{commentId}", produces = { MediaType.TEXT_PLAIN_VALUE })
 	public ResponseEntity<String> deleteCommentGET(@PathVariable("commentId") int commentId, Principal principal) {
 		log.info(" 댓글 삭제 요청  from " + commentId);
-		snsService.deleteComment(commentId);
 
 		PsnScoreDTO psDTO = new PsnScoreDTO(PsnScore.UNCOMMENT);
 		psDTO.setUserId(principal.getName());
-		psDTO.setArticleId("(SELECT article_id FROM COMMENTS WHERE comment_id = " + commentId);
-		userService.updatePsnScoreByFollowing(psDTO);
+		psDTO.setCommentId(commentId + "");
+		userService.updatePsnScoreByCommentId(psDTO);
 
+		snsService.deleteComment(commentId);
 		// snsService.writeComment(principal.getName(), articleId, content);
 		return new ResponseEntity<>("success", HttpStatus.OK);
 	}

@@ -198,4 +198,9 @@ public class UserServiceImpl implements UserService {
 		usermapper.updatePsnScoreByGroup(psnScoreDTO);
 	}
 
+	@Override
+	public void updatePsnScoreByCommentId(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByCommentId(psnScoreDTO);
+	}
+
 }

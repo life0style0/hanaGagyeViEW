@@ -130,15 +130,17 @@ public class GagyeviewController {
 			}
 		}
 		
-		PsnScoreDTO psDTO = new PsnScoreDTO(article, PsnScore.CREATE_ARTICLE);
-		userService.updatePsnScoreByFollowing(psDTO);
-		 
 		
 		CategoryDTO categoryDto = new CategoryDTO();
 		categoryDto.setCtgry_id(categoryNum);
 		categoryDto.setArticle_id(lastId);
 		gaArticleService.createCategory(categoryDto);
 		
+		log.info(article);
+		PsnScoreDTO psDTO = new PsnScoreDTO(article, PsnScore.CREATE_ARTICLE);
+		psDTO.setArticleId(lastId + "");
+		userService.updatePsnScoreByArticleId(psDTO);
+		log.info(psDTO);
 		//해시태그 처리
 		
 

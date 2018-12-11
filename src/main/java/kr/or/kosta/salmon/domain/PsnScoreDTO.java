@@ -2,17 +2,20 @@ package kr.or.kosta.salmon.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * PsnScoreDTO
  */
 @Getter
 @Setter
+@ToString
 public class PsnScoreDTO {
     private String userId;
     private String followId;
     private String groupId;
     private String articleId;
+    private String commentId;
     private String amount;
     private int result;
 

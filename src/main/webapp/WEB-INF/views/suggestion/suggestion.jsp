@@ -263,9 +263,9 @@
 	<script src="/salmon/resources/template/script/jquery.viewportchecker.min.js"></script>
 	<script src="/salmon/resources/template/script/isotope.pkgd.min.js"></script>
 	<script src="/salmon/resources/template/script/global.js"></script>
+	<script src="/salmon/resources/sjh/js/feeds.js"></script>
 	<script src="/salmon/resources/jjw/js/suggestion.js"></script>
 	<script src="/salmon/resources/jjw/js/global.js"></script>
-	<script src="/salmon/resources/sjh/js/feeds.js"></script>
 </body>
 
 </html>

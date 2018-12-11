@@ -89,5 +89,7 @@ public interface UserMapper {
 	public void updatePsnScoreByFollowing(PsnScoreDTO psnScoreDTO);
 
 	public void updatePsnScoreByGroup(PsnScoreDTO psnScoreDTO);
+
+	public void updatePsnScoreByCommentId(PsnScoreDTO psnScoreDTO);
 	
 }
