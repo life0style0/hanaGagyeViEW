@@ -236,8 +236,74 @@
 	WHERE		 article_editdate between sysdate-5 and sysdate and article_ctgry_id=2 
 	GROUP BY	 to_char(article_editdate, 'yyyy-mm-dd')
 	</select>
-	
-
 <!-- 게시글 정보 끝 -->
+
+<!-- 게시글 관리 시작 -->
+	<select id="getReportTargetArticle" resultType="kr.or.kosta.salmon.domain.ArticleDTO">
+	SELECT		 article_id, article_ctgry_id, article_scope, article_regdate, article_editdate, article_payment_type, article_payment_fee, article_title, article_content, article_proposal_status, group_id, user_id, article_deleted, article_like_num, article_report_num, article_comment_num
+  	FROM		 articles 
+  	WHERE		 article_report_num >= 10 and article_deleted not in('D','Y')
+	</select>
+	
+	<select id="getReportReason" resultType="kr.or.kosta.salmon.domain.AdminReportReasonDTO">
+	SELECT		 report_id, user_id, article_id, report_regdate, report_reason
+  	FROM		 reports
+    WHERE		 article_id = #{article_id}
+	</select>
+	
+	<update id="setReportArticleDelete">
+	UPDATE articles SET 
+						article_deleted ='D'
+	WHERE article_id=#{article_id}
+	</update>
+	
+	<select id="getUserManageList" resultType="kr.or.kosta.salmon.domain.AdminUserManageInfoDTO">
+	SELECT		 user_id, user_email, user_birthday, user_regdate, black_ct
+	FROM		 (
+				 SELECT		 user_id, count(article_deleted) black_ct 
+				 FROM		 articles 
+				 GROUP BY	 user_id, article_deleted 
+				 HAVING		 article_deleted='D') 
+												JOIN users USING(user_id)
+	WHERE user_state = 'N'
+	</select>
+	
+	<select id="getBlackUserArticle" resultType="kr.or.kosta.salmon.domain.ArticleDTO">
+	SELECT		 article_id, article_ctgry_id, article_scope, article_regdate, article_editdate, article_payment_type, article_payment_fee, article_title, article_content, article_proposal_status, group_id, user_id, article_deleted, article_like_num, article_report_num, article_comment_num 
+	FROM		 articles 
+	WHERE		 user_id =#{user_id}  and article_deleted='D'
+	</select>
+	
+	<update id="setUserBlock">
+	UPDATE 	users 
+	SET		user_state = 'B'
+	WHERE	user_id=#{user_id}
+	</update>
+	
+	<select id="getProposalArticle" resultType="kr.or.kosta.salmon.domain.ArticleDTO">
+	SELECT 			article_id, article_ctgry_id, article_scope, article_regdate, article_editdate, article_title, article_content, article_proposal_status, group_id, user_id, article_deleted, article_like_num, article_report_num, article_comment_num 
+	FROM 			articles 
+	WHERE			article_ctgry_id=3 and article_proposal_status=#{prop_status} and article_like_num >= 0
+	</select>
+	
+	<select id="getProposalInfo" resultType="kr.or.kosta.salmon.domain.AdminPropArticleInfoDTO">
+	SELECT		 article_content, ctgry_name 
+	FROM		 articles join ctgry_values using(article_id) join ctgries using(ctgry_id) 
+	WHERE		 article_id=#{article_id}
+	</select>
+	
+	<update id="setProposalStatus">
+	UPDATE 	articles 
+	SET		article_proposal_status = #{article_proposal_status}
+	WHERE	article_id=#{article_id}
+	</update>
+	
+	<update id="setProposalResult">
+	UPDATE 	articles 
+	SET		article_proposal_status = #{article_proposal_status}, article_proposal_result = #{result_value}
+	WHERE	article_id=#{article_id}
+	</update>
+	
+<!-- 게시글 관리 끝 -->
 
 </mapper>

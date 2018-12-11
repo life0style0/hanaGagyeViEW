@@ -20,7 +20,12 @@ import kr.or.kosta.salmon.domain.AdminPayInfoPstageDTO;
 import kr.or.kosta.salmon.domain.AdminPayInfoTotalDTO;
 import kr.or.kosta.salmon.domain.AdminPaymentInfoRankDTO;
 import kr.or.kosta.salmon.domain.AdminPaymentTypeDTO;
+import kr.or.kosta.salmon.domain.AdminPropArticleInfoDTO;
+import kr.or.kosta.salmon.domain.AdminPropSetStatusDTO;
 import kr.or.kosta.salmon.domain.AdminRByMonthDTO;
+import kr.or.kosta.salmon.domain.AdminReportReasonDTO;
+import kr.or.kosta.salmon.domain.AdminUserManageInfoDTO;
+import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
 import kr.or.kosta.salmon.domain.MainArticleDTO;
 import kr.or.kosta.salmon.domain.MainChartDTO;
@@ -173,6 +178,56 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public ArrayList<AdminArticleInfoRegistDTO> getArticleRegistSpend() {
 		return adminMapper.getArticleRegistSpend();
+	}
+
+	@Override
+	public ArrayList<ArticleDTO> getReportTargetArticle() {
+		return adminMapper.getReportTargetArticle();
+	}
+
+	@Override
+	public ArrayList<AdminReportReasonDTO> getReportReason(int article_id) {
+		return adminMapper.getReportReason(article_id);
+	}
+
+	@Override
+	public void setReportArticleDelete(int article_id) {
+		adminMapper.setReportArticleDelete(article_id);
+	}
+
+	@Override
+	public ArrayList<AdminUserManageInfoDTO> getUserManageList() {
+		return adminMapper.getUserManageList();
+	}
+
+	@Override
+	public ArrayList<ArticleDTO> getBlackUserArticle(String user_id) {
+		return adminMapper.getBlackUserArticle(user_id);
+	}
+
+	@Override
+	public boolean setUserBlock(String user_id) {
+		return adminMapper.setUserBlock(user_id);
+	}
+
+	@Override
+	public ArrayList<ArticleDTO> getProposalArticle(String prop_status) {
+		return adminMapper.getProposalArticle(prop_status);
+	}
+
+	@Override
+	public ArrayList<AdminPropArticleInfoDTO> getProposalInfo(int article_id) {
+		return adminMapper.getProposalInfo(article_id);
+	}
+
+	@Override
+	public boolean setProposalStatus(AdminPropSetStatusDTO adminPropSetStatusDTO) {
+		return adminMapper.setProposalStatus(adminPropSetStatusDTO);
+	}
+
+	@Override
+	public boolean setProposalResult(AdminPropSetStatusDTO adminPropSetStatusDTO) {
+		return adminMapper.setProposalResult(adminPropSetStatusDTO);
 	}
 
 	

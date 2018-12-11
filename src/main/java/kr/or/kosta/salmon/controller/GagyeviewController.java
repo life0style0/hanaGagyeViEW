@@ -117,7 +117,7 @@ public class GagyeviewController {
 				HashTagDTO hashTagDTO;
 				for(int j = 0; j < hashTagList.size(); j++){
 					hashTagDTO = new HashTagDTO();
-					hashTagDTO.setHashtag_value((String)hashTagList.get(j));
+					hashTagDTO.setHashtag_value("#".concat((String)hashTagList.get(j)));
 					hashTagDTO.setArticle_id(lastId);
 					gaArticleService.createHashTag(hashTagDTO);
 				}
@@ -177,7 +177,7 @@ public class GagyeviewController {
 				HashTagDTO hashTagDTO;
 				for(int j = 0; j < hashTagList.size(); j++){
 					hashTagDTO = new HashTagDTO();
-					hashTagDTO.setHashtag_value((String)hashTagList.get(j));
+					hashTagDTO.setHashtag_value("#".concat((String)hashTagList.get(j)));
 					hashTagDTO.setArticle_id(article_id);
 					gaArticleService.createHashTag(hashTagDTO);
 				}
@@ -222,7 +222,7 @@ public class GagyeviewController {
 				HashTagDTO hashTagDTO;
 				for(int j = 0; j < hashTagList.size(); j++){
 					hashTagDTO = new HashTagDTO();
-					hashTagDTO.setHashtag_value((String)hashTagList.get(j));
+					hashTagDTO.setHashtag_value("#".concat((String)hashTagList.get(j)));
 					hashTagDTO.setArticle_id(article_id);
 					gaArticleService.createHashTag(hashTagDTO);
 				}
@@ -352,7 +352,7 @@ public class GagyeviewController {
 				HashTagDTO hashTagDTO;
 				for(int j = 0; j < hashTagList.size(); j++){
 					hashTagDTO = new HashTagDTO();
-					hashTagDTO.setHashtag_value((String)hashTagList.get(j));
+					hashTagDTO.setHashtag_value("#".concat((String)hashTagList.get(j)));
 					hashTagDTO.setArticle_id(lastId);
 					gaArticleService.createHashTag(hashTagDTO);
 				}

@@ -272,6 +272,112 @@ function countChecked() {
     }
 }
 
+//2
+$('table input').on('ifChecked', function () {
+    checkState = '';
+    $(this).parent().parent().parent().addClass('selected');
+    countChecked2();
+});
+$('table input').on('ifUnchecked', function () {
+    checkState2 = '';
+    $(this).parent().parent().parent().removeClass('selected');
+    countChecked2();
+});
+
+var checkState2 = '';
+
+$('.bulk_action2 input').on('ifChecked', function () {
+    checkState2 = '';
+    $(this).parent().parent().parent().addClass('selected');
+    countChecked2();
+});
+$('.bulk_action2 input').on('ifUnchecked', function () {
+    checkState2 = '';
+    $(this).parent().parent().parent().removeClass('selected');
+    countChecked2();
+});
+$('.bulk_action2 input#check-all').on('ifChecked', function () {
+    checkState2 = 'all';
+    countChecked2();
+});
+$('.bulk_action2 input#check-all').on('ifUnchecked', function () {
+    checkState2 = 'none';
+    countChecked2();
+});
+
+function countChecked2() {
+    if (checkState2 === 'all') {
+        $(".bulk_action2 input[name='table_records2']").iCheck('check');
+    }
+    if (checkState2 === 'none') {
+        $(".bulk_action2 input[name='table_records2']").iCheck('uncheck');
+    }
+
+    var checkCount2 = $(".bulk_action2 input[name='table_records2']:checked").length;
+
+    if (checkCount2) {
+        $('.column-title2').hide();
+        $('.bulk-actions2').show();
+        $('.action-cnt2').html(checkCount2 + ' Records Selected');
+    } else {
+        $('.column-title2').show();
+        $('.bulk-actions2').hide();
+    }
+}
+
+//3
+$('table input').on('ifChecked', function () {
+    checkState3 = '';
+    $(this).parent().parent().parent().addClass('selected');
+    countChecked3();
+});
+$('table input').on('ifUnchecked', function () {
+    checkState3 = '';
+    $(this).parent().parent().parent().removeClass('selected');
+    countChecked3();
+});
+
+var checkState3 = '';
+
+$('.bulk_action3 input').on('ifChecked', function () {
+    checkState3 = '';
+    $(this).parent().parent().parent().addClass('selected');
+    countChecked3();
+});
+$('.bulk_action3 input').on('ifUnchecked', function () {
+    checkState3 = '';
+    $(this).parent().parent().parent().removeClass('selected');
+    countChecked3();
+});
+$('.bulk_action3 input#check-all').on('ifChecked', function () {
+    checkState3 = 'all';
+    countChecked3();
+});
+$('.bulk_action3 input#check-all').on('ifUnchecked', function () {
+    checkState3 = 'none';
+    countChecked3();
+});
+
+function countChecked3() {
+    if (checkState3 === 'all') {
+        $(".bulk_action3 input[name='table_records3']").iCheck('check');
+    }
+    if (checkState3 === 'none') {
+        $(".bulk_action3 input[name='table_records3']").iCheck('uncheck');
+    }
+
+    var checkCount3 = $(".bulk_action3 input[name='table_records3']:checked").length;
+
+    if (checkCount3) {
+        $('.column-title3').hide();
+        $('.bulk-actions3').show();
+        $('.action-cnt3').html(checkCount3 + ' Records Selected');
+    } else {
+        $('.column-title3').show();
+        $('.bulk-actions3').hide();
+    }
+}
+
 
 
 // Accordion

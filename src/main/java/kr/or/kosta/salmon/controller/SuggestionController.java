@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.kosta.salmon.common.Criteria;
 import kr.or.kosta.salmon.common.MyPageBuilder;
-import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.NewSuggestionDTO;
 import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.domain.SuggestionDTO;
@@ -81,6 +80,10 @@ public class SuggestionController {
             model.addAttribute("confirmList", SS.getSuggestionListByPaging(criteria));
             mpg = (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria);
             model.addAttribute("confirmPageBuilder", mpg);
+            criteria.setArticleProposalStatus("F");
+            model.addAttribute("finishList", SS.getSuggestionListByPaging(criteria));
+            mpg = (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria);
+            model.addAttribute("finishPageBuilder", mpg);
             model.addAttribute("categories", US.getAllCategories());
         } catch (Exception e) {
             e.printStackTrace();

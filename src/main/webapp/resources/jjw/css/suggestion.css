@@ -191,10 +191,11 @@ div.buttons button {
 
 .form-hashtag .tag-input {
   display: inline-block;
-  width: auto;
+  width: 200px;
   border: none;
   background: transparent;
   padding: 0px 20px;
+  min-width: 200px;
 }
 
 .form-hashtag .hashtag {
@@ -210,7 +211,7 @@ div.buttons button {
 }
 
 .form-hashtag .form-input:focus {
-  background: #f6f6f7;
+  background: transparent!important;
 }
 
 .hashtag .hashtag-close {
