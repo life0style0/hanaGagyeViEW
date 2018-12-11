@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!-- ========================= * 소모임 게시물 리스트 확인 * ================================= -->
+<!-- ========================= * 소모임 카테고리별 리스트 확인 * ================================= -->
 <html>
 	<head>
 		<title>HANA 가계ViEW</title>
@@ -121,6 +121,9 @@
           
           						});
         	  	</script>
+     
+     
+              
       <!-- MAIN CONTENT -->
       <div id="content-block">
         <div class="container be-detail-container"
@@ -159,16 +162,18 @@
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
-                            <img
-                            src="https://images.unsplash.com/photo-1534322869500-14fc9f5f5767?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                            <img src="https://images.unsplash.com/photo-1534322869500-14fc9f5f5767?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="#" class="be-post-title" style="font-size:13pt; text-align:left;">월급/소득관리</a>
-                          <span> <a href="#"
-                            class="be-post-tag">#월급 저축하기</a>,
+                          </a> 
+                          <a href="#" class="be-post-title" style="font-size:13pt; text-align:left;">월급/소득관리</a>
+                          <span> 
+                          <a href="#" class="be-post-tag">#월급 저축하기</a>,
                             <a href="#" class="be-post-tag">#월급 활용</a>,
                             <a href="#" class="be-post-tag">#적금 추천</a>
                           </span>
-                    
+                    <div>
+                    <input type="hidden" value="1" id="category_id">
+                    </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i> 360</span> 
                             <span><i class="fa fa-eye"></i> 789</span> 
@@ -184,13 +189,15 @@
                             <img
                             src="https://images.unsplash.com/photo-1533094700036-70ecccc6f047?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">부수입</a>
+                          </a> <a href="" class="be-post-title" style="font-size:13pt; text-align:left;">부수입</a>
                           <span> <a href="page1.html"
                             class="be-post-tag">#아르바이트</a>,
                             <a href="page1.html" class="be-post-tag">#창업</a>,
                             <a href="page1.html" class="be-post-tag">#수익모델 </a>
                           </span>
-            
+                                             <div>
+                    <input type="hidden" value="2" id="category_id">
+                    </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -199,7 +206,7 @@
                           </div>
                         </div>
                       </div>
-                <!-- 용돈 수정 필요  -->
+                       <!-- 용돈 수정 필요  -->
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
@@ -211,7 +218,9 @@
                               활용</a>, <a href="page1.html"
                             class="be-post-tag">#소확행</a>
                           </span>
-
+                     <div>
+                    <input type="hidden" value="3" id="category_id">
+                    </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -234,7 +243,9 @@
                             <a href="page1.html" class="be-post-tag">#상여급 관리</a>,
                             <a href="page1.html" class="be-post-tag">#저축 TIP</a>
                           </span>
-        
+                             <div>
+                    <input type="hidden" value="4" id="category_id">
+                    </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -251,13 +262,15 @@
                     <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img src="https://images.unsplash.com/photo-1518515097038-ca19a3777cd7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">금융소득</a>
-                          <span> <a href="page1.html"
+                          </a> <a href="#" class="be-post-title" style="font-size:13pt; text-align:left;">금융소득</a>
+                          <span> <a href="#"
                             class="be-post-tag">#펀드</a>,
-                            <a href="page1.html" class="be-post-tag">#채권</a>,
-                            <a href="page1.html" class="be-post-tag">#주식</a>
+                            <a href="#" class="be-post-tag">#채권</a>,
+                            <a href="#" class="be-post-tag">#주식</a>
                           </span>
-            
+                          <div>
+                             <input type="hidden" value="5" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -280,7 +293,9 @@
                             <a href="page1.html" class="be-post-tag">#액티비티</a>,
                             <a href="page1.html" class="be-post-tag">#소풍</a>
                           </span>
-          
+                          <div>
+                             <input type="hidden" value="6" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -304,7 +319,9 @@
                             <a href="page1.html" class="be-post-tag">#야구</a>,
                             <a href="page1.html" class="be-post-tag">#배드민턴</a>
                           </span>
-         
+                          <div>
+                             <input type="hidden" value="7" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -327,7 +344,9 @@
                             <a href="page1.html" class="be-post-tag">#컨소지엄</a>,
                             <a href="page1.html" class="be-post-tag">#데모데이</a>
                           </span>
-               
+                          <div>
+                             <input type="hidden" value="8" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -349,7 +368,9 @@
                             <a href="page1.html" class="be-post-tag">#중국어</a>,
                             <a href="page1.html" class="be-post-tag">#일본어</a>
                           </span>
-              
+                          <div>
+                             <input type="hidden" value="9" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -371,7 +392,9 @@
                             <a href="page1.html" class="be-post-tag">#뮤지컬</a>,
                             <a href="page1.html" class="be-post-tag">#티켓 구매</a>
                           </span>
-          
+                          <div>
+                             <input type="hidden" value="10" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -394,7 +417,9 @@
                             <a href="page1.html" class="be-post-tag">#보컬</a>,
                             <a href="page1.html" class="be-post-tag">#오케스트라</a>
                           </span>
-              
+                          <div>
+                             <input type="hidden" value="11" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -416,7 +441,9 @@
                             <a href="page1.html" class="be-post-tag">#도자기</a>,
                             <a href="page1.html" class="be-post-tag">#핸드메이드</a>
                           </span>
-    
+                          <div>
+                             <input type="hidden" value="12" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -439,7 +466,9 @@
                             <a href="page1.html" class="be-post-tag">#무료 클래스</a>,
                             <a href="page1.html" class="be-post-tag">#레슨</a>
                           </span>
-            
+                          <div>
+                             <input type="hidden" value="13" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -462,7 +491,9 @@
                             <a href="page1.html" class="be-post-tag">#할인 정보 </a>,
                             <a href="page1.html" class="be-post-tag">#나만의 구입 TIP</a>
                           </span>
-   
+                          <div>
+                             <input type="hidden" value="14" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -485,7 +516,9 @@
                             <a href="page1.html" class="be-post-tag">#공동구매</a>,
                             <a href="page1.html" class="be-post-tag">#해외 직구</a>
                           </span>
-      
+                          <div>
+                             <input type="hidden" value="15" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -508,7 +541,9 @@
                             <a href="page1.html" class="be-post-tag">#정보 공유 </a>,
                             <a href="page1.html" class="be-post-tag">#할인 정보</a>
                           </span>
-           
+                          <div>
+                             <input type="hidden" value="16" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -531,7 +566,9 @@
                             <a href="page1.html" class="be-post-tag">#새벽 할인</a>,
                             <a href="page1.html" class="be-post-tag">#구입 정보</a>
                           </span>
-                      
+                          <div>
+                             <input type="hidden" value="17" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -554,7 +591,9 @@
                             <a href="page1.html" class="be-post-tag">#할인 정보</a>,
                             <a href="page1.html" class="be-post-tag">#공동 구매</a>
                           </span>
-                         
+                          <div>
+                             <input type="hidden" value="18" id="category_id">
+                           </div>
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>

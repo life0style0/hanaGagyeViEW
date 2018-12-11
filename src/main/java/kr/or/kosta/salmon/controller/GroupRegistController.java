@@ -69,9 +69,7 @@ public class GroupRegistController {
 		model.addAttribute("list", groupservice.getList());
 		log.info("카테고리=========="+categories);
 		
-		List<GroupDTO_lhr> groupListbyCate = groupservice.getGroupListsbyCategory(2);
-		
-		model.addAttribute("groupListbyCate", groupListbyCate);
+	
 		/*
 		log.info("0");
 		List<GroupDTO_lhr> GroupListsbyNewGroup = groupservice.getGroupListsbyNewGroup();
@@ -90,6 +88,21 @@ public class GroupRegistController {
 		log.info(" 소모임 등록 페이지 요청 !!!!!!!!!!!!!!!!!!!!");
 		List<CategoryDTO_sjh> categories= groupservice.getAllCategories();
 		model.addAttribute("categories", categories);
+	}
+	
+	/**
+	 * 카테고리 별 리스트 가져오기
+	 * list.jsp에서 hidden으로 숨긴 value값 전하기
+	 * @param model
+	 */
+	@GetMapping("/listbycate")
+	public void listbycate(Model model) {
+		log.info("~~~~~~~~~~~~~~~~~~~~~~~");
+		
+		
+		List<GroupDTO_lhr> groupListbyCate = groupservice.getGroupListsbyCategory(2);
+		log.info(groupListbyCate);
+		model.addAttribute("groupListbyCate", groupListbyCate);
 	}
 	
 	

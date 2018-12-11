@@ -192,7 +192,6 @@
 	<!-- ** 소모임 전체 리스트 가져오기 /list 화면 / groupservice.getList() ** -->
 	<select id="getList" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
 		<![CDATA[
-		
 		SELECT gr.group_id, 
 	       gr.group_title, 
 	       gr.group_people_max, 
