@@ -51,6 +51,7 @@
   padding-bottom: unset;
   margin-right: -40px;
   overflow-y: auto;
+  word-break: break-word;
 }
 
 .article-right-btns {

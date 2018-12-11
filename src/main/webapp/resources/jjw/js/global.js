@@ -102,9 +102,13 @@ function resetArticleModal() {
  * @param {*} info 가계부 정보
  */
 function setArticle(article, info) {
+    console.log('article :', article);
     if (!article) {
         alert('data가 없습니다.');
     }
+
+    $('#article-id-modal').val(article.articleId);
+
     if (article.imagePaths.length === 0) {
         $('.article-modal .modal-dialog').addClass('no-image-modal');
     } else {
@@ -167,12 +171,15 @@ function setArticle(article, info) {
     }
 
     let articleContentHTML = article.articleContent;
+    articleContentHTML += '<p>';
     for (let i = 0; i < article.hashtags.length; i += 1) {
         const hashtag = article.hashtags[i];
         articleContentHTML += ` <a class="hashtag">${hashtag}</a>`;
     }
+    articleContentHTML += '</p>';
     $('#article-content').html(`${articleContentHTML}`);
-    $('#article-writer-nickname').html($('#loginUserId').text());
+    $('#article-comments .comment-userId').html(article.userPsns.userNickname);
+    $('#article-writer-nickname').html(article.userPsns.userNickname);
     $('#article-regdate').html(article.articleRegdate);
     if (article.articlePaymentType !== undefined) {
         $('#article-pay-type').html(`, ${article.articlePaymentType}`);
@@ -188,6 +195,13 @@ function setArticle(article, info) {
     } else {
         $('#article-ctgry-name').html('');
     }
+
+    if (article.checkLike > 0) {
+        $('#article-unlike-btn').html(`<i class="fas fa-thumbs-up"></i> ${article.likeCnt}`).removeClass('hidden');
+    } else {
+        $('#article-like-btn').html(`<i class="far fa-thumbs-up"></i> ${article.likeCnt}`).removeClass('hidden');
+    }
+    $('#article-comment-btn').html(`<i class="fas fa-comment"></i> ${article.commentCnt}`).removeClass('hidden');
 
     // 내가 쓴 글인지 확인
     if (true) {
@@ -211,6 +225,7 @@ function setArticle(article, info) {
 
         // 내가 쓴 글이면 수정이 보여야 함.
         $('#article-report-btn').addClass('hidden');
+        $('#article-report-complete-btn').addClass('hidden');
         $('#article-edit-btn').removeClass('hidden');
         $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=${article.articleId}`);
         $('#article-delete-btn').removeClass('hidden');

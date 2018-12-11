@@ -16,7 +16,6 @@
                 <result property="userNickname" column="user_nickname"/>
                 <result property="likeCnt" column="likes_num"/>
                 <result property="commentCnt" column="comments_num"/>
-                <result property="scrapCnt" column="scraps_num"/>
                 <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
                 <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
         </resultMap>
@@ -32,7 +31,6 @@
                 <result property="articleProposalStatus" column="article_proposal_status"/>
                 <result property="likeCnt" column="likes_num"/>
                 <result property="commentCnt" column="comments_num"/>
-                <result property="scrapCnt" column="scraps_num"/>
                 <association property="userPsns" column="user_id" javaType="kr.or.kosta.salmon.domain.PsnsDTO" select="getPsns"/>
                 <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
                 <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
@@ -274,10 +272,7 @@ SELECT article_id,
        user_id, 
        user_nickname,
        article_like_num "likes_num", 
-       article_comment_num "comments_num", 
-       (SELECT Count(scrap_id) 
-        FROM   scraps 
-        WHERE  article_id = #{article_id})    "scraps_num" 
+       article_comment_num "comments_num"
 FROM    articles join users using(user_id)
 WHERE   article_id = #{article_id}
         </select>

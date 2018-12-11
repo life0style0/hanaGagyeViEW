@@ -194,8 +194,6 @@ public class SuggestionController {
             Principal principal) {
         log.info("suggestion...." + sno);
         try {
-            model.addAttribute("checkLike", SS.checkLike(principal.getName(), sno));
-            log.info("");
             SuggestionDTO sgt = SS.getSuggestion(sno);
             model.addAttribute("article", sgt);
             model.addAttribute("checkLike", SS.checkLike(principal.getName(), sno));

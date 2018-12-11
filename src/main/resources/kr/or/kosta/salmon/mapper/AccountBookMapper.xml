@@ -4,22 +4,6 @@
 
 <mapper namespace="kr.or.kosta.salmon.mapper.AccountBookMapper">
 
-        <resultMap type="kr.or.kosta.salmon.domain.AccountBookDTO" id="AccountBooks">
-                <result property="articleId" column="article_id"/>
-                <result property="articleScope" column="article_scope"/>
-                <result property="articleRegdate" column="article_regdate"/>
-                <result property="articlePaymentType" column="article_payment_type"/>
-                <result property="articlePaymentFee" column="article_payment_fee"/>
-                <result property="articleTitle" column="article_title"/>
-                <result property="articleContent" column="article_content"/>
-                <result property="articleCtgryType" column="article_ctgry_type"/>
-                <result property="articlelikeNum" column="article_like_num"/>
-                <result property="articleCommentNum" column="article_comment_num"/>
-                <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
-                <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
-                <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
-        </resultMap>
-
         <resultMap type="kr.or.kosta.salmon.domain.AccountBookDTO" id="AccountBookToGgv">
                 <result property="articleId" column="article_id"/>
                 <result property="articleScope" column="article_scope"/>
@@ -30,6 +14,26 @@
                 <result property="articleContent" column="article_content"/>
                 <result property="articleCtgryType" column="article_ctgry_type"/>
                 <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
+                <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
+                <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
+        </resultMap>
+
+        <resultMap type="kr.or.kosta.salmon.domain.AccountBookDTO" id="AccountBooks">
+                <result property="articleId" column="article_id"/>
+                <result property="articleScope" column="article_scope"/>
+                <result property="articleRegdate" column="article_regdate"/>
+                <result property="articlePaymentType" column="article_payment_type"/>
+                <result property="articlePaymentFee" column="article_payment_fee"/>
+                <result property="articleTitle" column="article_title"/>
+                <result property="articleContent" column="article_content"/>
+                <result property="articleCtgryType" column="article_ctgry_type"/>
+                <result property="likeCnt" column="article_like_num"/>
+                <result property="commentCnt" column="article_comment_num"/>
+                <result property="userId" column="user_id"/>
+                <result property="checkLike" column="checkLike"/>
+                <association property="userPsns" column="user_id" javaType="kr.or.kosta.salmon.domain.PsnsDTO" select="getPsnsUser"/>
+                <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
+                <collection property="comments" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.CommentDTO" select="getComments"/>
                 <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
                 <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
         </resultMap>
@@ -48,7 +52,14 @@ SELECT article_id,
        article_payment_fee, 
        article_title, 
        article_content, 
-       article_ctgry_type
+       article_ctgry_type,
+       article_like_num,
+       article_comment_num,
+       user_id,
+       (SELECT count(like_id)
+FROM likes
+WHERE user_id = #{userId}
+        and article_id = #{articleId}) "checkLike"
 FROM   articles 
        join ctgry_values USING(article_id) 
        join ctgries USING(ctgry_id) 
@@ -87,13 +98,17 @@ SELECT article_id,
        article_content,
         article_ctgry_type,
        article_like_num,
-       article_comment_num
+       article_comment_num,
+       user_id,
+       (SELECT count(like_id)
+FROM likes
+WHERE user_id = #{userId}
+        and article_id = #{articleId}) "checkLike"
 FROM   articles 
         join ctgry_values USING(article_id) 
         join ctgries USING(ctgry_id)
         join article_ctgries using(article_ctgry_id)
-WHERE  article_id = #{articleId} 
-        AND user_id = #{userId}
+WHERE  article_id = #{articleId}
         AND article_deleted = 'N'
         </select>
 
@@ -123,7 +138,8 @@ SELECT article_id,
        article_content,
         article_ctgry_type,
        article_like_num,
-       article_comment_num
+       article_comment_num,
+       user_id
 FROM   articles 
         join ctgry_values USING(article_id) 
         join ctgries USING(ctgry_id)
@@ -188,5 +204,42 @@ UPDATE articles
 set article_scope = 'r'
 where article_id = #{articleId} and user_id = #{userId}
         </update>
+
+        <select id="getComments" resultType="kr.or.kosta.salmon.domain.CommentDTO">
+SELECT comment_id, 
+       comment_content, 
+       to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
+       user_id, 
+       user_image,
+       user_nickname 
+FROM   comments left outer join users using(user_id)
+WHERE  article_id = #{articleId}
+order by comment_regdate asc
+        </select>
+
+        <select id="getPsnsUser" resultType="kr.or.kosta.salmon.domain.PsnsDTO">
+SELECT psn_id "psnId", 
+       user_id "userId",
+       user_nickname "userNickname",
+       user_image "userImage",
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_1) "ctgryName1", 
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_2) "ctgryName2", 
+       (SELECT ctgry_name 
+        FROM   ctgries 
+        WHERE  ctgry_id = ctgry_3) "ctgryName3"
+FROM   psns join users using(user_id)
+WHERE user_id = #{userId}
+        </select>
+
+        <select id="checkLike" resultType="int">
+SELECT count(like_id)
+FROM likes
+WHERE user_id = #{userId}
+        and article_id = #{articleId}
+        </select>
 
 </mapper>

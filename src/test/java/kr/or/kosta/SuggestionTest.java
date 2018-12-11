@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import kr.or.kosta.salmon.common.Criteria;
 import kr.or.kosta.salmon.domain.NewSuggestionDTO;
 import kr.or.kosta.salmon.domain.SuggestionProcDTO;
+import kr.or.kosta.salmon.mapper.AccountBookMapper;
 import kr.or.kosta.salmon.mapper.SuggestionMapper;
 import lombok.extern.log4j.Log4j;
 
@@ -23,6 +24,9 @@ public class SuggestionTest {
 
     @Inject
     private SuggestionMapper sm;
+
+    @Inject
+    private AccountBookMapper am;
 
     @Test
     public void test() throws Exception {
@@ -60,5 +64,11 @@ public class SuggestionTest {
         sm.getSuggestionListsByRecommend2(a);
         sm.getTotalSuggestionByRecommend2(a);
         log.info(a.getResultNum());
+    }
+
+    @Test
+    public void test4() throws Exception {
+        // log.info(sm.getSuggestion("2"));
+        log.info(am.getAccountBookByArticleId("heyrim5", 834));
     }
 }
