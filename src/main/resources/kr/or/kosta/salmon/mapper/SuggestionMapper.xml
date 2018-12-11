@@ -357,9 +357,13 @@ WHERE  ( article_ctgry_id = 3
 
         <select id="getTotalSuggestionByRecommend2" statementType="CALLABLE" parameterType="kr.or.kosta.salmon.domain.SuggestionProcDTO">
 declare
-result number;
+        result number;
 begin
-suggeestion_recommend_total(#{userId},#{articleProposalStatus},#{criteria},result);
+        suggeestion_recommend_total(
+        #{userId, mode=IN, jdbcType=VARCHAR, javaType=String},
+        #{articleProposalStatus, mode=IN, jdbcType=VARCHAR, javaType=String},
+        #{criteria, mode=IN, jdbcType=VARCHAR, javaType=String},
+        result);
 
 #{resultNum, mode=OUT, jdbcType=INTEGER, javaType=int} := result;
 end;       

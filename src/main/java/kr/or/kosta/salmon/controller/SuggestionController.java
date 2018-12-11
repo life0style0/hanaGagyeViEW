@@ -72,7 +72,7 @@ public class SuggestionController {
             model.addAttribute("likeList", SS.getSuggestionListsByLikes(criteria));
             model.addAttribute("pageBuilder", mpg);
             model.addAttribute("recommendList", SS.getSuggestionListsByRecommend2(criteria));
-            mpg = (new MyPageBuilder(SS.getTotalSuggestionByRecommend(criteria))).build(criteria);
+            mpg = (new MyPageBuilder(SS.getTotalSuggestionByRecommend2(criteria))).build(criteria);
             model.addAttribute("recommendPageBuilder", mpg);
             criteria.setArticleProposalStatus("J");
             model.addAttribute("judgeList", SS.getSuggestionListByPaging(criteria));
@@ -137,7 +137,7 @@ public class SuggestionController {
         ResponseEntity<List<Object>> result = null;
         try {
             List<SuggestionDTO> sgts = SS.getSuggestionListsByRecommend2(criteria);
-            MyPageBuilder mpb = (new MyPageBuilder(SS.getTotalSuggestionByRecommend(criteria))).build(criteria);
+            MyPageBuilder mpb = (new MyPageBuilder(SS.getTotalSuggestionByRecommend2(criteria))).build(criteria);
             List<Object> results = new ArrayList<>();
             results.add(sgts);
             results.add(mpb);

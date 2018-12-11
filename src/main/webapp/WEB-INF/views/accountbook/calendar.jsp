@@ -24,6 +24,7 @@
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/common.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.3.2/css/bootstrap-slider.min.css">
+	<link rel="stylesheet" href="/salmon/resources/sjh/css/article.css">
 </head>
 
 <body>

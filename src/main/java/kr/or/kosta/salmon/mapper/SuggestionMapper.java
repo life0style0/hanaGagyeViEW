@@ -29,7 +29,7 @@ public interface SuggestionMapper {
 
     public int getTotalSuggestionByRecommend(Criteria criteria) throws Exception;
 
-    public int getTotalSuggestionByRecommend2(SuggestionProcDTO suggestionProcDTO) throws Exception;
+    public void getTotalSuggestionByRecommend2(SuggestionProcDTO suggestionProcDTO) throws Exception;
 
     public SuggestionDTO getSuggestion(@Param("article_id") String suggestionId) throws Exception;
 

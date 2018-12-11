@@ -26,6 +26,8 @@ public interface SuggestionService {
 
     public int getTotalSuggestionByRecommend(Criteria criteria) throws Exception;
 
+    public int getTotalSuggestionByRecommend2(Criteria criteria) throws Exception;
+
     public SuggestionDTO getSuggestion(String suggestionId) throws Exception;
 
     public boolean checkLike(String userId, String articleId) throws Exception;

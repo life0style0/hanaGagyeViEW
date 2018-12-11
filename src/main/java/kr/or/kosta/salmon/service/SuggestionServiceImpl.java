@@ -56,6 +56,13 @@ public class SuggestionServiceImpl implements SuggestionService {
 
     @Override
     public int getTotalSuggestionByRecommend(Criteria criteria) throws Exception {
+        SuggestionProcDTO suggestionProcDTO = (new SuggestionProcDTO()).build(criteria);
+        sm.getSuggestionListsByRecommend2(suggestionProcDTO);
+        return suggestionProcDTO.getResultNum();
+    }
+
+    @Override
+    public int getTotalSuggestionByRecommend2(Criteria criteria) throws Exception {
         return sm.getTotalSuggestionByRecommend(criteria);
     }
 
