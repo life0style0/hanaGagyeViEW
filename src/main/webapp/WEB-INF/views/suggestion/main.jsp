@@ -134,10 +134,10 @@
 									<span>추천글</span>
 								</div>
 								<div class="nav-tab-item">
-									<span>답변 대기 중인 글</span>
+									<span>답변 대기 중</span>
 								</div>
 								<div class="nav-tab-item">
-									<span>개발 대기 중인 글</span>
+									<span>개발 대기 중</span>
 								</div>
 								<div class="nav-tab-item">
 									<span>개발 완료된 글</span>

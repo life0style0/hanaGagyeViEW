@@ -381,20 +381,19 @@ $(function () {
         $('.show-article-main').removeClass('hidden');
     });
 
-    $('.tag-input').on('keypress', function (e) {
-        const value = $(this).val();
+    $('.tag-input').on('keydown', function (e) {
+        const value = $(this).val().trim();
         if (value.length > 0) {
-            if (value.charAt(value.length-1) === ',') {
+            if (e.keyCode == 32 || e.keyCode == 44 || e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
                 makeHashtag(this);
                 $(this).val('');
-                e.preventDefault();
                 return false;
             }
-            if (e.keyCode == 32 || e.keyCode == 13 || e.keyCode == 9) {
-                makeHashtag(this);
-                $(this).val('');
+            $(this).width(200 + value.length * 3);
+        } else {
+            if (e.keyCode == 32 || e.keyCode == 44) {
                 e.preventDefault();
-                return false;
             }
         }
     });
@@ -409,5 +408,9 @@ $(function () {
                 return false;
             }
         });
+    });
+
+    $('.form-hashtag').on('click', function () {
+        $('.tag-input').focus();
     });
 });
