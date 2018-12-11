@@ -76,7 +76,6 @@
 			</p>
 		</div>
     </div>
-	<!-- THE HEADER -->
 		<!-- THE HEADER -->
 	<%@ include file="../includes/header.jsp"%>
 		
@@ -86,7 +85,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-md-3 left-feild">
 					<div class="be-vidget back-block">
-						<a class="btn full color-1 size-1 hover-1" href="author.html"><i class="fa fa-chevron-left"></i>나의 가계ViEW로 돌아가기</a>
+						<a class="btn full color-1 size-1 hover-1" href="/salmon/group/get?group_id=${group_id}"><i class="fa fa-chevron-left"></i>나의 가계ViEW로 돌아가기</a>
 					</div>
 				</div>
 				<form name="articleForm" id="articleForm" method="post" action="/salmon/article/updateGroup">

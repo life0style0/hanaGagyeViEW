@@ -74,11 +74,15 @@ public class GroupMapperTests {
 	/**
 	 * 전체 리스트 인출
 	 */
-	@Test
+	//@Test
 	public void testGetList() {
 		mapper.getList().forEach(groups -> log.info(groups));
-		
 	}
 	
+	@Test
+	public void testread() {
+	//	mapper.read("9");
+		mapper.getAllCategories();
+	}
 	
 }

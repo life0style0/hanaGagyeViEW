@@ -3,6 +3,8 @@ package kr.or.kosta.salmon.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.CommentDTO;
 import kr.or.kosta.salmon.domain.GroupCountDTO;
@@ -56,4 +58,19 @@ public interface GroupService {
 
 	//그룹에 가입한 사용자인지 확인하기 
 	public int checkRegistGroup(String group_id, String user_id);
+
+	//그룹 최신순
+	public List<GroupDTO_lhr> getGroupListsbyNewGroup();
+	
+	//그룹 인기순 
+	public List<GroupDTO_lhr> getGroupListsbyPopular();
+	
+	//그룹 나의 맞춤 카테고리순 (개인화)
+	
+	//그룹 카테고리별
+	public List<GroupDTO_lhr> getGroupListsbyCategory(int category_id);
+
+	
+	
+
 }

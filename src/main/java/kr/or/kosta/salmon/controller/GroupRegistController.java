@@ -58,15 +58,31 @@ public class GroupRegistController {
 	
 	
 	@GetMapping("/list")
-	public void list(Criteria cri, Model model) {
-		log.info("리스트 화면 : 소모임 페이지 메인 화면 !!!!!!");
-		log.info("list:" + cri);
-		groupservice.getList();
+	public void list(Model model) {
+		log.info("===========================/list =========리스트 화면 : 소모임 페이지 메인 화면 !!!!!!");
+		log.info("모델======="+model);
+		//groupservice.getList();
 		
 		//카테고리 정보 가져오기
 		List<CategoryDTO_sjh> categories = groupservice.getAllCategories();
 		model.addAttribute("categories", categories);
 		model.addAttribute("list", groupservice.getList());
+		log.info("카테고리=========="+categories);
+		
+		List<GroupDTO_lhr> groupListbyCate = groupservice.getGroupListsbyCategory(2);
+		
+		model.addAttribute("groupListbyCate", groupListbyCate);
+		/*
+		log.info("0");
+		List<GroupDTO_lhr> GroupListsbyNewGroup = groupservice.getGroupListsbyNewGroup();
+		log.info("1");
+		List<GroupDTO_lhr> GroupListsbyPopular = groupservice.getGroupListsbyPopular();
+		log.info("3");
+		model.addAttribute("GroupListsbyNewGroup",GroupListsbyNewGroup);
+		log.info("4");
+		model.addAttribute("GroupListsbyPopular", GroupListsbyPopular);
+		*/
+		
 	}
 
 	@GetMapping("/register")
@@ -82,15 +98,14 @@ public class GroupRegistController {
 	public String register(GroupDTO_lhr group, RedirectAttributes rttr) {
 		log.info("============ 소모임 등록 처리 시작 ============ : "+ group);
 		log.info("groupservice :" + groupservice);
-
 		log.info(group);
-		
 		groupservice.groupRegist(group);
 		log.info("소모임 등록 완료!!!!! 성공성공 DB확인해보자!!! ");
 		rttr.addFlashAttribute("registRes","success");
 		rttr.addFlashAttribute("group_id",group.getGroup_id());
 		return "redirect:/group/list";
 	}
+	
 	//소모임 상세 조회 페이지 만들기 : 필요- 게시판 내용 
 	@GetMapping("/get")
 	public void get(@RequestParam("group_id") String group_id, Model model, Principal principal) {
@@ -98,6 +113,7 @@ public class GroupRegistController {
 		log.info("********** 소모임 그룹 상세 페이지 **********");
 		log.info("GetMapping에서 그룹 아이디 (혜림체크) : "+group_id);
 		model.addAttribute("groups", groupservice.get(group_id));
+		log.info(groupservice.get(group_id));
 		
 		UserDTO meDTO = snsService.getSimpleUser(principal.getName());
 		model.addAttribute("me", meDTO);
@@ -109,11 +125,7 @@ public class GroupRegistController {
 			e.printStackTrace();
 		}
 		String user_id = principal.getName();
-
-
-//		ArrayList<HashTagGroupDTO> hashTagList = (ArrayList)groupservice.getHashTagGroup(user_id);
 		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)groupservice.getSNSGroups(group_id);
-		
 		model.addAttribute("articleList", articleList);
 		log.info("유저아이디-------"+user_id);
 		log.info("아티클리스트-------"+articleList);
@@ -127,19 +139,6 @@ public class GroupRegistController {
 			model.addAttribute("checkRegist", true);
 		}
 
-//		model.addAttribute("hashTagList", hashTagList);
-		
-		
-		//ArrayList SNS Article
-/*		ObjectMapper objmapper = new ObjectMapper();
-		try {
-			String articleListJSON= objmapper.writeValueAsString(articleList);
-			model.addAttribute("articleListJSON", articleListJSON);
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}*/
-		
-		// 이 페이지 GroupId의 모든 게시물 
 	
 	}
 	// 화면 이미지 얻어오기 
@@ -198,10 +197,6 @@ public class GroupRegistController {
 	/**
 	 * 게시글 신고
 	 */
-
-
-
-
 	@GetMapping("/delete")
 	public String delete(int article_id, int group_id, Principal principal, RedirectAttributes rttr) {
 		log.info("delete call...");
@@ -213,5 +208,41 @@ public class GroupRegistController {
 			return "redirect:/group/get?group_id="+group_id;
 		}
 	}
+	
+	/**
+	 * 신규 소모임
+	 * @param cri
+	 * @param model
+	 */
+	@GetMapping("/listNew")
+	public void listNew(Criteria cri, Model model) {
+		log.info("/listNew : 신규 소모임 리스트 화면 페이지 요청");
+		List<GroupDTO_lhr> GroupListsbyNewGroup = groupservice.getGroupListsbyNewGroup();
+		model.addAttribute("GroupListsbyNewGroup",GroupListsbyNewGroup);
+		log.info("신규 소모임 리스트 ----- :"+model);
+	}
+	
+	/**
+	 * 인기 소모임
+	 * @param cri
+	 * @param model
+	 */
+	@GetMapping("/listPopular")
+	public void listPopular(Criteria cri, Model model) {
+		log.info("/listPopular : 인기 소모임 리스트 화면으로 페이지 요청");
+		List<GroupDTO_lhr> GroupListsbyPopular = groupservice.getGroupListsbyPopular();
+		model.addAttribute("GroupListsbyPopular", GroupListsbyPopular);
+		log.info("인기 소모임 리스트 ----- :"+model);
 
+	}
+
+
+	
+	@GetMapping("/listCustomize")
+	public void listCustomize(Criteria cri, Model model) {
+		log.info("/listCustomize : 개인화 리스트 화면으로 페이지 요청");
+		
+	}
+	
+	
 }

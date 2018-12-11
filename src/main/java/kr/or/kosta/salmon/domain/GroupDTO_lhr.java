@@ -17,4 +17,13 @@ public class GroupDTO_lhr {
 	private int ctgry_1; //관심 카테고리 1
 	private int ctgry_2; //관심 카테고리 2
 	private int ctgry_3; //관심 카테고리 2 
+	
+	private int group_people_now;
+	
+	
+	private String ctgry_1_name;
+	private String ctgry_2_name;
+	private String ctgry_3_name;
+	
+	
 }

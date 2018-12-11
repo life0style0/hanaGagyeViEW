@@ -127,11 +127,12 @@
           <div class="be-user-block style-3">
             <!-- 소모임 기본 프로필 사진 설정을 위한 CSS -->
             <style>
-              .be-ava-user.style-2>img {
-	width: 190px;
-	height: 190px;
-}
-</style>
+            .be-ava-user.style-2>img {
+            	width: 190px;
+            	height: 190px;
+            }
+            </style>
+            
             <div class="be-user-detail">
               <a class="be-ava-user style-2" href="page1.html" style="width: 200px; height: 200px;"> <img width="200px;"
                   height="200px;" src="https://images.unsplash.com/photo-1525336001612-b942036da7b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1784&q=80"
@@ -196,13 +197,39 @@
               <div class="be-user-activity-block" style="font-family: 'Noto Sans KR', sans-serif;">
                 <div class="row">
                   <div class="col-lg-6">
-                    <!-- FOLLOW -->
-                    <c:if test="${checkRegist}">
+                    <!-- 소모임 FOLLOW 잘 돌아간당  ====================================== -->
+                  <%--   <c:if test="${checkRegist}">
                       <a data-toggle="modal" data-target="#myModal" class="be-user-activity-button be-follow-type"
                         style="font-family: Noto Sans KR, sans-serif; font-size: 8.5pt; padding: 5px; text-align: center;">
                         <i class="fa fa-plus"></i>소모임 참여
                       </a>
-                    </c:if>
+                    </c:if> --%>
+                    
+                    <!-- 확인 -->
+                    <c:choose>
+                      <c:when test="${checkRegist}">
+                       <a data-toggle="modal" data-target="#myModal" class="be-user-activity-button be-follow-type"
+                        style="font-family: Noto Sans KR, sans-serif; font-size: 8.5pt; padding: 5px; text-align: center;">
+                        <i class="fa fa-plus"></i>소모임 참여
+                      </a>
+                      </c:when>
+                      
+                      <c:otherwise>
+                       <a href="#"  class="be-user-activity-button be-follow-type" id="alreadyRegisted"
+                       style="font-family: Noto Sans KR, sans-serif; font-size: 8.5pt; padding: 5px; text-align: center; cursor: no-drop;" >
+                        FOLLOWING
+                      </a>
+                      
+                      <script type="text/javascript">
+                  	// 단순히 링크가 동작하지 않게 하기 (고전적인 방법)
+                  	jQuery('#alreadyRegisted').click(function () {
+                  		e.preventDefault();
+                  	});
+                  	
+                      </script>
+                      </c:otherwise>
+                    </c:choose>
+                    
                   </div>
                   <div class="col-lg-6">
                     <!-- MESSAGE -->
@@ -407,9 +434,9 @@ to {
               <!-- =============== 첫번째 정보 =============== -->
               <div class="tab-info active" style="font-family: 'Noto Sans KR', sans-serif;">
                 <div class="row" style="font-family: 'Noto Sans KR', sans-serif;">
-                  <h2>
-                    <c:out value="${groups.group_title}" />
-                  </h2>
+                  <h1 class="w3-jumbo">
+                    <b><c:out value="${groups.group_title}" /></b>
+                  </h1>
                   <h3>
                     소모임 간단 소개 :
                     <c:out value="${groups.group_description}" />
@@ -420,12 +447,20 @@ to {
                   </h4>
                   <h4>
                     소모임 현재인원 / 정원 : 현재인원 /
+                      <c:out value="${groups.group_people_now}" /> /
                     <c:out value="${groups.group_people_max}" />
                   </h4>
                   <h4>
                     소모임 카테고리 1 :
                     <c:out value="${groups.ctgry_1}" />
+                    <c:out value="${groups.ctgry_1_name}"/>
                   </h4>
+                  
+                  <h4>
+                  
+                  </h4>
+                  
+                  <hr style="width:100px;border: 5px solid #298478;" class="w3-round" >
 
                   <!-- 썸네일 프리뷰 : 사진 리스트 시작 -->
                   <div class="be-large-post-slider type-wide" style="margin: 0px;">
@@ -508,8 +543,7 @@ to {
                     <c:if test="${fn:length(articleList) == 0 }">
                       <div class="be-post">
                         <div class="be-large-post info-block">
-                          <h2>내 주변 활동이 없습니다. 지금 주변을 둘러보고 팔로우를
-                            시작하세요!</h2>
+                          <h2>소모임 내 게시글이 없습니다. 새로운 게시글로 소통을 시작하세요 :D  </h2>
                           <h3>
                             <a href="/salmon/sns/showall">둘러보기</a>
                           </h3>

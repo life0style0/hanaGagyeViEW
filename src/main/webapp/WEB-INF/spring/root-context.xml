@@ -42,7 +42,7 @@
 	</bean>
 	
 	<tx:annotation-driven/>
-	
+
 	<!--  AOP 설정 -->
 	<context:component-scan base-package="kr.or.kosta" />
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>

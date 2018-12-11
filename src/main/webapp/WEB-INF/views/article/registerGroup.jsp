@@ -79,7 +79,6 @@
 			</p>
 		</div>
     </div>
-	<!-- THE HEADER -->
 		<!-- THE HEADER -->
 	<%@ include file="../includes/header.jsp"%>
 		
@@ -89,12 +88,8 @@
 			<div class="row">
 				<div class="col-xs-12 col-md-3 left-feild">
 					<div class="be-vidget back-block">
-             <script type="text/javascript"> 
-                function historyBack() {
-                  history.back(); 
-                  } 
-                </script> 
-						<a class="btn full color-1 size-1 hover-1" href="#" onclick="historyBack()"><i class="fa fa-chevron-left"></i>소모임으로 돌아가기</a>
+       
+						<a class="btn full color-1 size-1 hover-1" href="/salmon/group/get?group_id=${group_id}"><i class="fa fa-chevron-left"></i>소모임으로 돌아가기</a>
 					</div>
 				</div>
 				<form name="articleForm" id="articleForm" method="post" action="/salmon/article/submitGroupArticle">
@@ -342,6 +337,7 @@
 		};
 
 	</script>
+  
 	<!-- 성공시 모달 -->
 	<div class="modal fade bs-example-modal-sm" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" data-backdrop="static">
   		<div class="modal-dialog modal-sm">
@@ -359,7 +355,7 @@
         		 	</div>
         		 	<div>
         		 		메인으로
-        		 		 <button type="button" class="btn btn-default" aria-label="Left Align" onclick="location.href='/salmon'" value="홈으로">
+        		 		 <button type="button" class="btn btn-default" aria-label="Left Align" onclick="location.href='/salmon/group/get?group_id=${group_id}'" value="소모임 화면으로 이동">
   							<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 						</button>
         		 	</div>

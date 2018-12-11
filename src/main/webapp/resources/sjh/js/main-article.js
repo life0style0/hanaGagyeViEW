@@ -4,6 +4,7 @@ $(function() {
 	eventRegist();
 });
 
+var isGroup = true;
 function eventRegist(){
 	$('[id^="article-post-"]').each(function(i,post){
 		$(post).on('click',function(){

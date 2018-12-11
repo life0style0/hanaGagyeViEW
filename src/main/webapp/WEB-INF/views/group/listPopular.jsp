@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!-- ========================= * 소모임 게시물 리스트 확인 * ================================= -->
+<!-- ========================= * 소모임 게시물 리스트 : 인기순 = 해당 소모임 가입 인원이 많은 * ================================= -->
 <html>
 	<head>
 		<title>HANA 가계ViEW</title>
@@ -133,26 +133,26 @@
 
                 <div class="tab-nav-wrapper">
                   <div class="nav-tab  clearfix">
-                    <div class="nav-tab-item active">
+                    <div class="nav-tab-item" onclick="location.href='/salmon/group/list'">
                       <span>카테고리별 찾기</span>
                     </div>
                     <div class="nav-tab-item" onclick="location.href='/salmon/group/listNew'">
                       <span>신규 소모임</span>
                     </div>
-                    <div class="nav-tab-item" onclick="location.href='/salmon/group/listPopular'">
+                    <div class="nav-tab-item active" onclick="location.href='/salmon/group/listPopular'">
                       <span>인기 소모임</span>
                     </div>
                     <div class="nav-tab-item" onclick="location.href='/salmon/group/listCustomize'">
                       <span>맞춤 추천 소모임</span>
                     </div>
-                    <div class="nav-tab-item ">
+                    <div class="nav-tab-item" onclick="location.href='/salmon/group/list'">
                       <span>전체 소모임 리스트</span>
                     </div>
                   </div>
                 </div>
 
                 <div class="tabs-content clearfix">
-                  <div class="tab-info active">
+                  <div class="tab-info ">
                     <div class="row">
                       <!-- ============= 카테고리별 찾기 ============= -->
                       <div class="col-ml-12 col-xs-6 col-sm-4"
@@ -580,9 +580,39 @@
 
 
                   <!-- ============== 인기 소모임 LIST ============== -->
-                  <div class="tab-info">
+                  <div class="tab-info active">
                     <div class="row">
+                    <table class="table table-striped jambo_table bulk_action">
+                      <thead>
+                        <tr class="headings">
+                          <th>#번호</th>
+                          <th>소모임 제목</th>
+                          <th>방장 이름</th>
+                          <th>소모임 개설일</th>
+                          <th>소모임 설명</th>
+                          <th>최대인원</th>
+                          <th>카테고리1</th>
+                          <th>카테고리2</th>
+                          <th>카테고리3</th>
+                        </tr>
+                      </thead>
+                     <!-- items : 반복 데이터가 있는 아이템 : Collection명 / var: 현재 아이템 변수명-->
+                    <c:forEach items="${GroupListsbyPopular}" var="groups">
+                      <tr class="even pointer">
+                      
+                        <td><c:out value="${groups.group_id}" /></td>
+                        <td><a href='/salmon/group/get?group_id=<c:out value="${groups.group_id}" />'><c:out value="${groups.group_title}"/></a></td>
+                        <td><c:out value="${groups.user_id}" /></td>
+                        <td><c:out value="${groups.group_regdate}" /></td>
+                        <td><c:out value="${groups.group_description}" /></td>
+                        <td><c:out value="${groups.group_people_max}" /></td>
+                        <td><c:out value="${groups.ctgry_1}" /></td>
+                        <td><c:out value="${groups.ctgry_2}" /></td>
+                        <td><c:out value="${groups.ctgry_3}" /></td>
+                      </tr>
+                   </c:forEach>
                     
+                    </table>
 
                     </div>
                   </div>
@@ -609,7 +639,6 @@
                           <th>소모임 개설일</th>
                           <th>소모임 설명</th>
                           <th>최대인원</th>
-                          <th>현재인원</th>
                           <th>카테고리1</th>
                           <th>카테고리2</th>
                           <th>카테고리3</th>
@@ -625,17 +654,16 @@
                         <td><c:out value="${groups.group_regdate}" /></td>
                         <td><c:out value="${groups.group_description}" /></td>
                         <td><c:out value="${groups.group_people_max}" /></td>
-                        <td><c:out value="${groups.group_people_now}" /></td>
-                        <td><c:out value="${groups.ctgry_1_name}" /></td>
-                        <td><c:out value="${groups.ctgry_2_name}" /></td>
-                        <td><c:out value="${groups.ctgry_3_name}" /></td>
+                        <td><c:out value="${groups.ctgry_1}" /></td>
+                        <td><c:out value="${groups.ctgry_2}" /></td>
+                        <td><c:out value="${groups.ctgry_3}" /></td>
                       </tr>
                    </c:forEach>
                     
                     </table>
                   </div>
-                  <!-- ====카테고리 이름으로 보기 수정중...... ===== -->
-                <%--   <div class="col-md-9 padding-1-sjh">
+                  <!-- ====카테고리 이름으로 보기 수정중......실패  ===== -->
+                  <div class="col-md-9 padding-1-sjh">
                     <c:choose>
                       <c:when
                         test="${not empty userPsnsInfo.ctgryNames}">
@@ -648,7 +676,7 @@
                       <c:otherwise></c:otherwise>
                     </c:choose>
 
-                  </div> --%>
+                  </div>
                   <!-- Modal  추가 -->
                   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -667,6 +695,9 @@
                     <!-- /.modal-dialog -->
                   </div>
                   <!-- /.modal -->
+
+
+
 
 
 

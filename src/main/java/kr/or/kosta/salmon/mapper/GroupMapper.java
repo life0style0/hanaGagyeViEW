@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.GroupCountDTO;
@@ -41,4 +40,17 @@ public interface GroupMapper {
 	
 	//소모임에 가입한 인원인지 확인하기 
 	public int checkRegistGroup(@Param("group_id") String group_id, @Param("user_id") String user_id);
+
+	//전체 소모임 리스트 (최신순)
+	public List<GroupDTO_lhr> getGroupListsbyNewGroup();
+	
+	//전체 소모임 리스트 (인기순 : 소모임 가입 회원이 많은 순
+	public List<GroupDTO_lhr> getGroupListsbyPopular();
+	
+	//전체 소모임 리스트 (개인화, 맞춤설정)
+	
+	//전체 소모임 리스트 (카테고리 별)
+	public List<GroupDTO_lhr> getGroupListsbyCategory(@Param("category_id") int category_id);
+	
+
 }
