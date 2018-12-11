@@ -9,7 +9,9 @@ package kr.or.kosta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -22,6 +24,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.domain.PsnScoreDTO;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -351,6 +354,26 @@ public class MemberTests {
 //	@Test
 	public void test() {
 		usermapper.getUserSimplePsns("inin11");
+
+	}
+	
+	@Test
+	public void testProc() {
+		log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		
+		
+		PsnScoreDTO result = new PsnScoreDTO();
+		result.setArticleId("1");
+		result.setUserId("jiwon1");
+		result.setAmount("3");
+		result.setFollowId("heyrim5");
+		result.setGroupId("1");
+		usermapper.updatePsnScoreByArticleId(result);
+		log.info(result);
+		usermapper.updatePsnScoreByFollowing(result);
+		log.info(result);
+		usermapper.updatePsnScoreByGroup(result);
+		log.info(result);
 		
 	}
 	

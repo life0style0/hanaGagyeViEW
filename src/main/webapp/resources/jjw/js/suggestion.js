@@ -279,6 +279,7 @@ $(function () {
         // return false;
     })
 
+    $('.be-comment-block').off('click');
     $('.be-comment-block').on('click', '.comment-delete-btn', function (e) {
         e.preventDefault();
         const btn = this;

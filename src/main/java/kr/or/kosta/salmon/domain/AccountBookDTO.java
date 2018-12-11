@@ -17,6 +17,8 @@ public class AccountBookDTO {
     private String articleTitle;
     private String articleContent;
     private String articleCtgryType;
+    private int articleLikeNum;
+    private int articleCommentNum;
     private List<String> ctgryNames;
     private List<String> imagePaths;
     private List<String> hashtags;

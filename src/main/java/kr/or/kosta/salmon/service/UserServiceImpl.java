@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.LocationDTO_sjh;
+import kr.or.kosta.salmon.domain.PsnScoreDTO;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -192,6 +193,26 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteBlockedUserAuth(String user_id) {
 		usermapper.deleteBlockedUserAuth(user_id);
+	}
+
+	@Override
+	public void updatePsnScoreByArticleId(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByArticleId(psnScoreDTO);
+	}
+
+	@Override
+	public void updatePsnScoreByFollowing(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByFollowing(psnScoreDTO);
+	}
+
+	@Override
+	public void updatePsnScoreByGroup(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByGroup(psnScoreDTO);
+	}
+
+	@Override
+	public void updatePsnScoreByCommentId(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByCommentId(psnScoreDTO);
 	}
 
 }

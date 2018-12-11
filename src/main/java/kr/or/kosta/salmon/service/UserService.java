@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.LocationDTO_sjh;
+import kr.or.kosta.salmon.domain.PsnScoreDTO;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 /**
  * User 관련 처리
@@ -69,4 +70,11 @@ public interface UserService {
 	//유저 정보 전체
 	public UserDTO read(String user_id);
 	
+	public void updatePsnScoreByArticleId(PsnScoreDTO psnScoreDTO);
+
+	public void updatePsnScoreByFollowing(PsnScoreDTO psnScoreDTO);
+
+	public void updatePsnScoreByGroup(PsnScoreDTO psnScoreDTO);
+
+	public void updatePsnScoreByCommentId(PsnScoreDTO psnScoreDTO);
 }
