@@ -87,6 +87,12 @@
 		            'ROLE_ADMIN') 
 	</insert>
 	<insert id="insertBasicPsns3">
+	declare
+		psnid NUMBER;
+	begin
+
+		SELECT psn_id_seq.nextval into psnid from dual;
+
 		INSERT INTO psns 
 		            (psn_id, 
 		             user_id, 
@@ -94,12 +100,17 @@
 		             ctgry_1, 
 		             ctgry_2, 
 		             ctgry_3) 
-		VALUES     (psn_id_seq.NEXTVAL, 
+		VALUES     (psnid, 
 		            #{user_id}, 
 		            #{location_id},  
 		            #{ctgry_1},   
 		            #{ctgry_2},   
-		            #{ctgry_3})
+		            #{ctgry_3});
+		
+		INSERT INTO psn_scores(psn_score_id, psn_id)
+		VALUES(psn_score_id_seq.nextval, psnid);
+
+	END;
 	</insert>
 
 	<insert id="insertBasicPsns1">
