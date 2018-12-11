@@ -33,17 +33,18 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 		log.warn("ROLE NAME : "+roleNames);
 		
 		if(roleNames.contains("ROLE_ADMIN")) {
-			response.sendRedirect("/salmon/auth/admin");
+			//관리자
+			response.sendRedirect("/salmon/admin/index");
 			return;
 		}
 		if(roleNames.contains("ROLE_MEMBER")) {
-			//response.sendRedirect("/salmon/auth/member");
+			//일반 유저
 			response.sendRedirect("/salmon/main/home");
 			return;
 		}
 		if(roleNames.contains("ROLE_USER")) {
-			//response.sendRedirect("/salmon/auth/user");
-			response.sendRedirect("/salmon/main/home");
+			//블랙당한 유저
+			response.sendRedirect("/salmon/");
 			return;
 		}
 		

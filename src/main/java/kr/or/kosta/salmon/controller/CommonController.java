@@ -1,6 +1,8 @@
 package kr.or.kosta.salmon.controller;
 
 
+import java.security.Principal;
+
 import javax.inject.Inject;
 
 import org.springframework.security.core.Authentication;
@@ -22,12 +24,17 @@ public class CommonController {
 	
 	
 	@GetMapping("/login/accessError")
-	public void accessDenied(Authentication auth, Model model) {
+	public void accessDenied(Authentication auth, Model model, Principal principal) {
 		log.info("access denied "+auth);
-		model.addAttribute("msg","Access Denied");
+		log.info(service.read(principal.getName()).getUser_state());
+		if(service.read(principal.getName()).getUser_state().equals("B")) {
+			model.addAttribute("msg","관리자에 의해 제한된 유저입니다");
+		}else {
+			model.addAttribute("msg","Access Denied");
+		}
+		
 	}
 	
-//	@RequestMapping("/login/customLogin")
 	@RequestMapping("/login")
 	public void loginInput(String error, String logout, Model model) {
 		log.info(" 로그인 요청 ");
@@ -36,12 +43,12 @@ public class CommonController {
 		
 		if(error != null) {
 			//로그인 실패인 경우
-			model.addAttribute("error","!! LOGIN ERROR !!  check your Account");
+			model.addAttribute("error","!! LOGIN ERROR !! 아이디와 비밀번호를 확인하세요");
 		}
 		
 		if(logout != null) {
 			//로그아웃된 경우
-			model.addAttribute("logout","!!LOGOUT!!");
+			model.addAttribute("logout","로그아웃 되었습니다");
 		}
 	}
 	

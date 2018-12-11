@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
 		usermapper.createUser(simpleUser); //user 생성
 		log.info("createUser 끝");
 		usermapper.insertUserAuth(simpleUser); //spring security 권한 부여
+		usermapper.insertMemberAuth(simpleUser); //spring security 권한 부여
 		log.info("insertUserAuth 끝");
 		
 		usermapper.insertBasicPsns3(user);
@@ -181,6 +182,16 @@ public class UserServiceImpl implements UserService {
 	public List<UserDTO> searchUserInSNS(String value) {
 		log.info("사용자검색");
 		return usermapper.searchUserInSNS(value);
+	}
+
+	@Override
+	public UserDTO read(String user_id) {
+		return usermapper.read(user_id);
+	}
+
+	@Override
+	public void deleteBlockedUserAuth(String user_id) {
+		usermapper.deleteBlockedUserAuth(user_id);
 	}
 
 }

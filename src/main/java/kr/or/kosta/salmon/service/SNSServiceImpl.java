@@ -134,8 +134,8 @@ public class SNSServiceImpl implements SNSService {
 	}
 
 	@Override
-	public SNSArticleDTO_sjh getArticleByArticleId(int article_id) {
-		return snsMapper.getArticleByArticleId( article_id);
+	public SNSArticleDTO_sjh getArticleByArticleId(String login_id,int article_id) {
+		return snsMapper.getArticleByArticleId(login_id,article_id);
 	}
 
 	@Override

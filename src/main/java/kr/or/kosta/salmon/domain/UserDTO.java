@@ -21,4 +21,5 @@ public class UserDTO {
 	UserLocAndCatsDTO userLocAndCat; //이 user의 추가정보
 	
 	private String isFollow;
+	private String user_state;
 }

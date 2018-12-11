@@ -106,7 +106,12 @@ function setArticleModal(article){
 	$('#article-money').html(article.article_payment_fee+'원 ');
 	$('#article-ctgry').html(article.article_ctgry_description);
 	
-	var contentHTML= article.article_content;
+	var contentHTML='';
+	if(article.article_content != null){
+		contentHTML= article.article_content;
+	}else{
+		
+	}
 	contentHTML += '<p>';
 	$(article.hashtags).each(function(i,tag){
 		contentHTML += ' <a href="/salmon/sns/search?search-value='+tag+'">#'+tag+'</a> ';
@@ -135,8 +140,9 @@ function setArticleModal(article){
 		}
 	})
 	
-	console.log(article.isReportedByMe);
-	if($(article.isReportedByMe) >0){ //이미 내가 신고한 게시글
+	console.log(article.isReportedByMe>0);
+	var isReported=article.isReportedByMe;
+	if( Number(isReported) >0){ //이미 내가 신고한 게시글
 		$('#article-modal #article-report-btn').addClass('hidden');
 		$('#article-modal #article-report-complete-btn').removeClass('hidden');
 	}else{ //아직 신고하지 않은 게시글

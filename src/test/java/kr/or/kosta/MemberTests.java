@@ -2,6 +2,7 @@ package kr.or.kosta;
 /**
  * users 테이블 더미데이터 만들기 (비밀번호 인코딩 처리됨) 
  * testInsertMember() 사용
+ * block 유저 권한 변경에 따라 수정됨 (12.11)
  * @author 송주현
  */
 
@@ -41,7 +42,7 @@ public class MemberTests {
 	@Inject
 	private UserMapper usermapper;
 	
-	@Test
+//	@Test
 	public void testSelectMember() {
 		String sql="select * from users";
 		Connection con=null;
@@ -55,7 +56,26 @@ public class MemberTests {
 		}
 	}
 	
+	
+//	@Test
+	public void testRand() {
+		for (int i = 0; i < 60; i++) {
+		//	double randval= Math.random()*(99-70+1)+70;
+			//log.info((int)randval);
+			//log.info(getRandYear());
+			log.info(getRandCatId());
+		}
+	}
+	
+	public int getRandYear() {
+		return (int)(Math.random()*(99-70+1)+70);
+	}
+	public int getRandCatId() {
+		return(int) (Math.random()*(16-1+1)+1);
+	}
+	
 	//Users 더미데이터 (i값 변경해서 쓰기) 비밀번호 1234
+	//block 유저 권한 변경에 따라 수정됨 (12.11)
 	@Test
 	public void testInsertMember() {
 		log.info(" users DUMMY 삽입 ");
@@ -68,7 +88,7 @@ public class MemberTests {
 		String userAuthSql="insert into users_auth(user_auth_id, user_id, user_auth) values(users_auth_id_seq.nextval,?,'ROLE_USER')";
 		String userPsnsSql="insert into psns(psn_id, user_id, location_id,ctgry_1,ctgry_2,ctgry_3) values(psn_id_seq.NEXTVAL,?,?,?,?,?)";
 		
-		for(int i=0; i<20; i++) {
+		for(int i=0; i<30; i++) {
 			Connection con=null;
 			PreparedStatement pstmt= null;
 			PreparedStatement adminAuthPstmt= null;
@@ -97,30 +117,31 @@ public class MemberTests {
 					pstmt.setString(4, pwEncoder.encode("admin")); //비밀번호 암호화
 					pstmt.setString(5, "F"); //성별
 					pstmt.setString(6, "111111"); //생년월일
-					pstmt.setString(7, "https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28"); //이미지
-				} else if(i>0 && i<3) {
-					//관리권한 있는 사용자
+					pstmt.setString(7, "images/default-user.jpg"); //이미지
+				} else if(i>0 && i<28) {
+					//일반사용자
 					managerAuthPstmt= con.prepareStatement(managerAuthSql);
 					
-					userAuthPstmt.setString(1, "manager"+i); //아이디
-					managerAuthPstmt.setString(1, "manager"+i);
+					userAuthPstmt.setString(1, "jiwon"+i); //아이디
+					managerAuthPstmt.setString(1, "jiwon"+i);
 					
-					pstmt.setString(1, "manager"+i); //아이디
-					pstmt.setString(2, "manager"+i); //닉네임
-					pstmt.setString(3, "manager"+i+"@mail.com"); //이메일
+					pstmt.setString(1, "jiwon"+i); //아이디
+					pstmt.setString(2, "jiwon"+i); //닉네임
+					pstmt.setString(3, "jiwon"+i+"@mail.com"); //이메일
 					pstmt.setString(4, pwEncoder.encode("1234")); //비밀번호 암호화
 					pstmt.setString(5, "F"); //성별
-					pstmt.setString(6, "941225"); //생년월일
-					pstmt.setString(7, "https://t1.daumcdn.net/cfile/tistory/243C6749533255D51D"); //이미지
+					pstmt.setString(6, getRandYear()+"1225"); //생년월일
+					pstmt.setString(7, "images/default-user.jpg"); //이미지
 					
 					
-					userPsnsPstmt.setString(1,  "manager"+i);
+					userPsnsPstmt.setString(1,  "jiwon"+i);
 					userPsnsPstmt.setString(2,  "1"); //location
-					userPsnsPstmt.setString(3,  "3"); //category1
-					userPsnsPstmt.setString(4,  "2"); //category2
-					userPsnsPstmt.setString(5,  "1"); //category3
+					int ctgry_id=getRandCatId();
+					userPsnsPstmt.setString(3,  ctgry_id+""); //category1
+					userPsnsPstmt.setString(4,  (ctgry_id+1)+""); //category2
+					userPsnsPstmt.setString(5,  (ctgry_id+2)+""); //category3
 				} else {
-					//일반 사용자
+					//block 당한 사용자
 					userAuthPstmt.setString(1, "heyrim"+i); //아이디
 					
 					pstmt.setString(1, "heyrim"+i); //아이디
@@ -128,8 +149,8 @@ public class MemberTests {
 					pstmt.setString(3, "heyrim"+i+"@mail.com"); //이메일
 					pstmt.setString(4, pwEncoder.encode("1234")); //비밀번호 암호화
 					pstmt.setString(5, "F"); //성별
-					pstmt.setString(6, "901225"); //생년월일
-					pstmt.setString(7, "https://notefolio.net/data/covers/39320_t2.jpg"); //이미지
+					pstmt.setString(6, getRandYear()+"1224"); //생년월일
+					pstmt.setString(7, "images/default-user.jpg"); //이미지
 				
 					userPsnsPstmt.setString(1,  "heyrim"+i);
 					userPsnsPstmt.setString(2,  "3"); //location
@@ -200,7 +221,7 @@ public class MemberTests {
 	
 	//user dummy
 	//Users 더미데이터 (i값 변경해서 쓰기) 비밀번호 1234
-	@Test
+//	@Test
 	public void testInsertMemberUser() {
 		log.info(" users DUMMY 삽입 ");
 		

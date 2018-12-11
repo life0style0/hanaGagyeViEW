@@ -1,5 +1,8 @@
 package kr.or.kosta.salmon.mapper;
-
+/**
+ * sns관련 기능 mapper
+ * @author 송주현
+ */
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Param;
@@ -70,13 +73,12 @@ public interface SNSMapper {
 	public ArrayList<GroupDTO_lhr> getJoingingGroupList(String user_id);
 	
 	public UserLocAndCatsDTO getUserSimplePsns(String user_id);
-	
+	public UserDTO getSimpleUser(String user_id);
 	
 	//좋아요
 	public int likeArticle(LikeDTO like);
 	public int unlikeArticle(LikeDTO like);
-	public SNSArticleDTO_sjh getArticleByArticleId(int article_id);
-	
+	public SNSArticleDTO_sjh getArticleByArticleId(@Param("login_id") String login_id, @Param("article_id") int article_id);
 	
 	//스크랩
 	public void scrapArticle(ScrapDTO scrap);
@@ -87,10 +89,7 @@ public interface SNSMapper {
 	public ArrayList<CommentDTO> getNewCommentsByArticle(@Param("article_id") int article_id, @Param("comment_id") int comment_id);
 	public void deleteComment(int comment_id);
 	
-	public UserDTO getSimpleUser(String user_id);
-	
 	//게시글 신고
 	public boolean reportArticle(ReportDTO report);
-	
 	
 }

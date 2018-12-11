@@ -222,7 +222,7 @@ public class FeedsController {
 	public ResponseEntity<String> scrapGET(@PathVariable("article-id") int articleId, Principal principal) {
 		log.info(" 스크랩 요청  from " + principal.getName() + " to " + articleId);
 		snsService.scrapArticle(principal.getName(), articleId);
-		return new ResponseEntity<>(snsService.getArticleByArticleId(articleId).getScraps().size() + "", HttpStatus.OK);
+		return new ResponseEntity<>(snsService.getArticleByArticleId(principal.getName(),articleId).getScraps().size() + "", HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/sns/comment/{articleId}/{content}/{lastCommentId}", produces = {

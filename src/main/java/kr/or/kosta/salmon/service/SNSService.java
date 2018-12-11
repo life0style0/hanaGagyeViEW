@@ -38,7 +38,7 @@ public interface SNSService {
 	//작성자로 글목록 찾기
 	public ArrayList<SNSArticleDTO_sjh>  getSNSArticleByWriter(String login_id, String user_id);
 	//글 아이디로 글 찾기
-	public SNSArticleDTO_sjh getArticleByArticleId(int article_id);
+	public SNSArticleDTO_sjh getArticleByArticleId(String login_id,int article_id);
 	//user_id가 좋아요 한 게시글
 	public ArrayList<SNSArticleDTO_sjh> getArticleByLikeUser(String login_id, String user_id);
 	//SNS 페이지 로드용 dB접근  한번에 

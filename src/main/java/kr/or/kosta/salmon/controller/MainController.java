@@ -125,7 +125,7 @@ public class MainController {
 	public ResponseEntity<SNSArticleDTO_sjh> getArticleGET(@PathVariable("articleId") int articleId, Principal principal,  Model model) {
 		log.info("article 정보 업데이트");
 		String user_id = principal.getName();
-		SNSArticleDTO_sjh article= snsService.getArticleByArticleId(articleId);
+		SNSArticleDTO_sjh article= snsService.getArticleByArticleId(user_id,articleId);
 		log.info(article);
 		return new ResponseEntity<SNSArticleDTO_sjh>(article,HttpStatus.OK);
 		//model.addAttribute("article", article);

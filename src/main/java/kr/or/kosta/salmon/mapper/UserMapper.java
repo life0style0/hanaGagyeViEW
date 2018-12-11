@@ -75,6 +75,7 @@ public interface UserMapper {
 	
 	//권한 삭제
 	public void deleteUserAuth(String user_id);
+	public void deleteBlockedUserAuth(String user_id);
 	
 	//지역정보 전체 가져오기
 	public List<LocationDTO_sjh> getAllLocations();

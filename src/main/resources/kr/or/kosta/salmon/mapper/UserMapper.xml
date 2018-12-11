@@ -285,6 +285,12 @@
 		OR     user_id LIKE #{value} 
 	]]>
      </select>
+     
+     <delete id="deleteBlockedUserAuth">
+     	DELETE FROM users_auth 
+		WHERE  user_id = #{user_id}
+		and user_auth='ROLE_USER'
+     </delete>
         
 	
 </mapper>

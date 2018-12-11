@@ -76,8 +76,11 @@ public class ArticleTest {
 	//	ArrayList<SNSArticleDTO_sjh> list2= mapper.getArticleByLikeUser("heyrim7", "heyrim15");
 	//	mapper.getSNSArticles("heyrim19");
 		
-	//	snsservice.getSNSArticles("loginid","heyrim19");
-		snsservice.getArticleByArticleId(21);
+	//	snsservice.getSNSArticles("heyrim7","heyrim19");
+	//	snsservice.getArticleByArticleId("heyrim19",21);
+	//	snsservice.getSNSArticleByWriter("heyrim7", "heyrim19");
+	//	snsservice.getArticleByLikeUser("heyrim7","heyrim19");
+		snsservice.getSNSNewArticles();
 	}
 	
 	

@@ -58,6 +58,11 @@ div.article-size>img {
     position: relative;
 }
 
+.be-post-sjh .be-post-title{
+	text-align:center;
+	font-size:12pt;
+}
+
 .post-no-img{
 	
 	font-size: 40px;
@@ -72,6 +77,7 @@ div.article-size>img {
 
 .post-no-img .post-long-content{
 	font-size:17pt; height: 120px;
+	color:#a7a7a7;
 }
 .post-no-img .post-short-content{
 	font-size:40pt;
@@ -114,6 +120,7 @@ div.article-size>img {
     font-size: 14px;
 	height: 100px;
 	overflow-y: auto;
+	  width: 480px;
 }
 
 #article-modal .post-category{
@@ -127,14 +134,17 @@ div.article-size>img {
        font-size: 10pt;
 }
 
-
 #article-modal a{
 	color:#298478;
 	font-weight: bold;
     font-size: 13px;
 }
 
-
+#article-modal a{
+	color:#298478;
+	font-weight: bold;
+    font-size: 13px;
+}
 
 .float-right{
 	   float: right;
@@ -148,10 +158,37 @@ div.article-size>img {
 	    position: fixed;
     background-color: white;
     width: 497px;
-    
 }
 
 .modal .article-comments{
 	margin-top:100px;
-	
+}
+
+
+#report-article-modal *, #report-article-confirm-modal *{
+	text-align:center;
+	margin-bottom:15px;
+	margin-top:10px;	
+}
+
+#report-article-modal .modal-dialog, #report-article-confirm-modal .modal-dialog,
+#report-article-modal .modal-content, #report-article-confirm-modal .modal-content, 
+#report-article-modal .modal-body, #report-article-confirm-modal .modal-body  {
+	height:300px;
+}
+#report-article-modal .blog-post, #report-article-confirm-modal .blog-post{
+	height:250px;
+}
+#report-article-modal .post-desc, #report-article-confirm-modal .post-desc  {
+	height:200px;
+	margin-top:unset;
+	margin-right:unset;
+}
+
+
+#report-article-modal h3, #report-article-confirm-modal h3{
+	color:#298478;
+	font-weight: bold;
+    font-size: 30px;
+    text-align: center;
 }
