@@ -20,6 +20,7 @@ import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.SNSUserPageDTO;
 import kr.or.kosta.salmon.domain.SNSUserPageWithoutAtriclesDTO;
 import kr.or.kosta.salmon.mapper.SNSMapper;
+import kr.or.kosta.salmon.service.SNSService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -30,9 +31,12 @@ public class ArticleTest {
 	@Inject
 	private SNSMapper mapper;
 	
+	@Inject
+	private SNSService snsservice;
+	
 //	@Test
 	public void testGetArticle(){
-		ArrayList<SNSArticleDTO_sjh> list =mapper.getSNSArticles("newID6");
+		ArrayList<SNSArticleDTO_sjh> list =mapper.getSNSArticles("loginid","newID6");
 		for (SNSArticleDTO_sjh article : list) {
 			log.info(article);
 			log.info(article.getLikes());
@@ -66,11 +70,14 @@ public class ArticleTest {
 		param.setUser_id("heyrim15");
 		
 	//	SNSUserPageDTO page2= mapper.getSNSUserPageInfo("heyrim15");
-		SNSUserPageWithoutAtriclesDTO page4= mapper.getSNSUserPageInfoWithoutArticles("heyrim15");
+	//	SNSUserPageWithoutAtriclesDTO page4= mapper.getSNSUserPageInfoWithoutArticles("heyrim15");
 	//	SNSUserPageDTO page3= mapper.getSNSUserPageInfo(param);
-		ArrayList<SNSArticleDTO_sjh> list1= mapper.getSNSArticleByWriter("heyrim7", "heyrim15");
-		ArrayList<SNSArticleDTO_sjh> list2= mapper.getArticleByLikeUser("heyrim7", "heyrim15");
+	//	ArrayList<SNSArticleDTO_sjh> list1= mapper.getSNSArticleByWriter("heyrim7", "heyrim15");
+	//	ArrayList<SNSArticleDTO_sjh> list2= mapper.getArticleByLikeUser("heyrim7", "heyrim15");
+	//	mapper.getSNSArticles("heyrim19");
 		
+	//	snsservice.getSNSArticles("loginid","heyrim19");
+		snsservice.getArticleByArticleId(21);
 	}
 	
 	

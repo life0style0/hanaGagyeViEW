@@ -7,6 +7,8 @@ function checkScope(scope) {
         return '공개';
     } else if (scope === 'r') {
         return '나만';
+    } else if (scope === 'g') {
+    	return '소모임';
     }
     return 'error';
 }

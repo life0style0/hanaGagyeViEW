@@ -118,6 +118,7 @@ font-family: 'Noto Sans KR', sans-serif;
 
 
 						<!-- 파일 업로드 -->
+						<!-- 
 						<div class="row row-space">
 							<div class="col-2">
 								<div class="input-group">
@@ -127,7 +128,7 @@ font-family: 'Noto Sans KR', sans-serif;
 								</div>
 							</div>
 						</div>
-						
+						 -->
 						<div class="col-2">
 							<div class="input-group">
 								<div class="rs-select2 js-select-simple select--no-search">

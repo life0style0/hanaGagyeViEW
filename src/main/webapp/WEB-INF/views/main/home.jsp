@@ -68,7 +68,7 @@
   <div id="content-block">
     <div class="head-bg-sjh" id="chartInfoBlock">
       <div class="head-bg-img"></div>
-      <div class="head-bg-content font-sjh">
+      <div class="head-bg-content font-sjh" style="padding-top:60px;">
         <h1>당신의 소중한 자산관리 하나에게 맡기세요</h1>
         <p>이제부터 눈으로 가계부를 쓰세요</p>
 
@@ -131,11 +131,18 @@
 
       <div class="col-md-2 left-feild">
       
+      <div class="be-user-detail">
+	  	<input type="hidden" name="user-profile-photo" value="${me.user_image}">
+	  	<img class="img-main-thumnail" alt="">
+		<p class="be-use-name"><c:out value="${me.user_nickname}" /></p>
+		<span class="be-user-info"> <c:out value="${me.user_id}" /></span>
+	  </div>				
+      
       	<div class="be-vidget">
 	        <div class="creative_filds_block">
 		        <div class="controls">
-		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:desc comments-num:asc">좋아요순</button>
-		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:asc comments-num:desc">댓글순</button>
+		        <button type="button" class="control btn btn-default my-btn" data-sort="likes-num:desc published-date:asc comments-num:asc">좋아요순</button>
+		        <button type="button" class="control btn btn-default my-btn" data-sort="comments-num:desc published-date:asc likes-num:asc">댓글순</button>
 		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:desc likes-num:asc comments-num:asc">최신순</button>
 		        </div>
 	        </div>
@@ -213,16 +220,28 @@
        </c:otherwise>
        </c:choose>
 	  
-       <%-- 
-          <div class="category-1 mix custom-column-3 ${tag }">
-             --%>
-            
             <div id="article-post-<c:out value="${article.article_id}"/>" class="be-post-sjh">
               <a class="be-img-block">
               <c:if test="${article.imagePaths.size()==0 }">
               	<div class="article-size">
-              		<div class="padding-1-sjh">
-              			<c:out value="${article.article_content}"/>
+              		<div class="padding-1-sjh post-no-img">
+              			<div class="post-fee">
+              			<c:out value="${article.article_payment_fee}"/>원 
+              			</div>
+              			<c:choose>
+              			<c:when test="${article.article_content.length() > 0}">
+              				<%--긴글 --%>
+              				<div class="post-long-content" >
+              				<c:out value="${article.article_content}"/>
+              				</div>
+              			</c:when>
+              			<c:otherwise>
+              				<%--짧은글 --%>
+              				<div class="post-short-content" >
+              				<c:out value="${article.article_content}"/>
+              				</div>
+              			</c:otherwise>
+              			</c:choose>
               		</div>
               	</div>
               	<!-- <img src="/salmon/resources/hjh/images/noimage.gif" alt="img"> -->
@@ -254,18 +273,19 @@
               --> 
 
               </a>
-              <span>
+              <span class="article-thumnail-tags">
               	<c:forEach var="tag" items="${article.hashtags }">
-                	<a href="blog-detail-2.html" class="be-post-tag">${tag } </a>
+                	<a href="/salmon/sns/search?search-value=${tag}" class="be-post-tag">${tag } </a>
                 </c:forEach>
               </span>
               <div class="author-post">
-                <img src="/salmon/resources/template/img/a1.png" alt="" class="ava-author">
+                <img src="" alt="" class="ava-author">
+                <input type="hidden" name="user-profile-photo" value="${article.user_image}">
                 <span>by 
                 <a href="/salmon/sns/feeds?userid=${article.user_nickname}">${article.user_nickname}</a>
                 </span>
               </div>
-              <div class="info-block">
+              <div class="info-block info-block-sjh">
                 <span><i class="far fa-thumbs-up"></i>
                 	<%--좋아요 --%>
                 	<c:out value="${article.likes.size()}"/>
@@ -349,8 +369,6 @@
 		  $(articlelist).each(function(i,e){
 			  console.log(e);
 		  });
-		  
-		//  $('#myfeed-btn').trigger('click'); //필터 적용
 		  
 		  //내정보 불러오기
 		  me= ${meJSON};

@@ -56,5 +56,6 @@ public class CommonController {
 		//실제 로그아웃 처리
 		log.info(" 로그아웃 처리 ");
 	}
-
+	
+	
 }

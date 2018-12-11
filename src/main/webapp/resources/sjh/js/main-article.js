@@ -1,6 +1,7 @@
 var myId;
 $(function() {
 	myId= $('#loginUserId').text();
+	setUserPhoto();
 	eventRegist();
 })
 
@@ -9,23 +10,21 @@ function eventRegist(){
 		$(post).on('click',function(){
 			console.log($(this).attr('id').split('-')[2]);
 			var article= getArticleInfo($(this).attr('id').split('-')[2]);
+		//	var article= getArticleInfoByJSON($(this).attr('id').split('-')[2]);
 			console.log(article);
 		});
 	});
 
 	$('#article-like-btn').on('click',function(){
 		likesArticle($('#article-id-modal').attr('value'));
-		//setLikedArticle();
 	});
 	
 	$('#article-unlike-btn').on('click',function(){
 		unlikesArticle($('#article-id-modal').attr('value'));
-		//setLikableArticle();
 	});
 	
 	$('#article-report-btn').on('click',function(){
 		$('#report-article-modal').modal('show');
-		//reportArticle($('#article-id-modal').attr('value'));
 	});
 	
 	$('#article-report-modal-btn').on('click',function(){
@@ -33,7 +32,6 @@ function eventRegist(){
 			var articleId= $('#article-id-modal').attr('value');
 			$('#reoport-article-id-modal').attr('value',articleId);
 			reportArticle(articleId);
-			//$('#report-article-modal').modal('hide');
 		}
 	})
 	
@@ -52,6 +50,27 @@ function eventRegist(){
 		deleteReply(e);
 	});
 	
+}
+
+function setUserPhoto() {
+	$('input[name="user-profile-photo"]').each(function(i,input){ 
+		var imgpath= $(input).val();
+		$(input).closest('div').find('img').attr('src',`/salmon/image?fileName=` +showProfileImage(imgpath));
+	}) 
+}
+
+function showProfileImage(path) {
+	return encodeURI(path);
+}
+
+function getArticleInfoByJSON(articleId){
+	$(articlelist).each(function(i,article){
+		if(article.article_id== articleId){
+			setArticleModal(article);
+			setArticle(article); //이미지, 공유버튼 세팅
+			$('#article-modal').modal('show');
+		}
+	});
 }
 
 function getArticleInfo(articleId){
@@ -83,14 +102,29 @@ function setArticleModal(article){
 	console.log(article);
 	$('#article-id-modal').attr('value',article.article_id);
 	$('#article-ctgry-name').html(article.ctgry_name);
-	$('#article-title').html(article.article_title);
-	$('#article-money').html(article.article_payment_fee);
+	$('#article-title').html(' ,'+article.article_title);
+	$('#article-money').html(article.article_payment_fee+'원 ');
 	$('#article-ctgry').html(article.article_ctgry_description);
-	$('#article-content').html(article.article_content);
+	
+	var contentHTML= article.article_content;
+	contentHTML += '<p>';
+	$(article.hashtags).each(function(i,tag){
+		contentHTML += ' <a href="/salmon/sns/search?search-value='+tag+'">#'+tag+'</a> ';
+	});
+	contentHTML += '</p>';
+	
+	$('#article-content').html(contentHTML);
+	
+	
 	$('#article-regdate').html(article.article_regdate);
 	$('#article-pay-type').html(article.article_payment_type);
-	$('#article-scope').html(article.article_scope);
-
+	var articleScope= checkScope(article.article_scope);
+	$('#article-scope').html(articleScope);
+	
+	var imgpath=article.user_image;
+	//$('#article-modal input[name="user-profile-photo"]').val();
+	$('#article-modal #article-writer-photo').attr('src',`/salmon/image?fileName=` +showProfileImage(imgpath));
+	
 	$(article.likes).each(function(i,like){
 		if(like.user_id == myId){
 			$('#article-like-btn').addClass('hidden');
@@ -100,6 +134,16 @@ function setArticleModal(article){
 			$('#article-unlike-btn').addClass('hidden');
 		}
 	})
+	
+	console.log(article.isReportedByMe);
+	if($(article.isReportedByMe) >0){ //이미 내가 신고한 게시글
+		$('#article-modal #article-report-btn').addClass('hidden');
+		$('#article-modal #article-report-complete-btn').removeClass('hidden');
+	}else{ //아직 신고하지 않은 게시글
+		$('#article-modal #article-report-complete-btn').addClass('hidden');
+		$('#article-modal #article-report-btn').removeClass('hidden');
+	}
+	
 	
 	$('#article-writer-nickname').html('<a href="/salmon/sns/feeds?userid='+article.user_nickname+'">'+article.user_nickname+'</a>');
 	$('#article-modal form').attr('id','reply-form-'+article.article_id);
@@ -175,6 +219,11 @@ function setArticleModal(article){
 	
 	
 	$('#article-comments-btn').html('<i class="fas fa-comment"></i>'+article.comments.length);
+	
+	
+	 $('#article-modal').one('hide.bs.modal', function () {
+         resetArticleModal();
+     });
 }
 
 function setLikedArticle(likesnum){
@@ -402,43 +451,83 @@ function eventRegistOnShare(article, info) {
     });
 }
 
+function checkScope(scope) {
+    if (scope === 'u') {
+        return '공개';
+    } else if (scope === 'r') {
+        return '나만';
+    } else if (scope === 'g') {
+    	return '소모임';
+    }
+    return 'error';
+}
+
+function resetArticleModal() {
+    $('.article-carousel').trigger('destroy.owl.carousel');
+    $('.article-carousel').removeClass('owl-hidden');
+    $('.article-carousel').html('');
+    // $('#article-modal').off('shown.bs.modal');
+}
+
 /**
  * 특정 가계부 정보를 클릭시 보여줄 값들을 세팅하는 함수
  * @param {*} article 가계부 정보
  * @param {*} info 가계부 정보
  */
 function setArticle(article, info) {
-	//이미지, 공유버튼 세팅
-	console.log(article.article_id);
-	console.log(article.imagePaths);
-    if (!article) {
+	 if (!article) {
         alert('data가 없습니다.');
     }
     if (article.imagePaths.length === 0) {
-        $('#article-modal .modal-dialog').addClass('ggv-no-image');
+        $('.article-modal .modal-dialog').addClass('no-image-modal');
     } else {
-        $('#article-modal .modal-dialog').removeClass('ggv-no-image');
+        $('.article-modal .modal-dialog').removeClass('no-image-modal');
         for (let i = 0; i < article.imagePaths.length; i += 1) {
             const imagePath = article.imagePaths[i];
-            $('.article-carousel').append('<img class="article-image center-block owl-lazy" data-src="/salmon/main/image?fileName='+imagePath+'" alt="">');
+            $('.article-carousel').append(`<img class="center-block owl-lazy invisible" data-src="/salmon/image?fileName=${imagePath}" alt="">`);
         }
+        $('.article-carousel').one('loaded.owl.lazy', function () {
+            $('.article-carousel').trigger('prev.owl.carousel');
+            $('.article-carousel .owl-lazy').each(function (key, value) {
+                if ($(value).height() > $(value).width()) {
+                    $(value).addClass('article-image-h');
+                    $(value).removeClass('article-image-w');
+                } else if ($(value).height() < $(value).width()) {
+                    $(value).addClass('article-image-w');
+                    $(value).removeClass('article-image-h');
+                } else {
+                    $(value).removeClass('article-image-w');
+                    $(value).removeClass('article-image-h');
+                    $(value).addClass('article-image');
+                }
+            });
+            $('.article-carousel .owl-lazy').removeClass('invisible');
+        });
 
-        $('.article-carousel').owlCarousel({
-            items: 1,
-            loop: true,
-            margin: 10,
-            nav: true,
-            navText: [
-                "<i class='fa fa-angle-left'></i>",
-                "<i class='fa fa-angle-right'></i>"
-            ],
-            dots: false,
-            lazyLoad: true
+        $('#article-modal').one('shown.bs.modal', function () {
+            setTimeout(() => {
+                $('.article-carousel').owlCarousel({
+                    items: 1,
+                    loop: true,
+                    margin: 10,
+                    nav: true,
+                    navText: [
+                        "<i class='fa fa-angle-left'></i>",
+                        "<i class='fa fa-angle-right'></i>"
+                    ],
+                    dots: false,
+                    lazyLoad: true
+                });
+            }, 500);
+        });
+
+        $('#article-modal').one('hide.bs.modal', function () {
+            resetArticleModal();
         });
     }
 
-    // 내가 쓴 글인지 확인
-    if (true) {
+ // 내가 쓴 글인지 확인
+    if (myId==article.user_id) {
         if (article.articleScope !== undefined) {
             const scope = checkScope(article.articleScope);
             $('#article-scope').html(`, ${scope}`);
@@ -459,7 +548,9 @@ function setArticle(article, info) {
 
         // 내가 쓴 글이면 수정이 보여야 함.
         $('#article-edit-btn').removeClass('hidden');
-        $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=${article.articleId}`);
+        $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=`+article.article_id);
+        $('#article-delete-btn').removeClass('hidden');
+        $('#article-delete-btn a').attr('href', `/salmon/article/delete?article_id=`+article.article_id);
     } else {
         $('#article-edit-btn').addClass('hidden');
     }

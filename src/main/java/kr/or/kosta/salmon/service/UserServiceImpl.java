@@ -31,7 +31,8 @@ public class UserServiceImpl implements UserService {
 		log.info("회원가입 시작");
 		
 		if(user.getUser_image() == null || user.getUser_image().trim().length() ==0) {
-			user.setUser_image("default img");
+			//user.setUser_image("default img");
+			user.setUser_image("images/default-user.jpg");
 		}
 		
 		UserDTO simpleUser= user.makeUserDTO();

@@ -29,8 +29,8 @@ public class SNSServiceImpl implements SNSService {
 
 	// 이 사용자의 피드 게시글 조회
 	@Override
-	public ArrayList<SNSArticleDTO_sjh> getSNSArticles(String user_id) {
-		return snsMapper.getSNSArticles(user_id);
+	public ArrayList<SNSArticleDTO_sjh> getSNSArticles(String login_id, String user_id) {
+		return snsMapper.getSNSArticles(login_id,user_id);
 	}
 
 	// 작성자로 글목록 찾기
@@ -135,7 +135,7 @@ public class SNSServiceImpl implements SNSService {
 
 	@Override
 	public SNSArticleDTO_sjh getArticleByArticleId(int article_id) {
-		return snsMapper.getArticleByArticleId(article_id);
+		return snsMapper.getArticleByArticleId( article_id);
 	}
 
 	@Override

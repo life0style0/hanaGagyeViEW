@@ -60,12 +60,18 @@
 
   <!-- MAIN CONTENT -->
   <div id="content-block">
-      <div class="head-bg-content font-sjh" style="height:fit-content">
-        <h1> <c:out value="${searchVal}"/> 검색 결과</h1>
+  	<div class="head-bg">
+      <div class="head-bg-img" style="padding-top: 225px; 
+      background-image: url(/salmon/resources/sjh/img/finance.jpg); 
+      background-position: 50% 15%; background-repeat: no-repeat; opacity: 0.5;"></div>
+     <!--  <div class="head-bg-content"></div> -->
+      <div class="head-bg-content font-sjh">
+       <h1> <c:out value="${searchVal}"/> 검색 결과</h1>
         <p> 다른 분들은 어떤 소비를 하고 있을까요? </p>
       </div>
+    </div>
   </div>
-
+ 
 	<div class="col-md-12 article-menu-bar">
 		<div id="search-res-article-btn" class="col-md-2 article-menu">게시글 검색결과</div>
 		<div id="search-res-user-btn" class="col-md-2 article-menu">사용자 검색결과</div>
@@ -127,8 +133,8 @@
       	<div class="be-vidget">
 	        <div class="creative_filds_block">
 		        <div class="controls">
-		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:desc comments-num:asc">좋아요순</button>
-		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:asc likes-num:asc comments-num:desc">댓글순</button>
+		        <button type="button" class="control btn btn-default my-btn" data-sort="likes-num:desc published-date:asc comments-num:asc">좋아요순</button>
+		        <button type="button" class="control btn btn-default my-btn" data-sort="comments-num:desc published-date:asc likes-num:asc">댓글순</button>
 		        <button type="button" class="control btn btn-default my-btn" data-sort="published-date:desc likes-num:asc comments-num:asc">최신순</button>
 		        </div>
 	        </div>
@@ -200,8 +206,24 @@
               <a class="be-img-block">
               <c:if test="${article.imagePaths.size()==0 }">
               	<div class="article-size">
-              		<div class="padding-1-sjh">
-              			<c:out value="${article.article_content}"/>
+              		<div class="padding-1-sjh post-no-img">
+              			<div class="post-fee">
+              			<c:out value="${article.article_payment_fee}"/>원 
+              			</div>
+              			<c:choose>
+              			<c:when test="${article.article_content.length() > 0}">
+              				<%--긴글 --%>
+              				<div class="post-long-content" >
+              				<c:out value="${article.article_content}"/>
+              				</div>
+              			</c:when>
+              			<c:otherwise>
+              				<%--짧은글 --%>
+              				<div class="post-short-content" >
+              				<c:out value="${article.article_content}"/>
+              				</div>
+              			</c:otherwise>
+              			</c:choose>
               		</div>
               	</div>
               	<!-- <img src="/salmon/resources/hjh/images/noimage.gif" alt="img"> -->
@@ -223,25 +245,22 @@
               </a>
               <span>
               	<c:forEach var="tag" items="${article.hashtags }">
-                	<a href="blog-detail-2.html" class="be-post-tag">${tag } </a>
+                	<a href="/salmon/sns/search?search-value=${tag}" class="be-post-tag">${tag } </a>
                 </c:forEach>
               </span>
               <div class="author-post">
-                <img src="/salmon/resources/template/img/a1.png" alt="" class="ava-author">
+                <img src="" alt="" class="ava-author">
+                <input type="hidden" name="user-profile-photo" value="${article.user_image}">
                 <span>by 
                 <a href="/salmon/sns/feeds?userid=${article.user_nickname}">${article.user_nickname}</a>
                 </span>
               </div>
-              <div class="info-block">
-                <span><i class="fa fa-thumbs-o-up"></i>
+              <div class="info-block info-block-sjh">
+                <span><i class="far fa-thumbs-up"></i>
                 	<%--좋아요 --%>
                 	<c:out value="${article.likes.size()}"/>
                 </span>
-                <span><i class="fa fa-eye"></i>
-                	<%--스크랩수 --%>
-                	<c:out value="${article.scraps.size()}"/>
-                </span>
-                <span><i class="fa fa-comment-o"></i>
+                <span><i class="fas fa-comment"></i>
                 	<%--댓글수 --%>
                 	<c:out value="${article.comments.size()}"/>
                 </span>

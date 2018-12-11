@@ -5,12 +5,13 @@
     padding: 10px;
 }
 
-font-sjh{
+.font-sjh{
 	color: #298478;
 }
 
 .font-sjh h1{
 	color: #298478;
+	font-weight: bold;
 }
 
 .bgcolor-sjh {
@@ -31,4 +32,11 @@ font-sjh{
 
 .orange-font{
 	color:orange
+}
+
+.img-main-thumnail{
+	border-radius: 50%;
+    height: 100px;
+    width: auto;
+    margin: auto;
 }

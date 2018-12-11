@@ -55,7 +55,7 @@ public class MainController {
 		log.info("main컨트롤러 진입");
 		String user_id = principal.getName();
 		ArrayList<HashTagGroupDTO> hashTagList = (ArrayList)mainService.getHashTagGroup(user_id);
-		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)snsService.getSNSArticles(user_id);
+		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)snsService.getSNSArticles(principal.getName(),user_id);
 
 		MainChartDTO mainchartIncomeInfo = mainService.getChartTotalIncomeFee(user_id);
 		MainChartDTO mainchartSpendInfo = mainService.getChartTotalSpendFee(user_id);
@@ -73,6 +73,10 @@ public class MainController {
 		model.addAttribute("mainchartSpendInfo", mainchartSpendInfo);
 		model.addAttribute("articleList", articleList);
 		model.addAttribute("hashTagList", hashTagList);
+		
+		for (SNSArticleDTO_sjh article : articleList) {
+			log.info(article);
+		}
 		
 		//ArrayList<SNSArticleDTO_sjh> articleListJSON = (ArrayList)snsService.getSNSArticles(user_id);
 		ObjectMapper objmapper= new ObjectMapper();

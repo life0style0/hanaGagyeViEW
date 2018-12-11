@@ -23,7 +23,7 @@ import kr.or.kosta.salmon.domain.UserDTO;
 public interface SNSService {
 	
 	//전체 게시글 리턴
-	public ArrayList<SNSArticleDTO_sjh> getSNSArticles(String user_id);
+	public ArrayList<SNSArticleDTO_sjh> getSNSArticles(String login_id, String user_id);
 	// 전체 게시글중 인기글
 	public ArrayList<SNSArticleDTO_sjh> getSNSPopularArticles();
 	// 전체 게시글중 최신글

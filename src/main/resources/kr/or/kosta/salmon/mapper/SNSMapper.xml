@@ -18,6 +18,9 @@
 		<result property="article_title" column="article_title"/>
 		<result property="article_content" column="article_content"/>
 		<result property="article_proposal_status" column="article_proposal_status"/>
+		<result property="user_id" column="user_id"/>
+		<result property="user_nickname" column="user_nickname"/>
+		<result property="user_image" column="user_image"/>
 		<result property="group_id" column="group_id"/>
 		<result property="group_title" column="group_title"/>
 		<result property="article_deleted" column="article_deleted"/>
@@ -78,9 +81,18 @@
 		       group_title, 
 		       ar.user_id, 
 		       user_nickname, 
+		       user_image,
 		       article_comment_num, 
 		       article_like_num, 
-		       article_deleted 
+		       article_deleted,
+		       (select count(li.user_id) 
+	           from likes li 
+	           where li.article_id = ar.article_id 
+	           and li.user_id=#{login_id}) "isLikedByMe",
+	           (select count(rp.user_id) 
+	           from reports rp 
+	           where rp.article_id = ar.article_id 
+	           and rp.user_id=#{login_id}) "isReportedByMe" 
 		FROM   articles ar 
 		       join users us 
 		         ON us.user_id = ar.user_id 
@@ -355,30 +367,33 @@
 	</delete>
 	
 	<select id="getArticleByArticleId" resultMap="articleMap">
-		SELECT article_id, 
-		       article_ctgry_id, 
-		       article_ctgry_description, 
-		       article_scope, 
-		       To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
-		       article_editdate, 
-		       article_payment_type, 
-		       article_payment_fee, 
-		       article_title, 
-		       article_content, 
-		       article_proposal_status, 
-		       group_id, 
-		       group_title, 
-		       user_nickname, 
-		       article_deleted, 
-		       ctgry_id, 
-		       ctgry_name 
-		FROM   articles 
-		       join users USING (user_id) 
-		       join ctgry_values USING (article_id) 
-		       join ctgries USING (ctgry_id) 
-		       join article_ctgries USING (article_ctgry_id) 
-		       left outer join GROUPS USING (group_id) 
-		WHERE  article_id = #{article_id}
+	SELECT   article_id, 
+             article_ctgry_id, 
+             article_ctgry_description, 
+             article_scope, 
+             To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
+             article_editdate, 
+             article_payment_type, 
+             article_payment_fee, 
+             article_title, 
+             article_content, 
+             article_proposal_status, 
+             group_id, 
+             group_title, 
+             user_nickname, 
+             article_deleted, 
+             ctgry_id, 
+             ctgry_name,
+             user_id,
+             user_nickname,
+             user_image
+      FROM   articles ar
+             join users USING (user_id) 
+             left outer join ctgry_values USING (article_id) 
+             left outer join ctgries USING (ctgry_id) 
+             left outer join article_ctgries USING (article_ctgry_id) 
+             left outer join (select group_id, group_title from groups) USING (group_id) 
+      WHERE  article_id = #{article_id}
 	</select>
 	
 	<insert id="scrapArticle">
@@ -497,6 +512,7 @@
 		       group_id, 
 		       user_id, 
 		       user_nickname, 
+		       user_image,
 		       article_deleted 
 		FROM   articles 
 		       join users USING (user_id) 
@@ -568,6 +584,7 @@
 		       group_id, 
 		       user_id, 
 		       user_nickname, 
+		       user_image,
 		       article_deleted, 
 		       article_like_num, 
 		       article_comment_num 

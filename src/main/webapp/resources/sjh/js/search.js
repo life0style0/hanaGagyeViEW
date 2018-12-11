@@ -75,8 +75,14 @@ function showProfileImage(path) {
 function setUserPhoto(){
 	$('input[name="user-photo-path"]').each(function(i,input){
 		$(input).closest('a').find('img').attr('src',`/salmon/image?fileName=`+showProfileImage($(input).attr('value')));
-	})
+	});
+	$('input[name="user-profile-photo"]').each(function(i,input){ 
+		var imgpath= $(input).val();
+		$(input).closest('div').find('img').attr('src',`/salmon/image?fileName=` +showProfileImage(imgpath));
+	}) ;
 }
+
+
 
 
 function askFollow(followTo){

@@ -21,7 +21,7 @@ import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
 public interface SNSMapper {
 
 	//이 사용자의 팔로워/그룹/본인 게시글 목록 찾기
-	public ArrayList<SNSArticleDTO_sjh> getSNSArticles(String user_id);
+	public ArrayList<SNSArticleDTO_sjh> getSNSArticles(@Param("login_id") String login_id, @Param("user_id") String user_id);
 	//이 사용자 기준 해시태그 목록
 	public ArrayList<HashTagGroupDTO> getHashTagGroup(String user_id);
 	//전체 글 해시태그 목록

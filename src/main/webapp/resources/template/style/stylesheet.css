@@ -353,7 +353,7 @@ header .header-menu > #ad-work-li {position: static; float: right;margin-top: 20
 	02 - HEADER BACKGROUND
 ==================================
 */
-.head-bg { background: #000; position: relative; padding: 10px; margin-bottom: 50px; }
+.head-bg { background: #fff; position: relative; padding: 10px; margin-bottom: 50px; }
 
 .head-bg-img { position: absolute; left: 0; top: 0; background: url(../img/bg.jpg); height: 100%; width: 100%; background-size: cover; opacity: 0.2; z-index: 1; background-position: center center; }
 
@@ -363,7 +363,7 @@ header .header-menu > #ad-work-li {position: static; float: right;margin-top: 20
 
 .head-bg-content h1 { font-size: 32px; line-height: 40px; color: #FFF; font-family: 'Conv_helveticaneuecyr-bold'; margin-bottom: 17px; }
 
-.head-bg-content p { color: #a1a4af; margin-bottom: 25px; }
+.head-bg-content p { color: #58595d; margin-bottom: 25px; }
 
 .head-bg.style-2 { padding-top: 120px; padding-bottom: 120px; margin-bottom: 0px; }
 
@@ -846,7 +846,7 @@ span.right { float: right; }
 
 .large-popup-text { display: inline; }
 
-.close-button, .message-popup .fa.close-button { position: absolute; top: -5px; color: #FFF; display: block; width: 25px; height: 25px; background: #0d58c8; font-size: 14px; text-align: center; padding-top: 5px; cursor: pointer; border-radius: 2px; }
+.close-button, .message-popup .fa.close-button { position: absolute; top: -5px; color: #FFF; display: block; width: 25px; height: 25px; background: #298478; font-size: 14px; text-align: center; padding-top: 5px; cursor: pointer; border-radius: 2px; }
 
 .close-button:hover { background: #0040b0; }
 
@@ -865,7 +865,7 @@ span.right { float: right; }
 
 .be-checkbox { margin-bottom: 15px; }
 
-.be-popup-sign-button { float: right; color: #FFF; padding: 15px 30px; background: #0d58c8; font-size: 14px; border: none; border-radius: 2px; }
+.be-popup-sign-button { float: right; color: #FFF; padding: 15px 30px; background: #298478; font-size: 14px; border: none; border-radius: 2px; }
 
 .be-popup-sign-button:hover { background: #0040b0; }
 
@@ -1481,9 +1481,9 @@ display: inline-block; float: none; margin: 0 10px;}
 /*buttons*/
 .btn { display: inline-block; font-size: 12px; line-height: 12px; font-weight: 400; color: #fff; text-transform: uppercase; margin-bottom: 10px; margin-right: 27px; border-radius: 3px; }
 
-.btn.color-1 { background: #0d58c8; border: 1px solid #0d58c8; }
+.btn.color-1 { background: #298478; border: 1px solid #298478; }
 
-.btn.color-1 .fa { color: #8ba1dd; }
+.btn.color-1 .fa { color: #7bd7cb; }
 
 .btn.color-2 { background: #383b43; color: #fff; }
 
@@ -1521,11 +1521,11 @@ display: inline-block; float: none; margin: 0 10px;}
 
 .btn.active { box-shadow: none; }
 
-.btn.hover-1:hover, .btn.hover-1.active { background: transparent; border: 1px solid #0d58c8; color: #0d58c8; }
+.btn.hover-1:hover, .btn.hover-1.active { background: transparent; border: 1px solid  #298478; color:  #298478; }
 
-.btn.hover-1:hover .fa, .btn.hover-1.active .fa { color: #0d58c8; }
+.btn.hover-1:hover .fa, .btn.hover-1.active .fa { color:  #298478; }
 
-.btn.hover-2:hover, .btn.hover-2.active { background: transparent; border: 1px solid #0d58c8; color: #fff; }
+.btn.hover-2:hover, .btn.hover-2.active { background: transparent; border: 1px solid  #298478; color: #fff; }
 
 .btn.hover-3:hover, .btn.hover-3.active { background: transparent; border: 1px solid #383b43; color: #383b43; }
 

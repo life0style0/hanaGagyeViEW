@@ -37,6 +37,7 @@
 	                </div>
                 </div>
                 <div class="author-post">
+                  <input type="hidden" name="user-profile-photo" value="">
                   <img src="" alt="" class="ava-author" id="article-writer-photo">
                   <span>by </span><a href="" id="article-writer-nickname">Hoang Nguyen</a>,
                   <span id="article-regdate">작성일</span>
@@ -60,9 +61,13 @@
                   <span id="article-share-cancel-btn" class="hidden">
                   	<a><i class="fa fa-ban"></i> 공유 취소</a>
                   </span>
-                  <span id="article-report-btn">
-                  	<a><i class="far fa-flag"></i> 신고</a>
-                  </span>
+                  <span id="article-report-btn" >
+				  	<i class="far fa-flag"></i> 신고
+				  </span>
+				  <span id="article-report-complete-btn" class="orange-font">
+				  	<i class="fas fa-flag"></i> 신고됨
+				  </span>
+				   
                   <div class="article-right-btns">
                     <span id="article-edit-btn" class="hidden">
                    		<a><i class="fa fa-edit"></i> 수정</a>
