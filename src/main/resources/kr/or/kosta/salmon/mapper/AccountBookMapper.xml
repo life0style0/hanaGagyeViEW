@@ -13,6 +13,8 @@
                 <result property="articleTitle" column="article_title"/>
                 <result property="articleContent" column="article_content"/>
                 <result property="articleCtgryType" column="article_ctgry_type"/>
+                <result property="articlelikeNum" column="article_like_num"/>
+                <result property="articleCommentNum" column="article_comment_num"/>
                 <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
                 <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
                 <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
@@ -74,7 +76,7 @@ SELECT image_path
 FROM images where article_id = #{article_id}
         </select>
 
-        <select id="getAccountBookByArticleId" resultMap="AccountBookToGgv">
+        <select id="getAccountBookByArticleId" resultMap="AccountBooks">
 SELECT article_id,
        ctgry_name,
        article_scope,
@@ -83,7 +85,9 @@ SELECT article_id,
        article_payment_fee,
        article_title,
        article_content,
-        article_ctgry_type
+        article_ctgry_type,
+       article_like_num,
+       article_comment_num
 FROM   articles 
         join ctgry_values USING(article_id) 
         join ctgries USING(ctgry_id)
@@ -117,7 +121,9 @@ SELECT article_id,
        article_payment_fee,
        article_title,
        article_content,
-        article_ctgry_type
+        article_ctgry_type,
+       article_like_num,
+       article_comment_num
 FROM   articles 
         join ctgry_values USING(article_id) 
         join ctgries USING(ctgry_id)
