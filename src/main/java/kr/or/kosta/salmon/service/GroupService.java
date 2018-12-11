@@ -53,4 +53,7 @@ public interface GroupService {
 	
 	//해당 소모임 그룹의 게시물 가져오기
 	public ArrayList<SNSArticleDTO_sjh> getSNSGroups(String group_id);
+
+	//그룹에 가입한 사용자인지 확인하기 
+	public int checkRegistGroup(String group_id, String user_id);
 }

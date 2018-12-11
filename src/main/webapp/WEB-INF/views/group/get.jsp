@@ -15,7 +15,9 @@
   <link rel="shortcut icon" href="/salmon/resources/template/img/favicon.png">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/salmon/resources/template/style/bootstrap.min.css">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+    crossorigin="anonymous">
   <link rel="stylesheet" href="/salmon/resources/template/style/icon.css">
   <link rel="stylesheet" href="/salmon/resources/template/style/loader.css">
   <link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
@@ -103,6 +105,12 @@
 	opacity: 1;
 	right: 0;
 }
+
+.swiper-arrow-left:after, .swiper-arrow-right:after {
+    font-weight: 900;
+    font-family: "Font Awesome\ 5 Free";
+}
+
 </style>
 
     <!-- 소모임 게시물 작성하기 버튼  -->
@@ -189,14 +197,17 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <!-- FOLLOW -->
-                    <a data-toggle="modal" data-target="#myModal" class="be-user-activity-button be-follow-type" style="font-family: Noto Sans KR, sans-serif; font-size: 8.5pt; padding: 5px; text-align: center;">
-                      <i class="fa fa-plus"></i>소모임 참여
-                    </a>
+                    <c:if test="${checkRegist}">
+                      <a data-toggle="modal" data-target="#myModal" class="be-user-activity-button be-follow-type"
+                        style="font-family: Noto Sans KR, sans-serif; font-size: 8.5pt; padding: 5px; text-align: center;">
+                        <i class="fa fa-plus"></i>소모임 참여
+                      </a>
+                    </c:if>
                   </div>
                   <div class="col-lg-6">
                     <!-- MESSAGE -->
                     <a class="col-lg-6 be-user-activity-button send-btn be-message-type">
-                      <i class="fa fa-envelope-o"></i>MESSAGE
+                      <i class="fa fa-envelope"></i>MESSAGE
                     </a>
                     <!-- ============소모임 메시지 팝업 ====== -->
                     <div class="large-popup send-m">
@@ -539,7 +550,7 @@ to {
                             </div>
                             <div class="info-block">
                               <span>
-                                <i class="fa fa-thumbs-o-up"></i>
+                                <i class="fa fa-thumbs-up"></i>
                                 <%--좋아요 --%>
                                 <c:out value="${fn:length(article.likes)}" />
                               </span>
@@ -549,7 +560,7 @@ to {
                                 <c:out value="${fn:length(article.scraps)}" />
                               </span>
                               <span>
-                                <i class="fa fa-comment-o"></i>
+                                <i class="fa fa-comment"></i>
                                 <%--댓글수 --%>
                                 <c:out value="${fn:length(article.comments)}" />
                               </span>
@@ -584,7 +595,7 @@ to {
                         <c:if test="${comment.user_id == userId}">
                           <span name="comment-delete-btn" class="comment-delete-btn"> <i class="fas fa-times"></i>삭제
                           </span>
-                        </c:if> <i class="fa fa-clock-o"></i>
+                        </c:if> <i class="fa fa-clock"></i>
                         ${comment.comment_regdate}
                       </span>
                       <p class="be-comment-text">
@@ -641,33 +652,24 @@ to {
   <!-- 추가한 SCRIPTS 파일 -->
   <script src="/salmon/resources/sjh/js/main-article.js"></script>
   <script src="/salmon/resources/jjw/js/owl.carousel.min.js"></script>
-
+  <!--***************************절대 빼면안되********************************-->
   <script type="text/javascript">
-    var articlelist;
     var me;
+    var isGroup = true;
     $(function () {
-      //article 불러오기
-      var article = new Object();
-      articlelist = $
-      {
-        articleListJSON
-      }
-      ;
-      var i = 0;
-
-      $(articlelist).each(function (i, e) {
-        console.log(e);
-      });
-
-      //  $('#myfeed-btn').trigger('click'); //필터 적용
-
       //내정보 불러오기
-      me = $
-      {
-        meJSON
-      }
-      ;
-    })
+      me = ${ meJSON };
+    });
+  </script>
+
+  <script>
+    $('#article-modal').on('show.bs.modal', function () {
+      const articleId = $('#article-id-modal').val();
+      const addr = $('#regBtn').attr('onclick').split('=');
+      const groupId = addr[addr.length - 1].substr(0, addr[addr.length - 1].length - 1);
+      $('#article-edit-btn a').attr('href', '/salmon/article/editGroup?article_id=' + articleId);
+      $('#article-delete-btn a').attr('href', '/salmon/group/delete?article_id=' + articleId + '&group_id=' + groupId);
+    });
   </script>
 
 </body>

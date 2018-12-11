@@ -7,6 +7,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,15 +27,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.Criteria;
 import kr.or.kosta.salmon.domain.GroupCountDTO;
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
-import kr.or.kosta.salmon.domain.HashTagGroupDTO;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
+import kr.or.kosta.salmon.domain.UserDTO;
+import kr.or.kosta.salmon.service.GaArticleService;
 import kr.or.kosta.salmon.service.GroupService;
 import kr.or.kosta.salmon.service.SNSService;
 import kr.or.kosta.salmon.service.UserService;
@@ -51,6 +52,9 @@ public class GroupRegistController {
 	
 	@Inject
 	UserService userService;
+
+	@Inject
+	GaArticleService gaArticleService;
 	
 	
 	@GetMapping("/list")
@@ -95,14 +99,34 @@ public class GroupRegistController {
 		log.info("GetMapping에서 그룹 아이디 (혜림체크) : "+group_id);
 		model.addAttribute("groups", groupservice.get(group_id));
 		
-		
+		UserDTO meDTO = snsService.getSimpleUser(principal.getName());
+		model.addAttribute("me", meDTO);
+		ObjectMapper objmapper = new ObjectMapper();
+		try {
+			String meJSON = objmapper.writeValueAsString(meDTO);
+			model.addAttribute("meJSON", meJSON);
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
 		String user_id = principal.getName();
+
+
 //		ArrayList<HashTagGroupDTO> hashTagList = (ArrayList)groupservice.getHashTagGroup(user_id);
 		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)groupservice.getSNSGroups(group_id);
 		
 		model.addAttribute("articleList", articleList);
 		log.info("유저아이디-------"+user_id);
 		log.info("아티클리스트-------"+articleList);
+
+		int check = groupservice.checkRegistGroup(group_id,user_id);
+
+		//유저가 가입했을 때
+		if(check > 0) {
+			model.addAttribute("checkRegist", false);
+		} else {
+			model.addAttribute("checkRegist", true);
+		}
+
 //		model.addAttribute("hashTagList", hashTagList);
 		
 		
@@ -174,5 +198,20 @@ public class GroupRegistController {
 	/**
 	 * 게시글 신고
 	 */
+
+
+
+
+	@GetMapping("/delete")
+	public String delete(int article_id, int group_id, Principal principal, RedirectAttributes rttr) {
+		log.info("delete call...");
+		if (gaArticleService.deleteArticle(article_id, principal.getName())) {
+			rttr.addFlashAttribute("checkDelete", false);
+			return "redirect:/group/get?group_id="+group_id;
+		} else {
+			rttr.addFlashAttribute("checkDelete", true);
+			return "redirect:/group/get?group_id="+group_id;
+		}
+	}
 
 }

@@ -9,7 +9,11 @@ function eventRegist(){
 		$(post).on('click',function(){
 			const articleId = $(this).attr('id').split('-')[2];
 			console.log(articleId);
-			var article = getArticleInfo(articleId);
+			if(isGroup){
+				getArticleInfo(articleId);
+			}else{
+				getArticleInfoByJSON(articleId);
+			}
 		});
 	});
 
@@ -436,8 +440,9 @@ function setArticle(article, info) {
         });
     }
 
-    // 내가 쓴 글인지 확인
-    if (true) {
+	
+	// 내가 쓴 글인지 확인
+    if (article.user_id === me.user_id) {
         if (article.articleScope !== undefined) {
             const scope = checkScope(article.articleScope);
             $('#article-scope').html(`, ${scope}`);
@@ -456,9 +461,20 @@ function setArticle(article, info) {
             $('#article-share-cancel-btn').addClass('hidden');
         }
 
-        // 내가 쓴 글이면 수정이 보여야 함.
-        $('#article-edit-btn').removeClass('hidden');
-        $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=${article.articleId}`);
+		if(!isGroup) {
+			// 내가 쓴 글이면 수정이 보여야 함.
+			$('#article-edit-btn').removeClass('hidden');
+			$('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=${article.article_id}`);
+			$('#article-delete-btn').removeClass('hidden');
+			$('#article-delete-btn a').attr('href', `/salmon/article/delete?article_id=${article.article_id}`);
+		} else {
+			$('#article-edit-btn').removeClass('hidden');
+			$('#article-edit-btn a').attr('href', '/salmon/article/editGroup?article_id='+article.article_id);
+			$('#article-delete-btn').removeClass('hidden');
+			$('#article-delete-btn a').attr('href', '/salmon/group/delete?article_id='+article.article_id+'&group_id='+article.group_id);
+		}
+
+
     } else {
         $('#article-edit-btn').addClass('hidden');
     }

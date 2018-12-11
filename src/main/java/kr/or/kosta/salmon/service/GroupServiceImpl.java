@@ -117,4 +117,11 @@ public class GroupServiceImpl implements GroupService {
 		return groupMapper.getSNSGroups(group_id);
 	}
 
+	//그룹에 해당 아이디가 가입했을 경우 : 0 / 가입인원이 있으면 0보다 크다. 
+	@Override
+	public int checkRegistGroup(String group_id, String user_id) {
+		return groupMapper.checkRegistGroup(group_id, user_id);
+	}
+	
+
 }

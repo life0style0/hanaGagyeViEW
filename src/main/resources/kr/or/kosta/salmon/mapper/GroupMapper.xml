@@ -272,4 +272,11 @@
         </select>
 	
 
+	<select id="checkRegistGroup">
+	SELECT Count(user_id) 
+	FROM   group_users 
+	WHERE  group_id = #{group_id} 
+    	   AND user_id = #{user_id}
+	</select>
+
 </mapper>
