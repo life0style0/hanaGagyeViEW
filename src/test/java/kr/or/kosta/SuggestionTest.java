@@ -1,5 +1,7 @@
 package kr.or.kosta;
 
+import java.util.ArrayList;
+
 import javax.inject.Inject;
 
 import org.junit.Test;
@@ -8,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.kosta.salmon.common.Criteria;
+import kr.or.kosta.salmon.domain.NewSuggestionDTO;
 import kr.or.kosta.salmon.mapper.SuggestionMapper;
 import lombok.extern.log4j.Log4j;
 
@@ -28,4 +31,18 @@ public class SuggestionTest {
         log.info(sm.getSuggestionListByPaging(cri));
     }
 
+    @Test
+    public void test2() throws Exception {
+        NewSuggestionDTO newSuggestionDTO = new NewSuggestionDTO();
+        newSuggestionDTO.setUserId("jiwon");
+        newSuggestionDTO.setArticleTitle("hi");
+        newSuggestionDTO.setArticleContent("hi2");
+        newSuggestionDTO.setCtgry1(1);
+        newSuggestionDTO.setCtgry2(2);
+        newSuggestionDTO.setCtgry3(3);
+        newSuggestionDTO.setHashtags(new ArrayList<String>());
+        newSuggestionDTO.setAmount("1");
+        sm.insertArticle(newSuggestionDTO);
+        log.info(newSuggestionDTO);
+    }
 }

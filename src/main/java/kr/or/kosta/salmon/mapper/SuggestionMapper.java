@@ -34,5 +34,5 @@ public interface SuggestionMapper {
 
     public String getLikeNum(@Param("articleId") String articleId) throws Exception;
 
-    public int insertArticle(NewSuggestionDTO newSuggestionDTO) throws Exception;
+    public void insertArticle(NewSuggestionDTO newSuggestionDTO) throws Exception;
 }

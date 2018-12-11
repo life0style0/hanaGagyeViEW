@@ -345,13 +345,15 @@ public class MemberTests {
 		result.setArticleId("1");
 		result.setUserId("jiwon1");
 		result.setAmount("3");
+		result.setFollowId("heyrim5");
+		result.setGroupId("1");
 		usermapper.updatePsnScoreByArticleId(result);
 		log.info(result);
-		// if(result > 0 ){
-		// 	log.info("~~~~~~~~~~~~~~~~~~~ 0 GT" + result);
-		// } else {
-		// 	log.info("~~~~~~~~~~~~~~~~~~ 0 LT" + result);
-		// }
+		usermapper.updatePsnScoreByFollowing(result);
+		log.info(result);
+		usermapper.updatePsnScoreByGroup(result);
+		log.info(result);
+		
 	}
 	
 	

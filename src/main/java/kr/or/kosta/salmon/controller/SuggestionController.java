@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.kosta.salmon.common.Criteria;
 import kr.or.kosta.salmon.common.MyPageBuilder;
+import kr.or.kosta.salmon.common.PsnScore;
 import kr.or.kosta.salmon.domain.NewSuggestionDTO;
+import kr.or.kosta.salmon.domain.PsnScoreDTO;
 import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.domain.SuggestionDTO;
 import kr.or.kosta.salmon.domain.SuggestionStatusDTO;
@@ -217,9 +219,8 @@ public class SuggestionController {
     @PostMapping(value = "/news")
     public String insertArticle(NewSuggestionDTO newSuggestionDTO, Principal principal) {
         log.info("insertArticle...");
-        log.info(newSuggestionDTO);
         newSuggestionDTO.setUserId(principal.getName());
-        log.info(newSuggestionDTO);
+        newSuggestionDTO.setAmount(PsnScore.CREATE_ARTICLE);
         try {
             SS.insertArticle(newSuggestionDTO);
         } catch (Exception e) {

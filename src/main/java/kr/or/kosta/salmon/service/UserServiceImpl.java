@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.LocationDTO_sjh;
+import kr.or.kosta.salmon.domain.PsnScoreDTO;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -180,6 +181,21 @@ public class UserServiceImpl implements UserService {
 	public List<UserDTO> searchUserInSNS(String value) {
 		log.info("사용자검색");
 		return usermapper.searchUserInSNS(value);
+	}
+
+	@Override
+	public void updatePsnScoreByArticleId(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByArticleId(psnScoreDTO);
+	}
+
+	@Override
+	public void updatePsnScoreByFollowing(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByFollowing(psnScoreDTO);
+	}
+
+	@Override
+	public void updatePsnScoreByGroup(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByGroup(psnScoreDTO);
 	}
 
 }

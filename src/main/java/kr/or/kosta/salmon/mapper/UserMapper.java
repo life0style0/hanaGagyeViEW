@@ -84,5 +84,10 @@ public interface UserMapper {
 	//sns 페이지에서 사용자 검색
 	public List<UserDTO> searchUserInSNS(@Param("value") String value);
 	
-	public void updatePsnScoreByArticleId(PsnScoreDTO psnScoreMap);
+	public void updatePsnScoreByArticleId(PsnScoreDTO psnScoreDTO);
+
+	public void updatePsnScoreByFollowing(PsnScoreDTO psnScoreDTO);
+
+	public void updatePsnScoreByGroup(PsnScoreDTO psnScoreDTO);
+	
 }

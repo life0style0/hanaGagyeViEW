@@ -309,6 +309,25 @@
 				#{result, mode=OUT, jdbcType=INTEGER, javaType=int})
         }
 	 </update>
-        
-	
+
+	<update id="updatePsnScoreByFollowing" statementType="CALLABLE" parameterType="kr.or.kosta.salmon.domain.PsnScoreDTO">
+		{
+		    CALL ps_score_by_following(
+				#{userId, mode=IN, jdbcType=VARCHAR},
+				#{followId, mode=IN, jdbcType=VARCHAR},
+				#{amount, mode=IN, jdbcType=VARCHAR},
+				#{result, mode=OUT, jdbcType=INTEGER, javaType=int})
+        }
+	 </update>   
+
+	<update id="updatePsnScoreByGroup" statementType="CALLABLE" parameterType="kr.or.kosta.salmon.domain.PsnScoreDTO">
+		{
+		    CALL ps_score_by_group(
+				#{userId, mode=IN, jdbcType=VARCHAR},
+				#{groupId, mode=IN, jdbcType=VARCHAR},
+				#{amount, mode=IN, jdbcType=VARCHAR},
+				#{result, mode=OUT, jdbcType=INTEGER, javaType=int})
+        }
+	 </update> 
+
 </mapper>

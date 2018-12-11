@@ -376,10 +376,11 @@ FROM articles
 WHERE article_id = #{articleId}
         </select>
 
-        <insert id="insertArticle">
+        <insert id="insertArticle" statementType="CALLABLE">
 DECLARE
   articleid NUMBER; 
   hashid NUMBER;
+  result NUMBER;
 BEGIN 
     SELECT article_id_seq.nextval 
     INTO   articleid 
@@ -387,7 +388,7 @@ BEGIN
 
     INSERT INTO articles 
                 (article_id, 
-                 article_ctgry_id, 
+                 article_ctgry_id,
                  article_scope, 
                  article_title, 
                  article_content, 
@@ -480,6 +481,10 @@ BEGIN
                   articleid); 
     END IF;
     </foreach>
+
+    ps_score_by_article_id(#{userId} , articleid, #{amount}, result);
+
+    #{result, mode=OUT, jdbcType=INTEGER, javaType=int} := result;
 END;
         </insert>
 

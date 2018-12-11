@@ -21,10 +21,6 @@ import kr.or.kosta.salmon.domain.AdminPayInfoTotalDTO;
 import kr.or.kosta.salmon.domain.AdminPaymentInfoRankDTO;
 import kr.or.kosta.salmon.domain.AdminPaymentTypeDTO;
 import kr.or.kosta.salmon.domain.AdminRByMonthDTO;
-import kr.or.kosta.salmon.domain.HashTagGroupDTO;
-import kr.or.kosta.salmon.domain.MainArticleDTO;
-import kr.or.kosta.salmon.domain.MainChartDTO;
-import kr.or.kosta.salmon.domain.MainGroupCtFeeDTO;
 import kr.or.kosta.salmon.mapper.AdminMapper;
 import lombok.extern.log4j.Log4j;
 
