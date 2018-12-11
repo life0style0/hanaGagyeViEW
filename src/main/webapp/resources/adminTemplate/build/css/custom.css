@@ -1276,6 +1276,13 @@ h3.degrees {
 .bulk-actions {
     display: none
 }
+
+.bulk-actions2 {
+    display: none
+}
+.bulk-actions3 {
+    display: none
+}
 table.countries_list {
     width: 100%
 }
