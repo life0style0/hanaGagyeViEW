@@ -359,31 +359,9 @@ to {
                   style="color: #383b43;">소비패턴</a>
               </div>
 
-              <!-- =========소셜 정보 div -->
-              <div class="be-user-social">
-                <a class="social-btn color-1" href="#"><i class="fa fa-facebook"></i></a> <a class="social-btn color-2"
-                  href="#"><i class="fa fa-twitter"></i></a> <a class="social-btn color-3" href="#"><i class="fa fa-google-plus"></i></a>
-                <a class="social-btn color-4" href="#"><i class="fa fa-pinterest-p"></i></a> <a class="social-btn color-5"
-                  href="#"><i class="fa fa-instagram"></i></a> <a class="social-btn color-6" href="#"><i class="fa fa-linkedin"></i></a>
-              </div>
-              <a class="be-user-site" href="#"><i class="fa fa-link"></i>
-                www.GAGYEViEW.com</a>
             </div>
             <!-- =========검은색 리스트 내용 리스트 -->
-            <div class="be-user-statistic">
-              <div class="stat-row clearfix">
-                <i class="stat-icon icon-views-b"></i> 방문자<span class="stat-counter">218098</span>
-              </div>
-              <div class="stat-row clearfix">
-                <i class="stat-icon icon-like-b"></i> 공감 <span class="stat-counter">14335</span>
-              </div>
-              <div class="stat-row clearfix">
-                <i class="stat-icon icon-followers-b"></i>Followers<span class="stat-counter">2208</span>
-              </div>
-              <div class="stat-row clearfix">
-                <i class="stat-icon icon-following-b"></i>Following<span class="stat-counter">0</span>
-              </div>
-            </div>
+            
           </div>
 
           <!-- ======================= 주요 상세 리스트 끝 =================== -->

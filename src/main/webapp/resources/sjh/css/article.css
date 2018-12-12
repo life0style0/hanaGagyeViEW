@@ -105,6 +105,9 @@ div.article-size>img {
 #article-modal .article-content{
     color: #7a7a7a;
     font-size: 14px;
+    position:relative;
+    background-color:transparent;
+    
 	/* height: 100px;
 	overflow-y: auto;
 	  width: 95%; */
@@ -143,12 +146,12 @@ div.article-size>img {
     margin-top: 15px;
     width: 97%;
 }
-
+/* 
 .modal .article-content{
 	    position: absolute;
     background-color: white;
     width: 95%;
-}
+} */
 
 #report-article-modal *, #report-article-confirm-modal *{
 	text-align:center;

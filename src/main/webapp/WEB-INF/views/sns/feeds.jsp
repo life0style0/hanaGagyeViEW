@@ -249,7 +249,7 @@
 						
 							<div class="clear"></div>
 							<div class="post-text">
-								<p> ${myArticle.article_content}</p>
+								<pre> ${myArticle.article_content}</pre>
 								<c:if test="${myArticle.imagePaths.size()>0 }">
 					          	<c:forEach var="images" items="${myArticle.imagePaths}">
 					                <div class="image-block">
