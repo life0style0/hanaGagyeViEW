@@ -122,8 +122,11 @@
           						});
         	  	</script>
      
-     
-              
+     <!-- 카테고리 value값 넘기기 -->
+<script>
+
+
+</script>
       <!-- MAIN CONTENT -->
       <div id="content-block">
         <div class="container be-detail-container"
@@ -153,6 +156,9 @@
                     </div>
                   </div>
                 </div>
+
+
+
 
                 <div class="tabs-content clearfix">
                   <div class="tab-info active">
