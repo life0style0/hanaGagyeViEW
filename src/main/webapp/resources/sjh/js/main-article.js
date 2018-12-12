@@ -1,3 +1,7 @@
+/**
+ * article및 article modal 관련 
+ * @author 송주현
+ */
 var myId;
 $(function() {
 	myId= $('#loginUserId').text();
@@ -38,7 +42,6 @@ function eventRegist(){
 	$('#report-confirm-exit-btn').on('click',function(){
 		$('#report-article-modal').modal('hide');
 	})
-	
 	
 	$('[id^=reply-form-] input[type=button]').each(function (i, btn) {
 		$(btn).on('click', function (e) {
@@ -82,9 +85,14 @@ function getArticleInfo(articleId){
 
 		success: function (data) {
 			console.log(data);
-			setArticleModal(data);
-			setArticle(data); //이미지, 공유버튼 세팅
-			$('#article-modal').modal('show');
+			if(data.article_ctgry_id==3){ //역제안글 ->링크 걸기
+				location.href='/salmon/suggestion/article/'+data.article_id;
+				//post 방식이라 불가 -> form 만들어서 보내자... 내일..
+			}else{ //일반 게시글
+				setArticleModal(data);
+				setArticle(data); //이미지, 공유버튼 세팅
+				$('#article-modal').modal('show');
+			}
 		},
 		error: function (xhr,status,er) {
 			alert('데이터 수신 에러');
@@ -100,136 +108,144 @@ function setArticleModal(article){
 	//var article=articlelist.find(article => article.article_id==num);
 	
 	console.log(article);
-	$('#article-id-modal').attr('value',article.article_id);
-	$('#article-ctgry-name').html(article.ctgry_name);
-	$('#article-title').html(' ,'+article.article_title);
-	$('#article-money').html(article.article_payment_fee+'원 ');
-	$('#article-ctgry').html(article.article_ctgry_description);
 	
-	var contentHTML='';
-	if(article.article_content != null){
-		contentHTML= article.article_content;
-	}else{
+	if(article.article_ctgry_id==3){
+		//역제안
+	//링크걸기
 		
-	}
-	contentHTML += '<p>';
-	$(article.hashtags).each(function(i,tag){
-		contentHTML += ' <a href="/salmon/sns/search?search-value='+tag+'">#'+tag+'</a> ';
-	});
-	contentHTML += '</p>';
-	
-	$('#article-content').html(contentHTML);
-	
-	
-	$('#article-regdate').html(article.article_regdate);
-	$('#article-pay-type').html(article.article_payment_type);
-	var articleScope= checkScope(article.article_scope);
-	$('#article-scope').html(articleScope);
-	
-	var imgpath=article.user_image;
-	//$('#article-modal input[name="user-profile-photo"]').val();
-	$('#article-modal #article-writer-photo').attr('src',`/salmon/image?fileName=` +showProfileImage(imgpath));
-	
-	$(article.likes).each(function(i,like){
-		if(like.user_id == myId){
-			$('#article-like-btn').addClass('hidden');
-			$('#article-unlike-btn').removeClass('hidden');
+	}else{
+
+		$('#article-id-modal').attr('value',article.article_id);
+		$('#article-ctgry-name').html(article.ctgry_name);
+		$('#article-title').html(' ,'+article.article_title);
+		$('#article-money').html(article.article_payment_fee+'원 ');
+		$('#article-ctgry').html(article.article_ctgry_description);
+		
+		var contentHTML='';
+		if(article.article_content != null){
+			contentHTML= article.article_content;
+		}else{		}
+		contentHTML += '<p>';
+		$(article.hashtags).each(function(i,tag){
+			contentHTML += ' <a href="/salmon/sns/search?search-value='+tag+'">#'+tag+'</a> ';
+		});
+		contentHTML += '</p>';
+		$('#article-content').html(contentHTML);
+		$('#article-regdate').html(article.article_regdate);
+		$('#article-pay-type').html(article.article_payment_type);
+		var articleScope= checkScope(article.article_scope);
+		
+		if(article.article_ctgry_id == 4 || article.article_ctgry_id == 5){
+			//그룹 게시글이면 그룹 이름 달기
+			articleScpe += '   from '+article.group_title;
 		}else{
-			$('#article-like-btn').removeClass('hidden');
-			$('#article-unlike-btn').addClass('hidden');
+			//지출 수입 게시글
 		}
-	})
-	
-	console.log(article.isReportedByMe>0);
-	var isReported=article.isReportedByMe;
-	if( Number(isReported) >0){ //이미 내가 신고한 게시글
-		$('#article-modal #article-report-btn').addClass('hidden');
-		$('#article-modal #article-report-complete-btn').removeClass('hidden');
-	}else{ //아직 신고하지 않은 게시글
-		$('#article-modal #article-report-complete-btn').addClass('hidden');
-		$('#article-modal #article-report-btn').removeClass('hidden');
-	}
-	
-	
-	$('#article-writer-nickname').html('<a href="/salmon/sns/feeds?userid='+article.user_nickname+'">'+article.user_nickname+'</a>');
-	$('#article-modal form').attr('id','reply-form-'+article.article_id);
-	$('#article-modal form input[name="article_id"]').attr('value',article.article_id);
-	$('#article-modal form input[type="button"]').attr('id','reply-write-btn-'+article.article_id);
-	
-	var commentsHTML='';
-	
-	if(article.comments.length > 0){
-		$(article.comments).each(function(i,comment){
-			console.log(comment);
-			commentsHTML +=
-			`<div class="be-comment">
-			<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
-			<input type="hidden" name="article-id" value="`+comment.article_id+`">
-					<div>
-						<span class="be-comment-name">
-							<a href="/salmon/sns/feeds?userid=`+comment.user_id+`">
-							`+comment.user_nickname+`
-							</a>
-						</span>
-						<span class="be-comment-time float-right">`;
-			if(myId == comment.user_id){
-				commentsHTML +=
-				`<span name="comment-delete-btn" class="comment-delete-btn">
-				<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
-					<i class="fas fa-times"></i>삭제 
-				</span>`;
+		$('#article-scope').html(articleScope);
+		
+		var imgpath=article.user_image;
+		//$('#article-modal input[name="user-profile-photo"]').val();
+		$('#article-modal #article-writer-photo').attr('src',`/salmon/image?fileName=` +showProfileImage(imgpath));
+		
+		$(article.likes).each(function(i,like){
+			if(like.user_id == myId){
+				$('#article-like-btn').addClass('hidden');
+				$('#article-unlike-btn').removeClass('hidden');
+			}else{
+				$('#article-like-btn').removeClass('hidden');
+				$('#article-unlike-btn').addClass('hidden');
 			}
-			commentsHTML +=		
-						`<i class="fa fa-clock-o"></i>`
-						+comment.comment_regdate+
-						`</span>
-						<p class="be-comment-text">`
-						+comment.comment_content+
-						`</p>
-					</div>
-				</div>`;
 		})
-	}
-	
-	$('#article-modal #comment-area').html(commentsHTML);
-	
-	console.log(article.likes);
-	if(article.likes != null){ //좋아요 있는 글
-		if(article.likes.find(function(like){
-			return like.user_id==myId;}) != null) {
-			//이미 좋아요 한 글
-			setLikedArticle(article.likes.length);
-		} else{
+		
+		console.log(article.isReportedByMe>0);
+		var isReported=article.isReportedByMe;
+		if( Number(isReported) >0){ //이미 내가 신고한 게시글
+			$('#article-modal #article-report-btn').addClass('hidden');
+			$('#article-modal #article-report-complete-btn').removeClass('hidden');
+		}else{ //아직 신고하지 않은 게시글
+			$('#article-modal #article-report-complete-btn').addClass('hidden');
+			$('#article-modal #article-report-btn').removeClass('hidden');
+		}
+		
+		
+		$('#article-writer-nickname').html('<a href="/salmon/sns/feeds?userid='+article.user_nickname+'">'+article.user_nickname+'</a>');
+		$('#article-modal form').attr('id','reply-form-'+article.article_id);
+		$('#article-modal form input[name="article_id"]').attr('value',article.article_id);
+		$('#article-modal form input[type="button"]').attr('id','reply-write-btn-'+article.article_id);
+		
+		var commentsHTML='';
+		
+		if(article.comments.length > 0){
+			$(article.comments).each(function(i,comment){
+				console.log(comment);
+				commentsHTML +=
+				`<div class="be-comment">
+				<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
+				<input type="hidden" name="article-id" value="`+comment.article_id+`">
+						<div>
+							<span class="be-comment-name">
+								<a href="/salmon/sns/feeds?userid=`+comment.user_id+`">
+								`+comment.user_nickname+`
+								</a>
+							</span>
+							<span class="be-comment-time float-right">`;
+				if(myId == comment.user_id){
+					commentsHTML +=
+					`<span name="comment-delete-btn" class="comment-delete-btn">
+					<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
+						<i class="fas fa-times"></i>삭제 
+					</span>`;
+				}
+				commentsHTML +=		
+							`<i class="fa fa-clock-o"></i>`
+							+comment.comment_regdate+
+							`</span>
+							<p class="be-comment-text">`
+							+comment.comment_content+
+							`</p>
+						</div>
+					</div>`;
+			})
+		}
+		
+		$('#article-modal #comment-area').html(commentsHTML);
+		
+		console.log(article.likes);
+		if(article.likes != null){ //좋아요 있는 글
+			if(article.likes.find(function(like){
+				return like.user_id==myId;}) != null) {
+				//이미 좋아요 한 글
+				setLikedArticle(article.likes.length);
+			} else{
+				//좋아요 안한 글
+				setLikableArticle(article.likes.length);
+			}
+		}else{ //좋아요 없는 글
 			//좋아요 안한 글
 			setLikableArticle(article.likes.length);
 		}
-	}else{ //좋아요 없는 글
-		//좋아요 안한 글
-		setLikableArticle(article.likes.length);
-	}
-	
-	console.log(article.scraps);
-	if(article.scraps != null){ //스크랩 있는 글
-		if(article.scraps.find(function(scrap){
-			return scraps.user_id==myId;}) != null) {
-			//이미 스크랩 한 글
-			setScrapedArticle(article.likes.length);
-		} else{
+		
+		console.log(article.scraps);
+		if(article.scraps != null){ //스크랩 있는 글
+			if(article.scraps.find(function(scrap){
+				return scraps.user_id==myId;}) != null) {
+				//이미 스크랩 한 글
+				setScrapedArticle(article.likes.length);
+			} else{
+				//스크랩 안한 글
+				setScrapableArticle(article.likes.length);
+			}
+		}else{ //스크랩 없는 글
 			//스크랩 안한 글
 			setScrapableArticle(article.likes.length);
 		}
-	}else{ //스크랩 없는 글
-		//스크랩 안한 글
-		setScrapableArticle(article.likes.length);
+		
+		
+		$('#article-comments-btn').html('<i class="fas fa-comment"></i>'+article.comments.length);
+		$('#article-modal').one('hide.bs.modal', function () {
+			resetArticleModal();
+	    });
 	}
-	
-	
-	$('#article-comments-btn').html('<i class="fas fa-comment"></i>'+article.comments.length);
-	
-	
-	 $('#article-modal').one('hide.bs.modal', function () {
-         resetArticleModal();
-     });
 }
 
 function setLikedArticle(likesnum){
@@ -656,8 +672,10 @@ function setModalCommentNum(num) {
 	var currentNum = $('#article-comments-btn').text();
 	console.log(currentNum);
 	if (Number(num) < 0) {
-		$('#article-comments-btn').html(`<i class="fas fa-comment"></i>`+Number(currentNum) - 1);
+		alert('댓글삭제');
+		$('#article-comments-btn').html(`<i class="fas fa-comment"></i>`+(Number(currentNum) - 1));
 	} else {
+		alert('댓글추가');
 		$('#article-comments-btn').html(`<i class="fas fa-comment"></i>`+(Number(currentNum) + Number(num)));
 	}
 }

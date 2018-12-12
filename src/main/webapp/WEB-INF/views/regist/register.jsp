@@ -161,7 +161,8 @@ font-family: 'Noto Sans KR', sans-serif;
                                                 <c:when test="${category.ctgry_id < 0 }">
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <li name="category" class="unselected square" id='category-li-<c:out value="${category.ctgry_id}" />'>
+                                                    <li name="category" style="width:140px; height: 100px; line-height: 100px;" 
+                                                    class="unselected square" id='category-li-<c:out value="${category.ctgry_id}" />'>
                                                         <div id="category-1" class="unselected" value='<c:out value="${category.ctgry_id}" />'>
                                                             <c:out value="${category.ctgry_name}" />
                                                         </div>

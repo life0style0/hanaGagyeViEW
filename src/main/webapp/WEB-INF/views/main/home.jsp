@@ -225,6 +225,17 @@
               <c:if test="${article.imagePaths.size()==0 }">
               	<div class="article-size">
               		<div class="padding-1-sjh post-no-img">
+              		
+              		<c:choose>
+              		<c:when test="${article.article_ctgry_id eq 3}"> <%-- 역제안 게시글 --%>
+              			<div class="post-fee">
+              			<c:out value="${article.article_title}"/>
+              			</div>
+              			<div class="post-short-content" >
+              			<c:out value="${article.ctgry_name}"/>
+              			</div>
+              		</c:when>
+              		<c:otherwise><%-- 일반 게시글 --%>
               			<div class="post-fee">
               			<c:out value="${article.article_payment_fee}"/>원 
               			</div>
@@ -242,6 +253,9 @@
               				</div>
               			</c:otherwise>
               			</c:choose>
+              		</c:otherwise>
+              		</c:choose>
+              			
               		</div>
               	</div>
               	<!-- <img src="/salmon/resources/hjh/images/noimage.gif" alt="img"> -->
@@ -257,22 +271,21 @@
                 <c:set var="imgCt" value="${imgCt+1 }"/>
 	            </c:forEach>
               </c:if>
-              </a>              
+              </a>
+                            
+              <c:choose>
+              <c:when test="${article.article_ctgry_id eq 3}"> <%-- 역제안 게시글 --%>
+              <a id="article-title-<c:out value="${article.article_id}"/>" class="be-post-title">
+                역제안 
+              </a>
+              </c:when>
+              <c:otherwise><%-- 일반 게시글 --%>
               <a id="article-title-<c:out value="${article.article_id}"/>" class="be-post-title">
                 ${article.article_title}
-               <!--
-             	<c:if test="${article.imagePaths.size()>0 }">
-             		<c:set var="imgCt" value="1"/>
-              	<c:forEach var="images" items="${article.imagePaths}">
-              	<c:if test="${imgCt < 2 }">
-                  <img src="/salmon/main/image?fileName=${images }" alt="img">
-                </c:if>
-                	<c:set var="imgCt" value="${imgCt+1 }"/>
-                </c:forEach>
-              </c:if>
-              --> 
-
               </a>
+              </c:otherwise>
+              </c:choose>
+              
               <span class="article-thumnail-tags">
               	<c:forEach var="tag" items="${article.hashtags }">
                 	<a href="/salmon/sns/search?search-value=${tag}" class="be-post-tag">${tag } </a>

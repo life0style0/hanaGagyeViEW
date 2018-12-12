@@ -204,6 +204,24 @@ public class SuggestionController {
         }
         return "suggestion/suggestion";
     }
+    
+    @GetMapping("/article/{sno}")
+    public String getSuggestionGET(@PathVariable("sno") String sno, @ModelAttribute("cri") Criteria criteria, Model model,
+            Principal principal) {
+        log.info("suggestion.... getmapping for sns" + sno);
+        try {
+            model.addAttribute("checkLike", SS.checkLike(principal.getName(), sno));
+            log.info("");
+            SuggestionDTO sgt = SS.getSuggestion(sno);
+            model.addAttribute("article", sgt);
+            model.addAttribute("checkLike", SS.checkLike(principal.getName(), sno));
+            model.addAttribute("checkFollow", SS.checkFollow(principal.getName(), sgt.getUserPsns().getUserId()));
+            model.addAttribute("userId", principal.getName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "suggestion/suggestion";
+    }
 
     @PostMapping(value = "/news")
     public String insertArticle(NewSuggestionDTO newSuggestionDTO, Principal principal) {

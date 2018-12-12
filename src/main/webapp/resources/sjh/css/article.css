@@ -94,21 +94,6 @@ div.article-size>img {
   height: 420px;
 }
 
-#ggv-modal .blog-post{
-  margin-bottom:0;
-}
-
-#ggv-modal .blog-post .h-404 {
-  height: 444px !important;
-}
-
-#ggv-modal .blog-post .post-text {
-  height: 196px;
-  padding-bottom: unset;
-  margin-right: -40px;
-  overflow-y: auto;
-}
-
 #article-modal .post-label{
 	color:#298478;
 	font-weight: bold;
@@ -120,7 +105,7 @@ div.article-size>img {
     font-size: 14px;
 	height: 100px;
 	overflow-y: auto;
-	  width: 480px;
+	  width: 95%;
 }
 
 #article-modal .post-category{
@@ -155,9 +140,9 @@ div.article-size>img {
 }
 
 .modal .article-content{
-	    position: fixed;
+	    position: absolute;
     background-color: white;
-    width: 497px;
+    width: 95%;
 }
 
 .modal .article-comments{

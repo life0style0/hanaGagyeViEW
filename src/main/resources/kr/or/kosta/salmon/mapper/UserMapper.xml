@@ -15,6 +15,7 @@
 		<result property="user_birthday" column="user_birthday"/>
 		<result property="user_image" column="user_image"/>
 		<result property="user_regdate" column="user_regdate"/>
+		<result property="user_state" column="user_state"/>
 		<association property="userLocAndCat" column="user_id" select="getUserSimplePsns"/>
 		<collection property="authList" resultMap="authMap"/>
 	</resultMap>
@@ -37,6 +38,7 @@
 		       users.user_birthday, 
 		       users.user_image, 
 		       users.user_regdate, 
+		       users.user_state,
 		       auth.user_auth 
 		FROM   users users 
 		       LEFT OUTER JOIN users_auth auth 
@@ -305,6 +307,12 @@
 		WHERE  user_id = #{user_id}
 		and user_auth='ROLE_USER'
      </delete>
+     
+     <update id="updateUserStateBlocked">
+		UPDATE users 
+		SET    user_state = 'B' 
+		WHERE  user_id = #{user_id} 
+     </update>
         
 	
 

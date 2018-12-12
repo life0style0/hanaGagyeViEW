@@ -39,6 +39,7 @@ import kr.or.kosta.salmon.domain.AdminUserManageInfoDTO;
 import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.service.AdminService;
 import kr.or.kosta.salmon.service.GaArticleService;
+import kr.or.kosta.salmon.service.UserService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -51,6 +52,9 @@ public class AdminController {
 	
 	@Inject
 	GaArticleService gaArticleService;
+	
+	@Inject
+	UserService userService; //사용자 blocked 처리에서 users_auth 테이블 변경시 사용 (12.12 주현 추가)
 	
 	@GetMapping("/index")
 	public void userInfo(Model model) {
@@ -357,6 +361,7 @@ public class AdminController {
 		try {
 			for(String user :user_id){
 				adminService.setUserBlock(user);
+				userService.deleteBlockedUserAuth(user); //users_auth 테이블에서 해당 user의 로그인 권한 삭제 (12.12 주현 추가)
 			}
             rEntity = new ResponseEntity<>("success", HttpStatus.OK);
         } catch (Exception e) {
