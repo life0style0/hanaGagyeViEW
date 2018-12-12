@@ -132,9 +132,23 @@
             	height: 190px;
             }
             </style>
+  <script type="text/javascript">
+  <script type="text/javascript">
+  function copy_trackback(trb) {
+  var IE=(document.all)?true:false;
+  if (IE) {
+  if(confirm("이 글의 트랙백 주소를 클립보드에 복사하시겠습니까?"))
+  window.clipboardData.setData("Text", trb);
+  } else {
+  temp = prompt("이 글의 트랙백 주소입니다. Ctrl+C를 눌러 클립보드로 복사하세요", trb);
+  }
+  }
+  </script>
+
             
             <div class="be-user-detail">
-              <a class="be-ava-user style-2" href="page1.html" style="width: 200px; height: 200px;"> <img width="200px;"
+              <a class="be-ava-user style-2" href="/salmon/group/get?group_id=<c:out value="${group.group_id}" />"
+ onclick="copy_trackback(this.href); return false;" style="width: 200px; height: 200px;"> <img width="200px;"
                   height="200px;" src="https://images.unsplash.com/photo-1525336001612-b942036da7b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1784&q=80"
                   alt="">
               </a>
@@ -197,14 +211,7 @@
               <div class="be-user-activity-block" style="font-family: 'Noto Sans KR', sans-serif;">
                 <div class="row">
                   <div class="col-lg-6">
-                    <!-- 소모임 FOLLOW 잘 돌아간당  ====================================== -->
-                  <%--   <c:if test="${checkRegist}">
-                      <a data-toggle="modal" data-target="#myModal" class="be-user-activity-button be-follow-type"
-                        style="font-family: Noto Sans KR, sans-serif; font-size: 8.5pt; padding: 5px; text-align: center;">
-                        <i class="fa fa-plus"></i>소모임 참여
-                      </a>
-                    </c:if> --%>
-                    
+    
                     <!-- 확인 -->
                     <c:choose>
                       <c:when test="${checkRegist}">
@@ -434,7 +441,7 @@ to {
               <!-- =============== 첫번째 정보 =============== -->
               <div class="tab-info active" style="font-family: 'Noto Sans KR', sans-serif;">
                 <div class="row" style="font-family: 'Noto Sans KR', sans-serif;">
-                  <h1 class="w3-jumbo">
+                  <h1 class="w3-jumbo" style="text-align: center;">
                     <b><c:out value="${groups.group_title}" /></b>
                   </h1>
                   <h3>
@@ -561,7 +568,6 @@ to {
                                     <c:out value="${article.article_content}" />
                                   </div>
                                 </div>
-                                <!-- <img src="/salmon/resources/hjh/images/noimage.gif" alt="img"> -->
                               </c:if>
                               <c:if test="${fn:length(article.imagePaths) > 0 }">
                                 <c:forEach var="image" items="${article.imagePaths}">
