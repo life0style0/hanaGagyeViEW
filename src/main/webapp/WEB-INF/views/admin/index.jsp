@@ -372,8 +372,20 @@
 		femaletemp.push(${femaleInfo.get('2')});
 		femaleDataSet.push(maletemp);
 	</c:forEach>
+	var maleTargetData = [];
+	var femaleTargetData = [];
 	
-		console.log(maleDataSet);
+	for(var i = 0; i < maleDataSet.length; i++){
+		if(maleDataSet[i].length >1){
+			maleTargetData.push(maleDataSet[i]);
+		}
+	}
+	for(var i = 0; i < femaleDataSet.length; i++){
+		if(femaleDataSet[i].length >1){
+			femaleTargetData.push(femaleDataSet[i]);
+		}
+	}
+
 	</script>
 	
 	<!-- 안녕차트  -->
@@ -429,7 +441,7 @@
     xAxis: {
         title: {
             enabled: true,
-            text: '수입(원)'
+            text: '지출(원)'
         },
         startOnTick: true,
         endOnTick: true,
@@ -437,19 +449,13 @@
     },
     yAxis: {
         title: {
-            text: '지출(원)'
-        }
+            text: '수입(원)'
+        },
+        startOnTick: true,
+        endOnTick: true,
+        showLastLabel: true
     },
-    legend: {
-        layout: 'vertical',
-        align: 'left',
-        verticalAlign: 'top',
-        x: 100,
-        y: 70,
-        floating: true,
-        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-        borderWidth: 1
-    },
+   
     plotOptions: {
         scatter: {
             marker: {
@@ -477,12 +483,12 @@
     series: [{
         name: 'Female',
         color: 'rgba(223, 83, 83, .5)',
-        data: femaleDataSet
+        data: femaleTargetData
 
     }, {
         name: 'Male',
         color: 'rgba(119, 152, 191, .5)',
-        data: maleDataSet
+        data: maleTargetData
     }]
 });
 	
