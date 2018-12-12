@@ -453,13 +453,12 @@ to {
                     <c:out value="${groups.user_id}" />
                   </h4>
                   <h4>
-                    소모임 현재인원 / 정원 : 현재인원 /
+                    소모임 현재인원 / 정원 : 
                       <c:out value="${groups.group_people_now}" /> /
                     <c:out value="${groups.group_people_max}" />
                   </h4>
                   <h4>
                     소모임 카테고리 1 :
-                    <c:out value="${groups.ctgry_1}" />
                     <c:out value="${groups.ctgry_1_name}"/>
                   </h4>
                   
@@ -703,6 +702,7 @@ to {
       //내정보 불러오기
       me = ${ meJSON };
     
+      $('[id^="article-post-"]').off('click');
     	$('.heyrim-post').on('click', function() {
     		const articleId = $('.heyrim-post').children().attr('id').split('-')[2];
     		getArticleInfo(articleId);
