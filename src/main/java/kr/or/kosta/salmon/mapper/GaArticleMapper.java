@@ -43,4 +43,6 @@ public interface GaArticleMapper {
 
 	//게시글 삭제
 	public int deleteArticle(@Param("article_id") int article_id,@Param("user_id") String user_id);
+
+	public String checkHashTag(HashTagDTO hashTagDTO);
 }

@@ -60,7 +60,7 @@
 				<div class="col-xs-12 col-md-4 left-feild">
 					<div class="be-user-block">
 						<div class="be-user-detail">
-							<a href="/salmon/sns?userid=${psns.userId}">
+							<a href="/salmon/sns/feeds?userid=${psns.userId}">
 								<input type="hidden" class="imagePath" value="/salmon/image?fileName=${psns.userImage}">
 								<img class="img-responsive image-src" alt="">
 							</a>

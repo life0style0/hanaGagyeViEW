@@ -8,7 +8,6 @@ package kr.or.kosta;
 import java.util.ArrayList;
 
 import javax.inject.Inject;
-import javax.sql.DataSource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,11 +15,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.kosta.salmon.domain.FollowerDTO;
-import kr.or.kosta.salmon.domain.PsnScoreDTO;
+import kr.or.kosta.salmon.domain.HashTagDTO;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.SNSUserPageDTO;
-import kr.or.kosta.salmon.domain.SNSUserPageWithoutAtriclesDTO;
 import kr.or.kosta.salmon.mapper.SNSMapper;
+import kr.or.kosta.salmon.service.GaArticleService;
 import kr.or.kosta.salmon.service.SNSService;
 import lombok.extern.log4j.Log4j;
 
@@ -34,6 +33,9 @@ public class ArticleTest {
 	
 	@Inject
 	private SNSService snsservice;
+
+	@Inject
+	private GaArticleService gaservice;
 	
 //	@Test
 	public void testGetArticle(){
@@ -69,19 +71,29 @@ public class ArticleTest {
 
 		SNSUserPageDTO param = new SNSUserPageDTO();
 		param.setUser_id("heyrim15");
-		
-	//	SNSUserPageDTO page2= mapper.getSNSUserPageInfo("heyrim15");
-	//	SNSUserPageWithoutAtriclesDTO page4= mapper.getSNSUserPageInfoWithoutArticles("heyrim15");
-	//	SNSUserPageDTO page3= mapper.getSNSUserPageInfo(param);
-	//	ArrayList<SNSArticleDTO_sjh> list1= mapper.getSNSArticleByWriter("heyrim7", "heyrim15");
-	//	ArrayList<SNSArticleDTO_sjh> list2= mapper.getArticleByLikeUser("heyrim7", "heyrim15");
-	//	mapper.getSNSArticles("heyrim19");
-		
-	//	snsservice.getSNSArticles("heyrim7","heyrim19");
-	//	snsservice.getArticleByArticleId("heyrim19",21);
-	//	snsservice.getSNSArticleByWriter("heyrim7", "heyrim19");
-	//	snsservice.getArticleByLikeUser("heyrim7","heyrim19");
+
+		//	SNSUserPageDTO page2= mapper.getSNSUserPageInfo("heyrim15");
+		//	SNSUserPageWithoutAtriclesDTO page4= mapper.getSNSUserPageInfoWithoutArticles("heyrim15");
+		//	SNSUserPageDTO page3= mapper.getSNSUserPageInfo(param);
+		//	ArrayList<SNSArticleDTO_sjh> list1= mapper.getSNSArticleByWriter("heyrim7", "heyrim15");
+		//	ArrayList<SNSArticleDTO_sjh> list2= mapper.getArticleByLikeUser("heyrim7", "heyrim15");
+		//	mapper.getSNSArticles("heyrim19");
+
+		//	snsservice.getSNSArticles("heyrim7","heyrim19");
+		//	snsservice.getArticleByArticleId("heyrim19",21);
+		//	snsservice.getSNSArticleByWriter("heyrim7", "heyrim19");
+		//	snsservice.getArticleByLikeUser("heyrim7","heyrim19");
 		snsservice.getSNSNewArticles();
 	}
 	
+	
+	@Test
+	public void testGa() {
+		HashTagDTO hashTagDTO = new HashTagDTO();
+		hashTagDTO.setArticle_id(31);
+		hashTagDTO.setHashtag_value("#영화관");
+		log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@"+hashTagDTO);
+		gaservice.createHashTag(hashTagDTO);
+		log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@"+hashTagDTO);
+	}
 }

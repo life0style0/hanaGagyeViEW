@@ -17,7 +17,8 @@
 		<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
     
         <!-- 혜림 수정 CSS -->
-		<link rel="stylesheet" href="/salmon/resources/lhr/css/stylesheet-hyerim.css">
+    <link rel="stylesheet" href="/salmon/resources/lhr/css/stylesheet-hyerim.css">
+    <link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
           
     	<!-- Font special for pages-->
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet"> 
@@ -98,10 +99,9 @@
       </style>
 
       <!-- 소모임 새로만들기 버튼  -->
-      <button type="button" id="regBtn" class="button"
+      <button type="button" id="regBtn" class="btn size-1 color-1"
         style="vertical-align: middle; float: right; font-size: 12pt;"
-        onclick="location.href='http://localhost/salmon/group/register'">
-        <span>새 소모임 </span>
+        onclick="location.href='/salmon/group/register'">
       </button>
       <script type="text/javascript">
           		$(document).ready(function() {
