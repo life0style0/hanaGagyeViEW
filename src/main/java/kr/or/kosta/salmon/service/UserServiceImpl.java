@@ -194,4 +194,16 @@ public class UserServiceImpl implements UserService {
 		usermapper.deleteBlockedUserAuth(user_id);
 	}
 
+	@Override
+	public void updateUserStateBlocked(String user_id) {
+		usermapper.updateUserStateBlocked(user_id);
+	}
+
+	@Transactional
+	@Override
+	public void setUserBlocked(String user_id) {
+		usermapper.deleteBlockedUserAuth(user_id); //users_auth 테이블 변경 (이 user의 권한 삭제)
+		usermapper.updateUserStateBlocked(user_id); //users 테이블 변경 (user state 변경)
+	}
+
 }

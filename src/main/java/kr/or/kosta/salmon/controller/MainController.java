@@ -123,7 +123,7 @@ public class MainController {
 	@GetMapping(value="/main/article/{articleId}",
 			produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<SNSArticleDTO_sjh> getArticleGET(@PathVariable("articleId") int articleId, Principal principal,  Model model) {
-		log.info("article 정보 업데이트");
+		log.info("article 정보 업데이트 from "+principal.getName()+" to "+articleId);
 		String user_id = principal.getName();
 		SNSArticleDTO_sjh article= snsService.getArticleByArticleId(user_id,articleId);
 		log.info(article);

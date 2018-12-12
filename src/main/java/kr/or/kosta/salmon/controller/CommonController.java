@@ -26,11 +26,12 @@ public class CommonController {
 	@GetMapping("/login/accessError")
 	public void accessDenied(Authentication auth, Model model, Principal principal) {
 		log.info("access denied "+auth);
+		log.info(service.read(principal.getName()));
 		log.info(service.read(principal.getName()).getUser_state());
 		if(service.read(principal.getName()).getUser_state().equals("B")) {
 			model.addAttribute("msg","관리자에 의해 제한된 유저입니다");
 		}else {
-			model.addAttribute("msg","Access Denied");
+			model.addAttribute("msg","관리자 페이지로 일반 사용자 접근이 불가능합니다");
 		}
 		
 	}
