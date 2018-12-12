@@ -35,6 +35,10 @@
   cursor: unset;
 }
 
+.be-large-post .post-text {
+  color: black;
+}
+
 .suggestion .be-text-tags {
   font-size: 15px;
 }

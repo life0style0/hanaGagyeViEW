@@ -504,9 +504,9 @@ GROUP  BY article_id,
 	
 	<select id="getCommentsByArticle" resultType="kr.or.kosta.salmon.domain.CommentDTO">
 		SELECT comment_id, 
-		       comment_content, 
-		       comment_regdate, 
-		       comment_editdate, 
+		       comment_content,
+			   To_char(comment_regdate, 'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate",
+			   To_char(comment_editdate, 'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_editdate",
 		       user_id, 
 		       user_nickname, 
 		       user_image,
