@@ -249,7 +249,7 @@
 						
 							<div class="clear"></div>
 							<div class="post-text">
-								<p> ${myArticle.article_content}</p>
+								<pre> ${myArticle.article_content}</pre>
 								<c:if test="${myArticle.imagePaths.size()>0 }">
 					          	<c:forEach var="images" items="${myArticle.imagePaths}">
 					                <div class="image-block">
@@ -421,7 +421,7 @@
 						
 							<div class="clear"></div>
 							<div class="post-text">
-								<p> ${likeArticle.article_content}</p>
+								<pre> ${likeArticle.article_content}</pre>
 								<c:if test="${likeArticle.imagePaths.size()>0 }">
 					          	<c:forEach var="images" items="${likeArticle.imagePaths}">
 					                <div class="image-block">

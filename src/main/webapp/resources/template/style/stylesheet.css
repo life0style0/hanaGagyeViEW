@@ -1176,7 +1176,7 @@ span.right { float: right; }
 
 .be-user-activity-button i { position: absolute; top: 50%; transform: translateY(-50%); -webkit-transform: translateY(-50%); -moz-transform: translateY(-50%); -ms-transform: translateY(-50%); left: 13px; font-size: 12px; }
 
-.be-follow-type { color: #FFF !important; background: #0d58c8; }
+.be-follow-type { color: #FFF !important; background: #298478; }
 
 .be-follow-type:hover { color: #FFF !important; }
 

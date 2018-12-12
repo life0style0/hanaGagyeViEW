@@ -73,7 +73,7 @@
   </div>
  
 	<div class="col-md-12 article-menu-bar">
-		<div id="search-res-article-btn" class="col-md-2 article-menu">게시글 검색결과</div>
+		<div id="search-res-article-btn" class="col-md-2 article-menu active">게시글 검색결과</div>
 		<div id="search-res-user-btn" class="col-md-2 article-menu">사용자 검색결과</div>
 		<div id="search-res-group-btn" class="col-md-2 article-menu">소모임 검색결과</div>
 	</div>

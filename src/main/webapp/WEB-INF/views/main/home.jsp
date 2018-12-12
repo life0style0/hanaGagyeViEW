@@ -324,7 +324,7 @@
 
 								<span class="article-thumnail-tags"> <c:forEach var="tag"
 										items="${article.hashtags }">
-										<a href="/salmon/sns/search?search-value=${tag}"
+										<a href="/salmon/sns/search?search-value=${tag.substring(1)}"
 											class="be-post-tag">${tag } </a>
 									</c:forEach>
 								</span>

@@ -163,9 +163,9 @@ $(function(){
                     <div class="nav-tab-item" onclick="location.href='/salmon/group/listPopular'">
                       <span>인기 소모임</span>
                     </div>
-                    <div class="nav-tab-item" onclick="location.href='/salmon/group/listCustomize'">
+                    <!-- <div class="nav-tab-item" onclick="location.href='/salmon/group/listCustomize'">
                       <span>맞춤 추천 소모임</span>
-                    </div>
+                    </div> -->
                     <div class="nav-tab-item" onclick="location.href='/salmon/group/listAll'">
                       <span>전체 소모임 리스트</span>
                     </div>
@@ -180,7 +180,7 @@ $(function(){
                     <div class="row">
                       <!-- ============= 카테고리별 찾기 ============= -->
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="/salmon/group/listbycate?category_id=1" class="be-img-block" style="height: 150px;">
                             <img src="https://images.unsplash.com/photo-1534322869500-14fc9f5f5767?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
@@ -195,16 +195,16 @@ $(function(){
                           </span>
                     <div>
                     </div>
-                          <div class="info-block">
+                        <!--   <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i> 360</span> 
                             <span><i class="fa fa-eye"></i> 789</span> 
                             <span><i class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="/salmon/group/listbycate?category_id=2" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
@@ -219,17 +219,16 @@ $(function(){
                                              <div>
                     <input type="hidden" value="2" id="category_id">
                     </div>
-                          <div class="info-block">
+                        <!--   <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
-                              789</span> <span><i
-                              class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                              789</span> <span><i class="fa fa-comment-o"></i> 20</span>
+                          </div> -->
                         </div>
                       </div>
                        <!-- 용돈 수정 필요  -->
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="/salmon/group/listbycate?category_id=3" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
@@ -242,17 +241,17 @@ $(function(){
                      <div>
                     <input type="hidden" value="3" id="category_id">
                     </div>
-                          <div class="info-block">
+                         <!--  <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                            <a href="/salmon/group/listbycate?category_id=4" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
@@ -267,18 +266,18 @@ $(function(){
                              <div>
                     <input type="hidden" value="4" id="category_id">
                     </div>
-                          <div class="info-block">
+                        <!--   <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                     <a href="/salmon/group/listbycate?category_id=5" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img src="https://images.unsplash.com/photo-1518515097038-ca19a3777cd7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
@@ -292,17 +291,17 @@ $(function(){
                           <div>
                              <input type="hidden" value="5" id="category_id">
                            </div>
-                          <div class="info-block">
+                         <!--  <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                            <a href="/salmon/group/listbycate?category_id=6" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
@@ -317,18 +316,18 @@ $(function(){
                           <div>
                              <input type="hidden" value="6" id="category_id">
                            </div>
-                          <div class="info-block">
+                          <!-- <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                            <a href="/salmon/group/listbycate?category_id=7" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
@@ -343,17 +342,17 @@ $(function(){
                           <div>
                              <input type="hidden" value="7" id="category_id">
                            </div>
-                          <div class="info-block">
+                        <!--   <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="/salmon/group/listbycate?category_id=8" href="#CategoryModal" class="be-img-block" style="height: 150px;">
                             <img
@@ -368,17 +367,17 @@ $(function(){
                           <div>
                              <input type="hidden" value="8" id="category_id">
                            </div>
-                          <div class="info-block">
+                        <!--   <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                             <a href="/salmon/group/listbycate?category_id=9" data-toggle="modal" class="be-img-block" style="height: 150px;">
                   <img src="https://images.unsplash.com/photo-1535982330050-f1c2fb79ff78?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80"
@@ -392,17 +391,17 @@ $(function(){
                           <div>
                              <input type="hidden" value="9" id="category_id">
                            </div>
-                          <div class="info-block">
+                        <!--   <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                              <a href="/salmon/group/listbycate?category_id=10" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
@@ -416,18 +415,18 @@ $(function(){
                           <div>
                              <input type="hidden" value="10" id="category_id">
                            </div>
-                          <div class="info-block">
+                       <!--    <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img src="https://images.unsplash.com/photo-1483032469466-b937c425697b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
@@ -441,17 +440,17 @@ $(function(){
                           <div>
                              <input type="hidden" value="11" id="category_id">
                            </div>
-                          <div class="info-block">
+                         <!--  <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="/salmon/group/listbycate?category_id=12" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img src="https://images.unsplash.com/photo-1528578577235-b963df6db908?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
@@ -465,17 +464,17 @@ $(function(){
                           <div>
                              <input type="hidden" value="12" id="category_id">
                            </div>
-                          <div class="info-block">
+                      <!--     <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="/salmon/group/listbycate?category_id=13" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
@@ -490,17 +489,17 @@ $(function(){
                           <div>
                              <input type="hidden" value="13" id="category_id">
                            </div>
-                          <div class="info-block">
+                        <!--   <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="/salmon/group/listbycate?category_id=14" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
@@ -515,17 +514,17 @@ $(function(){
                           <div>
                              <input type="hidden" value="14" id="category_id">
                            </div>
-                          <div class="info-block">
+                         <!--  <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="/salmon/group/listbycate?category_id=15" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
@@ -540,17 +539,17 @@ $(function(){
                           <div>
                              <input type="hidden" value="15" id="category_id">
                            </div>
-                          <div class="info-block">
+                      <!--     <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="/salmon/group/listbycate?category_id=16" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
@@ -565,17 +564,17 @@ $(function(){
                           <div>
                              <input type="hidden" value="16" id="category_id">
                            </div>
-                          <div class="info-block">
+                         <!--  <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="/salmon/group/listbycate?category_id=17" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
@@ -590,17 +589,17 @@ $(function(){
                           <div>
                              <input type="hidden" value="17" id="category_id">
                            </div>
-                          <div class="info-block">
+                       <!--    <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
                       <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style="height: 420px; width: 25%; padding-bottom: 20px;">
+                        style="height: 320px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
                           <a href="/salmon/group/listbycate?category_id=18" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
@@ -615,12 +614,12 @@ $(function(){
                           <div>
                              <input type="hidden" value="18" id="category_id">
                            </div>
-                          <div class="info-block">
+                        <!--   <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
                               789</span> <span><i
                               class="fa fa-comment-o"></i> 20</span>
-                          </div>
+                          </div> -->
                         </div>
                       </div>
 
