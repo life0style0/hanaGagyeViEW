@@ -552,7 +552,7 @@ to {
                     </c:if>
                     <c:if test="${fn:length(articleList) > 0 }">
                       <c:forEach var="article" items="${articleList}">
-                        <div class="be-post">
+                        <div class="be-post heyrim-post">
                           <div id='article-post-<c:out value="${article.article_id}"/>' class="be-post-sjh">
                             <a class="be-img-block">
                               <c:if test="${fn:length(article.imagePaths) == 0 }">
@@ -696,10 +696,18 @@ to {
     $(function () {
       //내정보 불러오기
       me = ${ meJSON };
+    
+    	$('.heyrim-post').on('click', function() {
+    		const articleId = $('.heyrim-post').children().attr('id').split('-')[2];
+    		getArticleInfo(articleId);
+    	});
+    
     });
+    
+    
   </script>
 
-  <script>
+<!--   <script>
     $('#article-modal').on('show.bs.modal', function () {
       const articleId = $('#article-id-modal').val();
       const addr = $('#regBtn').attr('onclick').split('=');
@@ -708,7 +716,7 @@ to {
       $('#article-delete-btn a').attr('href', '/salmon/group/delete?article_id=' + articleId + '&group_id=' + groupId);
     });
   </script>
-
+ -->
 </body>
 
 </html>
