@@ -191,13 +191,13 @@ public class AdminController {
 		adminPayInfoAvgGroupBYAgeList = adminService.getAvgCtgryByAge(30);
 		groupByAgeHashMap.put("30대", adminPayInfoAvgGroupBYAgeList);
 		log.info("해쉬맵 : " + groupByAgeHashMap);
-		int ageGroup = 10;
 		ArrayList<AdminPayInfoPstageDTO> adminPayInfoPstageList;
 		HashMap<String, ArrayList<AdminPayInfoPstageDTO>> adminPayInfoPstageIncomeHash = new HashMap<>();
 		HashMap<String, ArrayList<AdminPayInfoPstageDTO>> adminPayInfoPstageSpendHash = new HashMap<>();
 		ArrayList<Integer> incomeTotalList = new ArrayList<>();
 		ArrayList<Integer> spendTotalList = new ArrayList<>();
 		for(int i= 1; i< 4; i++){
+			int ageGroup = 10;
 			ageGroup = ageGroup*i;
 			if(adminService.getIncomeCtgryPersentage(ageGroup)!=null){
 				adminPayInfoPstageList = adminService.getIncomeCtgryPersentage(ageGroup);
@@ -213,6 +213,8 @@ public class AdminController {
 			if(adminService.getSpendTotalGroupByAge(ageGroup)!=-1){
 				spendTotalList.add(adminService.getSpendTotalGroupByAge(ageGroup));
 			}
+			log.info(incomeTotalList.size());
+			log.info(spendTotalList.size());
 		}
 		
 		//랭킹정보

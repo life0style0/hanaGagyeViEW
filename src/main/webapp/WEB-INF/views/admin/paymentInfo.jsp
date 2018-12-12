@@ -380,6 +380,7 @@
 	<c:set var="totalIncome10" value="${incomeTotalList.get(0)}"/>
 	<c:set var="targetData10" value="${adminPayInfoPstageIncomeHash.get('10')}"/>
 	<c:forEach var="incomePer10" items="${targetData10}">
+	console.log("10대 총값 : " + "${totalIncome10}");
 		var dataIncomePer10Temp = [];
 		dataIncomePer10Temp.push("${incomePer10.ctgry_name}");
 		ctgryIncomePer10.push("${incomePer10.ctgry_name}");
@@ -412,9 +413,10 @@
 	
 	var dataIncomePer20 = [];
 	var ctgryIncomePer20 = [];
-	<c:set var="totalIncome20" value="${incomeTotalList.get(0)}"/>
+	<c:set var="totalIncome20" value="${incomeTotalList.get(1)}"/>
 	<c:set var="targetData20" value="${adminPayInfoPstageIncomeHash.get('20')}"/>
 	<c:forEach var="incomePer20" items="${targetData20}">
+	console.log("20대 총값 : " + "${totalIncome20}");
 		var dataIncomePer20Temp = [];
 		dataIncomePer20Temp.push("${incomePer20.ctgry_name}");
 		ctgryIncomePer20.push("${incomePer20.ctgry_name}");
@@ -429,7 +431,7 @@
 	
 	var dataSpendPer20 = [];
 	var ctgrySpendPer20 = [];
-	<c:set var="totalSpend20" value="${spendTotalList.get(0)}"/>
+	<c:set var="totalSpend20" value="${spendTotalList.get(1)}"/>
 	<c:set var="targetData20" value="${adminPayInfoPstageSpendHash.get('20')}"/>
 	<c:forEach var="spendPer20" items="${targetData20}">
 		var dataSpendPer20Temp = [];
@@ -450,6 +452,7 @@
 	<c:set var="totalIncome30" value="${incomeTotalList.get(0)}"/>
 	<c:set var="targetData30" value="${adminPayInfoPstageIncomeHash.get('30')}"/>
 	<c:forEach var="incomePer30" items="${targetData30}">
+	console.log("30대 총값 : " + "${totalIncom30}");
 		var dataIncomePer30Temp = [];
 		dataIncomePer30Temp.push("${incomePer30.ctgry_name}");
 		ctgryIncomePer30.push("${incomePer30.ctgry_name}");
@@ -465,7 +468,7 @@
 	
 	var dataSpendPer30 = [];
 	var ctgrySpendPer30 = [];
-	<c:set var="totalSpend30" value="${spendTotalList.get(0)}"/>
+	<c:set var="totalSpend30" value="${spendTotalList.get(2)}"/>
 	<c:set var="targetData30" value="${adminPayInfoPstageSpendHash.get('30')}"/>
 	<c:forEach var="spendPer30" items="${targetData30}">
 		var dataSpendPer30Temp = [];
