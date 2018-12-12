@@ -36,6 +36,7 @@
         <collection property="scraps" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.ScrapDTO" select="getScrapsByArticleId"/>
         <collection property="comments" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.CommentDTO" select="getCommentsByArticleId"/>
 	</resultMap>
+
 	<resultMap type="kr.or.kosta.salmon.domain.MainChartDTO" id="ChartMap">
 		<result property="totalFee" column="totalFee"/>
 	</resultMap>

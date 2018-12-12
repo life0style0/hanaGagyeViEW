@@ -11,21 +11,78 @@
 		<result property="group_regdate" column="group_regdate"/>
 		<result property="group_description" column="group_description"/>
 		<result property="group_people_max" column="group_people_max"/>
+		<result property="user_id" column="user_id"/>
 		<result property="ctgry_1" column="ctgry_1"/>
 		<result property="ctgry_2" column="ctgry_2"/>
 		<result property="ctgry_3" column="ctgry_3"/>
 		<collection property="comments" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.CommentDTO" select="getComments"/>
 		
 	</resultMap>
+	
+	<!-- 1:N ResultMap 설정 -->
+	<resultMap type="kr.or.kosta.salmon.domain.SNSArticleDTO_sjh" id="articleMap">
+		<id property="article_id" column="article_id"/>
+		<result property="article_id" column="article_id"/>
+		<result property="article_ctgry_id" column="article_ctgry_id"/>
+		<result property="article_ctgry_description" column="article_ctgry_description"/>
+		<result property="article_scope" column="article_scope"/>
+		<result property="article_regdate" column="article_regdate"/>
+		<result property="article_editdate" column="article_editdate"/>
+		<result property="article_payment_type" column="article_payment_type"/>
+		<result property="article_payment_fee" column="article_payment_fee"/>
+		<result property="article_title" column="article_title"/>
+		<result property="article_content" column="article_content"/>
+		<result property="article_proposal_status" column="article_proposal_status"/>
+		<result property="group_id" column="group_id"/>
+		<result property="group_title" column="group_title"/>
+		<result property="article_deleted" column="article_deleted"/>
+		<result property="ctrgy_id" column="ctrgy_id"/>
+		<result property="ctgry_name" column="ctgry_name"/>
+		<result property="article_like_num" column="article_like_num"/>
+		<result property="article_comment_num" column="article_comment_num"/>
+		<collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
+        <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
+        <collection property="likes" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.LikeDTO" select="getLikesByArticleId"/>
+        <collection property="scraps" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.ScrapDTO" select="getScrapsByArticleId"/>
+        <collection property="comments" column="article_id" javaType="java.util.ArrayList" ofType="kr.or.kosta.salmon.domain.CommentDTO" select="getCommentsByArticleId"/>
+	</resultMap>
 
 
-	<!-- 소모임 번호로 그룹 Read -->
+	<!-- 소모임 번호로 소모임 정보 읽어오기 : GET화면에서 활용 -->
 	<select id="read" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
-		SELECT * FROM groups WHERE  group_id = #{group_id}
-	</select>
+		SELECT gr.group_id, 
+	       gr.group_title, 
+	       gr.group_people_max, 
+	       Count(gu.user_id), 
+	       gr.group_description, 
+	       gr.ctgry_1, 
+	       To_char(gr.group_regdate, 'YYYY-MM-DD') "gr.group_regdate", 
+	       gr.ctgry_1, 
+        (select ctgry_name from ctgries where ctgry_id = gr.ctgry_1) "ctgry_1_name",
+	       gr.ctgry_2, 
+         (select ctgry_name from ctgries where ctgry_id = gr.ctgry_2)"ctgry_2_name",
+	       gr.ctgry_3, 
+         (select ctgry_name from ctgries where ctgry_id = gr.ctgry_3)"ctgry_3_name",
+	       gr.user_id 
+	FROM   GROUPS gr 
+	       left outer join group_users gu 
+	                    ON gr.group_id = gu.group_id 
+           where gr.group_id=#{group_id}
+	GROUP  BY gr.group_id, 
+	          gr.group_title, 
+	          gr.group_people_max, 
+	          gr.group_description, 
+	          gr.ctgry_1, 
+	          gr.group_regdate, 
+	          gr.ctgry_1, 
+	          gr.ctgry_2, 
+	          gr.ctgry_3, 
+	          gr.user_id
+	    </select>
+	
+	
 
-
-	<!-- 소모임 그룹 만들기 -->
+	<!-- 소모임 그룹 만들기 : 새 소모임 만들기 -->
 	<insert id="createGroup">
 		INSERT INTO groups
 		            (group_id,
@@ -47,30 +104,6 @@
 		            #{ctgry_2},
 		            #{ctgry_3} )
 	</insert>
-	
-	<!-- 소모임 그룹 만들기 (SelectKey 활용) -->
-<!-- 	<insert id="createSelectGroup">
-	<selectKey keyProperty="group_id" order="BEFORE" resultType="String">
-		select group_id_seq.NEXTVAL from dual
-	</selectKey>
-	INSERT INTO groups
-	            (group_id,
-	             group_title,
-	            group_description,
-	             group_people_max,
-	             user_id,
-	             ctgry_1,
-	             ctgry_2,
-	             ctgry_3)
-	VALUES     (#{group_id},
-	            #{group_title},
-	            #{group_description},
-	            #{group_people_max},
-	            #{user_id},
-	            #{ctgry_1},
-	            #{ctgry_2},
-	            #{ctgry_3} )
-	</insert> -->
 	
 	<!-- 소모임 그룹 만들기 -->
 	<insert id="createSelectGroup">
@@ -110,7 +143,7 @@
 	END;
 	</insert>
 	
-	<!-- 소모임 등록회원으로 들어가기 -->
+	<!-- 소모임에 가입한 회원으로 들어가기 -->
 	<!-- Insert문 : ResultType설정 해주지 않아도 됨 -->
 	<insert id="joinGroup">
 	INSERT INTO group_users
@@ -156,33 +189,211 @@
 		FROM   ctgries
 	</select>
 	
+	<!-- ** 소모임 전체 리스트 가져오기 /list 화면 / groupservice.getList() ** -->
 	<select id="getList" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
 		<![CDATA[
-		select * from groups where group_id > 0 
+		SELECT gr.group_id, 
+	       gr.group_title, 
+	       gr.group_people_max, 
+	  	   Count(gu.user_id) "group_people_now", 
+	       gr.group_description, 
+	       gr.ctgry_1, 
+	       To_char(gr.group_regdate, 'YYYY-MM-DD') "group_regdate", 
+	       gr.ctgry_1, 
+        (select ctgry_name from ctgries where ctgry_id = gr.ctgry_1) "ctgry_1_name",
+	       gr.ctgry_2, 
+         (select ctgry_name from ctgries where ctgry_id = gr.ctgry_2)"ctgry_2_name",
+	       gr.ctgry_3, 
+         (select ctgry_name from ctgries where ctgry_id = gr.ctgry_3)"ctgry_3_name",
+	       gr.user_id 
+	FROM   GROUPS gr 
+	       left outer join group_users gu 
+	                    ON gr.group_id = gu.group_id 
+           where gr.group_id >0 
+	GROUP  BY gr.group_id, 
+	          gr.group_title, 
+	          gr.group_people_max, 
+	          gr.group_description, 
+	          gr.ctgry_1, 
+	          gr.group_regdate, 
+	          gr.ctgry_1, 
+	          gr.ctgry_2, 
+	          gr.ctgry_3, 
+	          gr.user_id
+		
 		]]>
 	</select>
 	
 	<!-- 이미지 가져오기  -->
-	 <select id="getImages" resultType="string">
-SELECT image_path
-FROM images where article_id = #{article_id}
-     </select>
+	<select id="getImages" resultType="string">
+	SELECT image_path
+	FROM images where article_id = #{article_id}
+	</select>
         
-      <!-- 댓글 가져오기 -->
-       <select id="getComments" resultType="kr.or.kosta.salmon.domain.CommentDTO">
-SELECT comment_id, 
-       comment_content, 
-       to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
-       user_id, 
-       user_image,
-       user_nickname 
-FROM   comments left outer join users using(user_id)
-WHERE  article_id = #{articleId}
-order by comment_regdate asc
-        </select>
+    <!-- 댓글 가져오기 -->
+    <select id="getComments" resultType="kr.or.kosta.salmon.domain.CommentDTO">
+	SELECT comment_id, 
+	       comment_content, 
+	       to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
+	       user_id, 
+	       user_image,
+	       user_nickname 
+	FROM   comments left outer join users using(user_id)
+	WHERE  article_id = #{articleId}
+	ORDER  BY comment_regdate asc
+    </select>
         
-        
+    <!-- SNS 그룹 -->
+	<select id="getSNSGroups" resultMap="articleMap">
+	SELECT article_id, 
+           article_ctgry_id, 
+           article_scope, 
+           To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
+           article_editdate, 
+           article_payment_type, 
+           article_payment_fee, 
+           article_title, 
+           article_content, 
+           article_proposal_status, 
+           group_id, 
+           user_id,
+           user_nickname, 
+           article_comment_num,
+           article_like_num,
+           article_deleted 
+    FROM   articles join users using(user_id)
+    WHERE group_id = #{group_id}    
+    </select>
+	
+	<!-- 소모임에 가입한 회원인지 확인 : 0보다 크면 이미 가입 한 것  -->
+	<select id="checkRegistGroup" resultType="int">
+	SELECT Count(user_id) 
+	FROM   group_users 
+	WHERE  group_id = #{group_id} 
+    	   AND user_id = #{user_id}
+	</select>
+	
+	<!-- 소모임 리스트 최신순 -->
+	<select id="getGroupListsbyNewGroup" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
+	<![CDATA[
+	SELECT gr.group_id, 
+	       gr.group_title, 
+	       gr.group_people_max, 
+	       Count(gu.user_id)                       "group_people_now", 
+	       gr.group_description, 
+	       To_char(gr.group_regdate, 'YYYY-MM-DD') "group_regdate", 
+	       gr.ctgry_1, 
+	       (SELECT ctgry_name 
+	        FROM   ctgries 
+	        WHERE  ctgry_id = gr.ctgry_1)          "ctgry_1_name", 
+	       gr.ctgry_2, 
+	       (SELECT ctgry_name 
+	        FROM   ctgries 
+	        WHERE  ctgry_id = gr.ctgry_2)          "ctgry_2_name", 
+	       gr.ctgry_3, 
+	       (SELECT ctgry_name 
+	        FROM   ctgries 
+	        WHERE  ctgry_id = gr.ctgry_3)          "ctgry_3_name", 
+	       gr.user_id 
+	FROM   GROUPS gr 
+	       left outer join group_users gu 
+	                    ON gr.group_id = gu.group_id 
+	GROUP  BY gr.group_id, 
+	          gr.group_title, 
+	          gr.group_people_max, 
+	          gr.group_description, 
+	          gr.ctgry_1, 
+	          gr.group_regdate, 
+	          gr.ctgry_1, 
+	          gr.ctgry_2, 
+	          gr.ctgry_3, 
+	          gr.user_id 
+	ORDER  BY group_regdate DESC 
+	]]>
+	</select>
+	
+	<!-- 소모임 리스트 인기순 -->
+	<select id="getGroupListsbyPopular" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
+	<![CDATA[
+	SELECT gr.group_id, 
+	       gr.group_title, 
+	       gr.group_people_max, 
+	       Count(gu.user_id)                       "group_people_now", 
+	       gr.group_description, 
+	       To_char(gr.group_regdate, 'YYYY-MM-DD') "group_regdate", 
+	       gr.ctgry_1, 
+	       (SELECT ctgry_name 
+	        FROM   ctgries 
+	        WHERE  ctgry_id = gr.ctgry_1)          "ctgry_1_name", 
+	       gr.ctgry_2, 
+	       (SELECT ctgry_name 
+	        FROM   ctgries 
+	        WHERE  ctgry_id = gr.ctgry_2)          "ctgry_2_name", 
+	       gr.ctgry_3, 
+	       (SELECT ctgry_name 
+	        FROM   ctgries 
+	        WHERE  ctgry_id = gr.ctgry_3)          "ctgry_3_name", 
+	       gr.user_id 
+	FROM   GROUPS gr 
+	       left outer join group_users gu 
+	                    ON gr.group_id = gu.group_id 
+	GROUP  BY gr.group_id, 
+	          gr.group_title, 
+	          gr.group_people_max, 
+	          gr.group_description, 
+	          gr.ctgry_1, 
+	          gr.group_regdate, 
+	          gr.ctgry_1, 
+	          gr.ctgry_2, 
+	          gr.ctgry_3, 
+	          gr.user_id 
+	ORDER  BY Count(gu.user_id) DESC 
+		]]>
+	</select>
 	
 	
-
+	<!-- 소모임 리스트 맞춤순 -->
+	
+	
+	<!-- 소모임 리스트 카테고리 순 -->
+	<select id="getGroupListsbyCategory" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
+		<![CDATA[
+	   	SELECT gr.group_id, 
+		       gr.group_title, 
+		       gr.group_people_max, 
+		       Count(gu.user_id)                       "group_people_now", 
+		       gr.group_description, 
+		       To_char(gr.group_regdate, 'YYYY-MM-DD') "gr.group_regdate", 
+		       gr.ctgry_1, 
+		       (SELECT ctgry_name 
+		        FROM   ctgries 
+		        WHERE  ctgry_id = gr.ctgry_1)          "ctgry_1_name", 
+		       gr.ctgry_2, 
+		       (SELECT ctgry_name 
+		        FROM   ctgries 
+		        WHERE  ctgry_id = gr.ctgry_2)          "ctgry_2_name", 
+		       gr.ctgry_3, 
+		       (SELECT ctgry_name 
+		        FROM   ctgries 
+		        WHERE  ctgry_id = gr.ctgry_3)          "ctgry_3_name", 
+		       gr.user_id 
+		FROM   GROUPS gr 
+		       left outer join group_users gu 
+		                    ON gr.group_id = gu.group_id 
+		WHERE  gr.ctgry_1 = #{category_id}
+		        OR gr.ctgry_2 = #{category_id}
+		        OR gr.ctgry_3 = #{category_id}
+		GROUP  BY gr.group_id, 
+		          gr.group_title, 
+		          gr.group_people_max, 
+		          gr.group_description, 
+		          gr.ctgry_1, 
+		          gr.group_regdate, 
+		          gr.ctgry_1, 
+		          gr.ctgry_2, 
+		          gr.ctgry_3, 
+		          gr.user_id
+		          		]]>
+	</select>
+	
 </mapper>

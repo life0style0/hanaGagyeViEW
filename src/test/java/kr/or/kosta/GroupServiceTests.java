@@ -30,7 +30,7 @@ public class GroupServiceTests {
 
 	
 	//GroupService 객체가 주입되었는지 확인
-	@Test
+	//@Test
 	public void testExist() {
 		log.info(service);
 		log.info(service.getClass().getName());

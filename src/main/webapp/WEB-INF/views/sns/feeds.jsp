@@ -47,7 +47,6 @@
     </div>
   </div>
   <!-- THE HEADER -->
-  <!-- THE HEADER -->
   <%@ include file="/WEB-INF/views/includes/header.jsp"%>
 	
 
@@ -568,7 +567,6 @@
 	$(function(){ 
 		  //내정보 불러오기
 		  me= ${meJSON};
-		  
 		});
 	</script>
 	

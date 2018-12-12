@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!-- ========================= * 소모임 카테고리별 리스트 확인 * ================================= -->
+<!-- ========================= * 소모임 게시물 리스트 : 고객 맞춤형 리스트 = 해시테그 * ================================= -->
 <html>
 	<head>
 		<title>HANA 가계ViEW</title>
@@ -121,26 +121,6 @@
           
           						});
         	  	</script>
-     
-     <!-- 카테고리 value값 넘기기 -->
-<script>
-var categorylist;
-$(function(){ 
-	  //article 불러오기
-	  var cate= new Object();
-	  categorylist= ${categorylistJSON};
-	  var i=0;
-	 
-	  $(articlelist).each(function(i,e){
-		  console.log(e);
-	  });
-	  
-	  //내정보 불러오기
-	  me= ${meJSON};
-	  console.log(me);
-	})
-
-    </script>
       <!-- MAIN CONTENT -->
       <div id="content-block">
         <div class="container be-detail-container"
@@ -153,26 +133,23 @@ $(function(){
 
                 <div class="tab-nav-wrapper">
                   <div class="nav-tab  clearfix">
-                    <div class="nav-tab-item active">
+                    <div class="nav-tab-item" onclick="location.href='/salmon/group/list'">
                       <span>카테고리별 찾기</span>
                     </div>
-                    <div class="nav-tab-item" onclick="location.href='/salmon/group/listNew'">
+                    <div class="nav-tab-item" onclick="location.href='/salmon/group/listPopular'">
                       <span>신규 소모임</span>
                     </div>
                     <div class="nav-tab-item" onclick="location.href='/salmon/group/listPopular'">
                       <span>인기 소모임</span>
                     </div>
-                    <div class="nav-tab-item" onclick="location.href='/salmon/group/listCustomize'">
+                    <div class="nav-tab-item active" onclick="location.href='/salmon/group/listCustomize'">
                       <span>맞춤 추천 소모임</span>
                     </div>
-                    <div class="nav-tab-item" onclick="location.href='/salmon/group/listAll'">
+                    <div class="nav-tab-item" onclick="location.href='/salmon/group/list'">
                       <span>전체 소모임 리스트</span>
                     </div>
                   </div>
                 </div>
-
-
-
 
                 <div class="tabs-content clearfix">
                   <div class="tab-info active">
@@ -181,19 +158,17 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="/salmon/group/listbycate?category_id=1" class="be-img-block" style="height: 150px;">
-                            <img src="https://images.unsplash.com/photo-1534322869500-14fc9f5f5767?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                            <img
+                            src="https://images.unsplash.com/photo-1534322869500-14fc9f5f5767?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
-                          </a> 
-                        <input type="hidden" value="1" id="category_id">
-                          <a href="/salmon/group/listbycate?category_id=1" class="be-post-title" style="font-size:13pt; text-align:left;">월급/소득관리</a>
-                          <span> 
-                          <a href="/salmon/group/listbycate?category_id=1" class="be-post-tag">#월급 저축하기</a>,
-                            <a href="/salmon/group/listbycate?category_id=1" class="be-post-tag">#월급 활용</a>,
-                            <a href="/salmon/group/listbycate?category_id=1" class="be-post-tag">#적금 추천</a>
+                          </a> <a href="#" class="be-post-title" style="font-size:13pt; text-align:left;">월급/소득관리</a>
+                          <span> <a href="#"
+                            class="be-post-tag">#월급 저축하기</a>,
+                            <a href="#" class="be-post-tag">#월급 활용</a>,
+                            <a href="#" class="be-post-tag">#적금 추천</a>
                           </span>
-                    <div>
-                    </div>
+                    
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i> 360</span> 
                             <span><i class="fa fa-eye"></i> 789</span> 
@@ -205,19 +180,17 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="/salmon/group/listbycate?category_id=2" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1533094700036-70ecccc6f047?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=2" class="be-post-title" style="font-size:13pt; text-align:left;">부수입</a>
-                          <span> <a href="/salmon/group/listbycate?category_id=2"
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">부수입</a>
+                          <span> <a href="page1.html"
                             class="be-post-tag">#아르바이트</a>,
-                            <a href="/salmon/group/listbycate?category_id=2" class="be-post-tag">#창업</a>,
-                            <a href="/salmon/group/listbycate?category_id=2" class="be-post-tag">#수익모델 </a>
+                            <a href="page1.html" class="be-post-tag">#창업</a>,
+                            <a href="page1.html" class="be-post-tag">#수익모델 </a>
                           </span>
-                                             <div>
-                    <input type="hidden" value="2" id="category_id">
-                    </div>
+            
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -226,21 +199,19 @@ $(function(){
                           </div>
                         </div>
                       </div>
-                       <!-- 용돈 수정 필요  -->
+                <!-- 용돈 수정 필요  -->
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="/salmon/group/listbycate?category_id=3" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=3" class="be-post-title" style="font-size: 13pt; text-align: left;">용돈</a>
-                          <span> <a href="/salmon/group/listbycate?category_id=3" class="be-post-tag">#저축방법</a>, <a href="/salmon/group/listbycate?category_id=3" class="be-post-tag">#용돈기입장
+                          </a> <a href="page1.html" class="be-post-title" style="font-size: 13pt; text-align: left;">용돈</a>
+                          <span> <a href="page1.html" class="be-post-tag">#저축방법</a>, <a href="page1.html" class="be-post-tag">#용돈기입장
                               활용</a>, <a href="page1.html"
                             class="be-post-tag">#소확행</a>
                           </span>
-                     <div>
-                    <input type="hidden" value="3" id="category_id">
-                    </div>
+
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -253,19 +224,17 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                           <a href="/salmon/group/listbycate?category_id=4" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                           <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1519377345644-937ef9754740?ixlib=rb-1.2.1&auto=format&fit=crop&w=1429&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=4" class="be-post-title" style="font-size:13pt; text-align:left;">상여</a>
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">상여</a>
                           <span> <a href="page1.html"
                             class="be-post-tag">#보너스 관리</a>,
-                            <a href="/salmon/group/listbycate?category_id=4" class="be-post-tag">#상여급 관리</a>,
-                            <a href="/salmon/group/listbycate?category_id=4" class="be-post-tag">#저축 TIP</a>
+                            <a href="page1.html" class="be-post-tag">#상여급 관리</a>,
+                            <a href="page1.html" class="be-post-tag">#저축 TIP</a>
                           </span>
-                             <div>
-                    <input type="hidden" value="4" id="category_id">
-                    </div>
+        
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -279,18 +248,16 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                    <a href="/salmon/group/listbycate?category_id=5" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                    <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img src="https://images.unsplash.com/photo-1518515097038-ca19a3777cd7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=5" class="be-post-title" style="font-size:13pt; text-align:left;">금융소득</a>
-                          <span> <a href="/salmon/group/listbycate?category_id=5"
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">금융소득</a>
+                          <span> <a href="page1.html"
                             class="be-post-tag">#펀드</a>,
-                            <a href="/salmon/group/listbycate?category_id=5" class="be-post-tag">#채권</a>,
-                            <a href="/salmon/group/listbycate?category_id=5" class="be-post-tag">#주식</a>
+                            <a href="page1.html" class="be-post-tag">#채권</a>,
+                            <a href="page1.html" class="be-post-tag">#주식</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="5" id="category_id">
-                           </div>
+            
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -303,19 +270,17 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                           <a href="/salmon/group/listbycate?category_id=6" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                           <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1353&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=6" class="be-post-title" style="font-size:13pt; text-align:left;">아웃도어/여행</a>
-                          <span> <a href="/salmon/group/listbycate?category_id=6"
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">아웃도어/여행</a>
+                          <span> <a href="page1.html"
                             class="be-post-tag">#배낭여행</a>,
-                            <a href="/salmon/group/listbycate?category_id=6" class="be-post-tag">#액티비티</a>,
-                            <a href="/salmon/group/listbycate?category_id=6" class="be-post-tag">#소풍</a>
+                            <a href="page1.html" class="be-post-tag">#액티비티</a>,
+                            <a href="page1.html" class="be-post-tag">#소풍</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="6" id="category_id">
-                           </div>
+          
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -329,19 +294,17 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                           <a href="/salmon/group/listbycate?category_id=7" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                           <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1488423680352-79e37c24c59f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=7" class="be-post-title" style="font-size:13pt; text-align:left;">운동/스포츠</a>
-                          <span> <a href="/salmon/group/listbycate?category_id=7"
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">운동/스포츠</a>
+                          <span> <a href="page1.html"
                             class="be-post-tag">#축구</a>,
-                            <a href="/salmon/group/listbycate?category_id=7" class="be-post-tag">#야구</a>,
-                            <a href="/salmon/group/listbycate?category_id=7" class="be-post-tag">#배드민턴</a>
+                            <a href="page1.html" class="be-post-tag">#야구</a>,
+                            <a href="page1.html" class="be-post-tag">#배드민턴</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="7" id="category_id">
-                           </div>
+         
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -354,19 +317,17 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="/salmon/group/listbycate?category_id=8" href="#CategoryModal" class="be-img-block" style="height: 150px;">
+                          <a href="page1.html" href="#CategoryModal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1374&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=8" class="be-post-title" style="font-size:13pt; text-align:left;">인문학/책/글</a>
-                          <span> <a href="/salmon/group/listbycate?category_id=8"
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">인문학/책/글</a>
+                          <span> <a href="page1.html"
                             class="be-post-tag">#강연</a>,
-                            <a href="/salmon/group/listbycate?category_id=8" class="be-post-tag">#컨소지엄</a>,
-                            <a href="/salmon/group/listbycate?category_id=8" class="be-post-tag">#데모데이</a>
+                            <a href="page1.html" class="be-post-tag">#컨소지엄</a>,
+                            <a href="page1.html" class="be-post-tag">#데모데이</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="8" id="category_id">
-                           </div>
+               
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -379,18 +340,16 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                            <a href="/salmon/group/listbycate?category_id=9" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                            <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                   <img src="https://images.unsplash.com/photo-1535982330050-f1c2fb79ff78?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1934&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=9" class="be-post-title" style="font-size:13pt; text-align:left;">외국/언어</a>
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">외국/언어</a>
                           <span> <a href="page1.html"
-                            class="/salmon/group/listbycate?category_id=9">#영어회화</a>,
-                            <a href="/salmon/group/listbycate?category_id=9" class="be-post-tag">#중국어</a>,
-                            <a href="/salmon/group/listbycate?category_id=9" class="be-post-tag">#일본어</a>
+                            class="be-post-tag">#영어회화</a>,
+                            <a href="page1.html" class="be-post-tag">#중국어</a>,
+                            <a href="page1.html" class="be-post-tag">#일본어</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="9" id="category_id">
-                           </div>
+              
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -403,18 +362,16 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                             <a href="/salmon/group/listbycate?category_id=10" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                             <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
                           </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">문화/공연/축제</a>
                           <span> <a href="page1.html"
                             class="be-post-tag">#락페스티벌</a>,
-                            <a href="/salmon/group/listbycate?category_id=10" class="be-post-tag">#뮤지컬</a>,
+                            <a href="page1.html" class="be-post-tag">#뮤지컬</a>,
                             <a href="page1.html" class="be-post-tag">#티켓 구매</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="10" id="category_id">
-                           </div>
+          
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -431,15 +388,13 @@ $(function(){
                           <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img src="https://images.unsplash.com/photo-1483032469466-b937c425697b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=10" class="be-post-title" style="font-size:13pt; text-align:left;">음악/악기</a>
-                          <span> <a href="/salmon/group/listbycate?category_id=10"
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">음악/악기</a>
+                          <span> <a href="page1.html"
                             class="be-post-tag">#기타, #힙합</a>,
-                            <a href="/salmon/group/listbycate?category_id=10" class="be-post-tag">#보컬</a>,
-                            <a href="/salmon/group/listbycate?category_id=10" class="be-post-tag">#오케스트라</a>
+                            <a href="page1.html" class="be-post-tag">#보컬</a>,
+                            <a href="page1.html" class="be-post-tag">#오케스트라</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="11" id="category_id">
-                           </div>
+              
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -452,18 +407,16 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="/salmon/group/listbycate?category_id=12" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img src="https://images.unsplash.com/photo-1528578577235-b963df6db908?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=12" class="be-post-title" style="font-size:13pt; text-align:left;">공예/만들기</a>
-                          <span> <a href="/salmon/group/listbycate?category_id=12"
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">공예/만들기</a>
+                          <span> <a href="page1.html"
                             class="be-post-tag">#자수, #퀼트</a>,
-                            <a href="/salmon/group/listbycate?category_id=12" class="be-post-tag">#도자기</a>,
-                            <a href="/salmon/group/listbycate?category_id=12" class="be-post-tag">#핸드메이드</a>
+                            <a href="page1.html" class="be-post-tag">#도자기</a>,
+                            <a href="page1.html" class="be-post-tag">#핸드메이드</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="12" id="category_id">
-                           </div>
+    
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -476,19 +429,17 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="/salmon/group/listbycate?category_id=13" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=13" class="be-post-title" style="font-size:13pt; text-align:left;">댄스/무용</a>
-                          <span> <a href="/salmon/group/listbycate?category_id=13"
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">댄스/무용</a>
+                          <span> <a href="page1.html"
                             class="be-post-tag">#학원</a>,
-                            <a href="/salmon/group/listbycate?category_id=13" class="be-post-tag">#무료 클래스</a>,
-                            <a href="/salmon/group/listbycate?category_id=13" class="be-post-tag">#레슨</a>
+                            <a href="page1.html" class="be-post-tag">#무료 클래스</a>,
+                            <a href="page1.html" class="be-post-tag">#레슨</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="13" id="category_id">
-                           </div>
+            
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -501,19 +452,17 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="/salmon/group/listbycate?category_id=14" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1542228262-891dc133eb77?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=14" class="be-post-title" style="font-size:13pt; text-align:left;">차/오토바이</a>
-                          <span> <a href="/salmon/group/listbycate?category_id=14"
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">차/오토바이</a>
+                          <span> <a href="page1.html"
                             class="be-post-tag">#중고차, #할부</a>,
-                            <a href="/salmon/group/listbycate?category_id=14" class="be-post-tag">#할인 정보 </a>,
-                            <a href="/salmon/group/listbycate?category_id=14" class="be-post-tag">#나만의 구입 TIP</a>
+                            <a href="page1.html" class="be-post-tag">#할인 정보 </a>,
+                            <a href="page1.html" class="be-post-tag">#나만의 구입 TIP</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="14" id="category_id">
-                           </div>
+   
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -526,19 +475,17 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="/salmon/group/listbycate?category_id=15" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1520390138845-fd2d229dd553?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=15" class="be-post-title" style="font-size:13pt; text-align:left;">사진/영상</a>
-                          <span> <a href="/salmon/group/listbycate?category_id=15"
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">사진/영상</a>
+                          <span> <a href="page1.html"
                             class="be-post-tag">#사진기</a>,
-                            <a href="/salmon/group/listbycate?category_id=15" class="be-post-tag">#공동구매</a>,
-                            <a href="/salmon/group/listbycate?category_id=15" class="be-post-tag">#해외 직구</a>
+                            <a href="page1.html" class="be-post-tag">#공동구매</a>,
+                            <a href="page1.html" class="be-post-tag">#해외 직구</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="15" id="category_id">
-                           </div>
+      
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -551,19 +498,17 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="/salmon/group/listbycate?category_id=16" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=16" class="be-post-title" style="font-size:13pt; text-align:left;">게임/오락</a>
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">게임/오락</a>
                           <span> <a href="page1.html"
                             class="be-post-tag">#아이템</a>,
-                            <a href="/salmon/group/listbycate?category_id=16" class="be-post-tag">#정보 공유 </a>,
-                            <a href="/salmon/group/listbycate?category_id=16" class="be-post-tag">#할인 정보</a>
+                            <a href="page1.html" class="be-post-tag">#정보 공유 </a>,
+                            <a href="page1.html" class="be-post-tag">#할인 정보</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="16" id="category_id">
-                           </div>
+           
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -576,19 +521,17 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="/salmon/group/listbycate?category_id=17" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1514986888952-8cd320577b68?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1355&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=17" class="be-post-title" style="font-size:13pt; text-align:left;">요리/제조</a>
-                          <span> <a href="/salmon/group/listbycate?category_id=17"
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">요리/제조</a>
+                          <span> <a href="page1.html"
                             class="be-post-tag">#식자재 공동구매</a>,
-                            <a href="/salmon/group/listbycate?category_id=17" class="be-post-tag">#새벽 할인</a>,
-                            <a href="/salmon/group/listbycate?category_id=17" class="be-post-tag">#구입 정보</a>
+                            <a href="page1.html" class="be-post-tag">#새벽 할인</a>,
+                            <a href="page1.html" class="be-post-tag">#구입 정보</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="17" id="category_id">
-                           </div>
+                      
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -601,19 +544,17 @@ $(function(){
                       <div class="col-ml-12 col-xs-6 col-sm-4"
                         style="height: 420px; width: 25%; padding-bottom: 20px;">
                         <div class="be-post">
-                          <a href="/salmon/group/listbycate?category_id=18" data-toggle="modal" class="be-img-block" style="height: 150px;">
+                          <a href="#CategoryModal" data-toggle="modal" class="be-img-block" style="height: 150px;">
                             <img
                             src="https://images.unsplash.com/photo-1518717758536-85ae29035b6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
                             alt="omg" height="200px;">
-                          </a> <a href="/salmon/group/listbycate?category_id=18" class="be-post-title" style="font-size:13pt; text-align:left;">반려동물</a>
-                          <span> <a href="/salmon/group/listbycate?category_id=18"
+                          </a> <a href="page1.html" class="be-post-title" style="font-size:13pt; text-align:left;">반려동물</a>
+                          <span> <a href="page1.html"
                             class="be-post-tag">#펫 카페</a>,
-                            <a href="/salmon/group/listbycate?category_id=18" class="be-post-tag">#할인 정보</a>,
-                            <a href="/salmon/group/listbycate?category_id=18" class="be-post-tag">#공동 구매</a>
+                            <a href="page1.html" class="be-post-tag">#할인 정보</a>,
+                            <a href="page1.html" class="be-post-tag">#공동 구매</a>
                           </span>
-                          <div>
-                             <input type="hidden" value="18" id="category_id">
-                           </div>
+                         
                           <div class="info-block">
                             <span><i class="fa fa-thumbs-o-up"></i>
                               360</span> <span><i class="fa fa-eye"></i>
@@ -647,19 +588,9 @@ $(function(){
                   </div>
 
                   <!-- ============== 맞춤 추천 소모임 LIST ============== -->
-                   <div class="tab-info">
+                   <div class="tab-info active">
                     <div class="row">
-                    
-
-                    </div>
-                  </div>
-
-                  <!-- ====================탭 5 전체 소모임 리스트 (소모임 전체보기) ====================== -->
-
-
-
-                  <div class="tab-info">
-                    <table class="table table-striped jambo_table bulk_action">
+                        <table class="table table-striped jambo_table bulk_action">
                       <thead>
                         <tr class="headings">
                           <th>#번호</th>
@@ -668,7 +599,6 @@ $(function(){
                           <th>소모임 개설일</th>
                           <th>소모임 설명</th>
                           <th>최대인원</th>
-                          <th>현재인원</th>
                           <th>카테고리1</th>
                           <th>카테고리2</th>
                           <th>카테고리3</th>
@@ -684,15 +614,58 @@ $(function(){
                         <td><c:out value="${groups.group_regdate}" /></td>
                         <td><c:out value="${groups.group_description}" /></td>
                         <td><c:out value="${groups.group_people_max}" /></td>
-                        <td><c:out value="${groups.group_people_now}" /></td>
-                        <td><c:out value="${groups.ctgry_1_name}" /></td>
-                        <td><c:out value="${groups.ctgry_2_name}" /></td>
-                        <td><c:out value="${groups.ctgry_3_name}" /></td>
+                        <td><c:out value="${groups.ctgry_1}" /></td>
+                        <td><c:out value="${groups.ctgry_2}" /></td>
+                        <td><c:out value="${groups.ctgry_3}" /></td>
                       </tr>
                    </c:forEach>
                     
                     </table>
+                        
+                    </div>
                   </div>
+
+                  <!-- ====================탭 5 전체 소모임 리스트 (소모임 전체보기) ====================== -->
+
+
+
+                  <div class="tab-info">
+   
+                  </div>
+                  <!-- ====카테고리 이름으로 보기 수정중......실패  ===== -->
+                  <div class="col-md-9 padding-1-sjh">
+                    <c:choose>
+                      <c:when
+                        test="${not empty userPsnsInfo.ctgryNames}">
+                        <c:forEach var="ctgryName" items="${userPsnsInfo.ctgryNames}" varStatus="status">
+                          <div class="padding-1-sjh ctgry-badge">
+                            <c:out value="${ctgryName}" />
+                          </div>
+                        </c:forEach>
+                      </c:when>
+                      <c:otherwise></c:otherwise>
+                    </c:choose>
+
+                  </div>
+                  <!-- Modal  추가 -->
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">처리가 완료되었습니다.</div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                      <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                  </div>
+                  <!-- /.modal -->
+
 
 
 
@@ -710,6 +683,31 @@ $(function(){
 
 
 
+
+
+
+
+
+  <!-- 상황에 따른 메시지 확인을 위한 스크립트 -->
+<script>
+$(document).ready(function(){
+	var result = '<c:out value="${result}"/>';
+	checkModal(result);
+	history.replaceState({}, null, null);
+	
+	function checkModal(result) {
+		if (result === '' || history.state) {
+			return;
+		}
+		if (parseInt(result) > 0) {
+			$(".modal-body").html("게시글 " + parseInt(result)+ " 번이 등록되었습니다.");
+		}
+
+		$("#myModal").modal("show");
+	}
+	
+});
+</script>
 
   <!-- 카테고리별 소모임 리스트 모달 -->
   <%@ include file="/WEB-INF/views/includes/groupcatemodal.jsp"%>

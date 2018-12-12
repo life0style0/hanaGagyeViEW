@@ -3336,8 +3336,8 @@ input:focus {
 
 /* #container-mix .mix {
     display: none ;
-}
- */
+} */
+
 .message-area {
     height: 150px;
     width: 100%;
@@ -3710,6 +3710,6 @@ font-sjh{
 
 .bgcolor-salmon-sjh{
 	background: #ff7f7f;
-	color:#fffff;
+	color:#ffffff;
 }
 

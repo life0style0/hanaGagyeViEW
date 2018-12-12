@@ -2,6 +2,10 @@ package kr.or.kosta.salmon.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
+import org.apache.ibatis.annotations.Param;
+
 /**
  * 소모임 
  */
@@ -12,6 +16,7 @@ import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.CommentDTO;
 import kr.or.kosta.salmon.domain.GroupCountDTO;
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
+import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.mapper.GroupMapper;
 import lombok.AllArgsConstructor;
@@ -23,11 +28,13 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor
 public class GroupServiceImpl implements GroupService {
 
+	@Inject
 	private GroupMapper groupMapper;
 
 	@Override
 	public GroupDTO_lhr get(String group_id) {
 		log.info("get............ : " + group_id);
+		log.info(groupMapper.read(group_id));
 		return groupMapper.read(group_id);
 	}
 	
@@ -58,6 +65,7 @@ public class GroupServiceImpl implements GroupService {
 	//리스트 가져오기
 	@Override
 	public List<GroupDTO_lhr> getList() {
+		log.info("ServiceImpl****************전체 리스트 가져오기 리스트 실행****************");
 		return groupMapper.getList();
 	}
 	
@@ -110,5 +118,38 @@ public class GroupServiceImpl implements GroupService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public ArrayList<SNSArticleDTO_sjh> getSNSGroups(String group_id) {
+		return groupMapper.getSNSGroups(group_id);
+	}
+
+	//그룹에 해당 아이디가 가입했을 경우 : 0 / 가입인원이 있으면 0보다 크다. 
+	@Override
+	public int checkRegistGroup(String group_id, String user_id) {
+		return groupMapper.checkRegistGroup(group_id, user_id);
+	}
+	
+	//그룹 리스트 최신순 
+	@Override
+	public List<GroupDTO_lhr> getGroupListsbyNewGroup() {
+		log.info("ServiceImpl*************** 최신순 가져오기 리스트 실행****************");
+		return groupMapper.getGroupListsbyNewGroup();
+	}
+
+	//그룹 리스트 인기 순 
+	@Override
+	public List<GroupDTO_lhr> getGroupListsbyPopular() {
+		log.info("ServiceImpl****************인기 가져오기 리스트 실행****************");
+		return groupMapper.getGroupListsbyPopular();
+	}
+	
+	//그룹 카테고리별
+	@Override
+	public List<GroupDTO_lhr> getGroupListsbyCategory(int category_id){
+		log.info("getGroupListsbyCategory****************카테고리별 가져오기 리스트 실행****************");
+		return groupMapper.getGroupListsbyCategory(category_id);
+	}
+
 
 }

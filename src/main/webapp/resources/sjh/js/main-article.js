@@ -7,8 +7,9 @@ $(function() {
 	myId= $('#loginUserId').text();
 	setUserPhoto();
 	eventRegist();
-})
+});
 
+var isGroup = true;
 function eventRegist(){
 	$('[id^="article-post-"]').each(function(i,post){
 		$(post).on('click', function () {
@@ -91,11 +92,9 @@ function getArticleInfoByJSON(articleId){
 function getArticleInfo(articleId) {
 	console.log('articleId :', articleId);
 	$.ajax({
-		data: articleId,
 		type: 'get',
 		dataType: "json",
 		url: '/salmon/main/article/'+articleId,
-
 		success: function (data) {
 			setArticleModal(data);
 			setArticle(data); //이미지, 공유버튼 세팅
@@ -575,11 +574,20 @@ function setArticle(article, info) {
             $('#article-share-cancel-btn').addClass('hidden');
         }
 
-        // 내가 쓴 글이면 수정이 보여야 함.
-        $('#article-edit-btn').removeClass('hidden');
-        $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=`+article.article_id);
-        $('#article-delete-btn').removeClass('hidden');
-        $('#article-delete-btn a').attr('href', `/salmon/article/delete?article_id=`+article.article_id);
+		if(!isGroup) {
+			// 내가 쓴 글이면 수정이 보여야 함.
+			$('#article-edit-btn').removeClass('hidden');
+			$('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=${article.article_id}`);
+			$('#article-delete-btn').removeClass('hidden');
+			$('#article-delete-btn a').attr('href', `/salmon/article/delete?article_id=${article.article_id}`);
+		} else {
+			$('#article-edit-btn').removeClass('hidden');
+			$('#article-edit-btn a').attr('href', '/salmon/article/editGroup?article_id='+article.article_id);
+			$('#article-delete-btn').removeClass('hidden');
+			$('#article-delete-btn a').attr('href', '/salmon/group/delete?article_id='+article.article_id+'&group_id='+article.group_id);
+		}
+
+
     } else {
         $('#article-edit-btn').addClass('hidden');
     }

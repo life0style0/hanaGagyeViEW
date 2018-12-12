@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.mapper.SNSMapper;
 import kr.or.kosta.salmon.mapper.UserMapper;
@@ -38,6 +39,14 @@ public class SearchTest {
 			user.getUserLocAndCat().setCtgrNames();
 			log.info(user);
 		}
+	}
+	
+	@Test
+	public void test() {
+		log.info("hi");
+	     SNSArticleDTO_sjh s =   mapper.getArticleByArticleId(22);
+	     
+	     log.info(s);
 	}
 	
 }
