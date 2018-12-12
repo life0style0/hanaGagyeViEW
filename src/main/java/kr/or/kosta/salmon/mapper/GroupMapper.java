@@ -36,7 +36,7 @@ public interface GroupMapper {
 	public int joinGroup(@Param("group_id") String group_id, @Param("user_id") String user_id);
 	
 	//소모임 해당 그룹에 sns 아티클 띄우기
-	public ArrayList<SNSArticleDTO_sjh> getSNSGroups(@Param("group_id") String group_id);
+	public ArrayList<SNSArticleDTO_sjh> getGroupArticles(@Param("group_id") String group_id);
 	
 	//소모임에 가입한 인원인지 확인하기 
 	public int checkRegistGroup(@Param("group_id") String group_id, @Param("user_id") String user_id);

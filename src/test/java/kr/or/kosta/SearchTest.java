@@ -41,12 +41,12 @@ public class SearchTest {
 		}
 	}
 	
-	@Test
+	//@Test
 	public void test() {
-		log.info("hi");
+/*		log.info("hi");
 	     SNSArticleDTO_sjh s =   mapper.getArticleByArticleId(22);
 	     
-	     log.info(s);
+	     log.info(s);*/
 	}
 	
 }
