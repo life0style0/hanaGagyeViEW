@@ -449,7 +449,7 @@
 	
 	var dataIncomePer30 = [];
 	var ctgryIncomePer30 = [];
-	<c:set var="totalIncome30" value="${incomeTotalList.get(0)}"/>
+	<c:set var="totalIncome30" value="${incomeTotalList.get(2)}"/>
 	<c:set var="targetData30" value="${adminPayInfoPstageIncomeHash.get('30')}"/>
 	<c:forEach var="incomePer30" items="${targetData30}">
 	console.log("30대 총값 : " + "${totalIncom30}");
