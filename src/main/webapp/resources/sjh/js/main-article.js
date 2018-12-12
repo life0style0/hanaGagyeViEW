@@ -11,9 +11,21 @@ $(function() {
 
 function eventRegist(){
 	$('[id^="article-post-"]').each(function(i,post){
-		$(post).on('click',function(){
-			console.log($(this).attr('id').split('-')[2]);
-			var article= getArticleInfo($(this).attr('id').split('-')[2]);
+		$(post).on('click', function () {
+			const articleId = $(this).attr('id').split('-')[2];
+			console.log(articleId);
+			articlelist.some(function (value) {
+				if (value.article_id == articleId) {
+					console.log(value.article_ctgry_id)
+					if (value.article_ctgry_id == 3) {
+						location.href = '/salmon/suggestion/article/' + articleId;
+					} else {
+						var article= getArticleInfo(articleId);
+					}
+					return true;
+				}
+			});
+			
 		//	var article= getArticleInfoByJSON($(this).attr('id').split('-')[2]);
 			console.log(article);
 		});
@@ -76,7 +88,8 @@ function getArticleInfoByJSON(articleId){
 	});
 }
 
-function getArticleInfo(articleId){
+function getArticleInfo(articleId) {
+	console.log('articleId :', articleId);
 	$.ajax({
 		data: articleId,
 		type: 'get',
@@ -84,15 +97,9 @@ function getArticleInfo(articleId){
 		url: '/salmon/main/article/'+articleId,
 
 		success: function (data) {
-			console.log(data);
-			if(data.article_ctgry_id==3){ //역제안글 ->링크 걸기
-				location.href='/salmon/suggestion/article/'+data.article_id;
-				//post 방식이라 불가 -> form 만들어서 보내자... 내일..
-			}else{ //일반 게시글
-				setArticleModal(data);
-				setArticle(data); //이미지, 공유버튼 세팅
-				$('#article-modal').modal('show');
-			}
+			setArticleModal(data);
+			setArticle(data); //이미지, 공유버튼 세팅
+			$('#article-modal').modal('show');
 		},
 		error: function (xhr,status,er) {
 			alert('데이터 수신 에러');
