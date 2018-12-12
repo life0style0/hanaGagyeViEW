@@ -109,12 +109,12 @@
 					<div class="col-md-2 left-field">
 						<div class="be-vidget">
 							<h3 class="letf-menu-article">
-								Select Views
+								볼 화면 선택
 							</h3>
 							<div class="creative_filds_block">
 								<div class="ul">
-									<a class="view-calendar active">Calendar</a>
-									<a class="view-chart">Chart</a>
+									<a class="view-calendar active">달력</a>
+									<a class="view-chart">통계</a>
 								</div>
 							</div>
 						</div>
