@@ -42,7 +42,7 @@
 	
   </head>
 
-  <body class="nav-md">
+   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
@@ -118,70 +118,6 @@
                   </ul>
                 </li>
 				<!--푸쉬알람  -->
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="/salmon/resources/adminTemplate/images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="/salmon/resources/adminTemplate/images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="/salmon/resources/adminTemplate/images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="/salmon/resources/adminTemplate/images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
               </ul>
             </nav>
           </div>
@@ -198,21 +134,18 @@
           				 <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
 			              <span class="count_top"><i class="fa fa-user"></i> 수입 게시글</span>
 			              <div class="count">${summaryInfo.article_ctgry_ct }</div>
-			              <span class="count_bottom"><i class="fa fa-user">4% </i></span>
 			            </div>
           			</c:when>
           			<c:when test="${summaryInfo.article_ctgry_id==2 }">
           				 <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
 			              <span class="count_top"><i class="fa fa-user"></i> 지출 게시글</span>
 			              <div class="count">${summaryInfo.article_ctgry_ct }</div>
-			              <span class="count_bottom"><i class="fa fa-user">4% </i></span>
 			            </div>
           			</c:when>
           			<c:when test="${summaryInfo.article_ctgry_id==3 }">
           				 <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
 			              <span class="count_top"><i class="fa fa-user"></i> 역제안 게시글</span>
 			              <div class="count">${summaryInfo.article_ctgry_ct }</div>
-			              <span class="count_bottom"><i class="fa fa-user">4% </i></span>
 			            </div>
           			</c:when>
           		</c:choose>
@@ -221,7 +154,6 @@
           	 <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
 	             <span class="count_top"><i class="fa fa-user"></i>총 태그 수</span>
 	             	<div class="count">${hashTagTotalCt }</div>
-	             <span class="count_bottom"><i class="fa fa-user">4% </i></span>
              </div>
           </div>
           <!-- /top tiles -->
@@ -235,10 +167,6 @@
                     <h3>게시글 통계 <small>등록 해시태그</small></h3>
                   </div>
                   <div class="col-md-6">
-                    <!-- <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                      <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                      <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
-                    </div> -->
                   </div>
                 </div>
 
@@ -257,15 +185,6 @@
                   <h2>해시태그 상위 7개 태그</h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
                     </li>
                     <li><a class="close-link"><i class="fa fa-close"></i></a>
                     </li>

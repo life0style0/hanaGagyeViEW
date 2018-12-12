@@ -244,7 +244,7 @@
     </select>
         
     <!-- SNS 그룹 -->
-	<select id="getSNSGroups" resultMap="articleMap">
+	<select id="getGroupArticles" resultMap="articleMap">
 	SELECT article_id, 
            article_ctgry_id, 
            article_scope, 
@@ -262,7 +262,7 @@
            article_like_num,
            article_deleted 
     FROM   articles join users using(user_id)
-    WHERE group_id = #{group_id}    
+    WHERE group_id = #{group_id}
     </select>
 	
 	<!-- 소모임에 가입한 회원인지 확인 : 0보다 크면 이미 가입 한 것  -->
@@ -363,7 +363,7 @@
 		       gr.group_people_max, 
 		       Count(gu.user_id)                       "group_people_now", 
 		       gr.group_description, 
-		       To_char(gr.group_regdate, 'YYYY-MM-DD') "gr.group_regdate", 
+		       To_char(gr.group_regdate, 'YYYY-MM-DD') "group_regdate", 
 		       gr.ctgry_1, 
 		       (SELECT ctgry_name 
 		        FROM   ctgries 
@@ -396,4 +396,61 @@
 		          		]]>
 	</select>
 	
+	
+	<select id="getHashtagByArticleId" resultType="string">
+		SELECT hashtag_value 
+		FROM   hashtag_refs ref
+		       inner join hashtags hash on ref.hashtag_id=hash.hashtag_id 
+		WHERE  article_id = #{articleId}        
+        </select>
+        
+        <select id="getAllHashTagGroup" resultType="kr.or.kosta.salmon.domain.HashTagGroupDTO">
+        <![CDATA[
+        SELECT Count(hashtag_id) count_hashtag_value, 
+		       hashtag_value 
+		FROM   hashtags 
+		       join hashtag_refs USING(hashtag_id) 
+		WHERE  article_id IN(SELECT article_id 
+		                     FROM   articles 
+		                     WHERE  article_scope IN ( 'u', 'g' ) 
+                             AND SYSDATE - article_regdate < 8
+                             AND article_deleted = 'N') 
+		GROUP  BY hashtag_value 
+		ORDER  BY count_hashtag_value DESC ]]>
+        </select>
+        
+        
+     <select id="getLikesByArticleId" resultType="kr.or.kosta.salmon.domain.LikeDTO">
+        	SELECT like_id,
+        		   user_id,
+        		   article_id,
+        		   to_char(like_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "like_regdate" 
+			FROM   likes 
+			WHERE  article_id = #{article_id}
+        </select>
+        
+         <select id="getCommentsByArticleId" resultType="kr.or.kosta.salmon.domain.CommentDTO">
+        	SELECT comment_id,
+        		   comment_content,
+        		   to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
+        		   to_char(comment_editdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_editdate",
+        		   article_id,
+                   us.user_nickname,
+                   us.user_id,
+                   us.user_image
+			FROM   comments co
+	        join   users us on us.user_id=co.user_id
+		    WHERE  article_id =  #{article_id}
+		    order by comment_regdate
+        </select>
+        
+        
+       <select id="getScrapsByArticleId" resultType="kr.or.kosta.salmon.domain.ScrapDTO">
+        	SELECT scrap_id,
+        		   user_id,
+        		   article_id,
+        		   to_char(scrap_regdate,'YYYY-MM-DD') "scrap_regdate" 
+			FROM   scraps 
+			WHERE  article_id = #{article_id}
+        </select>
 </mapper>

@@ -583,37 +583,67 @@
                   <!-- ============== 인기 소모임 LIST ============== -->
                   <div class="tab-info active">
                     <div class="row">
-                    <table class="table table-striped jambo_table bulk_action">
-                      <thead>
-                        <tr class="headings">
-                          <th>#번호</th>
-                          <th>소모임 제목</th>
-                          <th>방장 이름</th>
-                          <th>소모임 개설일</th>
-                          <th>소모임 설명</th>
-                          <th>최대인원</th>
-                          <th>카테고리1</th>
-                          <th>카테고리2</th>
-                          <th>카테고리3</th>
-                        </tr>
-                      </thead>
-                     <!-- items : 반복 데이터가 있는 아이템 : Collection명 / var: 현재 아이템 변수명-->
-                    <c:forEach items="${GroupListsbyPopular}" var="groups">
-                      <tr class="even pointer">
-                      
-                        <td><c:out value="${groups.group_id}" /></td>
-                        <td><a href='/salmon/group/get?group_id=<c:out value="${groups.group_id}" />'><c:out value="${groups.group_title}"/></a></td>
-                        <td><c:out value="${groups.user_id}" /></td>
-                        <td><c:out value="${groups.group_regdate}" /></td>
-                        <td><c:out value="${groups.group_description}" /></td>
-                        <td><c:out value="${groups.group_people_now}" /> / <c:out value="${groups.group_people_max}" /></td>
-                        <td><c:out value="${groups.ctgry_1_name}" /></td>
-                        <td><c:out value="${groups.ctgry_2_name}" /></td>
-                        <td><c:out value="${groups.ctgry_3_name}" /></td>
-                      </tr>
-                   </c:forEach>
                     
-                    </table>
+     
+                      <!-- 인기순 리스트 확인하기  -->
+                      <c:if test="${GroupListsbyPopular.size() >0}">
+                        <c:forEach items="${GroupListsbyPopular}" var="group">
+                          <div class="grid-item col-xs-12 col-sm-6 col-md-4" style="height: 700px;">
+                            <div class="blog-post">
+                              <div class="post-header clearfix">
+                                <div class="post-date"
+                                  style="text-align: center; padding: 14px 18px;">
+                                  <i class="fa fa-clock-o"></i>
+                                  <c:out value="${group.group_regdate}" />
+                                </div>
+
+                              </div>
+                
+
+                              <div class="post-desc"
+                                style="padding: 25px 20px 0px 20px; margin: 0px;">
+                                <div class="post-category">
+                                  카테고리 : #
+                                  <c:out value="${group.ctgry_1_name}" />
+                                  #
+                                  <c:out value="${group.ctgry_2_name}" />
+                                  #
+                                  <c:out value="${group.ctgry_3_name}" />
+                                </div>
+                                <a class="post-label" href="/salmon/group/get?group_id=<c:out value="${group.group_id}" />"
+                                  style="padding-bottom: 5px;"><c:out value="${group.group_title}" /></a>
+                                <div class="post-text"
+                                  style="padding-bottom: 10px; font-size: 15px;">
+                                  <c:out value="${group.group_description}" />
+                                </div>
+                                <a class="btn color-1 size-2 hover-1"
+                                  href="/salmon/group/get?group_id=<c:out value="${group.group_id}" />">입장하기</a>
+                                <div class="author-post"
+                                  style="float: right;">
+                                  <img
+                                    src="https://img.icons8.com/color/48/000000/administrator-male.png"
+                                    alt="" class="ava-author"> <span>by
+                                    <a
+                                    href="/salmon/group/get?group_id=<c:out value="${group.group_id}" />">
+                                    <c:out value="${group.user_id}" /></a>
+                                  </span>
+                                </div>
+                                <div class="info-block">
+                                  <span><i
+                                    class="fa fa-thumbs-o-up"></i> 현재인원
+                                    / 전체인원 : <a
+                                    href="/salmon/group/get?group_id=<c:out value="${group.group_id}" />"
+                                    class="be-post-tag"><c:out value="${group.group_people_now}" />
+                                      / <c:out value="${group.group_people_max}" /></a></span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </c:forEach>
+                      </c:if>
+                      <c:if test="${groupListbyCate.size() ==0}">
+                       그룹이 없습니다
+                       </c:if>
 
                     </div>
                   </div>
@@ -663,41 +693,7 @@
                     
                     </table>
                   </div>
-                  <!-- ====카테고리 이름으로 보기 수정중......실패  ===== -->
-                  <div class="col-md-9 padding-1-sjh">
-                    <c:choose>
-                      <c:when
-                        test="${not empty userPsnsInfo.ctgryNames}">
-                        <c:forEach var="ctgryName" items="${userPsnsInfo.ctgryNames}" varStatus="status">
-                          <div class="padding-1-sjh ctgry-badge">
-                            <c:out value="${ctgryName}" />
-                          </div>
-                        </c:forEach>
-                      </c:when>
-                      <c:otherwise></c:otherwise>
-                    </c:choose>
-
-                  </div>
-                  <!-- Modal  추가 -->
-                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                        </div>
-                        <div class="modal-body">처리가 완료되었습니다.</div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                      <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                  </div>
-                  <!-- /.modal -->
-
-
+    
 
 
 

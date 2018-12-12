@@ -91,9 +91,9 @@
 					<div class="tab-wrapper style-2 color-2">
 						<div class="tab-nav-wrapper">
 							<div class="nav-tab  clearfix">
-								<div class="nav-tab-item active">
+								<!-- <div class="nav-tab-item active">
 									<span>카테고리별 소비 분포</span>
-								</div>
+								</div> -->
 
 								<div class="stat-sort be-drop-down">
 									<span class="be-dropdown-content"> 월 선택 </span>
@@ -193,15 +193,18 @@
 					<div class="tags_block clearfix">
 
 						<ul>
-							<li><a data-filter="all" class="filter">전체
-									(${hashTagList.size()})</a></li>
+							<li>
+							<a data-filter="all" class="filter">전체(${hashTagList.size()})</a>
+							</li>
 							<c:if test="${hashTagList.size() > 0 }">
 								<c:set var="ctHash" value="1" />
 								<c:forEach var="hashTag" items="${hashTagList }">
 									<c:if test="${ctHash<10 }">
-										<li><a
-											data-filter=".category-hashTag-${hashTag.hashtag_value }"
-											class="filter">${hashTag.hashtag_value }(${hashTag.count_hashtag_value})</a></li>
+									<li>
+										<a data-filter=".category-hashTag-${hashTag.hashtag_value.substring(1) }" class="filter">
+											${hashTag.hashtag_value }(${hashTag.count_hashtag_value})
+										</a>
+									</li>
 									</c:if>
 									<c:set var="ctHash" value="${ctHash+1 }" />
 								</c:forEach>
@@ -231,7 +234,7 @@
 						<c:forEach var="article" items="${articleList }">
 							<c:forEach var="hashLoop" items="${article.hashtags }">
 								<c:set var="tag" scope="page"
-									value="${tag } category-hashTag-${hashLoop }" />
+									value="${tag } category-hashTag-${hashLoop.substring(1) }" />
 							</c:forEach>
 
 							<c:choose>
@@ -329,7 +332,7 @@
 									<img src="" alt="" class="ava-author"> <input
 										type="hidden" name="user-profile-photo"
 										value="${article.user_image}"> <span>by <a
-										href="/salmon/sns/feeds?userid=${article.user_nickname}">${article.user_nickname}</a>
+										href="/salmon/sns/feeds?userid=${article.user_id}">${article.user_nickname}</a>
 									</span>
 								</div>
 								<div class="info-block info-block-sjh">

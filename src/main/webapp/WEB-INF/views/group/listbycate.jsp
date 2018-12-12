@@ -15,19 +15,22 @@
 		<link rel="stylesheet" href="/salmon/resources/template/style/icon.css">
 		<link rel="stylesheet" href="/salmon/resources/template/style/loader.css">
 		<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
-    
-        <!-- 혜림 수정 CSS -->
-    <link rel="stylesheet" href="/salmon/resources/lhr/css/stylesheet-hyerim.css">
-    <link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
-          
+
+
     	<!-- Font special for pages-->
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet"> 
         
         <!-- 페이지 내용 css -->
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+     <!--    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+     -->
+        <link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
+    
+    <!-- css for cards -->
+<!--       <link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
+ -->  
     	</head>
     	<body style="font-family: 'Noto Sans KR', sans-serif;">
-
+<div>확인 2:34</div>
       	<!-- THE LOADER -->
         <div class="be-loader">
           <div class="spinner">
@@ -96,6 +99,24 @@
       	opacity: 1;
       	right: 0;
       }
+      
+      .blog-post .post-category {
+      font-weight: 400;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #edeff2;
+      color: #000209;
+      font-size: 13px;
+      }
+      
+      .blog-post .post-label {
+      display: block;
+      font-size: 24px;
+      line-height: 26px;
+      font-weight: 400;
+      color: #383b43;
+      margin-bottom: 3px;
+  }
       </style>
 
       <!-- 소모임 새로만들기 버튼  -->
@@ -122,6 +143,7 @@
           
           						});
         	  	</script>
+
       <!-- MAIN CONTENT -->
       <div id="content-block">
         <div class="container be-detail-container"
@@ -134,7 +156,7 @@
 
                 <div class="tab-nav-wrapper">
                   <div class="nav-tab  clearfix">
-                    <div class="nav-tab-item active">
+                    <div class="nav-tab-item active" onclick="location.href='/salmon/group/list'">
                       <span>카테고리별 찾기</span>
                     </div>
                     <div class="nav-tab-item" onclick="location.href='/salmon/group/listNew'">
@@ -155,36 +177,71 @@
                 <div class="tabs-content clearfix">
                   <div class="tab-info active">
                     <div class="row">
-                    <div style="background-color:orange;">
-                       <c:out value="${groupListbyCate}"/>
-                       </div>
-                      <!-- ============= 카테고리별 찾기 ============= -->
-                     
-                     <c:if test="${groupListbyCate.size() >0}">
-                        <c:forEach items="${groupListbyCate}" var="group">
-                      <div class="col-ml-12 col-xs-6 col-sm-4"
-                        style=" width: 25%;  background-color:yellow;">
-                        <div class="be-post">
-                         <a href="#" class="be-post-title" style="font-size:13pt; text-align:left;">
-                         <c:out value="${group.group_title}"/>
-                         </a>
-                          <span> 
-                          <a href="#" class="be-post-tag">  <c:out value="${group.group_description}"/></a>,
-                            <a href="#" class="be-post-tag"><c:out value="${group.group_people_now}"/> / <c:out value="${group.group_people_max}"/></a>,
-                          </span>
+
+                      <!-- 카테고리별 리스트 확인하기  -->
+                      <c:if test="${groupListbyCate.size() >0}">
+                        <c:forEach items="${groupListbyCate}"
+                          var="group">
+                          <div class="grid-item col-xs-12 col-sm-6 col-md-4" style="height: 700px;">
+                            <div class="blog-post">
+                              <div class="post-header clearfix">
+                                <div class="post-date"
+                                  style="text-align: center; padding: 14px 18px;">
+                                  <i class="fa fa-clock-o"></i>
+                                  <c:out value="${group.group_regdate}" />
+                                </div>
+
+                              </div>
                     
-                          <div class="info-block">
-                            <span><i class="fa fa-thumbs-o-up"></i> <c:out value="${group.ctgry_1_name}"/> </span> 
-                            <span><i class="fa fa-eye"></i> <c:out value="${group.ctgry_2_name}"/></span> 
-                            <span><i class="fa fa-comment-o"></i> <c:out value="${group.ctgry_3_name}"/></span>
-                          </div> 
-                        </div>
-                      </div>
-                      </c:forEach>
+
+                              <div class="post-desc"
+                                style="padding: 25px 20px 0px 20px; margin: 0px;">
+                                <div class="post-category">
+                                  카테고리 : #
+                                  <c:out value="${group.ctgry_1_name}" />
+                                  #
+                                  <c:out value="${group.ctgry_2_name}" />
+                                  #
+                                  <c:out value="${group.ctgry_3_name}" />
+                                </div>
+                                <a class="post-label"
+                                  href="/salmon/group/get?group_id=<c:out value="${group.group_id}" />"
+                                  style="padding-bottom: 5px;"><c:out
+                                    value="${group.group_title}" /></a>
+                                <div class="post-text"
+                                  style="padding-bottom: 10px; font-size: 15px;">
+                                  <c:out
+                                    value="${group.group_description}" />
+                                </div>
+                                <a class="btn color-1 size-2 hover-1"
+                                  href="/salmon/group/get?group_id=<c:out value="${group.group_id}" />">입장하기</a>
+                                <div class="author-post"
+                                  style="float: right;">
+                                  <img
+                                    src="https://img.icons8.com/color/48/000000/administrator-male.png"
+                                    alt="" class="ava-author"> <span>by
+                                    <a
+                                    href="/salmon/group/get?group_id=<c:out value="${group.group_id}" />"><c:out
+                                        value="${group.user_id}" /></a>
+                                  </span>
+                                </div>
+                                <div class="info-block">
+                                  <span><i
+                                    class="fa fa-thumbs-o-up"></i> 현재인원
+                                    / 전체인원 : <a
+                                    href="/salmon/group/get?group_id=<c:out value="${group.group_id}" />"
+                                    class="be-post-tag"><c:out value="${group.group_people_now}" />
+                                      / <c:out value="${group.group_people_max}" /></a></span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </c:forEach>
                       </c:if>
-                       <c:if test="${groupListbyCate.size() ==0}">
+                      <c:if test="${groupListbyCate.size() ==0}">
                        그룹이 없습니다
                        </c:if>
+
 
                     </div>
                   </div>
@@ -197,12 +254,9 @@
                     </div>
                   </div>
 
-
-
                   <!-- ============== 인기 소모임 LIST ============== -->
                   <div class="tab-info">
                     <div class="row">
-                    
 
                     </div>
                   </div>
@@ -210,13 +264,11 @@
                   <!-- ============== 맞춤 추천 소모임 LIST ============== -->
                    <div class="tab-info">
                     <div class="row">
-                    
 
                     </div>
                   </div>
 
                   <!-- ====================탭 5 전체 소모임 리스트 (소모임 전체보기) ====================== -->
-
 
                 </div>
               </div>
