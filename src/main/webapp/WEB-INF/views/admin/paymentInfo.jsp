@@ -365,6 +365,7 @@
 	<c:set var="ageGroup30" value="${groupByAgeHashMap.get('30대')}"/>
 	<c:forEach var="group30" items="${ageGroup30}">
 		for(var i = 0; i< categories.length;i++ ){
+			console.log("hi");
 			if(categories[i]=="${group30.ctgry_name}"){
 				age30[i] = ${group30.ctgry_avg};
 			}
@@ -417,7 +418,7 @@
 		var dataIncomePer20Temp = [];
 		dataIncomePer20Temp.push("${incomePer20.ctgry_name}");
 		ctgryIncomePer20.push("${incomePer20.ctgry_name}");
-		dataIncomePer20Temp.push(${Math.ceil(incomePer20.ctgry_sum / totalIncome20 * 200)});
+		dataIncomePer20Temp.push(${Math.ceil(incomePer20.ctgry_sum / totalIncome20 * 100)});
 		if(dataIncomePer20.length ==0){
 			dataIncomePer20Temp.push(true);
 		}else{
@@ -434,7 +435,7 @@
 		var dataSpendPer20Temp = [];
 		dataSpendPer20Temp.push("${spendPer20.ctgry_name}");
 		ctgrySpendPer20.push("${spendPer20.ctgry_name}");
-		dataSpendPer20Temp.push(${Math.ceil(spendPer20.ctgry_sum / totalSpend20 * 200)});
+		dataSpendPer20Temp.push(${Math.ceil(spendPer20.ctgry_sum / totalSpend20 * 100)});
 		if(dataSpendPer20.length ==0){
 			dataSpendPer20Temp.push(true);
 		}else{
@@ -442,7 +443,6 @@
 		}
 		dataSpendPer20.push(dataSpendPer20Temp);
 	</c:forEach>
-	
 	
 	
 	var dataIncomePer30 = [];
@@ -453,12 +453,13 @@
 		var dataIncomePer30Temp = [];
 		dataIncomePer30Temp.push("${incomePer30.ctgry_name}");
 		ctgryIncomePer30.push("${incomePer30.ctgry_name}");
-		dataIncomePer30Temp.push(${Math.ceil(incomePer30.ctgry_sum / totalIncome30 * 300)});
+		dataIncomePer30Temp.push(${Math.ceil(incomePer30.ctgry_sum / totalIncome30 * 100)});
 		if(dataIncomePer30.length ==0){
 			dataIncomePer30Temp.push(true);
 		}else{
 			dataIncomePer30Temp.push(false);
 		}
+		console.log("제발! :" + dataIncomePer30Temp);
 		dataIncomePer30.push(dataIncomePer30Temp);
 	</c:forEach>
 	
@@ -470,7 +471,7 @@
 		var dataSpendPer30Temp = [];
 		dataSpendPer30Temp.push("${spendPer30.ctgry_name}");
 		ctgrySpendPer30.push("${spendPer30.ctgry_name}");
-		dataSpendPer30Temp.push(${Math.ceil(spendPer30.ctgry_sum / totalSpend30 * 300)});
+		dataSpendPer30Temp.push(${Math.ceil(spendPer30.ctgry_sum / totalSpend30 * 100)});
 		if(dataSpendPer30.length ==0){
 			dataSpendPer30Temp.push(true);
 		}else{
@@ -478,6 +479,10 @@
 		}
 		dataSpendPer30.push(dataSpendPer30Temp);
 	</c:forEach>
+	
+	
+	
+	
 
 
 	function incomePer(group){
@@ -490,8 +495,11 @@
 			targetData=dataIncomePer20;
 			targetCategory = ctgryIncomePer20;
 		}else if(group=='30'){
+			console.log("30대수입인");
 			targetData=dataIncomePer30
 			targetCategory = ctgryIncomePer30;
+			console.log("찾자 : " + targetData);
+			console.log("찾자 : " + targetCategory);
 		}
 		
 		incomePerChart.update({
@@ -522,6 +530,7 @@
 			targetData=dataSpendPer20;
 			targetCategory = ctgrySpendPer20;
 		}else if(group=='30'){
+			console.log("30대소비인");
 			targetData=dataSpendPer30
 			targetCategory = ctgrySpendPer30;
 		}

@@ -478,16 +478,14 @@
   	categoryBlock['y']=parseFloat(parseFloat('${categoryIncomeInfo.ctgry_fee_sum/chartIncomeInfo.totalFee*100}').toFixed(2));
   	incomeData.push(categoryBlock);
   </c:forEach>
-  console.log(incomeData);
   var spendData = [];
   <c:set var="chartSpendInfo" scope="page" value="${mainchartSpendInfo}"/>
   <c:forEach var='categorySpendInfo' items='${chartSpendInfo.ctGroupFee}'>
-  	var categoryBlock = {};
-  	categoryBlock['name']='${categorySpendInfo.ctgry_name}';
-  	categoryBlock['y']=parseFloat(parseFloat('${categorySpendInfo.ctgry_fee_sum/chartSpendInfo.totalFee*100}').toFixed(2));
-  	spendData.push(categoryBlock);
+  	var categoryBlockSpend = {};
+  	categoryBlockSpend['name']='${categorySpendInfo.ctgry_name}';
+  	categoryBlockSpend['y']=parseFloat(parseFloat('${categorySpendInfo.ctgry_fee_sum/chartSpendInfo.totalFee*100}').toFixed(2));
+  	spendData.push(categoryBlockSpend);
   </c:forEach>
-  console.log(spendData);
   </script>
 
 	<script>
