@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="/salmon/resources/template/style/icon.css">
 		<link rel="stylesheet" href="/salmon/resources/template/style/loader.css">
 		<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
-		<link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
+    <link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
           
     	<!-- Font special for pages-->
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet"> 

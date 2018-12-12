@@ -68,8 +68,15 @@ public class GaArticleServiceImpl implements GaArticleService {
 	@Override
 	public void createHashTag(HashTagDTO hashTagDTO) {
 		log.info("hashTag만들기");
-		gaArticleMapper.createHashTag(hashTagDTO);
-		hashTagDTO.setHashtag_id(hashTagDTO.getHashtag_id() - 1);
+		String hashTag = null;
+		hashTag = gaArticleMapper.checkHashTag(hashTagDTO);
+		if (hashTag == null || hashTag.equals("")) {
+			gaArticleMapper.createHashTag(hashTagDTO);
+			hashTagDTO.setHashtag_id(hashTagDTO.getHashtag_id() - 1);
+		} else {
+			log.info(hashTag);
+			hashTagDTO.setHashtag_id(Integer.parseInt(hashTag));
+		}
 		createHashTagRef(hashTagDTO);
 	}
 
