@@ -159,7 +159,11 @@
             <c:set var="ctHash" value="1" />
             <c:forEach var="hashTag" items="${hashTagList }">
               <c:if test="${ctHash<10 }">
-              <li><a data-filter=".category-hashTag-${hashTag.hashtag_value }" class="filter">${hashTag.hashtag_value }(${hashTag.count_hashtag_value})</a></li>
+              <li>
+              	<a data-filter=".category-hashTag-${hashTag.hashtag_value.substring(1) }" class="filter">
+              	${hashTag.hashtag_value }(${hashTag.count_hashtag_value})
+              	</a>
+              </li>
               </c:if>
               <c:set var="ctHash" value="${ctHash+1 }"/>
             </c:forEach>
@@ -189,7 +193,7 @@
 		<c:if test="${articleList.size() > 0 }">
         <c:forEach var="article" items="${articleList }">
         <c:forEach var="hashLoop" items="${article.hashtags }">
-       		<c:set var="tag" scope="page" value="${tag} category-hashTag-${hashLoop}"/>
+       		<c:set var="tag" scope="page" value="${tag} category-hashTag-${hashLoop.substring(1)}"/>
        	</c:forEach>
        <c:choose>
        <c:when test="${article.article_ctgry_id eq 3}">
@@ -277,7 +281,7 @@
                 <img src="" alt="" class="ava-author">
                 <input type="hidden" name="user-profile-photo" value="${article.user_image}">
                 <span>by 
-                <a href="/salmon/sns/feeds?userid=${article.user_nickname}">${article.user_nickname}</a>
+                <a href="/salmon/sns/feeds?userid=${article.user_id}">${article.user_nickname}</a>
                 </span>
               </div>
               <div class="info-block info-block-sjh">
@@ -317,15 +321,14 @@
 		<c:forEach var="group" items="${groupList}">
 			<div class="custom-column-5" style="display: inline-block;">
 			<div class="be-user-block style-2">
-			<a class="be-ava-user style-2" href="/salmon/group/get?group_id=<c:out value="${group.group_id}"/>"> 
+			<%-- <a class="be-ava-user style-2" href="/salmon/group/get?group_id=<c:out value="${group.group_id}"/>"> 
 			<img src="" alt="">
-			<%-- <input type="hidden" name="user-photo-path" value="${user.user_image}"> --%>
-			</a>
+			</a> --%>
 			<a href="/salmon/group/get?group_id=<c:out value="${group.group_id}"/>" class="be-use-name">
 			<c:out value="${group.group_title}"/></a>
 			<p class="be-user-info"><c:out value="${group.group_description}"/> </p>
 				<div class="be-text-tags">
-				<c:out value="${group.ctgry_1}"/>
+				<c:out value="${group.ctgry_1_name}"/>
 				</div>
 				<a id="follow-ask-do-<c:out value="${user.user_id}"/>" class="ask-follow"
 				  href="/salmon/group/get?group_id=<c:out value="${group.group_id}"/>">

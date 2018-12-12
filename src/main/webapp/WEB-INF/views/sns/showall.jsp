@@ -113,7 +113,10 @@
             <c:set var="ctHash" value="1" />
             <c:forEach var="hashTag" items="${hashTagList }">
               <c:if test="${ctHash<10 }">
-              <li><a data-filter=".category-hashTag-${hashTag.hashtag_value }" class="filter">${hashTag.hashtag_value }(${hashTag.count_hashtag_value})</a></li>
+              <li>
+              <a data-filter=".category-hashTag-${hashTag.hashtag_value.substring(1) }" class="filter">
+              ${hashTag.hashtag_value }(${hashTag.count_hashtag_value})</a>
+              </li>
               </c:if>
               <c:set var="ctHash" value="${ctHash+1 }"/>
             </c:forEach>
@@ -143,7 +146,7 @@
         <c:if test="${newArticleList.size() > 0 }">
         <c:forEach var="article" items="${newArticleList }">
         <c:forEach var="hashLoop" items="${article.hashtags }">
-       		<c:set var="tag" scope="page" value="${tag } category-hashTag-${hashLoop }"/>
+       		<c:set var="tag" scope="page" value="${tag } category-hashTag-${hashLoop.substring(1)}"/>
        	</c:forEach>
        	
        <c:choose>
@@ -226,14 +229,14 @@
               
               <span>
               	<c:forEach var="tag" items="${article.hashtags }">
-                	<a href="/salmon/sns/search?search-value=${tag}" class="be-post-tag">${tag } </a>
+                	<a href="/salmon/sns/search?search-value=${tag.substring(1)}" class="be-post-tag">${tag } </a>
                 </c:forEach>
               </span>
               <div class="author-post">
                 <img src="" alt="" class="ava-author">
                 <input type="hidden" name="user-profile-photo" value="${article.user_image}">
                 <span>by 
-                <a href="/salmon/sns/feeds?userid=${article.user_nickname}">${article.user_nickname}</a>
+                <a href="/salmon/sns/feeds?userid=${article.user_id}">${article.user_nickname}</a>
                 </span>
               </div>
               <div class="info-block info-block-sjh">

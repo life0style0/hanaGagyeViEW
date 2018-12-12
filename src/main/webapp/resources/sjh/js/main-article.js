@@ -137,7 +137,7 @@ function setArticleModal(article){
 		}else{		}
 		contentHTML += '<p>';
 		$(article.hashtags).each(function(i,tag){
-			contentHTML += ' <a href="/salmon/sns/search?search-value='+tag+'">'+tag+'</a> ';
+			contentHTML += ' <a href="/salmon/sns/search?search-value='+tag.substring(1)+'">'+tag+'</a> ';
 		});
 		contentHTML += '</p>';
 		$('#article-content').html(contentHTML);
@@ -178,7 +178,7 @@ function setArticleModal(article){
 		}
 		
 		
-		$('#article-writer-nickname').html('<a href="/salmon/sns/feeds?userid='+article.user_nickname+'">'+article.user_nickname+'</a>');
+		$('#article-writer-nickname').html('<a href="/salmon/sns/feeds?userid='+article.user_id+'">'+article.user_nickname+'</a>');
 		$('#article-modal form').attr('id','reply-form-'+article.article_id);
 		$('#article-modal form input[name="article_id"]').attr('value',article.article_id);
 		$('#article-modal form input[type="button"]').attr('id','reply-write-btn-'+article.article_id);
@@ -691,10 +691,10 @@ function setModalCommentNum(num) {
 	var currentNum = $('#article-comments-btn').text();
 	console.log(currentNum);
 	if (Number(num) < 0) {
-		alert('댓글삭제');
+	//	alert('댓글삭제');
 		$('#article-comments-btn').html(`<i class="fas fa-comment"></i>`+(Number(currentNum) - 1));
 	} else {
-		alert('댓글추가');
+	//	alert('댓글추가');
 		$('#article-comments-btn').html(`<i class="fas fa-comment"></i>`+(Number(currentNum) + Number(num)));
 	}
 }
