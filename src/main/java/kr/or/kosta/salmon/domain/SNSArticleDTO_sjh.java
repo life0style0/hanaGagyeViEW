@@ -29,6 +29,7 @@ public class SNSArticleDTO_sjh {
 	private String group_title;
 	private String user_id;
 	private String user_nickname;
+	private String user_image;
 	private String article_deleted;
 	private int ctrgy_id;
 	private String ctgry_name;

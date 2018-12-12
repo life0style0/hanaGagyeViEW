@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.LocationDTO_sjh;
+import kr.or.kosta.salmon.domain.PsnScoreDTO;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 /**
  * User 관련 처리
@@ -16,7 +17,6 @@ import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
 public interface UserService {
 
 	public void userRegist(RegistUserDTO user);
-	
 	public void userUpdate(UserDTO user);
 	
 	//아이디로 User찾기
@@ -37,11 +37,8 @@ public interface UserService {
 
 	//사용자 닉네임 변경
 	public void changeNickname(UserDTO user);
-	
 	//지역정보 변경
 	public void changeUserLocation(RegistUserDTO user);
-		
-	
 	//개인정보 수정
 	public void changeUserInfo(RegistUserDTO user);
 	
@@ -65,8 +62,22 @@ public interface UserService {
 	
 	//권한 삭제
 	public void deleteUserAuth(String user_id);
+	public void deleteBlockedUserAuth(String user_id);
+	public void updateUserStateBlocked(String user_id);
+	//유저 blocked 처리
+	public void setUserBlocked(String user_id);
 	
 	//지역정보 전체 가져오기
 	public List<LocationDTO_sjh> getAllLocations();
+
+	//유저 정보 전체
+	public UserDTO read(String user_id);
 	
+	public void updatePsnScoreByArticleId(PsnScoreDTO psnScoreDTO);
+
+	public void updatePsnScoreByFollowing(PsnScoreDTO psnScoreDTO);
+
+	public void updatePsnScoreByGroup(PsnScoreDTO psnScoreDTO);
+
+	public void updatePsnScoreByCommentId(PsnScoreDTO psnScoreDTO);
 }

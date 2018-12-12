@@ -15,6 +15,7 @@
 		<result property="user_birthday" column="user_birthday"/>
 		<result property="user_image" column="user_image"/>
 		<result property="user_regdate" column="user_regdate"/>
+		<result property="user_state" column="user_state"/>
 		<association property="userLocAndCat" column="user_id" select="getUserSimplePsns"/>
 		<collection property="authList" resultMap="authMap"/>
 	</resultMap>
@@ -25,6 +26,9 @@
 		<result property="user_auth" column="user_auth"/>
 	</resultMap>
 
+	<resultMap type="hashMap" id="psnScoreMap"></resultMap>
+	
+	
 	<select id="read" resultMap="userMap">
 		SELECT users.user_id, 
 		       users.user_passwd, 
@@ -34,6 +38,7 @@
 		       users.user_birthday, 
 		       users.user_image, 
 		       users.user_regdate, 
+		       users.user_state,
 		       auth.user_auth 
 		FROM   users users 
 		       LEFT OUTER JOIN users_auth auth 
@@ -87,6 +92,12 @@
 		            'ROLE_ADMIN') 
 	</insert>
 	<insert id="insertBasicPsns3">
+	declare
+		psnid NUMBER;
+	begin
+
+		SELECT psn_id_seq.nextval into psnid from dual;
+
 		INSERT INTO psns 
 		            (psn_id, 
 		             user_id, 
@@ -94,12 +105,17 @@
 		             ctgry_1, 
 		             ctgry_2, 
 		             ctgry_3) 
-		VALUES     (psn_id_seq.NEXTVAL, 
+		VALUES     (psnid, 
 		            #{user_id}, 
 		            #{location_id},  
 		            #{ctgry_1},   
 		            #{ctgry_2},   
-		            #{ctgry_3})
+		            #{ctgry_3});
+		
+		INSERT INTO psn_scores(psn_score_id, psn_id)
+		VALUES(psn_score_id_seq.nextval, psnid);
+
+	END;
 	</insert>
 
 	<insert id="insertBasicPsns1">
@@ -285,6 +301,59 @@
 		OR     user_id LIKE #{value} 
 	]]>
      </select>
+     
+     <delete id="deleteBlockedUserAuth">
+     	DELETE FROM users_auth 
+		WHERE  user_id = #{user_id}
+		and user_auth='ROLE_USER'
+     </delete>
+     
+     <update id="updateUserStateBlocked">
+		UPDATE users 
+		SET    user_state = 'B' 
+		WHERE  user_id = #{user_id} 
+     </update>
         
 	
+
+	 <update id="updatePsnScoreByArticleId" statementType="CALLABLE" parameterType="kr.or.kosta.salmon.domain.PsnScoreDTO">
+		{
+		    CALL ps_score_by_article_id(
+				#{userId, mode=IN, jdbcType=VARCHAR},
+				#{articleId, mode=IN, jdbcType=VARCHAR},
+				#{amount, mode=IN, jdbcType=VARCHAR},
+				#{result, mode=OUT, jdbcType=INTEGER, javaType=int})
+        }
+	 </update>
+
+	<update id="updatePsnScoreByFollowing" statementType="CALLABLE" parameterType="kr.or.kosta.salmon.domain.PsnScoreDTO">
+		{
+		    CALL ps_score_by_following(
+				#{userId, mode=IN, jdbcType=VARCHAR},
+				#{followId, mode=IN, jdbcType=VARCHAR},
+				#{amount, mode=IN, jdbcType=VARCHAR},
+				#{result, mode=OUT, jdbcType=INTEGER, javaType=int})
+        }
+	 </update>   
+
+	<update id="updatePsnScoreByGroup" statementType="CALLABLE" parameterType="kr.or.kosta.salmon.domain.PsnScoreDTO">
+		{
+		    CALL ps_score_by_group(
+				#{userId, mode=IN, jdbcType=VARCHAR},
+				#{groupId, mode=IN, jdbcType=VARCHAR},
+				#{amount, mode=IN, jdbcType=VARCHAR},
+				#{result, mode=OUT, jdbcType=INTEGER, javaType=int})
+        }
+	 </update> 
+
+	 <update id="updatePsnScoreByCommentId" statementType="CALLABLE" parameterType="kr.or.kosta.salmon.domain.PsnScoreDTO">
+		{
+		    CALL ps_score_by_comment_id(
+				#{userId, mode=IN, jdbcType=VARCHAR},
+				#{commentId, mode=IN, jdbcType=VARCHAR},
+				#{amount, mode=IN, jdbcType=VARCHAR},
+				#{result, mode=OUT, jdbcType=INTEGER, javaType=int})
+        }
+	 </update>
+
 </mapper>

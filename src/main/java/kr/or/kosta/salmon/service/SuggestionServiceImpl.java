@@ -10,6 +10,7 @@ import kr.or.kosta.salmon.common.Criteria;
 import kr.or.kosta.salmon.domain.NewSuggestionDTO;
 import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.domain.SuggestionDTO;
+import kr.or.kosta.salmon.domain.SuggestionProcDTO;
 import kr.or.kosta.salmon.mapper.SuggestionMapper;
 
 /**
@@ -37,6 +38,13 @@ public class SuggestionServiceImpl implements SuggestionService {
     }
 
     @Override
+    public List<SuggestionDTO> getSuggestionListsByRecommend2(Criteria criteria) throws Exception {
+        SuggestionProcDTO suggestionProcDTO = (new SuggestionProcDTO()).build(criteria);
+        sm.getSuggestionListsByRecommend2(suggestionProcDTO);
+        return suggestionProcDTO.getResultset();
+    }
+
+    @Override
     public PsnsDTO getPsnsWithSuggestion(String userId) throws Exception {
         return sm.getPsnsWithSuggestion(userId);
     }
@@ -48,6 +56,13 @@ public class SuggestionServiceImpl implements SuggestionService {
 
     @Override
     public int getTotalSuggestionByRecommend(Criteria criteria) throws Exception {
+        SuggestionProcDTO suggestionProcDTO = (new SuggestionProcDTO()).build(criteria);
+        sm.getSuggestionListsByRecommend2(suggestionProcDTO);
+        return suggestionProcDTO.getResultNum();
+    }
+
+    @Override
+    public int getTotalSuggestionByRecommend2(Criteria criteria) throws Exception {
         return sm.getTotalSuggestionByRecommend(criteria);
     }
 
@@ -73,6 +88,7 @@ public class SuggestionServiceImpl implements SuggestionService {
 
     @Override
     public boolean insertArticle(NewSuggestionDTO newSuggestionDTO) throws Exception {
-        return sm.insertArticle(newSuggestionDTO) > 0 ? true : false;
+        sm.insertArticle(newSuggestionDTO);
+        return newSuggestionDTO.getResult() > 0 ? true : false;
     }
 }

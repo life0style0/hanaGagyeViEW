@@ -6,6 +6,9 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +24,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.or.kosta.salmon.domain.AccountBookDTO;
 import kr.or.kosta.salmon.domain.PsnsDTO;
+import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.service.AccountBookService;
+import kr.or.kosta.salmon.service.SNSService;
 import lombok.extern.log4j.Log4j;
 
 /**
@@ -35,6 +40,9 @@ public class AccountBookController {
     @Inject
     private AccountBookService abs;
 
+    @Inject
+    private SNSService snsService;
+
     @GetMapping(value = "/calendar")
     public void calendar(Principal principal, Model model) {
         log.info("calendar...");
@@ -42,6 +50,16 @@ public class AccountBookController {
         try {
             psnsDTO = abs.getPsns(principal.getName());
             model.addAttribute("psns", psnsDTO);
+            // 로그인한 유저 정보
+            UserDTO meDTO = snsService.getSimpleUser(principal.getName());
+            model.addAttribute("me", meDTO);
+            ObjectMapper objmapper = new ObjectMapper();
+            try {
+                String meJSON = objmapper.writeValueAsString(meDTO);
+                model.addAttribute("meJSON", meJSON);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

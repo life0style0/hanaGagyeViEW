@@ -18,6 +18,9 @@
 		<result property="article_title" column="article_title"/>
 		<result property="article_content" column="article_content"/>
 		<result property="article_proposal_status" column="article_proposal_status"/>
+		<result property="user_id" column="user_id"/>
+		<result property="user_nickname" column="user_nickname"/>
+		<result property="user_image" column="user_image"/>
 		<result property="group_id" column="group_id"/>
 		<result property="group_title" column="group_title"/>
 		<result property="article_deleted" column="article_deleted"/>
@@ -78,14 +81,24 @@
 		       group_title, 
 		       ar.user_id, 
 		       user_nickname, 
+		       user_image,
 		       article_comment_num, 
 		       article_like_num, 
-		       article_deleted 
+		       article_deleted,
+		       (select count(li.user_id) 
+	           from likes li 
+	           where li.article_id = ar.article_id 
+	           and li.user_id=#{login_id}) "isLikedByMe",
+	           (select count(rp.user_id) 
+	           from reports rp 
+	           where rp.article_id = ar.article_id 
+	           and rp.user_id=#{login_id}) "isReportedByMe" 
 		FROM   articles ar 
 		       join users us 
 		         ON us.user_id = ar.user_id 
 		       left outer join GROUPS USING (group_id) 
-		WHERE  article_scope IN ( 'u', 'g' ) 
+		WHERE  article_deleted = 'N'
+			   AND article_scope IN ( 'u', 'g' ) 
 		       AND ( ar.user_id = #{user_id} 
 		              OR ar.user_id IN (SELECT fol.user_id user_id 
 		                                FROM   users us 
@@ -123,7 +136,8 @@
 		WHERE  article_id IN(SELECT article_id 
 		                     FROM   articles 
 		                     WHERE  article_scope IN ( 'u', 'g' ) 
-                             AND SYSDATE - article_regdate < 8) 
+                             AND SYSDATE - article_regdate < 8
+                             AND article_deleted = 'N') 
 		GROUP  BY hashtag_value 
 		ORDER  BY count_hashtag_value DESC ]]>
         </select>
@@ -150,7 +164,7 @@
         	SELECT like_id,
         		   user_id,
         		   article_id,
-        		   to_char(like_regdate,'YYYY-MM-DD') "like_regdate" 
+        		   to_char(like_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "like_regdate" 
 			FROM   likes 
 			WHERE  article_id = #{article_id}
         </select>
@@ -158,8 +172,8 @@
          <select id="getCommentsByArticleId" resultType="kr.or.kosta.salmon.domain.CommentDTO">
         	SELECT comment_id,
         		   comment_content,
-        		   to_char(comment_regdate,'YYYY-MM-DD') "comment_regdate", 
-        		   to_char(comment_editdate,'YYYY-MM-DD') "comment_editdate",
+        		   to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
+        		   to_char(comment_editdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_editdate",
         		   article_id,
                    us.user_nickname,
                    us.user_id,
@@ -173,8 +187,8 @@
         <select id="getNewCommentsByArticle" resultType="kr.or.kosta.salmon.domain.CommentDTO">
         	SELECT comment_id,
         		   comment_content,
-        		   to_char(comment_regdate,'YYYY-MM-DD') "comment_regdate", 
-        		   to_char(comment_editdate,'YYYY-MM-DD') "comment_editdate",
+        		   to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
+        		   to_char(comment_editdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_editdate",
         		   article_id,
                    us.user_nickname,
                    us.user_id,
@@ -200,7 +214,7 @@
 			SELECT article_id,
 			       article_ctgry_id,
 			       article_scope,
-			       to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
+			       to_char(article_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "article_regdate",
 			       article_editdate,
 			       article_payment_type,
 			       article_payment_fee,
@@ -222,6 +236,7 @@
 			FROM  articles ar
 			JOIN  users USING (user_id)
 			where user_id=#{user_id}
+			AND   article_deleted= 'N'
 			ORDER BY article_regdate DESC
         </select>
 	
@@ -355,30 +370,74 @@
 	</delete>
 	
 	<select id="getArticleByArticleId" resultMap="articleMap">
-		SELECT article_id, 
-		       article_ctgry_id, 
-		       article_ctgry_description, 
-		       article_scope, 
-		       To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
-		       article_editdate, 
-		       article_payment_type, 
-		       article_payment_fee, 
-		       article_title, 
-		       article_content, 
-		       article_proposal_status, 
-		       group_id, 
-		       group_title, 
-		       user_nickname, 
-		       article_deleted, 
-		       ctgry_id, 
-		       ctgry_name 
-		FROM   articles 
-		       join users USING (user_id) 
-		       join ctgry_values USING (article_id) 
-		       join ctgries USING (ctgry_id) 
-		       join article_ctgries USING (article_ctgry_id) 
-		       left outer join GROUPS USING (group_id) 
-		WHERE  article_id = #{article_id}
+SELECT article_id, 
+       article_ctgry_id, 
+       article_ctgry_description, 
+       article_scope, 
+       To_char(article_regdate, 'YYYY"년" MM"월" DD"일" AM hh:mm') "article_regdate", 
+       article_editdate, 
+       article_payment_type, 
+       article_payment_fee, 
+       article_title, 
+       article_content, 
+       article_proposal_status, 
+       group_id, 
+       group_title, 
+       user_nickname, 
+       article_deleted, 
+       (SELECT Listagg("ctgry_name", ',') 
+                 within GROUP(ORDER BY ROWNUM) "ctgry_name" 
+        FROM   (SELECT ar.article_id "article_id", 
+                       cv.ctgry_id, 
+                       c.ctgry_name  "ctgry_name" 
+                FROM   articles ar 
+                       join ctgry_values cv 
+                         ON cv.article_id = ar.article_id 
+                       join ctgries c 
+                         ON c.ctgry_id = cv.ctgry_id 
+                WHERE  ar.article_id = #{article_id} 
+                GROUP  BY ar.article_id, 
+                          cv.ctgry_id, 
+                          c.ctgry_name) 
+        GROUP  BY "article_id")               "ctgry_name", 
+       user_id, 
+       user_nickname, 
+       user_image, 
+       (SELECT Count(li.user_id) 
+        FROM   likes li 
+        WHERE  li.article_id = #{article_id} 
+               AND li.user_id = #{login_id})     "isLikedByMe", 
+       (SELECT Count(rp.user_id) 
+        FROM   reports rp 
+        WHERE  rp.article_id = #{article_id} 
+               AND rp.user_id = #{login_id})     "isReportedByMe" 
+FROM   articles ar 
+       join users USING (user_id) 
+       left outer join ctgry_values USING (article_id) 
+       left outer join ctgries USING (ctgry_id) 
+       left outer join article_ctgries USING (article_ctgry_id) 
+       left outer join (SELECT group_id, 
+                               group_title 
+                        FROM   GROUPS) USING (group_id) 
+WHERE  article_id = #{article_id} 
+GROUP  BY article_id, 
+          article_ctgry_id, 
+          article_ctgry_description, 
+          article_scope, 
+          To_char(article_regdate, 'YYYY-MM-DD'), 
+          article_editdate, 
+          article_payment_type, 
+          article_payment_fee, 
+          article_title, 
+          article_content, 
+          article_proposal_status, 
+          group_id, 
+          group_title, 
+          user_nickname, 
+          article_deleted, 
+          user_id, 
+          user_nickname, 
+          user_image
 	</select>
 	
 	<insert id="scrapArticle">
@@ -397,7 +456,7 @@
 	SELECT ar.article_id, 
 	       ar.article_ctgry_id, 
 	       article_scope, 
-	       To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
+	       To_char(article_regdate, 'YYYY"년" MM"월" DD"일" AM hh:mm') "article_regdate", 
 	       article_editdate, 
 	       article_payment_type, 
 	       article_payment_fee, 
@@ -422,6 +481,7 @@
 	       join users us 
 	         ON us.user_id = ar.user_id 
 	WHERE  li.user_id = #{user_id} 
+	AND    ar.article_deleted = 'N'
 	ORDER  BY article_regdate DESC 
 	</select>
 	
@@ -487,7 +547,7 @@
 		SELECT article_id, 
 		       article_ctgry_id, 
 		       article_scope, 
-		       To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
+		       To_char(article_regdate, 'YYYY"년" MM"월" DD"일" AM hh:mm') "article_regdate", 
 		       article_editdate, 
 		       article_payment_type, 
 		       article_payment_fee, 
@@ -497,10 +557,12 @@
 		       group_id, 
 		       user_id, 
 		       user_nickname, 
+		       user_image,
 		       article_deleted 
 		FROM   articles 
 		       join users USING (user_id) 
 		WHERE  article_scope IN ( 'u', 'g' ) 
+		AND    article_deleted = 'N'
 		AND    SYSDATE-article_regdate <8
 		ORDER  BY article_regdate
 		]]>
@@ -515,6 +577,7 @@
 		       ON ar.group_id = gu.group_id 
 		WHERE  article_scope IN ( 'u', 'g' ) 
 		       AND SYSDATE - article_regdate < 8 
+		       AND    article_deleted = 'N'
 		ORDER  BY article_regdate
 		]]>
      </select>
@@ -524,7 +587,7 @@
 		SELECT article_id, 
 		       article_ctgry_id, 
 		       article_scope, 
-		       To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
+		       To_char(article_regdate, 'YYYY"년" MM"월" DD"일" AM hh:mm') "article_regdate", 
 		       article_editdate, 
 		       article_payment_type, 
 		       article_payment_fee, 
@@ -540,6 +603,7 @@
 		       join users USING (user_id) 
 		WHERE  article_scope IN ( 'u', 'g' ) 
 		AND    SYSDATE-article_regdate <8
+		AND    article_deleted = 'N'
 		ORDER  BY article_like_num DESC
 		]]>
      </select>
@@ -555,39 +619,60 @@
      </select>
      
      <select id="searchArticles" resultMap="articleMap">
-		SELECT article_id, 
-		       article_ctgry_id, 
-		       article_scope, 
-		       To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
-		       article_editdate, 
-		       article_payment_type, 
-		       article_payment_fee, 
-		       article_title, 
-		       article_content, 
-		       article_proposal_status, 
-		       group_id, 
-		       user_id, 
-		       user_nickname, 
-		       article_deleted, 
-		       article_like_num, 
-		       article_comment_num 
-		FROM   articles 
-		       join users USING (user_id) 
-		       join ctgry_values USING(article_id) 
-		       join ctgries USING (ctgry_id) 
-		WHERE  article_scope IN ( 'u', 'g' ) 
-		       AND article_ctgry_id IN( 1, 2 ,3) 
-		       AND ( ctgry_name LIKE #{value} 
-		              OR article_title LIKE #{value} 
-		              OR article_content LIKE #{value} ) 
-		ORDER  BY article_regdate DESC 
+SELECT article_id, 
+       article_ctgry_id, 
+       article_scope, 
+       To_char(article_regdate, 'YYYY"년" MM"월" DD"일" AM hh:mm') "article_regdate", 
+       article_editdate, 
+       article_payment_type, 
+       article_payment_fee, 
+       article_title, 
+       article_content, 
+       article_proposal_status, 
+       group_id, 
+       user_id, 
+       user_nickname, 
+       user_image, 
+       article_deleted, 
+       article_like_num, 
+       article_comment_num 
+FROM   articles 
+       join users USING (user_id) 
+       join ctgry_values USING(article_id) 
+       join ctgries USING (ctgry_id) 
+WHERE  article_scope IN ( 'u', 'g' ) 
+       AND article_deleted = 'N' 
+       AND article_ctgry_id IN( 1, 2, 3 ) 
+       AND ( ctgry_name LIKE #{value}  
+              OR article_title LIKE #{value}  
+              OR article_content LIKE #{value} ) 
+GROUP  BY article_id, 
+          article_ctgry_id, 
+          article_scope, 
+          To_char(article_regdate, 'YYYY-MM-DD'), 
+          article_regdate, 
+          'YYYY-MM-DD', 
+          article_editdate, 
+          article_payment_type, 
+          article_payment_fee, 
+          article_title, 
+          article_content, 
+          article_proposal_status, 
+          group_id, 
+          user_id, 
+          user_nickname, 
+          user_image, 
+          article_deleted, 
+          article_like_num, 
+          article_comment_num 
+ORDER  BY article_regdate DESC
      </select>
        
      <select id="searchSuggestions" resultMap="articleMap">
 		SELECT article_id, 
 		       article_ctgry_id, 
 		       article_scope, 
-		       To_char(article_regdate, 'YYYY-MM-DD') "article_regdate", 
+		       To_char(article_regdate, 'YYYY"년" MM"월" DD"일" AM hh:mm') "article_regdate", 
 		       article_editdate, 
 		       article_payment_type, 
 		       article_payment_fee, 
@@ -606,6 +691,7 @@
 		       join ctgries USING (ctgry_id) 
 		WHERE  article_scope IN ( 'u', 'g' ) 
 		       AND article_ctgry_id = 3 
+		       AND article_deleted = 'N'
 		       AND ( ctgry_name LIKE #{value} 
 		              OR article_title LIKE #{value} 
 		              OR article_content LIKE #{value} ) 
@@ -648,6 +734,7 @@
 		                            join ctgry_values USING(article_id) 
 		                            join ctgries USING (ctgry_id) 
 		                     WHERE  article_scope IN ( 'u', 'g' ) 
+		                            AND article_deleted = 'N'
 		                            AND article_ctgry_id IN( 1, 2, 3 ) 
 		                            AND ( ctgry_name LIKE #{value} 
 		                                   OR article_title LIKE #{value} 

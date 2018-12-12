@@ -90,7 +90,15 @@
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                   <li>
+                    <%-- 로그아웃 추가 --%>
+                    <form method="post" action="/salmon/customLogout" class="popup-input-search">
+		              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		              <button class="btn" style="background-color:#fff; width:200px;">로그아웃</button>
+		            </form>
+		            <%-- 로그아웃 추가 --%>
+                   <!--  <a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a> -->
+                    </li>
                   </ul>
                 </li>
 				<!--푸쉬알람  -->
@@ -215,140 +223,33 @@
                         </thead>
 
                         <tbody>
+                        <c:forEach var="article" items="${reportArticleList }">
                           <tr class="even pointer">
                             <td class="a-center ">
                               <input type="checkbox" class="flat" name="table_records">
                             </td>
-                            <td class="userId">121000040</td>
-                            <td class=" ">May 23, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210 <i class="success fa fa-long-arrow-up"></i></td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$7.45</td>
-                            <td class=" last"><a href="#">View</a>
+                            <td class="userId">${article.article_id }</td>
+                            <td class=" ">${article.article_title }</td>
+                            <td class=" ">${article.article_editdate }<i class="success fa fa-long-arrow-up"></i></td>
+                            <td class=" ">${article.user_id }</td>
+                            <td class=" ">
+                            <c:choose>
+                            <c:when test="${article.article_ctgry_id=='1' }">
+                            	수입
+                            </c:when>
+                            <c:when test="${article.article_ctgry_id=='2' }">
+                            	지출
+                            </c:when>
+                            <c:when test="${article.article_ctgry_id=='3' }">
+                            	역제안
+                            </c:when>
+                            </c:choose>
+                            </td>
+                            <td class="a-right a-right ">${article.article_report_num}</td>
+                            <td class=" last"><a href="javascript:getModal(${article.article_id });">View</a>
                             </td>
                           </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class="userId">121000039</td>
-                            <td class=" ">May 23, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208 <i class="success fa fa-long-arrow-up"></i>
-                            </td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$741.20</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class="userId">121000038</td>
-                            <td class=" ">May 24, 2014 10:55:33 PM</td>
-                            <td class=" ">121000203 <i class="success fa fa-long-arrow-up"></i>
-                            </td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$432.26</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class="userId">121000037</td>
-                            <td class=" ">May 24, 2014 10:52:44 PM</td>
-                            <td class=" ">121000204</td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$333.21</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class="userId">121000040</td>
-                            <td class=" ">May 24, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210</td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$7.45</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class="userId">121000039</td>
-                            <td class=" ">May 26, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208 <i class="error fa fa-long-arrow-down"></i>
-                            </td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$741.20</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class="userId">121000038</td>
-                            <td class=" ">May 26, 2014 10:55:33 PM</td>
-                            <td class=" ">121000203</td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$432.26</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class="userId">121000037</td>
-                            <td class=" ">May 26, 2014 10:52:44 PM</td>
-                            <td class=" ">121000204</td>
-                            <td class=" ">Mike Smith</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$333.21</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-
-                          <tr class="even pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class="userId">121000040</td>
-                            <td class=" ">May 27, 2014 11:47:56 PM </td>
-                            <td class=" ">121000210</td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$7.45</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
-                          <tr class="odd pointer">
-                            <td class="a-center ">
-                              <input type="checkbox" class="flat" name="table_records">
-                            </td>
-                            <td class="userId">121000039</td>
-                            <td class=" ">May 28, 2014 11:30:12 PM</td>
-                            <td class=" ">121000208</td>
-                            <td class=" ">John Blank L</td>
-                            <td class=" ">Paid</td>
-                            <td class="a-right a-right ">$741.20</td>
-                            <td class=" last"><a href="#">View</a>
-                            </td>
-                          </tr>
+                          </c:forEach>
                         </tbody>
                       </table>
                        <button class="btn btn-danger" style="float:right;" id="deleteBtn">삭제하기</button>		
@@ -387,22 +288,136 @@
     <!-- Custom Theme Scripts -->
     <script src="/salmon/resources/adminTemplate/build/js/custom.min.js"></script>
 
+	<script>
+	function getModal(article_id){
+		$.ajax({
+	        async: false,
+	        url: "/salmon/admin/reportShow?article_id="+article_id,
+	        method: 'get',
+	        dataType: 'json',
+	        success: function (datas) {
+	        	var domSet = ""; 
+	            for(var idx = 0; idx<datas.length; idx++){
+	            	domSet += "<tr><th>"+(idx+1)+"</th>"+
+	            	"<td>"+datas[idx].user_id+"</td>" +
+	            	"<td>"+datas[idx].report_regdate+"</td>" +
+	            	"<td>"+datas[idx].report_reason+"</td></tr>" ;
+	            }
+	        	console.log(domSet);
+	        	console.log($("#listTarget"));
+	        	document.getElementById("listTarget").innerHTML = domSet;
+	        }
+	    });
 	
-	<!-- 데이터 받기 -->
+		$("#InfoModal").modal({
+        	keyboard:false,
+        	show:true,
+        	backdrop:true
+        });
+	}
+	
+	
+	</script>
+
 	<script>
 	$("#deleteBtn").on("click", function(){
-		alert('hi');
 		var target = $("tr:has(:checked) .userId");
-		console.log(target);
+		var targetIdSet = {};
+		var temp = [];
+		for(var i = 0; i <target.length; i++){	
+			temp.push(target[i].innerText);
+		}	
+		targetIdSet["article_id"] = temp;
+		console.log(targetIdSet);
 		
-		for(var i = 0; i <target.length; i++){
-			console.log(target[i].innerText);
-		}
+		jQuery.ajaxSettings.traditional = true;
+		
+		$.ajax({
+	        url: "/salmon/admin/reportProc",
+	        data : {"articleId":temp},
+	        method: 'get',
+	        cache:false,
+	        success: function (datas) {
+   				$("#resultModal").modal({
+	            	keyboard:false,
+	            	show:true,
+	            	backdrop:true
+	            });
+	        }
+	    });
 		
 		
 	});
 	
 	</script>
+	 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true" id="InfoModal">
+       <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+
+           <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+             </button>
+             <h4 class="modal-title" id="myModalLabel">게시글 신고 내역</h4>
+           </div>
+           <div class="modal-body" id="myModalBody">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>신고 내역 <small>해당 게시글의 신고 내역입니다.</small></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>신고 유저</th>
+                          <th>신고일</th>
+                          <th>신고사유</th>
+                        </tr>
+                      </thead>
+                      <tbody id="listTarget">
+                        
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+           </div>
+           <div class="modal-footer">
+             <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+           </div>
+         </div>
+       </div>
+     </div>
+     
+     <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="resultModal">
+       <div class="modal-dialog modal-sm">
+         <div class="modal-content">
+
+           <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+             </button>
+             <h4 class="modal-title" id="myModalLabel2">처리 결과</h4>
+           </div>
+           <div class="modal-body">
+             <h4>게시글 블랙 설정 성공</h4>
+             <p>선택하신 게시글이 성공적으로 블랙리스트에 등록되었습니다.</p>
+           </div>
+           <div class="modal-footer">
+             <button type="button" class="btn btn-primary" onclick="location.href='/salmon/admin/userManage'">확인</button>
+           </div>
+
+         </div>
+       </div>
+  </div>
+	
+		
 	
   </body>
 </html>

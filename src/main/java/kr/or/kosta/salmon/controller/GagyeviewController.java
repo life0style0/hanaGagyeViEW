@@ -22,13 +22,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.or.kosta.salmon.common.PsnScore;
 import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.domain.CategoryDTO;
 import kr.or.kosta.salmon.domain.HashTagDTO;
 import kr.or.kosta.salmon.domain.ImageDTO;
 import kr.or.kosta.salmon.domain.ImageEditDTO;
 import kr.or.kosta.salmon.domain.MainArticleDTO;
+import kr.or.kosta.salmon.domain.PsnScoreDTO;
 import kr.or.kosta.salmon.service.GaArticleService;
+import kr.or.kosta.salmon.service.UserService;
 import lombok.extern.log4j.Log4j;
 
 
@@ -39,6 +42,9 @@ public class GagyeviewController {
 
 	@Inject
 	GaArticleService gaArticleService;
+
+	@Inject
+	private UserService userService;
 	
 	
 	@GetMapping("/register")
@@ -110,27 +116,31 @@ public class GagyeviewController {
 		int lastId =0;
 		if(article.getArticle_content()==null){
 			lastId=gaArticleService.createGaArticleSimple(article)-1;
-		}else{
-			lastId=gaArticleService.createGaArticle(article)-1;
+		} else {
+			lastId = gaArticleService.createGaArticle(article) - 1;
 			ArrayList<String> hashTagList = getHashTag(article.getArticle_content());
-			if(hashTagList.size() > 0){
+			if (hashTagList.size() > 0) {
 				HashTagDTO hashTagDTO;
-				for(int j = 0; j < hashTagList.size(); j++){
+				for (int j = 0; j < hashTagList.size(); j++) {
 					hashTagDTO = new HashTagDTO();
-					hashTagDTO.setHashtag_value((String)hashTagList.get(j));
+					hashTagDTO.setHashtag_value("#".concat((String)hashTagList.get(j)));
 					hashTagDTO.setArticle_id(lastId);
 					gaArticleService.createHashTag(hashTagDTO);
 				}
 			}
 		}
 		
-		 
 		
 		CategoryDTO categoryDto = new CategoryDTO();
 		categoryDto.setCtgry_id(categoryNum);
 		categoryDto.setArticle_id(lastId);
 		gaArticleService.createCategory(categoryDto);
 		
+		log.info(article);
+		PsnScoreDTO psDTO = new PsnScoreDTO(article, PsnScore.CREATE_ARTICLE);
+		psDTO.setArticleId(lastId + "");
+		userService.updatePsnScoreByArticleId(psDTO);
+		log.info(psDTO);
 		//해시태그 처리
 		
 
@@ -177,7 +187,7 @@ public class GagyeviewController {
 				HashTagDTO hashTagDTO;
 				for(int j = 0; j < hashTagList.size(); j++){
 					hashTagDTO = new HashTagDTO();
-					hashTagDTO.setHashtag_value((String)hashTagList.get(j));
+					hashTagDTO.setHashtag_value("#".concat((String)hashTagList.get(j)));
 					hashTagDTO.setArticle_id(article_id);
 					gaArticleService.createHashTag(hashTagDTO);
 				}
@@ -222,7 +232,7 @@ public class GagyeviewController {
 				HashTagDTO hashTagDTO;
 				for(int j = 0; j < hashTagList.size(); j++){
 					hashTagDTO = new HashTagDTO();
-					hashTagDTO.setHashtag_value((String)hashTagList.get(j));
+					hashTagDTO.setHashtag_value("#".concat((String)hashTagList.get(j)));
 					hashTagDTO.setArticle_id(article_id);
 					gaArticleService.createHashTag(hashTagDTO);
 				}
@@ -345,19 +355,22 @@ public class GagyeviewController {
 		int lastId =0;
 		if(article.getArticle_content()==null){
 			lastId=gaArticleService.createGaArticleGroupSimple(article)-1;
-		}else{
-			lastId=gaArticleService.createGaArticleGroup(article)-1;
+		} else {
+			lastId = gaArticleService.createGaArticleGroup(article) - 1;
 			ArrayList<String> hashTagList = getHashTag(article.getArticle_content());
-			if(hashTagList.size() > 0){
+			if (hashTagList.size() > 0) {
 				HashTagDTO hashTagDTO;
-				for(int j = 0; j < hashTagList.size(); j++){
+				for (int j = 0; j < hashTagList.size(); j++) {
 					hashTagDTO = new HashTagDTO();
-					hashTagDTO.setHashtag_value((String)hashTagList.get(j));
+					hashTagDTO.setHashtag_value("#".concat((String)hashTagList.get(j)));
 					hashTagDTO.setArticle_id(lastId);
 					gaArticleService.createHashTag(hashTagDTO);
 				}
 			}
 		}
+
+		PsnScoreDTO psDTO = new PsnScoreDTO(article, PsnScore.CREATE_ARTICLE);
+		userService.updatePsnScoreByFollowing(psDTO);
 
 		CategoryDTO categoryDto = new CategoryDTO();
 		categoryDto.setCtgry_id(categoryNum);

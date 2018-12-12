@@ -7,9 +7,6 @@
       <div class="brand-be">
         <a href="/salmon">
           <img class="logo-c active be_logo" src="/salmon/resources/template/img/logo.png" alt="logo" style="width:200px;height:48px">
-          <img class="logo-c be_logo" src="/salmon/resources/template/img/logo-green.png" alt="logo2">
-          <img class="logo-c be_logo" src="/salmon/resources/template/img/logo-orang.png" alt="logo3">
-          <img class="logo-c be_logo" src="/salmon/resources/template/img/logo-red.png" alt="logo4">
         </a>
       </div>
       <div class="header-menu-block">

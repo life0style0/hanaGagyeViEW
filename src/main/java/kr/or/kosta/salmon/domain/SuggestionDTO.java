@@ -22,7 +22,6 @@ public class SuggestionDTO {
 	private String userNickname;
     private int likeCnt;
     private int commentCnt;
-	private int scrapCnt;
 	private PsnsDTO userPsns;
     private List<String> imagePaths;
     private List<String> ctgryNames;

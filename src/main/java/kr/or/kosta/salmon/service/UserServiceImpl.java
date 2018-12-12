@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.LocationDTO_sjh;
+import kr.or.kosta.salmon.domain.PsnScoreDTO;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -31,7 +32,8 @@ public class UserServiceImpl implements UserService {
 		log.info("회원가입 시작");
 		
 		if(user.getUser_image() == null || user.getUser_image().trim().length() ==0) {
-			user.setUser_image("default img");
+			//user.setUser_image("default img");
+			user.setUser_image("images/default-user.jpg");
 		}
 		
 		UserDTO simpleUser= user.makeUserDTO();
@@ -39,6 +41,7 @@ public class UserServiceImpl implements UserService {
 		usermapper.createUser(simpleUser); //user 생성
 		log.info("createUser 끝");
 		usermapper.insertUserAuth(simpleUser); //spring security 권한 부여
+		usermapper.insertMemberAuth(simpleUser); //spring security 권한 부여
 		log.info("insertUserAuth 끝");
 		
 		usermapper.insertBasicPsns3(user);
@@ -180,6 +183,48 @@ public class UserServiceImpl implements UserService {
 	public List<UserDTO> searchUserInSNS(String value) {
 		log.info("사용자검색");
 		return usermapper.searchUserInSNS(value);
+	}
+
+	@Override
+	public UserDTO read(String user_id) {
+		return usermapper.read(user_id);
+	}
+
+	@Override
+	public void deleteBlockedUserAuth(String user_id) {
+		usermapper.deleteBlockedUserAuth(user_id);
+	}
+
+	@Override
+	public void updateUserStateBlocked(String user_id) {
+		usermapper.updateUserStateBlocked(user_id);
+	}
+
+	@Transactional
+	@Override
+	public void setUserBlocked(String user_id) {
+		usermapper.deleteBlockedUserAuth(user_id); //users_auth 테이블 변경 (이 user의 권한 삭제)
+		usermapper.updateUserStateBlocked(user_id); //users 테이블 변경 (user state 변경)
+	}
+	
+	@Override
+	public void updatePsnScoreByArticleId(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByArticleId(psnScoreDTO);
+	}
+
+	@Override
+	public void updatePsnScoreByFollowing(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByFollowing(psnScoreDTO);
+	}
+
+	@Override
+	public void updatePsnScoreByGroup(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByGroup(psnScoreDTO);
+	}
+
+	@Override
+	public void updatePsnScoreByCommentId(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByCommentId(psnScoreDTO);
 	}
 
 }

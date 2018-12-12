@@ -20,8 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.kosta.salmon.common.Criteria;
 import kr.or.kosta.salmon.common.MyPageBuilder;
-import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
+import kr.or.kosta.salmon.common.PsnScore;
 import kr.or.kosta.salmon.domain.NewSuggestionDTO;
+import kr.or.kosta.salmon.domain.PsnScoreDTO;
 import kr.or.kosta.salmon.domain.PsnsDTO;
 import kr.or.kosta.salmon.domain.SuggestionDTO;
 import kr.or.kosta.salmon.domain.SuggestionStatusDTO;
@@ -70,8 +71,8 @@ public class SuggestionController {
             model.addAttribute("newList", SS.getSuggestionListByPaging(criteria));
             model.addAttribute("likeList", SS.getSuggestionListsByLikes(criteria));
             model.addAttribute("pageBuilder", mpg);
-            model.addAttribute("recommendList", SS.getSuggestionListsByRecommend(criteria));
-            mpg = (new MyPageBuilder(SS.getTotalSuggestionByRecommend(criteria))).build(criteria);
+            model.addAttribute("recommendList", SS.getSuggestionListsByRecommend2(criteria));
+            mpg = (new MyPageBuilder(SS.getTotalSuggestionByRecommend2(criteria))).build(criteria);
             model.addAttribute("recommendPageBuilder", mpg);
             criteria.setArticleProposalStatus("J");
             model.addAttribute("judgeList", SS.getSuggestionListByPaging(criteria));
@@ -81,6 +82,10 @@ public class SuggestionController {
             model.addAttribute("confirmList", SS.getSuggestionListByPaging(criteria));
             mpg = (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria);
             model.addAttribute("confirmPageBuilder", mpg);
+            criteria.setArticleProposalStatus("F");
+            model.addAttribute("finishList", SS.getSuggestionListByPaging(criteria));
+            mpg = (new MyPageBuilder(SS.getTotalSuggestion(criteria))).build(criteria);
+            model.addAttribute("finishPageBuilder", mpg);
             model.addAttribute("categories", US.getAllCategories());
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,8 +136,8 @@ public class SuggestionController {
         criteria.setArticleProposalStatus("R");
         ResponseEntity<List<Object>> result = null;
         try {
-            List<SuggestionDTO> sgts = SS.getSuggestionListsByRecommend(criteria);
-            MyPageBuilder mpb = (new MyPageBuilder(SS.getTotalSuggestionByRecommend(criteria))).build(criteria);
+            List<SuggestionDTO> sgts = SS.getSuggestionListsByRecommend2(criteria);
+            MyPageBuilder mpb = (new MyPageBuilder(SS.getTotalSuggestionByRecommend2(criteria))).build(criteria);
             List<Object> results = new ArrayList<>();
             results.add(sgts);
             results.add(mpb);
@@ -189,6 +194,22 @@ public class SuggestionController {
             Principal principal) {
         log.info("suggestion...." + sno);
         try {
+            SuggestionDTO sgt = SS.getSuggestion(sno);
+            model.addAttribute("article", sgt);
+            model.addAttribute("checkLike", SS.checkLike(principal.getName(), sno));
+            model.addAttribute("checkFollow", SS.checkFollow(principal.getName(), sgt.getUserPsns().getUserId()));
+            model.addAttribute("userId", principal.getName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "suggestion/suggestion";
+    }
+    
+    @GetMapping("/article/{sno}")
+    public String getSuggestionGET(@PathVariable("sno") String sno, @ModelAttribute("cri") Criteria criteria, Model model,
+            Principal principal) {
+        log.info("suggestion.... getmapping for sns" + sno);
+        try {
             model.addAttribute("checkLike", SS.checkLike(principal.getName(), sno));
             log.info("");
             SuggestionDTO sgt = SS.getSuggestion(sno);
@@ -202,21 +223,11 @@ public class SuggestionController {
         return "suggestion/suggestion";
     }
 
-    // @GetMapping(value = "/news")
-    // public String newArticle(Principal principal, Model model) {
-    // log.info("newArticle...");
-    // List<CategoryDTO_sjh> categories = ;
-
-    // model.addAttribute("userId", principal.getName());
-    // return "suggestion/new";
-    // }
-
     @PostMapping(value = "/news")
     public String insertArticle(NewSuggestionDTO newSuggestionDTO, Principal principal) {
         log.info("insertArticle...");
-        log.info(newSuggestionDTO);
         newSuggestionDTO.setUserId(principal.getName());
-        log.info(newSuggestionDTO);
+        newSuggestionDTO.setAmount(PsnScore.CREATE_ARTICLE);
         try {
             SS.insertArticle(newSuggestionDTO);
         } catch (Exception e) {
@@ -224,78 +235,5 @@ public class SuggestionController {
         }
         return "redirect:/suggestion";
     }
-
-    // /**
-    // * 사용자 팔로 요청
-    // *
-    // * @param followId 팔로우 할 사용자 아이디
-    // * @param principal 내 아이디
-    // * @return
-    // */
-    // @GetMapping(value = "/follow/{followId}", produces = {
-    // MediaType.TEXT_PLAIN_VALUE })
-    // public ResponseEntity<String> followGet(@PathVariable("followId") String
-    // followId, Principal principal) {
-    // log.info(" 팔로 요청 from " + principal.getName() + " to " + followId);
-    // // 팔로 처리
-    // SNSS.askFollow(principal.getName(), followId);
-    // return new ResponseEntity<>("success", HttpStatus.OK);
-    // }
-
-    // /**
-    // * 사용자 팔로 취소 요청
-    // *
-    // * @param followId 팔로우 취소할 사용자 아이디
-    // * @param principal 내 아이디
-    // * @return
-    // */
-    // @GetMapping(value = "/unfollow/{followId}", produces = {
-    // MediaType.TEXT_PLAIN_VALUE })
-    // public ResponseEntity<String> unfollowGet(@PathVariable("followId") String
-    // followId, Principal principal) {
-    // log.info(" 언팔로 요청 from " + principal.getName() + " to " + followId);
-    // SNSS.askUnfollow(principal.getName(), followId);
-    // log.info("언팔 끝");
-    // return new ResponseEntity<>("success", HttpStatus.OK);
-    // }
-
-    // /**
-    // * 게시글 좋아요 요청
-    // *
-    // * @param articleId 게시글 아이디
-    // * @param principal
-    // * @return 갱신된 이 게시글 좋아요 수
-    // */
-    // @GetMapping(value = "/sns/like/{articleId}", produces = {
-    // MediaType.TEXT_PLAIN_VALUE })
-    // public ResponseEntity<String> likeGet(@PathVariable("articleId") int
-    // articleId, Principal principal) {
-    // log.info(" 좋아요 요청 from " + principal.getName() + " to " + articleId);
-    // if (SNSS.likeArticle(principal.getName(), articleId)) {
-    // return new
-    // ResponseEntity<>(SNSS.getArticleByArticleId(articleId).getLikes().size() +
-    // "", HttpStatus.OK);
-    // } else {
-    // return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    // }
-    // }
-
-    // /**
-    // * 게시글 좋아요 취소 요청
-    // *
-    // * @param articleId 게시글 아이디
-    // * @param principal
-    // * @return 갱신된 이 게시글 좋아요 수
-    // */
-    // @GetMapping(value = "/sns/unlike/{article-id}", produces = {
-    // MediaType.TEXT_PLAIN_VALUE })
-    // public ResponseEntity<String> unlikeGet(@PathVariable("article-id") int
-    // articleId, Principal principal) {
-    // log.info(" 안좋아요 요청 from " + principal.getName() + " to " + articleId);
-    // SNSS.unlikeArticle(principal.getName(), articleId);
-    // return new
-    // ResponseEntity<>(SNSS.getArticleByArticleId(articleId).getLikes().size() +
-    // "", HttpStatus.OK);
-    // }
 
 }

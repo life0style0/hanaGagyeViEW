@@ -9,10 +9,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.or.kosta.salmon.domain.AdminArticleInfoArtiCtgryDTO;
 import kr.or.kosta.salmon.domain.AdminArticleInfoCtgryCtDTO;
@@ -27,9 +31,15 @@ import kr.or.kosta.salmon.domain.AdminPayInfoPstageDTO;
 import kr.or.kosta.salmon.domain.AdminPayInfoTotalDTO;
 import kr.or.kosta.salmon.domain.AdminPaymentInfoRankDTO;
 import kr.or.kosta.salmon.domain.AdminPaymentTypeDTO;
+import kr.or.kosta.salmon.domain.AdminPropArticleInfoDTO;
+import kr.or.kosta.salmon.domain.AdminPropSetStatusDTO;
+import kr.or.kosta.salmon.domain.AdminReportReasonDTO;
 import kr.or.kosta.salmon.domain.AdminUserInfoDTO;
+import kr.or.kosta.salmon.domain.AdminUserManageInfoDTO;
+import kr.or.kosta.salmon.domain.ArticleDTO;
 import kr.or.kosta.salmon.service.AdminService;
 import kr.or.kosta.salmon.service.GaArticleService;
+import kr.or.kosta.salmon.service.UserService;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -42,6 +52,9 @@ public class AdminController {
 	
 	@Inject
 	GaArticleService gaArticleService;
+	
+	@Inject
+	UserService userService; //사용자 blocked 처리에서 users_auth 테이블 변경시 사용 (12.12 주현 추가)
 	
 	@GetMapping("/index")
 	public void userInfo(Model model) {
@@ -286,22 +299,144 @@ public class AdminController {
 	
 	@GetMapping("/articleManage")
 	public void articleManage(Model model) {
-		
-		
+		ArrayList<ArticleDTO> reportArticleList = adminService.getReportTargetArticle();
+		model.addAttribute("reportArticleList",reportArticleList);
+	}
+	
+	@GetMapping(value = "/reportShow", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public @ResponseBody ResponseEntity<ArrayList<AdminReportReasonDTO>> reportShow(Model model, int article_id){
+		 ArrayList<AdminReportReasonDTO> adminReportList = null;
+	     ResponseEntity<ArrayList<AdminReportReasonDTO>> rEntity = null;
+	     try {
+	    	 	adminReportList = adminService.getReportReason(article_id);
+	            rEntity = new ResponseEntity<ArrayList<AdminReportReasonDTO>>(adminReportList, HttpStatus.OK);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	            return rEntity;
+	        }
+	     return rEntity;
+	}
+	
+	@GetMapping(value = "/reportProc")
+	public @ResponseBody ResponseEntity<String> reportProcs(Model model, String[] articleId){
+		ResponseEntity<String> rEntity = null;
+		try {
+			for(String arti :articleId){
+				adminService.setReportArticleDelete(Integer.parseInt(arti));
+			}
+            rEntity = new ResponseEntity<>("success", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return rEntity;
+        }
+		return rEntity;
 	}
 	
 	@GetMapping("/userManage")
 	public void userManage(Model model) {
-		
-		
+		ArrayList<AdminUserManageInfoDTO> userInfoList = adminService.getUserManageList();
+		model.addAttribute("userInfoList",userInfoList);
 	}
+	
+	@GetMapping(value = "/blackArticleShow", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public @ResponseBody ResponseEntity<ArrayList<ArticleDTO>> blackArticleShow(Model model, String user_id){
+		 ArrayList<ArticleDTO> adminBlackArticleList = null;
+	     ResponseEntity<ArrayList<ArticleDTO>> rEntity = null;
+	     try {
+	    	 	adminBlackArticleList = adminService.getBlackUserArticle(user_id);
+	            rEntity = new ResponseEntity<ArrayList<ArticleDTO>>(adminBlackArticleList, HttpStatus.OK);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	            return rEntity;
+	        }
+	     return rEntity;
+	}
+	
+	@GetMapping(value = "/userBlockProc")
+	public @ResponseBody ResponseEntity<String> userBlockProc(Model model, String[] user_id){
+		ResponseEntity<String> rEntity = null;
+		try {
+			for(String user :user_id){
+				adminService.setUserBlock(user);
+				userService.deleteBlockedUserAuth(user); //users_auth 테이블에서 해당 user의 로그인 권한 삭제 (12.12 주현 추가)
+			}
+            rEntity = new ResponseEntity<>("success", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return rEntity;
+        }
+		return rEntity;
+	}
+	
 	
 	@GetMapping("/suggestionManage")
 	public void suggestionManage(Model model) {
+		ArrayList<ArticleDTO> propRList = adminService.getProposalArticle("R");
+		ArrayList<ArticleDTO> propJList = adminService.getProposalArticle("J");
+		ArrayList<ArticleDTO> propCList = adminService.getProposalArticle("C");
 		
-		
+		model.addAttribute("propRList",propRList);
+		model.addAttribute("propJList",propJList);
+		model.addAttribute("propCList",propCList);
 	}
-
+	
+	@GetMapping(value = "/propShow", produces = { MediaType.APPLICATION_JSON_UTF8_VALUE })
+	public @ResponseBody ResponseEntity<ArrayList<AdminPropArticleInfoDTO>> propShow(Model model, int article_id){
+		 ArrayList<AdminPropArticleInfoDTO> adminBlackArticleList = null;
+	     ResponseEntity<ArrayList<AdminPropArticleInfoDTO>> rEntity = null;
+	     try {
+	    	 	adminBlackArticleList = adminService.getProposalInfo(article_id);
+	            rEntity = new ResponseEntity<ArrayList<AdminPropArticleInfoDTO>>(adminBlackArticleList, HttpStatus.OK);
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	            return rEntity;
+	        }
+	     return rEntity;
+	}
+	
+	@GetMapping(value = "/propProc")
+	public @ResponseBody ResponseEntity<String> propProc(Model model, String[] article_id, String procType){
+		ResponseEntity<String> rEntity = null;
+		AdminPropSetStatusDTO adminPropDto = new AdminPropSetStatusDTO();
+		adminPropDto.setArticle_proposal_status(procType);
+		try {
+			for(String arti :article_id){
+				adminPropDto.setArticle_id(Integer.parseInt(arti));
+				adminService.setProposalStatus(adminPropDto);
+			}
+            rEntity = new ResponseEntity<>("success", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return rEntity;
+        }
+		return rEntity;
+	}
+	
+	@GetMapping(value = "/propResultProc")
+	public @ResponseBody ResponseEntity<String> propResultProc(Model model, String article_id, String procType, String result_value){
+		ResponseEntity<String> rEntity = null;
+		AdminPropSetStatusDTO adminPropDto = new AdminPropSetStatusDTO();
+		adminPropDto.setArticle_proposal_status(procType);
+		adminPropDto.setArticle_id(Integer.parseInt(article_id));
+		adminPropDto.setResult_value(result_value);
+		try {
+			adminService.setProposalResult(adminPropDto);
+            rEntity = new ResponseEntity<>("success", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            rEntity = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return rEntity;
+        }
+		return rEntity;
+	}
+	
+	
 	private List sortByValue(HashMap hashMap){
 		List list = new ArrayList();
 		list.addAll(hashMap.keySet());

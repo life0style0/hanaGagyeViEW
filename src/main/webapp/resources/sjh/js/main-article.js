@@ -1,31 +1,46 @@
+/**
+ * article및 article modal 관련 
+ * @author 송주현
+ */
 var myId;
 $(function() {
 	myId= $('#loginUserId').text();
+	setUserPhoto();
 	eventRegist();
 })
 
 function eventRegist(){
 	$('[id^="article-post-"]').each(function(i,post){
-		$(post).on('click',function(){
-			console.log($(this).attr('id').split('-')[2]);
-			var article= getArticleInfo($(this).attr('id').split('-')[2]);
+		$(post).on('click', function () {
+			const articleId = $(this).attr('id').split('-')[2];
+			console.log(articleId);
+			articlelist.some(function (value) {
+				if (value.article_id == articleId) {
+					console.log(value.article_ctgry_id)
+					if (value.article_ctgry_id == 3) {
+						location.href = '/salmon/suggestion/article/' + articleId;
+					} else {
+						var article= getArticleInfo(articleId);
+					}
+					return true;
+				}
+			});
+			
+		//	var article= getArticleInfoByJSON($(this).attr('id').split('-')[2]);
 			console.log(article);
 		});
 	});
 
 	$('#article-like-btn').on('click',function(){
 		likesArticle($('#article-id-modal').attr('value'));
-		//setLikedArticle();
 	});
 	
 	$('#article-unlike-btn').on('click',function(){
 		unlikesArticle($('#article-id-modal').attr('value'));
-		//setLikableArticle();
 	});
 	
 	$('#article-report-btn').on('click',function(){
 		$('#report-article-modal').modal('show');
-		//reportArticle($('#article-id-modal').attr('value'));
 	});
 	
 	$('#article-report-modal-btn').on('click',function(){
@@ -33,14 +48,12 @@ function eventRegist(){
 			var articleId= $('#article-id-modal').attr('value');
 			$('#reoport-article-id-modal').attr('value',articleId);
 			reportArticle(articleId);
-			//$('#report-article-modal').modal('hide');
 		}
 	})
 	
 	$('#report-confirm-exit-btn').on('click',function(){
 		$('#report-article-modal').modal('hide');
 	})
-	
 	
 	$('[id^=reply-form-] input[type=button]').each(function (i, btn) {
 		$(btn).on('click', function (e) {
@@ -54,7 +67,29 @@ function eventRegist(){
 	
 }
 
-function getArticleInfo(articleId){
+function setUserPhoto() {
+	$('input[name="user-profile-photo"]').each(function(i,input){ 
+		var imgpath= $(input).val();
+		$(input).closest('div').find('img').attr('src',`/salmon/image?fileName=` +showProfileImage(imgpath));
+	}) 
+}
+
+function showProfileImage(path) {
+	return encodeURI(path);
+}
+
+function getArticleInfoByJSON(articleId){
+	$(articlelist).each(function(i,article){
+		if(article.article_id== articleId){
+			setArticleModal(article);
+			setArticle(article); //이미지, 공유버튼 세팅
+			$('#article-modal').modal('show');
+		}
+	});
+}
+
+function getArticleInfo(articleId) {
+	console.log('articleId :', articleId);
 	$.ajax({
 		data: articleId,
 		type: 'get',
@@ -62,7 +97,6 @@ function getArticleInfo(articleId){
 		url: '/salmon/main/article/'+articleId,
 
 		success: function (data) {
-			console.log(data);
 			setArticleModal(data);
 			setArticle(data); //이미지, 공유버튼 세팅
 			$('#article-modal').modal('show');
@@ -81,100 +115,144 @@ function setArticleModal(article){
 	//var article=articlelist.find(article => article.article_id==num);
 	
 	console.log(article);
-	$('#article-id-modal').attr('value',article.article_id);
-	$('#article-ctgry-name').html(article.ctgry_name);
-	$('#article-title').html(article.article_title);
-	$('#article-money').html(article.article_payment_fee);
-	$('#article-ctgry').html(article.article_ctgry_description);
-	$('#article-content').html(article.article_content);
-	$('#article-regdate').html(article.article_regdate);
-	$('#article-pay-type').html(article.article_payment_type);
-	$('#article-scope').html(article.article_scope);
+	
+	if(article.article_ctgry_id==3){
+		//역제안
+	//링크걸기
+		
+	}else{
 
-	$(article.likes).each(function(i,like){
-		if(like.user_id == myId){
-			$('#article-like-btn').addClass('hidden');
-			$('#article-unlike-btn').removeClass('hidden');
+		$('#article-id-modal').attr('value',article.article_id);
+		$('#article-ctgry-name').html(article.ctgry_name);
+		$('#article-title').html(' ,'+article.article_title);
+		$('#article-money').html(article.article_payment_fee+'원 ');
+		$('#article-ctgry').html(article.article_ctgry_description);
+		
+		var contentHTML='';
+		if(article.article_content != null){
+			contentHTML= article.article_content;
+		}else{		}
+		contentHTML += '<p>';
+		$(article.hashtags).each(function(i,tag){
+			contentHTML += ' <a href="/salmon/sns/search?search-value='+tag+'">#'+tag+'</a> ';
+		});
+		contentHTML += '</p>';
+		$('#article-content').html(contentHTML);
+		$('#article-regdate').html(article.article_regdate);
+		$('#article-pay-type').html(article.article_payment_type);
+		var articleScope= checkScope(article.article_scope);
+		
+		if(article.article_ctgry_id == 4 || article.article_ctgry_id == 5){
+			//그룹 게시글이면 그룹 이름 달기
+			articleScpe += '   from '+article.group_title;
 		}else{
-			$('#article-like-btn').removeClass('hidden');
-			$('#article-unlike-btn').addClass('hidden');
+			//지출 수입 게시글
 		}
-	})
-	
-	$('#article-writer-nickname').html('<a href="/salmon/sns/feeds?userid='+article.user_nickname+'">'+article.user_nickname+'</a>');
-	$('#article-modal form').attr('id','reply-form-'+article.article_id);
-	$('#article-modal form input[name="article_id"]').attr('value',article.article_id);
-	$('#article-modal form input[type="button"]').attr('id','reply-write-btn-'+article.article_id);
-	
-	var commentsHTML='';
-	
-	if(article.comments.length > 0){
-		$(article.comments).each(function(i,comment){
-			console.log(comment);
-			commentsHTML +=
-			`<div class="be-comment">
-			<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
-			<input type="hidden" name="article-id" value="`+comment.article_id+`">
-					<div>
-						<span class="be-comment-name">
-							<a href="/salmon/sns/feeds?userid=`+comment.user_id+`">
-							`+comment.user_nickname+`
-							</a>
-						</span>
-						<span class="be-comment-time float-right">`;
-			if(myId == comment.user_id){
-				commentsHTML +=
-				`<span name="comment-delete-btn" class="comment-delete-btn">
-				<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
-					<i class="fas fa-times"></i>삭제 
-				</span>`;
+		$('#article-scope').html(articleScope);
+		
+		var imgpath=article.user_image;
+		//$('#article-modal input[name="user-profile-photo"]').val();
+		$('#article-modal #article-writer-photo').attr('src',`/salmon/image?fileName=` +showProfileImage(imgpath));
+		
+		$(article.likes).each(function(i,like){
+			if(like.user_id == myId){
+				$('#article-like-btn').addClass('hidden');
+				$('#article-unlike-btn').removeClass('hidden');
+			}else{
+				$('#article-like-btn').removeClass('hidden');
+				$('#article-unlike-btn').addClass('hidden');
 			}
-			commentsHTML +=		
-						`<i class="fa fa-clock-o"></i>`
-						+comment.comment_regdate+
-						`</span>
-						<p class="be-comment-text">`
-						+comment.comment_content+
-						`</p>
-					</div>
-				</div>`;
 		})
-	}
-	
-	$('#article-modal #comment-area').html(commentsHTML);
-	
-	console.log(article.likes);
-	if(article.likes != null){ //좋아요 있는 글
-		if(article.likes.find(function(like){
-			return like.user_id==myId;}) != null) {
-			//이미 좋아요 한 글
-			setLikedArticle(article.likes.length);
-		} else{
+		
+		console.log(article.isReportedByMe>0);
+		var isReported=article.isReportedByMe;
+		if( Number(isReported) >0){ //이미 내가 신고한 게시글
+			$('#article-modal #article-report-btn').addClass('hidden');
+			$('#article-modal #article-report-complete-btn').removeClass('hidden');
+		}else{ //아직 신고하지 않은 게시글
+			$('#article-modal #article-report-complete-btn').addClass('hidden');
+			$('#article-modal #article-report-btn').removeClass('hidden');
+		}
+		
+		
+		$('#article-writer-nickname').html('<a href="/salmon/sns/feeds?userid='+article.user_nickname+'">'+article.user_nickname+'</a>');
+		$('#article-modal form').attr('id','reply-form-'+article.article_id);
+		$('#article-modal form input[name="article_id"]').attr('value',article.article_id);
+		$('#article-modal form input[type="button"]').attr('id','reply-write-btn-'+article.article_id);
+		
+		var commentsHTML='';
+		
+		if(article.comments.length > 0){
+			$(article.comments).each(function(i,comment){
+				console.log(comment);
+				commentsHTML +=
+				`<div class="be-comment">
+				<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
+				<input type="hidden" name="article-id" value="`+comment.article_id+`">
+						<div>
+							<span class="be-comment-name">
+								<a href="/salmon/sns/feeds?userid=`+comment.user_id+`">
+								`+comment.user_nickname+`
+								</a>
+							</span>
+							<span class="be-comment-time float-right">`;
+				if(myId == comment.user_id){
+					commentsHTML +=
+					`<span name="comment-delete-btn" class="comment-delete-btn">
+					<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
+						<i class="fas fa-times"></i>삭제 
+					</span>`;
+				}
+				commentsHTML +=		
+							`<i class="fa fa-clock-o"></i>`
+							+comment.comment_regdate+
+							`</span>
+							<p class="be-comment-text">`
+							+comment.comment_content+
+							`</p>
+						</div>
+					</div>`;
+			})
+		}
+		
+		$('#article-modal #comment-area').html(commentsHTML);
+		
+		console.log(article.likes);
+		if(article.likes != null){ //좋아요 있는 글
+			if(article.likes.find(function(like){
+				return like.user_id==myId;}) != null) {
+				//이미 좋아요 한 글
+				setLikedArticle(article.likes.length);
+			} else{
+				//좋아요 안한 글
+				setLikableArticle(article.likes.length);
+			}
+		}else{ //좋아요 없는 글
 			//좋아요 안한 글
 			setLikableArticle(article.likes.length);
 		}
-	}else{ //좋아요 없는 글
-		//좋아요 안한 글
-		setLikableArticle(article.likes.length);
-	}
-	
-	console.log(article.scraps);
-	if(article.scraps != null){ //스크랩 있는 글
-		if(article.scraps.find(function(scrap){
-			return scraps.user_id==myId;}) != null) {
-			//이미 스크랩 한 글
-			setScrapedArticle(article.likes.length);
-		} else{
+		
+		console.log(article.scraps);
+		if(article.scraps != null){ //스크랩 있는 글
+			if(article.scraps.find(function(scrap){
+				return scraps.user_id==myId;}) != null) {
+				//이미 스크랩 한 글
+				setScrapedArticle(article.likes.length);
+			} else{
+				//스크랩 안한 글
+				setScrapableArticle(article.likes.length);
+			}
+		}else{ //스크랩 없는 글
 			//스크랩 안한 글
 			setScrapableArticle(article.likes.length);
 		}
-	}else{ //스크랩 없는 글
-		//스크랩 안한 글
-		setScrapableArticle(article.likes.length);
+		
+		
+		$('#article-comments-btn').html('<i class="fas fa-comment"></i>'+article.comments.length);
+		$('#article-modal').one('hide.bs.modal', function () {
+			resetArticleModal();
+	    });
 	}
-	
-	
-	$('#article-comments-btn').html('<i class="fas fa-comment"></i>'+article.comments.length);
 }
 
 function setLikedArticle(likesnum){
@@ -402,43 +480,83 @@ function eventRegistOnShare(article, info) {
     });
 }
 
+function checkScope(scope) {
+    if (scope === 'u') {
+        return '공개';
+    } else if (scope === 'r') {
+        return '나만';
+    } else if (scope === 'g') {
+    	return '소모임';
+    }
+    return 'error';
+}
+
+function resetArticleModal() {
+    $('.article-carousel').trigger('destroy.owl.carousel');
+    $('.article-carousel').removeClass('owl-hidden');
+    $('.article-carousel').html('');
+    // $('#article-modal').off('shown.bs.modal');
+}
+
 /**
  * 특정 가계부 정보를 클릭시 보여줄 값들을 세팅하는 함수
  * @param {*} article 가계부 정보
  * @param {*} info 가계부 정보
  */
 function setArticle(article, info) {
-	//이미지, 공유버튼 세팅
-	console.log(article.article_id);
-	console.log(article.imagePaths);
-    if (!article) {
+	 if (!article) {
         alert('data가 없습니다.');
     }
     if (article.imagePaths.length === 0) {
-        $('#article-modal .modal-dialog').addClass('ggv-no-image');
+        $('.article-modal .modal-dialog').addClass('no-image-modal');
     } else {
-        $('#article-modal .modal-dialog').removeClass('ggv-no-image');
+        $('.article-modal .modal-dialog').removeClass('no-image-modal');
         for (let i = 0; i < article.imagePaths.length; i += 1) {
             const imagePath = article.imagePaths[i];
-            $('.article-carousel').append('<img class="article-image center-block owl-lazy" data-src="/salmon/main/image?fileName='+imagePath+'" alt="">');
+            $('.article-carousel').append(`<img class="center-block owl-lazy invisible" data-src="/salmon/image?fileName=${imagePath}" alt="">`);
         }
+        $('.article-carousel').one('loaded.owl.lazy', function () {
+            $('.article-carousel').trigger('prev.owl.carousel');
+            $('.article-carousel .owl-lazy').each(function (key, value) {
+                if ($(value).height() > $(value).width()) {
+                    $(value).addClass('article-image-h');
+                    $(value).removeClass('article-image-w');
+                } else if ($(value).height() < $(value).width()) {
+                    $(value).addClass('article-image-w');
+                    $(value).removeClass('article-image-h');
+                } else {
+                    $(value).removeClass('article-image-w');
+                    $(value).removeClass('article-image-h');
+                    $(value).addClass('article-image');
+                }
+            });
+            $('.article-carousel .owl-lazy').removeClass('invisible');
+        });
 
-        $('.article-carousel').owlCarousel({
-            items: 1,
-            loop: true,
-            margin: 10,
-            nav: true,
-            navText: [
-                "<i class='fa fa-angle-left'></i>",
-                "<i class='fa fa-angle-right'></i>"
-            ],
-            dots: false,
-            lazyLoad: true
+        $('#article-modal').one('shown.bs.modal', function () {
+            setTimeout(() => {
+                $('.article-carousel').owlCarousel({
+                    items: 1,
+                    loop: true,
+                    margin: 10,
+                    nav: true,
+                    navText: [
+                        "<i class='fa fa-angle-left'></i>",
+                        "<i class='fa fa-angle-right'></i>"
+                    ],
+                    dots: false,
+                    lazyLoad: true
+                });
+            }, 500);
+        });
+
+        $('#article-modal').one('hide.bs.modal', function () {
+            resetArticleModal();
         });
     }
 
-    // 내가 쓴 글인지 확인
-    if (true) {
+ // 내가 쓴 글인지 확인
+    if (myId==article.user_id) {
         if (article.articleScope !== undefined) {
             const scope = checkScope(article.articleScope);
             $('#article-scope').html(`, ${scope}`);
@@ -459,7 +577,9 @@ function setArticle(article, info) {
 
         // 내가 쓴 글이면 수정이 보여야 함.
         $('#article-edit-btn').removeClass('hidden');
-        $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=${article.articleId}`);
+        $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=`+article.article_id);
+        $('#article-delete-btn').removeClass('hidden');
+        $('#article-delete-btn a').attr('href', `/salmon/article/delete?article_id=`+article.article_id);
     } else {
         $('#article-edit-btn').addClass('hidden');
     }
@@ -493,7 +613,7 @@ function writeReply(e) {
 		lastCommentId: lastCommentId,
 		_csrf: $('input[name="_csrf"]').val()
 	};
-
+	console.log('sendData :', sendData);
 	$.ajax({
 		data: sendData,
 		type: 'post',
@@ -559,8 +679,10 @@ function setModalCommentNum(num) {
 	var currentNum = $('#article-comments-btn').text();
 	console.log(currentNum);
 	if (Number(num) < 0) {
-		$('#article-comments-btn').html(`<i class="fas fa-comment"></i>`+Number(currentNum) - 1);
+		alert('댓글삭제');
+		$('#article-comments-btn').html(`<i class="fas fa-comment"></i>`+(Number(currentNum) - 1));
 	} else {
+		alert('댓글추가');
 		$('#article-comments-btn').html(`<i class="fas fa-comment"></i>`+(Number(currentNum) + Number(num)));
 	}
 }

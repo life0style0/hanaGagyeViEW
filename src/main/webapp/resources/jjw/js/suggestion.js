@@ -55,7 +55,7 @@ function appendCommentJjw(comment) {
     <div class="be-img-comment">
         <a href="">
             <input type="hidden" class="imagePath" value="/salmon/image?fileName=${comment.user_image}">
-            <img src="" alt="" class="be-ava-comment image-src thumbnail-comment">
+            <img src="/salmon/image?fileName=${showImage(comment.user_image)}" alt="" class="be-ava-comment image-src thumbnail-comment">
         </a>
     </div>
     <div class="be-comment-content">
@@ -279,6 +279,7 @@ $(function () {
         // return false;
     })
 
+    $('.be-comment-block').off('click');
     $('.be-comment-block').on('click', '.comment-delete-btn', function (e) {
         e.preventDefault();
         const btn = this;
@@ -381,20 +382,19 @@ $(function () {
         $('.show-article-main').removeClass('hidden');
     });
 
-    $('.tag-input').on('keypress', function (e) {
-        const value = $(this).val();
+    $('.tag-input').on('keydown', function (e) {
+        const value = $(this).val().trim();
         if (value.length > 0) {
-            if (value.charAt(value.length-1) === ',') {
+            if (e.keyCode == 32 || e.keyCode == 44 || e.keyCode == 13 || e.keyCode == 9) {
+                e.preventDefault();
                 makeHashtag(this);
                 $(this).val('');
-                e.preventDefault();
                 return false;
             }
-            if (e.keyCode == 32 || e.keyCode == 13 || e.keyCode == 9) {
-                makeHashtag(this);
-                $(this).val('');
+            $(this).width(200 + value.length * 3);
+        } else {
+            if (e.keyCode == 32 || e.keyCode == 44) {
                 e.preventDefault();
-                return false;
             }
         }
     });
@@ -409,5 +409,9 @@ $(function () {
                 return false;
             }
         });
+    });
+
+    $('.form-hashtag').on('click', function () {
+        $('.tag-input').focus();
     });
 });

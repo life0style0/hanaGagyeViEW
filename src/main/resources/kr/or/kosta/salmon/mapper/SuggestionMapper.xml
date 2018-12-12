@@ -16,7 +16,6 @@
                 <result property="userNickname" column="user_nickname"/>
                 <result property="likeCnt" column="likes_num"/>
                 <result property="commentCnt" column="comments_num"/>
-                <result property="scrapCnt" column="scraps_num"/>
                 <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
                 <collection property="hashtags" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getHashtagByArticleId"/>
         </resultMap>
@@ -32,7 +31,6 @@
                 <result property="articleProposalStatus" column="article_proposal_status"/>
                 <result property="likeCnt" column="likes_num"/>
                 <result property="commentCnt" column="comments_num"/>
-                <result property="scrapCnt" column="scraps_num"/>
                 <association property="userPsns" column="user_id" javaType="kr.or.kosta.salmon.domain.PsnsDTO" select="getPsns"/>
                 <collection property="imagePaths" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getImages"/>
                 <collection property="ctgryNames" column="article_id" javaType="java.util.ArrayList" ofType="string" select="getCtgryName"/>
@@ -172,10 +170,7 @@ SELECT article_id,
        article_proposal_status, 
        user_id, 
        "likes_num", 
-       "comments_num", 
-       (SELECT Count(scrap_id) 
-        FROM   scraps sc 
-        WHERE  sc.article_id = "ar".article_id)    "scraps_num" 
+       "comments_num"
 FROM   (SELECT ROWNUM rn, 
                article_id, 
                article_regdate, 
@@ -223,6 +218,19 @@ FROM   (SELECT ROWNUM rn,
 WHERE  rn                 <![CDATA[ > ]]> (#{pageNum} - 1) * #{maxArticleNum}   
         </select>
 
+        <select id="getSuggestionListsByRecommend2" statementType="CALLABLE" parameterType="kr.or.kosta.salmon.domain.SuggestionProcDTO">
+begin
+ suggeestion_recommend(
+ #{userId, mode=IN, jdbcType=VARCHAR, javaType=String},
+ #{pagenumR, mode=IN, jdbcType=VARCHAR, javaType=String},
+ #{pagenumL, mode=IN, jdbcType=VARCHAR, javaType=String},
+ #{articleProposalStatus, mode=IN, jdbcType=VARCHAR, javaType=String},
+ #{criteria, mode=IN, jdbcType=VARCHAR, javaType=String},
+ #{resultset, mode=OUT, jdbcType=CURSOR, javaType=ResultSet, resultMap=suggestionLists} );
+end;
+        </select>
+        
+
         <select id="userSuggestionStatus" resultType="kr.or.kosta.salmon.domain.SuggestionStatusDTO">
 SELECT /*+INDEX(articles idx_article_ctgry)*/ article_proposal_status "articleProposalStatus", 
                                               Count(article_proposal_status) "articleProposalNum", 
@@ -264,10 +272,7 @@ SELECT article_id,
        user_id, 
        user_nickname,
        article_like_num "likes_num", 
-       article_comment_num "comments_num", 
-       (SELECT Count(scrap_id) 
-        FROM   scraps 
-        WHERE  article_id = #{article_id})    "scraps_num" 
+       article_comment_num "comments_num"
 FROM    articles join users using(user_id)
 WHERE   article_id = #{article_id}
         </select>
@@ -345,6 +350,20 @@ WHERE  ( article_ctgry_id = 3
                                                 user_id = #{userId}))
         </select>
 
+        <select id="getTotalSuggestionByRecommend2" statementType="CALLABLE" parameterType="kr.or.kosta.salmon.domain.SuggestionProcDTO">
+declare
+        result number;
+begin
+        suggeestion_recommend_total(
+        #{userId, mode=IN, jdbcType=VARCHAR, javaType=String},
+        #{articleProposalStatus, mode=IN, jdbcType=VARCHAR, javaType=String},
+        #{criteria, mode=IN, jdbcType=VARCHAR, javaType=String},
+        result);
+
+#{resultNum, mode=OUT, jdbcType=INTEGER, javaType=int} := result;
+end;       
+        </select>
+
         <select id="getPsns" resultType="kr.or.kosta.salmon.domain.PsnsDTO">
 SELECT psn_id "psnId", 
        user_id "userId",
@@ -376,10 +395,11 @@ FROM articles
 WHERE article_id = #{articleId}
         </select>
 
-        <insert id="insertArticle">
+        <insert id="insertArticle" statementType="CALLABLE" parameterType="kr.or.kosta.salmon.domain.NewSuggestionDTO">
 DECLARE
   articleid NUMBER; 
   hashid NUMBER;
+  result NUMBER;
 BEGIN 
     SELECT article_id_seq.nextval 
     INTO   articleid 
@@ -387,7 +407,7 @@ BEGIN
 
     INSERT INTO articles 
                 (article_id, 
-                 article_ctgry_id, 
+                 article_ctgry_id,
                  article_scope, 
                  article_title, 
                  article_content, 
@@ -426,7 +446,10 @@ BEGIN
     VALUES     (ctgry_value_id_seq.nextval, 
                 #{ctgry3}, 
                 articleid);
+
 <foreach collection="hashtags" item="hashtag" separator="  ">
+
+   hashid := 0;
 
    SELECT (SELECT hashtag_id 
     FROM   hashtags 
@@ -452,6 +475,7 @@ BEGIN
       VALUES     (hashtag_ref_id_seq.NEXTVAL, 
                   hashid, 
                   articleid);
+
     ELSIF hashid = 0 THEN
       SELECT hashtag_id_seq.NEXTVAL 
       INTO   hashid 
@@ -480,6 +504,10 @@ BEGIN
                   articleid); 
     END IF;
     </foreach>
+
+    ps_score_by_article_id(#{userId} , articleid, #{amount}, result);
+
+    #{result, mode=OUT, jdbcType=INTEGER, javaType=int} := result;
 END;
         </insert>
 

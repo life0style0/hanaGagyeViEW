@@ -90,14 +90,14 @@ function setCroppie(file) {
                     height: 500
                 }
             });
-            $('.user-image').on('shown.bs.modal', function () {
+            $('.user-image').one('shown.bs.modal', function () {
                 myCroppie.croppie('bind', {
                     url: e.target.result,
                     zoom: true
                 });
             });
 
-            $('#uploadImage').on('click', function () {
+            $('#uploadImage').one('click', function () {
                 $('.user-image').modal('hide');
 
                 myCroppie.croppie('result', {

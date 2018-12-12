@@ -7,6 +7,8 @@ function checkScope(scope) {
         return '공개';
     } else if (scope === 'r') {
         return '나만';
+    } else if (scope === 'g') {
+    	return '소모임';
     }
     return 'error';
 }
@@ -100,9 +102,14 @@ function resetArticleModal() {
  * @param {*} info 가계부 정보
  */
 function setArticle(article, info) {
+    console.log('article :', article);
     if (!article) {
         alert('data가 없습니다.');
     }
+
+    $('#article-id-modal').val(article.articleId);
+    $('input[name="article_id"]').val(article.articleId);
+
     if (article.imagePaths.length === 0) {
         $('.article-modal .modal-dialog').addClass('no-image-modal');
     } else {
@@ -165,12 +172,53 @@ function setArticle(article, info) {
     }
 
     let articleContentHTML = article.articleContent;
+    articleContentHTML += '<p>';
     for (let i = 0; i < article.hashtags.length; i += 1) {
         const hashtag = article.hashtags[i];
         articleContentHTML += ` <a class="hashtag">${hashtag}</a>`;
     }
+    articleContentHTML += '</p>';
     $('#article-content').html(`${articleContentHTML}`);
-    $('#article-writer-nickname').html($('#loginUserId').text());
+
+    var commentsHTML='';
+	
+	if(article.comments.length > 0){
+		$(article.comments).each(function(i,comment){
+			console.log(comment);
+			commentsHTML +=
+			`<div class="be-comment">
+			<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
+			<input type="hidden" name="article-id" value="`+comment.article_id+`">
+					<div>
+						<span class="be-comment-name">
+							<a href="/salmon/sns/feeds?userid=`+comment.user_id+`">
+							`+comment.user_nickname+`
+							</a>
+						</span>
+						<span class="be-comment-time float-right">`;
+			if(myId == comment.user_id){
+				commentsHTML +=
+				`<span name="comment-delete-btn" class="comment-delete-btn">
+				<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
+					<i class="fas fa-times"></i>삭제 
+				</span>`;
+			}
+			commentsHTML +=		
+						`<i class="fa fa-clock-o"></i>`
+						+comment.comment_regdate+
+						`</span>
+						<p class="be-comment-text">`
+						+comment.comment_content+
+						`</p>
+					</div>
+				</div>`;
+		})
+	}
+    $('#article-modal #comment-area').html(commentsHTML);
+
+
+    $('#article-comments .comment-userId').html(article.userPsns.userNickname);
+    $('#article-writer-nickname').html(article.userPsns.userNickname);
     $('#article-regdate').html(article.articleRegdate);
     if (article.articlePaymentType !== undefined) {
         $('#article-pay-type').html(`, ${article.articlePaymentType}`);
@@ -186,6 +234,13 @@ function setArticle(article, info) {
     } else {
         $('#article-ctgry-name').html('');
     }
+
+    if (article.checkLike > 0) {
+        $('#article-unlike-btn').html(`<i class="fas fa-thumbs-up"></i> ${article.likeCnt}`).removeClass('hidden');
+    } else {
+        $('#article-like-btn').html(`<i class="far fa-thumbs-up"></i> ${article.likeCnt}`).removeClass('hidden');
+    }
+    $('#article-comments-btn').html(`<i class="fas fa-comment"></i> ${article.commentCnt}`).removeClass('hidden');
 
     // 내가 쓴 글인지 확인
     if (true) {
@@ -208,6 +263,8 @@ function setArticle(article, info) {
         }
 
         // 내가 쓴 글이면 수정이 보여야 함.
+        $('#article-report-btn').addClass('hidden');
+        $('#article-report-complete-btn').addClass('hidden');
         $('#article-edit-btn').removeClass('hidden');
         $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=${article.articleId}`);
         $('#article-delete-btn').removeClass('hidden');

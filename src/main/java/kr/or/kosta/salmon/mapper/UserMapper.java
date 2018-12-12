@@ -1,11 +1,13 @@
 package kr.or.kosta.salmon.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.LocationDTO_sjh;
+import kr.or.kosta.salmon.domain.PsnScoreDTO;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -75,11 +77,21 @@ public interface UserMapper {
 	
 	//권한 삭제
 	public void deleteUserAuth(String user_id);
+	public void deleteBlockedUserAuth(String user_id);
+	public void updateUserStateBlocked(String user_id);
 	
 	//지역정보 전체 가져오기
 	public List<LocationDTO_sjh> getAllLocations();
 	
 	//sns 페이지에서 사용자 검색
 	public List<UserDTO> searchUserInSNS(@Param("value") String value);
+	
+	public void updatePsnScoreByArticleId(PsnScoreDTO psnScoreDTO);
+
+	public void updatePsnScoreByFollowing(PsnScoreDTO psnScoreDTO);
+
+	public void updatePsnScoreByGroup(PsnScoreDTO psnScoreDTO);
+
+	public void updatePsnScoreByCommentId(PsnScoreDTO psnScoreDTO);
 	
 }

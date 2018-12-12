@@ -24,6 +24,7 @@
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/common.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.3.2/css/bootstrap-slider.min.css">
+	<link rel="stylesheet" href="/salmon/resources/sjh/css/article.css">
 </head>
 
 <body>
@@ -296,12 +297,19 @@
 		<script src="/salmon/resources/jjw/js/owl.carousel.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.3.2/bootstrap-slider.min.js"></script>
 		<script src="https://code.highcharts.com/highcharts.src.js"></script>
+		<script src="/salmon/resources/sjh/js/main-article.js"></script>
 		<script src="/salmon/resources/jjw/js/validator.js"></script>
 		<script src="/salmon/resources/jjw/js/global.js"></script>
 		<script src="/salmon/resources/jjw/js/accountbook-calendar.js"></script>
 		<script src="/salmon/resources/jjw/js/accountbook-chart.js"></script>
 		<script src="/salmon/resources/jjw/js/accountbook-global.js"></script>
-
+		<script type="text/javascript">
+			var me;
+			$(function(){ 
+					//내정보 불러오기
+					me= ${meJSON};
+				});
+		</script>
 </body>
 
 </html>

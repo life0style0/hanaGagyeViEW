@@ -102,7 +102,15 @@
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li>
+                    <%-- 로그아웃 추가 --%>
+                    <form method="post" action="/salmon/customLogout" class="popup-input-search">
+		              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		              <button class="btn" style="background-color:#fff; width:200px;">로그아웃</button>
+		            </form>
+		            <%-- 로그아웃 추가 --%>
+                   <!--  <a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a> -->
+                    </li>
                   </ul>
                 </li>
 				<!--푸쉬알람  -->

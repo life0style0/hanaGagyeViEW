@@ -461,20 +461,91 @@ function calendarMYClicked() {
     $('.calendar-head .datepic').datepicker('show');
 }
 
+// function setLikedArticle(likesnum){
+// 	$('#article-like-btn').addClass('hidden');
+// 	$('#article-unlike-btn').removeClass('hidden');
+// //	$('#article-like-btn').css('display','none');
+// //	$('#article-unlike-btn').css('display','inline');
+// 	$('#article-unlike-btn').html('<i class="fas fa-thumbs-up"></i>'+likesnum);
+// }
+
+// function setLikableArticle(likesnum){
+// 	$('#article-like-btn').removeClass('hidden');
+// 	$('#article-unlike-btn').addClass('hidden');
+// //	$('#article-unlike-btn').css('display','none');
+// //	$('#article-like-btn').css('display','inline');
+// 	$('#article-like-btn').html('<i class="far fa-thumbs-up"></i>'+likesnum);
+// }
+
+// function setScrapedArticle(scrapsnum){
+// 	$('#article-scrap-btn').css('display','none');
+// 	$('#article-unscrap-btn').css('display','inline');
+// 	$('#article-unscrap-btn').html('<i class="fas fa-bookmark"></i>'+scrapsnum);
+// }
+
+// function setScrapableArticle(scrapsnum){
+// 	$('#article-unscrap-btn').css('display','none');
+// 	$('#article-scrap-btn').css('display','inline');
+// 	$('#article-scrap-btn').html('<i class="far fa-bookmark"></i>'+scrapsnum);
+// }
+
+// /**
+//  * 게시글 좋아요 요청
+//  * @param articleId
+//  * @returns
+//  */
+// function likesArticle(articleId){
+// 	console.log(articleId);
+// 	$.ajax({
+// 		data: articleId,
+// 		type: 'get',
+// 		//async: false,
+// 		url: '/salmon/sns/like/'+articleId,
+
+// 		success: function (data) {
+// 			data = data.trim();
+// 			setLikedArticle(data);
+
+// 		},
+// 		error: function (xhr,status,er) {
+// 			alert('데이터 수신 에러');
+// 			console.log(xhr);
+// 			console.log(status);
+// 			console.log(er);
+// 		}
+// 	});
+// }
+
+// /**
+//  * 게시글 좋아요 취소 요청
+//  * @param articleId
+//  * @returns
+//  */
+// function unlikesArticle(articleId){
+// 	console.log(articleId);
+// 	$.ajax({
+// 		data: articleId,
+// 		type: 'get',
+// 		//async: false,
+// 		url: '/salmon/sns/unlike/'+articleId,
+
+// 		success: function (data) {
+// 			data = data.trim();
+// 			setLikableArticle(data);
+// 		},
+// 		error: function (xhr,status,er) {
+// 			alert('데이터 수신 에러');
+// 			console.log(xhr);
+// 			console.log(status);
+// 			console.log(er);
+// 		}
+// 	});
+// }
+
 /**
  * DOM 객체가 load 된 이후에 실행하기 위한 코드들
  */
 $(function () {
-    // $.ajax({
-    //     async: false,
-    //     url: '/salmon/accountbook/psns',
-    //     method: 'get',
-    //     dataType: 'json',
-    //     success: function (psns) {
-    //         psnMonthlyPayment = psns.psnMonthlyPayment;
-    //         psnMonthStart = psns.psnMonthStart;
-    //     }
-    // });
     psnMonthStart = $('input[name="psnMonthStart"]').val();
     psnMonthlyPayment = $('input[name="psnMonthlyPayment"]').val();
 
@@ -536,6 +607,7 @@ $(function () {
             $('#psn-edit').before(`<div class="jjw-alert alert-month-start alert-monthly-payment alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>경고!</strong> 값을 입력하지 않고는 수정할 수 없습니다!</div>`);
+            return;
         } else if (!monthStart && (!isValidIntJjw(monthStartT, 1, 2) || monthStartT < 1 || monthStartT > 31)) {
             if (!$('#psn-edit').prev().hasClass('alert-month-start')) {
                 $('#psn-edit').before(`<div class="jjw-alert alert-month-start alert alert-warning alert-dismissible" role="alert">
@@ -603,4 +675,21 @@ $(function () {
         }
     });
 
+    // $('#article-like-btn').on('click',function(){
+	// 	likesArticle($('#article-id-modal').attr('value'));
+	// });
+	
+	// $('#article-unlike-btn').on('click',function(){
+	// 	unlikesArticle($('#article-id-modal').attr('value'));
+    // });
+    
+    // $('[id^=reply-form-] input[type=button]').each(function (i, btn) {
+	// 	$(btn).on('click', function (e) {
+	// 		writeReply(e);
+	// 	});
+	// });
+
+	// $('#article-modal').on('click', '[name="comment-delete-btn"]', function (e) {
+	// 	deleteReply(e);
+	// });
 });

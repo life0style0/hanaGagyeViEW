@@ -4,9 +4,11 @@ import java.io.File;
 import java.nio.file.Files;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,14 +23,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import kr.or.kosta.salmon.domain.CommentDTO;
 import kr.or.kosta.salmon.domain.GroupDTO_lhr;
 import kr.or.kosta.salmon.domain.HashTagGroupDTO;
 import kr.or.kosta.salmon.domain.MainChartDTO;
-import kr.or.kosta.salmon.domain.MainFeedArticlesDTO;
 import kr.or.kosta.salmon.domain.ReportDTO;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.UserDTO;
@@ -55,7 +52,7 @@ public class MainController {
 		log.info("main컨트롤러 진입");
 		String user_id = principal.getName();
 		ArrayList<HashTagGroupDTO> hashTagList = (ArrayList)mainService.getHashTagGroup(user_id);
-		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)snsService.getSNSArticles(user_id);
+		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)snsService.getSNSArticles(principal.getName(),user_id);
 
 		MainChartDTO mainchartIncomeInfo = mainService.getChartTotalIncomeFee(user_id);
 		MainChartDTO mainchartSpendInfo = mainService.getChartTotalSpendFee(user_id);
@@ -73,6 +70,10 @@ public class MainController {
 		model.addAttribute("mainchartSpendInfo", mainchartSpendInfo);
 		model.addAttribute("articleList", articleList);
 		model.addAttribute("hashTagList", hashTagList);
+		
+		for (SNSArticleDTO_sjh article : articleList) {
+			log.info(article);
+		}
 		
 		//ArrayList<SNSArticleDTO_sjh> articleListJSON = (ArrayList)snsService.getSNSArticles(user_id);
 		ObjectMapper objmapper= new ObjectMapper();
@@ -119,9 +120,9 @@ public class MainController {
 	@GetMapping(value="/main/article/{articleId}",
 			produces= {MediaType.APPLICATION_JSON_UTF8_VALUE})
 	public ResponseEntity<SNSArticleDTO_sjh> getArticleGET(@PathVariable("articleId") int articleId, Principal principal,  Model model) {
-		log.info("article 정보 업데이트");
+		log.info("article 정보 업데이트 from "+principal.getName()+" to "+articleId);
 		String user_id = principal.getName();
-		SNSArticleDTO_sjh article= snsService.getArticleByArticleId(articleId);
+		SNSArticleDTO_sjh article= snsService.getArticleByArticleId(user_id,articleId);
 		log.info(article);
 		return new ResponseEntity<SNSArticleDTO_sjh>(article,HttpStatus.OK);
 		//model.addAttribute("article", article);

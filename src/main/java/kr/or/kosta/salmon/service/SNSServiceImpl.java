@@ -19,6 +19,7 @@ import kr.or.kosta.salmon.domain.SNSUserPageWithoutAtriclesDTO;
 import kr.or.kosta.salmon.domain.ScrapDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.mapper.SNSMapper;
+import kr.or.kosta.salmon.mapper.UserMapper;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
@@ -27,10 +28,13 @@ public class SNSServiceImpl implements SNSService {
 	@Inject
 	SNSMapper snsMapper;
 
+	@Inject
+	private UserMapper userMapper;
+
 	// 이 사용자의 피드 게시글 조회
 	@Override
-	public ArrayList<SNSArticleDTO_sjh> getSNSArticles(String user_id) {
-		return snsMapper.getSNSArticles(user_id);
+	public ArrayList<SNSArticleDTO_sjh> getSNSArticles(String login_id, String user_id) {
+		return snsMapper.getSNSArticles(login_id,user_id);
 	}
 
 	// 작성자로 글목록 찾기
@@ -134,8 +138,8 @@ public class SNSServiceImpl implements SNSService {
 	}
 
 	@Override
-	public SNSArticleDTO_sjh getArticleByArticleId(int article_id) {
-		return snsMapper.getArticleByArticleId(article_id);
+	public SNSArticleDTO_sjh getArticleByArticleId(String login_id,int article_id) {
+		return snsMapper.getArticleByArticleId(login_id,article_id);
 	}
 
 	@Override
