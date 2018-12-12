@@ -39,6 +39,7 @@ function eventRegistOnShare(article, info) {
     $('#article-share-btn a').off('click');
     $('#article-share-btn a').on('click', function (e) {
         article.articleScope = 'u';
+        $(info).attr('data-scope', 'u');
         const scopeT = checkScope(article.articleScope);
         if (info) {
             $(info).find('.ggv-scope').html(scopeT);
@@ -63,6 +64,7 @@ function eventRegistOnShare(article, info) {
     $('#article-share-cancel-btn a').off('click');
     $('#article-share-cancel-btn a').on('click', function (e) {
         article.articleScope = 'r';
+        $(info).attr('data-scope', 'r');
         const scopeT = checkScope(article.articleScope);
         if (info) {
             $(info).find('.ggv-scope').html(scopeT);
@@ -101,7 +103,7 @@ function resetArticleModal() {
  * @param {*} article 가계부 정보
  * @param {*} info 가계부 정보
  */
-function setArticle(article, info) {
+function setArticleJjw(article, info) {
     console.log('article :', article);
     if (!article) {
         alert('data가 없습니다.');
@@ -171,13 +173,16 @@ function setArticle(article, info) {
         $('#article-title').html(`${article.articleTitle}`);
     }
 
-    let articleContentHTML = article.articleContent;
-    articleContentHTML += '<p>';
-    for (let i = 0; i < article.hashtags.length; i += 1) {
-        const hashtag = article.hashtags[i];
-        articleContentHTML += ` <a class="hashtag">${hashtag}</a>`;
-    }
-    articleContentHTML += '</p>';
+    let articleContentHTML = '';
+    if (article.articleContent != undefined && article.articleContent != null) {
+        articleContentHTML = article.articleContent;
+        articleContentHTML += '<p>';
+        for (let i = 0; i < article.hashtags.length; i += 1) {
+            const hashtag = article.hashtags[i];
+            articleContentHTML += ` <a class="hashtag">${hashtag}</a>`;
+        }
+        articleContentHTML += '</p>';
+    } 
     $('#article-content').html(`${articleContentHTML}`);
 
     var commentsHTML='';
@@ -218,6 +223,8 @@ function setArticle(article, info) {
 
 
     $('#article-comments .comment-userId').html(article.userPsns.userNickname);
+    $('#article-writer-photo').attr('src', `/salmon/image?fileName=${article.userPsns.userImage}`)
+    $('#article-writer-nickname').attr('href', `/salmon/sns/feeds?userid=${article.userPsns.userId}`);
     $('#article-writer-nickname').html(article.userPsns.userNickname);
     $('#article-regdate').html(article.articleRegdate);
     if (article.articlePaymentType !== undefined) {

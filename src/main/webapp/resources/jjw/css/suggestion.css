@@ -223,3 +223,9 @@ div.buttons button {
 .hashtag .hashtag-close:hover {
   cursor: pointer;
 }
+
+textarea.form-input {
+  line-height: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

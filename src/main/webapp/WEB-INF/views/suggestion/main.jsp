@@ -60,8 +60,10 @@
 				<div class="col-xs-12 col-md-4 left-feild">
 					<div class="be-user-block">
 						<div class="be-user-detail">
-							<input type="hidden" class="imagePath" value="/salmon/image?fileName=${psns.userImage}">
-							<img class="img-responsive image-src" alt="">
+							<a href="/salmon/sns?userid=${psns.userId}">
+								<input type="hidden" class="imagePath" value="/salmon/image?fileName=${psns.userImage}">
+								<img class="img-responsive image-src" alt="">
+							</a>
 							<p class="be-use-name">
 								<c:out value="${psns.userNickname}" />
 							</p>

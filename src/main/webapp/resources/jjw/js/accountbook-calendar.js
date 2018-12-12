@@ -334,7 +334,7 @@ function setGgvInfos(info) {
     if (month && year && calendarData.has(`${month}-${year}`)) {
         calendarData.get(`${month}-${year}`).some(function (value) {
             if (value.articleId === Number(articleId)) {
-                setArticle(value, info);
+                setArticleJjw(value, info);
                 return true;
             }
             return false;
@@ -345,7 +345,7 @@ function setGgvInfos(info) {
             method: 'get',
             dataType: 'json',
             success: function (data) {
-                setArticle(data, info);
+                setArticleJjw(data, info);
             }
         });
     }
