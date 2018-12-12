@@ -382,8 +382,8 @@ public class MemberTests {
 	@Test
 	public void test123() {
 		log.info("hi");
-	     SNSArticleDTO_sjh s =   snsmapper.getArticleByArticleId(22);
-	     log.info(s);
+	    //  SNSArticleDTO_sjh s =   snsmapper.getArticleByArticleId(22);
+	    //  log.info(s);
 	}
 	
 	

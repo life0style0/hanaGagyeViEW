@@ -44,9 +44,8 @@ public class SearchTest {
 	@Test
 	public void test() {
 		log.info("hi");
-	     SNSArticleDTO_sjh s =   mapper.getArticleByArticleId(22);
-	     
-	     log.info(s);
+	    //  SNSArticleDTO_sjh s =   mapper.getArticleByArticleId(22);
+	    //  log.info(s);
 	}
 	
 }
