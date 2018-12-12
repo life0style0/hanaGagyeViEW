@@ -1,3 +1,8 @@
+#profileImage{
+	width:500px;
+	height:auto;	
+}
+
 a.ask-follow {
 	color: #FFF !important;
 	background: #298478;
@@ -78,12 +83,12 @@ a.ask-follow i {
 
 .article-menu:hover {
 	background-color: #F5DA81;
-	color:#298478;
+	color:#fff;
 }
 
 .article-menu.active {
 	background-color: orange;
-	color:#298478;
+	color:#fff;
 }
 
 .btn-sjh {
@@ -142,7 +147,13 @@ a.ask-follow i {
 	margin-bottom: 0px;
     border: 1px solid #edeff2;
     border-radius: 2px;
+    cursor:pointer;
     
+}
+
+.folded-comments:hover{
+	background-color:#b6e9e2;
+	color:#fff;    
 }
 
 .orange-font{

@@ -199,16 +199,16 @@
               	<!-- <img src="/salmon/resources/hjh/images/noimage.gif" alt="img"> -->
               </c:if>
               <c:if test="${article.imagePaths.size()>0 }">
-                <c:set var="imgCt" value="1"/>
-	          	<c:forEach var="images" items="${article.imagePaths}">
-                <div class="article-size" style="text-align:center;">
-                  <c:if test="${imgCt < 2 }">
-                  <img src="/salmon/main/image?fileName=${images }" alt="img">
-                  </c:if>
-                </div>
-                <c:set var="imgCt" value="${imgCt+1 }"/>
-	            </c:forEach>
-              </c:if>
+				<c:set var="imgCt" value="1" />
+				<c:forEach var="images" items="${article.imagePaths}" varStatus="status">
+					<c:if test="${status.first}">
+						<div class="article-size" style="text-align: center;">
+						<img src="/salmon/main/image?fileName=${images}" alt="img">
+						</div>
+					</c:if>
+					<c:set var="imgCt" value="${imgCt+1 }" />
+				</c:forEach>
+			  </c:if>
               </a>    
                         
               <c:choose>

@@ -150,7 +150,7 @@ function b64toBlob(b64Data, contentType, sliceSize) {
 }
 
 function checkUploadFile(fileName, fileSize, fileRegexSrc, maxUploadSizeSrc) {
-    const fileRegex = fileRegexSrc || new RegExp('(.*?)\.(jpg|jpeg|png|gif)$');
+    const fileRegex = fileRegexSrc || new RegExp('(.*?)\.(jpg|JPG|jpeg|JPEG|png|PNG|gif)$');
     const maxUploadSize = maxUploadSizeSrc || 524280; // 5MB
     if (!fileRegex.test(fileName)) {
         alert('해당 종류의 파일은 업로드 할 수 없습니다.');

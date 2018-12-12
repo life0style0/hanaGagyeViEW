@@ -248,6 +248,10 @@
 		<%@ include file="../includes/articlemodal.jsp"%>
 
 
+	<!--  로그아웃 팝업 -->
+	<%@ include file="/WEB-INF/views/includes/logout.jsp"%>
+	<!--  로그아웃 팝업 끝-->
+
 		<div class="modal fade" id="psn-modal" tabindex="-1" role="dialog" aria-labelledby="psn-modal-label" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
