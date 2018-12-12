@@ -86,14 +86,14 @@ public class MemberTests {
 		log.info(" users DUMMY 삽입 ");
 		
 		String createUserSql="insert into users(user_id, user_nickname,user_email,user_passwd, user_gender,user_birthday,user_image, user_regdate) "+
-				"values(?, ?,?, ?, ?, ?,?,add_months(sysdate, -1))";
+				"values(?, ?,?, ?, ?, ?,?,sysdate - Ceil(DBMS_RANDOM.VALUE(0, 500)))";
 		
 		String adminAuthSql="insert into users_auth(user_auth_id, user_id, user_auth) values(users_auth_id_seq.nextval,?,'ROLE_ADMIN')";
 		String managerAuthSql="insert into users_auth(user_auth_id, user_id, user_auth) values(users_auth_id_seq.nextval,?,'ROLE_MEMBER')";
 		String userAuthSql="insert into users_auth(user_auth_id, user_id, user_auth) values(users_auth_id_seq.nextval,?,'ROLE_USER')";
 		String userPsnsSql="insert into psns(psn_id, user_id, location_id,ctgry_1,ctgry_2,ctgry_3) values(psn_id_seq.NEXTVAL,?,?,?,?,?)";
 		
-		for(int i=0; i<30; i++) {
+		for(int i=0; i<100; i++) {
 			Connection con=null;
 			PreparedStatement pstmt= null;
 			PreparedStatement adminAuthPstmt= null;
@@ -123,7 +123,8 @@ public class MemberTests {
 					pstmt.setString(5, "F"); //성별
 					pstmt.setString(6, "111111"); //생년월일
 					pstmt.setString(7, "images/default-user.jpg"); //이미지
-				} else if(i>0 && i<28) {
+					
+				} else if(i>0 && i<96) {
 					//일반사용자
 					managerAuthPstmt= con.prepareStatement(managerAuthSql);
 					
@@ -131,7 +132,7 @@ public class MemberTests {
 					managerAuthPstmt.setString(1, "jiwon"+i);
 					
 					pstmt.setString(1, "jiwon"+i); //아이디
-					pstmt.setString(2, "jiwon"+i); //닉네임
+					pstmt.setString(2, "nickJ"+i); //닉네임
 					pstmt.setString(3, "jiwon"+i+"@mail.com"); //이메일
 					pstmt.setString(4, pwEncoder.encode("1234")); //비밀번호 암호화
 					pstmt.setString(5, "F"); //성별
@@ -150,12 +151,13 @@ public class MemberTests {
 					userAuthPstmt.setString(1, "heyrim"+i); //아이디
 					
 					pstmt.setString(1, "heyrim"+i); //아이디
-					pstmt.setString(2, "heyrim"+i); //닉네임
+					pstmt.setString(2, "nickH"+i); //닉네임
 					pstmt.setString(3, "heyrim"+i+"@mail.com"); //이메일
 					pstmt.setString(4, pwEncoder.encode("1234")); //비밀번호 암호화
 					pstmt.setString(5, "F"); //성별
 					pstmt.setString(6, getRandYear()+"1224"); //생년월일
 					pstmt.setString(7, "images/default-user.jpg"); //이미지
+					
 				
 					userPsnsPstmt.setString(1,  "heyrim"+i);
 					userPsnsPstmt.setString(2,  "3"); //location
@@ -359,7 +361,7 @@ public class MemberTests {
 
 	}
 	
-	@Test
+//	@Test
 	public void testProc() {
 		log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		
@@ -379,7 +381,7 @@ public class MemberTests {
 		
 	}
 	
-	@Test
+//	@Test
 	public void test123() {
 		log.info("hi");
 	    //  SNSArticleDTO_sjh s =   snsmapper.getArticleByArticleId(22);

@@ -55,6 +55,9 @@ public class SearchController {
 		log.info(" requestparam 검색결과 페이지 요청  "+principal.getName()+" val : "+value);
 		//유저 검색 결과
 		String searchVal= value;
+		/*if(searchVal.charAt(0)=='#') {
+			searchVal= searchVal.substring(1);
+		}*/
 		value= "%"+value+"%";
 		List<UserDTO> userList= userService.searchUserInSNS(value);
 		//팔로잉 여부 판단

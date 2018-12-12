@@ -123,7 +123,11 @@ function setArticleModal(article){
 
 		$('#article-id-modal').attr('value',article.article_id);
 		$('#article-ctgry-name').html(article.ctgry_name);
-		$('#article-title').html(' ,'+article.article_title);
+		if(article.article_title != null){
+			$('#article-title').html(' ,'+article.article_title);
+		}else{ 
+			$('#article-title').html(' ');
+		}
 		$('#article-money').html(article.article_payment_fee+'원 ');
 		$('#article-ctgry').html(article.article_ctgry_description);
 		
@@ -133,7 +137,7 @@ function setArticleModal(article){
 		}else{		}
 		contentHTML += '<p>';
 		$(article.hashtags).each(function(i,tag){
-			contentHTML += ' <a href="/salmon/sns/search?search-value='+tag+'">#'+tag+'</a> ';
+			contentHTML += ' <a href="/salmon/sns/search?search-value='+tag+'">'+tag+'</a> ';
 		});
 		contentHTML += '</p>';
 		$('#article-content').html(contentHTML);

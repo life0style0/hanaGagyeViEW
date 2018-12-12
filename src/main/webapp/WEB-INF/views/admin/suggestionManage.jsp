@@ -43,7 +43,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="/salmon/resources/adminTemplate/images/favicon.png" alt="hana" class="img-circle profile_img">
+                <img src="/salmon/resources/template/img/favicon.png" alt="hana" class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>안녕하세요,</span>

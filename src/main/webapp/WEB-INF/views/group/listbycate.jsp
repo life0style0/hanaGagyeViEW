@@ -236,6 +236,9 @@
 
   <!-- THE FOOTER -->
     <%@ include file="../includes/footer.jsp"%>
+    <!--  로그아웃 팝업 -->
+	<%@ include file="/WEB-INF/views/includes/logout.jsp"%>
+	<!--  로그아웃 팝업 끝-->
 
 	<!-- SCRIPTS	 -->
 	<script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>

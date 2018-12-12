@@ -666,6 +666,9 @@ to {
 
   <!-- THE FOOTER -->
   <%@ include file="../includes/footer.jsp"%>
+  <!--  로그아웃 팝업 -->
+	<%@ include file="/WEB-INF/views/includes/logout.jsp"%>
+	<!--  로그아웃 팝업 끝-->
 
   <!-- 게시글 모달 -->
   <%@ include file="/WEB-INF/views/includes/articlemodal_group.jsp"%>

@@ -129,7 +129,7 @@ function checkFollowParam() {
 }
 
 function askFollow(followTo) {
-	alert('follow ' + followTo);
+	//alert('follow ' + followTo);
 	$.ajax({
 		data: followTo,
 		type: 'get',
@@ -151,7 +151,7 @@ function askFollow(followTo) {
 
 
 function askUnfollow(followId) {
-	alert('unfollow ' + followId);
+	//alert('unfollow ' + followId);
 	$.ajax({
 		data: followId,
 		type: 'get',

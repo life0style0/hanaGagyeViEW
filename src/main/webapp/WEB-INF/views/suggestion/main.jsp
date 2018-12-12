@@ -437,6 +437,9 @@
 
 	<!-- THE FOOTER -->
 	<%@ include file="/WEB-INF/views/includes/footer.jsp"%>
+	<!--  로그아웃 팝업 -->
+	<%@ include file="/WEB-INF/views/includes/logout.jsp"%>
+	<!--  로그아웃 팝업 끝-->
 
 	<!-- Modal -->
 	<%@ include file="../includes/articlemodal.jsp"%>
