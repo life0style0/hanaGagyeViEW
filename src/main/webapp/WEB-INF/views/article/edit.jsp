@@ -222,7 +222,7 @@
 						</div>																
 					</div>				
 				</div>
-				 <span style="float:right;"><input class="btn btn-success" type="button" id="submitBtn" value="등 록"><input class="btn btn-danger" type="reset" value="초기화"></span>
+				 <span style="float:right;"><input class="btn color-1 size-2 hover-1" type="button" id="submitBtn" value="등 록"><input class="btn color-2 size-2 hover-5" type="reset" value="초기화"></span>
 				</form>
 			</div>
 		</div>
@@ -360,9 +360,15 @@
         		</div>
         		<div class="modal-body">
         		 	<h5>게시글 수정이 완료되었습니다.</h5>
+							 <div>
+								가계부로
+									 <button type="button" class="btn color-2 size-2 hover-1" aria-label="Left Align" onclick="location.href='/salmon/accountbook/calendar'" value="가계부로" style="margin: 0px; margin-bottom: 10px">
+										<i class="fa fa-credit-card" style="margin-right: 0px;"></i></span>
+						 </button>
+								</div>
         		 	<div>
         		 		메인으로
-        		 		 <button type="button" class="btn btn-default" aria-label="Left Align" onclick="location.href='/salmon'" value="홈으로">
+        		 		 <button type="button" class="btn color-3 size-2 hover-1" aria-label="Left Align" onclick="location.href='/salmon'" value="홈으로">
   							<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 						</button>
         		 	</div>
