@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.kosta.salmon.domain.CategoryDTO_sjh;
 import kr.or.kosta.salmon.domain.LocationDTO_sjh;
+import kr.or.kosta.salmon.domain.PsnScoreDTO;
 import kr.or.kosta.salmon.domain.RegistUserDTO;
 import kr.or.kosta.salmon.domain.UserDTO;
 import kr.or.kosta.salmon.domain.UserLocAndCatsDTO;
@@ -204,6 +205,26 @@ public class UserServiceImpl implements UserService {
 	public void setUserBlocked(String user_id) {
 		usermapper.deleteBlockedUserAuth(user_id); //users_auth 테이블 변경 (이 user의 권한 삭제)
 		usermapper.updateUserStateBlocked(user_id); //users 테이블 변경 (user state 변경)
+	}
+	
+	@Override
+	public void updatePsnScoreByArticleId(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByArticleId(psnScoreDTO);
+	}
+
+	@Override
+	public void updatePsnScoreByFollowing(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByFollowing(psnScoreDTO);
+	}
+
+	@Override
+	public void updatePsnScoreByGroup(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByGroup(psnScoreDTO);
+	}
+
+	@Override
+	public void updatePsnScoreByCommentId(PsnScoreDTO psnScoreDTO) {
+		usermapper.updatePsnScoreByCommentId(psnScoreDTO);
 	}
 
 }

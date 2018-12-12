@@ -238,7 +238,7 @@
 		SELECT article_id,
 		       article_ctgry_id,
 		       article_scope,
-		       to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
+		       to_char(article_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "article_regdate",
 		       article_editdate,
 		       article_payment_type,
 		       article_payment_fee,

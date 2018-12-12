@@ -210,6 +210,7 @@ function setArticle(article, info) {
         }
 
         // 내가 쓴 글이면 수정이 보여야 함.
+        $('#article-report-btn').addClass('hidden');
         $('#article-edit-btn').removeClass('hidden');
         $('#article-edit-btn a').attr('href', `/salmon/article/edit?article_id=${article.articleId}`);
         $('#article-delete-btn').removeClass('hidden');

@@ -16,4 +16,6 @@ public class NewSuggestionDTO {
     private int ctgry2;
     private int ctgry3;
     private List<String> hashtags;
+    private String amount; // 개인화 점수 증가 치
+    private int result;
 }

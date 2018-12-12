@@ -16,6 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.or.kosta.salmon.domain.FollowerDTO;
+import kr.or.kosta.salmon.domain.PsnScoreDTO;
 import kr.or.kosta.salmon.domain.SNSArticleDTO_sjh;
 import kr.or.kosta.salmon.domain.SNSUserPageDTO;
 import kr.or.kosta.salmon.domain.SNSUserPageWithoutAtriclesDTO;
@@ -56,8 +57,8 @@ public class ArticleTest {
 	
 	@Test
 	public void testSNSPage() {
-	//	SNSUserPageDTO page = new SNSUserPageDTO();
-	//	page= mapper.getSNSUserPageInfo("heyrim19","heyrim16");
+		//	SNSUserPageDTO page = new SNSUserPageDTO();
+		//	page= mapper.getSNSUserPageInfo("heyrim19","heyrim16");
 		/*log.info(page.getUser_id());
 		log.info(page.getUser());
 		log.info(page.getMyfollowings().toString());
@@ -65,8 +66,8 @@ public class ArticleTest {
 		log.info(page.getMyPsnsInfo());
 		log.info(page.getMyfollowings());
 		log.info(page.getMyGroups());*/
-		
-		SNSUserPageDTO param= new SNSUserPageDTO();
+
+		SNSUserPageDTO param = new SNSUserPageDTO();
 		param.setUser_id("heyrim15");
 		
 	//	SNSUserPageDTO page2= mapper.getSNSUserPageInfo("heyrim15");
@@ -82,6 +83,5 @@ public class ArticleTest {
 	//	snsservice.getArticleByLikeUser("heyrim7","heyrim19");
 		snsservice.getSNSNewArticles();
 	}
-	
 	
 }
