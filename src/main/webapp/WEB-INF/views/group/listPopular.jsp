@@ -588,7 +588,7 @@
                       <!-- 인기순 리스트 확인하기  -->
                       <c:if test="${GroupListsbyPopular.size() >0}">
                         <c:forEach items="${GroupListsbyPopular}" var="group">
-                          <div class="grid-item col-xs-12 col-sm-6 col-md-4" style="height: 700px;">
+                          <div class="grid-item col-xs-12 col-sm-6 col-md-4" style="height: 430px;">
                             <div class="blog-post">
                               <div class="post-header clearfix">
                                 <div class="post-date"

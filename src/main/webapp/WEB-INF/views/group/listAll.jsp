@@ -25,7 +25,9 @@
         
         <!-- 페이지 내용 css -->
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    	</head>
+    	
+      
+      </head>
     	<body style="font-family: 'Noto Sans KR', sans-serif;">
 
       	<!-- THE LOADER -->
@@ -56,7 +58,7 @@
 
       <!-- 소모임 새로만들기 버튼 스타일  -->
       <style>
-      .button {
+ .button {
       	display: inline-block;
       	border-radius: 4px;
       	background-color: #0d58c8;
@@ -96,12 +98,31 @@
       	opacity: 1;
       	right: 0;
       }
+      
+      .blog-post .post-category {
+      font-weight: 400;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #edeff2;
+      color: #000209;
+      font-size: 13px;
+      }
+      
+      .blog-post .post-label {
+      display: block;
+      font-size: 24px;
+      line-height: 26px;
+      font-weight: 400;
+      color: #383b43;
+      margin-bottom: 3px;
+  }
       </style>
 
       <!-- 소모임 새로만들기 버튼  -->
       <button type="button" id="regBtn" class="btn size-1 color-1"
         style="vertical-align: middle; float: right; font-size: 12pt;"
         onclick="location.href='/salmon/group/register'">
+        <span>새 소모임 </span>
       </button>
       <script type="text/javascript">
           		$(document).ready(function() {
