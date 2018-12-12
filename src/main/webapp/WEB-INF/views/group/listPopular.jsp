@@ -145,7 +145,7 @@
                     <div class="nav-tab-item" onclick="location.href='/salmon/group/listCustomize'">
                       <span>맞춤 추천 소모임</span>
                     </div>
-                    <div class="nav-tab-item" onclick="location.href='/salmon/group/list'">
+                    <div class="nav-tab-item" onclick="location.href='/salmon/group/listAll'">
                       <span>전체 소모임 리스트</span>
                     </div>
                   </div>
@@ -605,10 +605,10 @@
                         <td><c:out value="${groups.user_id}" /></td>
                         <td><c:out value="${groups.group_regdate}" /></td>
                         <td><c:out value="${groups.group_description}" /></td>
-                        <td><c:out value="${groups.group_people_max}" /></td>
-                        <td><c:out value="${groups.ctgry_1}" /></td>
-                        <td><c:out value="${groups.ctgry_2}" /></td>
-                        <td><c:out value="${groups.ctgry_3}" /></td>
+                        <td><c:out value="${groups.group_people_now}" /> / <c:out value="${groups.group_people_max}" /></td>
+                        <td><c:out value="${groups.ctgry_1_name}" /></td>
+                        <td><c:out value="${groups.ctgry_2_name}" /></td>
+                        <td><c:out value="${groups.ctgry_3_name}" /></td>
                       </tr>
                    </c:forEach>
                     

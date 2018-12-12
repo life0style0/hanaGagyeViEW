@@ -567,7 +567,6 @@
 	$(function(){ 
 		  //내정보 불러오기
 		  me= ${meJSON};
-		  
 		});
 	</script>
 	

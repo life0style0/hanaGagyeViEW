@@ -79,7 +79,7 @@ public class GroupMapperTests {
 		mapper.getList().forEach(groups -> log.info(groups));
 	}
 	
-	@Test
+	//@Test
 	public void testread() {
 	//	mapper.read("9");
 		mapper.getAllCategories();

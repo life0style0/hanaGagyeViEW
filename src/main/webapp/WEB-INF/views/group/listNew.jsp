@@ -133,10 +133,10 @@
 
                 <div class="tab-nav-wrapper">
                   <div class="nav-tab  clearfix">
-                    <div class="nav-tab-item ">
+                    <div class="nav-tab-item" onclick="location.href='/salmon/group/list'">
                       <span>카테고리별 찾기</span>
                     </div>
-                    <div class="nav-tab-item active">
+                    <div class="nav-tab-item active" onclick="location.href='/salmon/group/listNew'">
                       <span>신규 소모임</span>
                     </div>
                     <div class="nav-tab-item" onclick="location.href='/salmon/group/listPopular'">
@@ -645,7 +645,7 @@
                         </tr>
                       </thead>
                      <!-- items : 반복 데이터가 있는 아이템 : Collection명 / var: 현재 아이템 변수명-->
-                    <c:forEach items="${list}" var="groups">
+                    <c:forEach items="${GroupListsbyNewGroup}" var="groups">
                       <tr class="even pointer">
                       
                         <td><c:out value="${groups.group_id}" /></td>
@@ -653,10 +653,10 @@
                         <td><c:out value="${groups.user_id}" /></td>
                         <td><c:out value="${groups.group_regdate}" /></td>
                         <td><c:out value="${groups.group_description}" /></td>
-                        <td><c:out value="${groups.group_people_max}" /></td>
-                        <td><c:out value="${groups.ctgry_1}" /></td>
-                        <td><c:out value="${groups.ctgry_2}" /></td>
-                        <td><c:out value="${groups.ctgry_3}" /></td>
+                        <td><c:out value="${groups.group_people_now}" /> / <c:out value="${groups.group_people_max}" /></td>
+                        <td><c:out value="${groups.ctgry_1_name}" /></td>
+                        <td><c:out value="${groups.ctgry_1_name}" /></td>
+                        <td><c:out value="${groups.ctgry_1_name}" /></td>
                       </tr>
                    </c:forEach>
                     

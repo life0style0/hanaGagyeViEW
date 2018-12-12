@@ -145,7 +145,7 @@
                     <div class="nav-tab-item" onclick="location.href='/salmon/group/listCustomize'">
                       <span>맞춤 추천 소모임</span>
                     </div>
-                    <div class="nav-tab-item ">
+                    <div class="nav-tab-item" >
                       <span>전체 소모임 리스트</span>
                     </div>
                   </div>
@@ -217,44 +217,6 @@
                   <!-- ====================탭 5 전체 소모임 리스트 (소모임 전체보기) ====================== -->
 
 
-
-             
-                  <!-- ====카테고리 이름으로 보기 수정중...... ===== -->
-                <%--   <div class="col-md-9 padding-1-sjh">
-                    <c:choose>
-                      <c:when
-                        test="${not empty userPsnsInfo.ctgryNames}">
-                        <c:forEach var="ctgryName" items="${userPsnsInfo.ctgryNames}" varStatus="status">
-                          <div class="padding-1-sjh ctgry-badge">
-                            <c:out value="${ctgryName}" />
-                          </div>
-                        </c:forEach>
-                      </c:when>
-                      <c:otherwise></c:otherwise>
-                    </c:choose>
-
-                  </div> --%>
-                  <!-- Modal  추가 -->
-                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                        </div>
-                        <div class="modal-body">처리가 완료되었습니다.</div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                      <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                  </div>
-                  <!-- /.modal -->
-
-
-
                 </div>
               </div>
             </div>
@@ -266,32 +228,6 @@
   </div>
 
 
-
-
-
-
-
-
-  <!-- 상황에 따른 메시지 확인을 위한 스크립트 -->
-<script>
-$(document).ready(function(){
-	var result = '<c:out value="${result}"/>';
-	checkModal(result);
-	history.replaceState({}, null, null);
-	
-	function checkModal(result) {
-		if (result === '' || history.state) {
-			return;
-		}
-		if (parseInt(result) > 0) {
-			$(".modal-body").html("게시글 " + parseInt(result)+ " 번이 등록되었습니다.");
-		}
-
-		$("#myModal").modal("show");
-	}
-	
-});
-</script>
 
   <!-- 카테고리별 소모임 리스트 모달 -->
   <%@ include file="/WEB-INF/views/includes/groupcatemodal.jsp"%>

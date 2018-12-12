@@ -56,38 +56,37 @@ public class GroupRegistController {
 	@Inject
 	GaArticleService gaArticleService;
 	
-	
+	/**
+	 * 카테고리별 정보 전해주기
+	 * @param model
+	 */
 	@GetMapping("/list")
 	public void list(Model model) {
+		log.info("Model 결과 : [/list] =====: "+ model);
 		log.info("===========================/list =========리스트 화면 : 소모임 페이지 메인 화면 !!!!!!");
 		log.info("모델======="+model);
 		//groupservice.getList();
-		
+		log.info("&&&&&&&&&&&&&&&&&&&[리스트겟메핑]10:11&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+
 		//카테고리 정보 가져오기
 		List<CategoryDTO_sjh> categories = groupservice.getAllCategories();
 		model.addAttribute("categories", categories);
 		model.addAttribute("list", groupservice.getList());
 		log.info("카테고리=========="+categories);
-		
-	
-		/*
-		log.info("0");
-		List<GroupDTO_lhr> GroupListsbyNewGroup = groupservice.getGroupListsbyNewGroup();
-		log.info("1");
-		List<GroupDTO_lhr> GroupListsbyPopular = groupservice.getGroupListsbyPopular();
-		log.info("3");
-		model.addAttribute("GroupListsbyNewGroup",GroupListsbyNewGroup);
-		log.info("4");
-		model.addAttribute("GroupListsbyPopular", GroupListsbyPopular);
-		*/
-		
 	}
+	/**
+	 * 리스트에서 카테고리로 던져주기
+	 * @param category_id
+	 * @param model
+	 * @return
+	 */
+	@PostMapping("/list")
+	public String list1(@RequestParam("category_id") int category_id, Model model) {
+		log.info("&&&&&&&&&&&&&&&&&&&[리스트포스트메핑]10:11&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+		log.info("&&&&&&&&&&&&&&&&&&&"+category_id+"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+		log.info("&&&&&&&&&&&&&&&&&&&"+model+"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
 
-	@GetMapping("/register")
-	public void regist(Model model) {
-		log.info(" 소모임 등록 페이지 요청 !!!!!!!!!!!!!!!!!!!!");
-		List<CategoryDTO_sjh> categories= groupservice.getAllCategories();
-		model.addAttribute("categories", categories);
+		return "redirect:/group/listbycate/"+category_id;		
 	}
 	
 	/**
@@ -96,15 +95,47 @@ public class GroupRegistController {
 	 * @param model
 	 */
 	@GetMapping("/listbycate")
-	public void listbycate(Model model) {
+	public void listbycate(@RequestParam("category_id") int category_id,Model model) {
 		log.info("~~~~~~~~~~~~~~~~~~~~~~~");
 		
-		
-		List<GroupDTO_lhr> groupListbyCate = groupservice.getGroupListsbyCategory(2);
+		List<GroupDTO_lhr> groupListbyCate = groupservice.getGroupListsbyCategory(category_id);
 		log.info(groupListbyCate);
 		model.addAttribute("groupListbyCate", groupListbyCate);
 	}
 	
+	
+	
+	
+	/**
+	 * 전체 소모임 리스트 all
+	 * @param model
+	 */
+	@GetMapping("/listAll")
+	public void listAll(Model model) {
+		log.info("===========================/list =========리스트 화면 : 소모임 페이지 메인 화면 !!!!!!");
+		log.info("모델======="+model);
+		//카테고리 정보 가져오기
+		List<CategoryDTO_sjh> categories = groupservice.getAllCategories();
+		model.addAttribute("categories", categories);
+		model.addAttribute("list", groupservice.getList());
+		log.info("카테고리=========="+categories);
+		
+		
+	}
+
+	
+	/**
+	 * 소모임 등록 페이지
+	 * @param model
+	 */
+	@GetMapping("/register")
+	public void regist(Model model) {
+		log.info(" 소모임 등록 페이지 요청 !!!!!!!!!!!!!!!!!!!!");
+		List<CategoryDTO_sjh> categories= groupservice.getAllCategories();
+		model.addAttribute("categories", categories);
+	}
+	
+
 	
 	//register : post
 	@PostMapping("/register")

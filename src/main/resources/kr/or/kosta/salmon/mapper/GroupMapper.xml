@@ -273,29 +273,27 @@
     	   AND user_id = #{user_id}
 	</select>
 	
-	<!-- =============== 2018/12/11 리스트 뽑기 수정중 ================================= -->
 	<!-- 소모임 리스트 최신순 -->
 	<select id="getGroupListsbyNewGroup" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
-	<![CDATA[
-	SELECT * 
-	FROM groups
-	ORDER  BY group_regdate desc
-	]]>
-	</select>
-	
-	<!-- 소모임 리스트 인기순 -->
-	<select id="getGroupListsbyPopular" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
 	<![CDATA[
 	SELECT gr.group_id, 
 	       gr.group_title, 
 	       gr.group_people_max, 
-	       Count(gu.user_id) "group_people_now",  
+	       Count(gu.user_id)                       "group_people_now", 
 	       gr.group_description, 
-	       gr.ctgry_1, 
 	       To_char(gr.group_regdate, 'YYYY-MM-DD') "group_regdate", 
 	       gr.ctgry_1, 
+	       (SELECT ctgry_name 
+	        FROM   ctgries 
+	        WHERE  ctgry_id = gr.ctgry_1)          "ctgry_1_name", 
 	       gr.ctgry_2, 
+	       (SELECT ctgry_name 
+	        FROM   ctgries 
+	        WHERE  ctgry_id = gr.ctgry_2)          "ctgry_2_name", 
 	       gr.ctgry_3, 
+	       (SELECT ctgry_name 
+	        FROM   ctgries 
+	        WHERE  ctgry_id = gr.ctgry_3)          "ctgry_3_name", 
 	       gr.user_id 
 	FROM   GROUPS gr 
 	       left outer join group_users gu 
@@ -310,7 +308,46 @@
 	          gr.ctgry_2, 
 	          gr.ctgry_3, 
 	          gr.user_id 
-	ORDER  BY Count(gu.user_id) DESC
+	ORDER  BY group_regdate DESC 
+	]]>
+	</select>
+	
+	<!-- 소모임 리스트 인기순 -->
+	<select id="getGroupListsbyPopular" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
+	<![CDATA[
+	SELECT gr.group_id, 
+	       gr.group_title, 
+	       gr.group_people_max, 
+	       Count(gu.user_id)                       "group_people_now", 
+	       gr.group_description, 
+	       To_char(gr.group_regdate, 'YYYY-MM-DD') "group_regdate", 
+	       gr.ctgry_1, 
+	       (SELECT ctgry_name 
+	        FROM   ctgries 
+	        WHERE  ctgry_id = gr.ctgry_1)          "ctgry_1_name", 
+	       gr.ctgry_2, 
+	       (SELECT ctgry_name 
+	        FROM   ctgries 
+	        WHERE  ctgry_id = gr.ctgry_2)          "ctgry_2_name", 
+	       gr.ctgry_3, 
+	       (SELECT ctgry_name 
+	        FROM   ctgries 
+	        WHERE  ctgry_id = gr.ctgry_3)          "ctgry_3_name", 
+	       gr.user_id 
+	FROM   GROUPS gr 
+	       left outer join group_users gu 
+	                    ON gr.group_id = gu.group_id 
+	GROUP  BY gr.group_id, 
+	          gr.group_title, 
+	          gr.group_people_max, 
+	          gr.group_description, 
+	          gr.ctgry_1, 
+	          gr.group_regdate, 
+	          gr.ctgry_1, 
+	          gr.ctgry_2, 
+	          gr.ctgry_3, 
+	          gr.user_id 
+	ORDER  BY Count(gu.user_id) DESC 
 		]]>
 	</select>
 	
