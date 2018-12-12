@@ -188,3 +188,19 @@ div.article-size>img {
 #article-modal .post-text {
     border-bottom: unset;
 }
+
+.post-text pre {
+    display: block;
+    padding: unset;
+    margin: unset;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 22px;
+    color: black;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: transparent;
+    border: unset;
+    border-radius: unset;
+    font-family: 'Conv_helveticaneuecyr-roman', sans-serif;
+}

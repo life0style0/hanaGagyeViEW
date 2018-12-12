@@ -123,7 +123,7 @@
 							</div>
 							<div class="blog-content be-large-post-align">
 								<div class="post-text ">
-									<p>${article.articleContent}</p>
+									<pre>${article.articleContent}</pre>
 								</div>
 							</div>
 							<div class="be-large-post-align">
