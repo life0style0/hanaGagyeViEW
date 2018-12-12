@@ -423,6 +423,7 @@ BEGIN
                 #{userId}, 
                 'N'); 
 
+if #{ctgry1} != -1 then
     INSERT INTO ctgry_values 
                 (ctgry_value_id, 
                  ctgry_id, 
@@ -430,7 +431,8 @@ BEGIN
     VALUES     (ctgry_value_id_seq.nextval, 
                 #{ctgry1}, 
                 articleid); 
-
+end if;
+if #{ctgry2} != -1 then
     INSERT INTO ctgry_values 
                 (ctgry_value_id, 
                  ctgry_id, 
@@ -438,7 +440,8 @@ BEGIN
     VALUES     (ctgry_value_id_seq.nextval, 
                 #{ctgry2}, 
                 articleid); 
-
+end if;
+if #{ctgry3} != -1 then
     INSERT INTO ctgry_values 
                 (ctgry_value_id, 
                  ctgry_id, 
@@ -446,6 +449,7 @@ BEGIN
     VALUES     (ctgry_value_id_seq.nextval, 
                 #{ctgry3}, 
                 articleid);
+end if;
 
 <foreach collection="hashtags" item="hashtag" separator="  ">
 
