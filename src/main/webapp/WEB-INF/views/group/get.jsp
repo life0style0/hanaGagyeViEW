@@ -41,7 +41,8 @@
   <!-- 새로 추가한 링크 리스트 -->
 
 
-
+<link rel="stylesheet" href="/salmon/resources/sjh/css/article.css">
+<link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
 
 </head>
 
@@ -114,7 +115,8 @@
 </style>
 
     <!-- 소모임 게시물 작성하기 버튼  -->
-    <button type="button" id="regBtn" class="button" style="vertical-align: middle; float: right; font-size: 12pt;"
+    <button type="button" id="regBtn" class="button" 
+    	style="vertical-align: middle; float: right; font-size: 12pt; background: #298478;"
       onclick="location.href='/salmon/article/registerGroup?group_id=${groups.group_id}'">
       <span>게시물 작성</span>
     </button>
@@ -132,7 +134,7 @@
             	height: 190px;
             }
             </style>
-  <script type="text/javascript">
+ <!--  <script type="text/javascript">
   <script type="text/javascript">
   function copy_trackback(trb) {
   var IE=(document.all)?true:false;
@@ -143,14 +145,14 @@
   temp = prompt("이 글의 트랙백 주소입니다. Ctrl+C를 눌러 클립보드로 복사하세요", trb);
   }
   }
-  </script>
+  </script> -->
 
             
             <div class="be-user-detail">
               <a class="be-ava-user style-2" href="/salmon/group/get?group_id=<c:out value="${group.group_id}" />"
- onclick="copy_trackback(this.href); return false;" style="width: 200px; height: 200px;"> <img width="200px;"
-                  height="200px;" src="https://images.unsplash.com/photo-1525336001612-b942036da7b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1784&q=80"
-                  alt="">
+ onclick="copy_trackback(this.href); return false;" style="width: 200px; height: 200px;"> 
+ <img width="200px;"  height="200px;" alt=""
+ src="https://images.unsplash.com/photo-1525336001612-b942036da7b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1784&q=80">
               </a>
 
 
@@ -172,15 +174,12 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">×</span>
                         </button>
-                        <h4 class="modal-title" id="myModalLabel">소모임
-                          가입</h4>
+                        <h4 class="modal-title" id="myModalLabel">소모임  가입</h4>
                       </div>
-                      <div class="modal-body">
-                        소모임에 가입하시겠습니까? <br> <input type="hidden" name="group_id" value="${groups.group_id}">
+                      <div class="modal-body">  소모임에 가입하시겠습니까? <br> <input type="hidden" name="group_id" value="${groups.group_id}">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                         <button type="submit" class="btn btn-primary" style="margin: 10px;" onclick="haerimAddFunction()">가입</button>
-                        <div id="snackbar">소모임 가입이 완료되었습니다. 소모임을
-                          즐겨보세요 :-)</div>
+                        <div id="snackbar">소모임 가입이 완료되었습니다. 소모임을   즐겨보세요 :-)</div>
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -208,10 +207,10 @@
 
 
               <!-- ============== a태그 누르면 가입 모달 띄우기 ================= -->
-              <div class="be-user-activity-block" style="font-family: 'Noto Sans KR', sans-serif;">
+              
+               <div class="be-user-activity-block" style="font-family: 'Noto Sans KR', sans-serif;">
                 <div class="row">
-                  <div class="col-lg-6">
-    
+                  <div class="col-lg-12">
                     <!-- 확인 -->
                     <c:choose>
                       <c:when test="${checkRegist}">
@@ -220,56 +219,22 @@
                         <i class="fa fa-plus"></i>소모임 참여
                       </a>
                       </c:when>
-                      
                       <c:otherwise>
                        <a href="#"  class="be-user-activity-button be-follow-type" id="alreadyRegisted"
                        style="font-family: Noto Sans KR, sans-serif; font-size: 8.5pt; padding: 5px; text-align: center; cursor: no-drop;" >
                         FOLLOWING
                       </a>
-                      
                       <script type="text/javascript">
                   	// 단순히 링크가 동작하지 않게 하기 (고전적인 방법)
                   	jQuery('#alreadyRegisted').click(function () {
                   		e.preventDefault();
                   	});
-                  	
                       </script>
                       </c:otherwise>
                     </c:choose>
-                    
-                  </div>
-                  <div class="col-lg-6">
-                    <!-- MESSAGE -->
-                    <a class="col-lg-6 be-user-activity-button send-btn be-message-type">
-                      <i class="fa fa-envelope"></i>MESSAGE
-                    </a>
-                    <!-- ============소모임 메시지 팝업 ====== -->
-                    <div class="large-popup send-m">
-                      <div class="large-popup-fixed"></div>
-                      <div class="container large-popup-container">
-                        <div class="row">
-                          <div class="col-md-10 col-md-push-1 col-lg-8 col-lg-push-2 large-popup-content">
-                            <div class="row">
-                              <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-                                <i class="fa fa-times close-m close-button"></i>
-                                <h5 class="large-popup-title">♥
-                                  소모임에 메시지 보내기 ♥</h5>
-                                <div class="form-group">
-                                  <textarea class="form-input" required="" placeholder="Your text"></textarea>
-                                </div>
-                                <a class="btn btn-right color-1 size-1 hover-1" onclick="hyerimFunction()">send
-                                  message</a>
-                                <div id="snackbar1">메시지가 등록되었습니다.
-                                  :-)</div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
-              </div>
+              </div> 
               <!-- 소모임 메시지가 등록되었습니다. 스낵바 보여주기 위한 JS -->
               <script type="text/javascript">
                 function hyerimFunction() {
@@ -409,9 +374,9 @@ to {
                 <div class="nav-tab-item ">
                   <span>게시판</span>
                 </div>
-                <div class="nav-tab-item ">
+                <!-- <div class="nav-tab-item ">
                   <span>방명록</span>
-                </div>
+                </div> -->
               </div>
             </div>
 
@@ -419,13 +384,13 @@ to {
               <!-- =============== 첫번째 정보 =============== -->
               <div class="tab-info active" style="font-family: 'Noto Sans KR', sans-serif;">
                 <div class="row" style="font-family: 'Noto Sans KR', sans-serif;">
-                  <h1 class="w3-jumbo" style="text-align: center;">
+                  <h1 style="text-align: center;">
                     <b><c:out value="${groups.group_title}" /></b>
                   </h1>
-                  <h3>
+                  <h4>
                     소모임 간단 소개 :
                     <c:out value="${groups.group_description}" />
-                  </h3>
+                  </h4>
                   <h4>
                     소모임 방장 :
                     <c:out value="${groups.user_id}" />
@@ -590,6 +555,7 @@ to {
                 </div>
               </div>
             </div>
+            <%-- 
             <div class="tab-info">
               <!-- ============== 방명록  ============== -->
 
@@ -633,10 +599,9 @@ to {
                     <button type="submit" class="btn color-1 size-2 hover-1 pull-right" id="comment">댓글 달기</button>
                   </div>
                 </form>
-              </div>
-
-
+              </div> 
             </div>
+            --%>
           </div>
         </div>
       </div>
@@ -654,8 +619,11 @@ to {
 	<!--  로그아웃 팝업 끝-->
 
   <!-- 게시글 모달 -->
-  <%@ include file="/WEB-INF/views/includes/articlemodal_group.jsp"%>
+<%--   <%@ include file="/WEB-INF/views/includes/articlemodal_group.jsp"%> --%>
   <!--  게시글 모달끝 -->
+  <!-- 게시글 모달 주현-->
+	<%@ include file="/WEB-INF/views/includes/articlemodal.jsp"%>
+	<!--  게시글 모달끝 -->
 
   <!-- 게시글 신고 모달 -->
   <%@ include file="/WEB-INF/views/includes/reportModal.jsp"%>

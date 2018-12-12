@@ -6,7 +6,7 @@ let fileCnt = 0;
 let fileList = [];
 let totalFileSize = 0;
 const fileRegex = new RegExp('(.*?)\.(jpg|jpeg|png|gif)$');
-const maxUploadSize = 524280; // 5MB
+const maxUploadSize = 5120000; // 5MB
 
 $(function () {
   $(document).on({

@@ -154,7 +154,7 @@
 
                 <div class="tab-nav-wrapper">
                   <div class="nav-tab  clearfix">
-                    <div class="nav-tab-item ">
+                    <div class="nav-tab-item active" onclick="location.href='/salmon/group/list'">
                       <span>카테고리별 찾기</span>
                     </div>
                     <div class="nav-tab-item" onclick="location.href='/salmon/group/listNew'">
