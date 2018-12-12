@@ -164,7 +164,7 @@
         	SELECT like_id,
         		   user_id,
         		   article_id,
-        		   to_char(like_regdate,'YYYY-MM-DD') "like_regdate" 
+        		   to_char(like_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "like_regdate" 
 			FROM   likes 
 			WHERE  article_id = #{article_id}
         </select>
@@ -172,8 +172,8 @@
          <select id="getCommentsByArticleId" resultType="kr.or.kosta.salmon.domain.CommentDTO">
         	SELECT comment_id,
         		   comment_content,
-        		   to_char(comment_regdate,'YYYY-MM-DD') "comment_regdate", 
-        		   to_char(comment_editdate,'YYYY-MM-DD') "comment_editdate",
+        		   to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
+        		   to_char(comment_editdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_editdate",
         		   article_id,
                    us.user_nickname,
                    us.user_id,
@@ -187,8 +187,8 @@
         <select id="getNewCommentsByArticle" resultType="kr.or.kosta.salmon.domain.CommentDTO">
         	SELECT comment_id,
         		   comment_content,
-        		   to_char(comment_regdate,'YYYY-MM-DD') "comment_regdate", 
-        		   to_char(comment_editdate,'YYYY-MM-DD') "comment_editdate",
+        		   to_char(comment_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_regdate", 
+        		   to_char(comment_editdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "comment_editdate",
         		   article_id,
                    us.user_nickname,
                    us.user_id,
@@ -214,7 +214,7 @@
 			SELECT article_id,
 			       article_ctgry_id,
 			       article_scope,
-			       to_char(article_regdate,'YYYY-MM-DD') "article_regdate",
+			       to_char(article_regdate,'YYYY"년" MM"월" DD"일" AM hh:mm') "article_regdate",
 			       article_editdate,
 			       article_payment_type,
 			       article_payment_fee,

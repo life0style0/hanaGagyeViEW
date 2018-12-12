@@ -395,7 +395,7 @@ FROM articles
 WHERE article_id = #{articleId}
         </select>
 
-        <insert id="insertArticle" statementType="CALLABLE">
+        <insert id="insertArticle" statementType="CALLABLE" parameterType="kr.or.kosta.salmon.domain.NewSuggestionDTO">
 DECLARE
   articleid NUMBER; 
   hashid NUMBER;
@@ -446,7 +446,10 @@ BEGIN
     VALUES     (ctgry_value_id_seq.nextval, 
                 #{ctgry3}, 
                 articleid);
+
 <foreach collection="hashtags" item="hashtag" separator="  ">
+
+   hashid := 0;
 
    SELECT (SELECT hashtag_id 
     FROM   hashtags 
@@ -472,6 +475,7 @@ BEGIN
       VALUES     (hashtag_ref_id_seq.NEXTVAL, 
                   hashid, 
                   articleid);
+
     ELSIF hashid = 0 THEN
       SELECT hashtag_id_seq.NEXTVAL 
       INTO   hashid 

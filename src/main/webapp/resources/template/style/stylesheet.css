@@ -95,7 +95,7 @@ header { height: 70px; width: 100%; color: #fff; font-size: 14px; background: #2
 
 header .custom-container { position: relative; }
 
-header .row-header .brand-be { margin-top: 16.5px; float: left; }
+header .row-header .brand-be { margin-top: 10px; float: left; }
 
 header .row-header .header-menu-block { position: absolute;
     top: 0px; left: 50%; -webkit-transform: translateX(-50%);
@@ -522,9 +522,9 @@ form.input-search { position: relative; margin-bottom: 50px; }
 
 .be-drop-down { position: relative; display: block; font-size: 13px; color: #b4b7c1; background: #FFF; padding: 15px 80px 15px 50px; margin-bottom: 10px; border: 1px solid #edeff2; cursor: pointer; border-radius: 3px; }
 
-.be-drop-down:hover { border: 1px solid #0d58c8; }
+.be-drop-down:hover { border: 1px solid #298478; }
 
-.be-drop-down .drop-down-list { border-left: 1px solid #0d58c8; border-right: 1px solid #0d58c8; }
+.be-drop-down .drop-down-list { border-left: 1px solid #298478; border-right: 1px solid #298478; }
 
 .be-drop-down.color-2 { background: #f6f6f7; }
 
@@ -574,17 +574,17 @@ form.input-search { position: relative; margin-bottom: 50px; }
 
 .be-drop-down > i { position: absolute; top: 50%; font-size: 18px; left: 20px; -webkit-transform: translateY(-50%); -ms-transform: translateY(-50%); transform: translateY(-50%); }
 
-.be-drop-down:hover, .be-drop-down.be-dropdown-active { background: #0d58c8; color: #FFF; }
+.be-drop-down:hover, .be-drop-down.be-dropdown-active { background: #298478; color: #FFF; }
 
 .be-drop-down.be-dropdown-active:after { -moz-transform: translateY(-50%) rotate(180deg); -ms-transform: translateY(-50%) rotate(180deg); -webkit-transform: translateY(-50%) rotate(180deg); transform: translateY(-50%) rotate(180deg); }
 
-.drop-down-list { background: #0d58c8; color: #FFF; width: 100%; left: 0; }
+.drop-down-list { background: #298478; color: #FFF; width: 100%; left: 0; }
 
 .drop-down-list a { display: block; padding: 11.5px 20px; color: rgba(255, 255, 255, 0.8); }
 
 .drop-down-list a { color: #8da4e0; }
 
-.drop-down-list a:hover { color: #FFF; background: #0d50b5; }
+.drop-down-list a:hover { color: #FFF; background: #1d5d55; }
 
 .drop-down-list, .be-drop-down:hover:after, .be-drop-down:hover i, .be-drop-down.be-dropdown-active:after, .be-drop-down.be-dropdown-active i { color: rgba(255, 255, 255, 0.8); }
 

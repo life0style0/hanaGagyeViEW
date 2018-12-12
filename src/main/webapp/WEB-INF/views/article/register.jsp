@@ -86,7 +86,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-md-3 left-feild">
 					<div class="be-vidget back-block">
-						<a class="btn full color-1 size-1 hover-1" href="author.html"><i class="fa fa-chevron-left"></i>나의 가계ViEW로 돌아가기</a>
+						<a class="btn full color-1 size-1 hover-1" href="/salmon/accountbook/calendar"><i class="fa fa-chevron-left"></i>나의 가계ViEW로 돌아가기</a>
 					</div>
 				</div>
 				<form name="articleForm" id="articleForm" method="post" action="/salmon/article/submit">
@@ -109,7 +109,7 @@
 										<div class="be-drop-down icon-none">
 											<span class="be-dropdown-content" id="selCategory">선택해주세요</span>
 											<input type="hidden" name="categoryName" id="inputCategory">
-											<ul class="drop-down-list" style="overflow:scroll; height:200px">
+											<ul class="drop-down-list" style="overflow-y: scroll; height:200px">
 											<c:forEach var="catList" items="${categoryList}">
 												<c:choose>
 													<c:when test="${catList=='none' }">
@@ -215,7 +215,7 @@
 						</div>																
 					</div>				
 				</div>
-				 <span style="float:right;"><input class="btn btn-success" type="button" id="submitBtn" value="등 록"><input class="btn btn-danger" type="reset" value="초기화"></span>
+				 <span style="float:right;margin-top: 10px;"><input class="btn color-1 size-2 hover-1" type="button" id="submitBtn" value="등 록"><input class="btn color-2 size-2 hover-5" type="reset" value="초기화"></span>
 				</form>
 			</div>
 		</div>
@@ -353,13 +353,19 @@
         		 	<h5>게시글 작성이 완료되었습니다.</h5>
         		 	<div>
         		 	계속 작성
-        		 		 <button type="button" class="btn btn-default" aria-label="Left Align" onclick="location.href='/salmon/article/register'" value="계속 작성">
+        		 		 <button type="button" class="btn color-1 size-2 hover-1" aria-label="Left Align" onclick="location.href='/salmon/article/register'" value="계속 작성">
   							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 						</button>
-        		 	</div>
+							 </div>
+							 <div>
+								가계부로
+									 <button type="button" class="btn color-2 size-2 hover-1" aria-label="Left Align" onclick="location.href='/salmon/accountbook/calendar'" value="가계부로" style="margin: 10px 0px;">
+										<i class="fa fa-credit-card" style="margin-right: 0px;"></i></span>
+						 </button>
+								</div>
         		 	<div>
         		 		메인으로
-        		 		 <button type="button" class="btn btn-default" aria-label="Left Align" onclick="location.href='/salmon'" value="홈으로">
+        		 		 <button type="button" class="btn color-3 size-2 hover-1" aria-label="Left Align" onclick="location.href='/salmon'" value="홈으로">
   							<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 						</button>
         		 	</div>

@@ -303,7 +303,13 @@
 		<script src="/salmon/resources/jjw/js/accountbook-calendar.js"></script>
 		<script src="/salmon/resources/jjw/js/accountbook-chart.js"></script>
 		<script src="/salmon/resources/jjw/js/accountbook-global.js"></script>
-
+		<script type="text/javascript">
+			var me;
+			$(function(){ 
+					//내정보 불러오기
+					me= ${meJSON};
+				});
+		</script>
 </body>
 
 </html>

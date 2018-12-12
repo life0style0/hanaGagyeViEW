@@ -108,6 +108,7 @@ function setArticle(article, info) {
     }
 
     $('#article-id-modal').val(article.articleId);
+    $('input[name="article_id"]').val(article.articleId);
 
     if (article.imagePaths.length === 0) {
         $('.article-modal .modal-dialog').addClass('no-image-modal');
@@ -178,6 +179,44 @@ function setArticle(article, info) {
     }
     articleContentHTML += '</p>';
     $('#article-content').html(`${articleContentHTML}`);
+
+    var commentsHTML='';
+	
+	if(article.comments.length > 0){
+		$(article.comments).each(function(i,comment){
+			console.log(comment);
+			commentsHTML +=
+			`<div class="be-comment">
+			<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
+			<input type="hidden" name="article-id" value="`+comment.article_id+`">
+					<div>
+						<span class="be-comment-name">
+							<a href="/salmon/sns/feeds?userid=`+comment.user_id+`">
+							`+comment.user_nickname+`
+							</a>
+						</span>
+						<span class="be-comment-time float-right">`;
+			if(myId == comment.user_id){
+				commentsHTML +=
+				`<span name="comment-delete-btn" class="comment-delete-btn">
+				<input type="hidden" name="comment-id" value="`+comment.comment_id+`">
+					<i class="fas fa-times"></i>삭제 
+				</span>`;
+			}
+			commentsHTML +=		
+						`<i class="fa fa-clock-o"></i>`
+						+comment.comment_regdate+
+						`</span>
+						<p class="be-comment-text">`
+						+comment.comment_content+
+						`</p>
+					</div>
+				</div>`;
+		})
+	}
+    $('#article-modal #comment-area').html(commentsHTML);
+
+
     $('#article-comments .comment-userId').html(article.userPsns.userNickname);
     $('#article-writer-nickname').html(article.userPsns.userNickname);
     $('#article-regdate').html(article.articleRegdate);
@@ -201,7 +240,7 @@ function setArticle(article, info) {
     } else {
         $('#article-like-btn').html(`<i class="far fa-thumbs-up"></i> ${article.likeCnt}`).removeClass('hidden');
     }
-    $('#article-comment-btn').html(`<i class="fas fa-comment"></i> ${article.commentCnt}`).removeClass('hidden');
+    $('#article-comments-btn').html(`<i class="fas fa-comment"></i> ${article.commentCnt}`).removeClass('hidden');
 
     // 내가 쓴 글인지 확인
     if (true) {

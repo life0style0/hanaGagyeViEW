@@ -55,7 +55,7 @@ function appendCommentJjw(comment) {
     <div class="be-img-comment">
         <a href="">
             <input type="hidden" class="imagePath" value="/salmon/image?fileName=${comment.user_image}">
-            <img src="" alt="" class="be-ava-comment image-src thumbnail-comment">
+            <img src="/salmon/image?fileName=${showImage(comment.user_image)}" alt="" class="be-ava-comment image-src thumbnail-comment">
         </a>
     </div>
     <div class="be-comment-content">

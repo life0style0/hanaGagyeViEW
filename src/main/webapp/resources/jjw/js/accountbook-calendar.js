@@ -607,6 +607,7 @@ $(function () {
             $('#psn-edit').before(`<div class="jjw-alert alert-month-start alert-monthly-payment alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>경고!</strong> 값을 입력하지 않고는 수정할 수 없습니다!</div>`);
+            return;
         } else if (!monthStart && (!isValidIntJjw(monthStartT, 1, 2) || monthStartT < 1 || monthStartT > 31)) {
             if (!$('#psn-edit').prev().hasClass('alert-month-start')) {
                 $('#psn-edit').before(`<div class="jjw-alert alert-month-start alert alert-warning alert-dismissible" role="alert">

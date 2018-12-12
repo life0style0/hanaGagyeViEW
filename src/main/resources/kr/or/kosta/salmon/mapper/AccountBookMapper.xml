@@ -44,7 +44,7 @@
         </resultMap>
 
         <select id="getAccountBooks" resultMap="AccountBooks">
-SELECT article_id, 
+select "ar".article_id "article_id", 
        ctgry_name, 
        article_scope, 
        To_char(article_regdate, 'YYYY"년" MM"월" DD"일" AM HH"시" mm"분"') "article_regdate", 
@@ -55,11 +55,23 @@ SELECT article_id,
        article_ctgry_type,
        article_like_num,
        article_comment_num,
-       user_id,
+       "ar".user_id "user_id",
        (SELECT count(like_id)
-FROM likes
-WHERE user_id = #{userId}
-        and article_id = #{articleId}) "checkLike"
+FROM likes "li"
+WHERE "li".user_id = #{userId}
+        and "li".article_id = "ar".article_id) "checkLike"
+from (SELECT article_id, 
+       ctgry_name, 
+       article_scope, 
+       article_regdate, 
+       article_payment_type, 
+       article_payment_fee, 
+       article_title, 
+       article_content, 
+       article_ctgry_type,
+       article_like_num,
+       article_comment_num,
+       user_id       
 FROM   articles 
        join ctgry_values USING(article_id) 
        join ctgries USING(ctgry_id) 
@@ -79,7 +91,7 @@ WHERE  user_id = #{userId}
                                                                       ||'-' 
                                                                       ||"pms2" 
        AND article_ctgry_type IN ( 'income', 'spend' ) 
-ORDER  BY article_regdate        
+ORDER  BY article_regdate) "ar"
         </select>
 
         <select id="getImages" resultType="string">

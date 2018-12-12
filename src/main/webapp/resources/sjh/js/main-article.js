@@ -590,7 +590,7 @@ function writeReply(e) {
 		lastCommentId: lastCommentId,
 		_csrf: $('input[name="_csrf"]').val()
 	};
-
+	console.log('sendData :', sendData);
 	$.ajax({
 		data: sendData,
 		type: 'post',
