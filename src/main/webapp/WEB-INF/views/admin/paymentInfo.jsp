@@ -37,8 +37,7 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
   </head>
-
-  <body class="nav-md">
+    <body class="nav-md">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
@@ -114,70 +113,6 @@
                   </ul>
                 </li>
 				<!--푸쉬알람  -->
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="/salmon/resources/adminTemplate/images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="/salmon/resources/adminTemplate/images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="/salmon/resources/adminTemplate/images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="/salmon/resources/adminTemplate/images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
               </ul>
             </nav>
           </div>
@@ -191,22 +126,18 @@
             <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i>총 가계부 작성</span>
               <div class="count">${adminPayInfoTotal.article_ct}</div>
-              <span class="count_bottom"><i class="fa fa-user">4% </i></span>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i>가계부 총 금액</span>
               <div class="count">${adminPayInfoTotal.article_sum}</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> 가계부 건당 평균</span>
               <div class="count green">${adminPayInfoTotal.article_avg}</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> 가계부 표준편차</span>
               <div class="count">${adminPayInfoTotal.article_stddev}</div>
-              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
             </div>
             
           </div>
@@ -221,10 +152,6 @@
                     <h3>소비 통계 <small>연령대별 카테고리 분류</small></h3>
                   </div>
                   <div class="col-md-6">
-                    <!-- <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                      <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                      <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
-                    </div> -->
                   </div>
                 </div>
 
