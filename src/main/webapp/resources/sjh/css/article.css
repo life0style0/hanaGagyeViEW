@@ -2,7 +2,7 @@ div.article-size{
 	position:relative;
 	height:200px;
 	width: auto;
-	/* background-color:yellow; */
+	background-color:#f0f0f0;
 	
 	display: table;
     width: 380px;

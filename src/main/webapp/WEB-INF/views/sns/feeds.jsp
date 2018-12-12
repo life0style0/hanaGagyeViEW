@@ -19,6 +19,7 @@
 	  <link rel="stylesheet" href="/salmon/resources/jjw/css/stylesheet_jjw.css">
 	  <link rel="stylesheet" href="/salmon/resources/sjh/css/main-sjh.css">
 	  <link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
+	  <link rel="stylesheet" href="/salmon/resources/sjh/css/article.css">
 	
 	<!-- font awsome -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
@@ -163,7 +164,7 @@
 			</div>
 
 			<div class="col-md-9 article-menu-bar">
-				<div id="myArticles-btn" class="col-md-4 article-menu">내 게시글</div>
+				<div id="myArticles-btn" class="col-md-4 article-menu active">내 게시글</div>
 				<div id="likeArticles-btn" class="col-md-4 article-menu">좋아요한 게시글</div>
 			</div>
 
@@ -231,10 +232,20 @@
 							</div>
 						</div>
 						<div class="blog-content be-large-post-align">
-							<h5 class="feed-article-title">
-								<c:out value="${myArticle.article_payment_fee}"/>원, 
-								<c:out value="${myArticle.article_title}"/>
-							</h5>
+						
+						<h5 class="feed-article-title">
+						<c:choose>
+						<c:when test="${myArticle.article_ctgry_id eq 3}">
+							<%--역제안 게시글 --%>
+							<c:out value="${myArticle.article_title}"/>
+						</c:when>
+						<c:otherwise>
+						   <%--일반 게시글 --%>
+							<c:out value="${myArticle.article_payment_fee}"/>원, 
+							<c:out value="${myArticle.article_title}"/>
+						</c:otherwise>
+						</c:choose>
+						</h5>
 						
 							<div class="clear"></div>
 							<div class="post-text">
@@ -257,7 +268,7 @@
 								<c:choose>
 								<c:when test="${myArticle.hashtags.size() ne 0}">
 									<c:forEach var="tag" items="${myArticle.hashtags}">
-										<li><a href="/salmon/sns/search?search-value=${tag}">${tag}</a></li>
+										<li><a href="/salmon/sns/search?search-value=${tag.substring(1)}">${tag}</a></li>
 				                	</c:forEach>
 								</c:when>
 								<c:otherwise>
@@ -429,7 +440,7 @@
 								<c:choose>
 								<c:when test="${likeArticle.hashtags.size() ne 0}">
 									<c:forEach var="tag" items="${likeArticle.hashtags}">
-										<li><a href="/salmon/sns/search?search-value=${tag}">${tag}</a></li>
+										<li><a href="/salmon/sns/search?search-value=${tag.substring(1)}">${tag}</a></li>
 				                	</c:forEach>
 								</c:when>
 								<c:otherwise>

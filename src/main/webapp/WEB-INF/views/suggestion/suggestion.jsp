@@ -194,8 +194,10 @@
 				<div class="col-md-3">
 					<div class="be-user-block">
 						<div class="be-user-detail">
-							<input type="hidden" class="imagePath" value="/salmon/image?fileName=${article.userPsns.userImage}">
-							<img class="img-responsive image-src" alt="">
+							<a href="/salmon/sns/feeds?userid=${article.userPsns.userId}">
+								<input type="hidden" class="imagePath" value="/salmon/image?fileName=${article.userPsns.userImage}">
+								<img class="img-responsive image-src" alt="">
+							</a>
 							<p class="be-use-name">
 								<c:out value="${article.userPsns.userNickname}" />
 							</p>
@@ -244,9 +246,10 @@
 							${article.userPsns.ctgryName3 != "none" ? article.userPsns.ctgryName3 : ''}
 						</p>
 					</div>
-					<a href="${article.articleId}" class="btn full color-white-sjh size-1 hover-5 like-cancel-btn ${checkLike ? '' : 'hidden'}"><i
+					<a href="${article.articleId}" class="btn full color-2 size-1 hover-5 like-cancel-btn ${checkLike ? '' : 'hidden'}"><i
 						 class="fas fa-thumbs-up"></i></i>추천 취소하기</a>
-					<a href="${article.articleId}" class="btn full color-white-sjh size-1 hover-5 like-btn ${checkLike ? 'hidden' : ''}"><i class="far fa-thumbs-up"></i></i>이
+					<a href="${article.articleId}" class="btn full color-white-sjh size-1 hover-5 like-btn ${checkLike ? 'hidden' : ''}"><i
+						 class="far fa-thumbs-up"></i></i>이
 						제안 추천하기!</a>
 				</div>
 			</div>
@@ -255,6 +258,9 @@
 
 	<!-- THE FOOTER -->
 	<%@ include file="/WEB-INF/views/includes/footer.jsp"%>
+	<!--  로그아웃 팝업 -->
+	<%@ include file="/WEB-INF/views/includes/logout.jsp"%>
+	<!--  로그아웃 팝업 끝-->
 
 	<!-- SCRIPTS	 -->
 	<script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>

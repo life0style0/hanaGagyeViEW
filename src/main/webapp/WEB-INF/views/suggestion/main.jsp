@@ -60,8 +60,10 @@
 				<div class="col-xs-12 col-md-4 left-feild">
 					<div class="be-user-block">
 						<div class="be-user-detail">
-							<input type="hidden" class="imagePath" value="/salmon/image?fileName=${psns.userImage}">
-							<img class="img-responsive image-src" alt="">
+							<a href="/salmon/sns/feeds?userid=${psns.userId}">
+								<input type="hidden" class="imagePath" value="/salmon/image?fileName=${psns.userImage}">
+								<img class="img-responsive image-src" alt="">
+							</a>
 							<p class="be-use-name">
 								<c:out value="${psns.userNickname}" />
 							</p>
@@ -435,6 +437,9 @@
 
 	<!-- THE FOOTER -->
 	<%@ include file="/WEB-INF/views/includes/footer.jsp"%>
+	<!--  로그아웃 팝업 -->
+	<%@ include file="/WEB-INF/views/includes/logout.jsp"%>
+	<!--  로그아웃 팝업 끝-->
 
 	<!-- Modal -->
 	<%@ include file="../includes/articlemodal.jsp"%>

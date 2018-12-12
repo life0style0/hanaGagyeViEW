@@ -120,9 +120,9 @@
       </style>
 
       <!-- 소모임 새로만들기 버튼  -->
-      <button type="button" id="regBtn" class="button"
+      <button type="button" id="regBtn" class="btn size-1 color-1"
         style="vertical-align: middle; float: right; font-size: 12pt;"
-        onclick="location.href='http://localhost/salmon/group/register'">
+        onclick="location.href='/salmon/group/register'">
         <span>새 소모임 </span>
       </button>
       <script type="text/javascript">
@@ -288,6 +288,9 @@
 
   <!-- THE FOOTER -->
     <%@ include file="../includes/footer.jsp"%>
+    <!--  로그아웃 팝업 -->
+	<%@ include file="/WEB-INF/views/includes/logout.jsp"%>
+	<!--  로그아웃 팝업 끝-->
 
 	<!-- SCRIPTS	 -->
 	<script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>

@@ -208,7 +208,7 @@
 			#{hashtag_value}
 		)
 	</insert>
-	
+
 	<insert id="createHashTagRef">
 		INSERT INTO hashtag_refs(
 			hashtag_ref_id,
@@ -220,6 +220,10 @@
 			#{hashtag_id}
 		)
 	</insert>
+
+	<select id="checkHashTag" resultType="String">
+	Select hashtag_id from hashtags where hashtag_value = #{hashtag_value}
+	</select>
 	
 	<insert id="createImageInfo">
 		INSERT INTO images(

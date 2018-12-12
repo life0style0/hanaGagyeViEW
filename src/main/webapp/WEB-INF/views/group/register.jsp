@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="/salmon/resources/template/style/icon.css">
 		<link rel="stylesheet" href="/salmon/resources/template/style/loader.css">
 		<link rel="stylesheet" href="/salmon/resources/template/style/idangerous.swiper.css">
-		<link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
+    <link rel="stylesheet" href="/salmon/resources/template/style/stylesheet.css">
           
     	<!-- Font special for pages-->
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR" rel="stylesheet"> 
@@ -174,6 +174,9 @@
 
   <!-- THE FOOTER -->
     <%@ include file="../includes/footer.jsp"%>
+    <!--  로그아웃 팝업 -->
+	<%@ include file="/WEB-INF/views/includes/logout.jsp"%>
+	<!--  로그아웃 팝업 끝-->
 
 	<!-- SCRIPTS	 -->
 	<script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>

@@ -25,6 +25,7 @@
 	<link rel="stylesheet" href="/salmon/resources/jjw/css/common.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.3.2/css/bootstrap-slider.min.css">
 	<link rel="stylesheet" href="/salmon/resources/sjh/css/article.css">
+	<link rel="stylesheet" href="/salmon/resources/sjh/css/sns-feeds.css">
 </head>
 
 <body>
@@ -247,6 +248,10 @@
 		<!-- Modal -->
 		<%@ include file="../includes/articlemodal.jsp"%>
 
+
+	<!--  로그아웃 팝업 -->
+	<%@ include file="/WEB-INF/views/includes/logout.jsp"%>
+	<!--  로그아웃 팝업 끝-->
 
 		<div class="modal fade" id="psn-modal" tabindex="-1" role="dialog" aria-labelledby="psn-modal-label" aria-hidden="true">
 			<div class="modal-dialog">

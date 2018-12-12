@@ -11,11 +11,18 @@ $(function () {
 	setCommentUserPhoto();
 	hideAllComments();
 
+	//setContentBlank();
 })
 
 function init() {
 	$('#myArticles').css('display', 'block');
 	$('#likeArticles').css('display', 'none');
+}
+
+function setContentBlank(){
+	$('.post-text>p').each(function(i,p){
+		$(p).text().replace(/\r\n/g, '<br />');
+	});
 }
 
 function eventRegist() {
@@ -129,7 +136,7 @@ function checkFollowParam() {
 }
 
 function askFollow(followTo) {
-	alert('follow ' + followTo);
+	//alert('follow ' + followTo);
 	$.ajax({
 		data: followTo,
 		type: 'get',
@@ -151,7 +158,7 @@ function askFollow(followTo) {
 
 
 function askUnfollow(followId) {
-	alert('unfollow ' + followId);
+	//alert('unfollow ' + followId);
 	$.ajax({
 		data: followId,
 		type: 'get',

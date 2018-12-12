@@ -159,7 +159,11 @@
             <c:set var="ctHash" value="1" />
             <c:forEach var="hashTag" items="${hashTagList }">
               <c:if test="${ctHash<10 }">
-              <li><a data-filter=".category-hashTag-${hashTag.hashtag_value }" class="filter">${hashTag.hashtag_value }(${hashTag.count_hashtag_value})</a></li>
+              <li>
+              	<a data-filter=".category-hashTag-${hashTag.hashtag_value.substring(1) }" class="filter">
+              	${hashTag.hashtag_value }(${hashTag.count_hashtag_value})
+              	</a>
+              </li>
               </c:if>
               <c:set var="ctHash" value="${ctHash+1 }"/>
             </c:forEach>
@@ -189,7 +193,7 @@
 		<c:if test="${articleList.size() > 0 }">
         <c:forEach var="article" items="${articleList }">
         <c:forEach var="hashLoop" items="${article.hashtags }">
-       		<c:set var="tag" scope="page" value="${tag} category-hashTag-${hashLoop}"/>
+       		<c:set var="tag" scope="page" value="${tag} category-hashTag-${hashLoop.substring(1)}"/>
        	</c:forEach>
        <c:choose>
        <c:when test="${article.article_ctgry_id eq 3}">
@@ -242,17 +246,17 @@
               	</div>
               	<!-- <img src="/salmon/resources/hjh/images/noimage.gif" alt="img"> -->
               </c:if>
-              <c:if test="${article.imagePaths.size()>0 }">
-                <c:set var="imgCt" value="1"/>
-	          	<c:forEach var="images" items="${article.imagePaths}">
-                <div class="article-size" style="text-align:center;">
-                  <c:if test="${imgCt < 2 }">
-                  <img src="/salmon/main/image?fileName=${images }" alt="img">
-                  </c:if>
-                </div>
-                <c:set var="imgCt" value="${imgCt+1 }"/>
-	            </c:forEach>
-              </c:if>
+     		<c:if test="${article.imagePaths.size()>0 }">
+				<c:set var="imgCt" value="1" />
+				<c:forEach var="images" items="${article.imagePaths}" varStatus="status">
+					<c:if test="${status.first}">
+					<div class="article-size" style="text-align: center;">
+						<img src="/salmon/main/image?fileName=${images}" alt="img">
+					</div>
+					</c:if>
+				<c:set var="imgCt" value="${imgCt+1 }" />
+				</c:forEach>
+			</c:if>
               </a>
                             
              <c:choose>
@@ -269,15 +273,15 @@
               </c:choose>
               
               <span>
-              	<c:forEach var="tag" items="${article.hashtags }">
-                	<a href="/salmon/sns/search?search-value=${tag}" class="be-post-tag">${tag } </a>
+              	<c:forEach var="tag" items="${article.hashtags}">
+                	<a href="/salmon/sns/search?search-value=${tag.substring(1)}" class="be-post-tag">${tag} </a>
                 </c:forEach>
               </span>
               <div class="author-post">
                 <img src="" alt="" class="ava-author">
                 <input type="hidden" name="user-profile-photo" value="${article.user_image}">
                 <span>by 
-                <a href="/salmon/sns/feeds?userid=${article.user_nickname}">${article.user_nickname}</a>
+                <a href="/salmon/sns/feeds?userid=${article.user_id}">${article.user_nickname}</a>
                 </span>
               </div>
               <div class="info-block info-block-sjh">
@@ -317,15 +321,14 @@
 		<c:forEach var="group" items="${groupList}">
 			<div class="custom-column-5" style="display: inline-block;">
 			<div class="be-user-block style-2">
-			<a class="be-ava-user style-2" href="/salmon/group/get?group_id=<c:out value="${group.group_id}"/>"> 
+			<%-- <a class="be-ava-user style-2" href="/salmon/group/get?group_id=<c:out value="${group.group_id}"/>"> 
 			<img src="" alt="">
-			<%-- <input type="hidden" name="user-photo-path" value="${user.user_image}"> --%>
-			</a>
+			</a> --%>
 			<a href="/salmon/group/get?group_id=<c:out value="${group.group_id}"/>" class="be-use-name">
 			<c:out value="${group.group_title}"/></a>
 			<p class="be-user-info"><c:out value="${group.group_description}"/> </p>
 				<div class="be-text-tags">
-				<c:out value="${group.ctgry_1}"/>
+				<c:out value="${group.ctgry_1_name}"/>
 				</div>
 				<a id="follow-ask-do-<c:out value="${user.user_id}"/>" class="ask-follow"
 				  href="/salmon/group/get?group_id=<c:out value="${group.group_id}"/>">
