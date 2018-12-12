@@ -49,8 +49,8 @@
 #article-modal .blog-post .post-text {
   height: 276px;
   padding-bottom: unset;
-  margin-right: -30px;
-  overflow-y: auto;
+  /* margin-right: -30px; */
+  /* overflow-y: auto; */
   word-break: break-word;
 }
 

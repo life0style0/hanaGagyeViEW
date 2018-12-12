@@ -18,22 +18,26 @@
               <div class="post-desc">
                 <input type="hidden" name="article-id" id="article-id-modal">
                 <div class="post-category" id="article-ctgry-name">카테고리이름 ex) 음식, 영화</div>
-                <div class="post-label">
-                  <span id="article-money">285400원, </span>
-                  <span id="article-title">메모 or 제목</span>
-                </div>
-                <div class="post-text" id="article-content-and-comments">
-                  <div id="article-content" class="article-content"></div>
-                  <div id="article-comments" class="article-comments">
-                    <div id="comment-area" name="comment-area"></div>
-                    <form id="reply-form-" method="get">
-                      <div class="form-group">
-                        <input type="hidden" name="article_id" value="">
-                        <div class="comment-userId"><c:out value="${me.user_nickname}" /></div>
-                        <input type="text" name="comment_content" required="required" class="form-input">
-                        <input type="button" id="reply-write-btn-" class="btn-sjh pull-right" value="등록">
-                      </div>
-                    </form>
+                <div class="article-main">
+                  <div class="post-label">
+                    <span id="article-money">285400원, </span>
+                    <span id="article-title">메모 or 제목</span>
+                  </div>
+                  <div class="post-text" id="article-content-and-comments">
+                    <div id="article-content" class="article-content"></div>
+                    <div id="article-comments" class="article-comments">
+                      <div id="comment-area" name="comment-area"></div>
+                      <form id="reply-form-" method="get">
+                        <div class="form-group">
+                          <input type="hidden" name="article_id" value="">
+                          <div class="comment-userId">
+                            <c:out value="${me.user_nickname}" />
+                          </div>
+                          <input type="text" name="comment_content" required="required" class="form-input">
+                          <input type="button" id="reply-write-btn-" class="btn-sjh pull-right" value="등록">
+                        </div>
+                      </form>
+                    </div>
                   </div>
                 </div>
                 <div class="author-post">
