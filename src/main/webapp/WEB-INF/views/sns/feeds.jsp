@@ -268,7 +268,7 @@
 								<c:choose>
 								<c:when test="${myArticle.hashtags.size() ne 0}">
 									<c:forEach var="tag" items="${myArticle.hashtags}">
-										<li><a href="/salmon/sns/search?search-value=${tag}">${tag}</a></li>
+										<li><a href="/salmon/sns/search?search-value=${tag.substring(1)}">${tag}</a></li>
 				                	</c:forEach>
 								</c:when>
 								<c:otherwise>
