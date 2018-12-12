@@ -44,7 +44,7 @@
 	<!-- MAIN CONTENT -->
 	<div id="content-block">
 		<div class="head-bg-sjh" id="chartInfoBlock">
-			<div class="head-bg-img" style="background-position:center center; background-size:cover;  ;background: url(https://images.unsplash.com/photo-1537515104752-3ea9f3d6cff0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80); opacity: 0.8;"></div>
+			<div class="head-bg-img" style="background-position: 30% 30%; background-size:cover;  ;background: url(https://images.unsplash.com/photo-1537515104752-3ea9f3d6cff0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80); opacity: 0.8;"></div>
 			<div class="head-bg-content font-sjh">
 				<h1>여러분들이 가진 의견을 보여주세요</h1>
 				<p>원하시는 상품을 기획해 제안해 사람들과 공유하고 추천을 받아보세요</p>
