@@ -98,14 +98,16 @@ div.article-size>img {
 	color:#298478;
 	font-weight: bold;
     font-size: 30px;
+    height: fit-content;
+    line-height: unset;
 }
 
 #article-modal .article-content{
     color: #7a7a7a;
     font-size: 14px;
-	height: 100px;
+	/* height: 100px;
 	overflow-y: auto;
-	  width: 95%;
+	  width: 95%; */
 }
 
 #article-modal .post-category{
@@ -113,6 +115,7 @@ div.article-size>img {
     font-weight: bold;
     font-size: 15px;
     text-align: end;
+    margin-bottom: 10px;
 }
 
 #article-modal .blog-post .author-post{
@@ -136,7 +139,9 @@ div.article-size>img {
 }
 
 .modal #article-comments{
-	overflow-y: auto;
+    /* overflow-y: auto; */
+    margin-top: 15px;
+    width: 97%;
 }
 
 .modal .article-content{
@@ -144,11 +149,6 @@ div.article-size>img {
     background-color: white;
     width: 95%;
 }
-
-.modal .article-comments{
-	margin-top:100px;
-}
-
 
 #report-article-modal *, #report-article-confirm-modal *{
 	text-align:center;
@@ -176,4 +176,31 @@ div.article-size>img {
 	font-weight: bold;
     font-size: 30px;
     text-align: center;
+}
+
+#article-modal .article-main {
+    overflow-y: auto;
+    overflow-x: unset;
+    height: 351px;
+    margin-right: -41px;
+}
+
+#article-modal .post-text {
+    border-bottom: unset;
+}
+
+.post-text pre {
+    display: block;
+    padding: unset;
+    margin: unset;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 22px;
+    color: black;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: transparent;
+    border: unset;
+    border-radius: unset;
+    font-family: 'Conv_helveticaneuecyr-roman', sans-serif;
 }

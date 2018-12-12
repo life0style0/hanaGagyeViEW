@@ -68,4 +68,9 @@ public class GroupServiceTests {
 	public void testGet() {
 		log.info(service.get("22"));
 	}
+	
+	@Test
+	public void testImages() {
+		service.getGroupArticles("1");
+	}
 }

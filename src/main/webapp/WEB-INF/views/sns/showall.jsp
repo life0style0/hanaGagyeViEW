@@ -55,7 +55,6 @@
     </div>
   </div>
   <!-- THE HEADER -->
-  <!-- THE HEADER -->
   <%@ include file="/WEB-INF/views/includes/header.jsp"%>
 
   <!-- MAIN CONTENT -->

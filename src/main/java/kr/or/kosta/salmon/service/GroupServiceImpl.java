@@ -115,13 +115,12 @@ public class GroupServiceImpl implements GroupService {
 
 	@Override
 	public void deleteComment(int comment_id) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public ArrayList<SNSArticleDTO_sjh> getSNSGroups(String group_id) {
-		return groupMapper.getSNSGroups(group_id);
+	public ArrayList<SNSArticleDTO_sjh> getGroupArticles(String group_id) {
+		return groupMapper.getGroupArticles(group_id);
 	}
 
 	//그룹에 해당 아이디가 가입했을 경우 : 0 / 가입인원이 있으면 0보다 크다. 

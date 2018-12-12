@@ -117,8 +117,7 @@
         	WHERE 		article_id in (
         								SELECT 	article_id 
         								FROM 	articles 
-        								WHERE	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and user_id = #{user_id}))
-        				AND  article_ctgry_id=1 
+        								WHERE	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and user_id = #{user_id} AND  article_ctgry_id=1 ))
         	GROUP BY	ctgry_name
         </select>
         
@@ -128,8 +127,7 @@
         	WHERE 		article_id in (
         								SELECT 	article_id 
         								FROM 	articles 
-        								WHERE	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and user_id = #{user_id}))
-        				AND  article_ctgry_id=2 
+        								WHERE	to_char(article_regdate,'MM') = to_char(sysdate,'MM') and user_id = #{user_id} AND  article_ctgry_id=2)) 
         	GROUP BY	ctgry_name
         </select>
 	

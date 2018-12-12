@@ -233,3 +233,19 @@ textarea.form-input {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.post-text pre {
+  display: block;
+  padding: unset;
+  margin: unset;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 22px;
+  color: black;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: transparent;
+  border: unset;
+  border-radius: unset;
+  font-family: 'Conv_helveticaneuecyr-roman', sans-serif;
+}

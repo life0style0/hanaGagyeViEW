@@ -37,8 +37,7 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
   </head>
-
-  <body class="nav-md">
+    <body class="nav-md">
     <div class="container body">
       <div class="main_container">
         <div class="col-md-3 left_col">
@@ -114,70 +113,6 @@
                   </ul>
                 </li>
 				<!--푸쉬알람  -->
-                <li role="presentation" class="dropdown">
-                  <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-                    <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
-                  </a>
-                  <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    <li>
-                      <a>
-                        <span class="image"><img src="/salmon/resources/adminTemplate/images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="/salmon/resources/adminTemplate/images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="/salmon/resources/adminTemplate/images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a>
-                        <span class="image"><img src="/salmon/resources/adminTemplate/images/img.jpg" alt="Profile Image" /></span>
-                        <span>
-                          <span>John Smith</span>
-                          <span class="time">3 mins ago</span>
-                        </span>
-                        <span class="message">
-                          Film festivals used to be do-or-die moments for movie makers. They were where...
-                        </span>
-                      </a>
-                    </li>
-                    <li>
-                      <div class="text-center">
-                        <a>
-                          <strong>See All Alerts</strong>
-                          <i class="fa fa-angle-right"></i>
-                        </a>
-                      </div>
-                    </li>
-                  </ul>
-                </li>
               </ul>
             </nav>
           </div>
@@ -191,22 +126,18 @@
             <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i>총 가계부 작성</span>
               <div class="count">${adminPayInfoTotal.article_ct}</div>
-              <span class="count_bottom"><i class="fa fa-user">4% </i></span>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i>가계부 총 금액</span>
               <div class="count">${adminPayInfoTotal.article_sum}</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> 가계부 건당 평균</span>
               <div class="count green">${adminPayInfoTotal.article_avg}</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
             </div>
             <div class="col-md-3 col-sm-6 col-xs-9 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> 가계부 표준편차</span>
               <div class="count">${adminPayInfoTotal.article_stddev}</div>
-              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
             </div>
             
           </div>
@@ -221,10 +152,6 @@
                     <h3>소비 통계 <small>연령대별 카테고리 분류</small></h3>
                   </div>
                   <div class="col-md-6">
-                    <!-- <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                      <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                      <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
-                    </div> -->
                   </div>
                 </div>
 
@@ -438,6 +365,7 @@
 	<c:set var="ageGroup30" value="${groupByAgeHashMap.get('30대')}"/>
 	<c:forEach var="group30" items="${ageGroup30}">
 		for(var i = 0; i< categories.length;i++ ){
+			console.log("hi");
 			if(categories[i]=="${group30.ctgry_name}"){
 				age30[i] = ${group30.ctgry_avg};
 			}
@@ -452,6 +380,7 @@
 	<c:set var="totalIncome10" value="${incomeTotalList.get(0)}"/>
 	<c:set var="targetData10" value="${adminPayInfoPstageIncomeHash.get('10')}"/>
 	<c:forEach var="incomePer10" items="${targetData10}">
+	console.log("10대 총값 : " + "${totalIncome10}");
 		var dataIncomePer10Temp = [];
 		dataIncomePer10Temp.push("${incomePer10.ctgry_name}");
 		ctgryIncomePer10.push("${incomePer10.ctgry_name}");
@@ -484,13 +413,14 @@
 	
 	var dataIncomePer20 = [];
 	var ctgryIncomePer20 = [];
-	<c:set var="totalIncome20" value="${incomeTotalList.get(0)}"/>
+	<c:set var="totalIncome20" value="${incomeTotalList.get(1)}"/>
 	<c:set var="targetData20" value="${adminPayInfoPstageIncomeHash.get('20')}"/>
 	<c:forEach var="incomePer20" items="${targetData20}">
+	console.log("20대 총값 : " + "${totalIncome20}");
 		var dataIncomePer20Temp = [];
 		dataIncomePer20Temp.push("${incomePer20.ctgry_name}");
 		ctgryIncomePer20.push("${incomePer20.ctgry_name}");
-		dataIncomePer20Temp.push(${Math.ceil(incomePer20.ctgry_sum / totalIncome20 * 200)});
+		dataIncomePer20Temp.push(${Math.ceil(incomePer20.ctgry_sum / totalIncome20 * 100)});
 		if(dataIncomePer20.length ==0){
 			dataIncomePer20Temp.push(true);
 		}else{
@@ -501,13 +431,13 @@
 	
 	var dataSpendPer20 = [];
 	var ctgrySpendPer20 = [];
-	<c:set var="totalSpend20" value="${spendTotalList.get(0)}"/>
+	<c:set var="totalSpend20" value="${spendTotalList.get(1)}"/>
 	<c:set var="targetData20" value="${adminPayInfoPstageSpendHash.get('20')}"/>
 	<c:forEach var="spendPer20" items="${targetData20}">
 		var dataSpendPer20Temp = [];
 		dataSpendPer20Temp.push("${spendPer20.ctgry_name}");
 		ctgrySpendPer20.push("${spendPer20.ctgry_name}");
-		dataSpendPer20Temp.push(${Math.ceil(spendPer20.ctgry_sum / totalSpend20 * 200)});
+		dataSpendPer20Temp.push(${Math.ceil(spendPer20.ctgry_sum / totalSpend20 * 100)});
 		if(dataSpendPer20.length ==0){
 			dataSpendPer20Temp.push(true);
 		}else{
@@ -517,33 +447,34 @@
 	</c:forEach>
 	
 	
-	
 	var dataIncomePer30 = [];
 	var ctgryIncomePer30 = [];
-	<c:set var="totalIncome30" value="${incomeTotalList.get(0)}"/>
+	<c:set var="totalIncome30" value="${incomeTotalList.get(2)}"/>
 	<c:set var="targetData30" value="${adminPayInfoPstageIncomeHash.get('30')}"/>
 	<c:forEach var="incomePer30" items="${targetData30}">
+	console.log("30대 총값 : " + "${totalIncom30}");
 		var dataIncomePer30Temp = [];
 		dataIncomePer30Temp.push("${incomePer30.ctgry_name}");
 		ctgryIncomePer30.push("${incomePer30.ctgry_name}");
-		dataIncomePer30Temp.push(${Math.ceil(incomePer30.ctgry_sum / totalIncome30 * 300)});
+		dataIncomePer30Temp.push(${Math.ceil(incomePer30.ctgry_sum / totalIncome30 * 100)});
 		if(dataIncomePer30.length ==0){
 			dataIncomePer30Temp.push(true);
 		}else{
 			dataIncomePer30Temp.push(false);
 		}
+		console.log("제발! :" + dataIncomePer30Temp);
 		dataIncomePer30.push(dataIncomePer30Temp);
 	</c:forEach>
 	
 	var dataSpendPer30 = [];
 	var ctgrySpendPer30 = [];
-	<c:set var="totalSpend30" value="${spendTotalList.get(0)}"/>
+	<c:set var="totalSpend30" value="${spendTotalList.get(2)}"/>
 	<c:set var="targetData30" value="${adminPayInfoPstageSpendHash.get('30')}"/>
 	<c:forEach var="spendPer30" items="${targetData30}">
 		var dataSpendPer30Temp = [];
 		dataSpendPer30Temp.push("${spendPer30.ctgry_name}");
 		ctgrySpendPer30.push("${spendPer30.ctgry_name}");
-		dataSpendPer30Temp.push(${Math.ceil(spendPer30.ctgry_sum / totalSpend30 * 300)});
+		dataSpendPer30Temp.push(${Math.ceil(spendPer30.ctgry_sum / totalSpend30 * 100)});
 		if(dataSpendPer30.length ==0){
 			dataSpendPer30Temp.push(true);
 		}else{
@@ -551,6 +482,10 @@
 		}
 		dataSpendPer30.push(dataSpendPer30Temp);
 	</c:forEach>
+	
+	
+	
+	
 
 
 	function incomePer(group){
@@ -563,8 +498,11 @@
 			targetData=dataIncomePer20;
 			targetCategory = ctgryIncomePer20;
 		}else if(group=='30'){
+			console.log("30대수입인");
 			targetData=dataIncomePer30
 			targetCategory = ctgryIncomePer30;
+			console.log("찾자 : " + targetData);
+			console.log("찾자 : " + targetCategory);
 		}
 		
 		incomePerChart.update({
@@ -595,6 +533,7 @@
 			targetData=dataSpendPer20;
 			targetCategory = ctgrySpendPer20;
 		}else if(group=='30'){
+			console.log("30대소비인");
 			targetData=dataSpendPer30
 			targetCategory = ctgrySpendPer30;
 		}

@@ -365,7 +365,6 @@ public class MemberTests {
 	public void testProc() {
 		log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		
-		
 		PsnScoreDTO result = new PsnScoreDTO();
 		result.setArticleId("1");
 		result.setUserId("jiwon1");
@@ -381,11 +380,11 @@ public class MemberTests {
 		
 	}
 	
-//	@Test
+	//@Test
 	public void test123() {
-		log.info("hi");
-	    //  SNSArticleDTO_sjh s =   snsmapper.getArticleByArticleId(22);
-	    //  log.info(s);
+//		log.info("hi");
+//	     SNSArticleDTO_sjh s =   snsmapper.getArticleByArticleId(22);
+//	     log.info(s);
 	}
 	
 	

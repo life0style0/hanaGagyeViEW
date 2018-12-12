@@ -141,7 +141,7 @@
             
           <div class="form-group">
           <!-- 소모임 이름 -->
-            <label>소모임 이름</label> <input class="form-control" name="group_title" id="group_title" value="소모임 이름 테스트">
+            <label>소모임 이름</label> <input class="form-control" name="group_title" id="group_title" value="">
           </div>
           
           <div class="form-group">
@@ -157,7 +157,7 @@
           <div class="form-group">
           <!-- 소모임 내용 -->
             <label>소모임 간단 소개글</label>
-            <textarea class="form-control" rows="3" name="group_description" id="group_description" >텍스트 내용 접근 가능?</textarea>
+            <textarea class="form-control" rows="3" name="group_description" id="group_description" ></textarea>
           </div>
 
 

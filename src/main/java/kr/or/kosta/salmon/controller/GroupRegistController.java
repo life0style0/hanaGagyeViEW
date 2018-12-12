@@ -169,7 +169,7 @@ public class GroupRegistController {
 			e.printStackTrace();
 		}
 		String user_id = principal.getName();
-		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)groupservice.getSNSGroups(group_id);
+		ArrayList<SNSArticleDTO_sjh> articleList = (ArrayList)groupservice.getGroupArticles(group_id);
 		model.addAttribute("articleList", articleList);
 		log.info("유저아이디-------"+user_id);
 		log.info("아티클리스트-------"+articleList);
