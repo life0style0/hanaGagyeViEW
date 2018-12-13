@@ -372,7 +372,7 @@
 	<%@ include file="/WEB-INF/views/includes/reportConfirmModal.jsp"%>
 	<!--  게시글 신고 모달끝 -->
 
-	<div class="theme-config">
+	<!-- <div class="theme-config">
 		<div class="main-color">
 			<div class="title">Main Color:</div>
 			<div class="colours-wrapper">
@@ -398,7 +398,7 @@
 		<div class="open">
 			<img src="/salmon/resources/template/img/icon-134.png" alt="">
 		</div>
-	</div>
+	</div> -->
 
 	<!-- SCRIPTS	 -->
 	<script src="/salmon/resources/template/script/jquery-2.1.4.min.js"></script>

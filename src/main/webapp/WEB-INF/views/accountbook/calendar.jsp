@@ -4,7 +4,7 @@
 <html>
 
 <head>
-	<title>NGRNetwork</title>
+	<title>HANA 가계ViEW</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="shortcut icon" href="/salmon/resources/template/img/favicon.png">

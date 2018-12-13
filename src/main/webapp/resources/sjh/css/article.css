@@ -217,4 +217,8 @@ div.article-size>img {
     border: unset;
     border-radius: unset;
     font-family: 'Conv_helveticaneuecyr-roman', sans-serif;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
 }

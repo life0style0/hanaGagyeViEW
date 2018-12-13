@@ -200,13 +200,18 @@
 	
 	<select id="getHashTagTopList" resultType="kr.or.kosta.salmon.domain.AdminArticleInfoHashTagTopDTO">
 	<![CDATA[
-	SELECT			 hashtag_value, hashtag_count, hashtag_rank
- 	FROM			 (
- 					 SELECT 		hashtag_value, count(hashtag_value) hashtag_count, rank() over(order by count(hashtag_value) desc) hashtag_rank  
- 					 FROM 			hashtags 
- 					 GROUP BY		hashtag_value
- 					 )
- 	WHERE			 rownum < 8
+	SELECT hashtag_value, 
+	       hashtag_count, 
+	       hashtag_rank 
+	FROM  (SELECT hashtag_value, 
+	              Count(hashtag_value)                    hashtag_count, 
+	              Rank() 
+	                over( 
+	                  ORDER BY Count(hashtag_value) DESC) hashtag_rank 
+	       FROM   hashtag_refs 
+	              join hashtags USING(hashtag_id) 
+	       GROUP  BY hashtag_value) 
+	WHERE  ROWNUM < 8
  	]]>
 	</select>
 	
