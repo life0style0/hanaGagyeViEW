@@ -17,11 +17,11 @@
           	<span id="loginUserId"><sec:authentication property="principal.username" /></span>님
           </a>
           </li>
-          <li><a href="/salmon/sns/showall">둘러보기</a></li>
-          <li><a href="/salmon/main/mypage">MYPAGE</a></li>
-          <li><a href="/salmon/accountbook/calendar">AccountBook</a></li>
+          <li><a href="/salmon/sns/showall">함께ViEW</a></li>
+          <li><a href="/salmon/main/mypage">내정보</a></li>
+          <li><a href="/salmon/accountbook/calendar">가계ViEW</a></li>
           <li><a href="/salmon/group/list">소모임</a></li>
-          <li><a href="/salmon/suggestion">Suggestion</a></li>
+          <li><a href="/salmon/suggestion">역제안</a></li>
           <li style="padding: unset;">
 	          <form action="/salmon/sns/search" class="input-search" method="get" style="margin-bottom:unset">
 		        <input type="text" required="required" name="search-value" placeholder="Enter keyword">

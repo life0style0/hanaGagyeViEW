@@ -150,7 +150,7 @@
        	
        <c:choose>
        <c:when test="${article.group_id >0}">
-       		<div class="mix custom-column-3 ${tag} group-<c:out value="${group.group_id}"/>"  
+       		<div class="mix custom-column-3 ${tag} group-<c:out value="${article.group_id}"/>"  
        		data-published-date="${article.article_regdate}" 
 	        data-likes-num="${article.likes.size()}" data-comments-num="${article.comments.size()}">
        </c:when>

@@ -242,7 +242,7 @@
 	<select id="getReportTargetArticle" resultType="kr.or.kosta.salmon.domain.ArticleDTO">
 	SELECT		 article_id, article_ctgry_id, article_scope, article_regdate, article_editdate, article_payment_type, article_payment_fee, article_title, article_content, article_proposal_status, group_id, user_id, article_deleted, article_like_num, article_report_num, article_comment_num
   	FROM		 articles 
-  	WHERE		 article_report_num >= 10 and article_deleted not in('D','Y')
+  	WHERE		 article_report_num >= 1 and article_deleted not in('D','Y')
 	</select>
 	
 	<select id="getReportReason" resultType="kr.or.kosta.salmon.domain.AdminReportReasonDTO">

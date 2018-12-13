@@ -571,15 +571,14 @@ GROUP  BY article_id,
      
       <select id="getGroupsBySNSNewArticles" resultType="kr.or.kosta.salmon.domain.GroupDTO_lhr">
 		 <![CDATA[
-		SELECT ar.group_id, 
-		       group_title 
+		SELECT gu.group_id, gu.group_title
 		FROM   articles ar 
 		       join GROUPS gu 
 		       ON ar.group_id = gu.group_id 
 		WHERE  article_scope IN ( 'u', 'g' ) 
 		       AND SYSDATE - article_regdate < 8 
 		       AND    article_deleted = 'N'
-		ORDER  BY article_regdate
+  		group by gu.group_id, gu.group_title
 		]]>
      </select>
      
